@@ -1,13 +1,15 @@
 import {useRoot} from "./rootRun"
 import useMap from "./mapViewHook"
 import useLocation from "./locationHook"
-import HomeHook from "./homeHook"
-import HomeMainInputHook from "./homeMainInputHook"
+import useHomeHook from "./homeHook"
+import useHomeMainInputHook from "./homeMainInputHook"
+import useAuthHook from "./authHook"
 
 export {
     useRoot,
     useMap,
     useLocation,
-    HomeHook,
-    HomeMainInputHook
+    useHomeHook,
+    useHomeMainInputHook,
+    useAuthHook
 }

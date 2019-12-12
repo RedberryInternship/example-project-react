@@ -3,6 +3,7 @@ import MapView from "./view/mapView"
 import CollapsibleModal from "./view/collapsibleModal"
 import HomeComponentItems from "./view/homeComponentItems"
 import HomeFilterView from "./view/homeFilterView"
+import HomeMainInput from "./view/homeMainInput"
 
 
 import CustomSlideUpModal from "./customSlideUpModal"
@@ -13,12 +14,12 @@ import OnMapRoundButton from "./item/onMapRoundButton"
 import FilterTextItem from "./item/filterTextItem"
 import MainSearchItem from "./item/mainSearchItem"
 
-//UI
-import HomeAuthorizationButton from "./UI/homeAuthorizationButton"
-import HomeMainInput from "./view/homeMainInput"
 
 //BaseUI
 import BaseInput from "./baseUI/baseInput"
+import BaseHeader from "./baseUI/baseHeader"
+import BaseButton from "./baseUI/baseButton"
+
 
 export {
     MapView,
@@ -29,8 +30,9 @@ export {
     OnMapRoundButton,
     HomeFilterView,
     FilterTextItem,
-    HomeAuthorizationButton,
+    BaseButton,
     BaseInput,
     HomeMainInput,
-    MainSearchItem
+    MainSearchItem,
+    BaseHeader
 }

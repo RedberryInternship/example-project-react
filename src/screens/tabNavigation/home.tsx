@@ -14,6 +14,7 @@ import {
 
 import   {useTranslation} from 'react-i18next';
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
+import { Colors, Const } from '../../../src/utils';
 
 const App = () => {
   const { t, i18n } = useTranslation();
@@ -35,8 +36,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     position:"relative",
-    backgroundColor: "blue"
-
+    backgroundColor: Colors.primaryBackground,
+    // minHeight : Const.Height
   },
   absoluteContentOverlayContainer : {
     ...StyleSheet.absoluteFillObject,

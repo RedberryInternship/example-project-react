@@ -1,6 +1,6 @@
 import React, {useEffect, useState,useRef, useCallback} from "react";
 import {AppState, Keyboard, Alert,Animated, Easing } from "react-native"
-import { Defaults, NavigationActions, Const } from "../utils";
+import { Defaults, NavigationActions, Const, Ajax } from "../utils";
 import {useTranslation} from 'react-i18next';
 
 const searchContentHeight = Const.Height - 350;
@@ -20,6 +20,7 @@ export default ()=> {
       text : val
     })
     _this.current.text = val;
+    // Ajax.get()
 
   }
 
@@ -39,6 +40,25 @@ export default ()=> {
     Keyboard.dismiss();
   }
 
-  return{t, _this, showSearchContent , setShowSearchContent , InputRef , searchContentHeight , closeClick, textHandler}
+  const animate = () => 
+    ({
+      opacity : 
+        _this.current.animatedSearchContentHeight.interpolate({
+          inputRange : [0, searchContentHeight],
+          outputRange : [0.8 , 1],
+        }),
+        borderTopLeftRadius :  10,
+        borderTopRightRadius :  10,
+        borderBottomLeftRadius : _this.current.animatedSearchContentHeight.interpolate({
+          inputRange : [0, searchContentHeight],
+          outputRange : [10 , 0],
+        }),
+      borderBottomRightRadius : _this.current.animatedSearchContentHeight.interpolate({
+          inputRange : [0, searchContentHeight],
+          outputRange : [10 , 0],
+        }),
+    });
+
+  return{t, _this, showSearchContent ,animate, setShowSearchContent , InputRef , searchContentHeight , closeClick, textHandler}
 
 }

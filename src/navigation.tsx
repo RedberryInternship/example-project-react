@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
-import { View, Text, Image, Dimensions, TouchableOpacity, Alert} from 'react-native';
-import { createAppContainer, createSwitchNavigator,SafeAreaView} from 'react-navigation';
+import { View, Text, Image, Dimensions, TouchableOpacity,SafeAreaView,KeyboardAvoidingView, Alert} from 'react-native';
+import { createAppContainer, createSwitchNavigator} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
@@ -26,25 +26,6 @@ const HomeTabNavigation = createBottomTabNavigator({
   },
   },
   {
-    // defaultNavigationOptions: ({ navigation }) => ({
-    //   tabBarIcon: ({ focused, horizontal, tintColor }) => {
-    //     const { routeName } = navigation.state;
-    //     let icon;
-    //     if (routeName === 'Home') {
-    //       icon = require("../assets/images/ic_map_pin.png");
-    //     } else if (routeName === 'Charger') {
-    //       icon = require("../assets/images/ic_charge.png");
-    //     } else if (routeName === 'drawer') {
-    //       icon = require("../assets/images/ic_menu.png");
-    //       if(focused){
-    //         navigation.openDrawer()
-    //       }
-    //     }
-
-    //     return  <Image  source = {icon} style={{width:25,height:25, resizeMode:"contain", marginTop:10}}/>
-                
-    //   },
-    // }),
     tabBarComponent: props => <FooterTabNavigator {...props} />,
 
     initialRouteName:"Home",
@@ -79,31 +60,34 @@ export const MainDrawer = createDrawerNavigator(
       // drawerLockMode: 'locked-closed',
       
   },
-  // {
-  //   initialRouteName : "HomeTabNavigation",
-  //   defaultNavigationOptions : {
-  //       headerMode: 'none',
-  //       headerVisible: false,
-  //       header: null,
-  //       gesturesEnabled: false,
-  //   },
-  // }
 )
+
+const authenticationFlow = createStackNavigator({
+  Auth : {
+    screen:Auth,
+
+  }
+},
+{
+  defaultNavigationOptions:{
+    headerShown:false
+  }
+})
 
 const AppNavigator = createSwitchNavigator({
 
   Plashka : {
     screen: Plashka,
   },
-  Auth : {
-    screen: Auth,
-  },
+  authenticationFlow,
   MainDrawer
 },{
   initialRouteName: "Plashka"
 });
 
 export default createAppContainer(AppNavigator);
+
+
 
 
 const FooterTabNavigator = (props : any) => {
@@ -125,7 +109,6 @@ const FooterTabNavigator = (props : any) => {
               image={require("../assets/images/icons/ic_favorite.png")} 
               active={currentRouteName === "Favorite"}
             />
-        
         } 
         <TabNavigationButtons 
           navigate={navigate.bind(FooterTabNavigator, 'drawer')} 

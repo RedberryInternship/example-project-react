@@ -167,7 +167,7 @@ const styles= new StyleSheet.create({
     bottom:0,
     left:0,
     paddingHorizontal:8,
-    // elevation:1
+    elevation:1
   },
   mainContainer : {
     backgroundColor:"#023D63",

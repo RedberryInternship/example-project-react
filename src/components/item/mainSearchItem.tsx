@@ -8,10 +8,9 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     alignItems:"center",
     elevation:1,
-    paddingHorizontal:16,
     backgroundColor:"transparent",
-    padding:16,
-    height: 72,
+    margin:16,
+    height: 40,
     flexDirection:"row",
     width:"100%"
   },

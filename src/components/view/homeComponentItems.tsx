@@ -1,8 +1,8 @@
 
 import React, {useRef} from 'react';
 import {SafeAreaView, StyleSheet, ScrollView,Text,  View, TouchableOpacity, Alert} from 'react-native';
-import { useMap } from '../../hooks';
-import { OnMapRoundButton, HomeFilterView, HomeAuthorizationButton, HomeMainInput } from '..';
+import { withNavigation} from 'react-navigation';
+import { OnMapRoundButton, HomeFilterView, BaseButton, HomeMainInput } from '..';
 import { Defaults } from '../../../src/utils';
 import { useTranslation } from 'react-i18next';
 
@@ -26,9 +26,7 @@ const styles = StyleSheet.create({
 
 });
 
-const App = ({}) => {
-  const { t, i18n } = useTranslation();
-  
+const App = ({navigation} :any) => {
 
   return (
       <>
@@ -38,21 +36,25 @@ const App = ({}) => {
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
           imageStyle={{width:30,height:30}}
         />
-        <HomeFilterView />
         {
           Defaults.token ?
             null
           :
-          <HomeAuthorizationButton/>
+          <BaseButton 
+            image={require("../../../assets/images/icons/user.png")}
+            onPress={navigation.navigate.bind(App, "Auth")}
+            text={'home.authorization'}
+          />
 
         }
         <HomeMainInput
           
         />
+        <HomeFilterView />
 
       </>
   );
 };
 
 
-export default App;
+export default withNavigation(App);

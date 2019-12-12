@@ -85,11 +85,12 @@ export function  useRoot(){
     useEffect(() => {
         if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== '' && appReady === false ){
             setAppReady(true)
-            NavigationActions.default.navigate("MainDrawer")
+            // NavigationActions.default.navigate("MainDrawer")
+            NavigationActions.default.navigate("authenticationFlow")
             console.log("app ready to boot");
         }
         else setAppReady(false)
     },[token,navigationState, locale])
 
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale}
+    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t}
 }

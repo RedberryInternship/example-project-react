@@ -23,12 +23,13 @@ const App = () => {
   return useMemo (()=>(
     <>
       <StatusBar barStyle="dark-content" />
-      <Provider store={store}>
-          <Navigation 
-            onNavigationStateChange={() => {}}
-            ref={(ref) => root.setNavigationTopLevelElement(ref) }
-          />
-      </Provider>
+      <Navigation
+        onNavigationStateChange={() => {}}
+        ref={(ref) => root.setNavigationTopLevelElement(ref) }
+        screenProps={{
+          t : root.t
+        }}
+      />
     </>
   ),[root.appReady, root.locale]);
 };
