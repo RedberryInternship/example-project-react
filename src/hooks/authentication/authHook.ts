@@ -3,10 +3,10 @@ import {AppState, Keyboard, Alert, Animated} from "react-native"
 import { useAppState } from 'react-native-hooks';
 import {useNetInfo} from "@react-native-community/netinfo";
 import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
-import { Defaults, NavigationActions } from "../utils";
+import { Defaults, NavigationActions } from "../../utils";
 import {useTranslation} from 'react-i18next';
 import RNLocation, {Location} from 'react-native-location';
-import useLocation from "./locationHook";
+import useLocation from "../locationHook";
 
 
 export default () => {

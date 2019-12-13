@@ -8,7 +8,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Defaults } from './utils';
 
 //screens
-import { Home, Drawer,Auth, Plashka, Charger } from './screens';
+import { Home, Drawer,Auth, Plashka, Charger,ForgotPassword, Registration } from './screens';
 import { TabNavigationButtons } from './components';
 
 const HomeTabNavigation = createBottomTabNavigator({
@@ -63,10 +63,9 @@ export const MainDrawer = createDrawerNavigator(
 )
 
 const authenticationFlow = createStackNavigator({
-  Auth : {
-    screen:Auth,
-
-  }
+  Auth ,
+  ForgotPassword,
+  Registration
 },
 {
   defaultNavigationOptions:{

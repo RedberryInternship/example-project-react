@@ -3,7 +3,8 @@ import useMap from "./mapViewHook"
 import useLocation from "./locationHook"
 import useHomeHook from "./homeHook"
 import useHomeMainInputHook from "./homeMainInputHook"
-import useAuthHook from "./authHook"
+import useAuthHook from "./authentication/authHook"
+import useForgotPassword from "./authentication/forgotPassword"
 
 export {
     useRoot,
@@ -11,5 +12,6 @@ export {
     useLocation,
     useHomeHook,
     useHomeMainInputHook,
-    useAuthHook
+    useAuthHook,
+    useForgotPassword
 }

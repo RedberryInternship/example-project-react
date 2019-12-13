@@ -30,7 +30,9 @@ export function  useRoot(){
         // setItem("token");
         readUserToken();
         readUserLocale()
-        AsyncStorage.clear()
+        // AsyncStorage.clear()
+        onReady()
+
     }, [])
 
     useEffect(() => {
@@ -73,24 +75,29 @@ export function  useRoot(){
 
 
     const setNavigationTopLevelElement = (ref : any) =>{
-        console.log("settingNavigationTopLevelElement");
+        console.log("settingNavigationTopLevelElement", NavigationActions.default._navigator);
 
-        if( ref === null ) return
+        if( ref === null  ) return
 
         NavigationActions.default.setTopLevelNavigator(ref)
+        // onReady()
         setNavigationState(true);
     }
 
 
     useEffect(() => {
+        onReady()
+    },[token,navigationState, locale])
+
+    const onReady =() =>{
         if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== '' && appReady === false ){
             setAppReady(true)
             // NavigationActions.default.navigate("MainDrawer")
-            NavigationActions.default.navigate("authenticationFlow")
+            // NavigationActions.default.navigate("authenticationFlow")
+            NavigationActions.default.navigate("ForgotPassword")
             console.log("app ready to boot");
         }
         else setAppReady(false)
-    },[token,navigationState, locale])
-
+    }
     return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t}
 }
