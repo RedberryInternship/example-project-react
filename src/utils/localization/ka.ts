@@ -14,7 +14,14 @@ export default {
       authorization : "ავტორიზაცია",
       location : "ლოკაცია",
       organization : "ორგანიზაცია" 
+    },
 
+    drawer: {
+      tariff: "ტარიფები",
+      contact: "კონტაქტი",
+      faq: "ხდკ",
+      partners: "პარტნიორები",
+      terms_and_conditions: "წესები და პირობები"
     }
   }
   };

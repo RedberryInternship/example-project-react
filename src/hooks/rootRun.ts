@@ -85,8 +85,8 @@ export function  useRoot(){
     useEffect(() => {
         if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== '' && appReady === false ){
             setAppReady(true)
-            // NavigationActions.default.navigate("MainDrawer")
-            NavigationActions.default.navigate("authenticationFlow")
+            NavigationActions.default.navigate("MainDrawer")
+            // NavigationActions.default.navigate("authenticationFlow")
             console.log("app ready to boot");
         }
         else setAppReady(false)
