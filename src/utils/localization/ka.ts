@@ -2,7 +2,8 @@ export default {
   translation : {
     hello: "გამარჯობა",
     back : "უკან",
-    enter : 'Login', 
+    enter : 'შესვლა', 
+    next : "შემდეგი",
     authentication : {
       authentication : "ავტორიზაცია",
       number : "ნომერი",
@@ -15,6 +16,8 @@ export default {
         receiveCode : "კოდის მიღება",
         newPassword : "ახალი პაროლი",
         repeatPassword: "გაიმეორეთ პაროლი",
+        codeValidity : "კოდი ვალიდურია 3 წუთის განმავლობაში"
+
       }
     },
     home : {
