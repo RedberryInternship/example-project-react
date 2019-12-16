@@ -13,13 +13,13 @@ import {
   Platform
 } from 'react-native';
 import { Colors } from '../../../src/utils';
-import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../src/components';
+import { BaseHeader, BaseInput, BaseButton } from '../../../src/components';
 import { useAuthHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const auth = ({navigation} : any) => {
+const registration = ({navigation} : any) => {
   
   const hook = useAuthHook();
 
@@ -27,7 +27,7 @@ const auth = ({navigation} : any) => {
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <BaseHeader 
-        onPressLeft={navigation.navigate.bind(auth,"MainDrawer")}
+        onPressLeft={navigation.navigate.bind(registration, "Auth")}
         title={"authentication.authentication"}
       />
       <KeyboardAwareScrollView
@@ -41,14 +41,20 @@ const auth = ({navigation} : any) => {
         enableResetScrollToCoords={true}
         resetScrollToCoords={{x:0,y:0}}
       >
-        <PhoneNumberInput 
-          onChangeText={hook.phoneTextHandler}
-          onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current.text}
-          onFocus={hook.onFocus}
-          ref={hook.phoneRef}
-        />
-
+        <View style={{flex:0, position:"relative"}}>
+          <Image source={require("../../../assets/images/icons/phone.png")}  style={{width: 24,flex:-1, height: 24,position: 'absolute',left: 13,bottom: 30,zIndex:22,alignSelf:"center"}} resizeMode="contain"/>
+          <BaseInput
+            paddingLeft={50}
+            keyboardType={"numeric"}
+            onChangeText={hook.phoneTextHandler}
+            onSubmit={hook.phoneInputSubmit}
+            value={hook._this.current.text}
+            onFocus={hook.onFocus}
+            ref={hook.phoneRef}
+            testID={"emailInput"}
+            title={"authentication.number"}
+          />
+        </View>
         <BaseInput
           image={require("../../../assets/images/icons/lock.png")}
           keyboardType={"email-address"}
@@ -61,24 +67,26 @@ const auth = ({navigation} : any) => {
           testID={"emailInput"}
           title={"authentication.password"}
         />
-        <TouchableOpacity onPress={navigation.navigate.bind(auth,"ForgotPassword")}>
+        <TouchableOpacity onPress={()=>{}}>
           <Text style={{color : Colors.primaryGreen, fontSize:11}}>{hook.t("authentication.forgotPassword")}</Text>
         </TouchableOpacity>
         <TouchableOpacity 
-          onPress={navigation.navigate.bind(auth,"Registration")}
-          style={{width:"100%", marginVertical:48, }}
+          onPress={()=>{}}
+          style={{width:"100%", marginVertical:32, }}
         >
           <Text style={{color : Colors.primaryGreen, fontSize:13, alignSelf:"center"}}>{hook.t("authentication.newRegistration")}</Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
+        <SafeAreaView>
         <BaseButton
-          onPress={navigation.navigate.bind(auth,"Registration")}
+          onPress={()=>{Alert.alert("asdf")}}
           text={"authentication.authentication"} 
           image={require("../../../assets/images/icons/ic_alert-circle.png")}
         />
+        </SafeAreaView>
+        
       </KeyboardAvoidingView>
-        <SafeAreaView/>
       
     </View>
   );
@@ -94,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default auth;
+export default registration;

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
@@ -10,25 +9,27 @@ import {
   Alert,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  TextInput,
+  Animated
 } from 'react-native';
 import { Colors } from '../../../src/utils';
 import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../src/components';
-import { useAuthHook } from '../../../src/hooks';
+import { useForgotPassword } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {SafeAreaView} from "react-navigation"
 
-
-const auth = ({navigation} : any) => {
+const forgotPassword = ({navigation} : any) => {
   
-  const hook = useAuthHook();
+  const hook = useForgotPassword();
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <BaseHeader 
-        onPressLeft={navigation.navigate.bind(auth,"MainDrawer")}
-        title={"authentication.authentication"}
+        onPressLeft={navigation.navigate.bind(forgotPassword, "Auth")}
+        title={"authentication.forgotPasswordPage.recoverPassword"}
       />
       <KeyboardAwareScrollView
         style={{flex:1,paddingHorizontal:16, marginVertical:16}}
@@ -38,8 +39,8 @@ const auth = ({navigation} : any) => {
         enableAutomaticScroll={true}
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
-        enableResetScrollToCoords={true}
-        resetScrollToCoords={{x:0,y:0}}
+        // enableResetScrollToCoords={true}
+        // resetScrollToCoords={{x:0,y:0}}
       >
         <PhoneNumberInput 
           onChangeText={hook.phoneTextHandler}
@@ -48,37 +49,50 @@ const auth = ({navigation} : any) => {
           onFocus={hook.onFocus}
           ref={hook.phoneRef}
         />
-
+        <View style={{flexDirection:"row", }}>
+          <Animated.View style={{}}>
+              <Text></Text>
+          </Animated.View>
+          <TextInput 
+            
+          
+          />
+        </View>
         <BaseInput
           image={require("../../../assets/images/icons/lock.png")}
           keyboardType={"email-address"}
-          onChangeText={hook.passwordTextHandler}
-          onSubmit={hook.passwordInputSubmit}
+          onChangeText={hook.newPasswordTextHandler}
+          onSubmit={hook.newPasswordInputSubmit}
           value={hook._this.current.text}
           onFocus={hook.onFocus}
           ref={hook.phoneRef}
           secure={true}
           testID={"emailInput"}
-          title={"authentication.password"}
+          title={"authentication.forgotPasswordPage.newPassword"}
         />
-        <TouchableOpacity onPress={navigation.navigate.bind(auth,"ForgotPassword")}>
-          <Text style={{color : Colors.primaryGreen, fontSize:11}}>{hook.t("authentication.forgotPassword")}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          onPress={navigation.navigate.bind(auth,"Registration")}
-          style={{width:"100%", marginVertical:48, }}
-        >
-          <Text style={{color : Colors.primaryGreen, fontSize:13, alignSelf:"center"}}>{hook.t("authentication.newRegistration")}</Text>
-        </TouchableOpacity>
+        <BaseInput
+          image={require("../../../assets/images/icons/lock.png")}
+          keyboardType={"email-address"}
+          onChangeText={hook.repeatPasswordTextHandler}
+          onSubmit={hook.repeatPasswordInputSubmit}
+          value={hook._this.current.text}
+          onFocus={hook.onFocus}
+          ref={hook.phoneRef}
+          secure={true}
+          testID={"emailInput"}
+          title={"authentication.forgotPasswordPage.repeatPassword"}
+        />
+        
       </KeyboardAwareScrollView>
-      <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
+      <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={navigation.navigate.bind(auth,"Registration")}
+          onPress={()=>{Alert.alert("asdf")}}
           text={"authentication.authentication"} 
           image={require("../../../assets/images/icons/ic_alert-circle.png")}
+          style={{marginTop: 0}}
         />
       </KeyboardAvoidingView>
-        <SafeAreaView/>
+      <SafeAreaView/>
       
     </View>
   );
@@ -94,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default auth;
+export default forgotPassword;

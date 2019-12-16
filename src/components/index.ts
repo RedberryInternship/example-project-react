@@ -13,6 +13,7 @@ import TabNavigationButtons from "./item/tabNavigationButtonsItem"
 import OnMapRoundButton from "./item/onMapRoundButton"
 import FilterTextItem from "./item/filterTextItem"
 import MainSearchItem from "./item/mainSearchItem"
+import PhoneNumberInput from "./item/phoneNumberInput"
 
 
 //BaseUI
@@ -34,5 +35,6 @@ export {
     BaseInput,
     HomeMainInput,
     MainSearchItem,
-    BaseHeader
+    BaseHeader,
+    PhoneNumberInput
 }
