@@ -13,7 +13,7 @@ export default  React.forwardRef( (props : any, ref : any) =>{
             <Text style={{flex: 0,width:"100%",fontSize:13, color : Colors.primaryGray, marginBottom:8}}>{t(props.title)}</Text>
             <View style={{width:"100%", position:"relative"}}>
                 {
-                    props.image && <Image source={props.image}  style={{width: 24,flex:-1, height: 24,position: 'absolute',left: 12.5,bottom: 12.5,zIndex:22,alignSelf:"center"}} resizeMode="contain"/>
+                    props.image && <Image source={props.image}  style={[{width: 24,flex:-1, height: 24,position: 'absolute',left: 12.5,bottom: 12.5,zIndex:22,alignSelf:"center"}, {...props.imageStyle}]} resizeMode="contain"/>
                 }
                 <TextInput
                     style={[styles.Input, {paddingLeft :  props.image ? 50 :props.paddingLeft || 20}]}

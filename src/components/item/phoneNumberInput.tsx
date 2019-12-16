@@ -30,7 +30,7 @@ const phoneNumberInput = React.forwardRef( ({phoneTextHandler, phoneInputSubmit,
 
 
   const _onFocus = (e : any) =>{
-    onFocus(e)
+    onFocus && onFocus(e)
     Animated.timing(animation, {
       toValue:1,
       duration:500,

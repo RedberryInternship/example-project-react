@@ -17,7 +17,14 @@ export default {
           newPassword : "New password",
           repeatPassword: "Repeat password",
           codeValidity : "Code is valid during 3 minutes"
-        }
+        },
+        registration :{
+          name : "Name",
+          surname : "Surname",
+          email : "Email",
+          password : "Password",
+          repeatPassword : "Repeat password",
+        },
       },
       home : {
         allChargers : 'All chargers',

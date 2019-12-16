@@ -17,8 +17,14 @@ export default {
         newPassword : "ახალი პაროლი",
         repeatPassword: "გაიმეორეთ პაროლი",
         codeValidity : "კოდი ვალიდურია 3 წუთის განმავლობაში"
-
-      }
+      },
+      registration :{
+        name : "სახელი",
+        surname : "გვარი",
+        email : "ემაილი",
+        password : "პაროლი",
+        repeatPassword : "გაიმეორეთ პაროლი",
+      },
     },
     home : {
       allChargers : 'ყველა დამტენი',
