@@ -22,6 +22,8 @@ import BaseHeader from "./baseUI/baseHeader"
 import BaseButton from "./baseUI/baseButton"
 
 
+//UI
+import ReceiveCode from "./UI/receiveCode"
 export {
     MapView,
     CollapsibleModal,
@@ -36,5 +38,6 @@ export {
     HomeMainInput,
     MainSearchItem,
     BaseHeader,
-    PhoneNumberInput
+    PhoneNumberInput,
+    ReceiveCode
 }

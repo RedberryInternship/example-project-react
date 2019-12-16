@@ -9,16 +9,29 @@ import RNLocation, {Location} from 'react-native-location';
 import useLocation from "../locationHook";
 
 
+
+type _This = {
+  code : string,
+  newPassword : string,
+  phone : string,
+  repeatPassword : string,
+  codeReceiveAnimation : Animated.Value,
+  codeReceiveDisabled : Boolean
+}
+const CodeInputWidth = 128
+
 export default () => {
 
   const [loading, SetLoading] = useState<Boolean>(true);
   const [phoneFocused, setPhoneFocused] = useState<any>(false);
   const phoneRef : any = useRef(null);
-  const passwordRef : any = useRef(null);
+  const newPasswordRef : any = useRef(null);
+  const repeatPasswordRef : any = useRef(null);
+  const codeRef : any = useRef(null);
 
   const { t, i18n } = useTranslation();
 
-  const _this : any = useRef({code:"", phone : '', newPassword : "", repeatPassword:""})
+  const _this  = useRef<_This>({code:"", phone : '', newPassword : "", repeatPassword:"", codeReceiveAnimation: new Animated.Value(CodeInputWidth), codeReceiveDisabled : false })
 
   const phoneTextHandler = (val : string) => {
     phoneRef.current.setNativeProps({
@@ -33,10 +46,10 @@ export default () => {
   }
 
   const newPasswordTextHandler = (val : string) => {
-    passwordRef.current.setNativeProps({
+    newPasswordRef.current.setNativeProps({
       password : val
     })
-    _this.current.password = val;
+    _this.current.newPassword = val;
     // Ajax.get()
   }
 
@@ -45,10 +58,10 @@ export default () => {
   }
 
   const codeTextHandler = (val : string) => {
-    passwordRef.current.setNativeProps({
+    codeRef.current.setNativeProps({
       password : val
     })
-    _this.current.password = val;
+    _this.current.code = val;
     // Ajax.get()
   }
 
@@ -57,10 +70,10 @@ export default () => {
   }
   
   const repeatPasswordTextHandler = (val : string) => {
-    passwordRef.current.setNativeProps({
+    repeatPasswordRef.current.setNativeProps({
       password : val
     })
-    _this.current.password = val;
+    _this.current.repeatPassword = val;
     // Ajax.get()
   }
 
@@ -68,13 +81,28 @@ export default () => {
     Alert.alert(JSON.stringify(_this.current))
   }
 
-  const onFocus = () => {
+  const onFocusPhone = () => {
     setPhoneFocused(true)
+  }
+
+  const codeReceiveHandler = () => {
+
+    if(_this.current.codeReceiveDisabled) return;
+    _this.current.codeReceiveDisabled = true
+    _this.current.codeReceiveAnimation.setValue(0)
+    //ajax
+    Animated.timing(_this.current.codeReceiveAnimation, {
+      toValue:CodeInputWidth,
+      duration:2000
+    }).start(()=>{
+      _this.current.codeReceiveDisabled = false
+    })
+
   }
 
   return {
       loading, SetLoading, phoneTextHandler, phoneInputSubmit,newPasswordTextHandler,newPasswordInputSubmit,
       codeTextHandler, codeInputSubmit,repeatPasswordTextHandler,repeatPasswordInputSubmit, _this, phoneRef,
-      onFocus, phoneFocused, passwordRef, t
+      phoneFocused, t, codeReceiveHandler, newPasswordRef, repeatPasswordRef, codeRef, onFocusPhone, CodeInputWidth
     }
 }

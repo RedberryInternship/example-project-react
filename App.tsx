@@ -18,8 +18,7 @@ console.disableYellowBox = true;
 const App = () => {
 
   const root = useRoot();
-
-
+ 
   return useMemo (()=>(
     <>
       <StatusBar barStyle="dark-content" />

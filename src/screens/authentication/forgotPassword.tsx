@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   StyleSheet,
-  ScrollView,
+  SafeAreaView,
   View,
   Text,
   ActivityIndicator,
@@ -14,11 +14,13 @@ import {
   Animated
 } from 'react-native';
 import { Colors } from '../../../src/utils';
-import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../src/components';
+import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput, ReceiveCode } from '../../../src/components';
 import { useForgotPassword } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import {SafeAreaView} from "react-navigation"
+import {} from "react-navigation"
+import colors from '../../../src/utils/colors';
+import MaskedView from '@react-native-community/masked-view';
 
 const forgotPassword = ({navigation} : any) => {
   
@@ -32,39 +34,36 @@ const forgotPassword = ({navigation} : any) => {
         title={"authentication.forgotPasswordPage.recoverPassword"}
       />
       <KeyboardAwareScrollView
-        style={{flex:1,paddingHorizontal:16, marginVertical:16}}
-        contentContainerStyle={{justifyContent:"flex-start",flex:1}}
+        style={{flex:0,paddingHorizontal:16, marginVertical:16}}
+        contentContainerStyle={{justifyContent:"flex-start",flex:0}}
         keyboardShouldPersistTaps={"handled"}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
+        automaticallyAdjustContentInsets={false}
         // enableResetScrollToCoords={true}
         // resetScrollToCoords={{x:0,y:0}}
       >
         <PhoneNumberInput 
           onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current.text}
-          onFocus={hook.onFocus}
+          value={hook._this.current.phone}
+          onFocus={hook.onFocusPhone}
           ref={hook.phoneRef}
         />
-        <View style={{flexDirection:"row", }}>
-          <Animated.View style={{}}>
-              <Text></Text>
-          </Animated.View>
-          <TextInput 
-            
-          
-          />
-        </View>
+        <ReceiveCode
+          ref={hook.codeRef}
+          onChangeText={hook.codeTextHandler}
+          onSubmit={hook.codeInputSubmit}
+        />
+        
         <BaseInput
           image={require("../../../assets/images/icons/lock.png")}
           keyboardType={"email-address"}
           onChangeText={hook.newPasswordTextHandler}
           onSubmit={hook.newPasswordInputSubmit}
-          value={hook._this.current.text}
-          onFocus={hook.onFocus}
+          value={hook._this.current.newPassword}
           ref={hook.phoneRef}
           secure={true}
           testID={"emailInput"}
@@ -75,8 +74,7 @@ const forgotPassword = ({navigation} : any) => {
           keyboardType={"email-address"}
           onChangeText={hook.repeatPasswordTextHandler}
           onSubmit={hook.repeatPasswordInputSubmit}
-          value={hook._this.current.text}
-          onFocus={hook.onFocus}
+          value={hook._this.current.repeatPassword}
           ref={hook.phoneRef}
           secure={true}
           testID={"emailInput"}
@@ -87,9 +85,10 @@ const forgotPassword = ({navigation} : any) => {
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
           onPress={()=>{Alert.alert("asdf")}}
-          text={"authentication.authentication"} 
-          image={require("../../../assets/images/icons/ic_alert-circle.png")}
+          text={"enter"} 
+          image={require("../../../assets/images/icons/arrow_right.png")}
           style={{marginTop: 0}}
+          imageStyle={{width:21, height:21}}
         />
       </KeyboardAvoidingView>
       <SafeAreaView/>
@@ -106,6 +105,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: Colors.primaryBackground  
   },
+  
 });
 
 export default forgotPassword;

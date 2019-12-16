@@ -3,6 +3,7 @@ export default {
       hello: "Hello",
       back : "Back",
       enter : 'Login', 
+      next : "Next",
       authentication : {
         authentication : "Authentication",
         number : "Number",
@@ -15,7 +16,7 @@ export default {
           receiveCode : "Receive code",
           newPassword : "New password",
           repeatPassword: "Repeat password",
-
+          codeValidity : "Code is valid during 3 minutes"
         }
       },
       home : {

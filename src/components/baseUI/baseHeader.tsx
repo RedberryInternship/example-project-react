@@ -1,8 +1,8 @@
 import React, {useRef, useEffect} from 'react';
-import { StyleSheet,Text,Platform,  View, Image, TouchableOpacity} from 'react-native';
+import { StyleSheet,Text,Platform,  View, Image,SafeAreaView, TouchableOpacity} from 'react-native';
 import { Colors } from '../../utils';
 import {useTranslation} from 'react-i18next';
-import {SafeAreaView} from "react-navigation"
+// import {SafeAreaView} from "react-navigation"
 // import {TouchableOpacity} from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({

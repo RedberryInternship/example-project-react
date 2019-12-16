@@ -27,12 +27,14 @@ export function  useRoot(){
 
 
     useEffect(() => {
+
         // setItem("token");
         readUserToken();
         readUserLocale()
         // AsyncStorage.clear()
         onReady()
-
+        console.log("remounted", appReady , " appReady");
+        
     }, [])
 
     useEffect(() => {
@@ -75,13 +77,13 @@ export function  useRoot(){
 
 
     const setNavigationTopLevelElement = (ref : any) =>{
-        console.log("settingNavigationTopLevelElement", NavigationActions.default._navigator);
+        console.log("settingNavigationTopLevelElement",ref, NavigationActions()._navigator);
 
         if( ref === null  ) return
 
-        NavigationActions.default.setTopLevelNavigator(ref)
-        // onReady()
+        NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
+        onReady()
     }
 
 
@@ -90,11 +92,15 @@ export function  useRoot(){
     },[token,navigationState, locale])
 
     const onReady =() =>{
-        if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== '' && appReady === false ){
-            setAppReady(true)
-            // NavigationActions.default.navigate("MainDrawer")
-            // NavigationActions.default.navigate("authenticationFlow")
-            NavigationActions.default.navigate("ForgotPassword")
+        if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== ''){
+            if(!appReady)
+                setAppReady(true)
+
+            // NavigationActions().navigate("MainDrawer")
+            // NavigationActions().navigate("authenticationFlow")
+            // NavigationActions().navigate("ForgotPassword")
+            NavigationActions().navigate("Registration")
+
             console.log("app ready to boot");
         }
         else setAppReady(false)

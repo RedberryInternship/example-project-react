@@ -10,7 +10,8 @@ import {
   Alert,
   Image,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Button
 } from 'react-native';
 import { Colors } from '../../../src/utils';
 import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../src/components';
@@ -61,15 +62,19 @@ const auth = ({navigation} : any) => {
           testID={"emailInput"}
           title={"authentication.password"}
         />
-        <TouchableOpacity onPress={navigation.navigate.bind(auth,"ForgotPassword")}>
+        <TouchableOpacity onPress={navigation.navigate.bind(auth,"ForgotPassword")}  hitSlop={{top : 10, bottom : 10, left : 15, right :15}}>
           <Text style={{color : Colors.primaryGreen, fontSize:11}}>{hook.t("authentication.forgotPassword")}</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          onPress={navigation.navigate.bind(auth,"Registration")}
-          style={{width:"100%", marginVertical:48, }}
-        >
-          <Text style={{color : Colors.primaryGreen, fontSize:13, alignSelf:"center"}}>{hook.t("authentication.newRegistration")}</Text>
-        </TouchableOpacity>
+        <View style={{marginVertical:48}}>
+          <TouchableOpacity 
+            onPress={navigation.navigate.bind(auth,"Registration")}
+            style={{width:"100%", }}
+            hitSlop={{top : 10, bottom : 10, left : 15, right :15}}
+            >
+            <Text style={{color : Colors.primaryGreen, fontSize:13, alignSelf:"center"}}>{hook.t("authentication.newRegistration")}</Text>
+          </TouchableOpacity>
+        </View> 
+        
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
