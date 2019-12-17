@@ -254,7 +254,7 @@ PODS:
     - React
   - RNCMaskedView (0.1.5):
     - React
-  - RNDeviceInfo (5.3.1):
+  - RNDeviceInfo (5.4.0):
     - React
   - RNGestureHandler (1.5.2):
     - React

@@ -12,7 +12,7 @@ import {
 import { Colors, Const } from '../../utils';
 
 
-const userAvatarWithLabel = () => {
+const userAvatarWithLabel = (onPress) => {
 
     const userDefaultIcon = require('../../../assets/images/icons/green-user.png');
 
@@ -20,7 +20,7 @@ const userAvatarWithLabel = () => {
     return <View style={[styles.container]}>
 
         <View style={styles.imageContainer}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPress}>
                 <Image source={userDefaultIcon} style={styles.image} />
                 <View style={styles.editButton}>
                     <Image
