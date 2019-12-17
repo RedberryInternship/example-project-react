@@ -23,11 +23,16 @@ type LocaleButton = {
 
 const baseLocaleButton = ({ onPress, style, text, textStyle }: LocaleButton) => {
 
-    return <TouchableOpacity onPress={onPress}>
-                <View style={[styles.localeUiContainer, style]}>
+    return (
+        <View style={[{width: 50}, style]}>
+            <TouchableOpacity onPress={onPress}
+            >
+                <View style={[styles.localeUiContainer]}>
                     <Text style={[styles.localeText, textStyle]}>{ text }</Text>
                 </View>
-            </TouchableOpacity>;
+            </TouchableOpacity>
+        </View>
+        )
 }
 
 
@@ -39,7 +44,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         backgroundColor: Colors.primaryBlue,
-        borderRadius: 50,
+        borderRadius: 25,
         alignItems: "center",
         justifyContent: "center"
     },

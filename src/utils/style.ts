@@ -1,4 +1,5 @@
-import{ Text, TextInput} from "react-native"
+
+import{ Text, TextInput, TouchableOpacity} from "react-native"
 
 export default {
     m4 : 4,
@@ -7,11 +8,21 @@ export default {
     m32 : 32,
 }
 
+
 Text.defaultProps= Text.defaultProps || {}
+
 TextInput.defaultProps = TextInput.defaultProps || {};
+
+TouchableOpacity.defaultProps = TextInput.defaultProps || {};
 
 Text.defaultProps.allowFontScaling = false;
 Text.defaultProps.style={letterSpacing: 0.2}
 
 TextInput.defaultProps.allowFontScaling = false;
 TextInput.defaultProps.style={letterSpacing: 0.2} ;
+
+
+TouchableOpacity.defaultProps.hitSlop= {top : 15, bottom : 15, left : 15, right :15};
+TouchableOpacity.defaultProps.activeOpacity=0.7;
+
+

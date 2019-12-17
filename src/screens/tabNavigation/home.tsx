@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <View style={styles.mainContainer}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <MapView />
       <HomeComponentItems />
       <CollapsibleModal ref={modalRef} />
