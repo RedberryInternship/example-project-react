@@ -74,13 +74,24 @@ const authenticationFlow = createStackNavigator({
   }
 })
 
+
+const drawerMenuOptionsStack = createStackNavigator({
+  Parameters : {screen: Plashka},
+},
+{
+  defaultNavigationOptions:{
+    headerShown:false
+  }
+})
+
 const AppNavigator = createSwitchNavigator({
 
   Plashka : {
     screen: Plashka,
   },
   authenticationFlow,
-  MainDrawer
+  MainDrawer,
+  drawerMenuOptionsStack
 },{
   initialRouteName: "Plashka"
 });
