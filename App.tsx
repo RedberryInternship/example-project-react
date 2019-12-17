@@ -4,7 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  ActivityIndicator,
+  Text,
   StatusBar,
 } from 'react-native';
 import { Provider } from 'react-redux';
@@ -12,6 +12,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/redux';
 import { Navigation } from './src';
 import { useRoot } from './src/hooks';
+import { Defaults } from './src/utils';
+import './src/utils/style';
+import { CustomModal } from './src/components';
+
 
 console.disableYellowBox = true;
 
@@ -29,9 +33,14 @@ const App = () => {
           t : root.t
         }}
       />
+
+      <CustomModal 
+        ref={Defaults.modal}
+      />
     </>
   ),[root.appReady, root.locale]);
 };
+
 
 const styles = StyleSheet.create({
   container: {

@@ -24,6 +24,8 @@ export default {
           email : "Email",
           password : "Password",
           repeatPassword : "Repeat password",
+          skip : "  Skip",
+
         },
       },
       home : {
@@ -31,7 +33,14 @@ export default {
         authorization : "Authorization",
         location : "location",
         organization : "Organization" 
+      },
 
+      drawer: {
+        tariff: "Tariff",
+        contact: "Contact",
+        faq: "FAQ",
+        partners: "Partners",
+        terms_and_conditions: "Terms and Conditions"
       }
     }
   };

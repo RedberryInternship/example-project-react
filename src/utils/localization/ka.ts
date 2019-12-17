@@ -24,6 +24,7 @@ export default {
         email : "ემაილი",
         password : "პაროლი",
         repeatPassword : "გაიმეორეთ პაროლი",
+        skip : "  გამოტოვება",
       },
     },
     home : {
@@ -31,7 +32,14 @@ export default {
       authorization : "ავტორიზაცია",
       location : "ლოკაცია",
       organization : "ორგანიზაცია" 
+    },
 
+    drawer: {
+      tariff: "ტარიფები",
+      contact: "კონტაქტი",
+      faq: "ხდკ",
+      partners: "პარტნიორები",
+      terms_and_conditions: "წესები და პირობები"
     }
   }
   };

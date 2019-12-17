@@ -31,6 +31,8 @@ const registration = ({navigation} : any) => {
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(registration, "Auth")}
         title={"authentication.authentication"}
+        titleRight={"authentication.registration.skip"}
+        onPressRight={hook.activePage === 3 ? hook.headerRightClick : undefined }
       />
       <RegistrationPagination
         paginationClickHandler={hook.paginationClickHandler}
@@ -70,13 +72,12 @@ const registration = ({navigation} : any) => {
               />
           ]}
           renderItem={({item})=>item}
-          // onScroll={hook.animatePagination}
         />
           
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1, }} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={()=>{Alert.alert("asdf")}}
+          onPress={hook.registrationStepHandler}
           text={"enter"} 
           image={require("../../../assets/images/icons/arrow_right.png")}
           style={{marginTop: 0}}

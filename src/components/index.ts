@@ -9,8 +9,9 @@ import UserInfoView from "./view/registration/userInfoView"
 import PasswordView from "./view/registration/passwordView"
 import CardAddView from "./view/registration/cardAddView"
 
-
+// ./
 import CustomSlideUpModal from "./customSlideUpModal"
+import CustomModal from "./customModal"
 
 //Item
 import TabNavigationButtons from "./item/tabNavigationButtonsItem"
@@ -51,5 +52,6 @@ export {
     PhoneNumberView,
     UserInfoView,
     PasswordView,
-    CardAddView
+    CardAddView,
+    CustomModal
 }

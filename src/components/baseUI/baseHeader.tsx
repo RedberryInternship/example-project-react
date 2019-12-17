@@ -25,11 +25,19 @@ const styles = StyleSheet.create({
     height:21,
     marginHorizontal:4,
     resizeMode:"contain"
+  },
+  rightImageStyle :{
+    width:9, 
+    height:15,
+    marginHorizontal:8,
+    resizeMode:"contain",
+    transform:[{rotateY : "180deg"}],
+    tintColor:"#FF9500"
   }
 });
 
 
-const baseHeader = ({ onPressLeft, title, onPressRight} : any) => {
+const baseHeader = ({ onPressLeft, title, onPressRight, titleRight} : any) => {
 
   const { t, i18n } = useTranslation();
 
@@ -68,8 +76,16 @@ const baseHeader = ({ onPressLeft, title, onPressRight} : any) => {
 
   const renderRight = () => {
     return onPressRight && (
-      <View style={{ height:"100%", flex:0, position:"absolute",right:0,top:0}}>
-                
+      <View style={{justifyContent:"center", height:"100%", position:"absolute",right:0,top:0}}>
+        <TouchableOpacity
+          onPress={onPressRight}
+          style={{ flex:1, justifyContent:"center",alignItems:"center",flexDirection:"row", marginLeft:4,}}
+          hitSlop={{top : 15, bottom : 15, left : 15, right :15}}
+        >
+          <Text style={{color: "#FF9500", fontSize:13,letterSpacing: 0.2}}>{t(titleRight)}</Text>
+          <Image  source={require("../../../assets/images/icons/ios_back.png")} style={styles.rightImageStyle}/>
+           
+        </TouchableOpacity>
       </View>
     )
   }

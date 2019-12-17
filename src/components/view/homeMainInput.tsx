@@ -26,7 +26,6 @@ const MainInput = ({onPress, style, image, imageStyle} : any) => {
   console.log(hook._this.animatedSearchContentHeight);
   
   
-  
   return (
     <TouchableOpacity activeOpacity={1} onPress={hook.closeClick} style={[styles.container, {}]}>
       <>
@@ -47,7 +46,6 @@ const MainInput = ({onPress, style, image, imageStyle} : any) => {
                 onFocus={onFocus}
                 placeholderTextColor={Colors.primaryWhite}
                 allowFontScaling={false}
-                // value={''}
                 ref={hook.InputRef}
                 autoCorrect={false}
                 editable={true}

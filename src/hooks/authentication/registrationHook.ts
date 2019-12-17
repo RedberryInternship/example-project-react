@@ -20,6 +20,7 @@ type _This = {
 }
 const CodeInputWidth = 128
 
+const allPageLength = 4;
 export default () => {
 
   const flatListRef : any = useRef(null);
@@ -49,28 +50,29 @@ export default () => {
     Alert.alert(JSON.stringify(_this.current))
   }
 
-  const animatePagination = () => {
-
-    if(_this.current.codeReceiveDisabled) return;
-    _this.current.codeReceiveDisabled = true
-    _this.current.codeReceiveAnimation.setValue(0)
-    //ajax
-    Animated.timing(_this.current.codeReceiveAnimation, {
-      toValue:CodeInputWidth,
-      duration:2000
-    }).start(()=>{
-      _this.current.codeReceiveDisabled = false
-    })
-
-  }
 
   const paginationClickHandler = (index : number) =>{
     flatListRef.current.scrollToIndex({index, animated: true})
     setActivePage(index)
   }
 
+  const headerRightClick = () =>{
+    // show modal 
+    Defaults.modal.current.showModal(1)
+  }
+  const registrationStepHandler = () =>{
+    // validate input and continue
+
+    if(activePage === allPageLength-1){
+      Defaults.modal.current.showModal(2)
+      return
+    }
+    paginationClickHandler(activePage+1)
+    
+  }
+
   return {
       loading, SetLoading, phoneTextHandler, phoneInputSubmit, _this, phoneRef,flatListRef,paginationClickHandler,
-      phoneFocused, t, animatePagination, newPasswordRef, repeatPasswordRef, codeRef,  CodeInputWidth, activePage
+      phoneFocused, t, newPasswordRef, repeatPasswordRef, codeRef,  CodeInputWidth, activePage, headerRightClick,registrationStepHandler
     }
 }

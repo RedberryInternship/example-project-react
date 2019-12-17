@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import { Defaults } from './utils';
+import { Defaults, Colors } from './utils';
 
 //screens
 import { Home, Drawer,Auth, Plashka, Charger,ForgotPassword, Registration } from './screens';
@@ -49,7 +49,7 @@ export const MainDrawer = createDrawerNavigator(
   },
   {
       drawerPosition : "right",
-      drawerBackgroundColor : "#f2f2f3",
+      drawerBackgroundColor : "transparent",
       drawerType:"front",
       drawerWidth:Dimensions.get("window").width * 0.8,
       // overlayColor:0.5,
@@ -58,6 +58,7 @@ export const MainDrawer = createDrawerNavigator(
       contentComponent : Drawer,
       keyboardDismissMode : "on-drag",
       // drawerLockMode: 'locked-closed',
+      
       
   },
 )
