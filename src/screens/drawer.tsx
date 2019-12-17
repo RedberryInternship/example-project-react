@@ -23,67 +23,77 @@ import { Const, Colors } from '../utils';
 const App = () => {
 
 
+  const $isUserAuthorized = true;
+  let $drawerListFields = null;
+  let $drawerContent = null;
 
+  if (!$isUserAuthorized) {
+    $drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(Field => {
 
-  // generate drawer fields before auth
-  const drawerData = Const.DrawerFieldsBeforeAuthorization;
-  const DrawerFieldsBeforeAuthorization = drawerData.map(Field => {
-
-    return <DrawerTextField
-      onPress={() => undefined}
-      text={Field.text}
-      image={Field.image}
-      key={Field.route} />;
-  });
-
-
-  // ======>  If User Is Not Authorized <======= \\
-
-  const drawerBeforeAuth = <>
-    <View style={{ flex: 0 }}>
-      <StatusBar barStyle="dark-content" />
-
-      <AuthBtn image={require("../../assets/images/icons/user.png")}
+      return <DrawerTextField
         onPress={() => undefined}
-        text={'home.authorization'}
-        style={styles.drawerAuthBtn} />
+        text={Field.text}
+        image={Field.image}
+        key={Field.route} />;
+    });
 
-      {DrawerFieldsBeforeAuthorization}
+    $drawerContent = <>
+      <View style={{ flex: 0 }}>
+        <StatusBar barStyle="dark-content" />
 
-    </View>
+        <AuthBtn image={require("../../assets/images/icons/user.png")}
+          onPress={() => undefined}
+          text={'home.authorization'}
+          style={styles.drawerAuthBtn} />
 
-    <View style={{ flex: 0 }}>
-      <DrawerTextField
+        {$drawerListFields}
+      </View>
+
+      <View style={{ flex: 0 }}>
+        <DrawerTextField
+          onPress={() => undefined}
+          text={'drawer.terms_and_conditions'}
+          image={require("../../assets/images/icons/green-tick.png")} />
+
+        <BaseLocaleButton
+          onPress={() => Alert.alert("მე ვარ მეფე მზე!")}
+          text="Eng"
+          style={styles.localeButton} />
+      </View>
+    </>;
+  }
+  else {
+
+    $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(Field => {
+      return <DrawerTextField
         onPress={() => undefined}
-        text={'drawer.terms_and_conditions'}
-        image={require("../../assets/images/icons/green-tick.png")} />
+        text={Field.text}
+        image={Field.image}
+        badge={ Field.route === 'notifications' ? 1 : 0 } />
+    })
+
+    $drawerContent = <>
+      <View>
+        <UserAvatarWithLabel />
+        {$drawerListFields}
+      </View>
 
       <BaseLocaleButton
         onPress={() => Alert.alert("მე ვარ მეფე მზე!")}
         text="Eng"
         style={styles.localeButton} />
-    </View>
-  </>;
+    </>;
+  }
 
- // ============================================== \\
-
-
-
-
-// ======>  If User Is Authorized <======= \\
-
-const drawerAfterAuth = <>
-
-  <UserAvatarWithLabel />
-
-</>
 
 
   return (
     <SafeAreaView style={styles.safeAreaViewContainer}>
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+      <ScrollView 
+        style={{ flex: 1 }} 
+        contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
 
-        {false ? drawerBeforeAuth : drawerAfterAuth}
+        {$drawerContent}
 
       </ScrollView>
     </SafeAreaView>
@@ -107,7 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 60
   },
   localeButton: {
-    marginLeft: 30,
+    marginLeft: 38,
     marginTop: 40,
     marginBottom: 20
   }

@@ -33,3 +33,23 @@ export const DrawerFieldsBeforeAuthorization = [
         route: 'partners'
     }
 ];
+
+
+export const DrawerFieldsAfterAuthorization = [
+    {
+        image: require('../../assets/images/icons/settings.png'),
+        text: 'drawer.settings',
+        route: "settings"
+    },
+    ...DrawerFieldsBeforeAuthorization,
+    {
+        image: require('../../assets/images/icons/credit-card.png'),
+        text: 'drawer.transactions',
+        route: "transactions"
+    },
+    {
+        image: require('../../assets/images/icons/mail.png'),
+        text: 'drawer.notifications',
+        route: "notifications"
+    }
+];
