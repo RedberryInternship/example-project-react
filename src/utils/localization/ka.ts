@@ -39,7 +39,10 @@ export default {
       contact: "კონტაქტი",
       faq: "ხდკ",
       partners: "პარტნიორები",
-      terms_and_conditions: "წესები და პირობები"
+      terms_and_conditions: "წესები და პირობები",
+      settings: "პარამეტრები",
+      transactions: "ტრანზაქციები",
+      notifications: "შეტყობინებები"
     }
   }
   };

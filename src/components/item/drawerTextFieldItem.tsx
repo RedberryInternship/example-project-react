@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     image: {
         width: 25,
         height: 25,
-        marginLeft: 15
+        marginLeft: 36
     },
     badgeConatainer: {
         flex: 0,

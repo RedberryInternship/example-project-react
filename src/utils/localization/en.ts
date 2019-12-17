@@ -40,7 +40,10 @@ export default {
         contact: "Contact",
         faq: "FAQ",
         partners: "Partners",
-        terms_and_conditions: "Terms and Conditions"
+        terms_and_conditions: "Terms and Conditions",
+        settings: "settings",
+        transactions: "transactions",
+        notifications: "notifications"
       }
     }
   };
