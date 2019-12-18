@@ -25,7 +25,7 @@ const App = () => {
  
   return useMemo (()=>(
     <>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Navigation
         onNavigationStateChange={() => {}}
         ref={(ref) => root.setNavigationTopLevelElement(ref) }

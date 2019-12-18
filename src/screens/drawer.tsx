@@ -11,17 +11,20 @@ import {
   FlatList
 } from 'react-native';
 
+
 // import components
-import AuthBtn from '../components/baseUI/baseButton';
-import DrawerTextField from '../components/item/drawerTextFieldItem';
-import BaseLocaleButton from '../components/baseUI/baseLocaleButton';
-import UserAvatarWithLabel from '../components/baseUI/baseUserAvatarWithLabel';
+import {
+  BaseButton,
+  BaseLocaleButton,
+  DrawerTextFieldItem,
+  BaseUserAvatarWithLabel
+} from '../components';
 
 // import utils
-import { Const, Colors } from '../utils';
+import { Const, Colors, NavigationActions } from '../utils';
 import { useTranslation } from 'react-i18next';
 
-const drawer = () => {
+const drawer = ({ navigation } : any) => {
 
   const { t, i18n } = useTranslation();
 
@@ -31,8 +34,8 @@ const drawer = () => {
 
   if (!$isUserAuthorized) {
     $drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(Field => {
-      return <DrawerTextField
-        onPress={() => Alert.alert(Field.route+"field route") }
+      return <DrawerTextFieldItem
+        onPress={() => navigation.navigate(Field.route) }
         text={Field.text}
         image={Field.image}
         key={Field.route} />;
@@ -41,7 +44,7 @@ const drawer = () => {
     $drawerContent = 
       <>
         <View style={{ flex: 0 }}>
-          <AuthBtn image={require("../../assets/images/icons/user.png")}
+          <BaseButton image={require("../../assets/images/icons/user.png")}
             onPress={() => undefined}
             text={'home.authorization'}
             style={styles.drawerAuthBtn} />
@@ -50,7 +53,7 @@ const drawer = () => {
         </View>
 
         <View style={{ flex: 0 }}>
-          <DrawerTextField
+          <DrawerTextFieldItem
             onPress={() => {Alert.alert("asfas")}}
             text={'drawer.terms_and_conditions'}
             image={require("../../assets/images/icons/green-tick.png")} />
@@ -61,8 +64,8 @@ const drawer = () => {
   else {
 
     $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(Field => {
-      return <DrawerTextField
-        onPress={() => Alert.alert(Field.route+"field route") }
+      return <DrawerTextFieldItem
+        onPress={() => navigation.navigate(Field.route) }
         text={Field.text}
         image={Field.image}
         badge={ Field.route === 'notifications' ? 1 : 0 } />
@@ -70,7 +73,7 @@ const drawer = () => {
 
     $drawerContent = <>
       <View>
-        <UserAvatarWithLabel onPress={()=>{Alert.alert("change icon")}} />
+        <BaseUserAvatarWithLabel onPress={()=>{Alert.alert("change icon")}} />
         {$drawerListFields}
       </View>
     </>;

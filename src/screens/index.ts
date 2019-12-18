@@ -5,6 +5,8 @@ import Drawer from "./drawer"
 import Auth from "./authentication/auth"
 import ForgotPassword from "./authentication/forgotPassword"
 import Registration from "./authentication/registration"
+import Settings from "./drawerMenuOptions/settings";
+import ProfileChange from './drawerMenuOptions/profileChange';
 
 export {
     Home,
@@ -13,5 +15,7 @@ export {
     Charger,
     Drawer,
     ForgotPassword,
-    Registration
+    Registration,
+    Settings,
+    ProfileChange
 }

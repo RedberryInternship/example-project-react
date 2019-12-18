@@ -8,6 +8,7 @@ export default  React.forwardRef( (props : any, ref : any) =>{
 
     const { t, i18n } = useTranslation();
 
+    
     return(
         <View style={{flex:0,marginVertical:16}}>
             <Text style={{flex: 0,width:"100%",fontSize:13, color : Colors.primaryGray, marginBottom:8}}>{t(props.title)}</Text>

@@ -9,6 +9,13 @@ import UserInfoView from "./view/registration/userInfoView"
 import PasswordView from "./view/registration/passwordView"
 import CardAddView from "./view/registration/cardAddView"
 
+import FirstnameChangeView from './view/profileChange/firstnameChangeView';
+import LastnameChangeView from './view/profileChange/lastnameChangeView';
+import CardChangeView from './view/profileChange/cardChangeVeiw';
+import MailChangeView from './view/profileChange/mailChangeView';
+import PhoneChangeView from './view/profileChange/phoneChangeView';
+import PasswordChangeView from './view/profileChange/passwordChangeView';
+
 // ./
 import CustomSlideUpModal from "./customSlideUpModal"
 import CustomModal from "./customModal"
@@ -19,12 +26,16 @@ import OnMapRoundButton from "./item/onMapRoundButton"
 import FilterTextItem from "./item/filterTextItem"
 import MainSearchItem from "./item/mainSearchItem"
 import PhoneNumberInput from "./item/phoneNumberInput"
+import DrawerTextFieldItem from './item/drawerTextFieldItem';
+import SettingsListItem from './item/settingsListItem';
 
 
 //BaseUI
 import BaseInput from "./baseUI/baseInput"
 import BaseHeader from "./baseUI/baseHeader"
 import BaseButton from "./baseUI/baseButton"
+import BaseUserAvatarWithLabel from './baseUI/baseUserAvatarWithLabel';
+import BaseLocaleButton from './baseUI/baseLocaleButton';
 
 
 //UI
@@ -53,5 +64,15 @@ export {
     UserInfoView,
     PasswordView,
     CardAddView,
-    CustomModal
+    CustomModal,
+    DrawerTextFieldItem,
+    BaseUserAvatarWithLabel,
+    BaseLocaleButton,
+    SettingsListItem,
+    FirstnameChangeView,
+    LastnameChangeView,
+    CardChangeView,
+    MailChangeView,
+    PhoneChangeView,
+    PasswordChangeView
 }
