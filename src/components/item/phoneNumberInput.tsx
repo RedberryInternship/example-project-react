@@ -1,6 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView,Text,  View, TouchableOpacity,Animated, Image, Alert} from 'react-native';
-import { useMap } from '../../hooks';
+import React, { useState} from 'react';
+import { StyleSheet,Text,  View, TouchableOpacity,Animated, Alert} from 'react-native';
 import {BaseInput} from "../" 
 import { Colors } from '../../../src/utils';
 
@@ -25,8 +24,9 @@ const styles = StyleSheet.create({
   }
 });
 
+// eslint-disable-next-line react/display-name
 const phoneNumberInput = React.forwardRef( ({phoneTextHandler, phoneInputSubmit, text, onFocus} : any, ref : any) => {
-  const [animation, setAnimation] = useState(new Animated.Value(0))
+  const [animation] = useState(new Animated.Value(0))
 
 
   const _onFocus = (e : any) =>{

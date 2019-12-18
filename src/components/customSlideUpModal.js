@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { View, Dimensions, TouchableOpacity,Animated, PanResponder, Keyboard, Platform, StyleSheet, Easing } from 'react-native';
 

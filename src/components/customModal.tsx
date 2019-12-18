@@ -4,7 +4,7 @@ import React from "react";
 import {View,Text, Image} from "react-native"
 import Modal from "react-native-modal";
 
-import {Defaults, Const, Colors} from "../utils"
+import { Const, Colors} from "../utils"
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 

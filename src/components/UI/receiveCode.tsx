@@ -1,6 +1,5 @@
-import React, {useRef,useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView,Text,TextInput,  View, TouchableOpacity, Animated, Alert} from 'react-native';
-import { useMap } from '../../hooks';
+import React, {useState} from 'react';
+import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import { Colors } from '../../utils';
 import MaskedView from '@react-native-community/masked-view';
 import colors from '../../../src/utils/colors';
@@ -9,12 +8,13 @@ import { useTranslation } from 'react-i18next';
 
 const CodeInputWidth = 128
 
+// eslint-disable-next-line react/display-name
 const receiveCode = React.forwardRef( ({onChangeText, onSubmit,onFocus, active} : any, ref: any) => {
 
-  const [animation, setAnimation] = useState(new Animated.Value(CodeInputWidth))
+  const [animation] = useState(new Animated.Value(CodeInputWidth))
   const [disabled, setDisabled] = useState(false)
   const [showText, setShowText] = useState(false)
-  const { t, i18n } = useTranslation();
+  const { t} = useTranslation();
   
 
   const codeReceiveHandler = () => {

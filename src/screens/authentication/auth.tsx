@@ -80,10 +80,12 @@ const auth = ({navigation} : any) => {
         <BaseButton
           onPress={navigation.navigate.bind(auth,"Registration")}
           text={"authentication.authentication"} 
+          style={{marginTop: 0}}
+          
           image={require("../../../assets/images/icons/ic_alert-circle.png")}
         />
       </KeyboardAvoidingView>
-        <SafeAreaView/>
+      <SafeAreaView style={{marginBottom:32}}/>
       
     </View>
   );

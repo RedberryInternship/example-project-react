@@ -1,6 +1,6 @@
-import React, {useRef,useState , useEffect} from 'react';
-import {SafeAreaView,Text, StyleSheet, Alert, ScrollView, Image, View,TouchableOpacity,  Animated, Easing} from 'react-native';
-import { OnMapRoundButton, FilterTextItem } from '..';
+import React, {useState , useEffect} from 'react';
+import { StyleSheet, Alert, ScrollView, Image,TouchableOpacity,  Animated, Easing} from 'react-native';
+import { FilterTextItem } from '..';
 import { Const, Colors } from '../../../src/utils';
 
 const dummy = ["asdf",'asdfasdf',"asdfadsf","asdfasdf","asdfasdf"]
@@ -36,7 +36,7 @@ const translate =  Const.Width - 98
 const homeFilter = () => {
   const [showFilter, setShowFilter ] = useState(false);
   const [activeIndex, setActiveIndex ] = useState(-1);
-  let [translateX, setTranslateX ] = useState(new Animated.Value(translate));
+  let [translateX ] = useState(new Animated.Value(translate));
 
   const handleFilterItemPress = (index : number) => {
     Alert.alert(index.toString())

@@ -1,17 +1,13 @@
-import React, {useRef, useState, useEffect} from 'react';
-import { StyleSheet, ScrollView,Text,Animated, TouchableWithoutFeedback, View, TouchableOpacity, Image,TextInput ,  Alert} from 'react-native';
-import { useMap, useHomeMainInputHook } from '../../hooks';
-import { useTranslation } from 'react-i18next';
+import React from 'react';
+import { StyleSheet,Animated, TouchableWithoutFeedback, View, TouchableOpacity, Image,TextInput ,  Alert} from 'react-native';
+import { useHomeMainInputHook } from '../../hooks';
 import { Const, Colors, Defaults } from '../../utils';
-import { isIphoneX } from 'react-native-iphone-x-helper';
-import { BaseInput, MainSearchItem } from '..';
+import { MainSearchItem } from '..';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
 
-const searchContentHeight = Const.Height - 350;
 
-
-const MainInput = ({onPress, style, image, imageStyle} : any) => {
+const MainInput = () => {
 
   const hook = useHomeMainInputHook();
   
@@ -76,7 +72,7 @@ const MainInput = ({onPress, style, image, imageStyle} : any) => {
               resetScrollToCoords={{x:0,y:0}}
               viewIsInsideTabBar={true}
               data={[1]}
-              renderItem={({item}) => (
+              renderItem={() => (
                 <>
                   <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
                   <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>

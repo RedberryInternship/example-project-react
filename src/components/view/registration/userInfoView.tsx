@@ -1,22 +1,7 @@
-import React, {useRef, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView,Text,  View, TouchableOpacity, Image} from 'react-native';
+import React from 'react';
+import { View, } from 'react-native';
 import { Colors, Const } from '../../../../src/utils';
-import { PhoneNumberInput, ReceiveCode, BaseInput } from '../../../../src/components';
-
-
-const styles = StyleSheet.create({
-  container : {
-    height:30,
-    borderRadius:15,
-    justifyContent:"center",
-    alignItems:"center",
-    elevation:1,
-    paddingHorizontal:16,
-    paddingVertical:4,
-    backgroundColor:"white",
-    marginHorizontal:8
-  },
-});
+import { BaseInput } from '../../../../src/components';
 
 const filterTextItem = ({_this} : any) => {
   

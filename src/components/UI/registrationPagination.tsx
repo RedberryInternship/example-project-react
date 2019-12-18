@@ -1,11 +1,6 @@
-import React, {useRef,useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView,Text,TextInput,  View, TouchableOpacity, Animated, Alert} from 'react-native';
-import { useMap } from '../../hooks';
+import React from 'react';
+import {StyleSheet,Text, View, TouchableOpacity,} from 'react-native';
 import { Colors } from '../../utils';
-import MaskedView from '@react-native-community/masked-view';
-import colors from '../../utils/colors';
-import { useTranslation } from 'react-i18next';
-
 
 
 

@@ -1,7 +1,7 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
 import React, {useRef} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView, View,} from 'react-native';
+import { StyleSheet,  View,} from 'react-native';
 import { useMap } from '../../../src/hooks';
 import { mapStyles, Colors } from '../../../src/utils';
 
@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 
 const mapView = () => {
   const map = useRef(null);
+  // eslint-disable-next-line no-unused-vars
   const mapHook = useMap({map})
 
 

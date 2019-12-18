@@ -84,7 +84,7 @@ const registration = ({navigation} : any) => {
           imageStyle={{width:21, height:21}}
         />
       </KeyboardAvoidingView>
-      <SafeAreaView/>
+      <SafeAreaView style={{marginBottom:32}}/>
 
       
     </View>

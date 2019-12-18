@@ -1,14 +1,12 @@
 
-import React, {useRef} from 'react';
-import { StyleSheet, ScrollView, View,} from 'react-native';
-import { useMap } from '../../../src/hooks';
+import React from 'react';
+import {View,} from 'react-native';
 import {SafeAreaView} from "react-navigation"
 
 import {TabNavigationButtons} from "../"
 import { Defaults } from '../../utils';
 
-export default (props : any) => {
-  let currentRouteName = props.navigation.state.routes[props.navigation.state.index].key;
+ const footerTabNavigationView= (props : any) => {
 
   const navigate = (name : string) => {
     if(name === "drawer") return props.navigation.openDrawer();
@@ -30,3 +28,5 @@ export default (props : any) => {
       </SafeAreaView>
   )
 }
+
+export default footerTabNavigationView;

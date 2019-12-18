@@ -12,7 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './src/redux';
 import { Navigation } from './src';
 import { useRoot } from './src/hooks';
-import { Defaults } from './src/utils';
+import { Defaults, Colors } from './src/utils';
 import './src/utils/style';
 import { CustomModal } from './src/components';
 
@@ -24,7 +24,7 @@ const App = () => {
   const root = useRoot();
  
   return useMemo (()=>(
-    <>
+    <View style={{backgroundColor :Colors.primaryBackground, flex:1}}>
       <StatusBar barStyle="dark-content" />
       <Navigation
         onNavigationStateChange={() => {}}
@@ -37,7 +37,7 @@ const App = () => {
       <CustomModal 
         ref={Defaults.modal}
       />
-    </>
+    </View>
   ),[root.appReady, root.locale]);
 };
 
