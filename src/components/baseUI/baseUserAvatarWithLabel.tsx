@@ -5,20 +5,18 @@ import {
     View,
     StyleSheet,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 
 
-import { Colors, Const } from '../../utils';
+import { Colors} from '../../utils';
 
 
-const userAvatarWithLabel = (onPress) => {
+const userAvatarWithLabel = ({onPress} : any) => {
 
     const userDefaultIcon = require('../../../assets/images/icons/green-user.png');
 
-
     return <View style={[styles.container]}>
-
         <View style={styles.imageContainer}>
             <TouchableOpacity onPress={onPress}>
                 <Image source={userDefaultIcon} style={styles.image} />

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 const baseHeader = ({ onPressLeft, title, onPressRight, titleRight} : any) => {
 
-  const { t, i18n } = useTranslation();
+  const { t} = useTranslation();
 
   const renderLeft = () => {
     return onPressLeft && (

@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { View, Dimensions, TouchableOpacity,Animated, PanResponder, Keyboard, Platform, StyleSheet, Easing } from 'react-native';
+import { View,Animated, PanResponder, Keyboard, Platform, StyleSheet, Easing, Alert } from 'react-native';
 
-const screenHeight = Dimensions.get('screen').height;
 
 
 const PopupStatus = ["opened","closed"]
 export default class SwipeGesture extends React.PureComponent {
 
   state={
-    popupStatus : "closed",
     
   }
+  popupStatus = "closed";
+
   sliderRef = React.createRef()
   distance =  parseFloat( this.props.height - this.props.minHeight);
 
@@ -24,16 +24,9 @@ export default class SwipeGesture extends React.PureComponent {
         onPanResponderGrant: (evt, gestureState) => {
 
           console.log('====================================');
-          console.log( JSON.stringify( gestureState), "onPanResponderGrant" );
+          console.log( JSON.stringify( gestureState),this.sliderRef.current,"this.sliderRef.current", "onPanResponderGrant" );
           console.log('====================================');
-
           valueY = gestureState.dy;
-          console.log('====================================');
-          console.log(this.sliderRef.current,"this.sliderRef.current");
-          console.log('====================================');
-          this.sliderRef.current.setNativeProps({
-            opacity : 0.5
-          })
         },
 
 
@@ -53,7 +46,11 @@ export default class SwipeGesture extends React.PureComponent {
             this.props.onSwipePerformed( 'moving', panY )
           }
 
-          this.animatedValue.setValue(this.state.popupStatus === PopupStatus[1] ? this.distance  + panY :  panY>0 ?  panY : 0)
+          this.animatedValue.setValue(this.popupStatus === PopupStatus[1] ? this.distance  + panY :  panY>0 ?  panY : 0)
+
+          this.sliderRef.current.setNativeProps({
+            opacity : 0.5
+          })
 
           return true;
         },
@@ -78,7 +75,7 @@ export default class SwipeGesture extends React.PureComponent {
             if(y > 0){
               if (y >= 40) {
                 status='down'
-                this.state.popupStatus = PopupStatus[1]
+                this.popupStatus = PopupStatus[1]
               } else {
                 status='notEnough'
               }
@@ -86,43 +83,97 @@ export default class SwipeGesture extends React.PureComponent {
             else {
               if (y <= -40) {
                 status='up'
-                this.state.popupStatus = PopupStatus[0]
+                this.popupStatus = PopupStatus[0]
               } else {
                 status='notEnough'
               }
             }
           }
+
           Animated.timing(this.animatedValue, {
-            toValue : this.state.popupStatus === PopupStatus[1] ? this.distance : 0,
+            toValue : this.popupStatus === PopupStatus[1] ? this.distance : 0,
             duration:200,
             easing : Easing.out(Easing.ease)
           }).start()
-          
+
+          if(this.popupStatus === PopupStatus[1]){
+            this.props.onClose()
+            this.props.flatListRef.current.scrollToIndex({index :0, animated: false})
+            Keyboard.dismiss()
+          } 
+          else {
+            this.props.onOpen()
+          }
           this.sliderRef.current.setNativeProps({
             opacity : 1
           })
           return true;
         },
 
-        onStartShouldSetPanResponder: (evt, gestureState) => true,
-        onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onMoveShouldSetPanResponder: (evt, gestureState) => true,
-        onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-        onPanResponderTerminate: (evt, gestureState) => {
+        onStartShouldSetPanResponder: (evt, gestureState) => {
+          console.log('====================================');
+          console.log( evt.nativeEvent, this.props._this.current.scrollPositionStatus, gestureState, "evt, onStartShouldSetPanResponder");
+          console.log('====================================');
+          if( this.popupStatus === "closed" ) return true
+
+          if(evt.nativeEvent.locationX <32  ) return true
+          return  false
         },
+        // onStartShouldSetPanResponderCapture: (evt, gestureState) => {
+        //   console.log('====================================');
+        //   console.log( evt.nativeEvent, this.props._this.current.scrollPositionStatus, gestureState, "evt, onStartShouldSetPanResponderCapture");
+        //   console.log('====================================');
+        //   return this.props._this.current.scrollPositionStatus === 0 ? true : false
+        // },
+        onMoveShouldSetPanResponder: (evt, gestureState) => {
+
+          let dy = gestureState.dy;
+          let scrollYStatus = this.props._this.current.scrollPositionStatus;
+
+
+          console.log('====================================');
+          console.log( evt.nativeEvent,scrollYStatus, gestureState, "evt, onMoveShouldSetPanResponder");
+          console.log('====================================');
+          
+          if( (this.popupStatus === "closed"  && dy < 0) || (scrollYStatus ===0 && dy > 0) ){
+            this.props.flatListRef.current.setNativeProps({
+              onMoveShouldSetPanResponder : true,
+              scrollEnabled : true,
+            })
+            return true
+          }
+
+          if(evt.nativeEvent.locationX <32  ) {
+            console.log('====================================');
+            console.log("Asd");
+            console.log('====================================');
+            return true
+          }
+
+          this.props.flatListRef.current.setNativeProps({
+            onMoveShouldSetPanResponder : true,
+            scrollEnabled : true,
+          })
+
+          return false
+
+        },
+        // onMoveShouldSetPanResponderCapture: (evt, gestureState) => false,
+        onPanResponderTerminate: (evt, gestureState) => false,
         onShouldBlockNativeResponder: (evt, gestureState) => {
-            return true;
+          return false;
         },
+        onResponderTerminationRequest: () => false,
 
       });
   };
 
   toggle = (func) => {
     Animated.timing(this.animatedValue, {
-      toValue : this.state.popupStatus === PopupStatus[1] ? this.distance : 0,
+      toValue : this.popupStatus === PopupStatus[1] ? this.distance : 0,
       duration:200,
       easing : Easing.out(Easing.ease)
-    }).start(func.bind(this, this.state.popupStatus))
+    }).start(() => {func.bind(this, this.popupStatus), Keyboard.dismiss() })
 
   }
   render() {

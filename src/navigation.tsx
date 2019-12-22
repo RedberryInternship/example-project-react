@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import { View, Text, Image, Dimensions, TouchableOpacity,SafeAreaView,KeyboardAvoidingView, Alert} from 'react-native';
+import React from 'react';
+import { View,  Dimensions, SafeAreaView,} from 'react-native';
 import { createAppContainer, createSwitchNavigator} from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-import { Defaults, Colors } from './utils';
+import { Defaults } from './utils';
 
 //screens
-import { Home, Drawer,Auth, Plashka, Charger,ForgotPassword, Registration } from './screens';
+import { Home, Drawer,Auth, Plashka, Charger,ForgotPassword, Registration, SetNewPasswords } from './screens';
 import { TabNavigationButtons } from './components';
 
 const HomeTabNavigation = createBottomTabNavigator({
@@ -66,7 +66,8 @@ export const MainDrawer = createDrawerNavigator(
 const authenticationFlow = createStackNavigator({
   Auth ,
   ForgotPassword,
-  Registration
+  Registration,
+  SetNewPasswords,
 },
 {
   defaultNavigationOptions:{

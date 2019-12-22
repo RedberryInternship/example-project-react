@@ -4,6 +4,7 @@ import {View,TextInput,Text,Image,StyleSheet} from "react-native"
 import { Const, Colors } from "../../../src/utils"
 import {useTranslation} from 'react-i18next';
 
+// eslint-disable-next-line react/display-name
 export default  React.forwardRef( (props : any, ref : any) =>{
 
     const { t, i18n } = useTranslation();

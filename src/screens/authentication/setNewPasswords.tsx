@@ -9,19 +9,20 @@ import {
   Platform,
 } from 'react-native';
 import { Colors } from '../../../src/utils';
-import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput, ReceiveCode } from '../../../src/components';
-import { useForgotPassword } from '../../../src/hooks';
+import { BaseHeader, BaseInput, BaseButton, } from '../../../src/components';
+import { useSetNewPasswords } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {} from "react-navigation"
 
 const forgotPassword = ({navigation} : any) => {
   
-  const hook = useForgotPassword();
-
+  const hook = useSetNewPasswords();
+ 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       <BaseHeader 
-        onPressLeft={navigation.navigate.bind(forgotPassword, "Auth")}
+        onPressLeft={()=> navigation.goBack()}
         title={"authentication.forgotPasswordPage.recoverPassword"}
       />
       <KeyboardAwareScrollView
@@ -33,25 +34,34 @@ const forgotPassword = ({navigation} : any) => {
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
-        // enableResetScrollToCoords={true}
-        // resetScrollToCoords={{x:0,y:0}}
       >
-        <PhoneNumberInput 
-          onChangeText={hook.phoneTextHandler}
-          onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current.phone}
-          onFocus={hook.onFocusPhone}
-          ref={hook.phoneRef}
+        <BaseInput
+          image={require("../../../assets/images/icons/lock.png")}
+          keyboardType={"email-address"}
+          onChangeText={hook.newPasswordTextHandler}
+          onSubmit={hook.newPasswordInputSubmit}
+          value={hook._this.current.newPassword}
+          ref={hook.newPasswordRef}
+          secure={true}
+          testID={"emailInput"}
+          title={"authentication.forgotPasswordPage.newPassword"}
         />
-        <ReceiveCode
-          ref={hook.codeRef}
-          onChangeText={hook.codeTextHandler}
-          onSubmit={hook.codeInputSubmit}
+        <BaseInput
+          image={require("../../../assets/images/icons/lock.png")}
+          keyboardType={"email-address"}
+          onChangeText={hook.repeatPasswordTextHandler}
+          onSubmit={hook.repeatPasswordInputSubmit}
+          value={hook._this.current.repeatPassword}
+          ref={hook.repeatPasswordRef}
+          secure={true}
+          testID={"emailInput"}
+          title={"authentication.forgotPasswordPage.repeatPassword"}
         />
+        
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={()=>{navigation.navigate("SetNewPasswords")}}
+          onPress={()=>{Alert.alert("asdf")}}
           text={"enter"} 
           image={require("../../../assets/images/icons/arrow_right.png")}
           style={{marginTop: 0}}

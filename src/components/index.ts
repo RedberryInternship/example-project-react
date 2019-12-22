@@ -3,7 +3,7 @@ import MapView from "./view/mapView"
 import CollapsibleModal from "./view/collapsibleModal"
 import HomeComponentItems from "./view/homeComponentItems"
 import HomeFilterView from "./view/homeFilterView"
-import HomeMainInput from "./view/homeMainInput"
+import HomeMainInputView from "./view/homeMainInputView"
 import PhoneNumberView from "./view/registration/phoneNumberView"
 import UserInfoView from "./view/registration/userInfoView"
 import PasswordView from "./view/registration/passwordView"
@@ -30,6 +30,7 @@ import BaseButton from "./baseUI/baseButton"
 //UI
 import ReceiveCode from "./UI/receiveCode"
 import RegistrationPagination from "./UI/registrationPagination"
+import HomeMainSearchInput from "./UI/homeMainSearchInput"
 
 
 export {
@@ -43,7 +44,7 @@ export {
     FilterTextItem,
     BaseButton,
     BaseInput,
-    HomeMainInput,
+    HomeMainInputView,
     MainSearchItem,
     BaseHeader,
     PhoneNumberInput,
@@ -53,5 +54,6 @@ export {
     UserInfoView,
     PasswordView,
     CardAddView,
-    CustomModal
+    CustomModal,
+    HomeMainSearchInput
 }

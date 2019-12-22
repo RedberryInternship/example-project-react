@@ -2,22 +2,16 @@ import React from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
-  Text,
-  ActivityIndicator,
   StatusBar,
-  Alert,
-  Image,
   KeyboardAvoidingView,
   Platform,
   FlatList
 } from 'react-native';
-import { Colors, Const } from '../../../src/utils';
-import { BaseHeader, BaseInput, BaseButton, RegistrationPagination, PhoneNumberView, UserInfoView, PasswordView, CardAddView } from '../../../src/components';
+import { Colors } from '../../../src/utils';
+import { BaseHeader,  BaseButton, RegistrationPagination, PhoneNumberView, UserInfoView, PasswordView, CardAddView } from '../../../src/components';
 import { useRegistrationHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const registration = ({navigation} : any) => {
@@ -25,6 +19,25 @@ const registration = ({navigation} : any) => {
   const hook = useRegistrationHook();
   
 
+  const pages = [<PhoneNumberView 
+    _this={hook._this}
+    key={1}
+  />,
+  <UserInfoView 
+    _this={hook._this}
+    key={2}
+
+  />,
+  <PasswordView
+  _this={hook._this}
+  key={3}
+
+  />,
+  <CardAddView
+  _this={hook._this}
+  key={4}
+  />
+]
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
@@ -57,20 +70,7 @@ const registration = ({navigation} : any) => {
           contentContainerStyle={{flexGrow:1, flex:0}}
           ref={hook.flatListRef}
           scrollEnabled={false}
-          data=
-            {[<PhoneNumberView 
-                _this={hook._this}
-              />,
-              <UserInfoView 
-                _this={hook._this}
-              />,
-              <PasswordView
-              _this={hook._this}
-              />,
-              <CardAddView
-              _this={hook._this}
-              />
-          ]}
+          data={pages}
           renderItem={({item})=>item}
         />
           

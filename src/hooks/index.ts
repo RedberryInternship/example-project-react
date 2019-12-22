@@ -6,6 +6,7 @@ import useHomeMainInputHook from "./homeMainInputHook"
 import useAuthHook from "./authentication/authHook"
 import useForgotPassword from "./authentication/forgotPassword"
 import useRegistrationHook from "./authentication/registrationHook"
+import useSetNewPasswords from "./authentication/setNewPasswords"
 
 export {
     useRoot,
@@ -15,5 +16,6 @@ export {
     useHomeMainInputHook,
     useAuthHook,
     useForgotPassword,
-    useRegistrationHook
+    useRegistrationHook,
+    useSetNewPasswords
 }

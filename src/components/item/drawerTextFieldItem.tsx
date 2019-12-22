@@ -11,10 +11,9 @@ import {
     StyleSheet,
     Image,
     View,
-    ImageProps
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { Const, Colors } from '../../../src/utils';
+import {  Colors } from '../../../src/utils';
 
 
 // declare text field type
@@ -28,9 +27,9 @@ type TextField = {
     badge ?: number
 }
 
-const textFieldItem = ({ onPress, text, textProps, image, imageStyle, container, badge }: TextField) => {
+const textFieldItem = ({ onPress, text, image, imageStyle, container, badge }: TextField) => {
 
-    const { t, i18n } = useTranslation();
+    const { t} = useTranslation();
 
     // if badge exist make it apper on item
     const textFieldBadge = badge !== undefined && badge > 0 ?

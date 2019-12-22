@@ -4,11 +4,7 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  Text,
-  ActivityIndicator,
-  StatusBar,
   Alert,
-  FlatList
 } from 'react-native';
 
 // import components
@@ -23,19 +19,20 @@ import { useTranslation } from 'react-i18next';
 
 const drawer = () => {
 
-  const { t, i18n } = useTranslation();
+  const {  i18n } = useTranslation();
 
   const $isUserAuthorized = true;
   let $drawerListFields = null;
   let $drawerContent = null;
 
   if (!$isUserAuthorized) {
-    $drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(Field => {
+    $drawerListFields = Const.DrawerFieldsBeforeAuthorization.map((Field, ind)  => {
       return <DrawerTextField
+        key={ind}
         onPress={() => Alert.alert(Field.route+"field route") }
         text={Field.text}
         image={Field.image}
-        key={Field.route} />;
+        />;
     });
 
     $drawerContent = 
@@ -60,20 +57,20 @@ const drawer = () => {
   }
   else {
 
-    $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(Field => {
+    $drawerListFields = Const.DrawerFieldsAfterAuthorization.map((Field, ind) => {
       return <DrawerTextField
+        key={ind}
         onPress={() => Alert.alert(Field.route+"field route") }
         text={Field.text}
         image={Field.image}
         badge={ Field.route === 'notifications' ? 1 : 0 } />
     })
 
-    $drawerContent = <>
+    $drawerContent = 
       <View>
         <UserAvatarWithLabel onPress={()=>{Alert.alert("change icon")}} />
         {$drawerListFields}
-      </View>
-    </>;
+      </View>;
   }
 
   return (

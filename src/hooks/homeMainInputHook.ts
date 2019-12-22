@@ -1,6 +1,6 @@
-import React, {useEffect, useState,useRef, useCallback} from "react";
-import {AppState, Keyboard, Alert,Animated, Easing } from "react-native"
-import { Defaults, NavigationActions, Const, Ajax } from "../utils";
+import {useEffect, useState,useRef,} from "react";
+import { Keyboard ,Animated, Easing } from "react-native"
+import { Const} from "../utils";
 import {useTranslation} from 'react-i18next';
 
 const searchContentHeight = Const.Height - 350;
@@ -12,7 +12,7 @@ export default ()=> {
 
   const _this : any = useRef({animatedSearchContentHeight : new Animated.Value(0), text : ''})
   
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
 
   const textHandler = (val : string) => {

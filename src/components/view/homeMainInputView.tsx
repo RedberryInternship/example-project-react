@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet,Animated, TouchableWithoutFeedback, View, TouchableOpacity, Image,TextInput ,  Alert} from 'react-native';
 import { useHomeMainInputHook } from '../../hooks';
 import { Const, Colors, Defaults } from '../../utils';
-import { MainSearchItem } from '..';
+import { MainSearchItem, HomeMainSearchInput } from '..';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
 
@@ -26,37 +26,16 @@ const MainInput = () => {
     <TouchableOpacity activeOpacity={1} onPress={hook.closeClick} style={[styles.container, {}]}>
       <>
         <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
-          <TouchableOpacity
-            onPress={() => {hook.setShowSearchContent(!hook.showSearchContent)}}
-            style={ [styles.inputStyle,]}
-            activeOpacity={1}
-          >
-            <Image  source={require("../../../assets/images/icons/icon-search.png")}   style={{width:16, height:16, resizeMode:"contain" ,position:"absolute", left:12 }}/>
-            <View pointerEvents={hook.showSearchContent ? "auto" : "none"} >
-              <TextInput 
-                style={{paddingLeft : 40, marginRight : 32, color : Colors.primaryWhite,}}
-                placeholder={`${hook.t("home.location")}/${hook.t("home.organization")}`}
-                keyboardType={"default"}
-                onChangeText={hook.textHandler}
-                onSubmitEditing={InputSubmit}
-                onFocus={onFocus}
-                placeholderTextColor={Colors.primaryWhite}
-                allowFontScaling={false}
-                ref={hook.InputRef}
-                autoCorrect={false}
-                editable={true}
-                autoCapitalize={"none"}
-                returnKeyType={"go"}
-                testID={"mainInput"}
-                />
-            </View>
-            <TouchableWithoutFeedback
-              onPress={hook.closeClick}
-              hitSlop={{top : 15, bottom : 15, left : 15, right :15}}
-            >
-              <Image  source={require("../../../assets/images/icons/Delete.png")}   style={{width:16, height:16, resizeMode:"contain", position:"absolute", right: 12}}/>
-            </TouchableWithoutFeedback>
-          </TouchableOpacity>
+          <HomeMainSearchInput 
+            setShowSearchContent={hook.setShowSearchContent.bind(MainInput,!hook.showSearchContent)}
+            showSearchContent={hook.showSearchContent}
+            placeholder={`${hook.t("home.location")}/${hook.t("home.organization")}`}
+            textHandler={hook.textHandler}
+            InputSubmit={InputSubmit}
+            onFocus={onFocus}
+            closeClick={hook.closeClick}
+            ref={hook.InputRef}
+          />
           </Animated.View>
           <Animated.View style={[styles.searchContent, {height : hook._this.current.animatedSearchContentHeight,}]}>
           <View style={{display : hook.showSearchContent ?  "flex" : "none", flex:1, marginBottom:16}}>
