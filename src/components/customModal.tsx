@@ -14,8 +14,8 @@ type Cofig ={
 }
 class CustomModal extends React.PureComponent {
   state = {
-    visible :true,
-    type : 2,
+    visible :false,
+    type : 1,
   }
   ref : any =  React.createRef()
 
