@@ -21,6 +21,7 @@ import MainSearchItem from "./item/mainSearchItem"
 import PhoneNumberInput from "./item/phoneNumberInput"
 import LegendItem from "./item/legendItem"
 import LegendColorItem from "./item/legendColorItem"
+import PopupFilter from "./item/popupFilter"
 
 
 //BaseUI
@@ -64,5 +65,6 @@ export {
     RegistrationType1,
     LegendItem,
     LegendType2,
-    LegendColorItem
+    LegendColorItem,
+    PopupFilter
 }

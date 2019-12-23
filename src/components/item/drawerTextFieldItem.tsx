@@ -79,12 +79,13 @@ const styles = StyleSheet.create({
     },
     textField: {
         color: Colors.primaryGreyishWhite,
-        marginLeft: 40
+        marginLeft: 24
     },
     image: {
-        width: 25,
-        height: 25,
-        marginLeft: 36
+        width: 24,
+        height: 24,
+        marginLeft: 24,
+        resizeMode:"contain"
     },
     badgeConatainer: {
         flex: 0,

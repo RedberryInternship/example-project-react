@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { GNOME, Const } from '../../../src/utils';
 import CustomSlideUpModal  from '../customSlideUpModal';
 import { FlatList, TouchableOpacity,TextInput } from 'react-native-gesture-handler';
-import { MainSearchItem, HomeMainSearchInput } from '../';
+import { MainSearchItem, HomeMainSearchInput, PopupFilter } from '../';
 import Colors from '../../../src/utils/colors';
 
 
@@ -119,6 +119,14 @@ const collapsibleModal = forwardRef((props, ref : any) => {
           
           renderItem={({item})=>(
             <>
+              <View style={{flexDirection:"row", flexWrap:"wrap", marginVertical: 16}}>
+                <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+                <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+                <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+                <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+                <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+                <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+              </View>
               <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
               <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
               <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>

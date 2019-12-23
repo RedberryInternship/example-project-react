@@ -80,7 +80,7 @@ const drawerMenuOptionsStack = createStackNavigator({
   Parameters : {screen: Plashka},
 },
 {
-  defaultNavigationOptions:{
+  defaultNavigationOptions: {
     headerShown:false
   }
 })

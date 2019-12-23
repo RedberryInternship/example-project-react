@@ -5,6 +5,8 @@ import {
   ScrollView,
   View,
   Alert,
+  TouchableOpacity,
+  Text
 } from 'react-native';
 
 // import components
@@ -82,11 +84,17 @@ const drawer = () => {
 
         {$drawerContent}
 
-        <BaseLocaleButton
-          onPress={() => { i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka') }}
-          text={i18n.language}
-          style={styles.localeButton} 
-        />
+        <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>  
+          <BaseLocaleButton
+            onPress={() => { i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka') }}
+            text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
+            style={styles.localeButton} 
+          />
+          <TouchableOpacity onPress={() =>{Alert.alert("sdf")}} >
+              <Text style={{marginRight:24, color:"white"}}>Log out</Text>
+          </TouchableOpacity>
+        </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -109,8 +117,8 @@ const styles = StyleSheet.create({
     marginBottom: 60
   },
   localeButton: {
-    marginLeft: 38,
-    marginTop: 40,
+    marginLeft: 24,
+    marginTop: 20,
     marginBottom: 20
   }
 });

@@ -98,10 +98,11 @@ export function  useRoot(){
             if(!appReady)
                 setAppReady(true)
 
-            NavigationActions().navigate("MainDrawer")
+            // NavigationActions().navigate("MainDrawer")
             // NavigationActions().navigate("authenticationFlow")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
+            NavigationActions().navigate("Parameters")
 
             console.log("app ready to boot");
         }

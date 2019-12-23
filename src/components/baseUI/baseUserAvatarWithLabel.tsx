@@ -18,13 +18,16 @@ const userAvatarWithLabel = ({onPress} : any) => {
 
     return <View style={[styles.container]}>
         <View style={styles.imageContainer}>
-            <TouchableOpacity onPress={onPress}>
                 <Image source={userDefaultIcon} style={styles.image} />
-                <View style={styles.editButton}>
+                <TouchableOpacity  
+                    onPress={onPress} 
+                    style={styles.editButton}
+                    hitSlop={{left:10, top:10, bottom:10,right:10}}
+                >
                     <Image
                         source={require('../../../assets/images/icons/blue-pencil.png')}
-                        style={styles.editButtonImage} />
-                </View>
+                        style={styles.editButtonImage}
+                    />
             </TouchableOpacity>
         </View>
 
@@ -57,8 +60,8 @@ const styles = StyleSheet.create({
         marginLeft:"10%"
     },
     image: {
-        width: 50,
-        height: 50,
+        width: 44,
+        height: 44,
         margin: 10
     },
 
@@ -66,30 +69,32 @@ const styles = StyleSheet.create({
     editButton: {
         position: "absolute",
         backgroundColor: Colors.primaryDark,
-        width: 25,
-        height: 25,
+        width: 18,
+        height: 18,
         zIndex: 1,
-        borderRadius: 50,
+        borderRadius: 9,
         borderColor: Colors.primaryBlue,
         borderWidth: 1,
-        right: 0,
+        right: 8,
+        top:-4,
         alignItems: "center",
         justifyContent: "center"
     },
     editButtonImage: {
-        width: "60%",
-        height: "60%",
+        width: 11,
+        height: 11,
         position: "relative",
-        top: -1
+        top: -1,
+        resizeMode:"contain",
     },
 
 
     usernameWrapper: {
-        marginLeft:"8%"
+        marginLeft:24
     },
     username: {
         color: Colors.primaryWhite,
-        fontSize: 20,
+        fontSize: 17,
         fontWeight: "bold"
     }
 });
