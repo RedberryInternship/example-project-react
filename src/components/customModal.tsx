@@ -49,7 +49,7 @@ class CustomModal extends React.PureComponent {
         swipeDirection={['down']}
         useNativeDriver={true}
       >
-        <View style={{ height:Const.Height*0.7, backgroundColor:"#E8EEF1",borderRadius : 10, justifyContent:"space-around", marginHorizontal:16 }}>
+        <View style={{ height:Const.Height*0.7, backgroundColor:"#E8EEF1",borderRadius : 10, justifyContent:"space-between", marginHorizontal:16, paddingVertical:32 }}>
           {this.renderView()}
         </View>
       </Modal>

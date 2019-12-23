@@ -3,17 +3,28 @@ import React from 'react';
 import {Text,  View, TouchableOpacity, Image} from 'react-native';
 import { Colors } from '../../../src/utils';
 import { LegendItem, LegendColorItem } from '../';
+import { useTranslation } from 'react-i18next';
 
 
-const legendTypes = [{text : "asd fasdf", image : require("../../../assets/images/icons/Delete.png")}, {text : "asdas dagre", image : require("../../../assets/images/icons/Frame.png")}]
-const legendColorTypes = [{text : "asd fasdf", color :"red"}, {text : "asdas dagre",  color :"blue"}, {text : "asd fasdf", color :"red"},{text : "asd fasdf", color :"red"},]
+const legendTypes = [
+  {text : "popup.fastNonCommercial", image : require("../../../assets/images/icons/Delete.png")}, 
+  {text : "popup.fastCommercial", image : require("../../../assets/images/icons/Frame.png")},
+  {text : "popup.lvl2NonCommercial", image : require("../../../assets/images/icons/Frame.png")},
+  {text : "popup.lvl2Commercial", image : require("../../../assets/images/icons/Frame.png")},
+]
+const legendColorTypes = [
+  {text : "popup.busy", color :"#FF9500"}, 
+  {text : "popup.notWorking",  color :"#FF3B3B"}, 
+  {text : "popup.free", color :"#3FD560"},
+]
 
 export default ({ onPress} : any) => {
 
+  const {t} = useTranslation()
   return (
       <>
         <View style={{alignItems:"stretch"}}>
-          <Text style={{fontSize:17, lineHeight:22, color: Colors.primaryBackground, marginBottom:32,fontWeight:"bold", alignSelf:"center"}}>მოგესალმებბიტ</Text>
+          <Text style={{fontSize:17, lineHeight:22, color: Colors.primaryBackground, marginBottom:32,fontWeight:"bold", alignSelf:"center"}}>{t("popup.legend")}</Text>
           { legendTypes && legendTypes.map((val, ind)=><LegendItem key={ind} {...val} />) }
           <View style={{marginHorizontal:16, marginVertical:24}}>
             <View style={{borderBottomWidth:1, opacity:0.1, height:0, borderBottomColor:Colors.primaryBackground, width:"100%"}}/>

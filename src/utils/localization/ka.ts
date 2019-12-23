@@ -34,7 +34,6 @@ export default {
       location: "ლოკაცია",
       organization: "ორგანიზაცია"
     },
-
     drawer: {
       tariff: "ტარიფები",
       contact: "კონტაქტი",
@@ -76,6 +75,17 @@ export default {
       repetePassword: "გაიმეორეთ პაროლი",
       
       editCard: "გადახდის მეთოდი"
-    }
+    },
+    popup : {
+      legend : "ლეგენდა",
+      fastNonCommercial : "სწრაფი არასაჯარო",
+      fastCommercial : "სწრაფი საჯარო",
+      lvl2NonCommercial : "ლვლ 2 არასაჯარო",
+      lvl2Commercial : "ლვლ 2 საჯარო",
+      busy : "დაკავებული",
+      notWorking : "არ მუშაობს",
+      free : "თავისუფალი"
+
+    },
   }
 };

@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     elevation:1,
     
-    marginTop : Const.NotchHeight +  (Defaults.token ? 16 : 72) ,
+    marginTop : Defaults.token ? Const.NotchHeight + 16 :Const.NotchHeight + 72 ,
     // zIndex:4444=
   },
   inputStyleContainer : {

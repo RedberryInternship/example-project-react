@@ -19,14 +19,14 @@ import {
 } from '../components';
 
 // import utils
-import { Const, Colors, NavigationActions } from '../utils';
+import { Const, Colors, NavigationActions, Defaults } from '../utils';
 import { useTranslation } from 'react-i18next';
 
 const drawer = ({ navigation } : any) => {
 
   const {  i18n } = useTranslation();
 
-  const $isUserAuthorized = true;
+  const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true;
   let $drawerListFields = null;
   let $drawerContent = null;
 
@@ -51,19 +51,16 @@ const drawer = ({ navigation } : any) => {
           {$drawerListFields}
         </View>
 
-        <View style={{ flex: 0 }}>
-          <DrawerTextFieldItem
-            onPress={() => {Alert.alert("asfas")}}
-            text={'drawer.terms_and_conditions'}
-            image={require("../../assets/images/icons/green-tick.png")} />
-  
+        <View style={{ flex: 0, justifyContent:"flex-end" }}>
+          
         </View>
       </>;
   }
   else {
 
-    $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(Field => {
+    $drawerListFields = Const.DrawerFieldsAfterAuthorization.map((Field,key) => {
       return <DrawerTextFieldItem
+        key={key} 
         onPress={() => navigation.navigate(Field.route) }
         text={Field.text}
         image={Field.image}
@@ -85,18 +82,25 @@ const drawer = ({ navigation } : any) => {
         contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
 
         {$drawerContent}
-
-        <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center"}}>  
-          <BaseLocaleButton
-            onPress={() => { i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka') }}
-            text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
-            style={styles.localeButton} 
-          />
-          <TouchableOpacity onPress={() =>{Alert.alert("sdf")}} >
-              <Text style={{marginRight:24, color:"white"}}>Log out</Text>
-          </TouchableOpacity>
+        <View>
+          {
+            !$isUserAuthorized && <DrawerTextFieldItem
+                    onPress={() => {Alert.alert("asfas")}}
+                    text={'drawer.terms_and_conditions'}
+                    image={require("../../assets/images/icons/green-tick.png")} />
+          
+          }
+          <View style={{flexDirection:"row", justifyContent:"space-between", alignItems:"center", marginTop:16}}>  
+            <BaseLocaleButton
+              onPress={() => { i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka') }}
+              text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
+              style={styles.localeButton} 
+            />
+            <TouchableOpacity onPress={() =>{Alert.alert("sdf")}} >
+                <Text style={{marginRight:24, color:"white"}}>Log out</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        
       </ScrollView>
     </SafeAreaView>
   );

@@ -30,7 +30,7 @@ export function  useRoot(){
 
     useEffect(() => {
 
-        // setItem("token");
+        setItem("token");
         readUserToken();
         readUserLocale()
         // AsyncStorage.clear()

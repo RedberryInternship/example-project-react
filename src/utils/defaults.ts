@@ -6,7 +6,7 @@ interface Dropdown {
 class Defaults {
     _dropdown! : Dropdown;
     _FCMToken! : string | null;
-    _token : null | string= '';
+    _token : null | string = '';
     _activeRoute! :string;
     _locale : null | string = '';
     _location : null | Object = null;

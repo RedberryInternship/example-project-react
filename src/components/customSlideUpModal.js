@@ -93,7 +93,8 @@ export default class SwipeGesture extends React.PureComponent {
           Animated.timing(this.animatedValue, {
             toValue : this.popupStatus === PopupStatus[1] ? this.distance : 0,
             duration:200,
-            easing : Easing.out(Easing.ease)
+            easing : Easing.out(Easing.ease),
+            useNativeDriver:true
           }).start()
 
           if(this.popupStatus === PopupStatus[1]){
@@ -172,7 +173,8 @@ export default class SwipeGesture extends React.PureComponent {
     Animated.timing(this.animatedValue, {
       toValue : this.popupStatus === PopupStatus[1] ? this.distance : 0,
       duration:200,
-      easing : Easing.out(Easing.ease)
+      easing : Easing.out(Easing.ease),
+      useNativeDriver:true
     }).start(() => {func.bind(this, this.popupStatus), Keyboard.dismiss() })
 
   }

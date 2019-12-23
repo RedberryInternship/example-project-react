@@ -63,9 +63,10 @@ const collapsibleModal = forwardRef((props, ref : any) => {
       </Text>
     </View>
   )
+
   return (
     <CustomSlideUpModal 
-      height={screenHeight- 200}
+      height={screenHeight- 145}
       minHeight={55}
       onSwipePerformed={(status: string, y : any) => {
       }}
@@ -124,7 +125,7 @@ const collapsibleModal = forwardRef((props, ref : any) => {
           showsVerticalScrollIndicator={false}
           renderItem={({item})=>(
             <>
-              <View style={{flexDirection:"row", flexWrap:"wrap", marginVertical: 16}}>
+              <View style={{flexDirection:"row", flexWrap:"wrap", marginVertical: 16, justifyContent:"center",alignItems:"center"}}>
                 <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
                 <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
                 <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
@@ -164,7 +165,8 @@ const styles = StyleSheet.create({
   },
   headerComponent : {
     justifyContent:"center",
-    alignItems:"center"
+    alignItems:"center",
+    marginBottom: 32,
   },
   headerComponentText : {
     flex: 0,
@@ -189,7 +191,7 @@ const styles = StyleSheet.create({
     position:"relative",
     paddingBottom:4,
     marginHorizontal:16,
-    marginTop: 32,
+    
   },
   searchContent : {
     width:  Const.Width - 48, 

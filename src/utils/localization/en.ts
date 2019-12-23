@@ -78,6 +78,16 @@ export default {
 
       editCard: "Payment Method",
 
-    }
+    },
+    popup : {
+      legend : "Legend",
+      fastNonCommercial : "Fast non commercial",
+      fastCommercial : "Fast non commercial",
+      lvl2NonCommercial : "Lvl 2 non commercial",
+      lvl2Commercial : "Lvl 2  commercial",
+      busy : "Busy",
+      notWorking : "Not working",
+      free : "Free"
+    },
   }
 };
