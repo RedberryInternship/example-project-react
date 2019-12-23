@@ -98,7 +98,7 @@ export default class SwipeGesture extends React.PureComponent {
 
           if(this.popupStatus === PopupStatus[1]){
             this.props.onClose()
-            this.props.flatListRef.current.scrollToIndex({index :0, animated: false})
+            // this.props.flatListRef.current.scrollToIndex({index :0, animated: false})
             Keyboard.dismiss()
           } 
           else {
@@ -117,7 +117,7 @@ export default class SwipeGesture extends React.PureComponent {
           if( this.popupStatus === "closed" ) return true
 
           // if(evt.nativeEvent.locationX <32  ) return true
-          return  false
+          return  true
         },
         // onStartShouldSetPanResponderCapture: (evt, gestureState) => {
         //   console.log('====================================');
@@ -127,33 +127,33 @@ export default class SwipeGesture extends React.PureComponent {
         // },
         onMoveShouldSetPanResponder: (evt, gestureState) => {
 
-          let dy = gestureState.dy;
-          let scrollYStatus = this.props._this.current.scrollPositionStatus;
+          // let dy = gestureState.dy;
+          // let scrollYStatus = this.props._this.current.scrollPositionStatus;
 
 
-          console.log('====================================');
-          console.log( evt.nativeEvent,scrollYStatus, gestureState, "evt, onMoveShouldSetPanResponder");
-          console.log('====================================');
+          // console.log('====================================');
+          // console.log( evt.nativeEvent,scrollYStatus, gestureState, "evt, onMoveShouldSetPanResponder");
+          // console.log('====================================');
           
-          if( (this.popupStatus === "closed"  && dy < 0) || (scrollYStatus ===0 && dy > 0) ){
-            this.props.flatListRef.current.setNativeProps({
-              onMoveShouldSetPanResponder : true,
-              scrollEnabled : true,
-            })
-            return true
-          }
+          // if( (this.popupStatus === "closed"  && dy < 0) || (scrollYStatus ===0 && dy > 0) ){
+          //   this.props.flatListRef.current.setNativeProps({
+          //     onMoveShouldSetPanResponder : true,
+          //     scrollEnabled : true,
+          //   })
+          //   return true
+          // }
 
-          if(evt.nativeEvent.locationX <32  ) {
-            console.log('====================================');
-            console.log("Asd");
-            console.log('====================================');
-            return true
-          }
+          // if(evt.nativeEvent.locationX <32  ) {
+          //   console.log('====================================');
+          //   console.log("Asd");
+          //   console.log('====================================');
+          //   return true
+          // }
 
-          this.props.flatListRef.current.setNativeProps({
-            onMoveShouldSetPanResponder : true,
-            scrollEnabled : true,
-          })
+          // this.props.flatListRef.current.setNativeProps({
+          //   onMoveShouldSetPanResponder : true,
+          //   scrollEnabled : true,
+          // })
 
           return false
 
@@ -219,7 +219,7 @@ const styles= new StyleSheet.create({
     bottom:0,
     left:0,
     paddingHorizontal:8,
-    elevation:1
+    elevation:1,
   },
   mainContainer : {
     backgroundColor:"#023D63",

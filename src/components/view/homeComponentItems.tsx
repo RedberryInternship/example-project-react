@@ -12,7 +12,7 @@ const App = ({navigation} :any) => {
       <>
         <OnMapRoundButton  
           style={{right:24, bottom: 138, backgroundColor:"#FFFFFF"}} 
-          onPress={()=>{Alert.alert("asdf")}} 
+          onPress={Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
           imageStyle={{width:30,height:30}}
         />

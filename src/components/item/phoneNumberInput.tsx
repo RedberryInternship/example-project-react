@@ -25,18 +25,19 @@ const styles = StyleSheet.create({
 });
 
 // eslint-disable-next-line react/display-name
-const phoneNumberInput = React.forwardRef( ({phoneTextHandler, phoneInputSubmit, text, onFocus} : any, ref : any) => {
+const phoneNumberInput = React.forwardRef( ({phoneTextHandler, phoneInputSubmit, text,onBlur, onFocus} : any, ref : any) => {
   const [animation] = useState(new Animated.Value(0))
 
-  const _onFocus = (e : any) =>{
+  const _onChange = (e : any, show = true) =>{
     
-    onFocus && onFocus(e);
+    show ? onFocus && onFocus(e) : onBlur && onBlur(e);
 
     Animated.timing(animation, {
-      toValue:1,
+      toValue: show ? 1 : 0,
       duration:500,
     }).start()
   }
+
   return (
     <View style={{flex:0, position:"relative"}}>
       <Animated.Image source={require("../../../assets/images/icons/phone.png")}  style={{width: 24,flex:-1, height: 24,position: 'absolute',left: 13,bottom: 30,zIndex:22,alignSelf:"center", opacity:  animation.interpolate({inputRange:[0,1],outputRange : [1,0] }) }} resizeMode="contain"/>
@@ -46,7 +47,8 @@ const phoneNumberInput = React.forwardRef( ({phoneTextHandler, phoneInputSubmit,
         onChangeText={phoneTextHandler}
         onSubmit={phoneInputSubmit}
         value={text}
-        onFocus={_onFocus}
+        onFocus={_onChange}
+        onBlur={(e : any) =>_onChange(e, false)}
         ref={ref}
         testID={"loginPhone"}
         title={"authentication.number"}

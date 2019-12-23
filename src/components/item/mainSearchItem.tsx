@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
 const mainSearchItem = ({mainTitle,text, onPress} : any) => {
 
   return (
-      <TouchableWithoutFeedback
-        style={[styles.container]}
+      <TouchableOpacity
+        // style={[styles.container]}
         onPress={onPress}
         
       >
@@ -31,7 +31,7 @@ const mainSearchItem = ({mainTitle,text, onPress} : any) => {
             <Text numberOfLines={1} style={{fontSize:13,color : Colors.primaryGray, lineHeight : 22}}>{text}</Text>
           </View>
           </View>
-      </TouchableWithoutFeedback>
+      </TouchableOpacity>
   );
 };
 

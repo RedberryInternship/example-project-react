@@ -9,6 +9,7 @@ import CustomSlideUpModal  from '../customSlideUpModal';
 import { FlatList, TouchableOpacity,TextInput } from 'react-native-gesture-handler';
 import { MainSearchItem, HomeMainSearchInput, PopupFilter } from '../';
 import Colors from '../../../src/utils/colors';
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 
 
 const screenHeight = Dimensions.get('screen').height;
@@ -69,16 +70,16 @@ const collapsibleModal = forwardRef((props, ref : any) => {
       onSwipePerformed={(status: string, y : any) => {
       }}
       flatListRef={flatListRef}
-      onClose={() =>{InputRef.current.blur(),Keyboard.dismiss(); closeClick();  }}
+      onClose={() =>{ closeClick();  }}
       onOpen={()=>{}}
       _this={_this}
     >
-      <View style={{marginHorizontal:24,}}>
+      <View style={{marginHorizontal:24,flex:0,maxHeight:"100%"}}>
         {renderHeaderComponent()}
         <View style={ [styles.inputStyle, { borderBottomWidth:1, borderBottomColor: Colors.primaryBackground}]} >
           <Image  source={require("../../../assets/images/icons/icon-search.png")}   style={{width:16, height:16, resizeMode:"contain" ,position:"absolute"}}/>
             <TextInput
-              style={{paddingLeft : 40, marginRight : 32, color : Colors.primaryWhite,height:40}}
+              style={{paddingLeft : 32, marginRight : 32, color : Colors.primaryWhite,height:40}}
               placeholder={`${t("home.location")}/${t("home.organization")}`}
               keyboardType={"default"}
               onChangeText={textHandler}
@@ -101,22 +102,26 @@ const collapsibleModal = forwardRef((props, ref : any) => {
             <Image  source={require("../../../assets/images/icons/Delete.png")}   style={{width:16, height:16, resizeMode:"contain", position:"absolute", right: 0}}/>
           </TouchableWithoutFeedback>
         </View>
-        <FlatList 
+        <KeyboardAwareFlatList 
           data={[""]}
-          contentContainerStyle={{}}
+          viewIsInsideTabBar
+          keyboardShouldPersistTaps={"handled"}
+          enableOnAndroid={true}
+          enableAutomaticScroll={true}
+          extraScrollHeight={0}
+          enableResetScrollToCoords={true}
+          resetScrollToCoords={{x:0,y:0}}
           ref={flatListRef}
           // bounces={false}
-          onScroll={(event)=> {
-            if(event.nativeEvent.contentOffset.y > 0)
-              _this.current.scrollPositionStatus = ScrollPositionStatus.onScroll; 
-            else 
-              _this.current.scrollPositionStatus = ScrollPositionStatus.top; 
+          // onScroll={(event)=> {
+          //   if(event.nativeEvent.contentOffset.y > 0)
+          //     _this.current.scrollPositionStatus = ScrollPositionStatus.onScroll; 
+          //   else 
+          //     _this.current.scrollPositionStatus = ScrollPositionStatus.top; 
 
-            console.log(_this.current.scrollPositionStatus, event.nativeEvent.contentOffset.y);
-          }}
+          //   console.log(_this.current.scrollPositionStatus, event.nativeEvent.contentOffset.y);
+          // }}
           showsVerticalScrollIndicator={false}
-          onResponderTerminationRequest={(event)=>{return true}}
-          
           renderItem={({item})=>(
             <>
               <View style={{flexDirection:"row", flexWrap:"wrap", marginVertical: 16}}>
@@ -127,6 +132,8 @@ const collapsibleModal = forwardRef((props, ref : any) => {
                 <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
                 <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
               </View>
+              <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
+              <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
               <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
               <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
               <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
