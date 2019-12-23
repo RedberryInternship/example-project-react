@@ -19,6 +19,8 @@ import OnMapRoundButton from "./item/onMapRoundButton"
 import FilterTextItem from "./item/filterTextItem"
 import MainSearchItem from "./item/mainSearchItem"
 import PhoneNumberInput from "./item/phoneNumberInput"
+import LegendItem from "./item/legendItem"
+import LegendColorItem from "./item/legendColorItem"
 
 
 //BaseUI
@@ -32,6 +34,9 @@ import ReceiveCode from "./UI/receiveCode"
 import RegistrationPagination from "./UI/registrationPagination"
 import HomeMainSearchInput from "./UI/homeMainSearchInput"
 
+// modalTypes
+import RegistrationType1 from "./modalTypes/registrationType1"
+import LegendType2 from "./modalTypes/legendType2"
 
 export {
     MapView,
@@ -55,5 +60,9 @@ export {
     PasswordView,
     CardAddView,
     CustomModal,
-    HomeMainSearchInput
+    HomeMainSearchInput,
+    RegistrationType1,
+    LegendItem,
+    LegendType2,
+    LegendColorItem
 }

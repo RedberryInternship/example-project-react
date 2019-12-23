@@ -1,13 +1,17 @@
 
 
 import React from "react";
-import {View,Text, Image} from "react-native"
+import {View} from "react-native"
 import Modal from "react-native-modal";
 
-import { Const, Colors} from "../utils"
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { Const} from "../utils"
 
+import {RegistrationType1, LegendType2} from "./" 
 
+type Cofig ={
+  type : number,
+
+}
 class CustomModal extends React.PureComponent {
   state = {
     visible :false,
@@ -30,6 +34,11 @@ class CustomModal extends React.PureComponent {
     })
   }
 
+  customUpdate= ( visible : Boolean, config : Cofig) =>{
+    this.setState({visible,...config})
+  }
+
+  
   render(){
 
     return(
@@ -40,29 +49,27 @@ class CustomModal extends React.PureComponent {
         swipeDirection={['down']}
         useNativeDriver={true}
       >
-        <View style={{ height:Const.Height*0.7, backgroundColor:"#E8EEF1",borderRadius : 10, justifyContent:"space-around" }}>
-
-          <View style={{alignItems:"center"}}>
-            <Image  source={require("../../assets/images/icons/user.png")} style={{width:28, height:28, resizeMode:"contain", marginVertical : 8, tintColor: Colors.primaryBlue}}/>
-            <Text style={{fontSize:17, lineHeight:22, color: Colors.primaryDark}}>მოგესალმებბიტ</Text>
-            <Text style={{fontSize:13, lineHeight:22, color: "#436880", marginVertical:8}}>saxel gvari</Text>
-          </View>
-          <View style={{alignItems:"center"}}>
-            <Text style={{fontSize:13, lineHeight:22, color: "#436880", marginVertical:8, paddingHorizontal:32}}>saxel gasf asdf as df as df asdf vari</Text>
-
-          </View>
-            <View style={{alignItems:"center"}}>
-              <TouchableOpacity
-                style={{borderRadius:25, width:50, height:50, backgroundColor:"#0199F011", alignSelf:"center", justifyContent:"center"}}
-                onPress={this.closeModal}
-              >
-                <Image  source={require("../../assets/images/icons/close.png")} style={{width:28, height:28, resizeMode:"contain",alignSelf:"center", tintColor: Colors.primaryBlue}}/>
-              </TouchableOpacity>
-            </View>
-          
+        <View style={{ height:Const.Height*0.7, backgroundColor:"#E8EEF1",borderRadius : 10, justifyContent:"space-around", marginHorizontal:16 }}>
+          {this.renderView()}
         </View>
       </Modal>
     )
+  }
+
+  renderView= () =>{
+    switch (this.state.type) {
+      case 1:
+        return <RegistrationType1 
+            onPress={this.closeModal}
+          />
+      case 2:
+        return <LegendType2 
+            onPress={this.closeModal}
+
+          />
+      default:
+        break;
+    }
   }
 }
 
