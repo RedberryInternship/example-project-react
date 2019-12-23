@@ -116,7 +116,7 @@ export default class SwipeGesture extends React.PureComponent {
           console.log('====================================');
           if( this.popupStatus === "closed" ) return true
 
-          if(evt.nativeEvent.locationX <32  ) return true
+          // if(evt.nativeEvent.locationX <32  ) return true
           return  false
         },
         // onStartShouldSetPanResponderCapture: (evt, gestureState) => {

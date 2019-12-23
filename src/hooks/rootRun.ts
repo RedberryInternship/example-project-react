@@ -102,7 +102,8 @@ export function  useRoot(){
             // NavigationActions().navigate("authenticationFlow")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
-            NavigationActions().navigate("Parameters")
+            NavigationActions().navigate("Settings");
+            // NavigationActions().navigate("ProfileChange");
 
             console.log("app ready to boot");
         }

@@ -6,13 +6,18 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
+    GestureResponderEvent
 } from 'react-native';
 
 
 import { Colors} from '../../utils';
 
+type AvatarWithLabel = {
+    onPress: ( event ?: GestureResponderEvent ) => void | undefined,
+}
 
-const userAvatarWithLabel = ({onPress} : any) => {
+
+const userAvatarWithLabel = ({ onPress } : AvatarWithLabel) => {
 
     const userDefaultIcon = require('../../../assets/images/icons/green-user.png');
 

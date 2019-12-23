@@ -6,6 +6,8 @@ import Auth from "./authentication/auth"
 import ForgotPassword from "./authentication/forgotPassword"
 import Registration from "./authentication/registration"
 import SetNewPasswords from "./authentication/setNewPasswords"
+import Settings from "./drawerMenuOptions/settings";
+import ProfileChange from './drawerMenuOptions/profileChange';
 
 export {
     Home,
@@ -15,5 +17,7 @@ export {
     Drawer,
     ForgotPassword,
     Registration,
-    SetNewPasswords
+    SetNewPasswords,
+    Settings,
+    ProfileChange
 }
