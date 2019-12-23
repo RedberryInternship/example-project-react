@@ -26,11 +26,13 @@ const styles = StyleSheet.create({
 });
 
 const phoneNumberInput = React.forwardRef( ({phoneTextHandler, phoneInputSubmit, text, onFocus} : any, ref : any) => {
+ 
   const [animation, setAnimation] = useState(new Animated.Value(0))
 
-
   const _onFocus = (e : any) =>{
-    onFocus && onFocus(e)
+    
+    onFocus && onFocus(e);
+
     Animated.timing(animation, {
       toValue:1,
       duration:500,

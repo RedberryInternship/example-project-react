@@ -59,36 +59,36 @@ export const SettingsListFields = [
         image:require('../../assets/images/icons/blue-user.png'),
         name: "settings.firstname",
         type:"FirstnameChange",
-        editableComponentName: "settings.editFirstname.editFirstname"
+        editableComponentName: "settings.editFirstname"
     },
     {
         image:require('../../assets/images/icons/blue-user.png'),
         name: "settings.lastname",
         type: "LastnameChange",
-        editableComponentName: "settings.editLastname.editLastname"
+        editableComponentName: "settings.editLastname"
     },
     {
         image:require('../../assets/images/icons/mail.png'),
         name: "settings.mail",
         type: "MailChange",
-        editableComponentName: "settings.editMail.editMail"
+        editableComponentName: "settings.editMail"
     },
     {
         image:require('../../assets/images/icons/phone.png'),
         name: "settings.phone",
         type: "PhoneChange",
-        editableComponentName: "settings.editPhoneNumber.editPhoneNumber"
+        editableComponentName: "settings.editPhoneNumber"
     },
     {
         image:require('../../assets/images/icons/credit-card.png'),
         name: "settings.cards",
         type: "CardChange",
-        editableComponentName: "settings.editCard.editCard"
+        editableComponentName: "settings.editCard"
     },
     {
         image:require('../../assets/images/icons/lock.png'),
         name: "settings.password",
         type: "PasswordChange",
-        editableComponentName: "settings.editPassword.editPassword"
+        editableComponentName: "settings.editPassword"
     }
 ];

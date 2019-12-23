@@ -58,15 +58,23 @@ export default {
       notconfirmed: "არ არის დადასტურებული",
 
       
-      editFirstname: {
-        editFirstname: "სახელის შეცვლა",
-        firstname: "სახელი"
-      },
+      editFirstname: "სახელის შეცვლა",
+      newFirstname: "ახალი სახელი",
 
       editLastname: "გვარის შეცვლა",
+      newLastname: "ახალი გვარი",
+
       editPhoneNumber: "ნომრის შეცვლა",
+      phoneNumber: "ნომერი",
+      
       editMail: "ელ-ფოსტის შეცვლა",
+      newMail: "ახალი ელ-ფოსტა",
+
       editPassword: "პაროლის შეცვლა",
+      currentPassword: "ახლანდელი პაროლი",
+      newPassword: "ახალი პაროლი",
+      repetePassword: "გაიმეორეთ პაროლი",
+      
       editCard: "გადახდის მეთოდი"
     }
   }

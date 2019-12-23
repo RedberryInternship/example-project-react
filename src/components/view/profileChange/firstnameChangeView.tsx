@@ -1,50 +1,49 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 
 import {
-    Text, 
     View, 
     Alert,
-    StyleSheet,
-    TextInput
+    StyleSheet
 } from 'react-native';
 
 
 // components
 import { BaseInput } from '../..';
 
-// translation
-import { useTranslation } from 'react-i18next';
+
+const firstnameChangeView = ({ clicked, navigation }:any) => {
 
 
-const firstnameChangeView = () => {
-
-
-    const { t, i18n } = useTranslation();
     const [name, setName] = useState("");
 
-    const inputRef:any = useRef(null);
-
     useEffect(() => {
-        // inputRef.current.focus();
+        
+        if(clicked === true){
+            updateUserFirstname(name, navigation);
+        }
     });
 
 
     return (
         <View style={styles.container}>
             <BaseInput
-                title={"settings.editFirstname.firstname"}
+                title={"settings.newFirstname"}
                 image={require("../../../../assets/images/icons/blue-user.png")}
                 onChangeText={(text: string) => setName(text)}
-                onSubmitEditing={ () => updateUserFirstname(name) }
-                ref={inputRef}
+                onSubmitEditing={ () => {
+                    updateUserFirstname(name, navigation);
+                    
+                } }
             />
         </View>
     );
 }
 
 
-const updateUserFirstname = ( firstname : any ) => {
-    Alert.alert("Firstname Updated!");
+const updateUserFirstname = ( firstname : any, navigation : any) => {
+    Alert.alert("Firstname Updated!", "", [
+        {text:"OK", onPress: () => { navigation.goBack();  } }
+    ]);
 }
 
 export default firstnameChangeView;

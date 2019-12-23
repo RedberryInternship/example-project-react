@@ -59,15 +59,25 @@ export default {
       confirmed: "Confirmed",
       notconfirmed: "Not Confirmed",
 
-      editFirstname: {
-        editFirstname: "Edit First Name",
-        firstname: "First Name"
-      },
-      editLastname: "Edit Last Name",
+      editFirstname: "Edit First Name",
+      newFirstname: "New First Name",
+      
+      editLasttname: "Edit Last Name",
+      newLastName: "New Last Name",
+
       editPhoneNumber: "Edit Phone Number",
+      phoneNumber: "Number",
+      
       editMail: "Edit E-Mail",
+      newMail: "New E-Mail",
+
       editPassword: "Edit Password",
-      editCard: "Payment Method"
+      currentPassword: "Current Password",
+      newPassword: "New Password",
+      repetePassword: "Repete Password",
+
+      editCard: "Payment Method",
+
     }
   }
 };
