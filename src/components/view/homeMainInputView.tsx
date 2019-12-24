@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,Animated, TouchableWithoutFeedback, View, TouchableOpacity, Image,TextInput ,  Alert} from 'react-native';
+import { StyleSheet,Animated, View, TouchableOpacity,  Alert, Platform} from 'react-native';
 import { useHomeMainInputHook } from '../../hooks';
 import { Const, Colors, Defaults } from '../../utils';
 import { MainSearchItem, HomeMainSearchInput } from '..';
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     elevation:1,
     
-    marginTop : Defaults.token ? Const.NotchHeight + 16 :Const.NotchHeight + 72 ,
+    marginTop : Defaults.token ? Platform.OS ==="ios"? Const.NotchHeight + 16  : 16 : Const.NotchHeight + 72 ,
     // zIndex:4444=
   },
   inputStyleContainer : {

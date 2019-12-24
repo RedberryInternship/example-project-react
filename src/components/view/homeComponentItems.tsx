@@ -17,9 +17,9 @@ const App = ({navigation} :any) => {
           imageStyle={{width:30,height:30}}
         />
         {
-          Defaults.token ?
-            null
-          :
+          // Defaults.token ?
+          //   null
+          // :
           <BaseButton 
             image={require("../../../assets/images/icons/user.png")}
             onPress={navigation.navigate.bind(App, "Auth")}
