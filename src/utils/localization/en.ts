@@ -77,6 +77,7 @@ export default {
       repetePassword: "Repete Password",
 
       editCard: "Payment Method",
+      addCard: "Add Card"
 
     },
     popup : {

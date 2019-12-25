@@ -1,8 +1,7 @@
-import React, {useEffect, useState,useRef, useCallback} from "react";
-import {AppState, Keyboard, Alert, } from "react-native"
+import  {useEffect, useState,useRef} from "react";
 import { useAppState } from 'react-native-hooks';
 import {useNetInfo} from "@react-native-community/netinfo";
-import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
+import {useAsyncStorage} from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 
@@ -22,7 +21,6 @@ export function  useRoot(){
     const [appReady, setAppReady] = useState(false);
     const [navigationState, setNavigationState] = useState(false);
 
-    const ref = useRef(null)
 
     Defaults.modal = useRef(null);
 
@@ -98,11 +96,11 @@ export function  useRoot(){
             if(!appReady)
                 setAppReady(true)
 
-            NavigationActions().navigate("MainDrawer")
+            // NavigationActions().navigate("MainDrawer")
             // NavigationActions().navigate("authenticationFlow")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
-            // NavigationActions().navigate("Settings");
+            NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
 
             console.log("app ready to boot");

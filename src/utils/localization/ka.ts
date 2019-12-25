@@ -74,7 +74,8 @@ export default {
       newPassword: "ახალი პაროლი",
       repetePassword: "გაიმეორეთ პაროლი",
       
-      editCard: "გადახდის მეთოდი"
+      editCard: "გადახდის მეთოდი",
+      addCard: "დაამატე ბარათი"
     },
     popup : {
       legend : "ლეგენდა",
