@@ -29,10 +29,10 @@ export function  useRoot(){
 
     useEffect(() => {
 
-        // setItem("token");
+        setItem("token");
         readUserToken();
         readUserLocale()
-        AsyncStorage.clear()
+        // AsyncStorage.clear()
         onReady()
         console.log("remounted", appReady , " appReady");
         
@@ -57,7 +57,7 @@ export function  useRoot(){
 
     const readUserToken = async () => {
         let _token = await getItem();
-        Defaults.token= _token;
+        Defaults.token = _token;
         setToken(_token)
     }
 
@@ -104,9 +104,11 @@ export function  useRoot(){
             // NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
 
-            console.log("app ready to boot");
         }
         else setAppReady(false)
+
+        console.log(Defaults.token, "App ready to boot");
+
     }
     return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t}
 }
