@@ -5,7 +5,7 @@ import React, {useRef, forwardRef, useState} from 'react';
 import {StyleSheet,  View,Dimensions, Text, Alert, Image, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { GNOME, Const } from '../../../src/utils';
-import CustomSlideUpModal  from '../customSlideUpModal';
+import CustomSlideUpModal  from '../library/customSlideUpModal';
 import { FlatList, TouchableOpacity,TextInput } from 'react-native-gesture-handler';
 import { MainSearchItem, HomeMainSearchInput, PopupFilter } from '../';
 import Colors from '../../../src/utils/colors';

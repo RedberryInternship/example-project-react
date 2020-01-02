@@ -1,12 +1,6 @@
-import React, {useEffect, useState,useRef, useCallback} from "react";
-import {AppState, Keyboard, Alert, Animated} from "react-native"
-import { useAppState } from 'react-native-hooks';
-import {useNetInfo} from "@react-native-community/netinfo";
-import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
-import { Defaults, NavigationActions } from "../../utils";
+import {useEffect, useState,useRef, useCallback} from "react";
+import { Alert, } from "react-native"
 import {useTranslation} from 'react-i18next';
-import RNLocation, {Location} from 'react-native-location';
-import useLocation from "../locationHook";
 
 
 export default () => {
@@ -16,7 +10,7 @@ export default () => {
   const phoneRef : any = useRef(null);
   const passwordRef : any = useRef(null);
 
-  const { t, i18n } = useTranslation();
+  const { t} = useTranslation();
 
   const _this : any = useRef({password:"", phone : ''})
 

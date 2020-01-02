@@ -20,7 +20,6 @@ const forgotPassword = ({navigation} : any) => {
  
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
       <BaseHeader 
         onPressLeft={()=> navigation.goBack()}
         title={"authentication.forgotPasswordPage.recoverPassword"}

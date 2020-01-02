@@ -13,30 +13,41 @@ import {
   Drawer,
   Auth,
   Plashka,
-  Charger,
+  ChargerWithCode,
   ForgotPassword,
   Registration,
   Settings,
-  ProfileChange
+  ProfileChange,
+  ChargerDetail,
+  NotAuthorized,
+  ChooseChargeMethod,
+  Charging
 } from './screens';
 import { TabNavigationButtons } from './components';
 
+
+
+const chargerStack = createStackNavigator({
+  ChargerWithCode,
+  ChargerDetail,
+  NotAuthorized,
+  ChooseChargeMethod,
+  Charging
+},
+{
+  defaultNavigationOptions: {
+    headerShown: false
+  }
+})
+
+
 const HomeTabNavigation = createBottomTabNavigator({
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      title: '',
-    }
-  },
-  Charger: {
-    screen: Charger,
-    navigationOptions: {
-      title: '',
-    }
-  },
+  Home,
+  chargerStack
 },
   {
-    tabBarComponent: props => <FooterTabNavigator {...props} />,
+    // eslint-disable-next-line react/display-name
+    tabBarComponent:( props :any ) => <FooterTabNavigator {...props} />,
 
     initialRouteName: "Home",
     tabBarOptions: {
@@ -73,7 +84,7 @@ export const MainDrawer = createDrawerNavigator(
   },
 )
 
-const authenticationFlow = createStackNavigator({
+const authenticationStack = createStackNavigator({
   Auth,
   ForgotPassword,
   Registration,
@@ -82,12 +93,12 @@ const authenticationFlow = createStackNavigator({
     defaultNavigationOptions: {
       headerShown: false
     }
-  })
+})
 
 
 const drawerMenuOptionsStack = createStackNavigator({
-  Settings: { screen: Settings },
-  ProfileChange: { screen: ProfileChange }
+  Settings,
+  ProfileChange
 },
 {
   defaultNavigationOptions: {
@@ -97,10 +108,8 @@ const drawerMenuOptionsStack = createStackNavigator({
 
 const AppNavigator = createSwitchNavigator({
 
-  Plashka: {
-    screen: Plashka,
-  },
-  authenticationFlow,
+  Plashka,
+  authenticationStack,
   MainDrawer,
   drawerMenuOptionsStack
 }, {
@@ -122,8 +131,16 @@ const FooterTabNavigator = (props: any) => {
   return (
     <SafeAreaView style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center" }}>
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
-        <TabNavigationButtons active={currentRouteName === "Home"} navigate={navigate.bind(FooterTabNavigator, 'Home')} image={require("../assets/images/icons/ic_map_pin.png")} />
-        <TabNavigationButtons active={currentRouteName === "Charger"} navigate={navigate.bind(FooterTabNavigator, 'Charger')} image={require("../assets/images/icons/ic_charge.png")} />
+        <TabNavigationButtons 
+          active={currentRouteName === "Home"} 
+          navigate={navigate.bind(FooterTabNavigator, 'Home')} 
+          image={require("../assets/images/icons/ic_map_pin.png")} 
+        />
+        <TabNavigationButtons 
+          active={currentRouteName === "chargerStack"} 
+          navigate={navigate.bind(FooterTabNavigator, 'chargerStack')} 
+          image={require("../assets/images/icons/ic_charge.png")} 
+        />
         {
           Defaults.token &&
           <TabNavigationButtons

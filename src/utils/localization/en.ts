@@ -5,6 +5,7 @@ export default {
     enter: 'Login',
     next: "Next",
     save: "Save",
+    gel : "Gel",
     authentication: {
       authentication: "Authentication",
       number: "Number",
@@ -87,7 +88,34 @@ export default {
       lvl2Commercial : "Lvl 2  commercial",
       busy : "Busy",
       notWorking : "Not working",
-      free : "Free"
+      free : "Free",
     },
+    charger : {
+      chargeWitchCode : "Charge witch code",
+      enterCode : "Enter code",
+      turnOn : "Turn on",
+      allChargerList : "All charger list",
+      lastUsed : "Last used"
+    },
+    chargerDetail : {
+      seeOnMap : "See on map",
+      currentPrices : "Current prices",
+      connectors  : "Connectors",
+      additionalServices  : "Additional services",
+
+    },
+    notAuthorized : {
+      notAuthorizedText : "If u want to charge a car u have to register",
+    },
+    chooseChargeMethod : {
+      choose : "Choose",
+      chooseChargeMethod : "Choose your charging method",
+      or : "Or"
+    },
+    charging : {
+      charge : "Charge",
+      chargeAnotherCar : "Charge other car",
+      finish : "Finish",
+    }
   }
 };

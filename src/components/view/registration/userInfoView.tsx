@@ -35,6 +35,7 @@ const filterTextItem = ({_this} : any) => {
         onSubmit={nameInputSubmit}
         testID={"nameInput"}
         title={"authentication.registration.name"}
+        required={true}
       />
       <BaseInput
         image={require("../../../../assets/images/icons/user.png")}
@@ -44,6 +45,7 @@ const filterTextItem = ({_this} : any) => {
         onSubmit={surNameInputSubmit}
         testID={"nameInput"}
         title={"authentication.registration.surname"}
+        required={true}
       /> 
       <BaseInput
         image={require("../../../../assets/images/icons/mail.png")}

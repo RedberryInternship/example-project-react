@@ -1,7 +1,7 @@
-import React, {useEffect, useState,useRef} from "react";
+import {useEffect, useState,useRef} from "react";
 import { useAppState } from 'react-native-hooks';
 import {useNetInfo} from "@react-native-community/netinfo";
-import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
+import  {useAsyncStorage} from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 
@@ -21,7 +21,7 @@ export function  useRoot(){
     const [appReady, setAppReady] = useState(false);
     const [navigationState, setNavigationState] = useState(false);
 
-    const ref = useRef(null)
+    const _this : any = useRef(null)
 
     Defaults.modal = useRef(null);
 
@@ -90,19 +90,24 @@ export function  useRoot(){
 
     useEffect(() => {
         onReady()
-    },[token,navigationState, locale])
+    }, [token,navigationState, locale] )
 
     const onReady =() =>{
         if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== ''){
             if(!appReady)
                 setAppReady(true)
 
-            NavigationActions().navigate("MainDrawer")
+            // NavigationActions().navigate("MainDrawer")
             // NavigationActions().navigate("authenticationFlow")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
             // NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
+            // NavigationActions().navigate("Charger");
+            // NavigationActions().navigate("ChargerDetail");
+            // NavigationActions().navigate("NotAuthorized");
+            // NavigationActions().navigate("ChooseChargeMethod");
+            NavigationActions().navigate("Charging");
 
         }
         else setAppReady(false)
@@ -110,5 +115,5 @@ export function  useRoot(){
         console.log(Defaults.token, "App ready to boot");
 
     }
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t}
+    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this}
 }
