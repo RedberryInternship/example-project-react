@@ -41,7 +41,7 @@ type Button = {
   text: string,
   textStyle?: TextStyle,
   image? : ImageSourcePropType,
-  style?: StyleProp<ViewStyle>,
+  style?: StyleProp<ViewStyle> ,
   imageStyle?: ImageStyle,
   isImageRight?: boolean
 }
@@ -55,7 +55,7 @@ const onMapRoundButton = ({ onPress, style, image, imageStyle, textStyle, text, 
   const btnImage  = <Image source={image} style={[{ width: 18, height: 18, resizeMode: "contain" }, imageStyle]} />;
 
   return (
-    <LinearGradient colors={['#009AF0', '#008AEE']}  start={{x:0, y:1}} end={{x:1, y:0}} style={[styles.style, style]}>
+    <LinearGradient colors={style && style.backgroundColor  ?  [style.backgroundColor] : ['#009AF0', '#008AEE']}  start={{x:0, y:1}} end={{x:1, y:0}} style={[styles.style, style]}>
       <TouchableOpacity
         onPress={onPress}
         hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}

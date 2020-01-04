@@ -103,11 +103,11 @@ export function  useRoot(){
             // NavigationActions().navigate("Registration")
             // NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
-            // NavigationActions().navigate("Charger");
+            NavigationActions().navigate("ChargerWithCode");
             // NavigationActions().navigate("ChargerDetail");
             // NavigationActions().navigate("NotAuthorized");
             // NavigationActions().navigate("ChooseChargeMethod");
-            NavigationActions().navigate("Charging");
+            // NavigationActions().navigate("Charging");
 
         }
         else setAppReady(false)

@@ -38,7 +38,7 @@ const chargerItem = ({ code, onPress, address} : ChargerItem) => {
         <BaseButton
           onPress={onPress}
           text={"next"} 
-          style={{marginTop: 0, marginHorizontal:0, alignSelf:"center", width: 120, backgroundColor:"#072F46"}}
+          style={{marginTop: 0, marginHorizontal:0, alignSelf:"center", width: 120, backgroundColor:"#0199F033"}}
           imageStyle={{tintColor: Colors.primaryBlue}}
           image={require("../../../assets/images/icons/arrow_right.png")}
           textStyle={{color : Colors.primaryBlue}}
