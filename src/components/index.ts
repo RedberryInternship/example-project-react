@@ -56,10 +56,12 @@ import RegistrationPagination from "./UI/registrationPagination"
 import HomeMainSearchInput from "./UI/homeMainSearchInput"
 import ChargerDetailTopInfo from "./UI/chargerDetailTopInfo"
 import CurrentTariffs from "./UI/currentTariffs"
+import PopUpCountDown from "./UI/popUpCountDown"
 
 // modalTypes
 import RegistrationType1 from "./modalTypes/registrationType1"
 import LegendType2 from "./modalTypes/legendType2"
+import ChargerModalMainWrapper from "./modalTypes/chargeFinished/chargerModalMainWrapper"
 
 export {
     MapView,
@@ -105,5 +107,7 @@ export {
     TitleTopLeftContainer,
     ChargerTypesItem,
     Pulse,
-    CountDown
+    CountDown,
+    ChargerModalMainWrapper,
+    PopUpCountDown
 }

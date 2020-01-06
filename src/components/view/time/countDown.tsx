@@ -13,11 +13,12 @@ type CountDown = {
   duration : number ,
   up : Boolean,
   alarm : Boolean,
+  popup ?: Boolean,
   onChange? : (status : Status) => void
 }
 const Interval = 1000;
 
-const countDown = ({ duration, up, alarm , onChange} : CountDown) => {
+const countDown = ({ duration, up, alarm , onChange, popup} : CountDown) => {
   let [time, setTime] = useState(``)
   
 
@@ -50,7 +51,7 @@ const countDown = ({ duration, up, alarm , onChange} : CountDown) => {
 
   return (
       <View style={styles.container}>
-        <Text style={{fontSize:22, lineHeight:36,letterSpacing:-0.41,color: Colors.primaryWhite}}>{time}</Text>
+        <Text style={{fontSize: popup ? 17 : 22, lineHeight:36,letterSpacing:-0.41,color:popup ? Colors.primaryBackground :  Colors.primaryWhite}}>{time}</Text>
       </View>
   );
 };
