@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Alert} from 'react-native';
 import { withNavigation} from 'react-navigation';
 import { OnMapRoundButton, HomeFilterView, BaseButton, HomeMainInputView } from '..';
 import { Defaults } from '../../../src/utils';

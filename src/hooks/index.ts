@@ -7,6 +7,7 @@ import useAuthHook from "./authentication/authHook"
 import useForgotPassword from "./authentication/forgotPassword"
 import useRegistrationHook from "./authentication/registrationHook"
 import useSetNewPasswords from "./authentication/setNewPasswords"
+import useCharger from "./charger/charger"
 
 export {
     useRoot,
@@ -17,5 +18,6 @@ export {
     useAuthHook,
     useForgotPassword,
     useRegistrationHook,
-    useSetNewPasswords
+    useSetNewPasswords,
+    useCharger
 }

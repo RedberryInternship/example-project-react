@@ -1,41 +1,68 @@
 
 
 import React from "react";
-import {View} from "react-native"
+import {View, StyleSheet} from "react-native"
 import Modal from "react-native-modal";
 
 import { Const} from "../utils"
 
-import {RegistrationType1, LegendType2} from "./" 
 
-type Cofig ={
-  type : number,
-
+type Data = {
+  title? : string,
+  description ?: string
+  bottomDescription ?: string
 }
-class CustomModal extends React.PureComponent {
-  state = {
-    visible :false,
-    type : 1,
+type Config ={
+  type : number,
+  onCloseClick ?: () => void,
+  subType ?: number,
+  data ? : Data,
+}
+
+type InitialState = {
+  visible : boolean,
+  config : Config,
+}
+
+const initialState : InitialState = {
+  visible :false,
+  config : {
+    type:3,
+    data : {
+      title : "მადლობა",
+      description : "ავტომობილის დატენვა დასრულენულია",
+      bottomDescription : "თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე"
+    }
   }
+}
+import {RegistrationType1, LegendType2, ChargerModalMainWrapper} from "./" 
+
+class CustomModal extends React.PureComponent {
+
+  state = {...initialState}
   ref : any =  React.createRef()
 
   showModal = () => {
     this.setState({
       visible : true
     })
-    // this.ref.current.open()
   }
 
   closeModal = () =>{
-    // this.state.visible=false
     this.ref.current.close()
+
+    this.state.config.onCloseClick && this.state.config.onCloseClick()
     this.setState({
       visible : false
     })
   }
 
-  customUpdate= ( visible : Boolean, config : Cofig) =>{
-    this.setState({visible,...config})
+  customUpdate= ( visible : Boolean, config : Config ) =>{
+    this.setState({ 
+      ...initialState , 
+      visible,
+      config
+    })
   }
 
   
@@ -49,7 +76,7 @@ class CustomModal extends React.PureComponent {
         swipeDirection={['down']}
         useNativeDriver={true}
       >
-        <View style={{ height:Const.Height*0.7, backgroundColor:"#E8EEF1",borderRadius : 10, justifyContent:"space-between", marginHorizontal:16, paddingVertical:32 }}>
+        <View style={[styles.modalContentContainer, {justifyContent: this.state.config.type ===3 ?"flex-start" : "space-between" }]}>
           {this.renderView()}
         </View>
       </Modal>
@@ -57,7 +84,7 @@ class CustomModal extends React.PureComponent {
   }
 
   renderView= () =>{
-    switch (this.state.type) {
+    switch (this.state.config.type) {
       case 1:
         return <RegistrationType1 
             onPress={this.closeModal}
@@ -65,7 +92,12 @@ class CustomModal extends React.PureComponent {
       case 2:
         return <LegendType2 
             onPress={this.closeModal}
-
+          />
+      case 3:
+        return <ChargerModalMainWrapper 
+            onPress={this.closeModal}
+            subType={this.state.config.subType}
+            data={this.state.config.data}
           />
       default:
         break;
@@ -74,3 +106,14 @@ class CustomModal extends React.PureComponent {
 }
 
 export default CustomModal;
+
+const styles= StyleSheet.create({
+  modalContentContainer : { 
+    height:Const.Height*0.7, 
+    backgroundColor:"#E8EEF1",
+    borderRadius : 10, 
+    justifyContent:"space-between", 
+    marginHorizontal:16, 
+    paddingVertical:16 
+  }
+})

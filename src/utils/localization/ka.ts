@@ -5,6 +5,7 @@ export default {
     enter: 'შესვლა',
     next: "შემდეგი",
     save: "შენახვა",
+    gel : "ლარი",
     authentication: {
       authentication: "ავტორიზაცია",
       number: "ნომერი",
@@ -88,5 +89,32 @@ export default {
       free : "თავისუფალი"
 
     },
+    charger : {
+      chargeWitchCode : "დატენვა კოდით",
+      enterCode : "ჩაწერეთ კოდი",
+      turnOn : "ჩართვა",
+      allChargerList : "დამტენების სრული სია",
+      lastUsed : "ბოლოს გამოყენებული"
+    },
+    chargerDetail : {
+      seeOnMap : "რუკაზე ნახვა",
+      currentPrices : "მიმდინარე ტარიფები",
+      connectors  : "ქონექტორები",
+      additionalServices  : "დამატებითი სერვისები",
+    },
+    notAuthorized : {
+      notAuthorizedText : "იმისთვის, რომ შეძლოთ ავტომობილის დატენვა საჭიროა გაიაროთ ავტორიზაცია",
+    },
+    chooseChargeMethod : {
+      choose : "აირჩიეთ",
+      chooseChargeMethod : "აირჩიეთ თქვენთვის სასურველი დატენვის მეთოდი",
+      or : "ან"
+    },
+    charging : {
+      charge : "დატენვა",
+      chargeAnotherCar : "დატენე სხვა ავტომობილი",
+      finish : "დასრულება",
+
+    }
   }
 };

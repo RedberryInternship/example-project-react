@@ -12,7 +12,6 @@ import {
 const App = () => {
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" />
       <Text>plashka</Text>
     </View>
   );

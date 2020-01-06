@@ -8,6 +8,8 @@ import PhoneNumberView from "./view/registration/phoneNumberView"
 import UserInfoView from "./view/registration/userInfoView"
 import PasswordView from "./view/registration/passwordView"
 import CardAddView from "./view/registration/cardAddView"
+import TitleTopLeftContainer from "./view/titleTopLeftContainer"
+import CountDown from "./view/time/countDown"
 
 import FirstnameChangeView from './view/profileChange/firstnameChangeView';
 import LastnameChangeView from './view/profileChange/lastnameChangeView';
@@ -17,8 +19,13 @@ import PhoneChangeView from './view/profileChange/phoneChangeView';
 import PasswordChangeView from './view/profileChange/passwordChangeView';
 
 // ./
-import CustomSlideUpModal from "./customSlideUpModal"
 import CustomModal from "./customModal"
+
+
+//library
+import CustomSlideUpModal from "./library/customSlideUpModal"
+import Pulse from "./library/pulse"
+
 
 //Item
 import TabNavigationButtons from "./item/tabNavigationButtonsItem"
@@ -32,6 +39,8 @@ import PopupFilter from "./item/popupFilter"
 import DrawerTextFieldItem from './item/drawerTextFieldItem';
 import SettingsListItem from './item/settingsListItem';
 import CardListItem from './item/cardListItem';
+import ChargerItem from './item/chargerItem';
+import ChargerTypesItem from './item/chargerTypesItem';
 
 
 //BaseUI
@@ -47,10 +56,14 @@ import BaseAddCardButton from './baseUI/baseAddCardButton';
 import ReceiveCode from "./UI/receiveCode"
 import RegistrationPagination from "./UI/registrationPagination"
 import HomeMainSearchInput from "./UI/homeMainSearchInput"
+import ChargerDetailTopInfo from "./UI/chargerDetailTopInfo"
+import CurrentTariffs from "./UI/currentTariffs"
+import PopUpCountDown from "./UI/popUpCountDown"
 
 // modalTypes
 import RegistrationType1 from "./modalTypes/registrationType1"
 import LegendType2 from "./modalTypes/legendType2"
+import ChargerModalMainWrapper from "./modalTypes/chargeFinished/chargerModalMainWrapper"
 
 export {
     MapView,
@@ -91,5 +104,14 @@ export {
     PhoneChangeView,
     PasswordChangeView,
     CardListItem,
-    BaseAddCardButton
+    BaseAddCardButton,
+    ChargerItem,
+    ChargerDetailTopInfo,
+    CurrentTariffs,
+    TitleTopLeftContainer,
+    ChargerTypesItem,
+    Pulse,
+    CountDown,
+    ChargerModalMainWrapper,
+    PopUpCountDown
 }

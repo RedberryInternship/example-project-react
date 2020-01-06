@@ -1,7 +1,7 @@
-import  {useEffect, useState,useRef} from "react";
+import {useEffect, useState,useRef} from "react";
 import { useAppState } from 'react-native-hooks';
 import {useNetInfo} from "@react-native-community/netinfo";
-import {useAsyncStorage} from "@react-native-community/async-storage";
+import  {useAsyncStorage} from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 
@@ -21,6 +21,7 @@ export function  useRoot(){
     const [appReady, setAppReady] = useState(false);
     const [navigationState, setNavigationState] = useState(false);
 
+    const _this : any = useRef(null)
 
     Defaults.modal = useRef(null);
 
@@ -56,7 +57,7 @@ export function  useRoot(){
 
     const readUserToken = async () => {
         let _token = await getItem();
-        Defaults.token= _token;
+        Defaults.token = _token;
         setToken(_token)
     }
 
@@ -89,7 +90,7 @@ export function  useRoot(){
 
     useEffect(() => {
         onReady()
-    },[token,navigationState, locale])
+    }, [token,navigationState, locale] )
 
     const onReady =() =>{
         if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== ''){
@@ -102,10 +103,17 @@ export function  useRoot(){
             // NavigationActions().navigate("Registration")
             NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
+            // NavigationActions().navigate("ChargerWithCode");
+            // NavigationActions().navigate("ChargerDetail");
+            // NavigationActions().navigate("NotAuthorized");
+            // NavigationActions().navigate("ChooseChargeMethod");
+            NavigationActions().navigate("Charging");
 
-            console.log("app ready to boot");
         }
         else setAppReady(false)
+
+        console.log(Defaults.token, "App ready to boot");
+
     }
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t}
+    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this}
 }

@@ -1,5 +1,10 @@
 import Home from "./tabNavigation/home"
-import Charger from "./tabNavigation/charger"
+import ChargerWithCode from "./tabNavigation/charger/chargerWithCode"
+import ChargerDetail from "./tabNavigation/charger/chargerDetail"
+import NotAuthorized from "./tabNavigation/charger/notAuthorized"
+import ChooseChargeMethod from "./tabNavigation/charger/chooseChargeMethod"
+import Charging from "./tabNavigation/charger/charging"
+
 import Plashka from "./plashka"
 import Drawer from "./drawer"
 import Auth from "./authentication/auth"
@@ -13,11 +18,15 @@ export {
     Home,
     Auth,
     Plashka,
-    Charger,
+    ChargerWithCode,
     Drawer,
     ForgotPassword,
     Registration,
     SetNewPasswords,
     Settings,
-    ProfileChange
+    ProfileChange,
+    ChargerDetail,
+    NotAuthorized,
+    ChooseChargeMethod,
+    Charging
 }

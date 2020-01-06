@@ -36,6 +36,8 @@ export default  React.forwardRef( (props : any, ref : any) =>{
                     testID={props.testID}
                     {...props}
                 />
+                { props.required && <Text style={{position:"absolute", right:8, top:8, color:"white", fontSize:18}}>*</Text> }
+                
             </View>
         </View>
     )

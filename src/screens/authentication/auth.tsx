@@ -26,7 +26,6 @@ const auth = ({navigation} : any) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" />
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(auth,"MainDrawer")}
         title={"authentication.authentication"}
