@@ -28,7 +28,10 @@ const baseAddCardButton = ({ onPress }: AddCard) => {
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <Text style={styles.title}>{t('settings.addCard')}</Text>
-        <Text style={styles.addCard}>+</Text>
+
+        <View style={styles.addCard}>
+          <Text style={styles.addCardText}>+</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -54,7 +57,16 @@ const styles = StyleSheet.create({
   addCard:{
     width: 32,
     height: 32,
+    justifyContent:'center',
+    alignItems: 'center',
     backgroundColor: Colors.secondaryBlue,
-    color: Colors.primaryWhite
+    color: Colors.primaryWhite,
+    borderRadius: 25
+  },
+  addCardText:{
+    color: Colors.primaryWhite,
+    fontSize: 25,
+    marginLeft: 1,
+    marginTop: -2
   }
 });
