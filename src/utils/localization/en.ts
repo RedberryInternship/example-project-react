@@ -6,6 +6,7 @@ export default {
     next: "Next",
     save: "Save",
     gel : "Gel",
+    turnOn : "Turn On",
     authentication: {
       authentication: "Authentication",
       number: "Number",
@@ -117,6 +118,9 @@ export default {
       charge : "Charge",
       chargeAnotherCar : "Charge other car",
       finish : "Finish",
+    },
+    favourites:{
+      favourites: "Favourites",
     }
   }
 };

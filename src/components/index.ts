@@ -41,6 +41,7 @@ import SettingsListItem from './item/settingsListItem';
 import CardListItem from './item/cardListItem';
 import ChargerItem from './item/chargerItem';
 import ChargerTypesItem from './item/chargerTypesItem';
+import FavouriteChargerListItem from './item/favouriteChargerListItem';
 
 
 //BaseUI
@@ -113,5 +114,6 @@ export {
     Pulse,
     CountDown,
     ChargerModalMainWrapper,
-    PopUpCountDown
+    PopUpCountDown,
+    FavouriteChargerListItem
 }

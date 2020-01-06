@@ -6,6 +6,7 @@ export default {
     next: "შემდეგი",
     save: "შენახვა",
     gel : "ლარი",
+    turnOn: "ჩართვა",
     authentication: {
       authentication: "ავტორიზაცია",
       number: "ნომერი",
@@ -115,6 +116,9 @@ export default {
       chargeAnotherCar : "დატენე სხვა ავტომობილი",
       finish : "დასრულება",
 
+    },
+    favourites:{
+      favourites: "ფავორიტები",
     }
   }
 };

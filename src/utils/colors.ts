@@ -2,6 +2,7 @@
 export default {
     black : "black",
     primaryDark : '#111314',
+    secondaryDark : '#08141B',
     primaryWhite : "#ffffff",
     primaryBackground : "#11222D",
     primaryGray : "#9A99A2",
