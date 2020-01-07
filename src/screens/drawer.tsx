@@ -19,7 +19,7 @@ import {
 } from '../components';
 
 // import utils
-import { Const, Colors, NavigationActions, Defaults } from '../utils';
+import { Const, Colors, Defaults } from '../utils';
 import { useTranslation } from 'react-i18next';
 
 const drawer = ({ navigation } : any) => {

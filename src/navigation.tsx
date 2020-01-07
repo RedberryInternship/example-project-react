@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Dimensions, TouchableOpacity, SafeAreaView, KeyboardAvoidingView, Alert } from 'react-native';
+import { View,Dimensions, SafeAreaView} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -21,7 +21,8 @@ import {
   ChargerDetail,
   NotAuthorized,
   ChooseChargeMethod,
-  Charging
+  Charging,
+  Favourites
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -43,7 +44,8 @@ const chargerStack = createStackNavigator({
 
 const HomeTabNavigation = createBottomTabNavigator({
   Home,
-  chargerStack
+  chargerStack,
+  Favourites
 },
   {
     // eslint-disable-next-line react/display-name
@@ -111,7 +113,7 @@ const AppNavigator = createSwitchNavigator({
   Plashka,
   authenticationStack,
   MainDrawer,
-  drawerMenuOptionsStack
+  drawerMenuOptionsStack,
 }, {
   initialRouteName: "Plashka"
 });
@@ -144,9 +146,9 @@ const FooterTabNavigator = (props: any) => {
         {
           Defaults.token &&
           <TabNavigationButtons
-            navigate={navigate.bind(FooterTabNavigator, 'Favorite')}
+            navigate={navigate.bind(FooterTabNavigator, 'Favourites')}
             image={require("../assets/images/icons/ic_favorite.png")}
-            active={currentRouteName === "Favorite"}
+            active={currentRouteName === "Favourites"}
           />
         }
         <TabNavigationButtons

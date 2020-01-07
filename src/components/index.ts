@@ -13,7 +13,7 @@ import CountDown from "./view/time/countDown"
 
 import FirstnameChangeView from './view/profileChange/firstnameChangeView';
 import LastnameChangeView from './view/profileChange/lastnameChangeView';
-import CardChangeView from './view/profileChange/cardChangeVeiw';
+import CardListView from './view/profileChange/cardListView';
 import MailChangeView from './view/profileChange/mailChangeView';
 import PhoneChangeView from './view/profileChange/phoneChangeView';
 import PasswordChangeView from './view/profileChange/passwordChangeView';
@@ -38,8 +38,10 @@ import LegendColorItem from "./item/legendColorItem"
 import PopupFilter from "./item/popupFilter"
 import DrawerTextFieldItem from './item/drawerTextFieldItem';
 import SettingsListItem from './item/settingsListItem';
+import CardListItem from './item/cardListItem';
 import ChargerItem from './item/chargerItem';
 import ChargerTypesItem from './item/chargerTypesItem';
+import FavouriteChargerListItem from './item/favouriteChargerListItem';
 
 
 //BaseUI
@@ -48,6 +50,7 @@ import BaseHeader from "./baseUI/baseHeader"
 import BaseButton from "./baseUI/baseButton"
 import BaseUserAvatarWithLabel from './baseUI/baseUserAvatarWithLabel';
 import BaseLocaleButton from './baseUI/baseLocaleButton';
+import BaseAddCardButton from './baseUI/baseAddCardButton';
 
 
 //UI
@@ -97,10 +100,12 @@ export {
     SettingsListItem,
     FirstnameChangeView,
     LastnameChangeView,
-    CardChangeView,
+    CardListView,
     MailChangeView,
     PhoneChangeView,
     PasswordChangeView,
+    CardListItem,
+    BaseAddCardButton,
     ChargerItem,
     ChargerDetailTopInfo,
     CurrentTariffs,
@@ -109,5 +114,6 @@ export {
     Pulse,
     CountDown,
     ChargerModalMainWrapper,
-    PopUpCountDown
+    PopUpCountDown,
+    FavouriteChargerListItem
 }
