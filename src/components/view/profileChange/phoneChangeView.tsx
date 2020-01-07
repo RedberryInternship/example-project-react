@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import {
     View,
@@ -8,48 +8,40 @@ import {
 
 
 // components
-import { BaseInput, PhoneNumberInput } from '../..';
+import { PhoneNumberInput, ReceiveCode } from '../..';
 
 
 const phoneChangeView = ({ clicked, navigation }: any) => {
 
 
-    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
 
     useEffect(() => {
 
         if (clicked === true) {
-            updateUserPhone(name, navigation);
+            updateUserPhone(number, navigation);
         }
     });
 
+    const phoneRef = useRef<any>(null);
 
     return (
         <View style={styles.container}>
-            <BaseInput
-                title={"settings.phoneNumber"}
-                image={require("../../../../assets/images/icons/phone.png")}
-                onChangeText={(text: string) => setName(text)}
-                onSubmitEditing={() => {
-                    updateUserPhone(name, navigation);
-
-                }}
-            />
 
             <PhoneNumberInput
-                onChangeText={ null }
-                onSubmit={ null }
-                value={null }
-                onFocus={null}
-                // ref={hook.phoneRef}
+                onFocus={ null }
+                phoneTextHandler = {(text: string) => setNumber(text)}
+                ref={ phoneRef }
             />
+
+            <ReceiveCode />
         </View>
     );
 }
 
 
-const updateUserPhone = (firstname: any, navigation: any) => {
-    Alert.alert("Firstname Updated!", "", [
+const updateUserPhone = (number: any, navigation: any) => {
+    Alert.alert("Phone Number Updated!", "", [
         { text: "OK", onPress: () => { navigation.goBack(); } }
     ]);
 }

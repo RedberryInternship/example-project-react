@@ -6,6 +6,7 @@ export default {
     next: "Next",
     save: "Save",
     gel : "Gel",
+    turnOn : "Turn On",
     authentication: {
       authentication: "Authentication",
       number: "Number",
@@ -78,6 +79,7 @@ export default {
       repetePassword: "Repete Password",
 
       editCard: "Payment Method",
+      addCard: "Add Card"
 
     },
     popup : {
@@ -128,6 +130,9 @@ export default {
     },
     chooseCard : {
       chooseCard : "Choose card"
+    },
+    favourites:{
+      favourites: "Favourites",
     }
   }
 };

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import {
     View,
-    Text,
     StyleSheet,
     KeyboardAvoidingView,
     Platform
@@ -18,14 +17,14 @@ import {
 
     FirstnameChangeView,
     LastnameChangeView,
-    CardChangeView,
     MailChangeView,
     PhoneChangeView,
-    PasswordChangeView
+    PasswordChangeView,
+    CardListView
 } from '../../components';
 
 // utils
-import { Colors, Const } from '../../utils';
+import { Colors } from '../../utils';
 
 const profileChange = ({ navigation }: any) => {
 
@@ -54,7 +53,7 @@ const profileChange = ({ navigation }: any) => {
             break;
 
         case "CardChange":
-            $editView = <CardChangeView
+            $editView = <CardListView
                 {...$payload}
                 clicked={saveButtonClicked}
                 setClicked={setSaveButtonClicked}

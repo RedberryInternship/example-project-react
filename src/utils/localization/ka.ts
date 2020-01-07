@@ -6,6 +6,7 @@ export default {
     next: "შემდეგი",
     save: "შენახვა",
     gel : "ლარი",
+    turnOn: "ჩართვა",
     authentication: {
       authentication: "ავტორიზაცია",
       number: "ნომერი",
@@ -75,7 +76,8 @@ export default {
       newPassword: "ახალი პაროლი",
       repetePassword: "გაიმეორეთ პაროლი",
       
-      editCard: "გადახდის მეთოდი"
+      editCard: "გადახდის მეთოდი",
+      addCard: "დაამატე ბარათი"
     },
     popup : {
       legend : "ლეგენდა",
@@ -123,6 +125,9 @@ export default {
     },
     chooseCard : {
       chooseCard : "ბარათის არჩევა"
+    },
+    favourites:{
+      favourites: "ფავორიტები",
     }
   }
 };
