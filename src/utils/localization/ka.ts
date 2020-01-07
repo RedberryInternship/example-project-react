@@ -85,8 +85,13 @@ export default {
       lvl2Commercial : "ლვლ 2 საჯარო",
       busy : "დაკავებული",
       notWorking : "არ მუშაობს",
-      free : "თავისუფალი"
-
+      free : "თავისუფალი",
+      thankYou : "მადლობა",
+      automobileChargingFinished : "ავტომობილის დატენვა დასრულენულია",
+      chargingFinishedWarning : "თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე",
+      chargeOff : "ანგარიშიდან ჩამოგეჭრათ",
+      returned : "დაგიბრუნდათ",
+      continueCharging : "დატენვის გაგრძელება"
     },
     charger : {
       chargeWitchCode : "დატენვა კოდით",
@@ -107,13 +112,17 @@ export default {
     chooseChargeMethod : {
       choose : "აირჩიეთ",
       chooseChargeMethod : "აირჩიეთ თქვენთვის სასურველი დატენვის მეთოდი",
-      or : "ან"
+      or : "ან",
+      untilTurnOff : "გათიშვამდე",
+      withEnteringPrice : "თანხის მითითებით"
     },
     charging : {
       charge : "დატენვა",
       chargeAnotherCar : "დატენე სხვა ავტომობილი",
       finish : "დასრულება",
-
+    },
+    chooseCard : {
+      chooseCard : "ბარათის არჩევა"
     }
   }
 };

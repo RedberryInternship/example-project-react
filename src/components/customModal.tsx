@@ -29,9 +29,9 @@ const initialState : InitialState = {
   config : {
     type:3,
     data : {
-      title : "მადლობა",
-      description : "ავტომობილის დატენვა დასრულენულია",
-      bottomDescription : "თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე"
+      title : "popup.thankYou",
+      description : "popup.automobileChargingFinished",
+      bottomDescription : "popup.chargingFinishedWarning"
     }
   }
 }
@@ -76,7 +76,7 @@ class CustomModal extends React.PureComponent {
         swipeDirection={['down']}
         useNativeDriver={true}
       >
-        <View style={[styles.modalContentContainer, {justifyContent: this.state.config.type ===3 ?"flex-start" : "space-between" }]}>
+        <View style={[styles.modalContentContainer, {justifyContent: this.state.config.type ===3 ? "flex-start" : "space-between" }]}>
           {this.renderView()}
         </View>
       </Modal>

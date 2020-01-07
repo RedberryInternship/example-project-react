@@ -40,6 +40,8 @@ import DrawerTextFieldItem from './item/drawerTextFieldItem';
 import SettingsListItem from './item/settingsListItem';
 import ChargerItem from './item/chargerItem';
 import ChargerTypesItem from './item/chargerTypesItem';
+import ModalPopupChargerItem from './item/modalPopupChargerItem';
+import ChooseCardOnCharging from './item/chooseCardOnCharging';
 
 
 //BaseUI
@@ -109,5 +111,7 @@ export {
     Pulse,
     CountDown,
     ChargerModalMainWrapper,
-    PopUpCountDown
+    PopUpCountDown,
+    ModalPopupChargerItem,
+    ChooseCardOnCharging
 }

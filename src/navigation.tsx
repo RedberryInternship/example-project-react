@@ -21,18 +21,18 @@ import {
   ChargerDetail,
   NotAuthorized,
   ChooseChargeMethod,
-  Charging
+  Charging,
+  ChoosingCard
 } from './screens';
 import { TabNavigationButtons } from './components';
 
 
 
 const chargerStack = createStackNavigator({
-  ChargerWithCode,
   ChargerDetail,
-  NotAuthorized,
   ChooseChargeMethod,
-  Charging
+  Charging,
+  ChoosingCard
 },
 {
   defaultNavigationOptions: {
@@ -43,7 +43,9 @@ const chargerStack = createStackNavigator({
 
 const HomeTabNavigation = createBottomTabNavigator({
   Home,
-  chargerStack
+  NotAuthorized,
+  ChargerWithCode,
+
 },
   {
     // eslint-disable-next-line react/display-name
@@ -111,7 +113,8 @@ const AppNavigator = createSwitchNavigator({
   Plashka,
   authenticationStack,
   MainDrawer,
-  drawerMenuOptionsStack
+  drawerMenuOptionsStack,
+  chargerStack
 }, {
   initialRouteName: "Plashka"
 });
@@ -138,7 +141,7 @@ const FooterTabNavigator = (props: any) => {
         />
         <TabNavigationButtons 
           active={currentRouteName === "chargerStack"} 
-          navigate={navigate.bind(FooterTabNavigator, 'chargerStack')} 
+          navigate={navigate.bind(FooterTabNavigator, Defaults.token ? "ChargerWithCode" :  " NotAuthorized"  )} 
           image={require("../assets/images/icons/ic_charge.png")} 
         />
         {

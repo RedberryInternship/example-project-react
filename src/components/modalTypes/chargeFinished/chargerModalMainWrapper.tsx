@@ -3,7 +3,7 @@ import React from 'react';
 import {Text,  View, TouchableOpacity,StyleSheet, Image} from 'react-native';
 import { Colors } from '../../../../src/utils';
 import { useTranslation } from 'react-i18next';
-import { PopUpCountDown } from '../../../../src/components';
+import { PopUpCountDown, ModalPopupChargerItem } from '../../../../src/components';
 
 
 
@@ -29,24 +29,46 @@ export default ({ onPress, sybType, data : {title, description, bottomDescriptio
             true ? 
               <>
                 <Text style={styles.bottomContentDescription}>{t(bottomDescription)}</Text>
-                <PopUpCountDown />
+                <PopUpCountDown 
+                  up={true}
+                  warningLevel={1}
+                />
               </>
             :
               <Text style={styles.bottomContentDescriptionType2}>{t(bottomDescription)}</Text>
           }
-
-          <View  style={{backgroundColor : Colors.primaryBackground, opacity:0.1, height:1, width:"100%"}}/>
+          <View  style={{backgroundColor : Colors.primaryBackground, opacity:0.1, height:1, width:"100%", justifyContent:"center"}}/>
             {
-              true ? 
+              !true ? 
                 <View style={{marginVertical:32}}>
                   <Text style={styles.bottomContentDescriptionType2}>{t("ანგარიშიდან ჩამოგეჭრათ")}</Text>
                   <Text style={styles.boldNumberBig}>{23} {t("gel")}</Text>
                 </View>
               :
+              <View style={{marginVertical:12}}>
+              {
+                [{val : 3, type : 0},{val : 3, type : 1}, {val : 33, type : 2}].map((val, ind) => (
+                  <ModalPopupChargerItem 
+                    key={ind}
+                    {...val}
+                  />
+                ))
+              }
+              </View>
+            }
+
+            {
+              true && 
               <>
+                <View  style={{backgroundColor : Colors.primaryBackground, opacity:0.1, height:1, width:"100%", justifyContent:"center"}}/>
+                <TouchableOpacity   onPress={() => {}}  style={{marginVertical: 16, alignItems:"center"}}>
+                  <Text  style={{color: Colors.primaryGreen, fontSize:13}}>{t("charger.allChargerList")}</Text>
+                </TouchableOpacity>
               </>
+              
             }
         </View>
+        
           
       </>
   );

@@ -106,8 +106,9 @@ export function  useRoot(){
             // NavigationActions().navigate("ChargerWithCode");
             // NavigationActions().navigate("ChargerDetail");
             // NavigationActions().navigate("NotAuthorized");
-            // NavigationActions().navigate("ChooseChargeMethod");
-            NavigationActions().navigate("Charging");
+            NavigationActions().navigate("ChooseChargeMethod");
+            // NavigationActions().navigate("Charging");
+            // NavigationActions().navigate("ChoosingCard");
 
         }
         else setAppReady(false)

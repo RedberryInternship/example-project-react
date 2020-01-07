@@ -8,7 +8,7 @@ import {
 import { BaseHeader, ChargerDetailTopInfo, CurrentTariffs, TitleTopLeftContainer, ChargerTypesItem, BaseButton,  } from '../../../../src/components';
 import { useCharger } from '../../../../src/hooks';
 import {  Colors } from '../../../../src/utils';
-
+import { SafeAreaView} from "react-navigation"
 
 
 const Tarifs = [
@@ -25,7 +25,7 @@ const chargerDetail = ({navigation} : any) => {
   const hook = useCharger();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} forceInset={{top:"never", bottom:"always"}}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(chargerDetail,"MainDrawer")}
       />
@@ -65,14 +65,14 @@ const chargerDetail = ({navigation} : any) => {
           />
       </ScrollView>
       <BaseButton
-          onPress={navigation.navigate.bind(chargerDetail,"Registration")}
+          onPress={navigation.navigate.bind(chargerDetail,"Charging")}
           text={"charger.turnOn"} 
           style={{marginTop: 0, marginVertical:16}}
           
           image={require("../../../../assets/images/icons/ic_charge.png")}
           imageStyle={{tintColor:"white"}}
         />
-    </View>
+    </SafeAreaView>
   );
 };
 
