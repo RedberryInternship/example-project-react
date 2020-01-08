@@ -22,7 +22,8 @@ import {
   NotAuthorized,
   ChooseChargeMethod,
   Charging,
-  Favourites
+  Favourites,
+  Faq
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -100,7 +101,8 @@ const authenticationStack = createStackNavigator({
 
 const drawerMenuOptionsStack = createStackNavigator({
   Settings,
-  ProfileChange
+  ProfileChange,
+  Faq
 },
 {
   defaultNavigationOptions: {

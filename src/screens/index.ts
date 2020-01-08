@@ -15,6 +15,7 @@ import Settings from "./drawerMenuOptions/settings";
 import ProfileChange from './drawerMenuOptions/profileChange';
 
 import Favourites from './favourites';
+import Faq from './faq';
 
 export {
     Home,
@@ -31,5 +32,6 @@ export {
     NotAuthorized,
     ChooseChargeMethod,
     Charging,
-    Favourites
+    Favourites,
+    Faq
 }

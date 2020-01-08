@@ -119,6 +119,10 @@ export default {
     },
     favourites:{
       favourites: "ფავორიტები",
+    },
+    faq:{
+      faq:"ხდკ",
+      frequentlyAskedQuestions: "ხშირად დასმული კითხვები"
     }
   }
 };
