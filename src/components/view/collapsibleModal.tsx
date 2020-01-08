@@ -103,7 +103,7 @@ const collapsibleModal = forwardRef((props, ref : any) => {
             <Image  source={require("../../../assets/images/icons/Delete.png")}   style={{width:16, height:16, resizeMode:"contain", position:"absolute", right: 0}}/>
           </TouchableWithoutFeedback>
         </View>
-        <KeyboardAwareFlatList 
+        <FlatList 
           data={[""]}
           viewIsInsideTabBar
           keyboardShouldPersistTaps={"handled"}
@@ -113,6 +113,12 @@ const collapsibleModal = forwardRef((props, ref : any) => {
           enableResetScrollToCoords={true}
           resetScrollToCoords={{x:0,y:0}}
           ref={flatListRef}
+          // onTouchStart={() => {
+          //   return false;
+          // }}
+          // onTouchEnd={() => {
+          //   return false;
+          // }}
           // bounces={false}
           // onScroll={(event)=> {
           //   if(event.nativeEvent.contentOffset.y > 0)
@@ -122,6 +128,11 @@ const collapsibleModal = forwardRef((props, ref : any) => {
 
           //   console.log(_this.current.scrollPositionStatus, event.nativeEvent.contentOffset.y);
           // }}
+          onResponderTerminationRequest={(e) => true}
+          onStartShouldSetResponder={(e) => false}
+          onMoveShouldSetResponder={(e)=>false}
+          onStartShouldSetResponderCapture={(e)=>false}
+          onMoveShouldSetResponderCapture={(e)=>false}
           showsVerticalScrollIndicator={false}
           renderItem={({item})=>(
             <>

@@ -6,17 +6,38 @@ import {
   Image,
 } from 'react-native';
 import { BaseHeader,BaseButton, Pulse, CountDown  } from '../../../../src/components';
-import { Const, Colors } from '../../../../src/utils';
+import { Const, Colors, Defaults } from '../../../../src/utils';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView} from "react-navigation"
 
 const CicleDiameter = Const.Width-150
 
+const modalData = {
+  
+}
 const charging = ({navigation} : any) => {
   
   const {t} = useTranslation() 
+
+
+  const onFinish= () =>{
+    Defaults.modal.current?.customUpdate(
+      true, 
+      {type:3, subType : 1, data : 
+        {
+          title : "popup.thankYou",
+          description : "popup.automobileChargingFinished",
+          bottomDescription : "popup.finishedChargingOfAutomobile",
+          price: 22
+        },
+        onCloseClick : navigation.navigate.bind(charging,"MainDrawer")
+      }
+    )
+
+  }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} forceInset={{top:"never", bottom:"always"}}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(charging,"MainDrawer")}
         title={"charging.charge"}
@@ -54,14 +75,14 @@ const charging = ({navigation} : any) => {
           <Text  style={{color: Colors.primaryGreen, fontSize:13}}>{t("charging.chargeAnotherCar")}</Text>
         </TouchableOpacity>
         <BaseButton
-          onPress={navigation.navigate.bind(charging,"Auth")}
-          text={"charging.finish"} 
+          onPress={onFinish.bind(charging)}
+          text={"charging.finish"}
           style={{marginTop: 16, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-88}}
         />
       </View>
 
       
-    </View>
+    </SafeAreaView>
   );
 };
 

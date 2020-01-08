@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StyleSheet, StyleProp, ImageSourcePropType, ImageStyle,ImageURISource, TextProperties,TextStyle ,ScrollView, Text, Image, Alert, GestureResponderEvent, ViewStyle } from 'react-native';
+import { StyleSheet, StyleProp, ImageSourcePropType, ImageStyle,ImageURISource, StatusBar, TextProperties,TextStyle ,ScrollView, Text, Image, Alert, GestureResponderEvent, ViewStyle } from 'react-native';
 import { useMap } from '../../hooks';
 import { useTranslation } from 'react-i18next';
 import { Const, Colors } from '../../../src/utils';
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
 });
 
 type Button = {
-  onPress: (event?: GestureResponderEvent) => void | undefined,
+  onPress: (event?: GestureResponderEvent) => void ,
   text: string,
   textStyle?: TextStyle,
   image? : ImageSourcePropType,
@@ -52,10 +52,10 @@ const onMapRoundButton = ({ onPress, style, image, imageStyle, textStyle, text, 
 
   const { t } = useTranslation();
 
-  const btnImage  = <Image source={image} style={[{ width: 18, height: 18, resizeMode: "contain" }, imageStyle]} />;
+  const btnImage  = image && <Image source={image} style={[{ width: 18, height: 18, resizeMode: "contain" }, imageStyle]} />;
 
   return (
-    <LinearGradient colors={style && style.backgroundColor  ?  [style.backgroundColor] : ['#009AF0', '#008AEE']}  start={{x:0, y:1}} end={{x:1, y:0}} style={[styles.style, style]}>
+    <LinearGradient colors={style && style.backgroundColor  ?  [style.backgroundColor, style.backgroundColor] : ['#009AF0', '#008AEE']}  start={{x:0, y:1}} end={{x:1, y:0}} style={[styles.style, style]}>
       <TouchableOpacity
         onPress={onPress}
         hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
@@ -64,7 +64,6 @@ const onMapRoundButton = ({ onPress, style, image, imageStyle, textStyle, text, 
         {isImageRight ? btnImage : null } 
         <Text style={[styles.textStyle, textStyle]} >{t(text)}</Text>
         {!isImageRight ? btnImage : null }
-        
       </TouchableOpacity>
     </LinearGradient>
     

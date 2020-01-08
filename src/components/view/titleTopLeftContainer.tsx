@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 
 type TitleTopLeftContainer = {
-  title : string,
+  title ?: string,
   data : Array<any>,
   onRenderItem : (value: any, index: number,)=> {} | null | undefined,
   direction : "row" | "column"
@@ -15,7 +15,8 @@ const titleTopLeftContainer = ({title, data, onRenderItem, direction} : TitleTop
   const {t} = useTranslation();
   return (
     <View>
-      <Text style={{color:"white", fontSize:13, fontWeight:"bold", marginVertical:16}}>{t(title)}</Text>
+      {title !== "" &&  (<Text style={{color:"white", fontSize:13, fontWeight:"bold", marginVertical:16}}>{t(title)}</Text>) }
+      
       <View style={{flexDirection: direction }} >
         {data.map(onRenderItem)}
       </View>

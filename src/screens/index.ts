@@ -4,6 +4,7 @@ import ChargerDetail from "./tabNavigation/charger/chargerDetail"
 import NotAuthorized from "./tabNavigation/charger/notAuthorized"
 import ChooseChargeMethod from "./tabNavigation/charger/chooseChargeMethod"
 import Charging from "./tabNavigation/charger/charging"
+import ChoosingCard from "./tabNavigation/charger/choosingCard"
 
 import Plashka from "./plashka"
 import Drawer from "./drawer"
@@ -34,4 +35,6 @@ export {
     Charging,
     Favourites,
     Faq
+    ChoosingCard,
+    Favourites
 }

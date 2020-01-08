@@ -26,17 +26,25 @@ const styles = StyleSheet.create({
     alignItems:"center",
     justifyContent:"center",
     alignSelf:"center"
+  },
+  warningLevel1ForInnerContainer : {
+    backgroundColor:"rgba(0, 122, 255, 0.15)", 
+    borderColor:"rgb(0, 122, 255)",
+  },
+  warningLevel1ForMainContainer : {
+    borderColor:"rgba(0, 122, 255, 0.4)",
+
   }
 });
 
-const popUpCountDown = ({text, onPress, active} : any) => {
+const popUpCountDown = ({warningLevel, up} : any) => {
 
   return (
-      <View style={styles.mainContainer}>
-        <View style={styles.innerContainer}>
+      <View style={[styles.mainContainer, warningLevel === 1 ? styles.warningLevel1ForMainContainer : {} ]}>
+        <View style={[styles.innerContainer, warningLevel === 1 ? styles.warningLevel1ForInnerContainer : {} ]}>
           <CountDown 
               duration={120000}
-              up={false}
+              up={up}
               alarm={true}
               popup={true}
             />
