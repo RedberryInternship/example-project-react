@@ -96,8 +96,8 @@ export default {
       chargingFinishedWarning : " turn off god damn charger",
       chargeOff : "Charge off",
       returned : "Returned",
-      continueCharging : "Continue charging"
-
+      continueCharging : "Continue charging",
+      finishedChargingOfAutomobile : "Finished charging of automobile"
     },
     charger : {
       chargeWitchCode : "Charge witch code",
@@ -129,7 +129,8 @@ export default {
       finish : "Finish",
     },
     chooseCard : {
-      chooseCard : "Choose card"
+      chooseCard : "Choose card",
+      enterPrice : "Enter price"
     },
     favourites:{
       favourites: "Favourites",

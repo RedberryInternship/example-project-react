@@ -93,7 +93,8 @@ export default {
       chargingFinishedWarning : "თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე",
       chargeOff : "ანგარიშიდან ჩამოგეჭრათ",
       returned : "დაგიბრუნდათ",
-      continueCharging : "დატენვის გაგრძელება"
+      continueCharging : "დატენვის გაგრძელება",
+      finishedChargingOfAutomobile : "თქვენი ავტომობილის დატევა დასრულდა"
     },
     charger : {
       chargeWitchCode : "დატენვა კოდით",
@@ -124,7 +125,8 @@ export default {
       finish : "დასრულება",
     },
     chooseCard : {
-      chooseCard : "ბარათის არჩევა"
+      chooseCard : "ბარათის არჩევა",
+      enterPrice : "მიუთითეთ თანხა",
     },
     favourites:{
       favourites: "ფავორიტები",

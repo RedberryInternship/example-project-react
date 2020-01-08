@@ -24,7 +24,7 @@ const chooseCardOnCharging = ({lastDigits, active, onPress} : any) => {
     <TouchableWithoutFeedback
       onPress={onPress}
     >
-      <View style={{flexDirection:"row",alignItems:"center", height:40, marginVertical:8,marginHorizontal:16}}>
+      <View style={{flexDirection:"row",alignItems:"center", height:48, marginVertical:8,marginHorizontal:16}}>
       <Image  
           source={require("../../../assets/images/icons/credit-card.png") }  
           style={{width:21, height:21, resizeMode:"contain", marginRight:8}}

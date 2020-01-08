@@ -22,18 +22,17 @@ export default () => {
   const [loading, SetLoading] = useState<Boolean>(true);
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0);
 
-  const _this : React.RefObject<_This> = useRef({enteredPrice :"", animatedArrow : new Animated.Value(0)})
+  const _this : React.RefObject<_This> = useRef({enteredPrice :"asd", animatedArrow : new Animated.Value(0)})
   const _panel : React.RefObject<SlidingUpPanel> = useRef(null)
 
-  const enterPrice  : React.RefObject<TextInput> = useRef(null);
-  const enterPriceRef : any = useRef(null);
+  const enterPriceRef  : React.RefObject<TextInput> = useRef(null);
 
   const { t,} = useTranslation();
 
 
 
-  const codeTextHandler = (val : string) => {
-    enterPrice.current?.setNativeProps({
+  const enterPriceHandler = (val : string) => {
+    enterPriceRef.current?.setNativeProps({
       text : val
       
     })
@@ -41,7 +40,7 @@ export default () => {
     // Ajax.get()
   }
 
-  const codeInputSubmit = () => {
+  const enterPriceSubmit = () => {
     Alert.alert(JSON.stringify(_this.current))
   }
 
@@ -52,6 +51,6 @@ export default () => {
     setActiveCardIndex(index);
   }
 
-  return {loading, SetLoading, codeTextHandler, codeInputSubmit , _this, enterPrice, t , 
+  return {loading, SetLoading, enterPriceHandler, enterPriceSubmit , _this, t , 
     enterPriceRef, activeCardIndex, setActiveCard, _panel, defCard}
 }

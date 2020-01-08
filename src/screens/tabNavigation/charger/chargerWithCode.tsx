@@ -57,7 +57,6 @@ const ChargerWithCode = ({navigation} : any) => {
           )}
         />
       </ScrollView>
-      
     </View>
   );
 };

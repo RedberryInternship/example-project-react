@@ -65,9 +65,9 @@ const chargerDetail = ({navigation} : any) => {
           />
       </ScrollView>
       <BaseButton
-          onPress={navigation.navigate.bind(chargerDetail,"Charging")}
+          onPress={navigation.navigate.bind(chargerDetail,"ChooseChargeMethod")}
           text={"charger.turnOn"} 
-          style={{marginTop: 0, marginVertical:16}}
+          style={{marginTop: 0, marginVertical:16, marginBottom:16}}
           
           image={require("../../../../assets/images/icons/ic_charge.png")}
           imageStyle={{tintColor:"white"}}

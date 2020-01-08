@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import {View, StyleSheet} from "react-native"
+import {View, StyleSheet, InteractionManager} from "react-native"
 import Modal from "react-native-modal";
 
 import { Const} from "../utils"
@@ -10,7 +10,8 @@ import { Const} from "../utils"
 type Data = {
   title? : string,
   description ?: string
-  bottomDescription ?: string
+  bottomDescription ?: string,
+  price ?: number
 }
 type Config ={
   type : number,
@@ -22,6 +23,10 @@ type Config ={
 type InitialState = {
   visible : boolean,
   config : Config,
+}
+
+export interface CustomModalInterface {
+  customUpdate : (visible : Boolean, config : Config) => void
 }
 
 const initialState : InitialState = {
@@ -37,7 +42,7 @@ const initialState : InitialState = {
 }
 import {RegistrationType1, LegendType2, ChargerModalMainWrapper} from "./" 
 
-class CustomModal extends React.PureComponent {
+class CustomModal extends React.PureComponent implements CustomModalInterface {
 
   state = {...initialState}
   ref : any =  React.createRef()
@@ -49,12 +54,13 @@ class CustomModal extends React.PureComponent {
   }
 
   closeModal = () =>{
-    this.ref.current.close()
-
-    this.state.config.onCloseClick && this.state.config.onCloseClick()
+    // this.ref.current.close()
     this.setState({
       visible : false
     })
+    InteractionManager.runAfterInteractions(() => {
+      this.state.config.onCloseClick && this.state.config.onCloseClick()
+    });
   }
 
   customUpdate= ( visible : Boolean, config : Config ) =>{

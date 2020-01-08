@@ -3,6 +3,8 @@ interface Dropdown {
     alertWithType : Function 
 }
 
+import {CustomModalInterface} from "../components/customModal"
+import {RefObject} from "react"
 class Defaults {
     _dropdown! : Dropdown;
     _FCMToken! : string | null;
@@ -57,7 +59,7 @@ class Defaults {
     set modal(modal) {
         this._modal = modal;
     }
-    get modal() {
+    get modal() : RefObject <CustomModalInterface> {
         return  this._modal;
     }
 }
