@@ -22,8 +22,10 @@ import {
   NotAuthorized,
   ChooseChargeMethod,
   Charging,
-  Favourites,
+
+  Favorites,
   Faq,
+  ChoosingCard,
   Contact
 } from './screens';
 import { TabNavigationButtons } from './components';
@@ -31,11 +33,10 @@ import { TabNavigationButtons } from './components';
 
 
 const chargerStack = createStackNavigator({
-  ChargerWithCode,
   ChargerDetail,
-  NotAuthorized,
   ChooseChargeMethod,
-  Charging
+  Charging,
+  ChoosingCard
 },
 {
   defaultNavigationOptions: {
@@ -46,8 +47,9 @@ const chargerStack = createStackNavigator({
 
 const HomeTabNavigation = createBottomTabNavigator({
   Home,
-  chargerStack,
-  Favourites
+  NotAuthorized,
+  ChargerWithCode,
+  Favorites
 },
   {
     // eslint-disable-next-line react/display-name
@@ -118,6 +120,7 @@ const AppNavigator = createSwitchNavigator({
   authenticationStack,
   MainDrawer,
   drawerMenuOptionsStack,
+  chargerStack
 }, {
   initialRouteName: "Plashka"
 });
@@ -144,15 +147,15 @@ const FooterTabNavigator = (props: any) => {
         />
         <TabNavigationButtons 
           active={currentRouteName === "chargerStack"} 
-          navigate={navigate.bind(FooterTabNavigator, 'chargerStack')} 
+          navigate={navigate.bind(FooterTabNavigator, Defaults.token ? "ChargerWithCode" :  " NotAuthorized"  )} 
           image={require("../assets/images/icons/ic_charge.png")} 
         />
         {
           Defaults.token &&
           <TabNavigationButtons
-            navigate={navigate.bind(FooterTabNavigator, 'Favourites')}
+            navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
             image={require("../assets/images/icons/ic_favorite.png")}
-            active={currentRouteName === "Favourites"}
+            active={currentRouteName === "Favorites"}
           />
         }
         <TabNavigationButtons

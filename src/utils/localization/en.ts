@@ -91,6 +91,13 @@ export default {
       busy : "Busy",
       notWorking : "Not working",
       free : "Free",
+      thankYou : "Thank you",
+      automobileChargingFinished : "Automobile charging finished",
+      chargingFinishedWarning : " turn off god damn charger",
+      chargeOff : "Charge off",
+      returned : "Returned",
+      continueCharging : "Continue charging",
+      finishedChargingOfAutomobile : "Finished charging of automobile"
     },
     charger : {
       chargeWitchCode : "Charge witch code",
@@ -112,12 +119,18 @@ export default {
     chooseChargeMethod : {
       choose : "Choose",
       chooseChargeMethod : "Choose your charging method",
-      or : "Or"
+      or : "Or",
+      untilTurnOff : "until turn off",
+      withEnteringPrice : "With entering price"
     },
     charging : {
       charge : "Charge",
       chargeAnotherCar : "Charge other car",
       finish : "Finish",
+    },
+    chooseCard : {
+      chooseCard : "Choose card",
+      enterPrice : "Enter price"
     },
     favourites:{
       favourites: "Favourites",

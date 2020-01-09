@@ -4,6 +4,7 @@ import ChargerDetail from "./tabNavigation/charger/chargerDetail"
 import NotAuthorized from "./tabNavigation/charger/notAuthorized"
 import ChooseChargeMethod from "./tabNavigation/charger/chooseChargeMethod"
 import Charging from "./tabNavigation/charger/charging"
+import ChoosingCard from "./tabNavigation/charger/choosingCard"
 
 import Plashka from "./plashka"
 import Drawer from "./drawer"
@@ -14,7 +15,7 @@ import SetNewPasswords from "./authentication/setNewPasswords"
 import Settings from "./drawerMenuOptions/settings";
 import ProfileChange from './drawerMenuOptions/profileChange';
 
-import Favourites from './favourites';
+import Favorites from './favourites';
 import Faq from './faq';
 import Contact from './contact';
 
@@ -33,7 +34,9 @@ export {
     NotAuthorized,
     ChooseChargeMethod,
     Charging,
-    Favourites,
+
+    Favorites,
     Faq,
-    Contact
+    ChoosingCard,
+    Contact   
 }

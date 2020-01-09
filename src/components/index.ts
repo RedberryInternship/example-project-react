@@ -41,6 +41,8 @@ import SettingsListItem from './item/settingsListItem';
 import CardListItem from './item/cardListItem';
 import ChargerItem from './item/chargerItem';
 import ChargerTypesItem from './item/chargerTypesItem';
+import ModalPopupChargerItem from './item/modalPopupChargerItem';
+import ChooseCardOnCharging from './item/chooseCardOnCharging';
 import FavouriteChargerListItem from './item/favouriteChargerListItem';
 import FaqListItem from './item/faqListItem';
 import ContactListItem from './item/contactListItem';
@@ -117,7 +119,9 @@ export {
     CountDown,
     ChargerModalMainWrapper,
     PopUpCountDown,
-    FavouriteChargerListItem,
     FaqListItem,
+    ModalPopupChargerItem,
+    ChooseCardOnCharging,
+    FavouriteChargerListItem,
     ContactListItem
 }

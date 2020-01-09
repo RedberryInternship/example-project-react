@@ -8,6 +8,7 @@ import useForgotPassword from "./authentication/forgotPassword"
 import useRegistrationHook from "./authentication/registrationHook"
 import useSetNewPasswords from "./authentication/setNewPasswords"
 import useCharger from "./charger/charger"
+import useChoosingCard from "./charger/choosingCard"
 
 export {
     useRoot,
@@ -19,5 +20,6 @@ export {
     useForgotPassword,
     useRegistrationHook,
     useSetNewPasswords,
-    useCharger
+    useCharger,
+    useChoosingCard
 }

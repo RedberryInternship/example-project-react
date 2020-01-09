@@ -1,9 +1,9 @@
 import{Platform} from "react-native";
 
 export const GNOME = {
-    GLAHO_CAPS : "HelveticaNeueLTStd-Ex",
-    GLAHO : "HelveticaNeueLTStd-HvEx",
-    DEJAVU_BOLD : "HelveticaNeueLTStd-MdEx",
+    HELV_EX : "HelveticaNeueLTStd-Ex",
+    HELV_HVEX : "HelveticaNeueLTStd-HvEx",
+    HELV_MDEX : "HelveticaNeueLTStd-MdEx",
 };
 
 export default GNOME;

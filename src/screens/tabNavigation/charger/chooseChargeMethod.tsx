@@ -25,22 +25,18 @@ const chargerDetail = ({navigation} : any) => {
         
         <View>
           <BaseButton
-            onPress={navigation.navigate.bind(chargerDetail,"Auth")}
-            text={"home.authorization"} 
+            onPress={navigation.navigate.bind(chargerDetail,"ChoosingCard",{type : 1})}
+            text={"chooseChargeMethod.untilTurnOff"} 
             style={{marginTop: 0, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-88}}
             
-            image={require("../../../../assets/images/icons/user.png")}
-            imageStyle={{tintColor:"white"}}
           />
           <Text  style={styles.orText}>{t("chooseChargeMethod.or")}</Text>
 
           <BaseButton
-            onPress={navigation.navigate.bind(chargerDetail,"Auth")}
-            text={"home.authorization"} 
+            onPress={navigation.navigate.bind(chargerDetail,"ChoosingCard",{type : 0})}
+            text={"chooseChargeMethod.withEnteringPrice"} 
             style={{marginTop: 16, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-88}}
             
-            image={require("../../../../assets/images/icons/user.png")}
-            imageStyle={{tintColor:"white"}}
           />
         </View>
         <View/>
