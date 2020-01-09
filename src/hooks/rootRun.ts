@@ -109,7 +109,8 @@ export function  useRoot(){
             // NavigationActions().navigate("ChooseChargeMethod");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
-            NavigationActions().navigate("Faq");
+            // NavigationActions().navigate("Faq");
+            NavigationActions().navigate("Contact");
         }
         else setAppReady(false)
 

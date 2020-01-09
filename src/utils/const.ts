@@ -92,3 +92,26 @@ export const SettingsListFields = [
         editableComponentName: "settings.editPassword"
     }
 ];
+
+export const ContactListFields = [
+    {
+        image: require('../../assets/images/icons/map-pin.png'),
+        name: "contact.address"
+    },
+    {
+        image: require('../../assets/images/icons/phone.png'),
+        name: "contact.phone"
+    },
+    {
+        image: require('../../assets/images/icons/mail.png'),
+        name: "contact.eMail"
+    },
+    {
+        image: require('../../assets/images/icons/facebook.png'),
+        name: "contact.facebookPage"
+    },
+    {
+        image: require('../../assets/images/icons/internet.png'),
+        name: "contact.webPage"
+    }
+];

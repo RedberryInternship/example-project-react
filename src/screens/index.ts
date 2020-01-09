@@ -16,6 +16,7 @@ import ProfileChange from './drawerMenuOptions/profileChange';
 
 import Favourites from './favourites';
 import Faq from './faq';
+import Contact from './contact';
 
 export {
     Home,
@@ -33,5 +34,6 @@ export {
     ChooseChargeMethod,
     Charging,
     Favourites,
-    Faq
+    Faq,
+    Contact
 }
