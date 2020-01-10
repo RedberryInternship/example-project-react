@@ -44,6 +44,7 @@ import ChargerTypesItem from './item/chargerTypesItem';
 import ModalPopupChargerItem from './item/modalPopupChargerItem';
 import ChooseCardOnCharging from './item/chooseCardOnCharging';
 import FavouriteChargerListItem from './item/favouriteChargerListItem';
+import FaqListItem from './item/faqListItem';
 
 
 //BaseUI
@@ -117,6 +118,7 @@ export {
     CountDown,
     ChargerModalMainWrapper,
     PopUpCountDown,
+    FaqListItem,
     ModalPopupChargerItem,
     ChooseCardOnCharging,
     FavouriteChargerListItem

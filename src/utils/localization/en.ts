@@ -134,6 +134,10 @@ export default {
     },
     favourites:{
       favourites: "Favourites",
+    },
+    faq:{
+      faq:"FAQ",
+      frequentlyAskedQuestions: "Frequently Asked Questions"
     }
   }
 };

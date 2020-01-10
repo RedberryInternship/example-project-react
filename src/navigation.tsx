@@ -22,8 +22,9 @@ import {
   NotAuthorized,
   ChooseChargeMethod,
   Charging,
+  Favorites,
+  Faq,
   ChoosingCard,
-  Favourites
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -46,7 +47,7 @@ const HomeTabNavigation = createBottomTabNavigator({
   Home,
   NotAuthorized,
   ChargerWithCode,
-  Favourites
+  Favorites
 },
   {
     // eslint-disable-next-line react/display-name
@@ -101,7 +102,8 @@ const authenticationStack = createStackNavigator({
 
 const drawerMenuOptionsStack = createStackNavigator({
   Settings,
-  ProfileChange
+  ProfileChange,
+  Faq
 },
 {
   defaultNavigationOptions: {
@@ -148,9 +150,9 @@ const FooterTabNavigator = (props: any) => {
         {
           Defaults.token &&
           <TabNavigationButtons
-            navigate={navigate.bind(FooterTabNavigator, 'Favourites')}
+            navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
             image={require("../assets/images/icons/ic_favorite.png")}
-            active={currentRouteName === "Favourites"}
+            active={currentRouteName === "Favorites"}
           />
         }
         <TabNavigationButtons

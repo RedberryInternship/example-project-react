@@ -15,7 +15,8 @@ import SetNewPasswords from "./authentication/setNewPasswords"
 import Settings from "./drawerMenuOptions/settings";
 import ProfileChange from './drawerMenuOptions/profileChange';
 
-import Favourites from './favourites';
+import Favorites from './favourites';
+import Faq from './faq';
 
 export {
     Home,
@@ -32,6 +33,8 @@ export {
     NotAuthorized,
     ChooseChargeMethod,
     Charging,
+    Favorites,
+    Faq,
     ChoosingCard,
-    Favourites
+    
 }
