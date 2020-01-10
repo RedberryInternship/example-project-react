@@ -7,7 +7,8 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
+  StatusBar
 } from 'react-native';
 
 
@@ -27,6 +28,7 @@ import {
   Colors,
   Const
 } from '../utils';
+import { SafeAreaView } from 'react-navigation';
 
 const contact = ({ navigation }: any) => {
 
@@ -59,9 +61,13 @@ const contact = ({ navigation }: any) => {
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         enableAutomaticScroll={true}
-        extraScrollHeight={150}
+        extraScrollHeight={Platform.select({ios: -300, android: 150})}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
+        contentContainerStyle={{flex:0}}
+        overScrollMode = {"always"}
+        extraHeight={Platform.select({ios: 500, android: 75})}
+        // keyboardDismissMode={"on-drag"}
         resetScrollToCoords={{ x: 0, y: 0 }} >
         <View style={styles.contactItemsContainer}>
           {listItems}
@@ -70,22 +76,28 @@ const contact = ({ navigation }: any) => {
         <View style={styles.messageContainer}>
           <Text style={styles.messageTitle}>{t("contact.message")}</Text>
           <Image source={require("../../assets/images/icons/mail.png")} style={styles.messageIcon} />
-          <TextInput multiline={true} style={styles.message} onChangeText={(text) => setMessage(text)} />
+          <TextInput 
+            multiline={true} 
+            style={styles.message} 
+            onChangeText={(text) => setMessage(text)} 
+            numberOfLines={4}
+          />
         </View>
       </KeyboardAwareScrollView>
 
 
       <KeyboardAvoidingView 
         behavior="padding" 
-        contentContainerStyle={{ flex: 1 }} 
-        keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
+        // contentContainerStyle={{ flex: 1 }} 
+        keyboardVerticalOffset={Platform.OS === "ios" ? 16 : StatusBar.currentHeight}>
         <BaseButton
           onPress={() => sendMessage(message)}
           text="save"
           image={require("../../assets/images/icons/arrow_left.png")}
+          style={{marginTop:0, marginBottom:16}}
           isImageRight={true} />
       </KeyboardAvoidingView>
-
+      <SafeAreaView />
     </View>
   );
 }
@@ -96,7 +108,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primaryBackground,
-    paddingBottom: 32
+    // paddingBottom: 32
   },
   contactItemsContainer: {
     backgroundColor: Colors.secondaryGray,
@@ -108,8 +120,8 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     marginHorizontal: 16,
-    marginTop: 32,
-    position: "relative"
+    marginVertical: 32,
+    position: "relative",
   },
   messageTitle: {
     color: Colors.primaryGray,
@@ -121,15 +133,18 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     top: 40,
-    left: 5
+    left: 8
   },
   message: {
     height: 200,
     backgroundColor: Colors.black,
     borderRadius: 8,
     color: Colors.primaryWhite,
-    paddingHorizontal: 32,
-    paddingTop: 10
+    paddingLeft: 40,
+    paddingRight: 16,
+    paddingTop: 10,
+    textAlignVertical:"top",
+    
   }
 });
 
