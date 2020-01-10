@@ -134,6 +134,12 @@ export default {
     faq:{
       faq:"ხდკ",
       frequentlyAskedQuestions: "ხშირად დასმული კითხვები"
+    },
+    tariffs:{
+      tariffs: "ტარიფები",
+      company: "კომპანია",
+      power: "სიმძლავრე",
+      chargerType: "დამტენის ტიპი"
     }
   }
 };

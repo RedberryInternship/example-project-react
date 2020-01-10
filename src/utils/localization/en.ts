@@ -138,6 +138,12 @@ export default {
     faq:{
       faq:"FAQ",
       frequentlyAskedQuestions: "Frequently Asked Questions"
-    }
+    },
+    tariffs:{
+      tariffs: "Tariffs",
+      company: "Company",
+      power: "Power",
+      chargerType: "Charger Type"
+    },
   }
 };

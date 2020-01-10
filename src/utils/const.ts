@@ -15,7 +15,7 @@ export const DrawerFieldsBeforeAuthorization = [
     {
         image: require('../../assets/images/icons/book-open.png'),
         text: 'drawer.tariff',
-        route: "Tarrif"
+        route: "Tariffs"
     },
     {
         image: require('../../assets/images/icons/phone.png'),
