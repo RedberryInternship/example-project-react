@@ -97,7 +97,7 @@ export function  useRoot(){
             if(!appReady)
                 setAppReady(true)
 
-            // NavigationActions().navigate("MainDrawer")
+            NavigationActions().navigate("MainDrawer")
             // NavigationActions().navigate("authenticationFlow")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
@@ -110,7 +110,7 @@ export function  useRoot(){
             // NavigationActions().navigate("ChooseChargeMethod");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
-            NavigationActions().navigate("Faq");
+            // NavigationActions().navigate("Faq");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
         }
