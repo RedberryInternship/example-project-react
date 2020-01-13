@@ -9,7 +9,8 @@ import {
   Platform,
   TouchableOpacity,
   Linking,
-  Alert
+  Alert,
+  StatusBar
 } from 'react-native';
 
 
@@ -29,6 +30,7 @@ import {
   Colors,
   Const
 } from '../utils';
+import { SafeAreaView } from 'react-navigation';
 
 const contact = ({ navigation }: any) => {
 
@@ -41,23 +43,25 @@ const contact = ({ navigation }: any) => {
     let ContactItem;
 
     if (el.name === 'contact.address') {
-      ContactItem = <ContactListItem
-        key={el.name}
-        image={el.image}
-        name={el.name}
-        value={contactInfos[key]} />;
-    }
-    else if (el.name === 'contact.phone') {
-      ContactItem = <TouchableOpacity onPress={() => giveACall()}>
+      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openMaps()}>
         <ContactListItem
           key={el.name}
           image={el.image}
           name={el.name}
           value={contactInfos[key]} />
-        </TouchableOpacity>;
+      </TouchableOpacity>;
+    }
+    else if (el.name === 'contact.phone') {
+      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.giveACall()}>
+        <ContactListItem
+          key={el.name}
+          image={el.image}
+          name={el.name}
+          value={contactInfos[key]} />
+      </TouchableOpacity>;
     }
     else if (el.name === 'contact.eMail') {
-      ContactItem = <TouchableOpacity>
+      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.sendMail()}>
         <ContactListItem
           key={el.name}
           image={el.image}
@@ -66,7 +70,7 @@ const contact = ({ navigation }: any) => {
       </TouchableOpacity>;
     }
     else if (el.name === 'contact.facebookPage') {
-      ContactItem = <TouchableOpacity>
+      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openFb()}>
         <ContactListItem
           key={el.name}
           image={el.image}
@@ -75,7 +79,7 @@ const contact = ({ navigation }: any) => {
       </TouchableOpacity>;
     }
     else if (el.name === 'contact.webPage') {
-      ContactItem = <TouchableOpacity>
+      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openWebPage()}>
         <ContactListItem
           key={el.name}
           image={el.image}
@@ -105,9 +109,13 @@ const contact = ({ navigation }: any) => {
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         enableAutomaticScroll={true}
-        extraScrollHeight={150}
+        extraScrollHeight={Platform.select({ ios: -300, android: 150 })}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
+        contentContainerStyle={{ flex: 0 }}
+        overScrollMode={"always"}
+        extraHeight={Platform.select({ ios: 500, android: 75 })}
+        // keyboardDismissMode={"on-drag"}
         resetScrollToCoords={{ x: 0, y: 0 }} >
         <View style={styles.contactItemsContainer}>
           {listItems}
@@ -116,22 +124,29 @@ const contact = ({ navigation }: any) => {
         <View style={styles.messageContainer}>
           <Text style={styles.messageTitle}>{t("contact.message")}</Text>
           <Image source={require("../../assets/images/icons/mail.png")} style={styles.messageIcon} />
-          <TextInput multiline={true} style={styles.message} onChangeText={(text) => setMessage(text)} />
+          <TextInput
+            multiline={true}
+            style={styles.message}
+            onChangeText={(text) => setMessage(text)}
+            numberOfLines={4}
+          />
         </View>
       </KeyboardAwareScrollView>
 
 
+
       <KeyboardAvoidingView
         behavior="padding"
-        contentContainerStyle={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
+        // contentContainerStyle={{ flex: 1 }} 
+        keyboardVerticalOffset={Platform.OS === "ios" ? 16 : StatusBar.currentHeight}>
         <BaseButton
           onPress={() => sendMessage(message)}
           text="save"
           image={require("../../assets/images/icons/arrow_left.png")}
+          style={{ marginTop: 0, marginBottom: 16 }}
           isImageRight={true} />
       </KeyboardAvoidingView>
-
+      <SafeAreaView />
     </View>
   );
 }
@@ -142,7 +157,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primaryBackground,
-    paddingBottom: 32
+    // paddingBottom: 32
   },
   contactItemsContainer: {
     backgroundColor: Colors.secondaryGray,
@@ -154,8 +169,8 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     marginHorizontal: 16,
-    marginTop: 32,
-    position: "relative"
+    marginVertical: 32,
+    position: "relative",
   },
   messageTitle: {
     color: Colors.primaryGray,
@@ -167,15 +182,18 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     top: 40,
-    left: 5
+    left: 8
   },
   message: {
     height: 200,
     backgroundColor: Colors.black,
     borderRadius: 8,
     color: Colors.primaryWhite,
-    paddingHorizontal: 32,
-    paddingTop: 10
+    paddingLeft: 40,
+    paddingRight: 16,
+    paddingTop: 10,
+    textAlignVertical: "top",
+
   }
 });
 
@@ -188,7 +206,70 @@ const contactInfos = [
 ];
 
 
-const giveACall = () => {
-  Linking.openURL(`tel:591935080`).then(data => console.log(data)).catch(err => console.log(err));
+const outgoingLinks = {
+
+  openMaps: () => {
+
+    const mapsInfo = {
+      scheme: Platform.select({ android: 'geo:0,0?q=', ios: 'maps:0,0?q=' }),
+      latitude: 41.707204,
+      longitude: 44.784487,
+      label: 'E-space'
+    };
+
+    const mapsUrl = `${mapsInfo.scheme}@${mapsInfo.latitude},${mapsInfo.longitude}( ${mapsInfo.label} )`;
+
+    Linking.openURL(mapsUrl);
+  },
+
+  giveACall: () => {
+    Linking.canOpenURL(`tel:591935080`).then(supported => {
+      if (supported) {
+        Linking.openURL(`tel:591935080`);
+      }
+      else {
+        console.log("Something Went Wrong When Calling...");
+      }
+    })
+      .catch(err => console.log(err));
+  },
+
+  sendMail: () => {
+    Linking.canOpenURL(`mailto:gela@espace.ge`).then(supported => {
+      if (supported) {
+        Linking.openURL(`mailto:gela@espace.ge?subject=e-space`);
+      }
+    })
+      .catch(err => console.log(err));
+  },
+
+  openFb: () => {
+    Linking.canOpenURL('fb://group/272061007052173')
+      .then(supported => {
+        if (supported) {
+          Linking.openURL('fb://group/272061007052173');
+        }
+        else {
+          Linking.openURL('https://www.facebook.com/groups/272061007052173/');
+        }
+      })
+      .catch(err => {
+        console.log(err)
+      });
+  },
+
+  openWebPage: () => {
+    Linking.canOpenURL('http://e-space.ge/')
+      .then(supported => {
+        if (supported) {
+          Linking.openURL('http://e-space.ge/');
+        }
+        else {
+          console.log('Something Went Wrong while Opening Web Page...');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
 }
 
