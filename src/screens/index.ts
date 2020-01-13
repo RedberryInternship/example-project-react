@@ -18,6 +18,7 @@ import ProfileChange from './drawerMenuOptions/profileChange';
 import Favorites from './favourites';
 import Faq from './faq';
 import Contact from './contact';
+import Notifications from './notifications';
 
 export {
     Home,
@@ -38,5 +39,6 @@ export {
     Favorites,
     Faq,
     ChoosingCard,
-    Contact   
+    Contact,
+    Notifications   
 }

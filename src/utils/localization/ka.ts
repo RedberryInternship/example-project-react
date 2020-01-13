@@ -143,6 +143,9 @@ export default {
       facebookPage: "ფეისბუქის გვერდი",
       webPage: "ვებ-გვერდი",
       message: "შეტყობინება"
+    },
+    notifications:{
+      notifications: "შეტყობინებები"
     }
   }
 };

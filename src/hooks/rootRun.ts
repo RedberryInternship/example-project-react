@@ -101,7 +101,7 @@ export function  useRoot(){
             // NavigationActions().navigate("authenticationFlow")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
-            // NavigationActions().navigate("Settings");
+            NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
             // NavigationActions().navigate("ChargerWithCode");
             // NavigationActions().navigate("ChargerDetail");
@@ -114,7 +114,8 @@ export function  useRoot(){
             // NavigationActions().navigate("Faq");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favorites");
-            NavigationActions().navigate("Contact");
+            // NavigationActions().navigate("Contact");
+            NavigationActions().navigate("Notifications");
 
         }
         else setAppReady(false)

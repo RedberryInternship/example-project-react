@@ -46,6 +46,7 @@ import ChooseCardOnCharging from './item/chooseCardOnCharging';
 import FavouriteChargerListItem from './item/favouriteChargerListItem';
 import FaqListItem from './item/faqListItem';
 import ContactListItem from './item/contactListItem';
+import NotificationListItem from './item/notificationsListItem';
 
 
 //BaseUI
@@ -123,5 +124,6 @@ export {
     ModalPopupChargerItem,
     ChooseCardOnCharging,
     FavouriteChargerListItem,
-    ContactListItem
+    ContactListItem,
+    NotificationListItem
 }

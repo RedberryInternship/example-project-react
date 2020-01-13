@@ -147,6 +147,9 @@ export default {
       facebookPage: "Facebook Page",
       webPage: "Web Page",
       message: "Message"
+    },
+    notifications:{
+      notifications: "Notifications"
     }
   }
 };

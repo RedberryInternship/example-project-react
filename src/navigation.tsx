@@ -26,7 +26,8 @@ import {
   Favorites,
   Faq,
   ChoosingCard,
-  Contact
+  Contact,
+  Notifications
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -106,7 +107,8 @@ const drawerMenuOptionsStack = createStackNavigator({
   Settings,
   ProfileChange,
   Faq,
-  Contact
+  Contact,
+  Notifications
 },
 {
   defaultNavigationOptions: {
