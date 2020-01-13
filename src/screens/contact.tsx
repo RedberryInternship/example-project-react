@@ -43,45 +43,50 @@ const contact = ({ navigation }: any) => {
     let ContactItem;
 
     if (el.name === 'contact.address') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openMaps()}>
+      ContactItem = <TouchableOpacity
+        onPress={() => outgoingLinks.openMaps()}
+        key={el.name}>
         <ContactListItem
-          key={el.name}
           image={el.image}
           name={el.name}
           value={contactInfos[key]} />
       </TouchableOpacity>;
     }
     else if (el.name === 'contact.phone') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.giveACall()}>
+      ContactItem = <TouchableOpacity
+        onPress={() => outgoingLinks.giveACall()}
+        key={el.name}>
         <ContactListItem
-          key={el.name}
           image={el.image}
           name={el.name}
           value={contactInfos[key]} />
       </TouchableOpacity>;
     }
     else if (el.name === 'contact.eMail') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.sendMail()}>
+      ContactItem = <TouchableOpacity
+        onPress={() => outgoingLinks.sendMail()}
+        key={el.name}>
         <ContactListItem
-          key={el.name}
           image={el.image}
           name={el.name}
           value={contactInfos[key]} />
       </TouchableOpacity>;
     }
     else if (el.name === 'contact.facebookPage') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openFb()}>
+      ContactItem = <TouchableOpacity 
+      onPress={() => outgoingLinks.openFb()}
+      key={el.name}>
         <ContactListItem
-          key={el.name}
           image={el.image}
           name={el.name}
           value={contactInfos[key]} />
       </TouchableOpacity>;
     }
     else if (el.name === 'contact.webPage') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openWebPage()}>
+      ContactItem = <TouchableOpacity 
+      onPress={() => outgoingLinks.openWebPage()}
+      key={el.name}>
         <ContactListItem
-          key={el.name}
           image={el.image}
           name={el.name}
           value={contactInfos[key]}
