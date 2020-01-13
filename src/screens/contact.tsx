@@ -7,6 +7,8 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
+  Linking,
   Alert
 } from 'react-native';
 
@@ -36,17 +38,61 @@ const contact = ({ navigation }: any) => {
 
   const listItems = Const.ContactListFields.map((el, key) => {
 
-    return <ContactListItem
-      key={el.name}
-      image={el.image}
-      name={el.name}
-      value={contactInfos[key]}
-      style={key !== 4 ? null : { borderBottomWidth: 0 }} />
+    let ContactItem;
+
+    if (el.name === 'contact.address') {
+      ContactItem = <ContactListItem
+        key={el.name}
+        image={el.image}
+        name={el.name}
+        value={contactInfos[key]} />;
+    }
+    else if (el.name === 'contact.phone') {
+      ContactItem = <TouchableOpacity onPress={() => giveACall()}>
+        <ContactListItem
+          key={el.name}
+          image={el.image}
+          name={el.name}
+          value={contactInfos[key]} />
+        </TouchableOpacity>;
+    }
+    else if (el.name === 'contact.eMail') {
+      ContactItem = <TouchableOpacity>
+        <ContactListItem
+          key={el.name}
+          image={el.image}
+          name={el.name}
+          value={contactInfos[key]} />
+      </TouchableOpacity>;
+    }
+    else if (el.name === 'contact.facebookPage') {
+      ContactItem = <TouchableOpacity>
+        <ContactListItem
+          key={el.name}
+          image={el.image}
+          name={el.name}
+          value={contactInfos[key]} />
+      </TouchableOpacity>;
+    }
+    else if (el.name === 'contact.webPage') {
+      ContactItem = <TouchableOpacity>
+        <ContactListItem
+          key={el.name}
+          image={el.image}
+          name={el.name}
+          value={contactInfos[key]}
+          style={{ borderBottomWidth: 0 }} />
+      </TouchableOpacity>;
+    }
+
+
+
+    return ContactItem;
   });
 
 
-  const sendMessage = ( msg : string ) => {
-    Alert.alert("", msg, [ {text: "Got It!", onPress: () => navigation.goBack() } ] );
+  const sendMessage = (msg: string) => {
+    Alert.alert("", msg, [{ text: "Got It!", onPress: () => navigation.goBack() }]);
   }
 
 
@@ -75,9 +121,9 @@ const contact = ({ navigation }: any) => {
       </KeyboardAwareScrollView>
 
 
-      <KeyboardAvoidingView 
-        behavior="padding" 
-        contentContainerStyle={{ flex: 1 }} 
+      <KeyboardAvoidingView
+        behavior="padding"
+        contentContainerStyle={{ flex: 1 }}
         keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
           onPress={() => sendMessage(message)}
@@ -140,3 +186,9 @@ const contactInfos = [
   "e-space",
   "www.espace.ge"
 ];
+
+
+const giveACall = () => {
+  Linking.openURL(`tel:591935080`).then(data => console.log(data)).catch(err => console.log(err));
+}
+
