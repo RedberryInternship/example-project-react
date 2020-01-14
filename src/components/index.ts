@@ -45,6 +45,8 @@ import ModalPopupChargerItem from './item/modalPopupChargerItem';
 import ChooseCardOnCharging from './item/chooseCardOnCharging';
 import FavouriteChargerListItem from './item/favouriteChargerListItem';
 import FaqListItem from './item/faqListItem';
+import TariffListItem from './item/tariffListItem';
+import ContactListItem from './item/contactListItem';
 
 
 //BaseUI
@@ -63,6 +65,7 @@ import HomeMainSearchInput from "./UI/homeMainSearchInput"
 import ChargerDetailTopInfo from "./UI/chargerDetailTopInfo"
 import CurrentTariffs from "./UI/currentTariffs"
 import PopUpCountDown from "./UI/popUpCountDown"
+import TariffDetail from "./UI/tariffDetail";
 
 // modalTypes
 import RegistrationType1 from "./modalTypes/registrationType1"
@@ -121,5 +124,8 @@ export {
     FaqListItem,
     ModalPopupChargerItem,
     ChooseCardOnCharging,
-    FavouriteChargerListItem
+    FavouriteChargerListItem,
+    TariffDetail,
+    TariffListItem,
+    ContactListItem
 }

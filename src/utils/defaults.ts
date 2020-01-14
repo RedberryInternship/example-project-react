@@ -1,12 +1,9 @@
-
-interface Dropdown {
-    alertWithType : Function 
-}
-
 import {CustomModalInterface} from "../components/customModal"
 import {RefObject} from "react"
+
+
 class Defaults {
-    _dropdown! : Dropdown;
+    _dropdown : any = null;
     _FCMToken! : string | null;
     _token : null | string = '';
     _activeRoute! :string;
@@ -17,7 +14,7 @@ class Defaults {
     set dropdown(dropdown) {
         this._dropdown = dropdown;
     }
-    get dropdown(): Dropdown {
+    get dropdown() {
         return this._dropdown;
     }
 

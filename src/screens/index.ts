@@ -17,6 +17,8 @@ import ProfileChange from './drawerMenuOptions/profileChange';
 
 import Favorites from './favourites';
 import Faq from './faq';
+import Tariffs from './tariffs';
+import Contact from './contact';
 
 export {
     Home,
@@ -36,5 +38,6 @@ export {
     Favorites,
     Faq,
     ChoosingCard,
-    
+    Tariffs,
+    Contact   
 }

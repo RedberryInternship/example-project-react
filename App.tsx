@@ -34,7 +34,7 @@ const App = () => {
         // errorColor={Colors.errorColor}
         // infoColor={Colors.infoColor}
         // inactiveStatusBarBackgroundColor={"#fb634f"}
-        ref={Defaults.dropdown}
+        ref={(ref)=> Defaults.dropdown= ref}
         testID={"dropdownAlert"}
         titleStyle={{fontSize:14, color : "white"}}
         imageStyle={{marginHorizontal: 8, alignSelf: "center", resizeMode:"contain"}}

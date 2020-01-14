@@ -113,6 +113,10 @@ export function  useRoot(){
             // NavigationActions().navigate("Faq");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
+            // NavigationActions().navigate("Tariffs");
+            // NavigationActions().navigate("Favorites");
+            // NavigationActions().navigate("Contact");
+
         }
         else setAppReady(false)
 

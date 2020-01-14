@@ -15,7 +15,7 @@ export const DrawerFieldsBeforeAuthorization = [
     {
         image: require('../../assets/images/icons/book-open.png'),
         text: 'drawer.tariff',
-        route: "Tarrif"
+        route: "Tariffs"
     },
     {
         image: require('../../assets/images/icons/phone.png'),
@@ -90,5 +90,33 @@ export const SettingsListFields = [
         name: "settings.password",
         type: "PasswordChange",
         editableComponentName: "settings.editPassword"
+    }
+];
+
+export const ContactListFields = [
+    {
+        image: require('../../assets/images/icons/map-pin.png'),
+        name: "contact.address",
+        type: "address"
+    },
+    {
+        image: require('../../assets/images/icons/phone.png'),
+        name: "contact.phone",
+        type: "phone"
+    },
+    {
+        image: require('../../assets/images/icons/mail.png'),
+        name: "contact.eMail",
+        type: "eMail"
+    },
+    {
+        image: require('../../assets/images/icons/facebook.png'),
+        name: "contact.facebookPage",
+        type: "facebookPage"
+    },
+    {
+        image: require('../../assets/images/icons/internet.png'),
+        name: "contact.webPage",
+        type: "webPage"
     }
 ];
