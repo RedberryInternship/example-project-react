@@ -23,10 +23,7 @@ const tarrifs = ({ navigation }: any) => {
   const tariffList = tariffsInfo.map(el => {
     return <TariffListItem
             key={el.company}
-            company={el.company}
-            power={el.power}
-            chargerType={el.chargerType}
-            title={el.title} />;
+            {...el} />;
   });
 
 
