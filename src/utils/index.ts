@@ -9,6 +9,7 @@ import i18n, {t} from "./localization/localization"
 import location from "./mapAndLocation/location"
 import {regionFrom} from "./mapAndLocation/mapFunctions"
 import mapStyles from "./mapAndLocation/mapStyle"
+import mapStyle2 from "./mapAndLocation/mapStyle2"
 
 
 export {
@@ -23,5 +24,6 @@ export {
     location,
     regionFrom,
     Const,
-    mapStyles
+    mapStyles,
+    mapStyle2
 }

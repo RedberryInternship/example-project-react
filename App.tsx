@@ -12,6 +12,7 @@ import { useRoot } from './src/hooks';
 import { Defaults, Colors } from './src/utils';
 import './src/utils/style';
 import { CustomModal } from './src/components';
+import DropdownAlert from 'react-native-dropdownalert';
 
 
 console.disableYellowBox = true;
@@ -30,7 +31,15 @@ const App = () => {
           t : root.t
         }}
       />
-
+      <DropdownAlert
+        // errorColor={Colors.errorColor}
+        // infoColor={Colors.infoColor}
+        // inactiveStatusBarBackgroundColor={"#fb634f"}
+        ref={(ref)=> Defaults.dropdown= ref}
+        testID={"dropdownAlert"}
+        titleStyle={{fontSize:14, color : "white"}}
+        imageStyle={{marginHorizontal: 8, alignSelf: "center", resizeMode:"contain"}}
+      />    
       <CustomModal 
         ref={Defaults.modal}
       />

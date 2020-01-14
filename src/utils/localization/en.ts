@@ -145,5 +145,14 @@ export default {
       power: "Power",
       chargerType: "Charger Type"
     },
+    contact: {
+      contact: "Contact",
+      address: "Address",
+      phone: "Phone",
+      eMail: "E-Mail",
+      facebookPage: "Facebook Page",
+      webPage: "Web Page",
+      message: "Message"
+    }
   }
 };

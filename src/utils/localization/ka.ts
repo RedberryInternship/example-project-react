@@ -140,6 +140,15 @@ export default {
       company: "კომპანია",
       power: "სიმძლავრე",
       chargerType: "დამტენის ტიპი"
+    },
+    contact: {
+      contact: "კონტაქტი",
+      address: "მისამართი",
+      phone: "ტელეფონი",
+      eMail: "მეილი",
+      facebookPage: "ფეისბუქის გვერდი",
+      webPage: "ვებ-გვერდი",
+      message: "შეტყობინება"
     }
   }
 };
