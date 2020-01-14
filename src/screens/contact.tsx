@@ -27,7 +27,8 @@ import {
 // utils
 import {
   Colors,
-  Const
+  Const,
+  Defaults
 } from '../utils';
 import { SafeAreaView } from 'react-navigation';
 
@@ -182,10 +183,13 @@ const outgoingLinkMethods = {
         Linking.openURL(`tel:591935080`);
       }
       else {
-        console.log("Something Went Wrong When Calling...");
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Calling...");
       }
     })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Calling...");
+        console.log(err)
+      });
   },
 
   "eMail": () => {
@@ -194,7 +198,10 @@ const outgoingLinkMethods = {
         Linking.openURL(`mailto:gela@espace.ge?subject=e-space`);
       }
     })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Opening Email...");
+        console.log(err)
+      });
   },
 
   "facebookPage": () => {
@@ -208,6 +215,7 @@ const outgoingLinkMethods = {
         }
       })
       .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Opening Facebook...");
         console.log(err)
       });
   },
@@ -219,10 +227,13 @@ const outgoingLinkMethods = {
           Linking.openURL('http://e-space.ge/');
         }
         else {
-          console.log('Something Went Wrong while Opening Web Page...');
+          Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong while Opening Web Page...");
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong while Opening Web Page...");
+        console.log(err)
+      });
   }
 }
 

@@ -19,44 +19,28 @@ type FaqItem = {
   setActiveFaq: (index: any) => void | undefined
 }
 
+
 const faqListItem = ({ number, question, answer, activeFaq, setActiveFaq }: FaqItem) => {
 
   const [toggleAnswerAnim] = useState(new Animated.Value(0));
-  let toggleAnswer = false;
 
-  const openAnswer = () => {
+  const toggleFaq = (intend: string = "open") => {
 
-    Animated.timing(
-      toggleAnswerAnim,
-      {
-        toValue: 120,
-        duration: 600
-      }
-    ).start();
+    let $toValue: number = 0;
+    let $duration: number = 300;
 
-    setActiveFaq(number);
-    toggleAnswer = !toggleAnswer;
-  }
-
-  const closeAnswer = () => {
-    Animated.timing(
-      toggleAnswerAnim,
-      {
-        toValue: 0,
-        duration: 500
-      }
-    ).start();
-
-    toggleAnswer = !toggleAnswer;
-    
-  }
-
-  const toggleFaqAnswer = () => {
-    if (!toggleAnswer) {
-      openAnswer();
-    } else {
-      closeAnswer();
+    if (intend === "open") {
+      $toValue = 120;
+      setActiveFaq(number);
     }
+
+    Animated.timing(
+      toggleAnswerAnim,
+      {
+        toValue: $toValue,
+        duration: $duration
+      }
+    ).start();
   }
 
 
@@ -81,51 +65,46 @@ const faqListItem = ({ number, question, answer, activeFaq, setActiveFaq }: FaqI
   });
 
 
-  useEffect(()=> {
-    if(activeFaq !== number){
-      closeAnswer();
-      toggleAnswer = !toggleAnswer;
+  useEffect(() => {
+    if (activeFaq !== number) {
+      toggleFaq("close");
     }
-  });
+  }, [activeFaq]);
 
   useEffect(() => {
-    if(activeFaq === number){
-      openAnswer();
-      toggleAnswer = !toggleAnswer;
+    if (activeFaq === number) {
+      toggleFaq("open");
     }
   }, []);
 
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={() => toggleFaq("open")}>
 
-      <View style={styles.innerContainer}>
-
-        <Text style={styles.number}>{number}</Text>
-        <View style={styles.question}>
-          <Text style={styles.questionsText}>{question}</Text>
-        </View>
-
-        <TouchableOpacity onPress={() => toggleFaqAnswer()}>
+      <View style={styles.container}>
+        <View style={styles.innerContainer}>
+          <Text style={styles.number}>{number}</Text>
+          <View style={styles.question}>
+            <Text style={styles.questionsText}>{question}</Text>
+          </View>
           <View style={styles.arrowBackground}>
             <Animated.Image
               style={[styles.arrowImage, { transform: [{ rotateZ: rotationValue }] }]}
               source={require('../../../assets/images/icons/arrow-up.png')} />
           </View>
-        </TouchableOpacity>
+        </View>
+
+        <Animated.View style={[styles.answer, {
+          height: toggleAnswerAnim,
+          paddingVertical: paddingMarginValue,
+          marginTop: paddingMarginValue,
+          borderTopWidth: onOrOff
+        }]}>
+          <Animated.Text style={[styles.answerText, { opacity: opacity }]}>{answer}</Animated.Text>
+        </Animated.View>
 
       </View>
-
-      <Animated.View style={[styles.answer, {
-        height: toggleAnswerAnim,
-        paddingVertical: paddingMarginValue,
-        marginTop: paddingMarginValue,
-        borderTopWidth: onOrOff
-      }]}>
-        <Animated.Text style={[styles.answerText, { opacity: opacity }]}>{answer}</Animated.Text>
-      </Animated.View>
-
-    </View>
+    </TouchableOpacity>
   );
 }
 
