@@ -14,7 +14,6 @@ import './src/utils/style';
 import { CustomModal } from './src/components';
 import DropdownAlert from 'react-native-dropdownalert';
 
-
 console.disableYellowBox = true;
 
 const App = () => {

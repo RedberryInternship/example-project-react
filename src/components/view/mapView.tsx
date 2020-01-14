@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
   },
 });
 
+// modi rame davwerot
+
 const mapView = () => {
   const map = useRef(null);
   // eslint-disable-next-line no-unused-vars
@@ -66,5 +68,5 @@ function determinetime() {
   // console.log('====================================');
   // console.log(times.sunset, moment(times.sunset).diff(moment()),  "times.sunset");
   // console.log('====================================');
-  return moment(times.sunset).diff(moment()) > 0  ? mapStyle2 : mapStyles
+  return moment(times.sunset).diff(moment()) - moment(times.sunrise).diff(moment()) > 0  ? mapStyle2 : mapStyles
 }
