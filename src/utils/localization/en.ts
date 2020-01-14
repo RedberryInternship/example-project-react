@@ -138,6 +138,15 @@ export default {
     faq:{
       faq:"FAQ",
       frequentlyAskedQuestions: "Frequently Asked Questions"
+    },
+    contact: {
+      contact: "Contact",
+      address: "Address",
+      phone: "Phone",
+      eMail: "E-Mail",
+      facebookPage: "Facebook Page",
+      webPage: "Web Page",
+      message: "Message"
     }
   }
 };

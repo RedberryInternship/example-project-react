@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   ScrollView,
-  SafeAreaView,
+  View,
   StyleSheet,
   Alert
 } from 'react-native';
@@ -16,7 +16,7 @@ const favourites = ({ navigation }: any) => {
 
 
   return (
-    <SafeAreaView>
+    <View>
       <BaseHeader
         title={'favourites.favourites'}
         onPressLeft={() => navigation.goBack()} />
@@ -37,7 +37,7 @@ const favourites = ({ navigation }: any) => {
 
 
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

@@ -134,6 +134,15 @@ export default {
     faq:{
       faq:"ხდკ",
       frequentlyAskedQuestions: "ხშირად დასმული კითხვები"
+    },
+    contact: {
+      contact: "კონტაქტი",
+      address: "მისამართი",
+      phone: "ტელეფონი",
+      eMail: "მეილი",
+      facebookPage: "ფეისბუქის გვერდი",
+      webPage: "ვებ-გვერდი",
+      message: "შეტყობინება"
     }
   }
 };
