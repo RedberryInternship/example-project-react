@@ -96,22 +96,27 @@ export const SettingsListFields = [
 export const ContactListFields = [
     {
         image: require('../../assets/images/icons/map-pin.png'),
-        name: "contact.address"
+        name: "contact.address",
+        type: "address"
     },
     {
         image: require('../../assets/images/icons/phone.png'),
-        name: "contact.phone"
+        name: "contact.phone",
+        type: "phone"
     },
     {
         image: require('../../assets/images/icons/mail.png'),
-        name: "contact.eMail"
+        name: "contact.eMail",
+        type: "eMail"
     },
     {
         image: require('../../assets/images/icons/facebook.png'),
-        name: "contact.facebookPage"
+        name: "contact.facebookPage",
+        type: "facebookPage"
     },
     {
         image: require('../../assets/images/icons/internet.png'),
-        name: "contact.webPage"
+        name: "contact.webPage",
+        type: "webPage"
     }
 ];

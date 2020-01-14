@@ -6,7 +6,8 @@ import {
   ImageSourcePropType,
   StyleSheet,
   StyleProp,
-  ViewStyle
+  ViewStyle,
+  TouchableOpacity
 } from 'react-native';
 
 
@@ -21,24 +22,27 @@ type ContactItem = {
   image: ImageSourcePropType,
   name: string,
   value: string,
-  style ?: StyleProp<ViewStyle>
+  onPress: () => void 
+  style?: StyleProp<ViewStyle>
 }
 
-const contactListItem = ({ image, name, value, style }: ContactItem) => {
+const contactListItem = ({ image, name, value, onPress, style }: ContactItem) => {
 
   const { t } = useTranslation();
 
   return (
-    <View style={[styles.container, style]}>
+    <TouchableOpacity onPress={onPress}>
+      <View style={[styles.container, style]}>
 
-      <View style={styles.innerLeftContainer}>
-        <Image source={image} style={styles.image} />
-        <Text style={styles.name}>{t(name)}</Text>
+        <View style={styles.innerLeftContainer}>
+          <Image source={image} style={styles.image} />
+          <Text style={styles.name}>{t(name)}</Text>
+        </View>
+
+        <Text style={styles.value}>{value}</Text>
+
       </View>
-
-      <Text style={styles.value}>{value}</Text>
-
-    </View>
+    </TouchableOpacity>
   );
 };
 
