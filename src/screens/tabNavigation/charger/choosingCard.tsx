@@ -28,7 +28,7 @@ const choosingCard = ({navigation} : any) => {
     <>
       <View style={styles.container} >
         <BaseHeader 
-          onPressLeft={navigation.navigate.bind(choosingCard,"MainDrawer")}
+          onPressLeft={() =>navigation.goBack()}
           title={"chooseCard.chooseCard"}
         />
         <LinearGradient colors={ ['#009AF022', '#1065E322']}  start={{x:0, y:1}} end={{x:1, y:0}} style={[styles.gradinetContainer]}>
@@ -108,7 +108,6 @@ const choosingCard = ({navigation} : any) => {
           />
         </KeyboardAvoidingView>
       </View>
-      <SafeAreaView forceInset={{top:"never", bottom:"always"}} style={{width:"100%", backgroundColor:Colors.secondaryDark, position:"relative"}} />
     </>
   );
 };

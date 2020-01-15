@@ -11,18 +11,18 @@ import {
   BaseHeader,
   FavouriteChargerListItem
 } from '../components';
+import { Colors } from '../../src/utils';
 
-const favourites = ({ navigation }: any) => {
+const favourites = () => {
 
 
   return (
-    <View>
+    <View style={{flex:1, backgroundColor: Colors.primaryBackground}}>
       <BaseHeader
         title={'favourites.favourites'}
-        onPressLeft={() => navigation.goBack()} />
+      />
 
       <ScrollView style={styles.container} >
-
         <FavouriteChargerListItem
           title='თბილისი მოლი'
           address='საიათნოვას ქუჩა'
@@ -45,7 +45,6 @@ export default favourites;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64,
-    paddingBottom: 32
+    paddingVertical: 32
   }
 });

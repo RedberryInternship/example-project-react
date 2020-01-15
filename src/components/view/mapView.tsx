@@ -65,8 +65,10 @@ export default mapView;
 
 function determinetime() {
   var times = SunCalc.getTimes(new Date(),41.716667, 44.783333);
-  // console.log('====================================');
-  // console.log(times.sunset, moment(times.sunset).diff(moment()),  "times.sunset");
-  // console.log('====================================');
-  return moment(times.sunset).diff(moment()) - moment(times.sunrise).diff(moment()) > 0  ? mapStyle2 : mapStyles
+
+  console.log('====================================');
+  console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
+  console.log('====================================');
+
+  return moment(times.sunrise).diff(times.sunset) > 0  ? mapStyle2 : mapStyles
 }
