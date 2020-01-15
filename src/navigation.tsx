@@ -25,7 +25,9 @@ import {
   Favorites,
   Faq,
   ChoosingCard,
-  Tariffs
+  Tariffs,
+  TransactionList,
+  ShowTransaction
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -105,7 +107,10 @@ const drawerMenuOptionsStack = createStackNavigator({
   Settings,
   ProfileChange,
   Faq,
-  Tariffs
+  Tariffs,
+
+  TransactionList,
+  ShowTransaction
 },
 {
   defaultNavigationOptions: {

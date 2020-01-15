@@ -45,7 +45,7 @@ export const DrawerFieldsAfterAuthorization = [
     {
         image: require('../../assets/images/icons/credit-card.png'),
         text: 'drawer.transactions',
-        route: "Transactions"
+        route: "TransactionList"
     },
     {
         image: require('../../assets/images/icons/mail.png'),

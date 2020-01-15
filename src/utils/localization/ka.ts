@@ -140,6 +140,15 @@ export default {
       company: "კომპანია",
       power: "სიმძლავრე",
       chargerType: "დამტენის ტიპი"
+    },
+    transactions:{
+      transactions: "ტრანზაქციები",
+      details: "დეტალები",
+      duration: "ხანგრძლივობა",
+      power: "სიმძლავრე",
+      energy: "ენერგია",
+      address: "მისამართი",
+      cardNumber: "ბარათის ნომერი",
     }
   }
 };

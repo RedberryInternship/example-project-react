@@ -1,13 +1,13 @@
-import {useEffect, useState,useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAppState } from 'react-native-hooks';
-import {useNetInfo} from "@react-native-community/netinfo";
-import  {useAsyncStorage} from "@react-native-community/async-storage";
+import { useNetInfo } from "@react-native-community/netinfo";
+import { useAsyncStorage } from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 
 
-export function  useRoot(){
+export function useRoot() {
 
     const currentAppState = useAppState()
     const networkState = useNetInfo()
@@ -15,13 +15,13 @@ export function  useRoot(){
 
     const [token, setToken] = useState<null | string>('')
     const [locale, setLocale] = useState<null | string>('');
-    const {getItem, setItem} = useAsyncStorage("token")
-    const {getItem : getLocaleStorage, setItem : setLocaleStorage} = useAsyncStorage("locale")
+    const { getItem, setItem } = useAsyncStorage("token")
+    const { getItem: getLocaleStorage, setItem: setLocaleStorage } = useAsyncStorage("locale")
 
     const [appReady, setAppReady] = useState(false);
     const [navigationState, setNavigationState] = useState(false);
 
-    const _this : any = useRef(null)
+    const _this: any = useRef(null)
 
     Defaults.modal = useRef(null);
 
@@ -34,22 +34,22 @@ export function  useRoot(){
         readUserLocale()
         // AsyncStorage.clear()
         onReady()
-        console.log("remounted", appReady , " appReady");
-        
+        console.log("remounted", appReady, " appReady");
+
     }, [])
 
     useEffect(() => {
-        if(currentAppState === "active"){
+        if (currentAppState === "active") {
             //call userState Update
         }
-        else if(currentAppState.match(/inactive|background/)){
+        else if (currentAppState.match(/inactive|background/)) {
             //do some background tasks
         }
 
-        if(networkState.isConnected){
+        if (networkState.isConnected) {
             //call userState Update
         }
-        else if (!networkState.isConnected){
+        else if (!networkState.isConnected) {
             //show alert
         }
 
@@ -61,26 +61,26 @@ export function  useRoot(){
         setToken(_token)
     }
 
-    const readUserLocale =  async () => {
+    const readUserLocale = async () => {
         let _locale = await getLocaleStorage();
 
-        if(_locale === null) {
+        if (_locale === null) {
             _locale = "ka";
             setLocaleStorage("ka");
         }
         else {
             i18n.changeLanguage(_locale)
         }
-        
+
         Defaults.locale = _locale;
         setLocale(_locale)
     }
 
 
-    const setNavigationTopLevelElement = (ref : any) =>{
-        console.log("settingNavigationTopLevelElement",ref, NavigationActions()._navigator);
+    const setNavigationTopLevelElement = (ref: any) => {
+        console.log("settingNavigationTopLevelElement", ref, NavigationActions()._navigator);
 
-        if( ref === null  ) return
+        if (ref === null) return
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
@@ -90,11 +90,11 @@ export function  useRoot(){
 
     useEffect(() => {
         onReady()
-    }, [token,navigationState, locale] )
+    }, [token, navigationState, locale])
 
-    const onReady =() =>{
-        if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== ''){
-            if(!appReady)
+    const onReady = () => {
+        if (navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== '') {
+            if (!appReady)
                 setAppReady(true)
 
             // NavigationActions().navigate("MainDrawer")
@@ -113,12 +113,14 @@ export function  useRoot(){
             // NavigationActions().navigate("Faq");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
-            NavigationActions().navigate("Tariffs");
+            // NavigationActions().navigate("Tariffs");
+            NavigationActions().navigate("TransactionList");
+            
         }
         else setAppReady(false)
 
         console.log(Defaults.token, "App ready to boot");
 
     }
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this}
+    return { currentAppState, networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this }
 }

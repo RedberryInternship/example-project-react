@@ -145,5 +145,14 @@ export default {
       power: "Power",
       chargerType: "Charger Type"
     },
+    transactions:{
+      transactions: "Transactions",
+      details: "Details",
+      duration: "Duration",
+      power: "Power",
+      energy: "Energy",
+      address: "Address",
+      cardNumber: "Card Number"
+    }
   }
 };
