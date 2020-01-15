@@ -27,7 +27,8 @@ import {
   ChoosingCard,
   Tariffs,
   TransactionList,
-  ShowTransaction
+  ShowTransaction,
+  Partners
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -110,7 +111,9 @@ const drawerMenuOptionsStack = createStackNavigator({
   Tariffs,
 
   TransactionList,
-  ShowTransaction
+  ShowTransaction,
+
+  Partners
 },
 {
   defaultNavigationOptions: {

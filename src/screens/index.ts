@@ -22,6 +22,8 @@ import Tariffs from './tariffs';
 import TransactionList from './transactions/transactionList';
 import ShowTransaction from './transactions/showTransaction';
 
+import Partners from './partners';
+
 export {
     Home,
     Auth,
@@ -42,5 +44,6 @@ export {
     ChoosingCard,
     Tariffs,
     TransactionList,
-    ShowTransaction
+    ShowTransaction,
+    Partners
 }

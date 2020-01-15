@@ -114,7 +114,8 @@ export function useRoot() {
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
             // NavigationActions().navigate("Tariffs");
-            NavigationActions().navigate("TransactionList");
+            // NavigationActions().navigate("TransactionList");
+            NavigationActions().navigate("Partners");
             
         }
         else setAppReady(false)

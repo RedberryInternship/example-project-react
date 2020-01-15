@@ -149,6 +149,9 @@ export default {
       energy: "ენერგია",
       address: "მისამართი",
       cardNumber: "ბარათის ნომერი",
+    },
+    partners:{
+      partnerOrganizations: "პარტნიორი ორგანიზაციები",
     }
   }
 };

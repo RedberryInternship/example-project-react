@@ -153,6 +153,9 @@ export default {
       energy: "Energy",
       address: "Address",
       cardNumber: "Card Number"
+    },
+    partners:{
+      partnersOrganizations: "Partner Organizations",
     }
   }
 };
