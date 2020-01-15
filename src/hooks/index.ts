@@ -3,12 +3,20 @@ import useMap from "./mapViewHook"
 import useLocation from "./locationHook"
 import useHomeHook from "./homeHook"
 import useHomeMainInputHook from "./homeMainInputHook"
+
+//authentication
 import useAuthHook from "./authentication/authHook"
 import useForgotPassword from "./authentication/forgotPassword"
 import useRegistrationHook from "./authentication/registrationHook"
 import useSetNewPasswords from "./authentication/setNewPasswords"
+
+//charger
 import useCharger from "./charger/charger"
 import useChoosingCard from "./charger/choosingCard"
+
+//reducer
+import rootReducer, {initialState} from "./reducers/rootReducer"
+
 
 export {
     useRoot,
@@ -21,5 +29,7 @@ export {
     useRegistrationHook,
     useSetNewPasswords,
     useCharger,
-    useChoosingCard
+    useChoosingCard,
+    rootReducer,
+    initialState
 }

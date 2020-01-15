@@ -15,6 +15,7 @@ export function  useRoot(){
 
     const [token, setToken] = useState<null | string>('')
     const [locale, setLocale] = useState<null | string>('');
+    
     const {getItem, setItem} = useAsyncStorage("token")
     const {getItem : getLocaleStorage, setItem : setLocaleStorage} = useAsyncStorage("locale")
 
