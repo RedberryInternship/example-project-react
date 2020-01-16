@@ -1,23 +1,14 @@
 import React, {useRef} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
-  Text,
-  ActivityIndicator,
-  Button,
-  StatusBar,
-  Dimensions,
-  Alert,
 } from 'react-native';
 
 import   {useTranslation} from 'react-i18next';
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
 import { Colors, Const } from '../../../src/utils';
 
-const App = () => {
-  const { t, i18n } = useTranslation();
+const Home = () => {
 
   const modalRef : any  = useRef(null);
 
@@ -38,16 +29,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryBackground,
     // minHeight : Const.Height
   },
-  absoluteContentOverlayContainer : {
-    ...StyleSheet.absoluteFillObject,
-    flex: 1,
-    justifyContent:"center",
-  },
-  contentOverlayContainer  : {
-    flex: 1,
-    backgroundColor: "red"
-
-  }
 });
 
-export default App;
+export default Home;

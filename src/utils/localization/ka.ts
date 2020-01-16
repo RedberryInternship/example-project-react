@@ -22,6 +22,7 @@ export default {
         codeValidity: "კოდი ვალიდურია 3 წუთის განმავლობაში"
       },
       registration: {
+        registration : "რეგისტრაცია",
         name: "სახელი",
         surname: "გვარი",
         email: "ელ-ფოსტა",

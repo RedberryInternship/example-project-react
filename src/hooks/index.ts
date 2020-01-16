@@ -7,7 +7,7 @@ import useHomeMainInputHook from "./homeMainInputHook"
 //authentication
 import useAuthHook from "./authentication/authHook"
 import useForgotPassword from "./authentication/forgotPassword"
-import useRegistrationHook from "./authentication/registrationHook"
+import useRegistrationHook from "./authentication/registration/registrationHook"
 import useSetNewPasswords from "./authentication/setNewPasswords"
 
 //charger

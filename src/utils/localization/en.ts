@@ -22,6 +22,7 @@ export default {
         codeValidity: "Code is valid during 3 minutes"
       },
       registration: {
+        registration : "Registration",
         name: "Name",
         surname: "Surname",
         email: "Email",

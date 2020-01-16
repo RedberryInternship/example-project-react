@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -6,7 +6,8 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  FlatList
+  FlatList,
+  Alert
 } from 'react-native';
 import { Colors } from '../../../src/utils';
 import { BaseHeader,  BaseButton, RegistrationPagination, PhoneNumberView, UserInfoView, PasswordView, CardAddView } from '../../../src/components';
@@ -18,31 +19,35 @@ const registration = ({navigation} : any) => {
   
   const hook = useRegistrationHook();
   
-
-  const pages = [<PhoneNumberView 
-    _this={hook._this}
-    key={1}
-  />,
-  <UserInfoView 
-    _this={hook._this}
-    key={2}
-
-  />,
-  <PasswordView
-  _this={hook._this}
-  key={3}
-
-  />,
-  <CardAddView
-  _this={hook._this}
-  key={4}
-  />
+  const pages = [
+    <PhoneNumberView 
+      _this={hook.regStep1._this}
+      startCodeAnimation={hook.startCodeAnimation}
+      phoneInputSubmit={hook.regStep1.phoneInputSubmit}
+      codeRef={hook.regStep1.codeRef}
+      key={1}
+      activePage={hook.activePage}
+    />,
+    <UserInfoView 
+      _this={hook.regStep2._this}
+      hook={hook.regStep2}
+      key={2}
+    />,
+    <PasswordView
+      _this={hook.regStep3._this}
+      hook={hook.regStep3}
+      key={3}
+    />,
+    <CardAddView
+      _this={hook._this}
+      key={4}
+    />
 ]
   return (
     <View style={styles.container}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(registration, "Auth")}
-        title={"authentication.authentication"}
+        title={"authentication.registration.registration"}
         titleRight={"authentication.registration.skip"}
         onPressRight={hook.activePage === 3 ? hook.headerRightClick : undefined }
       />
@@ -68,6 +73,7 @@ const registration = ({navigation} : any) => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{flexGrow:1, flex:0}}
           ref={hook.flatListRef}
+          keyboardShouldPersistTaps={"handled"}
           scrollEnabled={false}
           data={pages}
           renderItem={({item})=>item}

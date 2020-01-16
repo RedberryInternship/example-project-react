@@ -4,20 +4,20 @@ import { Colors, Const } from '../../../../src/utils';
 import { BaseInput } from '../../../../src/components';
 
 
-const PasswordView = ({_this} : any) => {
+const PasswordView = ({_this, hook} : any) => {
   
   const passwordTextHandler= (text : string) =>{
     _this.current.password = text
   }
   const passwordInputSubmit= () =>{
-
+    hook.confirmedPassword.current.focus()
   }
 
   const repeatPasswordTextHandler= (text : string) =>{
-    _this.current.repeatPassword  = text
+    _this.current.confirmedPassword  = text
   }
   const repeatPasswordInputSubmit= () =>{
-    
+    hook.buttonClickHandler()
   }
 
   return (
@@ -31,6 +31,8 @@ const PasswordView = ({_this} : any) => {
         secure={true}
         testID={"nameInput"}
         title={"authentication.registration.password"}
+        returnKeyType={"next"}
+        ref={hook.password}
       />
       <BaseInput
         image={require("../../../../assets/images/icons/lock.png")}
@@ -41,6 +43,10 @@ const PasswordView = ({_this} : any) => {
         testID={"nameInput"}
         secure={true}
         title={"authentication.registration.repeatPassword"}
+        returnKeyType={"send"}
+        ref={hook.confirmedPassword}
+
+
       /> 
     </View>
   );

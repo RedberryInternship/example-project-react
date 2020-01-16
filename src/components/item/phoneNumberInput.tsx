@@ -4,7 +4,7 @@ import { BaseInput } from "../"
 import { Colors } from '../../../src/utils';
 
 // eslint-disable-next-line react/display-name
-const phoneNumberInput = React.forwardRef(({ phoneTextHandler, phoneInputSubmit, text, onBlur, onFocus }: any, ref: any) => {
+const phoneNumberInput = React.forwardRef(({ onChangeText, onSubmit, text, onBlur, onFocus }: any, ref: any) => {
  
   const [animation] = useState(new Animated.Value(0))
 
@@ -28,15 +28,16 @@ const phoneNumberInput = React.forwardRef(({ phoneTextHandler, phoneInputSubmit,
         resizeMode="contain" />
       <BaseInput
         paddingLeft={64}
-        keyboardType={"numeric"}
-        onChangeText={phoneTextHandler}
-        onSubmit={phoneInputSubmit}
+        keyboardType={"phone-pad"}
+        onChangeText={onChangeText}
+        onSubmit={onSubmit}
         value={text}
         onFocus={_onChange}
         onBlur={(e: any) => _onChange(e, false)}
         ref={ref}
         testID={"loginPhone"}
         title={"authentication.number"}
+        returnKeyType={"send"}
       />
       <Animated.View style={{ position: "absolute", width: 53, height: 48, opacity: animation, bottom: 16 }}>
         <TouchableOpacity

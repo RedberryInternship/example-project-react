@@ -70,5 +70,5 @@ function determinetime() {
   console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
   console.log('====================================');
 
-  return moment(times.sunrise).diff(times.sunset) > 0  ? mapStyle2 : mapStyles
+  return moment(moment()).isBetween(times.sunrise,times.sunset ) ? mapStyle2 : mapStyles
 }
