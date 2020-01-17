@@ -1,10 +1,11 @@
-import React from 'react';
-import {View, } from 'react-native';
+import React, {useState, useMemo, useEffect} from 'react';
+import {View, Keyboard, } from 'react-native';
 import { Const } from '../../../../src/utils';
 import { PhoneNumberInput, ReceiveCode } from '../../../../src/components';
 
 
-const filterTextItem = ({_this} : any) => {
+// eslint-disable-next-line react/display-name
+const filterTextItem =React.memo( ({_this,hook, startCodeAnimation } : any) => {
   
   const codeTextHandler= (text : string) =>{
     _this.current.code = text
@@ -15,27 +16,29 @@ const filterTextItem = ({_this} : any) => {
   const phoneTextHandler= (text : string) =>{
     _this.current.phone  = text
   }
-  const phoneInputSubmit= () =>{
-    
+  const phoneInputSubmitHandler= () =>{
+    hook.phoneInputSubmit()
   }
 
   return (
     <View style={{width: Const.Width, paddingHorizontal:16}} >
       <PhoneNumberInput
           onChangeText={phoneTextHandler}
-          onSubmit={phoneInputSubmit}
+          onSubmit={phoneInputSubmitHandler}
           // value={hook._this.current.phone}
           // onFocus={hook.onFocusPhone}
-          // ref={hook.phoneRef}
+          ref={hook.phoneRef}
         />
         <ReceiveCode
-          // ref={hook.codeRef}
+          ref={hook.codeRef}
           onChangeText={codeTextHandler}
           onSubmit={codeInputSubmit}
+          recieveCode={phoneInputSubmitHandler}
+          startCodeAnimation={startCodeAnimation}
         />
     </View>
-  );
-};
+  ) 
+}, ({activePage}, {activePage : nextActivePage}) => nextActivePage != 0 || activePage != 0 );
 
 
 export default filterTextItem;

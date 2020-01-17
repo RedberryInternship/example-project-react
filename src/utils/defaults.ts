@@ -1,6 +1,14 @@
 import {CustomModalInterface} from "../components/customModal"
 import {RefObject} from "react"
 
+type userDetail = {
+    first_name: string,
+    last_name: string,
+    phone_number: string,
+    email: string,
+    verified: number,
+    id: number
+} | null
 
 class Defaults {
     _dropdown : any = null;
@@ -10,6 +18,7 @@ class Defaults {
     _locale : null | string = '';
     _location : null | Object = null;
     _modal : any = null;
+    _userDetail : userDetail = null;
 
     set dropdown(dropdown) {
         this._dropdown = dropdown;
@@ -25,6 +34,12 @@ class Defaults {
         return this._FCMToken;
     }
 
+    set userDetail(token) {
+        this._userDetail = token;
+    }
+    get userDetail() : userDetail {
+        return this._userDetail;
+    }
     set token(token) {
         this._token = token;
     }

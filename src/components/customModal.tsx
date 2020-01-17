@@ -54,7 +54,6 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   }
 
   closeModal = () =>{
-    // this.ref.current.close()
     this.setState({
       visible : false
     })
@@ -81,6 +80,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         onSwipeComplete={this.closeModal}
         swipeDirection={['down']}
         useNativeDriver={true}
+        hideModalContentWhileAnimating={true}
       >
         <View style={[styles.modalContentContainer, {justifyContent: this.state.config.type ===3 ? "flex-start" : "space-between" }]}>
           {this.renderView()}

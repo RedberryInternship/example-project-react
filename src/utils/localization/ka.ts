@@ -22,6 +22,7 @@ export default {
         codeValidity: "კოდი ვალიდურია 3 წუთის განმავლობაში"
       },
       registration: {
+        registration : "რეგისტრაცია",
         name: "სახელი",
         surname: "გვარი",
         email: "ელ-ფოსტა",
@@ -149,6 +150,21 @@ export default {
       facebookPage: "ფეისბუქის გვერდი",
       webPage: "ვებ-გვერდი",
       message: "შეტყობინება"
+    },
+    dropDownAlert : {
+      generalError : "დაფიქსირდა შეცდომა",
+      registration : {
+        fillPhoneNumber : "გთხოვთ ჩაწროთ ტელეფონის ნომერი",
+        fillName : "გთხოვთ ჩაწროთ სახელი",
+        fillSurname : "გთხოვთ ჩაწროთ გვარი",
+        incorrectEmail : "ემაილი არა არის სწორი",
+        codeSentSuccessfully : "კოდი გამოიგზავნა წარმატებით",
+        codeLengthError : "კოდი უნდა შეიცავდეს 4 სიმბოლოს",
+        incorrectCode : "კოდი არ არის სწორი",
+        emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
+        phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
+
+      }
     }
   }
 };

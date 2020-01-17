@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated, Alert} from 'react-native';
 import { Colors } from '../../utils';
 import MaskedView from '@react-native-community/masked-view';
 import colors from '../../../src/utils/colors';
@@ -9,13 +9,18 @@ import { useTranslation } from 'react-i18next';
 const CodeInputWidth = 128
 
 // eslint-disable-next-line react/display-name
-const receiveCode = React.forwardRef( ({onChangeText, onSubmit,onFocus, active} : any, ref: any) => {
+const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, startCodeAnimation} : any, ref: any) => {
 
   const [animation] = useState(new Animated.Value(CodeInputWidth))
   const [disabled, setDisabled] = useState(false)
   const [showText, setShowText] = useState(false)
   const { t} = useTranslation();
   
+
+  useEffect(() => {
+    if(startCodeAnimation) codeReceiveHandler()
+  }, [startCodeAnimation])
+
 
   const codeReceiveHandler = () => {
     if(disabled) return;
@@ -29,15 +34,13 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,onFocus, active} 
     }).start(()=>{
       setDisabled(false)
     })
-
-    
   }
   
   return (
     <View style={{marginVertical:16}}>
       <Text style={{flex: 0,width:"100%",fontSize:13, color : Colors.primaryGray, marginBottom:8}}>{t("authentication.forgotPasswordPage.smsCode")}</Text>
       <View style={{flexDirection:"row",backgroundColor:colors.primaryBackground, marginBottom:8 }}>
-        <TouchableOpacity activeOpacity={1} onPress={codeReceiveHandler} style={{position:"relative",  width: 128, height:48,backgroundColor:"#879299", borderRadius:6, }}>
+        <TouchableOpacity activeOpacity={1} onPress={recieveCode} style={{position:"relative",  width: 128, height:48,backgroundColor:"#879299", borderRadius:6, }}>
           <Animated.View style={[styles.codeReceive, {width:animation}]}/>
           <MaskedView
             style={{  flexDirection: 'row', height: '100%'}}
@@ -57,7 +60,7 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,onFocus, active} 
           style={styles.codeTextInput}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmit}
-          onFocus={onFocus}
+          // onFocus={onFocus}
           placeholderTextColor={Colors.primaryWhite}
           allowFontScaling={false}
           ref={ref}    
