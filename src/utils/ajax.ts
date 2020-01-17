@@ -45,8 +45,8 @@ class Ajax {
                     AsyncStorage.clear()
                 }
                 else 
-                Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
-                this.logResponse(method, url, headers, error);
+                // Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
+                this.logResponse(method, url, headers, error.response);
                 reject(error.response);
             });
         });
