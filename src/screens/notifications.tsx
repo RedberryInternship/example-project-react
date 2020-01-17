@@ -24,9 +24,7 @@ const notifications = ({ navigation }: any) => {
     return (
       <NotificationListItem
         key={el.title}
-        title={el.title}
-        description={el.description}
-        date={el.date} />
+        {...el} />
     );
   });
 
