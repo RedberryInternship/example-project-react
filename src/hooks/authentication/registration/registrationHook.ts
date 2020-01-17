@@ -18,6 +18,7 @@ type _This = {
 const CodeInputWidth = 128
 
 const allPageLength = 4;
+
 export default (navigation : any) => {
 
   const flatListRef : any = useRef(null);

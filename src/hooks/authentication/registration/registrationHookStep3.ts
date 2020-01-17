@@ -39,6 +39,7 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any ) => {
     let {password} = _this.current
     let {phone} = _this1.current
     let {name, surname, email} = _this2.current
+    
     ajax.post("/register", 
       {
         first_name : name,

@@ -99,9 +99,9 @@ export function  useRoot(){
                 setAppReady(true)
 
             // NavigationActions().navigate("MainDrawer")
-            // NavigationActions().navigate("authenticationFlow")
+            NavigationActions().navigate("Auth")
             // NavigationActions().navigate("ForgotPassword")
-            NavigationActions().navigate("Registration")
+            // NavigationActions().navigate("Registration")
             // NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
             // NavigationActions().navigate("ChargerWithCode");
