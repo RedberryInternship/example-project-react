@@ -1,5 +1,7 @@
+import { SAVE_TOKEN } from "../actions/rootActions"
+
 type State = {
-  user: Boolean | null,
+  user: Object | null,
   loading : boolean,
   authStatus : "failed" | "success"| null
 }
@@ -17,24 +19,12 @@ export const initialState : State = {
 
 function reducer(state : State = initialState, {type, payload} : Action) : State{
   switch(type) {
-    case 'AUTH_BEGIN':
+    case  SAVE_TOKEN:
       return {
         ...state,
-        loading: true
-      }
-
-    case 'AUTH_SUCCESS':
-      return {
-        ...state,
-        user: payload.user,
-        authStatus: "success",
-      }
-
-    case 'AUTH_FAILURE':
-      return {
-        ...state,
-        user: null,
-        authStatus : "failed"
+        loading: true,
+        user : payload.user,
+        authStatus : typeof payload.token === "string" ? "failed" : "success"
       }
 
     default:

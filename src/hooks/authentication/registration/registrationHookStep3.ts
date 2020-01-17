@@ -4,6 +4,7 @@ import {TextInput} from "react-native"
 import { Defaults} from "../../../utils";
 import ajax from "../../../utils/ajax";
 import { useAsyncStorage } from "@react-native-community/async-storage";
+import { saveToken } from "../../../../src/hooks/actions/rootActions";
 
 
 type RegisterSuccess = {
@@ -24,14 +25,11 @@ type RegisterError = {
 }
 
 
-export default (setActivePage : any, t : any, _this1 : any, _this2 : any ) => {
+export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispatch : any ) => {
 
 
   const password : RefObject<TextInput> = useRef(null);
   const confirmedPassword : RefObject<TextInput> = useRef(null);
-
-  const { setItem : setToken} = useAsyncStorage("token")
-  const { setItem : setUserDetail} = useAsyncStorage("userDetail")
 
   const _this : RefObject<any> = useRef({password : '', confirmedPassword:''});
 
@@ -39,7 +37,7 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any ) => {
     let {password} = _this.current
     let {phone} = _this1.current
     let {name, surname, email} = _this2.current
-    
+
     ajax.post("/register", 
       {
         first_name : name,
@@ -86,13 +84,7 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any ) => {
 
   const onSuccessRegistration = async (data : any ) =>{
 
-
-    Defaults.token = data.token
-    Defaults.userDetail = data.user
-
-    await setToken(data.token)
-    await setUserDetail(JSON.stringify(data.user) )
-
+    dispatch(saveToken(data))
     setActivePage(3)
 
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,11 +18,13 @@ import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../sr
 import { useAuthHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AppContext } from '../../../App';
 
 
 const auth = ({navigation} : any) => {
-  
-  const hook = useAuthHook(navigation);
+  const {dispatch} =  useContext(AppContext)
+
+  const hook = useAuthHook(navigation, dispatch);
 
   return (
     <View style={styles.container}>

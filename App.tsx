@@ -15,7 +15,7 @@ import {SafeAreaProvider} from "react-native-safe-area-context"
 
 console.disableYellowBox = true;
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
 const App = () => {
 

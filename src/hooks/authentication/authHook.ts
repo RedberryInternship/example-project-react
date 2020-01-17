@@ -4,6 +4,8 @@ import { Alert, } from "react-native"
 import {useTranslation} from 'react-i18next';
 import { Defaults } from "../../../src/utils";
 import { useAsyncStorage } from "@react-native-community/async-storage";
+import { saveToken } from "../actions/rootActions";
+// import { Defaults } from "~/utils";
 
 
 type _This = {
@@ -11,7 +13,7 @@ type _This = {
   phone : string
 }
 
-export default (navigation : any ) => {
+export default (navigation : any, dispatch : any ) => {
 
   const [loading, SetLoading] = useState<Boolean>(true);
   const [phoneFocused, setPhoneFocused] = useState<any>(false);
@@ -20,11 +22,9 @@ export default (navigation : any ) => {
 
   const { t } = useTranslation();
 
-
   const { setItem : setToken} = useAsyncStorage("token")
   const { setItem : setUserDetail} = useAsyncStorage("userDetail")
 
-  
   const _this : RefObject<_This> = useRef({password:"", phone : ''})
 
 
@@ -64,11 +64,7 @@ export default (navigation : any ) => {
 
   const OnSuccessLogin = async (data : any) => {
 
-    Defaults.token = data.token
-    Defaults.userDetail = data.user
-
-    await setToken(data.token)
-    await setUserDetail(JSON.stringify(data.user) )
+    dispatch(saveToken(data))
 
     navigation.navigate("MainDrawer")
   }

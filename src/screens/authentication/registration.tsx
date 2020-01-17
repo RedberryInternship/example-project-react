@@ -1,23 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useContext  } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   View,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   FlatList,
-  Alert
 } from 'react-native';
 import { Colors } from '../../../src/utils';
 import { BaseHeader,  BaseButton, RegistrationPagination, PhoneNumberView, UserInfoView, PasswordView, CardAddView } from '../../../src/components';
 import { useRegistrationHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { AppContext } from '../../../App';
 
 
 const registration = ({navigation} : any) => {
   
-  const hook = useRegistrationHook(navigation);
+  const {dispatch} = useContext(AppContext)
+
+  const hook = useRegistrationHook(navigation, dispatch);
   
   const pages = [
     <PhoneNumberView 

@@ -19,7 +19,7 @@ const CodeInputWidth = 128
 
 const allPageLength = 4;
 
-export default (navigation : any) => {
+export default (navigation : any, dispatch : any) => {
 
   const flatListRef : any = useRef(null);
   const KeyboardAwareScrollViewRef : any = useRef(null);
@@ -38,7 +38,7 @@ export default (navigation : any) => {
   
   const regStep1 = useRegistrationHookStep1(setActivePage, setStartCodeAnimation, t)
   const regStep2 = useRegistrationHookStep2(setActivePage, t)
-  const regStep3 = useRegistrationHookStep3(setActivePage, t,regStep1._this,regStep2._this  )
+  const regStep3 = useRegistrationHookStep3(setActivePage, t,regStep1._this,regStep2._this, dispatch  )
   const regStep4 = useRegistrationHookStep4(setActivePage, t )
 
 
