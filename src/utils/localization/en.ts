@@ -154,6 +154,20 @@ export default {
       facebookPage: "Facebook Page",
       webPage: "Web Page",
       message: "Message"
+    },
+    dropDownAlert : {
+      generalError : "Error encountered",
+      registration : {
+        fillPhoneNumber : "Please, fill phone number",
+        fillName : "Please, fill name",
+        fillSurname : "Please, fill surname",
+        incorrectEmail : "Email is not valid",
+        codeSentSuccessfully : "Code sent successfully",
+        codeLengthError : "Code must be 4 letter",
+        incorrectCode : "code is incorrect",
+        emailAlreadyToken : "The email has already been taken",
+        phoneAlreadyToken : "The phone number has already been taken.",
+      }
     }
   }
 };

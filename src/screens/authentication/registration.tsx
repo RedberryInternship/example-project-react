@@ -3,7 +3,7 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
-  StatusBar,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   FlatList,
@@ -17,7 +17,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 
 const registration = ({navigation} : any) => {
   
-  const hook = useRegistrationHook();
+  const hook = useRegistrationHook(navigation);
   
   const pages = [
     <PhoneNumberView 
@@ -25,6 +25,7 @@ const registration = ({navigation} : any) => {
       startCodeAnimation={hook.startCodeAnimation}
       phoneInputSubmit={hook.regStep1.phoneInputSubmit}
       codeRef={hook.regStep1.codeRef}
+      hook={hook.regStep1}
       key={1}
       activePage={hook.activePage}
     />,
@@ -32,17 +33,20 @@ const registration = ({navigation} : any) => {
       _this={hook.regStep2._this}
       hook={hook.regStep2}
       key={2}
+      activePage={hook.activePage}
     />,
     <PasswordView
       _this={hook.regStep3._this}
       hook={hook.regStep3}
       key={3}
+      activePage={hook.activePage}
     />,
     <CardAddView
       _this={hook._this}
       key={4}
+      activePage={hook.activePage}
     />
-]
+  ]
   return (
     <View style={styles.container}>
       <BaseHeader 
@@ -65,6 +69,8 @@ const registration = ({navigation} : any) => {
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
         resetScrollToCoords={{x:0,y:0}}
+        extraHeight={Platform.select({ios : -500, android:0})}
+        ref={hook.KeyboardAwareScrollViewRef}
       >
         <FlatList
           pagingEnabled={true}  

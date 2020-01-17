@@ -47,7 +47,7 @@ class Ajax {
                 else 
                 Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
                 this.logResponse(method, url, headers, error);
-                reject({error : true , status : error.response.status});
+                reject(error.response);
             });
         });
         return promise;

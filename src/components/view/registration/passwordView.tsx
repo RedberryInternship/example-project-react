@@ -21,7 +21,7 @@ const PasswordView = ({_this, hook} : any) => {
   }
 
   return (
-    <View style={{width: Const.Width, paddingHorizontal:16}} >
+    <View style={{width: Const.Width, paddingHorizontal:16}}>
       <BaseInput
         image={require("../../../../assets/images/icons/lock.png")}
         imageStyle={{tintColor :Colors.primaryBlue}}
@@ -45,8 +45,6 @@ const PasswordView = ({_this, hook} : any) => {
         title={"authentication.registration.repeatPassword"}
         returnKeyType={"send"}
         ref={hook.confirmedPassword}
-
-
       /> 
     </View>
   );
