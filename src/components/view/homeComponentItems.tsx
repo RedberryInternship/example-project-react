@@ -1,12 +1,14 @@
 
-import React from 'react';
+import React, {useContext} from 'react';
 import { withNavigation} from 'react-navigation';
 import { OnMapRoundButton, HomeFilterView, BaseButton, HomeMainInputView } from '..';
 import { Defaults } from '../../../src/utils';
+import { HomeContext } from '../../../src/screens/tabNavigation/home';
 
 
 const App = ({navigation} :any) => {
 
+  const context : any = useContext(HomeContext)
   return (
       <>
         <OnMapRoundButton  
@@ -18,7 +20,7 @@ const App = ({navigation} :any) => {
         
         <OnMapRoundButton  
           style={{right:24, top: Defaults.token ? 90 : 140, backgroundColor:"#FFFFFF"}} 
-          onPress={Defaults.modal.current && Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
+          onPress={context.state.LocationRequestFunc} 
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
           imageStyle={{width:30,height:30}}
         />

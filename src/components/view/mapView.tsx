@@ -24,7 +24,7 @@ const mapView = () => {
               longitudeDelta: 0.0121,
           }}
           onKmlReady={()=>{}}
-          onMapReady={()=>{}}
+          onMapReady={hook.location.locate}
           showsUserLocation
           showsPointsOfInterest
           showsTraffic

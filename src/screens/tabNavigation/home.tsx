@@ -1,4 +1,4 @@
-import React, {useRef, createContext} from 'react';
+import React, {useRef, createContext, useReducer} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,22 +7,24 @@ import {
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
 import { Colors } from '../../../src/utils';
 import BottomSheetReanimated from '../../../src/components/view/bottomSheetReanimated';
+import reducer, { initialState } from '../../../src/hooks/reducers/homeReducers';
 
 
-const Homecontext = createContext()
+export const HomeContext = createContext()
+
 const Home = () => {
 
+  const [state, dispatch] = useReducer(reducer, initialState )
 
-  const modalRef : any  = useRef(null);
 
   return (
-    <Homecontext.Provider value={{}}>
+    <HomeContext.Provider value={{state, dispatch}}>
       <View style={styles.mainContainer}>
         <MapView />
         <HomeComponentItems />
         <BottomSheetReanimated />
       </View>
-    </Homecontext.Provider>
+    </HomeContext.Provider>
     
   );
 };

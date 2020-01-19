@@ -1,12 +1,13 @@
-import { SAVE_TOKEN } from "../actions/rootActions"
+import { SET_LOCATION_HANDLER } from "../actions/homeActions"
 // eslint-disable-next-line no-unused-vars
 import { LocationPermissionStatus } from "react-native-location"
+import { Alert } from "react-native"
 
 type State = {
   PermissionStatus: LocationPermissionStatus | null,
   loading : boolean,
-  locationImageType : ImageBitmapSource
-  authStatus : "failed" | "success"| null
+  locationImageType : any,
+  LocationRequestFunc : ()=>void ,
 }
 type Action = {
   type : string,
@@ -15,19 +16,20 @@ type Action = {
 
 
 export const initialState : State = {
-  user: null,
+  PermissionStatus: null,
+  locationImageType : "",
   loading : false,
-  authStatus : null,
+  LocationRequestFunc : ()=>{},
 }
 
 function reducer(state : State = initialState, {type, payload} : Action) : State{
+
   switch(type) {
-    case  SAVE_TOKEN:
+    case  SET_LOCATION_HANDLER:
       return {
         ...state,
-        loading: true,
-        user : payload.user,
-        authStatus : typeof payload.token === "string" ? "failed" : "success"
+        loading: false,
+        LocationRequestFunc : payload
       }
 
     default:

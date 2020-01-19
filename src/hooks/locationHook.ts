@@ -1,10 +1,13 @@
-import  {useEffect, useState,useRef} from "react";
+import  {useEffect, useState,useRef, useContext} from "react";
 import { Defaults, NavigationActions, regionFrom } from "../utils";
 import Config from '../../src/utils/mapAndLocation/location';
 
 
 // eslint-disable-next-line no-unused-vars
 import RNLocation, {Location, LocationPermissionStatus,} from 'react-native-location';
+import { HomeContext } from "../../src/screens/tabNavigation/home";
+import { setLocationHandler } from "./actions/homeActions";
+import { Alert } from "react-native";
 
 
 type Ref = {
@@ -15,6 +18,7 @@ type Ref = {
 const ZOOM_LEVEL : number = 400;
 
 export default function  useLocation({ mapRef} : any){
+    const context : any = useContext(HomeContext)
 
     const [location, setLocation] = useState<Location| null>(null);
     const [permissionStatus, setPermissionStatus] = useState<LocationPermissionStatus | null>(null);
@@ -22,17 +26,20 @@ export default function  useLocation({ mapRef} : any){
     const ref = useRef<Ref>({interval : 0, location : null })
 
     useEffect(() => {
-      let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
-      let subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(subscribePermissionUpdate);
 
       RNLocation.getLatestLocation({ timeout: 60000 })
         .then(getLatestLocation)
 
       RNLocation.getCurrentPermission()
         .then(getPermissionStatus)
-        
+
+      context.dispatch(setLocationHandler(locate.bind(useLocation)))
+      
+      // let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
+      let subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(subscribePermissionUpdate);
+
       return() =>{
-        subscribedLocation()
+        // subscribedLocation()
         subscribedPermissionUpdate()
         clearInterval(ref.current.interval)
       }
@@ -79,12 +86,15 @@ export default function  useLocation({ mapRef} : any){
     }
 
   const navigateToLocation = () => {
-    if(location !== null){
+
+    if(location != null){
       navigateByRef( location )
     }
     else {
-      RNLocation.getLatestLocation({ timeout: 60000 })
+
+      RNLocation.getLatestLocation({ timeout: 6000 })
       .then( latestLocation => {
+        
         if( latestLocation != null ){
           navigateByRef( latestLocation )
         }
@@ -100,10 +110,14 @@ export default function  useLocation({ mapRef} : any){
     )
   }
 
+  const locate = () =>{
+    navigateToLocation()
+  }
+
   useEffect(() => {
     
   }, [location])
 
-  return {ref, permissionStatus, location}
+  return {ref, permissionStatus, location, context, locate}
 }
 

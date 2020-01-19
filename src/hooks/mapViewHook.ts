@@ -3,7 +3,7 @@ import { Defaults, NavigationActions } from "../utils";
 
 import RNLocation, {Location} from 'react-native-location';
 import useLocation from "./locationHook";
-import  {MapView } from 'react-native-maps'; 
+import  { MapView } from 'react-native-maps'; 
 
 
 export default function  useMap(){
@@ -12,7 +12,6 @@ export default function  useMap(){
 
 
   const location = useLocation({mapRef})
-
 
 
 

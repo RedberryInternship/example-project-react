@@ -12,6 +12,7 @@ import './src/utils/style';
 import { CustomModal } from './src/components';
 import DropdownAlert from 'react-native-dropdownalert';
 import {SafeAreaProvider} from "react-native-safe-area-context"
+import './src/utils/mapAndLocation/location';
 
 console.disableYellowBox = true;
 
