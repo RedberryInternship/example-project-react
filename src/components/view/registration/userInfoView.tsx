@@ -3,7 +3,7 @@ import { View, } from 'react-native';
 import { Colors, Const } from '../../../../src/utils';
 import { BaseInput } from '../../../../src/components';
 
-const filterTextItem = ({_this} : any) => {
+const filterTextItem = ({_this, hook} : any) => {
   
   const nameTextHandler= (text : string) =>{
     _this.current.name = text
@@ -12,7 +12,7 @@ const filterTextItem = ({_this} : any) => {
     // hook.current.code = text
   }
   const surNameTextHandler= (text : string) =>{
-    _this.current.surnName  = text
+    _this.current.surname  = text
   }
   const surNameInputSubmit= () =>{
     
@@ -22,7 +22,7 @@ const filterTextItem = ({_this} : any) => {
     _this.current.email  = text
   }
   const emailInputSubmit= () =>{
-    
+    hook.buttonClickHandler()
   }
 
   return (
@@ -30,22 +30,24 @@ const filterTextItem = ({_this} : any) => {
       <BaseInput
         image={require("../../../../assets/images/icons/user.png")}
         imageStyle={{tintColor :Colors.primaryBlue}}
-        keyboardType={"email-address"}
         onChangeText={nameTextHandler}
         onSubmit={nameInputSubmit}
         testID={"nameInput"}
         title={"authentication.registration.name"}
         required={true}
+        returnKeyType={"next"}
+        ref={hook.name}
       />
       <BaseInput
         image={require("../../../../assets/images/icons/user.png")}
         imageStyle={{tintColor :Colors.primaryBlue}}
-        keyboardType={"email-address"}
         onChangeText={surNameTextHandler}
         onSubmit={surNameInputSubmit}
         testID={"nameInput"}
         title={"authentication.registration.surname"}
         required={true}
+        returnKeyType={"next"}
+        ref={hook.surname}
       /> 
       <BaseInput
         image={require("../../../../assets/images/icons/mail.png")}
@@ -55,6 +57,8 @@ const filterTextItem = ({_this} : any) => {
         onSubmit={emailInputSubmit}
         testID={"nameInput"}
         title={"authentication.registration.email"}
+        returnKeyType={"go"}
+        ref={hook.email}
       />
     </View>
   );

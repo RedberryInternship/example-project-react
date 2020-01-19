@@ -1,10 +1,10 @@
 import React from 'react';
-import { View,Dimensions, SafeAreaView} from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+import { View,Dimensions} from 'react-native';
+import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-
+// import {SafeAreaView} from "react-native-safe-area-context"
 import { Defaults } from './utils';
 
 //screens
@@ -22,18 +22,20 @@ import {
   NotAuthorized,
   ChooseChargeMethod,
   Charging,
-
   Favorites,
   Faq,
   ChoosingCard,
   Contact,
-  Notifications
+  Notifications,
+  Tariffs,
+  Contact
 } from './screens';
 import { TabNavigationButtons } from './components';
 
 
 
 const chargerStack = createStackNavigator({
+  ChargerWithCode,
   ChargerDetail,
   ChooseChargeMethod,
   Charging,
@@ -49,7 +51,7 @@ const chargerStack = createStackNavigator({
 const HomeTabNavigation = createBottomTabNavigator({
   Home,
   NotAuthorized,
-  ChargerWithCode,
+  chargerStack,
   Favorites
 },
   {
@@ -108,7 +110,9 @@ const drawerMenuOptionsStack = createStackNavigator({
   ProfileChange,
   Faq,
   Contact,
-  Notifications
+  Notifications,
+  Tariffs,
+  Contact
 },
 {
   defaultNavigationOptions: {
@@ -149,7 +153,7 @@ const FooterTabNavigator = (props: any) => {
         />
         <TabNavigationButtons 
           active={currentRouteName === "chargerStack"} 
-          navigate={navigate.bind(FooterTabNavigator, Defaults.token ? "ChargerWithCode" :  " NotAuthorized"  )} 
+          navigate={navigate.bind(FooterTabNavigator, Defaults.token ? "chargerStack" :  " NotAuthorized"  )} 
           image={require("../assets/images/icons/ic_charge.png")} 
         />
         {

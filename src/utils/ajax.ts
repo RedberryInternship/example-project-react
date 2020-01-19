@@ -1,11 +1,15 @@
 import axios from 'axios';
 import {API} from "./const";
-import {AsyncStorage, Platform} from "react-native"
+import { Platform} from "react-native"
 import DeviceInfo from 'react-native-device-info';
 import Defaults from './defaults';
+import AsyncStorage from '@react-native-community/async-storage';
 
-enum Method { get="get", post="post"};
-
+type Method = "get" | "post"
+type Error = {
+    error : boolean,
+    status : number
+}
 class Ajax {
 
     async headers() {
@@ -22,14 +26,13 @@ class Ajax {
     }
 
     get( uri : string) {
-        return this._fetch(uri, null, Method.get);
+        return this._fetch(uri, null, "get");
     }
-
     post(uri : string, payload : any) {
-        return this._fetch(uri, payload, Method.post);
+        return this._fetch(uri, payload, "post");
     }
-    _fetch(uri :string, data : any, method : Method ) {
-        const promise = new Promise(async (resolve, reject)  => {
+    private _fetch(uri :string, data : any, method : Method ) {
+        const promise = new Promise(async (resolve : (val :any) =>void, reject : (val : Error ) =>void)  => {
             const headers = await this.headers();
             const url =API + uri ;
             this.logRequest(method, url, headers, data);
@@ -39,12 +42,12 @@ class Ajax {
             }).catch(error => {
 
                 if( error.response && error.response.status === 401){
-                    AsyncStorage.clear();
+                    AsyncStorage.clear()
                 }
                 else 
-                Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
-                this.logResponse(method, url, headers, error);
-                resolve(false);
+                // Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
+                this.logResponse(method, url, headers, error.response);
+                reject(error.response);
             });
         });
         return promise;

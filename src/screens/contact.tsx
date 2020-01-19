@@ -7,7 +7,6 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
   Linking,
   Alert,
   StatusBar
@@ -28,7 +27,8 @@ import {
 // utils
 import {
   Colors,
-  Const
+  Const,
+  Defaults
 } from '../utils';
 import { SafeAreaView } from 'react-navigation';
 
@@ -40,58 +40,13 @@ const contact = ({ navigation }: any) => {
 
   const listItems = Const.ContactListFields.map((el, key) => {
 
-    let ContactItem;
 
-    if (el.name === 'contact.address') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openMaps()}>
-        <ContactListItem
-          key={el.name}
-          image={el.image}
-          name={el.name}
-          value={contactInfos[key]} />
-      </TouchableOpacity>;
-    }
-    else if (el.name === 'contact.phone') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.giveACall()}>
-        <ContactListItem
-          key={el.name}
-          image={el.image}
-          name={el.name}
-          value={contactInfos[key]} />
-      </TouchableOpacity>;
-    }
-    else if (el.name === 'contact.eMail') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.sendMail()}>
-        <ContactListItem
-          key={el.name}
-          image={el.image}
-          name={el.name}
-          value={contactInfos[key]} />
-      </TouchableOpacity>;
-    }
-    else if (el.name === 'contact.facebookPage') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openFb()}>
-        <ContactListItem
-          key={el.name}
-          image={el.image}
-          name={el.name}
-          value={contactInfos[key]} />
-      </TouchableOpacity>;
-    }
-    else if (el.name === 'contact.webPage') {
-      ContactItem = <TouchableOpacity onPress={() => outgoingLinks.openWebPage()}>
-        <ContactListItem
-          key={el.name}
-          image={el.image}
-          name={el.name}
-          value={contactInfos[key]}
-          style={{ borderBottomWidth: 0 }} />
-      </TouchableOpacity>;
-    }
-
-
-
-    return ContactItem;
+    return <ContactListItem
+            key={el.type}
+            image={el.image}
+            name={el.name}
+            value={contactInfos[key]}
+            onPress={outgoingLinkMethods[el.type]} />
   });
 
 
@@ -206,9 +161,9 @@ const contactInfos = [
 ];
 
 
-const outgoingLinks = {
+const outgoingLinkMethods = {
 
-  openMaps: () => {
+  "address": () => {
 
     const mapsInfo = {
       scheme: Platform.select({ android: 'geo:0,0?q=', ios: 'maps:0,0?q=' }),
@@ -222,28 +177,34 @@ const outgoingLinks = {
     Linking.openURL(mapsUrl);
   },
 
-  giveACall: () => {
+  "phone": () => {
     Linking.canOpenURL(`tel:591935080`).then(supported => {
       if (supported) {
         Linking.openURL(`tel:591935080`);
       }
       else {
-        console.log("Something Went Wrong When Calling...");
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Calling...");
       }
     })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Calling...");
+        console.log(err)
+      });
   },
 
-  sendMail: () => {
+  "eMail": () => {
     Linking.canOpenURL(`mailto:gela@espace.ge`).then(supported => {
       if (supported) {
         Linking.openURL(`mailto:gela@espace.ge?subject=e-space`);
       }
     })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Opening Email...");
+        console.log(err)
+      });
   },
 
-  openFb: () => {
+  "facebookPage": () => {
     Linking.canOpenURL('fb://group/272061007052173')
       .then(supported => {
         if (supported) {
@@ -254,21 +215,25 @@ const outgoingLinks = {
         }
       })
       .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Opening Facebook...");
         console.log(err)
       });
   },
 
-  openWebPage: () => {
+  "webPage": () => {
     Linking.canOpenURL('http://e-space.ge/')
       .then(supported => {
         if (supported) {
           Linking.openURL('http://e-space.ge/');
         }
         else {
-          console.log('Something Went Wrong while Opening Web Page...');
+          Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong while Opening Web Page...");
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong while Opening Web Page...");
+        console.log(err)
+      });
   }
-
 }
+

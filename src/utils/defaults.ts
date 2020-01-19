@@ -1,23 +1,29 @@
-
-interface Dropdown {
-    alertWithType : Function 
-}
-
 import {CustomModalInterface} from "../components/customModal"
 import {RefObject} from "react"
+
+type userDetail = {
+    first_name: string,
+    last_name: string,
+    phone_number: string,
+    email: string,
+    verified: number,
+    id: number
+} | null
+
 class Defaults {
-    _dropdown! : Dropdown;
+    _dropdown : any = null;
     _FCMToken! : string | null;
     _token : null | string = '';
     _activeRoute! :string;
     _locale : null | string = '';
     _location : null | Object = null;
     _modal : any = null;
+    _userDetail : userDetail = null;
 
     set dropdown(dropdown) {
         this._dropdown = dropdown;
     }
-    get dropdown(): Dropdown {
+    get dropdown() {
         return this._dropdown;
     }
 
@@ -28,6 +34,12 @@ class Defaults {
         return this._FCMToken;
     }
 
+    set userDetail(token) {
+        this._userDetail = token;
+    }
+    get userDetail() : userDetail {
+        return this._userDetail;
+    }
     set token(token) {
         this._token = token;
     }

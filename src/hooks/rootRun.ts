@@ -1,7 +1,7 @@
 import {useEffect, useState,useRef} from "react";
 import { useAppState } from 'react-native-hooks';
 import {useNetInfo} from "@react-native-community/netinfo";
-import  {useAsyncStorage} from "@react-native-community/async-storage";
+import  AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 
@@ -15,6 +15,7 @@ export function  useRoot(){
 
     const [token, setToken] = useState<null | string>('')
     const [locale, setLocale] = useState<null | string>('');
+    
     const {getItem, setItem} = useAsyncStorage("token")
     const {getItem : getLocaleStorage, setItem : setLocaleStorage} = useAsyncStorage("locale")
 
@@ -29,7 +30,7 @@ export function  useRoot(){
 
     useEffect(() => {
 
-        setItem("token");
+        // setItem("token");
         readUserToken();
         readUserLocale()
         // AsyncStorage.clear()
@@ -97,11 +98,11 @@ export function  useRoot(){
             if(!appReady)
                 setAppReady(true)
 
-            // NavigationActions().navigate("MainDrawer")
-            // NavigationActions().navigate("authenticationFlow")
+            NavigationActions().navigate("MainDrawer")
+            // NavigationActions().navigate("Auth")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
-            NavigationActions().navigate("Settings");
+            // NavigationActions().navigate("Settings");
             // NavigationActions().navigate("ProfileChange");
             // NavigationActions().navigate("ChargerWithCode");
             // NavigationActions().navigate("ChargerDetail");
@@ -110,12 +111,13 @@ export function  useRoot(){
             // NavigationActions().navigate("ChooseChargeMethod");
             // NavigationActions().navigate("Charging");
             // NavigationActions().navigate("Favourites");
-
             // NavigationActions().navigate("Faq");
             // NavigationActions().navigate("Charging");
+            // NavigationActions().navigate("Favourites");
+            // NavigationActions().navigate("Tariffs");
             // NavigationActions().navigate("Favorites");
             // NavigationActions().navigate("Contact");
-            NavigationActions().navigate("Notifications");
+            // NavigationActions().navigate("Notifications");
 
         }
         else setAppReady(false)

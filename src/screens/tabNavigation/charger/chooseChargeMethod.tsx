@@ -36,7 +36,6 @@ const chargerDetail = ({navigation} : any) => {
             onPress={navigation.navigate.bind(chargerDetail,"ChoosingCard",{type : 0})}
             text={"chooseChargeMethod.withEnteringPrice"} 
             style={{marginTop: 16, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-88}}
-            
           />
         </View>
         <View/>

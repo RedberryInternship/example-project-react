@@ -25,7 +25,7 @@ const chargerDetail = ({navigation} : any) => {
   const hook = useCharger();
 
   return (
-    <SafeAreaView style={styles.container} forceInset={{top:"never", bottom:"always"}}>
+    <View style={styles.container} >
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(chargerDetail,"MainDrawer")}
       />
@@ -72,7 +72,7 @@ const chargerDetail = ({navigation} : any) => {
           image={require("../../../../assets/images/icons/ic_charge.png")}
           imageStyle={{tintColor:"white"}}
         />
-    </SafeAreaView>
+    </View>
   );
 };
 

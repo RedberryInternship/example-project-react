@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -18,11 +18,13 @@ import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../sr
 import { useAuthHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AppContext } from '../../../App';
 
 
 const auth = ({navigation} : any) => {
-  
-  const hook = useAuthHook();
+  const {dispatch} =  useContext(AppContext)
+
+  const hook = useAuthHook(navigation, dispatch);
 
   return (
     <View style={styles.container}>
@@ -44,8 +46,7 @@ const auth = ({navigation} : any) => {
         <PhoneNumberInput 
           onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current.text}
-          onFocus={hook.onFocus}
+          value={hook._this.current!.phone}
           ref={hook.phoneRef}
         />
 
@@ -54,9 +55,9 @@ const auth = ({navigation} : any) => {
           keyboardType={"email-address"}
           onChangeText={hook.passwordTextHandler}
           onSubmit={hook.passwordInputSubmit}
-          value={hook._this.current.text}
-          onFocus={hook.onFocus}
-          ref={hook.phoneRef}
+          value={hook._this.current!.password}
+          ref={hook.passwordRef}
+          returnKeyType={"send"}
           secure={true}
           testID={"emailInput"}
           title={"authentication.password"}
@@ -77,7 +78,7 @@ const auth = ({navigation} : any) => {
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={navigation.navigate.bind(auth,"Registration")}
+          onPress={hook.buttonClickHandler}
           text={"authentication.authentication"} 
           style={{marginTop: 0}}
           

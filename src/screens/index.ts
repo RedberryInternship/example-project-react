@@ -17,6 +17,7 @@ import ProfileChange from './drawerMenuOptions/profileChange';
 
 import Favorites from './favourites';
 import Faq from './faq';
+import Tariffs from './tariffs';
 import Contact from './contact';
 import Notifications from './notifications';
 
@@ -35,10 +36,12 @@ export {
     NotAuthorized,
     ChooseChargeMethod,
     Charging,
-
     Favorites,
     Faq,
     ChoosingCard,
     Contact,
-    Notifications   
+    Notifications,
+
+    Tariffs,
+    Contact   
 }

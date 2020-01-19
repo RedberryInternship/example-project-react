@@ -2,7 +2,7 @@ import { Dimensions } from "react-native"
 import { ifIphoneX } from "react-native-iphone-x-helper";
 
 
-export const API: string = ""
+export const API: string = "https://api-dev.e-space.ge/api/app/V1"
 
 export const Width = Dimensions.get("window").width;
 export const Height = Dimensions.get("window").height;
@@ -15,7 +15,7 @@ export const DrawerFieldsBeforeAuthorization = [
     {
         image: require('../../assets/images/icons/book-open.png'),
         text: 'drawer.tariff',
-        route: "Tarrif"
+        route: "Tariffs"
     },
     {
         image: require('../../assets/images/icons/phone.png'),
@@ -96,22 +96,27 @@ export const SettingsListFields = [
 export const ContactListFields = [
     {
         image: require('../../assets/images/icons/map-pin.png'),
-        name: "contact.address"
+        name: "contact.address",
+        type: "address"
     },
     {
         image: require('../../assets/images/icons/phone.png'),
-        name: "contact.phone"
+        name: "contact.phone",
+        type: "phone"
     },
     {
         image: require('../../assets/images/icons/mail.png'),
-        name: "contact.eMail"
+        name: "contact.eMail",
+        type: "eMail"
     },
     {
         image: require('../../assets/images/icons/facebook.png'),
-        name: "contact.facebookPage"
+        name: "contact.facebookPage",
+        type: "facebookPage"
     },
     {
         image: require('../../assets/images/icons/internet.png'),
-        name: "contact.webPage"
+        name: "contact.webPage",
+        type: "webPage"
     }
 ];

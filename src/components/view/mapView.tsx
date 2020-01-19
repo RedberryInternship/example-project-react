@@ -3,7 +3,9 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import React, {useRef} from 'react';
 import { StyleSheet,  View,} from 'react-native';
 import { useMap } from '../../../src/hooks';
-import { mapStyles, Colors } from '../../../src/utils';
+import { mapStyles, mapStyle2, Colors } from '../../../src/utils';
+import moment from 'moment';
+import  SunCalc from 'suncalc';
 
 
 const styles = StyleSheet.create({
@@ -26,11 +28,12 @@ const styles = StyleSheet.create({
   },
 });
 
+// modi rame davwerot
+
 const mapView = () => {
   const map = useRef(null);
   // eslint-disable-next-line no-unused-vars
   const mapHook = useMap({map})
-
 
   return (
       <View style={styles.mapContainer}>
@@ -48,7 +51,7 @@ const mapView = () => {
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
-          customMapStyle={mapStyles}
+          customMapStyle={determinetime()}
           ref={map}
         >
         </MapView>
@@ -58,3 +61,14 @@ const mapView = () => {
 
 
 export default mapView;
+
+
+function determinetime() {
+  var times = SunCalc.getTimes(new Date(),41.716667, 44.783333);
+
+  console.log('====================================');
+  console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
+  console.log('====================================');
+
+  return moment(moment()).isBetween(times.sunrise,times.sunset ) ? mapStyle2 : mapStyles
+}
