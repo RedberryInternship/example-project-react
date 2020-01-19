@@ -19,6 +19,7 @@ import Favorites from './favourites';
 import Faq from './faq';
 import Tariffs from './tariffs';
 import Contact from './contact';
+import Notifications from './notifications';
 
 export {
     Home,
@@ -38,6 +39,9 @@ export {
     Favorites,
     Faq,
     ChoosingCard,
+    Contact,
+    Notifications,
+
     Tariffs,
     Contact   
 }

@@ -151,7 +151,10 @@ export default {
       webPage: "ვებ-გვერდი",
       message: "შეტყობინება"
     },
-    dropDownAlert : {
+    notifications:{
+      notifications: "შეტყობინებები"
+    },
+      dropDownAlert : {
       generalError : "დაფიქსირდა შეცდომა",
       registration : {
         fillPhoneNumber : "გთხოვთ ჩაწროთ ტელეფონის ნომერი",

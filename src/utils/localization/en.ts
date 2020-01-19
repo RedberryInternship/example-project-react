@@ -155,6 +155,9 @@ export default {
       webPage: "Web Page",
       message: "Message"
     },
+    notifications:{
+      notifications: "Notifications"
+    },
     dropDownAlert : {
       generalError : "Error encountered",
       registration : {

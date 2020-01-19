@@ -25,6 +25,7 @@ import {
   Favorites,
   Faq,
   ChoosingCard,
+  Notifications,
   Tariffs,
   Contact
 } from './screens';
@@ -107,6 +108,8 @@ const drawerMenuOptionsStack = createStackNavigator({
   Settings,
   ProfileChange,
   Faq,
+  Contact,
+  Notifications,
   Tariffs,
   Contact
 },
