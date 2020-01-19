@@ -4,7 +4,6 @@ import {
   View,
 } from 'react-native';
 
-import   {useTranslation} from 'react-i18next';
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
 import { Colors } from '../../../src/utils';
 import BottomSheetReanimated from '../../../src/components/view/bottomSheetReanimated';
