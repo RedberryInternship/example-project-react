@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, createContext} from 'react';
 import {
   StyleSheet,
   View,
@@ -6,18 +6,25 @@ import {
 
 import   {useTranslation} from 'react-i18next';
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
-import { Colors, Const } from '../../../src/utils';
+import { Colors } from '../../../src/utils';
+import BottomSheetReanimated from '../../../src/components/view/bottomSheetReanimated';
 
+
+const Homecontext = createContext()
 const Home = () => {
+
 
   const modalRef : any  = useRef(null);
 
   return (
-    <View style={styles.mainContainer}>
-      <MapView />
-      <HomeComponentItems />
-      <CollapsibleModal ref={modalRef} />
-    </View>
+    <Homecontext.Provider value={{}}>
+      <View style={styles.mainContainer}>
+        <MapView />
+        <HomeComponentItems />
+        <BottomSheetReanimated />
+      </View>
+    </Homecontext.Provider>
+    
   );
 };
 

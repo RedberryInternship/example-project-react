@@ -1,32 +1,23 @@
-import React, {useEffect, useState,useRef, useCallback} from "react";
-import {AppState, Keyboard, Alert, } from "react-native"
-import { useAppState } from 'react-native-hooks';
-import {useNetInfo} from "@react-native-community/netinfo";
-import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
+import React, {useEffect, useState,useRef, useCallback, RefObject} from "react";
 import { Defaults, NavigationActions } from "../utils";
-import {useTranslation} from 'react-i18next';
-
 
 import RNLocation, {Location} from 'react-native-location';
 import useLocation from "./locationHook";
+import  {MapView } from 'react-native-maps'; 
 
 
-type Ref = {
-  interval : null,
-  location : Location[]| null,
+export default function  useMap(){
 
-}
-export default function  useMap({map : mapRef} : any){
+  const mapRef : RefObject<MapView> = useRef(null);
 
-  const [loading, SetLoading] = useState<Boolean>(true);
 
-  const location = useLocation({SetLoading, mapRef})
+  const location = useLocation({mapRef})
 
 
 
-    const ref = useRef<Ref>({interval : null, location : null })
 
-
-
-    return {}
+  return {
+    mapRef,
+    location
+  }
 }

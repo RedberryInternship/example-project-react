@@ -1,26 +1,25 @@
-import React, {useEffect, useState,useRef, useCallback} from "react";
-import {AppState, Keyboard, Alert, } from "react-native"
+import  {useEffect, useState,useRef} from "react";
 import { Defaults, NavigationActions, regionFrom } from "../utils";
+import Config from '../../src/utils/mapAndLocation/location';
 
 
-import RNLocation, {Location, LocationPermissionStatus} from 'react-native-location';
+// eslint-disable-next-line no-unused-vars
+import RNLocation, {Location, LocationPermissionStatus,} from 'react-native-location';
 
 
 type Ref = {
   interval : number,
-  location : Location[]| null,
+  location : Location| null | Location[],
 
 }
 const ZOOM_LEVEL : number = 400;
 
-export default function  useLocation({SetLoading, mapRef} : any){
+export default function  useLocation({ mapRef} : any){
 
-    const [location, setLocation] = useState<Location[]| null>(null);
+    const [location, setLocation] = useState<Location| null>(null);
     const [permissionStatus, setPermissionStatus] = useState<LocationPermissionStatus | null>(null);
 
     const ref = useRef<Ref>({interval : 0, location : null })
-
-
 
     useEffect(() => {
       let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
@@ -39,9 +38,8 @@ export default function  useLocation({SetLoading, mapRef} : any){
       }
     }, [])
 
-    const subscribeToLocationStatus = (_location : Location[]) => {
-      ref.current.location=_location;
-      SetLoading(false)
+    const subscribeToLocationStatus = (_location : Location[] ) => {
+      ref.current.location=_location  ;
       //   setLocation(ref.current.location);
       //   mapRef.current.fitToCoordinates(newProps.data.polyline, {
       //     edgePadding: {
@@ -52,42 +50,60 @@ export default function  useLocation({SetLoading, mapRef} : any){
       //     }, animated: true
       // })
     }
+
     const subscribePermissionUpdate = (status : LocationPermissionStatus) => {
       setPermissionStatus(status);
       console.log(status, "LocationPermissionStatus");
-      if( status.match(/ denied | restricted | notDetermined /) ){
-        navigateToLocation(mapRef)
+      if( !status.match(/ denied | restricted | notDetermined /) ){
+        navigateToLocation()
       }
     }
 
     const getLatestLocation = (_location : Location | null) => {
-      setLocation(_location as Location[] | null)
-      navigateToLocation(mapRef)
+      setLocation(_location)
+      _location && navigateByRef(_location)
     }
 
     const getPermissionStatus = (status : LocationPermissionStatus) => {
       setPermissionStatus(status)
-      navigateToLocation(mapRef)
-
+      if( !status.match(/ denied | restricted | notDetermined /) ){
+        navigateToLocation()
+      }
+      else if(status.match(/ notDetermined /)) {
+        Config.requestPermission.then((granted) => {
+          if(granted){
+            navigateToLocation()
+          }
+        })
+      }
     }
 
+  const navigateToLocation = () => {
+    if(location !== null){
+      navigateByRef( location )
+    }
+    else {
+      RNLocation.getLatestLocation({ timeout: 60000 })
+      .then( latestLocation => {
+        if( latestLocation != null ){
+          navigateByRef( latestLocation )
+        }
+      })
+    }
+    
+  }
 
+  const navigateByRef = ( location : Location ) =>{
+    mapRef.current && mapRef.current.animateToRegion(
+      regionFrom( location.latitude, location.longitude, ZOOM_LEVEL ),
+      400,
+    )
+  }
 
-    useEffect(() => {
+  useEffect(() => {
+    
+  }, [location])
 
-    }, [location])
-
-    return {ref, permissionStatus, location}
+  return {ref, permissionStatus, location}
 }
 
-
-const navigateToLocation = (mapRef : any) => {
-  RNLocation.getLatestLocation({ timeout: 60000 })
-  .then(latestLocation => {
-    if(latestLocation !== null)
-      mapRef.current && mapRef.current.animateToRegion(
-        regionFrom(latestLocation.latitude, latestLocation.longitude, ZOOM_LEVEL),
-        400,
-      )
-})
-}

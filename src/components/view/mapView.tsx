@@ -8,32 +8,9 @@ import moment from 'moment';
 import  SunCalc from 'suncalc';
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'blue',
-  },
-  mapContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor:Colors.primaryBackground
-
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor:Colors.primaryBackground
-  },
-});
-
-// modi rame davwerot
-
 const mapView = () => {
-  const map = useRef(null);
   // eslint-disable-next-line no-unused-vars
-  const mapHook = useMap({map})
+  const hook = useMap()
 
   return (
       <View style={styles.mapContainer}>
@@ -52,7 +29,7 @@ const mapView = () => {
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determinetime()}
-          ref={map}
+          ref={hook.mapRef}
         >
         </MapView>
       </View>
@@ -72,3 +49,25 @@ function determinetime() {
 
   return moment(moment()).isBetween(times.sunrise,times.sunset ) ? mapStyle2 : mapStyles
 }
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'blue',
+  },
+  mapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor:Colors.primaryBackground
+
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor:Colors.primaryBackground
+  },
+});

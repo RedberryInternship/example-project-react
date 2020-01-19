@@ -11,7 +11,14 @@ const App = ({navigation} :any) => {
       <>
         <OnMapRoundButton  
           style={{right:24, bottom: 138, backgroundColor:"#FFFFFF"}} 
-          onPress={Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
+          onPress={Defaults.modal.current && Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
+          image={require('../../../assets/images/icons/ic_alert-circle.png')}
+          imageStyle={{width:30,height:30}}
+        />
+        
+        <OnMapRoundButton  
+          style={{right:24, top: Defaults.token ? 90 : 140, backgroundColor:"#FFFFFF"}} 
+          onPress={Defaults.modal.current && Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
           imageStyle={{width:30,height:30}}
         />
