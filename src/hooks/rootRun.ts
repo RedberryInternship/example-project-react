@@ -98,8 +98,8 @@ export function  useRoot(){
             if(!appReady)
                 setAppReady(true)
 
-            // NavigationActions().navigate("MainDrawer")
-            NavigationActions().navigate("Auth")
+            NavigationActions().navigate("MainDrawer")
+            // NavigationActions().navigate("Auth")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
             // NavigationActions().navigate("Settings");
@@ -117,6 +117,7 @@ export function  useRoot(){
             // NavigationActions().navigate("Tariffs");
             // NavigationActions().navigate("Favorites");
             // NavigationActions().navigate("Contact");
+            // NavigationActions().navigate("Notifications");
 
         }
         else setAppReady(false)
