@@ -25,7 +25,6 @@ import {
   Favorites,
   Faq,
   ChoosingCard,
-  Contact,
   Notifications,
   Tariffs,
   Contact
