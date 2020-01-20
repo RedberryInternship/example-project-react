@@ -1,17 +1,10 @@
 import React, {useContext} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  ActivityIndicator,
-  StatusBar,
-  Alert,
-  Image,
   KeyboardAvoidingView,
   Platform,
-  Button
 } from 'react-native';
 import { Colors } from '../../../src/utils';
 import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../src/components';
@@ -29,7 +22,7 @@ const auth = ({navigation} : any) => {
   const hook = useAuthHook(navigation, dispatch);
 
   return (
-    <View style={[styles.container,{paddingBottom : insets.bottom}]}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(auth,"MainDrawer")}
         title={"authentication.authentication"}

@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  StatusBar,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -19,7 +18,7 @@ const forgotPassword = ({navigation} : any) => {
   const insets = useSafeArea();
  
   return (
-    <View style={[styles.container,{paddingBottom : insets.bottom}]}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
         onPressLeft={()=> navigation.goBack()}
         title={"authentication.forgotPasswordPage.recoverPassword"}

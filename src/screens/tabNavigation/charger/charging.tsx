@@ -13,9 +13,6 @@ import { useSafeArea } from 'react-native-safe-area-context';
 
 const CicleDiameter = Const.Width-150
 
-const modalData = {
-  
-}
 const charging = ({navigation} : any) => {
   
   const {t} = useTranslation() 
@@ -38,7 +35,7 @@ const charging = ({navigation} : any) => {
 
   }
   return (
-    <View style={[styles.container, {paddingBottom : insets.bottom}]} >
+    <View style={[styles.container, {paddingBottom : insets.bottom + 16}]} >
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(charging,"MainDrawer")}
         title={"charging.charge"}

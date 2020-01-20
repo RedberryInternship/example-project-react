@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
+/* eslint-disable no-unused-vars */
+import React from 'react';
 import { StyleSheet, StyleProp, ImageSourcePropType, ImageStyle,ImageURISource, StatusBar, TextProperties,TextStyle ,ScrollView, Text, Image, Alert, GestureResponderEvent, ViewStyle } from 'react-native';
-import { useMap } from '../../hooks';
 import { useTranslation } from 'react-i18next';
 import { Const, Colors } from '../../../src/utils';
-import { isIphoneX } from 'react-native-iphone-x-helper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 

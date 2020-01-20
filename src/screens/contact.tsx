@@ -57,7 +57,7 @@ const contact = ({ navigation }: any) => {
 
 
   return (
-    <View style={[styles.container,{paddingBottom : insets.bottom}]}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader
         title={'contact.contact'}
         onPressLeft={() => navigation.goBack() } />
@@ -161,7 +161,7 @@ const contactInfos = [
 ];
 
 
-const outgoingLinkMethods = {
+const outgoingLinkMethods : any = {
 
   "address": () => {
 

@@ -1,4 +1,4 @@
-import React, {useRef, useEffect} from 'react';
+import React from 'react';
 import { StyleSheet,Text,Platform,  View, Image, TouchableOpacity} from 'react-native';
 import { Colors } from '../../utils';
 import {useTranslation} from 'react-i18next';

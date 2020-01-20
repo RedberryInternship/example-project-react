@@ -1,10 +1,10 @@
 
 import React, {useContext} from 'react';
-import { withNavigation, SafeAreaView} from 'react-navigation';
+import { withNavigation} from 'react-navigation';
 import { OnMapRoundButton, HomeFilterView, BaseButton, HomeMainInputView } from '..';
-import { Defaults, Const } from '../../../src/utils';
+import { Defaults } from '../../../src/utils';
 import { HomeContext } from '../../../src/screens/tabNavigation/home';
-import { Platform, View, StatusBar } from 'react-native';
+import {  View } from 'react-native';
 import { useSafeArea } from 'react-native-safe-area-context';
 
 
@@ -31,6 +31,7 @@ const App = ({navigation} :any) => {
 
           <HomeMainInputView
           />
+
           <View style={{flex:1}} pointerEvents={"box-none"}>
             <OnMapRoundButton  
               style={{ backgroundColor:"#FFFFFF", width:38, height:38, borderRadius : 19, position : "relative", marginTop : 12, right : 24, alignSelf : "flex-end"}} 

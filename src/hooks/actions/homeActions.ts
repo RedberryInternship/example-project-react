@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 
 export const SET_LOCATION_HANDLER = "SET_LOCATION_HANDLER";
 

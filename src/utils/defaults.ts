@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {CustomModalInterface} from "../components/customModal"
 import {RefObject} from "react"
 import BottomSheetBehavior from "reanimated-bottom-sheet";

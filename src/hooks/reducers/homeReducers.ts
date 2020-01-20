@@ -1,7 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { SET_LOCATION_HANDLER } from "../actions/homeActions"
-// eslint-disable-next-line no-unused-vars
 import { LocationPermissionStatus } from "react-native-location"
-import { Alert, ImageSourcePropType } from "react-native"
+import {  ImageSourcePropType } from "react-native"
 
 type State = {
   PermissionStatus: LocationPermissionStatus | null,

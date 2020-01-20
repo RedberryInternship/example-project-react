@@ -1,6 +1,6 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
-import React, {useRef} from 'react';
+import React from 'react';
 import { StyleSheet,  View, StatusBar,} from 'react-native';
 import { useMap } from '../../../src/hooks';
 import { mapStyles, mapStyle2, Colors } from '../../../src/utils';
@@ -9,7 +9,6 @@ import  SunCalc from 'suncalc';
 
 
 const mapView = () => {
-  // eslint-disable-next-line no-unused-vars
   const hook = useMap()
 
   return (

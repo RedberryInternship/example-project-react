@@ -50,7 +50,7 @@ const registration = ({navigation} : any) => {
     />
   ]
   return (
-    <View style={[styles.container,{paddingBottom : insets.bottom}]}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(registration, "Auth")}
         title={"authentication.registration.registration"}

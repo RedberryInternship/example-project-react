@@ -1,8 +1,7 @@
-import React, {useRef, createContext, useReducer} from 'react';
+import React, { createContext, useReducer} from 'react';
 import {
   StyleSheet,
   View,
-  StatusBar,
 } from 'react-native';
 
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
