@@ -5,9 +5,12 @@ import { Const, Colors, Defaults } from '../../utils';
 import { MainSearchItem, HomeMainSearchInput } from '..';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
+type MainInput = {
+  style?: StyleProp<ViewStyle> ,
+}
 
 
-const MainInput = () => {
+const MainInput = ( {style} : MainInput) => {
 
   const hook = useHomeMainInputHook();
   
@@ -23,7 +26,7 @@ const MainInput = () => {
   
   
   return (
-    <TouchableOpacity activeOpacity={1} onPress={hook.closeClick} style={[styles.container, {marginTop : Defaults.token ? Platform.OS ==="ios" ? Const.NotchHeight + 16  : 16 : Const.NotchHeight + 72}]}>
+    <TouchableOpacity activeOpacity={1} onPress={hook.closeClick} style={[styles.container, style]}>
       <>
         <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
           <HomeMainSearchInput 
@@ -79,16 +82,16 @@ export default MainInput;
 
 const styles = StyleSheet.create({
   container : {
-    position: "absolute",
-    elevation:1,
-    
-    // zIndex:4444=
+    width:"100%",
+    elevation:11,
+    height:  36,
+    marginTop : 12,
+    zIndex:4
   },
   inputStyleContainer : {
-    flex:1, 
+    flex:0, 
     width: Const.Width - 48, 
     height:  36,
-    position: "relative",
     elevation:1,
     backgroundColor:"#023D63",
     marginHorizontal:24

@@ -9,7 +9,7 @@ import { BaseHeader,BaseButton, Pulse, CountDown  } from '../../../../src/compon
 import { Const, Colors, Defaults } from '../../../../src/utils';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView} from "react-navigation"
+import { useSafeArea } from 'react-native-safe-area-context';
 
 const CicleDiameter = Const.Width-150
 
@@ -19,6 +19,7 @@ const modalData = {
 const charging = ({navigation} : any) => {
   
   const {t} = useTranslation() 
+  const insets = useSafeArea();
 
 
   const onFinish= () =>{
@@ -37,7 +38,7 @@ const charging = ({navigation} : any) => {
 
   }
   return (
-    <SafeAreaView style={styles.container} forceInset={{top:"never", bottom:"always"}}>
+    <View style={[styles.container, {paddingBottom : insets.bottom}]} >
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(charging,"MainDrawer")}
         title={"charging.charge"}
@@ -69,7 +70,6 @@ const charging = ({navigation} : any) => {
         <Text  style={{color: Colors.primaryBlue, fontSize:16}}>20 {t("gel")}</Text>
       </View>
 
-      
       <View style={{flex:0,justifyContent:"flex-end"}}>
         <TouchableOpacity   onPress={navigation.navigate.bind(charging,"")}  style={{marginVertical: 16, alignItems:"center"}}>
           <Text  style={{color: Colors.primaryGreen, fontSize:13}}>{t("charging.chargeAnotherCar")}</Text>
@@ -82,7 +82,7 @@ const charging = ({navigation} : any) => {
       </View>
 
       
-    </SafeAreaView>
+    </View>
   );
 };
 

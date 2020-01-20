@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import {SafeAreaView, StyleSheet,View} from 'react-native';
+import { StyleSheet,View} from 'react-native';
 import { Colors } from '../../../src/utils';
 import {CountDown} from "../"
 

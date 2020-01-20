@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 
 // import components
@@ -25,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 const drawer = ({ navigation } : any) => {
 
   const {  i18n } = useTranslation();
+  const insets = useSafeArea();
 
   const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true;
   let $drawerListFields = null;
@@ -75,7 +77,7 @@ const drawer = ({ navigation } : any) => {
   }
 
   return (
-    <SafeAreaView style={styles.safeAreaViewContainer}>
+    <View style={[styles.safeAreaViewContainer, {paddingTop : insets.top, paddingBottom : insets.bottom}]}>
       <ScrollView 
         bounces={false}
         style={{ flex: 1 }} 
@@ -102,7 +104,7 @@ const drawer = ({ navigation } : any) => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -2,18 +2,17 @@
 /* eslint-disable react/display-name */
 
 import React, {useRef, forwardRef, useState} from 'react';
-import {StyleSheet,  View,Dimensions, Text, Alert, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet,  View,Dimensions, Text, Alert, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, StatusBar} from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { GNOME, Const } from '../../../src/utils';
-import CustomSlideUpModal  from '../library/customSlideUpModal';
-import { FlatList, TouchableOpacity,TextInput } from 'react-native-gesture-handler';
+import { GNOME, Const, Defaults } from '../../../src/utils';
+import { TextInput } from 'react-native-gesture-handler';
 import { MainSearchItem, HomeMainSearchInput, PopupFilter } from '../';
 import Colors from '../../../src/utils/colors';
-import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view';
 import BottomSheet from 'reanimated-bottom-sheet'
+import { useSafeArea } from 'react-native-safe-area-context';
 
 
-const screenHeight = Dimensions.get('screen').height;
+const screenHeight = Dimensions.get('window').height;
 
 enum ScrollPositionStatus{ top, onScroll}
 
@@ -28,6 +27,9 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
   const flatListRef  :any = useRef(null);
   const {t} = useTranslation();
   const [visible, setVisible] = useState(true);
+
+  const insets = useSafeArea();
+
   
   const handleOpen = () => {
     setVisible(true);
@@ -70,7 +72,10 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
         }}
       />
       <Text style={styles.headerComponentText}>
-        {t("home.allChargers")}
+        {t("home.allChargers").toUpperCase()}
+        {"qefqwefwe".toUpperCase()}
+        {insets.top + " " + StatusBar.currentHeight}
+        { insets.bottom}
       </Text>
       <View style={ [styles.inputStyle, { borderBottomWidth:1, borderBottomColor: Colors.primaryBackground}]} >
           <Image  source={require("../../../assets/images/icons/icon-search.png")}   style={{width:16, height:16, resizeMode:"contain" ,position:"absolute"}}/>
@@ -133,9 +138,10 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
   }
 
   return (
-    <View style={{width:"100%", height:"100%", elevation:10, position:"absolute", left:0, top:0, }} pointerEvents={"box-none"}>
+    <View style={{width:"100%", height:"100%", elevation:11, position:"absolute", left:0, top:0,zIndex:44 }} pointerEvents={"box-none"}>
       <BottomSheet
-        snapPoints = {[55, screenHeight- 145]}
+        ref={Defaults.bottomSheet}
+        snapPoints = {[55, screenHeight - insets.top  - insets.bottom  - 65 - 12]}
         renderContent = {renderContent}
         renderHeader = {renderHeaderComponent}
         onCloseEnd={() => {
@@ -169,9 +175,11 @@ const styles = StyleSheet.create({
     fontSize:11,
     lineHeight:22,
     color:"#FFFFFF",
-    fontFamily : GNOME.DEJAVU_BOLD,
+    // fontFamily : GNOME.HELV_EX,
+    // fontFamily : "cursive",
     alignSelf:"center",
-    marginBottom:16
+    marginBottom:16,
+    textTransform: 'uppercase'
 
   },
   inputStyleContainer : {

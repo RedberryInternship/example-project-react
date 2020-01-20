@@ -1,7 +1,7 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
 import React, {useRef} from 'react';
-import { StyleSheet,  View,} from 'react-native';
+import { StyleSheet,  View, StatusBar,} from 'react-native';
 import { useMap } from '../../../src/hooks';
 import { mapStyles, mapStyle2, Colors } from '../../../src/utils';
 import moment from 'moment';
@@ -14,6 +14,8 @@ const mapView = () => {
 
   return (
       <View style={styles.mapContainer}>
+      <StatusBar barStyle={determinetime() ? "dark-content" : "light-content"} />
+
         <MapView
           provider={PROVIDER_GOOGLE} 
           style={styles.map}
@@ -28,7 +30,7 @@ const mapView = () => {
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
-          customMapStyle={determinetime()}
+          customMapStyle={determinetime() ? mapStyle2 : mapStyles}
           ref={hook.mapRef}
         >
         </MapView>
@@ -47,7 +49,7 @@ function determinetime() {
   console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
   console.log('====================================');
 
-  return moment(moment()).isBetween(times.sunrise,times.sunset ) ? mapStyle2 : mapStyles
+  return moment(moment()).isBetween(times.sunrise,times.sunset ) 
 }
 
 

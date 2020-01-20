@@ -53,6 +53,9 @@ export default (setActivePage : any , setStartCodeAnimation : any, t : any) => {
         if(error.data.status === 401){
           Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.incorrectCode"))
         }
+        else if(error.data.status === 409) {
+          Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.phoneAlreadyToken"))
+        }
         else {
           Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"))
         }

@@ -19,6 +19,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* EspaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EspaceTests.m */; };
 		4319851581954EC8B69D1AF5 /* libPods-Espace-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */; };
 		484F158468821A89F402DAE8 /* libPods-EspaceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */; };
+		84DAB4D323D5E83500E1FE34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DAB4D223D5E83500E1FE34 /* MapKit.framework */; };
 		871CE13AF90545BCA6209DFA /* HelveticaNeueLTStd-HvEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7423AC001CCC4A2FA2C79B6E /* HelveticaNeueLTStd-HvEx.ttf */; };
 		9530F6D57536E0355B3BF7F6 /* libPods-Espace-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */; };
 		9CEDBB8E2EAE1F3F68AE3353 /* libPods-Espace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E2309ADA54E62386D41D0B /* libPods-Espace.a */; };
@@ -62,6 +63,8 @@
 		45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EspaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5354A6DD9C6039E2C4880068 /* Pods-Espace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.release.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.release.xcconfig"; sourceTree = "<group>"; };
 		7423AC001CCC4A2FA2C79B6E /* HelveticaNeueLTStd-HvEx.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeueLTStd-HvEx.ttf"; path = "../assets/fonts/HelveticaNeueLTStd-HvEx.ttf"; sourceTree = "<group>"; };
+		84DAB4D123D5E81200E1FE34 /* Espace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Espace.entitlements; path = Espace/Espace.entitlements; sourceTree = "<group>"; };
+		84DAB4D223D5E83500E1FE34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		89DB7ECE93323D79230D9C72 /* Pods-Espace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.debug.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.debug.xcconfig"; sourceTree = "<group>"; };
 		ACA5DA59682128F94B7082F0 /* Pods-EspaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspaceTests.debug.xcconfig"; path = "Target Support Files/Pods-EspaceTests/Pods-EspaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ADD18A46FBC78FDC239AB043 /* Pods-EspaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspaceTests.release.xcconfig"; path = "Target Support Files/Pods-EspaceTests/Pods-EspaceTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84DAB4D323D5E83500E1FE34 /* MapKit.framework in Frameworks */,
 				9CEDBB8E2EAE1F3F68AE3353 /* libPods-Espace.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -131,6 +135,7 @@
 		13B07FAE1A68108700A75B9A /* Espace */ = {
 			isa = PBXGroup;
 			children = (
+				84DAB4D123D5E81200E1FE34 /* Espace.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -145,6 +150,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84DAB4D223D5E83500E1FE34 /* MapKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				E7E2309ADA54E62386D41D0B /* libPods-Espace.a */,
@@ -668,11 +674,13 @@
 			baseConfigurationReference = 89DB7ECE93323D79230D9C72 /* Pods-Espace.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = Espace/Espace.entitlements;
+				CURRENT_PROJECT_VERSION = 90;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = WVG95FW9FG;
 				INFOPLIST_FILE = Espace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -689,10 +697,12 @@
 			baseConfigurationReference = 5354A6DD9C6039E2C4880068 /* Pods-Espace.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = Espace/Espace.entitlements;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = WVG95FW9FG;
 				INFOPLIST_FILE = Espace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

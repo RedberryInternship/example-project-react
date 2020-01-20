@@ -1,6 +1,5 @@
 import React, {useMemo, createContext, useReducer, Dispatch} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   StatusBar,
@@ -12,29 +11,34 @@ import './src/utils/style';
 import { CustomModal } from './src/components';
 import DropdownAlert from 'react-native-dropdownalert';
 import {SafeAreaProvider} from "react-native-safe-area-context"
-import './src/utils/mapAndLocation/location';
+
 
 console.disableYellowBox = true;
 
+if(__DEV__){
+
+}
+else {
+  console.log = () =>{}
+}
 export const AppContext = createContext();
 
 const App = () => {
-
-  const root = useRoot();
-  const [state, dispatch] = useReducer(rootReducer, initialState)
- 
+  const hook = useRoot();
+  StatusBar.setBackgroundColor( "transparent", true)
+  StatusBar.setTranslucent( true)
   return useMemo (()=>(
     <SafeAreaProvider >
-      <AppContext.Provider value={{state, dispatch }} >
+      <AppContext.Provider value={{state :  hook.state, dispatch : hook.dispatch }} >
         <Navigation
           onNavigationStateChange={() => {}}
-          ref={(ref) => root.setNavigationTopLevelElement(ref) }
+          ref={(ref) => hook.setNavigationTopLevelElement(ref) }
           screenProps={{
-            t : root.t
+            t : hook.t
           }}
         />
       </AppContext.Provider>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content"  />
       
       <DropdownAlert
         // errorColor={Colors.errorColor}
@@ -49,7 +53,7 @@ const App = () => {
         ref={Defaults.modal}
       />
     </SafeAreaProvider>
-  ),[root.appReady, root.locale]);
+  ),[hook.appReady, hook.locale]);
 };
 
 export default App;

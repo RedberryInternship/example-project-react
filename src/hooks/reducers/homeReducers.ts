@@ -1,12 +1,12 @@
 import { SET_LOCATION_HANDLER } from "../actions/homeActions"
 // eslint-disable-next-line no-unused-vars
 import { LocationPermissionStatus } from "react-native-location"
-import { Alert } from "react-native"
+import { Alert, ImageSourcePropType } from "react-native"
 
 type State = {
   PermissionStatus: LocationPermissionStatus | null,
   loading : boolean,
-  locationImageType : any,
+  locationImageType : ImageSourcePropType,
   LocationRequestFunc : ()=>void ,
 }
 type Action = {
@@ -17,7 +17,7 @@ type Action = {
 
 export const initialState : State = {
   PermissionStatus: null,
-  locationImageType : "",
+  locationImageType : require("../../../assets/images/icons/location.png"),
   loading : false,
   LocationRequestFunc : ()=>{},
 }

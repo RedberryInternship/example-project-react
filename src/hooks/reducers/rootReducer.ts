@@ -3,13 +3,12 @@ import { SAVE_TOKEN } from "../actions/rootActions"
 type State = {
   user: Object | null,
   loading : boolean,
-  authStatus : "failed" | "success"| null
+  authStatus : "failed" | "success" | null
 }
 type Action = {
   type : string,
   payload : any,
 }
-
 
 export const initialState : State = {
   user: null,

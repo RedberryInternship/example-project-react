@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView,Text,  View, TouchableOpacity,TouchableWithoutFeedback, Image} from 'react-native';
+import {StyleSheet, ScrollView,Text,  View, TouchableOpacity,TouchableWithoutFeedback, Image} from 'react-native';
 import { useMap } from '../../hooks';
 import { Colors } from '../../../src/utils';
 

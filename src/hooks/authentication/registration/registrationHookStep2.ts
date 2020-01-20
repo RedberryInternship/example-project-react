@@ -18,9 +18,12 @@ export default (setActivePage : any, t : any ) => {
     console.log( name, surname, email, "name, surName") ;
     if(name === "") {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillName") )
+      return
     } 
     else if (surname === "") {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillSurname") )
+      return
+
     }
     else if(email !== "") {
       let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/;

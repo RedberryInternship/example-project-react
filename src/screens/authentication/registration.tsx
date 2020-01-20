@@ -1,6 +1,5 @@
 import React, { useContext  } from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   KeyboardAvoidingView,
@@ -12,11 +11,13 @@ import { BaseHeader,  BaseButton, RegistrationPagination, PhoneNumberView, UserI
 import { useRegistrationHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { AppContext } from '../../../App';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 
 const registration = ({navigation} : any) => {
   
   const {dispatch} = useContext(AppContext)
+  const insets = useSafeArea();
 
   const hook = useRegistrationHook(navigation, dispatch);
   
@@ -49,7 +50,7 @@ const registration = ({navigation} : any) => {
     />
   ]
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingBottom : insets.bottom}]}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(registration, "Auth")}
         title={"authentication.registration.registration"}
@@ -96,9 +97,6 @@ const registration = ({navigation} : any) => {
           imageStyle={{width:21, height:21}}
         />
       </KeyboardAvoidingView>
-      <SafeAreaView style={{marginBottom:32}}/>
-
-      
     </View>
   );
 };

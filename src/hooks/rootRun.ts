@@ -1,13 +1,17 @@
-import {useEffect, useState,useRef} from "react";
+import {useEffect, useState,useRef, useReducer} from "react";
 import { useAppState } from 'react-native-hooks';
 import {useNetInfo} from "@react-native-community/netinfo";
 import  AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
+import rootReducer, {  initialState} from "./reducers/rootReducer";
+import { saveToken } from "./actions/rootActions";
+import { Alert } from "react-native";
 
 
 
 export function  useRoot(){
+    const [state, dispatch] = useReducer(rootReducer, initialState)
 
     const currentAppState = useAppState()
     const networkState = useNetInfo()
@@ -17,6 +21,7 @@ export function  useRoot(){
     const [locale, setLocale] = useState<null | string>('');
     
     const {getItem, setItem} = useAsyncStorage("token")
+    const {getItem : getUserDetail, setItem : setUserDetail} = useAsyncStorage("userDetail")
     const {getItem : getLocaleStorage, setItem : setLocaleStorage} = useAsyncStorage("locale")
 
     const [appReady, setAppReady] = useState(false);
@@ -31,9 +36,10 @@ export function  useRoot(){
     useEffect(() => {
 
         // setItem("token");
+        // AsyncStorage.clear()
+
         readUserToken();
         readUserLocale()
-        // AsyncStorage.clear()
         onReady()
         console.log("remounted", appReady , " appReady");
         
@@ -58,6 +64,11 @@ export function  useRoot(){
 
     const readUserToken = async () => {
         let _token = await getItem();
+        if(_token){
+            let user = await getUserDetail() ;
+            user = user != null ? JSON.parse(user) : ''
+            dispatch(saveToken({token : _token, user}))
+        }
         Defaults.token = _token;
         setToken(_token)
     }
@@ -125,5 +136,5 @@ export function  useRoot(){
         console.log(Defaults.token, "App ready to boot");
 
     }
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this}
+    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this ,state, dispatch}
 }

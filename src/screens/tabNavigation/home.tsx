@@ -2,6 +2,7 @@ import React, {useRef, createContext, useReducer} from 'react';
 import {
   StyleSheet,
   View,
+  StatusBar,
 } from 'react-native';
 
 import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
@@ -19,6 +20,7 @@ const Home = () => {
 
   return (
     <HomeContext.Provider value={{state, dispatch}}>
+
       <View style={styles.mainContainer}>
         <MapView />
         <HomeComponentItems />
