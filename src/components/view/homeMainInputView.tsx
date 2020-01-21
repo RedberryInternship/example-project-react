@@ -84,9 +84,9 @@ const styles = StyleSheet.create({
   container : {
     width:"100%",
     elevation:11,
-    height:  36,
     marginTop : 12,
     zIndex:4,
+    position:"relative",
   },
   inputStyleContainer : {
     flex:0, 

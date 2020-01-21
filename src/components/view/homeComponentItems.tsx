@@ -14,7 +14,6 @@ const App = ({navigation} :any) => {
   const context : any = useContext(HomeContext)
   return (
     <View style={{position:"relative", flex:1, paddingTop : insets.top,}} pointerEvents={"box-none"} >
-        {/* <View style={{position : "absolute", top : 0,width: "100%", height:"100%", }} pointerEvents={"box-none"}> */}
 
           {
             Defaults.token ?
@@ -28,18 +27,17 @@ const App = ({navigation} :any) => {
             />
 
           }
-
-          <HomeMainInputView
-          />
-
-          <View style={{flex:1}} pointerEvents={"box-none"}>
+          <View >
             <OnMapRoundButton  
-              style={{ backgroundColor:"#FFFFFF", width:38, height:38, borderRadius : 19, position : "relative", marginTop : 12, right : 24, alignSelf : "flex-end"}} 
+              style={{ backgroundColor:"#FFFFFF", width:38, height:38, borderRadius : 19, position : "absolute", marginTop : 60, right : 24, alignSelf : "flex-end"}} 
               onPress={context.state.LocationRequestFunc} 
               image={context.state.locationImageType}
               imageStyle={{width:24,height:24}}
             />
-
+            <HomeMainInputView/>
+          </View>
+          
+          <View style={{flex:1}} pointerEvents={"box-none"}>
             <OnMapRoundButton  
               style={{right:24, bottom: 138, backgroundColor:"#FFFFFF"}} 
               onPress={Defaults.modal.current && Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
@@ -47,8 +45,6 @@ const App = ({navigation} :any) => {
             />
             <HomeFilterView />
           </View>
-
-        {/* </View> */}
       </View>
   );
 };

@@ -74,8 +74,6 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
       <Text style={styles.headerComponentText}>
         {t("home.allChargers").toUpperCase()}
         {"qefqwefwe".toUpperCase()}
-        {insets.top + " " + StatusBar.currentHeight}
-        { insets.bottom}
       </Text>
       <View style={ [styles.inputStyle, { borderBottomWidth:1, borderBottomColor: Colors.primaryBackground}]} >
           <Image  source={require("../../../assets/images/icons/icon-search.png")}   style={{width:16, height:16, resizeMode:"contain" ,position:"absolute"}}/>
