@@ -79,8 +79,8 @@ const drawer = ({ navigation } : any) => {
     <View style={[styles.safeAreaViewContainer, {paddingTop : insets.top, paddingBottom : insets.bottom}]}>
       <ScrollView 
         bounces={false}
-        style={{ flex: 1 }} 
-        contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+        style={{ flex: 0}} 
+        contentContainerStyle={{ flex: 0, flexGrow:1  , justifyContent: "space-between" }}>
 
         {$drawerContent}
         <View>
