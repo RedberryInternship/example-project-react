@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
@@ -13,16 +12,18 @@ import { useAuthHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppContext } from '../../../App';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 
 
 const auth = ({navigation} : any) => {
   const {dispatch} =  useContext(AppContext)
+  const insets = useSafeArea();
 
   const hook = useAuthHook(navigation, dispatch);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(auth,"MainDrawer")}
         title={"authentication.authentication"}
@@ -79,9 +80,7 @@ const auth = ({navigation} : any) => {
           
           image={require("../../../assets/images/icons/ic_alert-circle.png")}
         />
-      </KeyboardAvoidingView>
-      <SafeAreaView style={{marginBottom:32}}/>
-      
+      </KeyboardAvoidingView>      
     </View>
   );
 };

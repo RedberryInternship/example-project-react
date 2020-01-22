@@ -6,7 +6,7 @@ import { Colors, Const } from '../../utils';
 
 
 // eslint-disable-next-line react/display-name
-const registartionPagination =  React.forwardRef( ({setShowSearchContent, showSearchContent, placeholder, textHandler, InputSubmit, onFocus, closeClick} : any, ref: any) => {
+const homeMainSearchInput =  React.forwardRef( ({setShowSearchContent, showSearchContent, placeholder, textHandler, InputSubmit, onFocus, closeClick} : any, ref: any) => {
 
 
   return (
@@ -36,6 +36,7 @@ const registartionPagination =  React.forwardRef( ({setShowSearchContent, showSe
       </View>
       <TouchableWithoutFeedback
         onPress={closeClick}
+        style={{zIndex:3}}
         hitSlop={{top : 15, bottom : 15, left : 15, right :15}}
       >
         <Image  source={require("../../../assets/images/icons/Delete.png")}   style={{width:16, height:16, resizeMode:"contain", position:"absolute", right: 12}}/>
@@ -45,7 +46,7 @@ const registartionPagination =  React.forwardRef( ({setShowSearchContent, showSe
 });
 
 
-export default registartionPagination;
+export default homeMainSearchInput;
 
 const styles = StyleSheet.create({
   container : {

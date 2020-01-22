@@ -1,10 +1,11 @@
 import React from 'react';
 import { View,Dimensions} from 'react-native';
-import { createAppContainer, createSwitchNavigator, SafeAreaView } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-// import {SafeAreaView} from "react-native-safe-area-context"
+import { useSafeArea } from 'react-native-safe-area-context';
+
 import { Defaults } from './utils';
 
 //screens
@@ -26,8 +27,11 @@ import {
   Faq,
   ChoosingCard,
   Notifications,
+  Contact,
   Tariffs,
-  Contact
+  TransactionList,
+  ShowTransaction,
+  Partners
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -111,7 +115,9 @@ const drawerMenuOptionsStack = createStackNavigator({
   Contact,
   Notifications,
   Tariffs,
-  Contact
+  TransactionList,
+  ShowTransaction,
+  Partners
 },
 {
   defaultNavigationOptions: {
@@ -137,13 +143,14 @@ export default createAppContainer(AppNavigator);
 
 const FooterTabNavigator = (props: any) => {
   let currentRouteName = props.navigation.state.routes[props.navigation.state.index].key;
+  const insets = useSafeArea();
 
   const navigate = (name: string) => {
     if (name === "drawer") return props.navigation.openDrawer();
     props.navigation.navigate(name)
   }
   return (
-    <SafeAreaView style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center" }}>
+    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }} >
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
         <TabNavigationButtons 
           active={currentRouteName === "Home"} 
@@ -151,8 +158,8 @@ const FooterTabNavigator = (props: any) => {
           image={require("../assets/images/icons/ic_map_pin.png")} 
         />
         <TabNavigationButtons 
-          active={currentRouteName === "chargerStack"} 
-          navigate={navigate.bind(FooterTabNavigator, Defaults.token ? "chargerStack" :  " NotAuthorized"  )} 
+          active={currentRouteName === "chargerStack" || currentRouteName === "NotAuthorized"} 
+          navigate={navigate.bind(FooterTabNavigator, Defaults.token ? "chargerStack" :  "NotAuthorized"  )} 
           image={require("../assets/images/icons/ic_charge.png")} 
         />
         {
@@ -170,6 +177,6 @@ const FooterTabNavigator = (props: any) => {
         />
 
       </View>
-    </SafeAreaView>
+    </View>
   )
 }

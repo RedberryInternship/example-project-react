@@ -1,7 +1,6 @@
 import React from 'react'
 import {
     View,
-    SafeAreaView,
     StyleSheet
 } from 'react-native';
 
@@ -46,8 +45,7 @@ const settings = ({ navigation }: any) => {
     });
 
     return (
-        <>
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
         <BaseHeader
                     onPressLeft={navigation.navigate.bind(settings, "MainDrawer")}
                     title={"settings.settings"}
@@ -59,8 +57,7 @@ const settings = ({ navigation }: any) => {
                 </View>
             </ScrollView>
 
-        </SafeAreaView>
-        </>
+        </View>
     );
 };
 

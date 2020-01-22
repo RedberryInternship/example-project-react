@@ -171,7 +171,20 @@ export default {
         phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
         passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",
         userNotFound: "მომხმარებელი ვერ მოიძებნა ბაზაში"
-      }
+      },
+      transactions:{
+        transactions: "ტრანზაქციები",
+        details: "დეტალები",
+        duration: "ხანგრძლივობა",
+        power: "სიმძლავრე",
+        energy: "ენერგია",
+        address: "მისამართი",
+        cardNumber: "ბარათის ნომერი",
+      },
+      
+    },
+    partners:{
+      partnerOrganizations: "პარტნიორი ორგანიზაციები",
     }
   }
-};
+}

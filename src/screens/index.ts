@@ -15,11 +15,16 @@ import SetNewPasswords from "./authentication/setNewPasswords"
 import Settings from "./drawerMenuOptions/settings";
 import ProfileChange from './drawerMenuOptions/profileChange';
 
-import Favorites from './favourites';
+import Favorites from './tabNavigation/favourites';
 import Faq from './faq';
 import Tariffs from './tariffs';
 import Contact from './contact';
 import Notifications from './notifications';
+
+import TransactionList from './transactions/transactionList';
+import ShowTransaction from './transactions/showTransaction';
+
+import Partners from './partners';
 
 export {
     Home,
@@ -41,6 +46,8 @@ export {
     ChoosingCard,
     Contact,
     Notifications,
-
     Tariffs, 
+    TransactionList,
+    ShowTransaction,
+    Partners
 }

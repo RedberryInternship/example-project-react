@@ -13,7 +13,7 @@ import { Defaults } from '../../utils';
     props.navigation.navigate(name)
   }
   return (
-    <SafeAreaView style={{ backgroundColor:"#111314",alignItems:"stretch",justifyContent:"center"}}>
+    <View style={{ backgroundColor:"#111314",alignItems:"stretch",justifyContent:"center"}}>
       <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-around", height: 65}}>
         <TabNavigationButtons navigate={navigate.bind(navigate, 'Home')} image={require("../assets/images/ic_map_pin.png")} />
         <TabNavigationButtons navigate={navigate.bind(navigate, 'Charger')} image={require("../assets/images/ic_charge.png")} />
@@ -25,7 +25,7 @@ import { Defaults } from '../../utils';
         <TabNavigationButtons navigate={navigate.bind(navigate, 'drawer')} image={require("../assets/images/ic_menu.png")} />
       
       </View>
-      </SafeAreaView>
+    </View>
   )
 }
 

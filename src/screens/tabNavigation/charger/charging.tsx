@@ -1,88 +1,64 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Image,
+  Dimensions,
+  Alert,
 } from 'react-native';
-import { BaseHeader,BaseButton, Pulse, CountDown  } from '../../../../src/components';
+import { BaseHeader,BaseButton, Pulse, CountDown, ChargingView  } from '../../../../src/components';
 import { Const, Colors, Defaults } from '../../../../src/utils';
-import { useTranslation } from 'react-i18next';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { SafeAreaView} from "react-navigation"
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useChargingHook } from '../../../../src/hooks';
 
-const CicleDiameter = Const.Width-150
 
-const modalData = {
-  
-}
 const charging = ({navigation} : any) => {
+  const hook = useChargingHook(navigation)
   
-  const {t} = useTranslation() 
+
+    const [routes] = React.useState([
+      { key: 'first', title: 'First' },
+      { key: 'second', title: 'Second' },
+    ]);
+  
+    const renderScene = ( {route} : any) => {
+     return <ChargingView   hook={hook}  routeKey={route.key}/>
+    };
 
 
-  const onFinish= () =>{
-    Defaults.modal.current?.customUpdate(
-      true, 
-      {type:3, subType : 1, data : 
-        {
-          title : "popup.thankYou",
-          description : "popup.automobileChargingFinished",
-          bottomDescription : "popup.finishedChargingOfAutomobile",
-          price: 22
-        },
-        onCloseClick : navigation.navigate.bind(charging,"MainDrawer")
-      }
-    )
-
+    const renderTabBar = props => {
+      console.log('====================================');
+      console.log(props, " props, props");
+      console.log('====================================');
+    return (
+      <TabBar
+        {...props}
+        contentContainerStyle={{backgroundColor:"red", height: 28}}
+        indicatorStyle={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: 'black', borderWidth:1, height:28}}
+        labelStyle={{fontSize:13, padding:0,color : "red",backgroundColor:"green", margin:0, elevation:10,  height:28}}
+        tabStyle={{ backgroundColor: 'blue', borderWidth:1, height:28}}
+      />
+    );
   }
+    
   return (
-    <SafeAreaView style={styles.container} forceInset={{top:"never", bottom:"always"}}>
+    <View style={[styles.container ]} >
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(charging,"MainDrawer")}
         title={"charging.charge"}
       />
-      <View style={styles.MainChargerCicleContainer}>
-        <Pulse 
-          color='transparent' 
-          numPulses={3} 
-          diameter={Const.Width-40} 
-          initialDiameter={CicleDiameter} 
-          speed={20} 
-          duration={1200} 
-          pulseStyle={{borderColor : "#18a0fb",borderWidth : 2, }}
-        />
-        <View style={styles.MainChargerCicle}>
-            <Image  
-              source={require("../../../../assets/images/icons/charger_with_gradient.png")} 
-              style={{width:55, height:55, resizeMode:"contain", tintColor : Colors.primaryBlue}} 
-            /> 
-            <CountDown 
-              duration={12000000}
-              up={false}
-              alarm={false}
-            />
-        </View>
-      </View>
-      <View style={{flex:1, justifyContent : "center", alignItems:"center", flexDirection:"row",}}>
-        <Text  style={{color: Colors.primaryWhite, fontSize:22, lineHeight:36}}>5.30 / </Text>
-        <Text  style={{color: Colors.primaryBlue, fontSize:16}}>20 {t("gel")}</Text>
-      </View>
+      <TabView
+        navigationState={{ index : hook.activeTab, routes :[{key: 'first', title: 'First'}, {key: 'second', title: 'second'}] }}
+        renderScene={renderScene}
+        onIndexChange={hook.changeActiveTab}
+        lazy={true}
+        renderTabBar={renderTabBar}
+        initialLayout={Dimensions.get("window")}
+      />
+      
 
       
-      <View style={{flex:0,justifyContent:"flex-end"}}>
-        <TouchableOpacity   onPress={navigation.navigate.bind(charging,"")}  style={{marginVertical: 16, alignItems:"center"}}>
-          <Text  style={{color: Colors.primaryGreen, fontSize:13}}>{t("charging.chargeAnotherCar")}</Text>
-        </TouchableOpacity>
-        <BaseButton
-          onPress={onFinish.bind(charging)}
-          text={"charging.finish"}
-          style={{marginTop: 16, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-88}}
-        />
-      </View>
-
-      
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -92,42 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground
   },
-  infoLinearGradient : {
-    paddingHorizontal:48,
-    paddingVertical:48,
-    marginHorizontal:44,
-    borderRadius:10,
-    marginBottom:24,
-    justifyContent:"center",
-    alignItems:"center"
-  },
-  MainChargerCicleContainer : {
-    position:"relative", 
-    flex:2, 
-    alignItems:"center", 
-    justifyContent:"center",
-    marginVertical:32
-  },
-  MainChargerCicle : {
-    position:"absolute", 
-    alignSelf:"center",
-    width:CicleDiameter, 
-    height: CicleDiameter, 
-    minHeight:CicleDiameter,
-    borderRadius : CicleDiameter/2,
-    backgroundColor: Colors.primaryBackground,
-    borderWidth:3,
-    borderColor:"#18a0fb",
-    justifyContent:"center",
-    alignItems:"center"
-  },
-  infoText : {
-    lineHeight:18,
-    fontSize:13, 
-    letterSpacing:0.21, 
-    color:"white",
-    textAlign:"center"
-  }
+  
 });
 
 export default charging;

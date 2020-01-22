@@ -1,4 +1,4 @@
-import { Dimensions } from "react-native"
+import { Dimensions, Platform } from "react-native"
 import { ifIphoneX } from "react-native-iphone-x-helper";
 
 
@@ -8,7 +8,7 @@ export const Width = Dimensions.get("window").width;
 export const Height = Dimensions.get("window").height;
 
 
-export const NotchHeight = ifIphoneX(30, 0)
+export const NotchHeight = Platform.OS === "ios" ?  ifIphoneX(36, 16) : 16
 
 
 export const DrawerFieldsBeforeAuthorization = [
@@ -45,7 +45,7 @@ export const DrawerFieldsAfterAuthorization = [
     {
         image: require('../../assets/images/icons/credit-card.png'),
         text: 'drawer.transactions',
-        route: "Transactions"
+        route: "TransactionList"
     },
     {
         image: require('../../assets/images/icons/mail.png'),

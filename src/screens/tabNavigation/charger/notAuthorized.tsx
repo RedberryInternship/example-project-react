@@ -19,9 +19,7 @@ const chargerDetail = ({navigation} : any) => {
   return (
     <View style={styles.container}>
       <BaseHeader 
-        onPressLeft={navigation.navigate.bind(chargerDetail,"MainDrawer")}
         title={"charger.chargeWitchCode"}
-
       />
       <View style={{justifyContent:"center", flex:1}}>
         <LinearGradient colors={['#009AF033', '#1065E333']} style={styles.infoLinearGradient}>

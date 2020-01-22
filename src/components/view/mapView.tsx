@@ -1,11 +1,70 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
-import React, {useRef} from 'react';
-import { StyleSheet,  View,} from 'react-native';
+import React, {useMemo} from 'react';
+import { StyleSheet,  View, StatusBar,} from 'react-native';
 import { useMap } from '../../../src/hooks';
 import { mapStyles, mapStyle2, Colors } from '../../../src/utils';
 import moment from 'moment';
 import  SunCalc from 'suncalc';
+import { Chargers } from '../../../@types/allTypes';
+import { MapMarkerItem } from '..';
+
+
+const mapView = () => {
+  const hook = useMap()
+
+  return (
+      <View style={styles.mapContainer}>
+      <StatusBar barStyle={determinetime() ? "dark-content" : "light-content"} />
+
+        <MapView
+          provider={PROVIDER_GOOGLE} 
+          style={styles.map}
+          region={{
+              latitude: 41.720787,
+              longitude: 44.745651,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+          }}
+          onKmlReady={()=>{}}
+          onMapReady={hook.mapReady}
+          showsUserLocation
+          showsPointsOfInterest
+          showsTraffic
+          customMapStyle={determinetime() ? mapStyle2 : mapStyles}
+          ref={hook.mapRef}
+        >{
+          useMemo(() =>
+            hook.state.AllChargers?.map((val : Chargers , index : number) => 
+                (<MapMarkerItem
+                  key={index}
+                  lat={parseFloat( val.lat.toString() )}
+                  lng={parseFloat( val.lng.toString() )}
+                />)
+              )
+          , [hook.state])
+        }
+          
+          
+        </MapView>
+      </View>
+  );
+};
+
+
+export default mapView;
+
+
+function determinetime() {
+  var times = SunCalc.getTimes(new Date(),41.716667, 44.783333);
+
+  // console.log('====================================');
+  // console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
+  // console.log('====================================');
+
+  return moment(moment()).isBetween(times.sunrise,times.sunset ) 
+}
+
 
 
 const styles = StyleSheet.create({
@@ -27,48 +86,3 @@ const styles = StyleSheet.create({
     backgroundColor:Colors.primaryBackground
   },
 });
-
-// modi rame davwerot
-
-const mapView = () => {
-  const map = useRef(null);
-  // eslint-disable-next-line no-unused-vars
-  const mapHook = useMap({map})
-
-  return (
-      <View style={styles.mapContainer}>
-        <MapView
-          provider={PROVIDER_GOOGLE} 
-          style={styles.map}
-          region={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.0121,
-          }}
-          onKmlReady={()=>{}}
-          onMapReady={()=>{}}
-          showsUserLocation
-          showsPointsOfInterest
-          showsTraffic
-          customMapStyle={determinetime()}
-          ref={map}
-        >
-        </MapView>
-      </View>
-  );
-};
-
-
-export default mapView;
-
-
-function determinetime() {
-  var times = SunCalc.getTimes(new Date(),41.716667, 44.783333);
-
-  console.log('====================================');
-  console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
-  console.log('====================================');
-
-  return moment(moment()).isBetween(times.sunrise,times.sunset ) ? mapStyle2 : mapStyles
-}

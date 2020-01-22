@@ -1,9 +1,9 @@
 import React, {useMemo, createContext, useReducer, Dispatch} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { Navigation } from './src';
 import { useRoot, initialState, rootReducer } from './src/hooks';
@@ -13,27 +13,30 @@ import { CustomModal } from './src/components';
 import DropdownAlert from 'react-native-dropdownalert';
 import {SafeAreaProvider} from "react-native-safe-area-context"
 
+
 console.disableYellowBox = true;
 
+if(__DEV__){
+
+}
+else {
+  console.log = () =>{}
+}
 export const AppContext = createContext();
 
 const App = () => {
+  const hook = useRoot();
 
-  const root = useRoot();
-  const [state, dispatch] = useReducer(rootReducer, initialState)
- 
+
   return useMemo (()=>(
     <SafeAreaProvider >
-      <AppContext.Provider value={{state, dispatch }} >
+      <AppContext.Provider value={{state :  hook.state, dispatch : hook.dispatch  }} >
         <Navigation
-          onNavigationStateChange={() => {}}
-          ref={(ref) => root.setNavigationTopLevelElement(ref) }
-          screenProps={{
-            t : root.t
-          }}
+          ref={(ref) => hook.setNavigationTopLevelElement(ref) }
+          screenProps={{token : Defaults.token}}
         />
       </AppContext.Provider>
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="light-content"  />
       
       <DropdownAlert
         // errorColor={Colors.errorColor}
@@ -43,12 +46,13 @@ const App = () => {
         testID={"dropdownAlert"}
         titleStyle={{fontSize:14, color : "white"}}
         imageStyle={{marginHorizontal: 8, alignSelf: "center", resizeMode:"contain"}}
-      />    
-      <CustomModal 
+      />
+      <CustomModal
         ref={Defaults.modal}
       />
     </SafeAreaProvider>
-  ),[root.appReady, root.locale]);
+  ),[hook.appReady, hook.state]);
 };
+
 
 export default App;

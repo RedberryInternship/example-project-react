@@ -20,7 +20,7 @@ const ChargerWithCode = ({navigation} : any) => {
       <BaseHeader 
         title={"charger.chargeWitchCode"}
       />
-      <ScrollView style={{marginHorizontal:16,marginTop:8}}>
+      <ScrollView style={{paddingHorizontal:16,marginTop:8}}>
         <BaseInput
           image={require("../../../../assets/images/icons/lock.png")}
           keyboardType={"email-address"}

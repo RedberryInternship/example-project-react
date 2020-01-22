@@ -175,7 +175,19 @@ export default {
         phoneNumberLength : "The phone number should be exactly 9 digits long.",
         passworNotEmpty: "The password field should not be empty",
         userNotFound: "User not found"
-      }
+      },
+      transactions:{
+        transactions: "Transactions",
+        details: "Details",
+        duration: "Duration",
+        power: "Power",
+        energy: "Energy",
+        address: "Address",
+        cardNumber: "Card Number"
+      },
+    },
+    partners:{
+      partnersOrganizations: "Partner Organizations",
     }
   }
-};
+}

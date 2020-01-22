@@ -1,9 +1,8 @@
-import React, {useRef, useEffect} from 'react';
-import { StyleSheet,Text,Platform,  View, Image,SafeAreaView, TouchableOpacity} from 'react-native';
+import React from 'react';
+import { StyleSheet,Text,Platform,  View, Image, TouchableOpacity} from 'react-native';
 import { Colors } from '../../utils';
 import {useTranslation} from 'react-i18next';
-// import {SafeAreaView} from "react-navigation"
-// import {TouchableOpacity} from 'react-native-gesture-handler'
+import { useSafeArea } from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
   mainContainer:{
@@ -40,6 +39,7 @@ const styles = StyleSheet.create({
 const baseHeader = ({ onPressLeft, title, onPressRight, titleRight} : any) => {
 
   const { t} = useTranslation();
+  const insets = useSafeArea();
 
   const renderLeft = () => {
     return onPressLeft && (
@@ -90,14 +90,14 @@ const baseHeader = ({ onPressLeft, title, onPressRight, titleRight} : any) => {
     )
   }
   return (
-      <SafeAreaView style={styles.mainContainer}>
+      <View style={[styles.mainContainer, {paddingTop :insets.top} ]}>
           <View style={[styles.container]}>
               {renderMiddle()}
               {renderLeft()}
               {renderRight()}
               
           </View>
-      </SafeAreaView>
+      </View>
   );
 };
 

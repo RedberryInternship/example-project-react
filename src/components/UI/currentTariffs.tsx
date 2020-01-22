@@ -1,5 +1,5 @@
 import React, {} from 'react';
-import {  Text,  View, Image, StyleSheet} from 'react-native';
+import {  Text,  View, StyleSheet} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Colors } from '../../../src/utils';
 
@@ -15,7 +15,7 @@ const CurrentTariffs = ({data} : any) => {
           <Text style={{letterSpacing:-0.41, fontSize:11, color : "#A1A8AB"}}>{t("chargerDetail.currentPrices")}</Text>
         </View>
           {
-            data.map((val , ind : Number)=>(
+            data.map((val : any , ind : Number)=>(
               <Row 
                 key={ind}
                 {...val}

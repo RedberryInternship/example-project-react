@@ -45,7 +45,7 @@ export default (navigation : any, dispatch : any) => {
   useEffect(() => {
     _this.current!.userRegistrationState = Math.max(activePage, _this.current!.userRegistrationState)
     KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
-    setTimeout(paginationClickHandler.bind(this, activePage), 250)
+    setTimeout(()=>paginationClickHandler(activePage), 250)
 
     console.log(activePage,regStep3.password.current, "activePage");
     

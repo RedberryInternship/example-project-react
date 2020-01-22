@@ -13,6 +13,7 @@ import useSetNewPasswords from "./authentication/setNewPasswords"
 //charger
 import useCharger from "./charger/charger"
 import useChoosingCard from "./charger/choosingCard"
+import useChargingHook from "./charger/chargingHook"
 
 //reducer
 import rootReducer, {initialState} from "./reducers/rootReducer"
@@ -31,5 +32,6 @@ export {
     useCharger,
     useChoosingCard,
     rootReducer,
-    initialState
+    initialState,
+    useChargingHook
 }

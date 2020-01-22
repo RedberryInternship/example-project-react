@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
@@ -8,6 +7,7 @@ import {
   TouchableOpacity,
   Text
 } from 'react-native';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 
 // import components
@@ -21,10 +21,14 @@ import {
 // import utils
 import { Const, Colors, Defaults } from '../utils';
 import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../App';
+import { logOut } from '../../src/hooks/actions/rootActions';
 
 const drawer = ({ navigation } : any) => {
 
   const {  i18n } = useTranslation();
+  const insets = useSafeArea();
+  const context = useContext(AppContext)
 
   const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true;
   let $drawerListFields = null;
@@ -75,11 +79,11 @@ const drawer = ({ navigation } : any) => {
   }
 
   return (
-    <SafeAreaView style={styles.safeAreaViewContainer}>
+    <View style={[styles.safeAreaViewContainer, {paddingTop : insets.top, paddingBottom : insets.bottom}]}>
       <ScrollView 
         bounces={false}
-        style={{ flex: 1 }} 
-        contentContainerStyle={{ flex: 1, justifyContent: "space-between" }}>
+        style={{ flex: 0}} 
+        contentContainerStyle={{ flex: 0, flexGrow:1  , justifyContent: "space-between" }}>
 
         {$drawerContent}
         <View>
@@ -96,13 +100,13 @@ const drawer = ({ navigation } : any) => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
               style={styles.localeButton} 
             />
-            <TouchableOpacity onPress={() =>{Alert.alert("sdf")}} >
+            <TouchableOpacity onPress={() =>{context.dispatch(logOut())}} >
                 <Text style={{marginRight:24, color:"white"}}>Log out</Text>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
