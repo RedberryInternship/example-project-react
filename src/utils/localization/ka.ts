@@ -166,7 +166,11 @@ export default {
         incorrectCode : "კოდი არ არის სწორი",
         emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
-
+      },
+      auth:{
+        phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
+        passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",
+        userNotFound: "მომხმარებელი ვერ მოიძებნა ბაზაში"
       }
     }
   }

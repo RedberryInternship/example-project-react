@@ -2,16 +2,10 @@ import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  ActivityIndicator,
-  StatusBar,
-  Alert,
-  Image,
   KeyboardAvoidingView,
   Platform,
-  Button
 } from 'react-native';
 import { Colors } from '../../../src/utils';
 import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput } from '../../../src/components';
@@ -19,6 +13,7 @@ import { useAuthHook } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppContext } from '../../../App';
+
 
 
 const auth = ({navigation} : any) => {
@@ -48,6 +43,7 @@ const auth = ({navigation} : any) => {
           onSubmit={hook.phoneInputSubmit}
           value={hook._this.current!.phone}
           ref={hook.phoneRef}
+          style={{borderColor: 'red'}}
         />
 
         <BaseInput
@@ -55,7 +51,6 @@ const auth = ({navigation} : any) => {
           keyboardType={"email-address"}
           onChangeText={hook.passwordTextHandler}
           onSubmit={hook.passwordInputSubmit}
-          value={hook._this.current!.password}
           ref={hook.passwordRef}
           returnKeyType={"send"}
           secure={true}
@@ -98,7 +93,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: Colors.primaryBackground  
-  },
+  }
 });
 
 export default auth;

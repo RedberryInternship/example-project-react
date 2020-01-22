@@ -42,6 +42,5 @@ export {
     Contact,
     Notifications,
 
-    Tariffs,
-    Contact   
+    Tariffs, 
 }
