@@ -120,8 +120,8 @@ export function  useRoot(){
     
     const onReady =() =>{
 
-            NavigationActions().navigate("MainDrawer")
-            // NavigationActions().navigate("Auth")
+            // NavigationActions().navigate("MainDrawer")
+            NavigationActions().navigate("Auth")
             // NavigationActions().navigate("ForgotPassword")
             // NavigationActions().navigate("Registration")
             // NavigationActions().navigate("Settings");

@@ -18,7 +18,7 @@ export default  React.forwardRef( (props : any, ref : any) =>{
                     props.image && <Image source={props.image}  style={[{width: 24,flex:-1, height: 24,position: 'absolute',left: 12.5,bottom: 12.5,zIndex:22,alignSelf:"center"}, {...props.imageStyle}]} resizeMode="contain"/>
                 }
                 <TextInput
-                    style={[styles.Input, {paddingLeft :  props.image ? 50 :props.paddingLeft || 20}]}
+                    {...props}
                     placeholder={props.placeholder}
                     keyboardType={props.keyboardType ?props.keyboardType :  "default"}
                     onChangeText={props.onChangeText}
@@ -34,7 +34,7 @@ export default  React.forwardRef( (props : any, ref : any) =>{
                     autoCapitalize={"none"}
                     returnKeyType={props.returnKeyType}
                     testID={props.testID}
-                    {...props}
+                    style={[styles.Input, props.style, {paddingLeft :  props.image ? 50 :props.paddingLeft || 20}]}
                 />
                 { props.required && <Text style={{position:"absolute", right:8, top:8, color:"white", fontSize:18}}>*</Text> }
                 

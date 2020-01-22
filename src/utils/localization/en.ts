@@ -171,6 +171,11 @@ export default {
         emailAlreadyToken : "The email has already been taken",
         phoneAlreadyToken : "The phone number has already been taken.",
       },
+      auth:{
+        phoneNumberLength : "The phone number should be exactly 9 digits long.",
+        passworNotEmpty: "The password field should not be empty",
+        userNotFound: "User not found"
+      },
       transactions:{
         transactions: "Transactions",
         details: "Details",
