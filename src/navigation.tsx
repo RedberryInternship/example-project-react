@@ -26,8 +26,11 @@ import {
   Faq,
   ChoosingCard,
   Notifications,
+  Contact,
   Tariffs,
-  Contact
+  TransactionList,
+  ShowTransaction,
+  Partners
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -111,7 +114,9 @@ const drawerMenuOptionsStack = createStackNavigator({
   Contact,
   Notifications,
   Tariffs,
-  Contact
+  TransactionList,
+  ShowTransaction,
+  Partners
 },
 {
   defaultNavigationOptions: {

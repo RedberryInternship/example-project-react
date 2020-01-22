@@ -166,8 +166,20 @@ export default {
         incorrectCode : "კოდი არ არის სწორი",
         emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
-
-      }
+      },
+      transactions:{
+        transactions: "ტრანზაქციები",
+        details: "დეტალები",
+        duration: "ხანგრძლივობა",
+        power: "სიმძლავრე",
+        energy: "ენერგია",
+        address: "მისამართი",
+        cardNumber: "ბარათის ნომერი",
+      },
+      
+    },
+    partners:{
+      partnerOrganizations: "პარტნიორი ორგანიზაციები",
     }
   }
-};
+}

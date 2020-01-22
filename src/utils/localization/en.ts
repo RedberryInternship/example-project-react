@@ -170,7 +170,19 @@ export default {
         incorrectCode : "code is incorrect",
         emailAlreadyToken : "The email has already been taken",
         phoneAlreadyToken : "The phone number has already been taken.",
-      }
+      },
+      transactions:{
+        transactions: "Transactions",
+        details: "Details",
+        duration: "Duration",
+        power: "Power",
+        energy: "Energy",
+        address: "Address",
+        cardNumber: "Card Number"
+      },
+    },
+    partners:{
+      partnersOrganizations: "Partner Organizations",
     }
   }
-};
+}

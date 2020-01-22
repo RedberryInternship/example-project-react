@@ -48,6 +48,7 @@ import FaqListItem from './item/faqListItem';
 import TariffListItem from './item/tariffListItem';
 import ContactListItem from './item/contactListItem';
 import NotificationListItem from './item/notificationsListItem';
+import TransactionListItem from './item/transactionListItem';
 
 
 //BaseUI
@@ -130,5 +131,5 @@ export {
     NotificationListItem,
     TariffDetail,
     TariffListItem,
-    ContactListItem
+    TransactionListItem
 }
