@@ -1,24 +1,23 @@
 import React from 'react';
 import {
   StyleSheet,
-  SafeAreaView,
   View,
-  StatusBar,
-  Alert,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
 import { Colors } from '../../../src/utils';
-import { BaseHeader, BaseInput, BaseButton, PhoneNumberInput, ReceiveCode } from '../../../src/components';
+import { BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode } from '../../../src/components';
 import { useForgotPassword } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSafeArea } from 'react-native-safe-area-context';
 
 const forgotPassword = ({navigation} : any) => {
   
   const hook = useForgotPassword();
+  const insets = useSafeArea();
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
         onPressLeft={navigation.navigate.bind(forgotPassword, "Auth")}
         title={"authentication.forgotPasswordPage.recoverPassword"}
@@ -56,9 +55,7 @@ const forgotPassword = ({navigation} : any) => {
           style={{marginTop: 0}}
           imageStyle={{width:21, height:21}}
         />
-      </KeyboardAvoidingView>
-      <SafeAreaView style={{marginBottom:32}}/>
-      
+      </KeyboardAvoidingView>      
     </View>
   );
 };

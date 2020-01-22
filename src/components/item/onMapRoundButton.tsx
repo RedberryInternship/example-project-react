@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {SafeAreaView, StyleSheet, ScrollView,Text,  View, TouchableOpacity, Image} from 'react-native';
+import { StyleSheet, TouchableOpacity, Image} from 'react-native';
 import { useMap } from '../../hooks';
 
 
@@ -29,7 +29,7 @@ const onMapRoundButton = ({onPress, style, image, imageStyle} : any) => {
         right: 20
       }}
     >
-      <Image  source={image} style={[{width:18, height: 18, alignSelf : "center",resizeMode:"contain", },imageStyle]}/>
+      <Image  source={image} style={[{width:30,height:30, alignSelf : "center",resizeMode:"contain", },imageStyle]}/>
     </TouchableOpacity>
   );
 };

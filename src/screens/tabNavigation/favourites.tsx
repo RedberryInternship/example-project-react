@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   ScrollView,
-  SafeAreaView,
+  View,
   StyleSheet,
   Alert
 } from 'react-native';
@@ -11,18 +11,17 @@ import {
   BaseHeader,
   FavouriteChargerListItem
 } from '../../components';
+import { Colors } from '../../../src/utils';
 
-const favourites = ({ navigation }: any) => {
+const favourites = () => {
 
 
   return (
-    <SafeAreaView>
+    <View style={{flex:1, backgroundColor: Colors.primaryBackground}}>
       <BaseHeader
         title={'favourites.favourites'}
-        onPressLeft={() => navigation.goBack()} />
-
+      />
       <ScrollView style={styles.container} >
-
         <FavouriteChargerListItem
           title='თბილისი მოლი'
           address='საიათნოვას ქუჩა'
@@ -37,7 +36,7 @@ const favourites = ({ navigation }: any) => {
 
 
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -45,7 +44,6 @@ export default favourites;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 64,
-    paddingBottom: 32
+    paddingVertical: 32
   }
 });

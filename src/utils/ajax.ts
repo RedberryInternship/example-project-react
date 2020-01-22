@@ -39,7 +39,8 @@ class Ajax {
             axios({ method, url, headers, data }).then(response => {
                 this.logResponse(method, url, headers, response.data);
                 resolve(response.data)
-            }).catch(error => {
+            })
+            .catch(error => {
 
                 if( error.response && error.response.status === 401){
                     AsyncStorage.clear()

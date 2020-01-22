@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 import {CustomModalInterface} from "../components/customModal"
 import {RefObject} from "react"
+import BottomSheetBehavior from "reanimated-bottom-sheet";
 
 type userDetail = {
     first_name: string,
@@ -18,6 +20,7 @@ class Defaults {
     _locale : null | string = '';
     _location : null | Object = null;
     _modal : any = null;
+    _bottomSheet : any = null;
     _userDetail : userDetail = null;
 
     set dropdown(dropdown) {
@@ -73,6 +76,12 @@ class Defaults {
     }
     get modal() : RefObject <CustomModalInterface> {
         return  this._modal;
+    }
+    set bottomSheet(bottomSheet) {
+        this._bottomSheet = bottomSheet;
+    }
+    get bottomSheet() : React.RefObject<BottomSheetBehavior> | null {
+        return  this._bottomSheet;
     }
 }
 

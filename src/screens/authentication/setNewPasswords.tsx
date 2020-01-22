@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   StyleSheet,
-  SafeAreaView,
   View,
-  StatusBar,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -12,14 +10,15 @@ import { Colors } from '../../../src/utils';
 import { BaseHeader, BaseInput, BaseButton, } from '../../../src/components';
 import { useSetNewPasswords } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {} from "react-navigation"
+import { useSafeArea } from 'react-native-safe-area-context';
 
 const forgotPassword = ({navigation} : any) => {
   
   const hook = useSetNewPasswords();
+  const insets = useSafeArea();
  
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
         onPressLeft={()=> navigation.goBack()}
         title={"authentication.forgotPasswordPage.recoverPassword"}
@@ -67,8 +66,6 @@ const forgotPassword = ({navigation} : any) => {
           imageStyle={{width:21, height:21}}
         />
       </KeyboardAvoidingView>
-      <SafeAreaView style={{marginBottom:32}}/>
-      
     </View>
   );
 };

@@ -34,7 +34,7 @@ const choosingCard = ({navigation} : any) => {
         <LinearGradient colors={ ['#009AF022', '#1065E322']}  start={{x:0, y:1}} end={{x:1, y:0}} style={[styles.gradinetContainer]}>
           <ScrollView bounces={false}>
             {
-              navigation.getParam("type" , Type.untilShoutDown) !== Type.untilShoutDown ? 
+              navigation.getParam("type" , Type.untilShoutDown) == Type.untilShoutDown ? 
                   <View style={{marginTop:"20%", paddingHorizontal:32, alignItems:"center"}}>
                     <Image  source={require("../../../../assets/images/icons/check-circle.png")} style={{width:41, height:41, resizeMode:"contain",alignSelf:"center", marginVertical:16}}/>
                     <Text>Here is the content inside panel</Text>

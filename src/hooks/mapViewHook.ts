@@ -1,32 +1,45 @@
-import React, {useEffect, useState,useRef, useCallback} from "react";
-import {AppState, Keyboard, Alert, } from "react-native"
-import { useAppState } from 'react-native-hooks';
-import {useNetInfo} from "@react-native-community/netinfo";
-import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
-import { Defaults, NavigationActions } from "../utils";
-import {useTranslation} from 'react-i18next';
-
+import React, {useEffect, useState,useRef, useContext, RefObject} from "react";
+import { Defaults, NavigationActions, Ajax } from "../utils";
 
 import RNLocation, {Location} from 'react-native-location';
 import useLocation from "./locationHook";
-
-
-type Ref = {
-  interval : null,
-  location : Location[]| null,
-
-}
-export default function  useMap({map : mapRef} : any){
-
-  const [loading, SetLoading] = useState<Boolean>(true);
-
-  const location = useLocation({SetLoading, mapRef})
+import  { MapView } from 'react-native-maps'; 
+import { Chargers, AppContextType } from "../../@types/allTypes";
+import { getAllChargers } from "./actions/rootActions";
+import { AppContext } from "../../App";
+import { Alert } from "react-native";
 
 
 
-    const ref = useRef<Ref>({interval : null, location : null })
+export default function  useMap(){
+
+  const {state, dispatch} : AppContextType  = useContext(AppContext)
+
+  const mapRef : RefObject<MapView> = useRef(null);
+
+  const location = useLocation({mapRef})
 
 
+  const mapReady = () => {
+    location.locate()
+    getChargerPins()
+  }
 
-    return {}
+  const getChargerPins = () =>{
+    getAllChargers(dispatch)
+  }
+
+  useEffect(() => {
+    console.log('====================================');
+    console.log(state, "context.state");
+    console.log('====================================');
+  }, [state])
+
+  return {
+    mapRef,
+    location,
+    mapReady,
+    state,
+    dispatch
+  }
 }

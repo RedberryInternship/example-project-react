@@ -16,6 +16,7 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { useTranslation } from 'react-i18next'
+import { useSafeArea } from 'react-native-safe-area-context';
 
 // components
 import {
@@ -30,23 +31,23 @@ import {
   Const,
   Defaults
 } from '../utils';
-import { SafeAreaView } from 'react-navigation';
 
 const contact = ({ navigation }: any) => {
 
 
   const { t } = useTranslation();
   const [message, setMessage] = useState();
+  const insets = useSafeArea();
 
-  const listItems = Const.ContactListFields.map((el, key) => {
-
-
-    return <ContactListItem
-            key={el.type}
-            image={el.image}
-            name={el.name}
-            value={contactInfos[key]}
-            onPress={outgoingLinkMethods[el.type]} />
+  const listItems = Const.ContactListFields
+    .map((el, key) => {
+      return <ContactListItem
+              key={el.type}
+              image={el.image}
+              name={el.name}
+              value={contactInfos[key]}
+              onPress={outgoingLinkMethods[el.type]}
+            />
   });
 
 
@@ -56,10 +57,10 @@ const contact = ({ navigation }: any) => {
 
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader
         title={'contact.contact'}
-        onPressLeft={() => navigation.goBack()} />
+        onPressLeft={() => navigation.goBack() } />
 
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
@@ -101,7 +102,6 @@ const contact = ({ navigation }: any) => {
           style={{ marginTop: 0, marginBottom: 16 }}
           isImageRight={true} />
       </KeyboardAvoidingView>
-      <SafeAreaView />
     </View>
   );
 }
@@ -161,7 +161,7 @@ const contactInfos = [
 ];
 
 
-const outgoingLinkMethods = {
+const outgoingLinkMethods : any = {
 
   "address": () => {
 

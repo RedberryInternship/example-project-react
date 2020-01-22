@@ -21,7 +21,6 @@ const favourites = () => {
       <BaseHeader
         title={'favourites.favourites'}
       />
-
       <ScrollView style={styles.container} >
         <FavouriteChargerListItem
           title='თბილისი მოლი'

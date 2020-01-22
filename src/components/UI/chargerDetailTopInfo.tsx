@@ -3,10 +3,9 @@ import {  Text,  View, Image, StyleSheet} from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../../../src/utils';
-import { BaseButton } from '..';
 
 
-const chargerDetailTopInfo = ({text, image,onMapPress, onPress,} : any) => {
+const chargerDetailTopInfo = ({onMapPress, onPress,} : any) => {
 
   const {t} = useTranslation();
   
