@@ -11,7 +11,7 @@ type ChargersObject = {
 }
 export  const saveToken =(payload : any) =>{
   
-  asyncStorage.setItem("token" , payload.token )
+  asyncStorage.setItem("token" , payload.token ?? '' )
   asyncStorage.setItem("userDetail" , JSON.stringify(payload.user)  )
 
   Defaults.token = payload.token

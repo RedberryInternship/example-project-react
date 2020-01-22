@@ -15,7 +15,11 @@ export const HomeContext = createContext()
 const Home = (navigation) => {
 
   const [state, dispatch] = useReducer(reducer, initialState )
-  console.log(navigation.screenProps, "navigation.props.screenProps")
+
+  // console.log(navigation.screenProps, "navigation.props.screenProps")
+  console.log('====================================');
+  console.log("asdf");
+  console.log('====================================');
   return (
     <HomeContext.Provider value={{state, dispatch}}>
 

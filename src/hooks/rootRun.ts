@@ -35,7 +35,7 @@ export function  useRoot(){
 
     useEffect(() => {
 
-        setItem("token");
+        // setItem("token");
         // AsyncStorage.clear()
 
         readUserToken();
@@ -110,44 +110,41 @@ export function  useRoot(){
         
         if(navigationState && locale !== ''){
             setAppReady(true)
+            userStatusHandler()
         }
         else setAppReady(false)
     }, [token,navigationState, locale] )
 
-    useEffect(() => {
-        userStatusHandler()
-    }, [state.user, appReady])
     
     const onReady =() =>{
 
-            NavigationActions().navigate("MainDrawer")
-            // NavigationActions().navigate("Auth")
-            // NavigationActions().navigate("ForgotPassword")
-            // NavigationActions().navigate("Registration")
-            // NavigationActions().navigate("Settings");
-            // NavigationActions().navigate("ProfileChange");
-            // NavigationActions().navigate("ChargerWithCode");
-            // NavigationActions().navigate("ChargerDetail");
-            // NavigationActions().navigate("NotAuthorized");
-            // NavigationActions().navigate("ChoosingCard");
-            // NavigationActions().navigate("ChooseChargeMethod");
-            // NavigationActions().navigate("Charging");
-            // NavigationActions().navigate("Favourites");
-            // NavigationActions().navigate("Faq");
-            // NavigationActions().navigate("Charging");
-            // NavigationActions().navigate("Favourites");
-            // NavigationActions().navigate("Tariffs");
-            // NavigationActions().navigate("Favorites");
-            // NavigationActions().navigate("Contact");
-            // NavigationActions().navigate("Notifications");
+        NavigationActions().navigate("MainDrawer")
+        // NavigationActions().navigate("Auth")
+        // NavigationActions().navigate("ForgotPassword")
+        // NavigationActions().navigate("Registration")
+        // NavigationActions().navigate("Settings");
+        // NavigationActions().navigate("ProfileChange");
+        // NavigationActions().navigate("ChargerWithCode");
+        // NavigationActions().navigate("ChargerDetail");
+        // NavigationActions().navigate("NotAuthorized");
+        // NavigationActions().navigate("ChoosingCard");
+        // NavigationActions().navigate("ChooseChargeMethod");
+        // NavigationActions().navigate("Charging");
+        // NavigationActions().navigate("Favourites");
+        // NavigationActions().navigate("Faq");
+        // NavigationActions().navigate("Charging");
+        // NavigationActions().navigate("Tariffs");
+        // NavigationActions().navigate("Favorites");
+        // NavigationActions().navigate("Contact");
+        // NavigationActions().navigate("Notifications");
 
 
         console.log(Defaults.token, "App ready to boot");
     }
 
     const userStatusHandler= () =>{
+        // if(!appReady ) return
 
-        if(!appReady) return
 
         if(state.user == '' ){
             onReady()

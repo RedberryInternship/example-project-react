@@ -104,7 +104,7 @@ export default function  useLocation({ mapRef} : any){
   }
 
   const navigateByRef = ( location : Location ) =>{
-    return
+    // return
     mapRef.current && mapRef.current.animateToRegion(
       regionFrom( location.latitude, location.longitude, ZOOM_LEVEL ),
       400,
