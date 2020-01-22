@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -21,11 +21,14 @@ import {
 // import utils
 import { Const, Colors, Defaults } from '../utils';
 import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../App';
+import { logOut } from '../../src/hooks/actions/rootActions';
 
 const drawer = ({ navigation } : any) => {
 
   const {  i18n } = useTranslation();
   const insets = useSafeArea();
+  const context = useContext(AppContext)
 
   const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true;
   let $drawerListFields = null;
@@ -97,7 +100,7 @@ const drawer = ({ navigation } : any) => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
               style={styles.localeButton} 
             />
-            <TouchableOpacity onPress={() =>{Alert.alert("sdf")}} >
+            <TouchableOpacity onPress={() =>{context.dispatch(logOut())}} >
                 <Text style={{marginRight:24, color:"white"}}>Log out</Text>
             </TouchableOpacity>
           </View>

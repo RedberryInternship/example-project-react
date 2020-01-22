@@ -21,8 +21,8 @@ export type Chargers = {
   },
   public: number,
   active: number,
-  lat: number,
-  lng: number,
+  lat: number | string,
+  lng: number | string,
   iban: string,
   charger_group_id: number,
   last_update: string,
@@ -70,4 +70,21 @@ type ChargerFastChargingPrices = {
   price: number,
   created_at: string,
   updated_at: string,
+}
+
+
+export type State = {
+  user: Object | null,
+  loading : boolean,
+  AllChargers : Chargers[] | null,
+  authStatus : "failed" | "success" | null
+}
+export type Action = {
+  type : string,
+  payload : any,
+}
+
+export type AppContextType = {
+  state : State,
+  dispatch : any
 }

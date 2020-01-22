@@ -27,7 +27,7 @@ const App = ({navigation} :any) => {
             />
 
           }
-          <View >
+          <View  style={{zIndex:44, elevation:12}}>
             <OnMapRoundButton  
               style={{ backgroundColor:"#FFFFFF", width:38, height:38, borderRadius : 19, position : "absolute", marginTop : 60, right : 24, alignSelf : "flex-end"}} 
               onPress={context.state.LocationRequestFunc} 

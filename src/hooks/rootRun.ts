@@ -6,7 +6,7 @@ import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 import rootReducer, {  initialState} from "./reducers/rootReducer";
 import { saveToken } from "./actions/rootActions";
-import { Alert } from "react-native";
+import { Alert, StatusBar, Platform } from "react-native";
 
 
 
@@ -40,8 +40,12 @@ export function  useRoot(){
 
         readUserToken();
         readUserLocale()
-        onReady()
+        // onReady()
         console.log("remounted", appReady , " appReady");
+        if(Platform.OS === "android"){
+            StatusBar.setBackgroundColor( "transparent", true)
+            StatusBar.setTranslucent( true)
+        }
         
     }, [])
 
@@ -64,13 +68,15 @@ export function  useRoot(){
 
     const readUserToken = async () => {
         let _token = await getItem();
+        let user : string | null = ''
         if(_token){
-            let user = await getUserDetail() ;
+            user = await getUserDetail() ;
             user = user != null ? JSON.parse(user) : ''
-            dispatch(saveToken({token : _token, user}))
         }
-        Defaults.token = _token;
-        setToken(_token)
+
+        dispatch(saveToken({token : _token, user}))
+        // setToken(_token)
+
     }
 
     const readUserLocale =  async () => {
@@ -88,26 +94,31 @@ export function  useRoot(){
         setLocale(_locale)
     }
 
-
     const setNavigationTopLevelElement = (ref : any) =>{
         console.log("settingNavigationTopLevelElement",ref, NavigationActions()._navigator);
 
-        if( ref === null  ) return
+        if( ref == null ) return
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
-        onReady()
+        // userStatusHandler() // for development
     }
 
 
     useEffect(() => {
-        onReady()
+        // onReady()
+        
+        if(navigationState && locale !== ''){
+            setAppReady(true)
+        }
+        else setAppReady(false)
     }, [token,navigationState, locale] )
 
+    useEffect(() => {
+        userStatusHandler()
+    }, [state.user, appReady])
+    
     const onReady =() =>{
-        if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== ''){
-            if(!appReady)
-                setAppReady(true)
 
             NavigationActions().navigate("MainDrawer")
             // NavigationActions().navigate("Auth")
@@ -130,11 +141,21 @@ export function  useRoot(){
             // NavigationActions().navigate("Contact");
             // NavigationActions().navigate("Notifications");
 
-        }
-        else setAppReady(false)
 
         console.log(Defaults.token, "App ready to boot");
+    }
 
+    const userStatusHandler= () =>{
+
+        if(!appReady) return
+
+        if(state.user == '' ){
+            onReady()
+        }
+        else if( state.user != null || state.user != '' ){
+            //ajax
+            onReady()
+        }
     }
     return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this ,state, dispatch}
 }

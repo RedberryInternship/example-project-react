@@ -1,11 +1,13 @@
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
 
-import React from 'react';
+import React, {useMemo} from 'react';
 import { StyleSheet,  View, StatusBar,} from 'react-native';
 import { useMap } from '../../../src/hooks';
 import { mapStyles, mapStyle2, Colors } from '../../../src/utils';
 import moment from 'moment';
 import  SunCalc from 'suncalc';
+import { Chargers } from '../../../@types/allTypes';
+import { MapMarkerItem } from '..';
 
 
 const mapView = () => {
@@ -19,19 +21,31 @@ const mapView = () => {
           provider={PROVIDER_GOOGLE} 
           style={styles.map}
           region={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: 41.720787,
+              longitude: 44.745651,
               latitudeDelta: 0.015,
               longitudeDelta: 0.0121,
           }}
           onKmlReady={()=>{}}
-          onMapReady={hook.location.locate}
+          onMapReady={hook.mapReady}
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determinetime() ? mapStyle2 : mapStyles}
           ref={hook.mapRef}
-        >
+        >{
+          useMemo(() =>
+            hook.state.AllChargers?.map((val : Chargers , index : number) => 
+                (<MapMarkerItem
+                  key={index}
+                  lat={parseFloat( val.lat.toString() )}
+                  lng={parseFloat( val.lng.toString() )}
+                />)
+              )
+          , [hook.state])
+        }
+          
+          
         </MapView>
       </View>
   );

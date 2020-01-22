@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { Navigation } from './src';
 import { useRoot, initialState, rootReducer } from './src/hooks';
@@ -25,17 +26,13 @@ export const AppContext = createContext();
 
 const App = () => {
   const hook = useRoot();
-  StatusBar.setBackgroundColor( "transparent", true)
-  StatusBar.setTranslucent( true)
+
+
   return useMemo (()=>(
     <SafeAreaProvider >
-      <AppContext.Provider value={{state :  hook.state, dispatch : hook.dispatch }} >
+      <AppContext.Provider value={{state :  hook.state, dispatch : hook.dispatch  }} >
         <Navigation
-          onNavigationStateChange={() => {}}
           ref={(ref) => hook.setNavigationTopLevelElement(ref) }
-          screenProps={{
-            t : hook.t
-          }}
         />
       </AppContext.Provider>
       <StatusBar barStyle="light-content"  />
@@ -53,7 +50,8 @@ const App = () => {
         ref={Defaults.modal}
       />
     </SafeAreaProvider>
-  ),[hook.appReady, hook.locale]);
+  ),[hook.appReady, hook.state]);
 };
+
 
 export default App;

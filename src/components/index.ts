@@ -10,6 +10,7 @@ import PasswordView from "./view/registration/passwordView"
 import CardAddView from "./view/registration/cardAddView"
 import TitleTopLeftContainer from "./view/titleTopLeftContainer"
 import CountDown from "./view/time/countDown"
+import ChargingView from "./view/chargingView"
 
 import FirstnameChangeView from './view/profileChange/firstnameChangeView';
 import LastnameChangeView from './view/profileChange/lastnameChangeView';
@@ -48,6 +49,7 @@ import FaqListItem from './item/faqListItem';
 import TariffListItem from './item/tariffListItem';
 import ContactListItem from './item/contactListItem';
 import NotificationListItem from './item/notificationsListItem';
+import MapMarkerItem from './item/mapMarkerItem';
 
 
 //BaseUI
@@ -130,5 +132,7 @@ export {
     NotificationListItem,
     TariffDetail,
     TariffListItem,
-    ContactListItem
+    MapMarkerItem,
+    ChargingView
+    
 }
