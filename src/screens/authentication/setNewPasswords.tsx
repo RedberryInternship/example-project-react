@@ -12,7 +12,7 @@ import { useSetNewPasswords } from '../../../src/hooks';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeArea } from 'react-native-safe-area-context';
 
-const forgotPassword = ({navigation} : any) => {
+const setNewPasswords = ({navigation} : any) => {
   
   const hook = useSetNewPasswords();
   const insets = useSafeArea();
@@ -81,4 +81,4 @@ const styles = StyleSheet.create({
   
 });
 
-export default forgotPassword;
+export default setNewPasswords;

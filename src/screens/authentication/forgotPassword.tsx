@@ -13,7 +13,7 @@ import { useSafeArea } from 'react-native-safe-area-context';
 
 const forgotPassword = ({navigation} : any) => {
   
-  const hook = useForgotPassword();
+  const hook = useForgotPassword(navigation);
   const insets = useSafeArea();
 
   return (
@@ -45,11 +45,13 @@ const forgotPassword = ({navigation} : any) => {
           ref={hook.codeRef}
           onChangeText={hook.codeTextHandler}
           onSubmit={hook.codeInputSubmit}
+          startCodeAnimation={hook.startCodeAnimation}
+          recieveCode={hook.codeReceiveHandler}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={()=>{navigation.navigate("SetNewPasswords")}}
+          onPress={hook.onButtonClick}
           text={"enter"} 
           image={require("../../../assets/images/icons/arrow_right.png")}
           style={{marginTop: 0}}

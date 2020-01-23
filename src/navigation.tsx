@@ -31,7 +31,8 @@ import {
   Tariffs,
   TransactionList,
   ShowTransaction,
-  Partners
+  Partners,
+  SetNewPasswords
 } from './screens';
 import { TabNavigationButtons } from './components';
 
@@ -100,6 +101,7 @@ const authenticationStack = createStackNavigator({
   Auth,
   ForgotPassword,
   Registration,
+  SetNewPasswords
 },
   {
     defaultNavigationOptions: {

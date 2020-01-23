@@ -1,5 +1,5 @@
-import React, {useState, useMemo, useEffect} from 'react';
-import {View, Keyboard, } from 'react-native';
+import React  from 'react';
+import {View } from 'react-native';
 import { Const } from '../../../../src/utils';
 import { PhoneNumberInput, ReceiveCode } from '../../../../src/components';
 
