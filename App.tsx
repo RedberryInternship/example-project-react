@@ -36,8 +36,8 @@ const App = () => {
           screenProps={{token : Defaults.token}}
         />
       </AppContext.Provider>
+
       <StatusBar barStyle="light-content"  />
-      
       <DropdownAlert
         // errorColor={Colors.errorColor}
         // infoColor={Colors.infoColor}

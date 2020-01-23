@@ -14,10 +14,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppContext } from '../../../App';
 import { useSafeArea } from 'react-native-safe-area-context';
 
-
-
 const auth = ({navigation} : any) => {
+
   const {dispatch} =  useContext(AppContext)
+  
   const insets = useSafeArea();
 
   const hook = useAuthHook(navigation, dispatch);

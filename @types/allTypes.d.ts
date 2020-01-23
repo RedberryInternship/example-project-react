@@ -1,4 +1,6 @@
 declare module 'react-native-hooks';
+import {TextInputProps, ImageSourcePropType
+} from "react-native"
 
 
 
@@ -87,4 +89,15 @@ export type Action = {
 export type AppContextType = {
   state : State,
   dispatch : any
+}
+
+
+export interface BaseInput extends TextInputProps {
+  title : string,
+  errorText ?: string| null,
+  image ?: ImageSourcePropType,
+  paddingLeft ?: number,
+  required ?: boolean,
+  secure ? : boolean,
+  onSubmit : () => void
 }

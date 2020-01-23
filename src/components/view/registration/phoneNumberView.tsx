@@ -13,9 +13,7 @@ const filterTextItem =React.memo( ({_this,hook, startCodeAnimation } : any) => {
   const codeInputSubmit= () =>{
     // hook.current.code = text
   }
-  const phoneTextHandler= (text : string) =>{
-    _this.current.phone  = text
-  }
+ 
   const phoneInputSubmitHandler= () =>{
     hook.phoneInputSubmit()
   }
@@ -23,7 +21,7 @@ const filterTextItem =React.memo( ({_this,hook, startCodeAnimation } : any) => {
   return (
     <View style={{width: Const.Width, paddingHorizontal:16}} >
       <PhoneNumberInput
-          onChangeText={phoneTextHandler}
+          _this={_this}
           onSubmit={phoneInputSubmitHandler}
           // value={hook._this.current.phone}
           // onFocus={hook.onFocusPhone}
