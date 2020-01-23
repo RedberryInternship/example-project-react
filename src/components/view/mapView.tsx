@@ -20,30 +20,31 @@ const mapView = () => {
         <MapView
           provider={PROVIDER_GOOGLE} 
           style={styles.map}
-          region={{
+          initialRegion={{
               latitude: 41.720787,
               longitude: 44.745651,
               latitudeDelta: 0.015,
               longitudeDelta: 0.0121,
           }}
-          onKmlReady={()=>{}}
+          // onKmlReady={()=>{}}
           onMapReady={hook.mapReady}
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determinetime() ? mapStyle2 : mapStyles}
           ref={hook.mapRef}
-        >{
-          useMemo(() =>
-            hook.state.AllChargers?.map((val : Chargers , index : number) => 
-                (<MapMarkerItem
-                  key={index}
-                  lat={parseFloat( val.lat.toString() )}
-                  lng={parseFloat( val.lng.toString() )}
-                />)
-              )
-          , [hook.state])
-        }
+        >
+          {
+            useMemo(() =>
+              hook.state.AllChargers?.map((val : Chargers , index : number) => 
+                  (<MapMarkerItem
+                    key={index}
+                    lat={parseFloat( val.lat.toString() )}
+                    lng={parseFloat( val.lng.toString() )}
+                  />)
+                )
+            , [hook.state])
+          }
           
           
         </MapView>

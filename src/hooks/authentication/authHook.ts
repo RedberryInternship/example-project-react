@@ -1,54 +1,115 @@
 /* eslint-disable no-unused-vars */
-import {useState,useRef, RefObject} from "react";
+import { useState, useRef, RefObject } from "react";
 import { Alert, } from "react-native"
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { Defaults } from "../../../src/utils";
 import { useAsyncStorage } from "@react-native-community/async-storage";
 import { saveToken } from "../actions/rootActions";
-// import { Defaults } from "~/utils";
+
+import { Ajax } from '../../utils';
 
 
 type _This = {
-  password: string, 
-  phone : string
+  password: string,
+  phone: string
 }
 
-export default (navigation : any, dispatch : any ) => {
+type CountryPhoneCode = {
+  country_code: string,
+  phone_code: string
+}
+
+type User = {
+  id: number,
+  old_id: any,
+  role: number,
+  phone_number: string,
+  first_name: string,
+  last_name: string,
+  email: string,
+  active: number,
+  verified: number,
+  email_verified_at: any,
+  temp_password: any,
+  created_at: Date,
+  updated_at: Date
+}
+
+type userData = {
+  access_token: string,
+  user: User,
+  token_type: string,
+  expires_in: number
+}
+
+type userErroredData = {
+  error: string,
+  status: number
+}
+
+export default (navigation: any, dispatch: any) => {
 
   const [loading, SetLoading] = useState<Boolean>(true);
   const [phoneFocused, setPhoneFocused] = useState<any>(false);
-  const phoneRef : any = useRef(null);
-  const passwordRef : any = useRef(null);
+
+  const phoneRef: any = useRef(null);
+  const passwordRef: any = useRef(null);
 
   const { t } = useTranslation();
 
-  const { setItem : setToken} = useAsyncStorage("token")
-  const { setItem : setUserDetail} = useAsyncStorage("userDetail")
-
-  const _this : RefObject<_This> = useRef({password:"", phone : ''})
+  const { setItem: setToken } = useAsyncStorage("token")
+  const { setItem: setUserDetail } = useAsyncStorage("userDetail")
 
 
-  const phoneTextHandler = (val : string) => {
+  const _this: RefObject<_This> = useRef({ password: "", phone: '' })
+
+
+
+  const phoneTextHandler = (val: string) => {
     phoneRef.current.setNativeProps({
-      phone : val
+      text: val
     })
 
-    _this.current!.phone = val; 
+    _this.current!.phone = val;
   }
 
   const phoneInputSubmit = () => {
-    Alert.alert(JSON.stringify(_this.current))
+
+    const selectedPhoneCode = getSelectedCountryPhoneCode();
+
+    if (selectedPhoneCode === '995') {
+
+      const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
+
+      if (isPhoneValidationSuccessful) {
+        passwordRef.current.focus();
+        return true;
+      }
+
+      phoneRef.current.focus();
+      return false;
+    }
+    else {
+      passwordRef.current.focus();
+      return true;
+    }
   }
 
-  const passwordTextHandler = (val : string) => {
+  const passwordTextHandler = (val: string) => {
     passwordRef.current.setNativeProps({
-      password : val
-    })
+      text: val
+    });
     _this.current!.password = val;
   }
 
   const passwordInputSubmit = () => {
-    Alert.alert(JSON.stringify(_this.current))
+    if (_this.current!.password === "") {
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.passworNotEmpty"));
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
   const onFocus = () => {
@@ -57,17 +118,92 @@ export default (navigation : any, dispatch : any ) => {
 
   const buttonClickHandler = () => {
     setPhoneFocused(true)
-    // Ajax.post()
 
-    // OnSuccessLogin()
+    if (phoneInputSubmit() && passwordInputSubmit()) {
+
+      fetchUserData(_this.current!.phone, _this.current!.password)
+        .then((userData: userData ) => {
+          OnSuccessLogin(userData);
+        })
+        .catch((userErroredData: userErroredData) => {
+          console.log(["[Exception] User Errored Data", userErroredData]);
+          Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.userNotFound"));
+        });
+        
+    }
   }
 
-  const OnSuccessLogin = async (data : any) => {
+  const OnSuccessLogin = async (data: any) => {
 
-    dispatch(saveToken(data))
+    dispatch(saveToken({
+      token: data.access_token,
+      user: data.user
+    }));
 
     navigation.navigate("MainDrawer")
   }
 
-  return {loading, SetLoading, phoneTextHandler, phoneInputSubmit,passwordTextHandler,passwordInputSubmit, _this, phoneRef, onFocus, phoneFocused, passwordRef, t, buttonClickHandler}
+  // ----------
+
+  const getCountryPhoneCodes = async () => {
+
+    try {
+      const countryPhoneCodes = await Ajax.get('/phone-codes');
+
+      return countryPhoneCodes;
+    }
+    catch (e) {
+
+      // TODO: what kind of errors is there to handle
+
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
+    }
+  }
+
+  const getSelectedCountryPhoneCode = () => {
+
+    // TODO: get selected Phone Code
+
+    return "995";
+
+  }
+
+  const validateOnGeorgianPhoneCode = () => {
+
+    if (_this.current!.phone.length !== 9) {
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
+      return false;
+    }
+    else {
+      return true;
+    }
+
+  }
+
+  const fetchUserData = async (phone_number: string, password: string) => {
+
+      const user = await Ajax.post('/login', {
+        phone_number: phone_number,
+        password: password
+      });
+
+      return user;
+
+  }
+
+  return {
+    loading,
+    SetLoading,
+    phoneTextHandler,
+    phoneInputSubmit,
+    passwordTextHandler,
+    passwordInputSubmit,
+    _this,
+    phoneRef,
+    onFocus,
+    phoneFocused,
+    passwordRef,
+    t,
+    buttonClickHandler
+  }
 }
