@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const onMapRoundButton = ({lat, lng, name, key} : any) => {
+const onMapRoundButton = ({lat, lng, name} : any) => {
   return (
     <Marker
       tracksViewChanges={false}

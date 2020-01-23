@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const CodeInputWidth = 128
 
 // eslint-disable-next-line react/display-name
-const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, startCodeAnimation} : any, ref: any) => {
+const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, startCodeAnimation, disableCodeInput} : any, ref: any) => {
 
   const [animation] = useState(new Animated.Value(CodeInputWidth))
   const [disabled, setDisabled] = useState(false)
@@ -63,7 +63,8 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, star
           // onFocus={onFocus}
           placeholderTextColor={Colors.primaryWhite}
           allowFontScaling={false}
-          ref={ref}    
+          ref={ref}
+          editable={!disableCodeInput}    
         />
       </View>
       <Animated.Text style={{color:Colors.primaryGray, fontSize:11, }}>{showText && t("authentication.forgotPasswordPage.codeValidity")}</Animated.Text>

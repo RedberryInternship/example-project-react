@@ -162,10 +162,20 @@ export default {
         fillSurname : "გთხოვთ ჩაწროთ გვარი",
         incorrectEmail : "ემაილი არა არის სწორი",
         codeSentSuccessfully : "კოდი გამოიგზავნა წარმატებით",
-        codeLengthError : "კოდი უნდა შეიცავდეს 4 სიმბოლოს",
+        codeLengthError : "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
         incorrectCode : "კოდი არ არის სწორი",
         emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
+      },
+      auth:{
+        phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
+        passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",
+        userNotFound: "მომხმარებელი ვერ მოიძებნა ბაზაში"
+      },
+      forgotPassword: {
+        smsCodeLength: "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
+        incorrectCode : "კოდი არ არის სწორი",
+        getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი"
       },
       transactions:{
         transactions: "ტრანზაქციები",

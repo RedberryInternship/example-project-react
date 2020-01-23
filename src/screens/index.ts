@@ -46,7 +46,7 @@ export {
     ChoosingCard,
     Contact,
     Notifications,
-    Tariffs,
+    Tariffs, 
     TransactionList,
     ShowTransaction,
     Partners

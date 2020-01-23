@@ -35,7 +35,7 @@ export function  useRoot(){
 
     useEffect(() => {
 
-        setItem("token");
+        // setItem("token");
         // AsyncStorage.clear()
 
         readUserToken();
@@ -110,13 +110,11 @@ export function  useRoot(){
         
         if(navigationState && locale !== ''){
             setAppReady(true)
+            userStatusHandler()
         }
         else setAppReady(false)
     }, [token,navigationState, locale] )
 
-    useEffect(() => {
-        userStatusHandler()
-    }, [state.user, appReady])
     
     const onReady =() =>{
 
@@ -146,8 +144,8 @@ export function  useRoot(){
     }
 
     const userStatusHandler= () =>{
+        // if(!appReady ) return
 
-        if(!appReady) return
 
         if(state.user == '' ){
             onReady()

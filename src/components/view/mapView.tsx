@@ -20,30 +20,31 @@ const mapView = () => {
         <MapView
           provider={PROVIDER_GOOGLE} 
           style={styles.map}
-          region={{
+          initialRegion={{
               latitude: 41.720787,
               longitude: 44.745651,
               latitudeDelta: 0.015,
               longitudeDelta: 0.0121,
           }}
-          onKmlReady={()=>{}}
+          // onKmlReady={()=>{}}
           onMapReady={hook.mapReady}
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determinetime() ? mapStyle2 : mapStyles}
           ref={hook.mapRef}
-        >{
-          useMemo(() =>
-            hook.state.AllChargers?.map((val : Chargers , index : number) => 
-                (<MapMarkerItem
-                  key={index}
-                  lat={parseFloat( val.lat.toString() )}
-                  lng={parseFloat( val.lng.toString() )}
-                />)
-              )
-          , [hook.state])
-        }
+        >
+          {
+            useMemo(() =>
+              hook.state.AllChargers?.map((val : Chargers , index : number) => 
+                  (<MapMarkerItem
+                    key={index}
+                    lat={parseFloat( val.lat.toString() )}
+                    lng={parseFloat( val.lng.toString() )}
+                  />)
+                )
+            , [hook.state])
+          }
           
           
         </MapView>
@@ -58,9 +59,9 @@ export default mapView;
 function determinetime() {
   var times = SunCalc.getTimes(new Date(),41.716667, 44.783333);
 
-  // console.log('====================================');
-  // console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
-  // console.log('====================================');
+  console.log('====================================');
+  console.log(times.sunset,times.sunrise, moment(times.sunset).diff(moment()),  "times.sunset");
+  console.log('====================================');
 
   return moment(moment()).isBetween(times.sunrise,times.sunset ) 
 }

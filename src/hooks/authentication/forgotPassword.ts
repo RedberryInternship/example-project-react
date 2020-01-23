@@ -1,8 +1,8 @@
 import { useState, useRef } from "react";
-import { Animated, Alert } from "react-native"
+import { Animated } from "react-native"
 
 import { useTranslation } from 'react-i18next';
-import { Ajax } from '../../utils';
+import { Ajax, Defaults } from '../../utils';
 
 type _This = {
   code: string,
@@ -31,26 +31,110 @@ export default ( navigation : any ) => {
 
 
   const onButtonClick = () => {
-    const isValidationResultSuccessful = validatePhoneNumber() && validateCode() && isUserRegistered();
+    const isValidationResultSuccessful = validatePhoneNumber() && validateCode();
     
     if( isValidationResultSuccessful ){
+      console.log("Should go into verifyCode");
+
+      // TODO: This Should be deleted as soon as Gulverd will make verifyCode api for password recovery
       navigation.navigate('SetNewPasswords', {
         phone: _this.current.phone,
-        code: _this.current.code 
+      });
+      // ================
+
+      verifyCode(() => {
+        
+        navigation.navigate('SetNewPasswords', {
+          phone: _this.current.phone,
+        });
+      
       });
     }
   }
 
-  const validatePhoneNumber = () : boolean => {
-    // TODO
+  const validatePhoneNumber = (witGetSmsVerificationAlert = true) : boolean => {
+
+    const countryCode = getSelectedCountryPhoneCode();
+
+    if(countryCode === "995"){
+
+      const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
+      if(isPhoneValidationSuccessful){
+        
+        if(witGetSmsVerificationAlert && startCodeAnimation === false){
+          Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.getVerificationCode"));
+        }
+        else{
+          codeRef.current.focus();
+        }
+        return true;
+      }
+      else{
+        phoneRef.current.focus();
+        return false;
+      }
+    }
+
+    codeRef.current.focus();
+    return true;
   }
 
   const validateCode = () : boolean => {
-    // TODO
+    
+      if(_this.current.code.length !== 4){
+        Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.smsCodeLength"));
+        return false;
+      }
+      else{
+        return true;
+      }
   }
 
-  const isUserRegistered = () : boolean => {
-    // TODO
+  const verifyCode = async (cb: (data : any) => void)  => {
+    try{
+      const verifyCodeResults = await Ajax.post('/verify-code', {
+        phone_number: _this.current.phone
+      });
+
+    verifyCodeResults.then((data: any) => cb(data));
+    }
+    catch(e){
+      console.log(['[Exception] VerifyCode', e]); 
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.forgotPassword.incorrectCode"));
+    }
+
+    return false;
+  }
+
+  const codeReceiveHandler = () => {
+
+    if (_this.current.codeReceiveDisabled || !validatePhoneNumber(false) ) return;
+
+    _this.current.codeReceiveDisabled = true;
+    _this.current.codeReceiveAnimation.setValue(0);
+
+    Ajax.post('/send-sms-code', {
+      phone_number: _this.current.phone
+    })
+    .then(() => {
+      setStartCodeAnimation(true);
+    })
+    .catch((err) => {
+      console.log(err);
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
+    });
+  }
+
+  const validateOnGeorgianPhoneCode = () => {
+
+    if (_this.current!.phone.length !== 9) {
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
+      return false;
+    }
+    else {
+      return true;
+    }
+
   }
 
 
@@ -63,6 +147,29 @@ export default ( navigation : any ) => {
 
   const phoneInputSubmit = () => {
     validatePhoneNumber();
+  }
+
+  const getCountryPhoneCodes = async () => {
+
+    try {
+      const countryPhoneCodes = await Ajax.get('/phone-codes');
+
+      return countryPhoneCodes;
+    }
+    catch (e) {
+
+      // TODO: what kind of errors is there to handle
+
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
+    }
+  }
+
+  const getSelectedCountryPhoneCode = () => {
+
+    // TODO: get selected Phone Code
+
+    return "995";
+
   }
 
 
@@ -85,19 +192,6 @@ export default ( navigation : any ) => {
     setPhoneFocused(true)
   }
 
-  const codeReceiveHandler = () => {
-
-    if (_this.current.codeReceiveDisabled) return;
-
-
-
-    _this.current.codeReceiveDisabled = true;
-    _this.current.codeReceiveAnimation.setValue(0);
-
-    setStartCodeAnimation(true);
-
-    //ajax
-  }
 
   return {
     loading, SetLoading, phoneTextHandler, phoneInputSubmit, onButtonClick,
