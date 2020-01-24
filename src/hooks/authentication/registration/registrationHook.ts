@@ -37,7 +37,7 @@ export default (navigation : any, dispatch : any) => {
   
   const regStep1 = useRegistrationHookStep1(setActivePage, t)
   const regStep2 = useRegistrationHookStep2(setActivePage, t)
-  const regStep3 = useRegistrationHookStep3(setActivePage, t,regStep1._this,regStep2._this, dispatch  )
+  const regStep3 = useRegistrationHookStep3(setActivePage, t,regStep1,regStep2, dispatch  )
   const regStep4 = useRegistrationHookStep4(setActivePage, t )
 
 

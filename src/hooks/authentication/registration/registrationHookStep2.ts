@@ -1,34 +1,36 @@
 /* eslint-disable no-unused-vars */
 import {useRef, RefObject,} from "react";
-import {TextInput} from "react-native"
 import { Defaults} from "../../../utils";
+import { BaseInputRefObject } from "../../../../@types/allTypes";
 
 
 export default (setActivePage : any, t : any ) => {
 
-  const name : RefObject<TextInput> = useRef(null);
-  const surname : RefObject<TextInput> = useRef(null);
-  const email : RefObject<TextInput> = useRef(null);
+  const name : BaseInputRefObject = useRef(null);
+  const surname : BaseInputRefObject = useRef(null);
+  const email : BaseInputRefObject = useRef(null);
 
   const _this : RefObject<any> = useRef({name : '', surname:'', email : ''});
-
   const buttonClickHandler = () =>{
-    let {name, surname, email} = _this.current
+    let {name : _name, surname : _surname, email: _email} = _this.current
 
-    console.log( name, surname, email, "name, surName") ;
-    if(name === "") {
+    if(_name === "") {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillName") )
+      name.current?.errorText("dropDownAlert.registration.fillName")
       return
     } 
-    else if (surname === "") {
+    else if (_surname === "") {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillSurname") )
+      surname.current?.errorText("dropDownAlert.registration.fillSurname")
+
       return
 
     }
-    else if(email !== "") {
+    else if(_email !== "") {
       let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/;
-        if(!reg.test(email)){
+        if(!reg.test(_email)){
           Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.incorrectEmail") )
+          surname.current?.errorText("dropDownAlert.registration.incorrectEmail")
           return
         }
     }

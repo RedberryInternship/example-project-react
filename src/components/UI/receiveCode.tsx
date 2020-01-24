@@ -35,9 +35,9 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode} : an
   useImperativeHandle(ref,
     () => (
       {
+        ...inputRef.current,
         activateButton : () => animation.setValue(CodeInputWidth),
         startCodeAnimation : codeReceiveHandler,
-        focus : inputRef.current && inputRef.current.focus
       }
     ),
   )

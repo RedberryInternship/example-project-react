@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 declare module 'react-native-hooks';
-import {TextInputProps,Image, ImageSourcePropType, StyleProp, ImageStyle
+import {TextInput,Image, ImageSourcePropType, StyleProp, ImageStyle
 } from "react-native"
-
+import {RefObject} from "react"
 
 
 export type Chargers = {
@@ -103,3 +103,11 @@ export interface BaseInput extends TextInputProps {
   onSubmit : () => void,
   imageStyle ?: ImageStyle
 }
+
+interface baseInputRefProp {
+  errorText : (val  : string) => void
+}
+export interface BaseInputRefObject extends RefObject<TextInputProps & baseInputRefProp > {
+
+}
+  

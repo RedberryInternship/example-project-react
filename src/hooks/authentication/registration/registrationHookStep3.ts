@@ -5,6 +5,7 @@ import { Defaults} from "../../../utils";
 import ajax from "../../../utils/ajax";
 import { useAsyncStorage } from "@react-native-community/async-storage";
 import { saveToken } from "../../../../src/hooks/actions/rootActions";
+import { BaseInputRefObject } from "../../../../@types/allTypes";
 
 
 type RegisterSuccess = {
@@ -25,18 +26,18 @@ type RegisterError = {
 }
 
 
-export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispatch : any ) => {
+export default (setActivePage : any, t : any, regStep1 : any, regStep2 : any, dispatch : any ) => {
 
 
-  const password : RefObject<TextInput> = useRef(null);
-  const confirmedPassword : RefObject<TextInput> = useRef(null);
+  const password : BaseInputRefObject = useRef(null);
+  const confirmedPassword : BaseInputRefObject = useRef(null);
 
   const _this : RefObject<any> = useRef({password : '', confirmedPassword:''});
 
   const postData = () =>{
-    let {password} = _this.current
-    let {phone} = _this1.current
-    let {name, surname, email} = _this2.current
+    let {password : _password} = _this.current
+    let {phone} = regStep1._this.current
+    let {name, surname, email} = regStep2._this2.current
 
     ajax.post("/register", 
       {
@@ -44,7 +45,7 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispat
         last_name : surname,
         phone_number : phone ,
         email,
-        password
+        password : _password
       })
       .then( (data : RegisterSuccess) =>{
         if(data.json_status === "Registered"){
@@ -58,6 +59,9 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispat
             if(Object.prototype.hasOwnProperty.call(data, "email") ){
               if(data.email[0] == "The email has already been taken."){
                 Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.emailAlreadyToken"))
+
+                regStep2.email.current.errorText("dropDownAlert.registration.emailAlreadyToken")
+                setActivePage(1)
               }
               else {
                 Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"))
@@ -66,6 +70,8 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispat
             else if( Object.prototype.hasOwnProperty.call(data,"phone_number") ){
               if(data.phone_number[0] == "The phone number has already been taken."){
                 Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.phoneAlreadyToken"))
+                regStep1.phone.current.errorText("dropDownAlert.registration.emailAlreadyToken")
+                setActivePage(0)
               }
               else {
                 Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"))
@@ -78,7 +84,6 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispat
           else {
             Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"))
           }
-
       })
   }
 
@@ -90,15 +95,15 @@ export default (setActivePage : any, t : any, _this1 : any, _this2 : any, dispat
   }
 
   const buttonClickHandler = () =>{
-    let {password, confirmedPassword} = _this.current
+    let {password : _password, confirmedPassword: _confirmedPassword} = _this.current
 
-    console.log( password, confirmedPassword, "password, confirmedPassword,") ;
+    console.log( _password, _confirmedPassword, "password, confirmedPassword,") ;
 
-    if(password != confirmedPassword ){
-      Defaults.dropdown.alertWithType('error', "შეცდომა 😞",'პაროლები ერთმანეთს არ ემთხვევა');
+    if(_password != _confirmedPassword ){
+      Defaults.dropdown.alertWithType('error', 'dropDownAlert.passwordNotEqual');
     }
-    else if(password.length < 6){
-      Defaults.dropdown.alertWithType('error', "შეცდომა 😞",'მინიმუმ 6 სიმბოლო უნდა იყოს პაროლში');
+    else if(_password.length < 8){
+      Defaults.dropdown.alertWithType('error', 'dropDownAlert.minPasswordTextLength');
     }
     else postData()
     
