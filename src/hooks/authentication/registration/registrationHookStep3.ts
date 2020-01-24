@@ -37,7 +37,7 @@ export default (setActivePage : any, t : any, regStep1 : any, regStep2 : any, di
   const postData = () =>{
     let {password : _password} = _this.current
     let {phone} = regStep1._this.current
-    let {name, surname, email} = regStep2._this2.current
+    let {name, surname, email} = regStep2._this.current
 
     ajax.post("/register", 
       {

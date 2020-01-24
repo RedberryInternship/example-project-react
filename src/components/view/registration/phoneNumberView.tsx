@@ -5,10 +5,10 @@ import { PhoneNumberInput, ReceiveCode } from '../../../../src/components';
 
 
 // eslint-disable-next-line react/display-name
-const filterTextItem =React.memo( ({_this,hook, startCodeAnimation } : any) => {
+const filterTextItem =React.memo( ({hook, startCodeAnimation } : any) => {
   
   const codeTextHandler= (text : string) =>{
-    _this.current.code = text
+    hook._this.current.code = text
   }
   const codeInputSubmit= () =>{
     // hook.current.code = text
@@ -21,7 +21,7 @@ const filterTextItem =React.memo( ({_this,hook, startCodeAnimation } : any) => {
   return (
     <View style={{width: Const.Width, paddingHorizontal:16}} >
       <PhoneNumberInput
-          _this={_this}
+          _this={hook._this}
           onSubmit={phoneInputSubmitHandler}
           codeRef={hook.codeRef}
           ref={hook.phoneRef}

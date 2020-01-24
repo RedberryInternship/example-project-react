@@ -30,7 +30,7 @@ export default (setActivePage : any, t : any ) => {
       let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/;
         if(!reg.test(_email)){
           Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.incorrectEmail") )
-          surname.current?.errorText("dropDownAlert.registration.incorrectEmail")
+          email.current?.errorText("dropDownAlert.registration.incorrectEmail")
           return
         }
     }

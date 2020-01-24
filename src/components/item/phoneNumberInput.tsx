@@ -1,20 +1,28 @@
-import React, { useState,useRef, useImperativeHandle } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated, Alert } from 'react-native';
 import { BaseInput } from "../"
-import { Colors } from '../../../src/utils';
+import { Colors, Ajax, Defaults } from '../../../src/utils';
+import { useTranslation } from 'react-i18next';
+import { PhoneCountryCodesData, PhoneCountryCode } from '../../../@types/allTypes';
+
+
+let Codes : PhoneCountryCode[] = []
 
 // eslint-disable-next-line react/display-name
 const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText, codeRef }: any, ref: any) => {
  
   const [animation] = useState(new Animated.Value(0))
   const [showSelector, setSHowSelector] = useState(false)
-  const inputRef : any = useRef(null)
+  const { t } = useTranslation();
   
+  useEffect(() => {
+    fetchPhoneCountryCodes()
+  }, [])
   const _onChange = (e: any, show = true) => {
 
     show ? onFocus && onFocus(e) : onBlur && onBlur(e);
 
-    if(_this.current.phone !== '' && !show){
+    if(_this.current && _this.current.phone !== '' && !show){
       return
     }
 
@@ -29,8 +37,18 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   const phoneTextHandler= (text : string) =>{
     _this.current.phone  = text
     if(text !==""){
-      codeRef.current.activateButton()
+      codeRef && codeRef.current.activateButton()
     }
+  }
+
+  const fetchPhoneCountryCodes = () =>{
+    Ajax.get("/phone-codes")
+      .then(({data} : PhoneCountryCodesData) =>{
+        
+      })
+      .catch(error =>{
+        Defaults.dropdown.alertWithType("success", t("dropDownAlert.registration.codeSentSuccessfully"))
+      })
   }
 
   const imageAnimatedOpacity = animation.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });

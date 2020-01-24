@@ -42,9 +42,8 @@ const auth = ({navigation} : any) => {
         <PhoneNumberInput 
           onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current!.phone}
           ref={hook.phoneRef}
-          style={{borderColor: 'red'}}
+          _this={hook._this}
         />
 
         <BaseInput

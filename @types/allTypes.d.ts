@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 declare module 'react-native-hooks';
-import {TextInput,Image, ImageSourcePropType, StyleProp, ImageStyle
+import {TextInput,TextInputProps,Image, ImageSourcePropType, StyleProp, ImageStyle, ViewStyle,
 } from "react-native"
 import {RefObject} from "react"
+import {Item} from 'react-native-picker-select';
 
 
 export type Chargers = {
@@ -111,3 +112,20 @@ export interface BaseInputRefObject extends RefObject<TextInputProps & baseInput
 
 }
   
+export type PhoneCountryCode = {
+  id: number,
+  country_code : string,
+  phone_code : string
+}
+
+export type PhoneCountryCodesData = {
+  data : PhoneCountryCode
+}
+export type BasePickerSelect = {
+  style?: StyleProp<ViewStyle>,
+  placeholder ?: string,
+  items : Item[],
+  onDone : () => void,
+  onChange : (value: any, index: number) => void,
+  value : string
+}
