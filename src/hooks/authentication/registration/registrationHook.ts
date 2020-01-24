@@ -25,7 +25,6 @@ export default (navigation : any, dispatch : any) => {
   const KeyboardAwareScrollViewRef : any = useRef(null);
 
   const [loading, setLoading] = useState<Boolean>(true);
-  const [startCodeAnimation, setStartCodeAnimation] = useState<boolean>(false);
   const [activePage, setActivePage] = useState<number>(0);
 
 
@@ -36,7 +35,7 @@ export default (navigation : any, dispatch : any) => {
 
   const _this : RefObject<_This> = useRef({userRegistrationState : 0, codeReceiveAnimation: new Animated.Value(CodeInputWidth)})
   
-  const regStep1 = useRegistrationHookStep1(setActivePage, setStartCodeAnimation, t)
+  const regStep1 = useRegistrationHookStep1(setActivePage, t)
   const regStep2 = useRegistrationHookStep2(setActivePage, t)
   const regStep3 = useRegistrationHookStep3(setActivePage, t,regStep1._this,regStep2._this, dispatch  )
   const regStep4 = useRegistrationHookStep4(setActivePage, t )
@@ -47,7 +46,7 @@ export default (navigation : any, dispatch : any) => {
     KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
     setTimeout(()=>paginationClickHandler(activePage), 250)
 
-    console.log(activePage,regStep3.password.current, "activePage");
+    console.log(activePage,regStep3.password.current, regStep1.phoneRef.current, "activePage");
     
     switch (activePage) {
       case 0:
@@ -112,7 +111,7 @@ export default (navigation : any, dispatch : any) => {
 
   return {
       loading, setLoading, _this,flatListRef,paginationClickHandler,KeyboardAwareScrollViewRef, 
-      startCodeAnimation , t, newPasswordRef, repeatPasswordRef, activePage,
+      t, newPasswordRef, repeatPasswordRef, activePage,
       headerRightClick,registrationStepHandler, regStep1,regStep2,regStep3
     }
 }

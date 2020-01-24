@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import  {useRef, RefObject,} from "react";
-import {TextInput} from "react-native"
+import {TextInput, Alert} from "react-native"
 import { Defaults} from "../../../utils";
 import ajax from "../../../utils/ajax";
 
@@ -8,25 +8,28 @@ import ajax from "../../../utils/ajax";
 
 
 
-export default (setActivePage : any , setStartCodeAnimation : any, t : any) => {
+export default (setActivePage : any , t : any) => {
 
   const flatListRef : any = useRef(null);
 
-  const phoneRef : RefObject<TextInput> = useRef(null);
-  const codeRef : RefObject<TextInput> = useRef(null);
+  const phoneRef : RefObject<TextInput>  = useRef(null);
+  const codeRef : RefObject<TextInput  | any> = useRef(null);
   const _this : RefObject<any> = useRef({phone : '', code:""});
 
 
   const phoneInputSubmit = () => {
     // Alert.alert(JSON.stringify(_this.current))
     let {phone} = _this.current
-    setStartCodeAnimation(true)
     if(phone == "") return Defaults.dropdown.alertWithType("error", "please, Fill Phone number")
+    
+    codeRef.current && codeRef.current.startCodeAnimation();
+
     ajax.post("/send-sms-code", {phone_number : phone})
       .then(({json_status}) => {
         if(json_status == "SMS Sent" ){
           codeRef.current && codeRef.current.focus()
-          setStartCodeAnimation(false) 
+          phoneRef.current && phoneRef.current.errorText("asdg")
+
           Defaults.dropdown.alertWithType("success", t("dropDownAlert.registration.codeSentSuccessfully"))
         }
       })

@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useRef, useImperativeHandle } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated, Alert } from 'react-native';
 import { BaseInput } from "../"
 import { Colors } from '../../../src/utils';
 
 // eslint-disable-next-line react/display-name
-const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText }: any, ref: any) => {
+const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText, codeRef }: any, ref: any) => {
  
   const [animation] = useState(new Animated.Value(0))
   const [showSelector, setSHowSelector] = useState(false)
+  const inputRef : any = useRef(null)
   
   const _onChange = (e: any, show = true) => {
 
@@ -27,6 +28,9 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
 
   const phoneTextHandler= (text : string) =>{
     _this.current.phone  = text
+    if(text !==""){
+      codeRef.current.activateButton()
+    }
   }
 
   const imageAnimatedOpacity = animation.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
@@ -50,7 +54,6 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
         title={"authentication.number"}
         returnKeyType={"send"}
         errorText={errorText}
-
       />
       <Animated.View style={{ position: "absolute", width: 53, height:48, opacity: animation, bottom : 28 }}>
         <TouchableOpacity

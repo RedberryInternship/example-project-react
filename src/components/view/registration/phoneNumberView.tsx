@@ -1,5 +1,5 @@
-import React, {useState, useMemo, useEffect} from 'react';
-import {View, Keyboard, } from 'react-native';
+import React, {} from 'react';
+import {View } from 'react-native';
 import { Const } from '../../../../src/utils';
 import { PhoneNumberInput, ReceiveCode } from '../../../../src/components';
 
@@ -23,8 +23,7 @@ const filterTextItem =React.memo( ({_this,hook, startCodeAnimation } : any) => {
       <PhoneNumberInput
           _this={_this}
           onSubmit={phoneInputSubmitHandler}
-          // value={hook._this.current.phone}
-          // onFocus={hook.onFocusPhone}
+          codeRef={hook.codeRef}
           ref={hook.phoneRef}
         />
         <ReceiveCode

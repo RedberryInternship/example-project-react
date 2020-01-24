@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState, useImperativeHandle, useRef} from "react"
 
 import {View,TextInput,Text,Image,StyleSheet} from "react-native"
 import { Colors } from "../../../src/utils"
@@ -9,8 +9,19 @@ import { BaseInput } from "../../../@types/allTypes";
 export default  React.forwardRef( (props : BaseInput, ref : any) =>{
 
     const { t } = useTranslation();
+    const inputRef : any = useRef(null)
 
+    const [errorText, setErrorText] = useState('')
     
+    useImperativeHandle(ref,
+        () => (
+          {
+            ...inputRef.current,
+            errorText : setErrorText
+          }
+        ),
+      )
+
     return(
         <View style={{flex:0,marginVertical:16, marginBottom:8 }}>
             <Text style={styles.title}>{t(props.title)}</Text>
@@ -27,7 +38,7 @@ export default  React.forwardRef( (props : BaseInput, ref : any) =>{
                     onFocus={props.onFocus}
                     placeholderTextColor={Colors.primaryWhite}
                     allowFontScaling={false}
-                    ref={ref}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                    ref={inputRef}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
                     secureTextEntry={props.secure || false}
                     autoCorrect={false}
                     editable={true}
@@ -43,7 +54,7 @@ export default  React.forwardRef( (props : BaseInput, ref : any) =>{
                 { props.required && <Text style={{position:"absolute", right:8, top:8, color:"white", fontSize:18}}>*</Text> }
                 
             </View>
-            <Text style={[styles.errorText,{opacity:props.errorText ? 1 : 0 }]}>{t(props.errorText ?? ' ' )}</Text>
+            <Text style={[styles.errorText,{opacity:errorText ? 1 : 0 }]}>{errorText ? t(errorText) : ''}</Text>
 
         </View>
     )

@@ -24,7 +24,6 @@ const registration = ({navigation} : any) => {
   const pages = [
     <PhoneNumberView
       _this={hook.regStep1._this}
-      startCodeAnimation={hook.startCodeAnimation}
       phoneInputSubmit={hook.regStep1.phoneInputSubmit}
       hook={hook.regStep1}
       key={1}

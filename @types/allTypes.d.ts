@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 declare module 'react-native-hooks';
-import {TextInputProps, ImageSourcePropType
+import {TextInputProps,Image, ImageSourcePropType, StyleProp, ImageStyle
 } from "react-native"
 
 
@@ -99,5 +100,6 @@ export interface BaseInput extends TextInputProps {
   paddingLeft ?: number,
   required ?: boolean,
   secure ? : boolean,
-  onSubmit : () => void
+  onSubmit : () => void,
+  imageStyle ?: ImageStyle
 }
