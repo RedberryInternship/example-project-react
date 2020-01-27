@@ -14,10 +14,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppContext } from '../../../App';
 import { useSafeArea } from 'react-native-safe-area-context';
 
-
-
 const auth = ({navigation} : any) => {
+
   const {dispatch} =  useContext(AppContext)
+  
   const insets = useSafeArea();
 
   const hook = useAuthHook(navigation, dispatch);
@@ -42,9 +42,8 @@ const auth = ({navigation} : any) => {
         <PhoneNumberInput 
           onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current!.phone}
           ref={hook.phoneRef}
-          style={{borderColor: 'red'}}
+          _this={hook._this}
         />
 
         <BaseInput

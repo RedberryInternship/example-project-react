@@ -7,7 +7,8 @@ import  { MapView } from 'react-native-maps';
 import { Chargers, AppContextType } from "../../@types/allTypes";
 import { getAllChargers } from "./actions/rootActions";
 import { AppContext } from "../../App";
-import { Alert } from "react-native";
+import { Alert, StatusBar } from "react-native";
+import { determineTimePeriod } from "../../src/utils/mapAndLocation/mapFunctions";
 
 
 
@@ -19,6 +20,11 @@ export default function  useMap(){
 
   const location = useLocation({mapRef})
 
+  useEffect(() => {
+    return () => {
+      StatusBar.setBarStyle(  "light-content")
+    };
+  }, [])
 
   const mapReady = () => {
     location.locate()

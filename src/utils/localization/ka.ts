@@ -154,7 +154,7 @@ export default {
     notifications:{
       notifications: "შეტყობინებები"
     },
-      dropDownAlert : {
+    dropDownAlert : {
       generalError : "დაფიქსირდა შეცდომა",
       registration : {
         fillPhoneNumber : "გთხოვთ ჩაწროთ ტელეფონის ნომერი",
@@ -166,6 +166,8 @@ export default {
         incorrectCode : "კოდი არ არის სწორი",
         emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
+        passwordNotEqual : "პაროლები ერთმანეთს არ ემთხვევა",
+        minPasswordTextLength : "მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში",
       },
       auth:{
         phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",

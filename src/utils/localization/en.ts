@@ -170,6 +170,8 @@ export default {
         incorrectCode : "code is incorrect",
         emailAlreadyToken : "The email has already been taken",
         phoneAlreadyToken : "The phone number has already been taken.",
+        passwordNotEqual : "Passwords not equal",
+
       },
       auth:{
         phoneNumberLength : "The phone number should be exactly 9 digits long.",

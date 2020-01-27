@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import React, {useState, useRef, useImperativeHandle} from 'react';
+import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated, Alert} from 'react-native';
 import { Colors } from '../../utils';
 import MaskedView from '@react-native-community/masked-view';
 import colors from '../../../src/utils/colors';
@@ -9,26 +9,21 @@ import { useTranslation } from 'react-i18next';
 const CodeInputWidth = 128
 
 // eslint-disable-next-line react/display-name
-const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, startCodeAnimation, disableCodeInput} : any, ref: any) => {
+const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode} : any, ref: any) => {
 
-  const [animation] = useState(new Animated.Value(CodeInputWidth))
+  const [animation] = useState(new Animated.Value(0))
   const [disabled, setDisabled] = useState(false)
   const [showText, setShowText] = useState(false)
+  const inputRef : any = useRef(null)
   const { t} = useTranslation();
   
-
-  useEffect(() => {
-    if(startCodeAnimation) codeReceiveHandler()
-  }, [startCodeAnimation])
-
-
   const codeReceiveHandler = () => {
     
     if(disabled) return;
-    setDisabled(true);
-    animation.setValue(0);
-    setShowText(true);
-    
+    setDisabled(true)
+    animation.setValue(0)
+
+    setShowText(true)
     //ajax
 
     Animated.timing(animation, {
@@ -39,6 +34,16 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, star
       setDisabled(false)
     })
   }
+
+  useImperativeHandle(ref,
+    () => (
+      {
+        ...inputRef.current,
+        activateButton : () => animation.setValue(CodeInputWidth),
+        startCodeAnimation : codeReceiveHandler,
+      }
+    ),
+  )
   
   return (
     <View style={{marginVertical:16}}>
@@ -67,9 +72,7 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, star
           // onFocus={onFocus}
           placeholderTextColor={Colors.primaryWhite}
           allowFontScaling={false}
-          ref={ref}
-          keyboardType={"phone-pad"}
-          editable={!disableCodeInput}    
+          ref={inputRef}    
         />
       </View>
       <Animated.Text style={{color:Colors.primaryGray, fontSize:11, }}>{showText && t("authentication.forgotPasswordPage.codeValidity")}</Animated.Text>

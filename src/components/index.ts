@@ -60,6 +60,7 @@ import BaseButton from "./baseUI/baseButton"
 import BaseUserAvatarWithLabel from './baseUI/baseUserAvatarWithLabel';
 import BaseLocaleButton from './baseUI/baseLocaleButton';
 import BaseAddCardButton from './baseUI/baseAddCardButton';
+import BasePickerSelect from './baseUI/basePickerSelect';
 
 
 //UI
@@ -135,6 +136,7 @@ export {
     TariffListItem,
     TransactionListItem,
     MapMarkerItem,
-    ChargingView
+    ChargingView,
+    BasePickerSelect
     
 }
