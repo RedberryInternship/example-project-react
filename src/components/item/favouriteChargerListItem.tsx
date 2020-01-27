@@ -30,27 +30,20 @@ const favouriteChargerListItem = ({ title, address, turnon, deleteItem }: Favour
 
   return (
     <View style={styles.container}>
-
       <View style={styles.innerLeftContainer}>
-
         <TouchableOpacity onPress={ deleteItem }>
           <View style={styles.deleteButton}>
             <Image style={styles.deleteButtonImage}
               source={require('../../../assets/images/icons/orange-trash.png')} />
           </View>
         </TouchableOpacity>
-
-
         <Text style={styles.title}>{title}</Text>
-
         <View style={styles.addressContainer}>
           <Image style={styles.addressImage}
             source={require('../../../assets/images/icons/ic_map_pin.png')} />
           <Text style={styles.addressTitle}>{address}</Text>
         </View>
-
       </View>
-
       <BaseButton
         onPress={turnon}
         text={"turnOn"}
@@ -72,16 +65,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondaryDark,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
-    marginLeft: 21,
-    marginRight: 11,
-
-    paddingHorizontal: 11,
-    paddingTop: 9,
-    paddingBottom: 18,
+    alignItems : "center",
+    marginBottom: 16,
+    marginHorizontal: 16,
+    padding: 12,
     borderRadius: 8
   },
-
   innerLeftContainer: {
     flexDirection: "column"
   },
@@ -98,14 +87,16 @@ const styles = StyleSheet.create({
     height: 39,
     borderRadius: 20,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   deleteButtonImage: {
-    width: 10.5,
-    height: 15
+    width: 15,
+    height: 15,
+    resizeMode : "contain"
   },
   addressContainer: {
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems : "center"
   },
   addressImage: {
     width: 17,
@@ -119,6 +110,7 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.primaryWhite,
     lineHeight: 30,
-    fontSize: 15
+    fontSize: 15,
+    marginVertical : 4
   }
 });

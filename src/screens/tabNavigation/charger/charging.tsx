@@ -1,27 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
   Dimensions,
-  Alert,
-  Text,
   TouchableOpacity
 } from 'react-native';
-import { BaseHeader,BaseButton, Pulse, CountDown, ChargingView  } from '../../../../src/components';
-import { Const, Colors, Defaults } from '../../../../src/utils';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { BaseHeader, ChargingView  } from '../../../../src/components';
+import { Colors } from '../../../../src/utils';
+import { TabView } from 'react-native-tab-view';
 import { useChargingHook } from '../../../../src/hooks';
-import Animated from 'react-native-reanimated';
+import Animated  from 'react-native-reanimated';
 
 
 const charging = ({navigation} : any) => {
   const hook = useChargingHook(navigation)
   
 
-    const [routes] = React.useState([
-      { key: 'first', title: 'First' },
-      { key: 'second', title: 'Second' },
-    ]);
+    const [routes] = React.useState(navigation.getParam("tabsArray", ['']) );
   
     const renderScene = ( {route} : any) => {
      return <ChargingView   hook={hook}  routeKey={route.key}/>
@@ -32,46 +27,85 @@ const charging = ({navigation} : any) => {
       console.log('====================================');
       console.log(props, " props, props");
       console.log('====================================');
-      const inputRange = props.navigationState.routes.map((x, i) => i);
+      const inputRange = props.navigationState.routes.map((_ : any, i : number) => i);
 
       return (
-        <View style={styles.tabBar}>
-          {props.navigationState.routes.map((route, i) => {
+        <Animated.View style={styles.tabBar}>
+          {props.navigationState.routes.map((route : any, i : number) => {
             const color = Animated.color(
               Animated.round(
                 Animated.interpolate(props.position, {
                   inputRange,
-                  outputRange: inputRange.map(inputIndex =>
-                    inputIndex !== i ? 255 : 0
+                  outputRange: inputRange.map((inputIndex : number) =>
+                    inputIndex === i ? 255 : 155
                   ),
+                  extrapolate : Animated.Extrapolate.CLAMP
                 })
               ),
-              230,
-              130
+              Animated.round(
+                Animated.interpolate(props.position, {
+                  inputRange,
+                  outputRange: inputRange.map((inputIndex : number) =>
+                    inputIndex === i ? 255 : 155
+                  ),
+                  extrapolate : Animated.Extrapolate.CLAMP
+                })
+              ),
+              Animated.round(
+                Animated.interpolate(props.position, {
+                  inputRange,
+                  outputRange: inputRange.map((inputIndex : number) =>
+                    inputIndex === i ? 255 : 155
+                  ),
+                  extrapolate : Animated.Extrapolate.CLAMP
+                })
+              )
             );
             const backgroundColor = Animated.color(
               Animated.round(
                 Animated.interpolate(props.position, {
                   inputRange,
-                  outputRange: inputRange.map(inputIndex =>
-                    inputIndex !== i ? 255 : 0
+                  outputRange: inputRange.map((inputIndex : number) =>
+                    inputIndex === i ? 1 : 17
                   ),
+                  extrapolate : Animated.Extrapolate.CLAMP
                 })
               ),
-              230,
-              130
+              Animated.round(
+                Animated.interpolate(props.position, {
+                  inputRange,
+                  outputRange: inputRange.map((inputIndex : number) =>
+                    inputIndex === i ? 154 : 34
+                  ),
+                  extrapolate : Animated.Extrapolate.CLAMP
+
+                })
+              ),
+              Animated.round(
+                Animated.interpolate(props.position, {
+                  inputRange,
+                  outputRange: inputRange.map((inputIndex : number) =>
+                    inputIndex === i ? 240 : 45
+                  ),
+                  extrapolate : Animated.Extrapolate.CLAMP
+                })
+              )
             );
 
             return (
-              <TouchableOpacity
+              <Animated.View
                 key={i}
-                style={[styles.tabItem, {borderRightWidth: props.navigationState.routes.length -1 !== i ? 1 : 0}]}
-                onPress={() => hook.changeActiveTab(i)}>
-                <Animated.Text style={{ color  }}>{route.title}</Animated.Text>
-              </TouchableOpacity>
+                style={[styles.tabItem, {borderRightWidth: props.navigationState.routes.length -1 !== i ? 1 : 0, backgroundColor}]}
+              >
+                <TouchableOpacity
+                  onPress={() => hook.changeActiveTab(i)}>
+                  <Animated.Text style={{ color  }}>{route.title}</Animated.Text>
+                </TouchableOpacity>
+              </Animated.View>
+              
             );
           })}
-      </View>
+      </Animated.View>
     );
   }
     
@@ -82,7 +116,7 @@ const charging = ({navigation} : any) => {
         title={"charging.charge"}
       />
       <TabView
-        navigationState={{ index : hook.activeTab, routes :[{key: 'first', title: 'First'}, {key: 'second', title: 'second'}] }}
+        navigationState={{ index : hook.activeTab, routes }}
         renderScene={renderScene}
         onIndexChange={hook.changeActiveTab}
         lazy={true}
@@ -105,7 +139,8 @@ const styles = StyleSheet.create({
     borderColor:Colors.primaryBlue,
     borderRadius:4,
     marginHorizontal:16,
-    marginTop:16
+    marginTop:16,
+    marginBottom:8
   },
   tabItem: {
     flex: 1,
