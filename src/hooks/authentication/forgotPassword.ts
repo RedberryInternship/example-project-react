@@ -6,11 +6,10 @@ import { Ajax, Defaults } from '../../utils';
 
 type _This = {
   code: string,
-  phone: string,
-  codeReceiveAnimation: Animated.Value,
-  codeReceiveDisabled: Boolean
+  phone: string
 }
 const CodeInputWidth = 128
+
 
 export default (navigation: any) => {
 
@@ -24,9 +23,7 @@ export default (navigation: any) => {
 
   const _this = useRef<_This>({
     code: '',
-    phone: '',
-    codeReceiveAnimation: new Animated.Value(CodeInputWidth),
-    codeReceiveDisabled: false
+    phone: ''
   });
 
 
@@ -64,9 +61,9 @@ export default (navigation: any) => {
 
   const validatePhoneNumber = (withGetSmsVerificationAlert = true): boolean => {
 
-    const countryCode = getSelectedCountryPhoneCode();
+    const isCountryCodeGeorgian = _this.current.phone.slice(0,4) === '+995' ? true : false;
 
-    if (countryCode === "995") {
+    if (isCountryCodeGeorgian) {
 
       const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
       if (isPhoneValidationSuccessful) {
@@ -116,19 +113,14 @@ export default (navigation: any) => {
 
   const codeReceiveHandler = () => {
 
-    if (_this.current.codeReceiveDisabled || !validatePhoneNumber(false)) return;
+    if (!validatePhoneNumber(false)) return;
 
-    _this.current.codeReceiveDisabled = true;
-    _this.current.codeReceiveAnimation.setValue(0);
-
-    setStartCodeAnimation(true);
     Ajax.post('/send-sms-code', {
       phone_number: _this.current.phone
     })
       .then(() => {
-
-        setStartCodeAnimation(false);
-
+        codeRef.current.startCodeAnimation();
+        Defaults.dropdown.alertWithType("success", t("dropDownAlert.registration.codeSentSuccessfully"));
       })
       .catch(() => {
         Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
@@ -137,11 +129,11 @@ export default (navigation: any) => {
   }
 
   const validateOnGeorgianPhoneCode = () => {
-
-    if (_this.current!.phone.length === 0) {
+  
+    if (_this.current!.phone.length < 5) {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
     }
-    else if (_this.current!.phone.length !== 9) {
+    else if (_this.current!.phone.length - 4 !== 9) {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
       return false;
     }
@@ -151,42 +143,9 @@ export default (navigation: any) => {
 
   }
 
-
-  const phoneTextHandler = (val: string) => {
-    phoneRef.current.setNativeProps({
-      text: val
-    })
-    _this.current.phone = val;
-  }
-
   const phoneInputSubmit = () => {
     validatePhoneNumber();
   }
-
-  const getCountryPhoneCodes = async () => {
-
-    try {
-      const countryPhoneCodes = await Ajax.get('/phone-codes');
-
-      return countryPhoneCodes;
-    }
-    catch (e) {
-
-      // TODO: what kind of errors is there to handle
-
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
-    }
-  }
-
-  const getSelectedCountryPhoneCode = () => {
-
-    // TODO: get selected Phone Code
-
-    return "995";
-
-  }
-
-
 
   const codeTextHandler = (val: string) => {
 
@@ -216,7 +175,7 @@ export default (navigation: any) => {
 
 
   return {
-    loading, SetLoading, phoneTextHandler, phoneInputSubmit, onButtonClick,
+    loading, SetLoading, phoneInputSubmit, onButtonClick,
     codeTextHandler, codeInputSubmit, _this, phoneRef, startCodeAnimation, setStartCodeAnimation,
     phoneFocused, t, codeReceiveHandler, codeRef, onFocusPhone, CodeInputWidth
   }

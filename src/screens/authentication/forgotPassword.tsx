@@ -31,22 +31,19 @@ const forgotPassword = ({navigation} : any) => {
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
-        // enableResetScrollToCoords={true}
-        // resetScrollToCoords={{x:0,y:0}}
       >
         <PhoneNumberInput 
-          onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
           value={hook._this.current.phone}
           onFocus={hook.onFocusPhone}
           ref={hook.phoneRef}
+          _this={hook._this}
         />
         <ReceiveCode
           ref={hook.codeRef}
           onChangeText={hook.codeTextHandler}
           onSubmit={hook.codeInputSubmit}
           startCodeAnimation={hook.startCodeAnimation}
-          setStartCodeAnimation={hook.setStartCodeAnimation}
           recieveCode={hook.codeReceiveHandler}
           // disableCodeInput={!hook.startCodeAnimation}
         />
