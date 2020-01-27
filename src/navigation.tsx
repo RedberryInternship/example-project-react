@@ -60,8 +60,7 @@ const HomeTabNavigation = createBottomTabNavigator({
 },
   {
     // eslint-disable-next-line react/display-name
-    tabBarComponent:( props :any ) => <FooterTabNavigator {...props} />,
-
+    tabBarComponent:( props :any ) => (<FooterTabNavigator {...props} />),
     initialRouteName: "Home",
     tabBarOptions: {
       activeTintColor: 'tomato',
@@ -86,13 +85,8 @@ export const MainDrawer = createDrawerNavigator(
     drawerBackgroundColor: "transparent",
     drawerType: "front",
     drawerWidth: Dimensions.get("window").width * 0.8,
-    // overlayColor:0.5,
-    // edgeWidth : Platform.OS == "ios" ?20 : - Dimensions.get("window").width +20,
-    // backBehavior : "initialRoute",
     contentComponent: Drawer,
     keyboardDismissMode: "on-drag",
-    // drawerLockMode: 'locked-closed',
-
 
   },
 )
@@ -151,7 +145,7 @@ const FooterTabNavigator = (props: any) => {
     props.navigation.navigate(name)
   }
   if(currentRouteName !== "Home"){
-    StatusBar.setBarStyle(  "light-content")
+    StatusBar.setBarStyle( "light-content")
   }
   else {
     StatusBar.setBarStyle( determineTimePeriod()  ? "dark-content" : "light-content")
@@ -159,7 +153,7 @@ const FooterTabNavigator = (props: any) => {
 
 
   return (
-    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }} >
+    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : parseFloat( insets.bottom) }} >
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
         <TabNavigationButtons 
           active={currentRouteName === "Home"} 
@@ -173,11 +167,11 @@ const FooterTabNavigator = (props: any) => {
         />
         {
           Defaults.token &&
-          <TabNavigationButtons
-            navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
-            image={require("../assets/images/icons/ic_favorite.png")}
-            active={currentRouteName === "Favorites"}
-          />
+            <TabNavigationButtons
+              navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
+              image={require("../assets/images/icons/ic_favorite.png")}
+              active={currentRouteName === "Favorites"}
+            />
         }
         <TabNavigationButtons
           navigate={navigate.bind(FooterTabNavigator, 'drawer')}

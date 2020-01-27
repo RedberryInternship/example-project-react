@@ -5,7 +5,7 @@ import { View} from "react-native";
 import RNPickerSelect from 'react-native-picker-select';
 import { BasePickerSelect } from "../../../@types/allTypes";
 
-export default forwardRef( ({style, placeholder, items, onChange, value, onDone, onOpen} : BasePickerSelect, ref ) =>{
+export default forwardRef( ({style, placeholder, items, onChange, value, onDone, onOpen } : BasePickerSelect, ref ) =>{
 
 
     return (
@@ -35,7 +35,7 @@ export default forwardRef( ({style, placeholder, items, onChange, value, onDone,
                 }
                 }}
                 onDonePress={onDone}
-                value={value}
+                // value={value}
                 useNativeAndroidPickerStyle={false}
                 ref={ref}
                 onOpen={onOpen}

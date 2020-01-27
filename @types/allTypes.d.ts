@@ -128,5 +128,5 @@ export type BasePickerSelect = {
   onDone : () => void,
   onOpen : () => void,
   onChange : (value: any, index: number) => void,
-  value : string
+  value ?: Item
 }
