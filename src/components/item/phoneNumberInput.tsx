@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Animated } from 'react-native';
+import { StyleSheet, View, Animated, Platform } from 'react-native';
 import { BaseInput, BasePickerSelect } from "../"
 import {  Ajax, Defaults } from '../../../src/utils';
 import { useTranslation } from 'react-i18next';
@@ -10,19 +10,21 @@ import { Item } from 'react-native-picker-select';
 
 let pickeritems : Item[] = []
 
+const placeholder = {label :"+995", value : "+995"}
 // eslint-disable-next-line react/display-name
 const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText, codeRef }: any, ref: any) => {
  
   const [animation] = useState(new Animated.Value(0))
   const pickerRef = useRef(null)
   const [showSelector, setShowSelector] = useState(false)
-  const [selectedCountryCode, setSelectedCountryCode] = useState({label :"+995", value : "+995"})
+  const [selectedCountryCode, setSelectedCountryCode] = useState({label :"", value : ""})
   const [pickeritemsState, setPickeritemsState] = useState(pickeritems)
   const { t } = useTranslation();
   
   useEffect(() => {
     fetchPhoneCountryCodes()
   }, [])
+
   const _onChange = (e: any, show = true) => {
 
     show ? onFocus && onFocus(e) : onBlur && onBlur(e);
@@ -40,18 +42,26 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   }
 
   const phoneTextHandler= (text : string) =>{
-    _this.current.phone  =selectedCountryCode.value
-    if(text !==""){
+    _this.current.phone  = text
+    if(text !== "" ){
       codeRef && codeRef.current && codeRef.current.activateButton()
     }
   }
 
+  const _onSubmit= () =>{
+    _this.current.phone = (selectedCountryCode.value == '' ?placeholder.value : selectedCountryCode.value)  + _this.current.phone
+
+    onSubmit()
+  }
   const fetchPhoneCountryCodes = () =>{
     if(pickeritemsState.length === 0){
       Ajax.get("/phone-codes")
       .then(({data} : PhoneCountryCodesData) =>{
+        // pickeritems.push({value :  "+995", label : "+995"})
+
         data.forEach((val :PhoneCountryCode) =>{
-          pickeritems.push({value : val.phone_code, label : val.phone_code})
+          if (val.phone_code)
+            pickeritems.push({value : val.phone_code, label : val.phone_code})
         } )
         setPickeritemsState(pickeritems)
       })
@@ -66,7 +76,11 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   }
   const onPickerChange = (val : string, index: number) =>{
     setSelectedCountryCode({label :val, value : val})
+    // phoneTextHandler.bind(phoneNumberInput,'')
+    if(Platform.OS == "android") ref.current.focus()
   }
+
+
 
   const imageAnimatedOpacity = animation.interpolate({ inputRange: [0, 1], outputRange: [1, 0] });
 
@@ -84,7 +98,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
         style={style}
         keyboardType={"phone-pad"}
         onChangeText={phoneTextHandler}
-        onSubmit={onSubmit}
+        onSubmit={_onSubmit}
         onFocus={_onChange}
         onBlur={(e: any) => _onChange(e, false)}
         ref={ref}
@@ -95,18 +109,16 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
       />
       <Animated.View style={{ position: "absolute", width: 53, height:48, opacity: animation, bottom : 28 }}>
         <View
-          // onPress={() => Alert.alert("sf")}
           style={styles.touchableStyle}
-          hitSlop={{ top: 10, bottom: 10, left: 15, right: 15 }}
         >
           <BasePickerSelect 
             onDone={onPickerDone}
             onChange={onPickerChange}
             items={pickeritemsState}
-            placeholder={selectedCountryCode}
-            value={selectedCountryCode}
+            placeholder={placeholder}
+            // value={selectedCountryCode}
             ref={pickerRef}
-            onOpen={phoneTextHandler(" ")}
+            // onOpen={phoneTextHandler.bind(phoneNumberInput,' ')}
           />
         </View>
       </Animated.View>

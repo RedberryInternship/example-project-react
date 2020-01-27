@@ -101,7 +101,7 @@ export function  useRoot(){
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
-        userStatusHandler() // for development
+        if(__DEV__) userStatusHandler() // for development
     }
 
 
@@ -119,7 +119,7 @@ export function  useRoot(){
     const onReady =() =>{
 
         // NavigationActions().navigate("MainDrawer")
-        NavigationActions().navigate("Auth")
+        // NavigationActions().navigate("Auth")
         // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Registration")
         // NavigationActions().navigate("Settings");
@@ -129,7 +129,7 @@ export function  useRoot(){
         // NavigationActions().navigate("NotAuthorized");
         // NavigationActions().navigate("ChoosingCard");
         // NavigationActions().navigate("ChooseChargeMethod");
-        // NavigationActions().navigate("Charging");
+        NavigationActions().navigate("Charging");
         // NavigationActions().navigate("Favourites");
         // NavigationActions().navigate("Faq");
         // NavigationActions().navigate("Charging");
