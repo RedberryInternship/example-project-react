@@ -23,15 +23,19 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, star
 
 
   const codeReceiveHandler = () => {
+    
     if(disabled) return;
-    setDisabled(true)
-    animation.setValue(0)
-    setShowText(true)
+    setDisabled(true);
+    animation.setValue(0);
+    setShowText(true);
+    
     //ajax
+
     Animated.timing(animation, {
       toValue:CodeInputWidth,
       duration:2000
-    }).start(()=>{
+    })
+    .start(()=>{
       setDisabled(false)
     })
   }
@@ -64,6 +68,7 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, star
           placeholderTextColor={Colors.primaryWhite}
           allowFontScaling={false}
           ref={ref}
+          keyboardType={"phone-pad"}
           editable={!disableCodeInput}    
         />
       </View>

@@ -14,14 +14,16 @@ export default (setActivePage : any , setStartCodeAnimation : any, t : any) => {
 
   const phoneRef : RefObject<TextInput> = useRef(null);
   const codeRef : RefObject<TextInput> = useRef(null);
-  const _this : RefObject<any> = useRef({phone : '', code:""});
+  const _this : RefObject<any> = useRef({phone : '', code:''});
 
 
   const phoneInputSubmit = () => {
     // Alert.alert(JSON.stringify(_this.current))
-    let {phone} = _this.current
-    setStartCodeAnimation(true)
+    let {phone} = _this.current;
+    setStartCodeAnimation(true);
+    
     if(phone == "") return Defaults.dropdown.alertWithType("error", "please, Fill Phone number")
+
     ajax.post("/send-sms-code", {phone_number : phone})
       .then(({json_status}) => {
         if(json_status == "SMS Sent" ){

@@ -174,8 +174,10 @@ export default {
       },
       forgotPassword: {
         smsCodeLength: "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
-        incorrectCode : "კოდი არ არის სწორი",
-        getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი"
+        getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი",
+        userNotFound: "ამ ნომრით მომხმარებელი ვერ მოიძებნა",
+        smsCodeExpired: "sms კოდს ვადა გაუვიდა",
+        fillCode: "შეიყვანეთ sms კოდი"
       },
       transactions:{
         transactions: "ტრანზაქციები",

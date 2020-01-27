@@ -178,8 +178,10 @@ export default {
       },
       forgotPassword: {
         smsCodeLength: "Sms code should be exactly 4 digits long",
-        incorrectCode : "Code is incorrect",
-        getVerificationCode: "Get verification code"
+        getVerificationCode: "Get verification code",
+        userNotFound: "There is no such user with this phone number",
+        smsCodeExpired: "Sms code expired",
+        fillCode: "Please, fill the code"
       },
       transactions:{
         transactions: "Transactions",

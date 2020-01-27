@@ -12,7 +12,7 @@ type _This = {
 }
 const CodeInputWidth = 128
 
-export default ( navigation : any ) => {
+export default (navigation: any) => {
 
   const [loading, SetLoading] = useState<Boolean>(true);
   const [phoneFocused, setPhoneFocused] = useState<any>(false);
@@ -32,44 +32,55 @@ export default ( navigation : any ) => {
 
   const onButtonClick = () => {
     const isValidationResultSuccessful = validatePhoneNumber() && validateCode();
-    
-    if( isValidationResultSuccessful ){
-      console.log("Should go into verifyCode");
 
-      // TODO: This Should be deleted as soon as Gulverd will make verifyCode api for password recovery
-      navigation.navigate('SetNewPasswords', {
-        phone: _this.current.phone,
-      });
-      // ================
+    if (isValidationResultSuccessful) {
 
-      verifyCode(() => {
-        
-        navigation.navigate('SetNewPasswords', {
-          phone: _this.current.phone,
+      verifyCode()
+        .then(() => {
+          navigation.navigate('SetNewPasswords', {
+            phone: _this.current.phone,
+          })
+        })
+        .catch((e) => {
+          switch (e.status) {
+
+            case 401:
+              Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.incorrectCode"));
+              return;
+
+            case 409:
+              Defaults.dropdown.alertWithType("error", t("dropDownAlert.forgotPassword.userNotFound"));
+              return;
+
+            case 440:
+              Defaults.dropdown.alertWithType("error", t("dropDownAlert.forgotPassword.smsCodeExpired"));
+              return;
+
+          }
         });
-      
-      });
+
     }
   }
 
-  const validatePhoneNumber = (witGetSmsVerificationAlert = true) : boolean => {
+  const validatePhoneNumber = (withGetSmsVerificationAlert = true): boolean => {
 
     const countryCode = getSelectedCountryPhoneCode();
 
-    if(countryCode === "995"){
+    if (countryCode === "995") {
 
       const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
-      if(isPhoneValidationSuccessful){
-        
-        if(witGetSmsVerificationAlert && startCodeAnimation === false){
+      if (isPhoneValidationSuccessful) {
+
+        if (withGetSmsVerificationAlert && startCodeAnimation === false) {
           Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.getVerificationCode"));
+          phoneRef.current.blur();
         }
-        else{
+        else {
           codeRef.current.focus();
         }
         return true;
       }
-      else{
+      else {
         phoneRef.current.focus();
         return false;
       }
@@ -79,55 +90,58 @@ export default ( navigation : any ) => {
     return true;
   }
 
-  const validateCode = () : boolean => {
-    
-      if(_this.current.code.length !== 4){
-        Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.smsCodeLength"));
-        return false;
-      }
-      else{
-        return true;
-      }
+  const validateCode = (): boolean => {
+
+    if (_this.current.code.length === 0) {
+      Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.fillCode"));
+      return false;
+    }
+    else if (_this.current.code.length !== 4) {
+      Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.smsCodeLength"));
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 
-  const verifyCode = async (cb: (data : any) => void)  => {
-    try{
-      const verifyCodeResults = await Ajax.post('/verify-code', {
-        phone_number: _this.current.phone
-      });
+  const verifyCode = async () => {
+    const verifyCodeResults = await Ajax.post('/verify-code-for-password-recovery', {
+      phone_number: _this.current.phone,
+      code: _this.current.code
+    });
 
-    verifyCodeResults.then((data: any) => cb(data));
-    }
-    catch(e){
-      console.log(['[Exception] VerifyCode', e]); 
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.forgotPassword.incorrectCode"));
-    }
-
-    return false;
+    return verifyCodeResults;
   }
 
   const codeReceiveHandler = () => {
 
-    if (_this.current.codeReceiveDisabled || !validatePhoneNumber(false) ) return;
+    if (_this.current.codeReceiveDisabled || !validatePhoneNumber(false)) return;
 
     _this.current.codeReceiveDisabled = true;
     _this.current.codeReceiveAnimation.setValue(0);
 
+    setStartCodeAnimation(true);
     Ajax.post('/send-sms-code', {
       phone_number: _this.current.phone
     })
-    .then(() => {
-      setStartCodeAnimation(true);
-    })
-    .catch((err) => {
-      console.log(err);
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
-    });
+      .then(() => {
+
+        setStartCodeAnimation(false);
+
+      })
+      .catch(() => {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
+      });
+
   }
 
   const validateOnGeorgianPhoneCode = () => {
 
-    if (_this.current!.phone.length !== 9) {
+    if (_this.current!.phone.length === 0) {
+      Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
+    }
+    else if (_this.current!.phone.length !== 9) {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
       return false;
     }
@@ -175,6 +189,14 @@ export default ( navigation : any ) => {
 
 
   const codeTextHandler = (val: string) => {
+
+    if (val.length > 4) {
+      codeRef.current.setNativeProps({
+        text: _this.current.code
+      });
+      return;
+    }
+
     codeRef.current.setNativeProps({
       text: val
     })
@@ -195,7 +217,7 @@ export default ( navigation : any ) => {
 
   return {
     loading, SetLoading, phoneTextHandler, phoneInputSubmit, onButtonClick,
-    codeTextHandler, codeInputSubmit, _this, phoneRef, startCodeAnimation,
+    codeTextHandler, codeInputSubmit, _this, phoneRef, startCodeAnimation, setStartCodeAnimation,
     phoneFocused, t, codeReceiveHandler, codeRef, onFocusPhone, CodeInputWidth
   }
 }
