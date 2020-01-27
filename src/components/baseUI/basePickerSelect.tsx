@@ -1,11 +1,11 @@
 /* eslint-disable react/display-name */
 
-import React, {useEffect} from "react";
+import React, {useEffect, forwardRef} from "react";
 import { View} from "react-native";
 import RNPickerSelect from 'react-native-picker-select';
 import { BasePickerSelect } from "../../../@types/allTypes";
 
-export default ({style, placeholder, items, onChange, value, onDone} : BasePickerSelect ) =>{
+export default forwardRef( ({style, placeholder, items, onChange, value, onDone, onOpen} : BasePickerSelect, ref ) =>{
 
 
     return (
@@ -15,38 +15,31 @@ export default ({style, placeholder, items, onChange, value, onDone} : BasePicke
                 items={items}
                 onValueChange={onChange}
                 style={{inputIOSContainer : {
-                    flex:0,
-                    width:"100%",
-                    height:50,
-                    alignSelf:"flex-start",
-                    alignItems:"flex-start",
+                    height:48,
+                    alignItems:"center",
                     justifyContent:"center",
-                },inputAndroidContainer :{
-                    flex:0,
-                    width:"100%",
-                    height:50,
-                    alignSelf:"flex-start",
-                    alignItems:"flex-start",
+                },inputAndroidContainer :{            
+                    height:48,
+                    alignItems:"center",
                     justifyContent:"center",
                 },inputIOS : {
-                    fontSize:15,
-                    color : "#000000",
+                    fontSize:13,
+                    color : "white",
                 },inputAndroid : {
-                    fontSize:15,
-                    color : "#000000",
+                    fontSize:13,
+                    color : "white",
                 },
                 placeholder:{
-                    color : "#00000050",
-                    fontSize:15
-                },iconContainer: {
-                    top: 15,
-                    right: 15,
-                  },
+                    color : "white",
+                    fontSize:13
+                }
                 }}
                 onDonePress={onDone}
-                // value={value}
+                value={value}
                 useNativeAndroidPickerStyle={false}
+                ref={ref}
+                onOpen={onOpen}
             />   
         </View>
     );
-}
+})

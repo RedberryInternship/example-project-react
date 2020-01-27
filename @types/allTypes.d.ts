@@ -119,13 +119,14 @@ export type PhoneCountryCode = {
 }
 
 export type PhoneCountryCodesData = {
-  data : PhoneCountryCode
+  data : PhoneCountryCode[]
 }
 export type BasePickerSelect = {
   style?: StyleProp<ViewStyle>,
-  placeholder ?: string,
+  placeholder ?: Item,
   items : Item[],
   onDone : () => void,
+  onOpen : () => void,
   onChange : (value: any, index: number) => void,
   value : string
 }

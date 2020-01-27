@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Dimensions} from 'react-native';
+import { View,Dimensions, StatusBar} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -34,6 +34,7 @@ import {
   Partners
 } from './screens';
 import { TabNavigationButtons } from './components';
+import { determineTimePeriod } from './utils/mapAndLocation/mapFunctions';
 
 
 
@@ -149,6 +150,14 @@ const FooterTabNavigator = (props: any) => {
     if (name === "drawer") return props.navigation.openDrawer();
     props.navigation.navigate(name)
   }
+  if(currentRouteName !== "Home"){
+    StatusBar.setBarStyle(  "light-content")
+  }
+  else {
+    StatusBar.setBarStyle( determineTimePeriod()  ? "dark-content" : "light-content")
+  }
+
+
   return (
     <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }} >
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
