@@ -136,7 +136,7 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
   }
 
   return (
-    <View style={{width:"100%", height:"100%", elevation:11, position:"absolute", left:0, top:0,zIndex:44 }} pointerEvents={"box-none"}>
+    <View style={{width:"100%", height:"100%", elevation:17, position:"absolute", left:0, top:0,zIndex:44 }} pointerEvents={"box-none"}>
       <BottomSheet
         ref={Defaults.bottomSheet}
         snapPoints = {[55, screenHeight - insets.top  - insets.bottom  - 65 - 12]}

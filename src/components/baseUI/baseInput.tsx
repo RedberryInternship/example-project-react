@@ -24,7 +24,7 @@ export default  React.forwardRef( (props : BaseInput, ref : any) =>{
   
   const _onChangeText = (text : string) =>{
     props.onChangeText && props.onChangeText(text)
-    setErrorText(' ')
+    setErrorText('')
   }
 
   return(
@@ -52,7 +52,7 @@ export default  React.forwardRef( (props : BaseInput, ref : any) =>{
           testID={props.testID}
           style={[styles.Input, props.style, {
               paddingLeft :  props.image ? 50 :props.paddingLeft || 20,
-              borderColor:props.errorText ? "#FF3B3B" : "transparent",
+              borderColor:errorText ? "#FF3B3B" : "transparent",
           }
           ]}
         />

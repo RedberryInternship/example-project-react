@@ -26,6 +26,7 @@ import CustomModal from "./customModal"
 //library
 import CustomSlideUpModal from "./library/customSlideUpModal"
 import Pulse from "./library/pulse"
+import MultiChargingTopModal from "./library/multiChargingTopModal"
 
 
 //Item
@@ -137,6 +138,6 @@ export {
     TransactionListItem,
     MapMarkerItem,
     ChargingView,
-    BasePickerSelect
-    
+    BasePickerSelect,
+    MultiChargingTopModal
 }

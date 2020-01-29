@@ -9,7 +9,7 @@ export default (navigation : any) => {
   const [loading, SetLoading] = useState<Boolean>(true);
   const [activeTab, SetActiveTab] = useState<number>(0);
 
-  // const _this : React.RefObject<any> = useRef({tabsArray : navigation.getParam("tabsArray", [''])})
+  const _this : React.RefObject<any> = useRef({tabsArray : navigation.getParam("tabsArray", [''])})
 
   const { t} = useTranslation();
 
