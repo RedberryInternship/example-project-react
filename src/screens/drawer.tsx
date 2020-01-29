@@ -28,7 +28,7 @@ const drawer = ({ navigation } : any) => {
 
   const {  i18n } = useTranslation();
   const insets = useSafeArea();
-  const context = useContext(AppContext)
+  const context : any = useContext(AppContext)
 
   const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true;
   let $drawerListFields = null;
@@ -48,7 +48,7 @@ const drawer = ({ navigation } : any) => {
       <>
         <View style={{ flex: 0 }}>
           <BaseButton image={require("../../assets/images/icons/user.png")}
-            onPress={() => undefined}
+            onPress={() => navigation.navigate("Auth")}
             text={'home.authorization'}
             style={styles.drawerAuthBtn} />
 

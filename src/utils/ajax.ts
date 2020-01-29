@@ -12,14 +12,14 @@ type Error = {
 }
 class Ajax {
 
-    async headers() {
+    headers() {
         return {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin' : "*",
             "Authorization" : "Bearer " + Defaults.token,
             "App-Custom-Version" : "2.5",
-            "App-Version" : await DeviceInfo.getVersion(),
+            "App-Version" : DeviceInfo.getVersion(),
             "Device" : Platform.OS,
             "Device-OS-Version" : Platform.Version
         }
@@ -32,22 +32,24 @@ class Ajax {
         return this._fetch(uri, payload, "post");
     }
     private _fetch(uri :string, data : any, method : Method ) {
-        const promise = new Promise(async (resolve : (val :any) =>void, reject : (val : Error ) =>void)  => {
-            const headers = await this.headers();
+        const promise = new Promise( (resolve : (val :any) =>void, reject : (val : Error ) =>void)  => {
+            const headers = this.headers();
             const url =API + uri ;
             this.logRequest(method, url, headers, data);
             axios({ method, url, headers, data }).then(response => {
-                this.logResponse(method, url, headers, response.data);
+                this.logResponse(method, url, headers, response.data,);
                 resolve(response.data)
             })
             .catch(error => {
-
                 if( error.response && error.response.status === 401){
                     AsyncStorage.clear()
                 }
                 else 
                 // Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
                 this.logResponse(method, url, headers, error.response);
+                console.log('====================================');
+                console.log("error ajax"+url);
+                console.log('====================================');
                 reject(error.response);
             });
         });

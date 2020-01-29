@@ -47,7 +47,7 @@ export default ({hook} : any) =>{
         <BaseButton
           onPress={hook.onFinish}
           text={"charging.finish"}
-          style={{marginTop: 16, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-88}}
+          style={{marginTop: 16, marginVertical:16, marginHorizontal:0, alignSelf:"center", width : Const.Width-32}}
         />
       </View>
     </View>

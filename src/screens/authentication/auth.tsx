@@ -14,9 +14,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { AppContext } from '../../../App';
 import { useSafeArea } from 'react-native-safe-area-context';
 
-
 const auth = ({navigation} : any) => {
+
   const {dispatch} =  useContext(AppContext)
+  
   const insets = useSafeArea();
 
   const hook = useAuthHook(navigation, dispatch);
@@ -41,8 +42,8 @@ const auth = ({navigation} : any) => {
         <PhoneNumberInput 
           onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current!.phone}
           ref={hook.phoneRef}
+          _this={hook._this}
         />
 
         <BaseInput
@@ -50,7 +51,6 @@ const auth = ({navigation} : any) => {
           keyboardType={"email-address"}
           onChangeText={hook.passwordTextHandler}
           onSubmit={hook.passwordInputSubmit}
-          value={hook._this.current!.password}
           ref={hook.passwordRef}
           returnKeyType={"send"}
           secure={true}
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'stretch',
     backgroundColor: Colors.primaryBackground  
-  },
+  }
 });
 
 export default auth;
