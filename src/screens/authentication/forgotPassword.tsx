@@ -35,17 +35,17 @@ const forgotPassword = ({navigation} : any) => {
         <PhoneNumberInput 
           onSubmit={hook.phoneInputSubmit}
           value={hook._this.current.phone}
-          onFocus={hook.onFocusPhone}
           ref={hook.phoneRef}
           _this={hook._this}
+          codeRef={hook.codeRef}
         />
         <ReceiveCode
           ref={hook.codeRef}
           onChangeText={hook.codeTextHandler}
-          onSubmit={hook.codeInputSubmit}
+          onSubmit={hook.codeReceiveHandler}
           startCodeAnimation={hook.startCodeAnimation}
           recieveCode={hook.codeReceiveHandler}
-          // disableCodeInput={!hook.startCodeAnimation}
+          disableCodeInput={hook.disableCodeInput}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>

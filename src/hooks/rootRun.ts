@@ -101,7 +101,7 @@ export function useRoot() {
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
-        userStatusHandler() // for development
+        if(__DEV__) userStatusHandler() // for development
     }
 
 

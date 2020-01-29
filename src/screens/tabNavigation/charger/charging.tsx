@@ -4,11 +4,14 @@ import {
   View,
   Dimensions,
   Alert,
+  Text,
+  TouchableOpacity
 } from 'react-native';
 import { BaseHeader,BaseButton, Pulse, CountDown, ChargingView  } from '../../../../src/components';
 import { Const, Colors, Defaults } from '../../../../src/utils';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useChargingHook } from '../../../../src/hooks';
+import Animated from 'react-native-reanimated';
 
 
 const charging = ({navigation} : any) => {
@@ -25,19 +28,50 @@ const charging = ({navigation} : any) => {
     };
 
 
-    const renderTabBar = props => {
+    const renderTabBar = (props : any) => {
       console.log('====================================');
       console.log(props, " props, props");
       console.log('====================================');
-    return (
-      <TabBar
-        {...props}
-        contentContainerStyle={{backgroundColor:"red", height: 28}}
-        indicatorStyle={{ backgroundColor: 'white' }}
-        style={{ backgroundColor: 'black', borderWidth:1, height:28}}
-        labelStyle={{fontSize:13, padding:0,color : "red",backgroundColor:"green", margin:0, elevation:10,  height:28}}
-        tabStyle={{ backgroundColor: 'blue', borderWidth:1, height:28}}
-      />
+      const inputRange = props.navigationState.routes.map((x, i) => i);
+
+      return (
+        <View style={styles.tabBar}>
+          {props.navigationState.routes.map((route, i) => {
+            const color = Animated.color(
+              Animated.round(
+                Animated.interpolate(props.position, {
+                  inputRange,
+                  outputRange: inputRange.map(inputIndex =>
+                    inputIndex !== i ? 255 : 0
+                  ),
+                })
+              ),
+              230,
+              130
+            );
+            const backgroundColor = Animated.color(
+              Animated.round(
+                Animated.interpolate(props.position, {
+                  inputRange,
+                  outputRange: inputRange.map(inputIndex =>
+                    inputIndex !== i ? 255 : 0
+                  ),
+                })
+              ),
+              230,
+              130
+            );
+
+            return (
+              <TouchableOpacity
+                key={i}
+                style={[styles.tabItem, {borderRightWidth: props.navigationState.routes.length -1 !== i ? 1 : 0}]}
+                onPress={() => hook.changeActiveTab(i)}>
+                <Animated.Text style={{ color  }}>{route.title}</Animated.Text>
+              </TouchableOpacity>
+            );
+          })}
+      </View>
     );
   }
     
@@ -55,9 +89,6 @@ const charging = ({navigation} : any) => {
         renderTabBar={renderTabBar}
         initialLayout={Dimensions.get("window")}
       />
-      
-
-      
     </View>
   );
 };
@@ -68,7 +99,22 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground
   },
-  
+  tabBar: {
+    flexDirection: 'row',
+    borderWidth:1,
+    borderColor:Colors.primaryBlue,
+    borderRadius:4,
+    marginHorizontal:16,
+    marginTop:16
+  },
+  tabItem: {
+    flex: 1,
+    alignItems: 'center',
+    borderWidth:0,
+    borderColor:Colors.primaryBlue,
+    height:28,
+    justifyContent:"center"
+  },
 });
 
 export default charging;

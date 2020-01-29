@@ -14,7 +14,7 @@ import { useSafeArea } from 'react-native-safe-area-context';
 
 const setNewPasswords = ({navigation} : any) => {
   
-  const hook = useSetNewPasswords();
+  const hook = useSetNewPasswords(navigation);
   const insets = useSafeArea();
  
   return (
@@ -38,7 +38,6 @@ const setNewPasswords = ({navigation} : any) => {
           keyboardType={"email-address"}
           onChangeText={hook.newPasswordTextHandler}
           onSubmit={hook.newPasswordInputSubmit}
-          value={hook._this.current.newPassword}
           ref={hook.newPasswordRef}
           secure={true}
           testID={"emailInput"}
@@ -49,7 +48,6 @@ const setNewPasswords = ({navigation} : any) => {
           keyboardType={"email-address"}
           onChangeText={hook.repeatPasswordTextHandler}
           onSubmit={hook.repeatPasswordInputSubmit}
-          value={hook._this.current.repeatPassword}
           ref={hook.repeatPasswordRef}
           secure={true}
           testID={"emailInput"}
@@ -59,7 +57,7 @@ const setNewPasswords = ({navigation} : any) => {
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={()=>{Alert.alert("asdf")}}
+          onPress={hook.onClickSubmitButton}
           text={"enter"} 
           image={require("../../../assets/images/icons/arrow_right.png")}
           style={{marginTop: 0}}

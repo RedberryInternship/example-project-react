@@ -183,7 +183,12 @@ export default {
         getVerificationCode: "Get verification code",
         userNotFound: "There is no such user with this phone number",
         smsCodeExpired: "Sms code expired",
-        fillCode: "Please, fill the code"
+        fillCode: "Please, fill the code",
+        
+        newPasswordNotFilled: "Please, fill the New Password field",
+        repeteNewPasswordNotFilled: "Please fill the Repete New Password field",
+        newPasswordIncorrectLength: "New password should contain at least 8 symbols",
+        passwordChangedSuccessfully: "Password changed successfully"
       },
       transactions:{
         transactions: "Transactions",

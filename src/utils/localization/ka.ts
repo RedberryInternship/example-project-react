@@ -179,7 +179,11 @@ export default {
         getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი",
         userNotFound: "ამ ნომრით მომხმარებელი ვერ მოიძებნა",
         smsCodeExpired: "sms კოდს ვადა გაუვიდა",
-        fillCode: "შეიყვანეთ sms კოდი"
+        fillCode: "შეიყვანეთ sms კოდი",
+        newPasswordNotFilled: "გთხოვთ, შეიყვანოთ ახალი პაროლის ველი",
+        repeteNewPasswordNotFilled: "გთხოვთ, გაიმეორეთ პაროლი",
+        newPasswordIncorrectLength: "პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს",
+        passwordChangedSuccessfully: "პაროლი წარმატებით შეიცვალა"
       },
       transactions:{
         transactions: "ტრანზაქციები",

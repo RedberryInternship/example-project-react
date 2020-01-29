@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { Animated } from "react-native"
 
 import { useTranslation } from 'react-i18next';
 import { Ajax, Defaults } from '../../utils';
@@ -16,6 +15,7 @@ export default (navigation: any) => {
   const [loading, SetLoading] = useState<Boolean>(true);
   const [phoneFocused, setPhoneFocused] = useState<any>(false);
   const [startCodeAnimation, setStartCodeAnimation] = useState<any>(false);
+  const [disableCodeInput, setDisableCodeInput] = useState<boolean>(true);
   const phoneRef: any = useRef(null);
   const codeRef: any = useRef(null);
 
@@ -75,15 +75,18 @@ export default (navigation: any) => {
         else {
           codeRef.current.focus();
         }
+        setDisableCodeInput(false);
         return true;
       }
       else {
         phoneRef.current.focus();
+        setDisableCodeInput(true);
         return false;
       }
     }
 
     codeRef.current.focus();
+    setDisableCodeInput(false);
     return true;
   }
 
@@ -175,7 +178,7 @@ export default (navigation: any) => {
 
 
   return {
-    loading, SetLoading, phoneInputSubmit, onButtonClick,
+    loading, SetLoading, phoneInputSubmit, onButtonClick, disableCodeInput,
     codeTextHandler, codeInputSubmit, _this, phoneRef, startCodeAnimation, setStartCodeAnimation,
     phoneFocused, t, codeReceiveHandler, codeRef, onFocusPhone, CodeInputWidth
   }
