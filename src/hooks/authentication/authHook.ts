@@ -64,20 +64,11 @@ export default (navigation: any, dispatch: any) => {
   const _this: RefObject<_This> = useRef({ password: "", phone: '' })
 
 
-
-  const phoneTextHandler = (val: string) => {
-    phoneRef.current.setNativeProps({
-      text: val
-    })
-
-    _this.current!.phone = val;
-  }
-
   const phoneInputSubmit = () => {
 
     const selectedPhoneCode = getSelectedCountryPhoneCode();
 
-    if (selectedPhoneCode === '995') {
+    if (_this.current?.phone.indexOf('+995') == 0) {
 
       const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
 
@@ -194,7 +185,6 @@ export default (navigation: any, dispatch: any) => {
   return {
     loading,
     SetLoading,
-    phoneTextHandler,
     phoneInputSubmit,
     passwordTextHandler,
     passwordInputSubmit,

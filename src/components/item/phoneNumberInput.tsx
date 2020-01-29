@@ -18,7 +18,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   const [animation] = useState(new Animated.Value(0))
   const pickerRef = useRef(null)
   const [showSelector, setShowSelector] = useState(false)
-  const [selectedCountryCode, setSelectedCountryCode] = useState({label :"", value : ""})
+  const [selectedCountryCode, setSelectedCountryCode] = useState(placeholder)
   const [pickeritemsState, setPickeritemsState] = useState(pickeritems)
   const { t } = useTranslation();
   
@@ -54,7 +54,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   }
 
   const _onSubmit= () =>{
-    _this.current.phone = (selectedCountryCode.value == '' ?placeholder.value : selectedCountryCode.value)  + _this.current.phone
+    _this.current.phone = selectedCountryCode.value + _this.current.phone
 
     onSubmit()
   }
