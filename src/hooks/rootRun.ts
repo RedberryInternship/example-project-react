@@ -120,7 +120,7 @@ export function useRoot() {
 
         // NavigationActions().navigate("MainDrawer")
         // NavigationActions().navigate("Auth")
-        NavigationActions().navigate("ForgotPassword")
+        // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Registration")
         // NavigationActions().navigate("Settings");
         // NavigationActions().navigate("ProfileChange");
@@ -129,7 +129,7 @@ export function useRoot() {
         // NavigationActions().navigate("NotAuthorized");
         // NavigationActions().navigate("ChoosingCard");
         // NavigationActions().navigate("ChooseChargeMethod");
-        // NavigationActions().navigate("Charging");
+        NavigationActions().navigate("Charging");
         // NavigationActions().navigate("Favourites");
         // NavigationActions().navigate("Faq");
         // NavigationActions().navigate("Charging");

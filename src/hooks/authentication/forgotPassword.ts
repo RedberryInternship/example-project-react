@@ -7,13 +7,10 @@ type _This = {
   code: string,
   phone: string
 }
-const CodeInputWidth = 128
-
 
 export default (navigation: any) => {
 
-  const [loading, SetLoading] = useState<Boolean>(true);
-  const [phoneFocused, setPhoneFocused] = useState<any>(false);
+  const [recieveCodeButtonClicked, setRecieveCodeButtonClicked] = useState<boolean>(false);
   const [startCodeAnimation, setStartCodeAnimation] = useState<any>(false);
   const [disableCodeInput, setDisableCodeInput] = useState<boolean>(true);
   const phoneRef: any = useRef(null);
@@ -28,7 +25,7 @@ export default (navigation: any) => {
 
 
   const onButtonClick = () => {
-    const isValidationResultSuccessful = validatePhoneNumber() && validateCode();
+    const isValidationResultSuccessful = validation.validatePhoneNumber() && validation.validateCode();
 
     if (isValidationResultSuccessful) {
 
@@ -55,57 +52,11 @@ export default (navigation: any) => {
 
           }
         });
-
-    }
-  }
-
-  const validatePhoneNumber = (withGetSmsVerificationAlert = true): boolean => {
-
-    const isCountryCodeGeorgian = _this.current.phone.slice(0,4) === '+995' ? true : false;
-
-    if (isCountryCodeGeorgian) {
-
-      const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
-      if (isPhoneValidationSuccessful) {
-
-        if (withGetSmsVerificationAlert && startCodeAnimation === false) {
-          Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.getVerificationCode"));
-          phoneRef.current.blur();
-        }
-        else {
-          codeRef.current.focus();
-        }
-        setDisableCodeInput(false);
-        return true;
-      }
-      else {
-        phoneRef.current.focus();
-        setDisableCodeInput(true);
-        return false;
-      }
-    }
-
-    codeRef.current.focus();
-    setDisableCodeInput(false);
-    return true;
-  }
-
-  const validateCode = (): boolean => {
-
-    if (_this.current.code.length === 0) {
-      Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.fillCode"));
-      return false;
-    }
-    else if (_this.current.code.length !== 4) {
-      Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.smsCodeLength"));
-      return false;
-    }
-    else {
-      return true;
     }
   }
 
   const verifyCode = async () => {
+    
     const verifyCodeResults = await Ajax.post('/verify-code-for-password-recovery', {
       phone_number: _this.current.phone,
       code: _this.current.code
@@ -116,7 +67,7 @@ export default (navigation: any) => {
 
   const codeReceiveHandler = () => {
 
-    if (!validatePhoneNumber(false)) return;
+    if (!validation.validatePhoneNumber(false)) return;
 
     Ajax.post('/send-sms-code', {
       phone_number: _this.current.phone
@@ -128,26 +79,17 @@ export default (navigation: any) => {
       .catch(() => {
         Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
       });
-
+    
+    setRecieveCodeButtonClicked(true);
   }
 
-  const validateOnGeorgianPhoneCode = () => {
-  
-    if (_this.current!.phone.length < 5) {
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
-    }
-    else if (_this.current!.phone.length - 4 !== 9) {
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
-      return false;
-    }
-    else {
-      return true;
-    }
-
+  const codeInputSubmit = () => {
+    codeReceiveHandler();
   }
+
 
   const phoneInputSubmit = () => {
-    validatePhoneNumber();
+    validation.validatePhoneNumber();
   }
 
   const codeTextHandler = (val: string) => {
@@ -165,21 +107,75 @@ export default (navigation: any) => {
     _this.current.code = val;
   }
 
-  const codeInputSubmit = () => {
-    //
 
+  
+  // validation
+  const validation = {
+    validateCode: (): boolean => {
+
+      if (_this.current.code.length === 0) {
+        Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.fillCode"));
+        return false;
+      }
+      else if (_this.current.code.length !== 4) {
+        Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.smsCodeLength"));
+        return false;
+      }
+      else {
+        return true;
+      }
+    },
+
+    validateOnGeorgianPhoneCode: () => {
+      if (_this.current!.phone.length < 5) {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
+      }
+      else if (_this.current!.phone.length - 4 !== 9) {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
+        return false;
+      }
+      else {
+        return true;
+      }
+    },
+
+    validatePhoneNumber: (withGetSmsVerificationAlert = true): boolean => {
+
+      const isCountryCodeGeorgian = _this.current.phone.slice(0,4) === '+995' ? true : false;
+  
+      if (isCountryCodeGeorgian) {
+  
+        const isPhoneValidationSuccessful = validation.validateOnGeorgianPhoneCode();
+        if (isPhoneValidationSuccessful) {
+  
+          if (withGetSmsVerificationAlert && recieveCodeButtonClicked === false) {
+            Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.getVerificationCode"));
+            phoneRef.current.blur();
+          }
+          else {
+            codeRef.current.focus();
+          }
+          setDisableCodeInput(false);
+          return true;
+        }
+        else {
+          phoneRef.current.focus();
+          setDisableCodeInput(true);
+          return false;
+        }
+      }
+  
+      codeRef.current.focus();
+      setDisableCodeInput(false);
+      return true;
+    }
   }
 
-
-
-  const onFocusPhone = () => {
-    setPhoneFocused(true)
-  }
-
-
+  // return statement
   return {
-    loading, SetLoading, phoneInputSubmit, onButtonClick, disableCodeInput,
-    codeTextHandler, codeInputSubmit, _this, phoneRef, startCodeAnimation, setStartCodeAnimation,
-    phoneFocused, t, codeReceiveHandler, codeRef, onFocusPhone, CodeInputWidth
+    phoneInputSubmit, onButtonClick, disableCodeInput,
+    codeTextHandler, codeInputSubmit, _this, phoneRef,
+    t, codeReceiveHandler, codeRef,startCodeAnimation, 
+    setStartCodeAnimation
   }
 }

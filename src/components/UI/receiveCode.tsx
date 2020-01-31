@@ -1,5 +1,5 @@
 import React, {useState, useRef, useImperativeHandle} from 'react';
-import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated, Alert} from 'react-native';
+import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
 import { Colors } from '../../utils';
 import MaskedView from '@react-native-community/masked-view';
 import colors from '../../../src/utils/colors';
