@@ -50,35 +50,36 @@ type userErroredData = {
 export default (navigation: any, dispatch: any) => {
 
   const [loading, SetLoading] = useState<Boolean>(true);
-  const [phoneFocused, setPhoneFocused] = useState<any>(false);
-
   const phoneRef: any = useRef(null);
   const passwordRef: any = useRef(null);
 
   const { t } = useTranslation();
-
-  const { setItem: setToken } = useAsyncStorage("token")
-  const { setItem: setUserDetail } = useAsyncStorage("userDetail")
-
-
   const _this: RefObject<_This> = useRef({ password: "", phone: '' })
 
+  const phoneTextHandler = (val: string) => _this.current!.phone = val;
 
+  const passwordTextHandler = (val: string) => _this.current!.password = val;
 
-  const phoneTextHandler = (val: string) => {
-    phoneRef.current.setNativeProps({
-      text: val
-    })
+  const buttonClickHandler = () => {
+    if (phoneInputSubmit() && passwordInputSubmit()) {
 
-    _this.current!.phone = val;
+      fetchUserData(_this.current!.phone, _this.current!.password)
+        .then((userData: userData ) => {
+          OnSuccessLogin(userData);
+        })
+        .catch((userErroredData: userErroredData) => {
+          console.log(["[Exception] User Errored Data", userErroredData]);
+          Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.userNotFound"));
+        });
+    }
   }
+
 
   const phoneInputSubmit = () => {
 
-    const selectedPhoneCode = _this.current!.phone.slice(0,4);
-    if (selectedPhoneCode === '+995') {
+    if (validate.isSelectedCountryCodeGeorgian()) {
 
-      const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
+      const isPhoneValidationSuccessful = validate.validateOnGeorgianPhoneCode();
 
       if (isPhoneValidationSuccessful) {
         passwordRef.current.focus();
@@ -94,13 +95,6 @@ export default (navigation: any, dispatch: any) => {
     }
   }
 
-  const passwordTextHandler = (val: string) => {
-    passwordRef.current.setNativeProps({
-      text: val
-    });
-    _this.current!.password = val;
-  }
-
   const passwordInputSubmit = () => {
     if (_this.current!.password === "") {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.passworNotEmpty"));
@@ -108,27 +102,6 @@ export default (navigation: any, dispatch: any) => {
     }
     else {
       return true;
-    }
-  }
-
-  const onFocus = () => {
-    setPhoneFocused(true)
-  }
-
-  const buttonClickHandler = () => {
-    setPhoneFocused(true)
-
-    if (phoneInputSubmit() && passwordInputSubmit()) {
-
-      fetchUserData(_this.current!.phone, _this.current!.password)
-        .then((userData: userData ) => {
-          OnSuccessLogin(userData);
-        })
-        .catch((userErroredData: userErroredData) => {
-          console.log(["[Exception] User Errored Data", userErroredData]);
-          Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.userNotFound"));
-        });
-        
     }
   }
 
@@ -143,17 +116,6 @@ export default (navigation: any, dispatch: any) => {
   }
 
 
-  const validateOnGeorgianPhoneCode = () => {
-
-    if (_this.current!.phone.length !== 9) {
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
-      return false;
-    }
-    else {
-      return true;
-    }
-
-  }
 
   const fetchUserData = async (phone_number: string, password: string) => {
 
@@ -163,7 +125,29 @@ export default (navigation: any, dispatch: any) => {
       });
 
       return user;
+  }
 
+
+  // Validate
+  const validate = {
+    validateOnGeorgianPhoneCode: () => {
+
+      if (_this.current!.phone.length < 5) {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
+        return false;
+      }
+      else if (_this.current!.phone.length - 4 !== 9) {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
+        return false;
+      }
+      else {
+        return true;
+      }
+    },
+
+    isSelectedCountryCodeGeorgian: ():boolean =>{
+      return _this.current!.phone.slice(0,4) === '+995';
+    }
   }
 
   return {
@@ -175,8 +159,6 @@ export default (navigation: any, dispatch: any) => {
     passwordInputSubmit,
     _this,
     phoneRef,
-    onFocus,
-    phoneFocused,
     passwordRef,
     t,
     buttonClickHandler
