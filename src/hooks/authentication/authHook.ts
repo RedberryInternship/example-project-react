@@ -75,9 +75,8 @@ export default (navigation: any, dispatch: any) => {
 
   const phoneInputSubmit = () => {
 
-    const selectedPhoneCode = getSelectedCountryPhoneCode();
-
-    if (selectedPhoneCode === '995') {
+    const selectedPhoneCode = _this.current!.phone.slice(0,4);
+    if (selectedPhoneCode === '+995') {
 
       const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
 
@@ -143,30 +142,6 @@ export default (navigation: any, dispatch: any) => {
     navigation.navigate("MainDrawer")
   }
 
-  // ----------
-
-  const getCountryPhoneCodes = async () => {
-
-    try {
-      const countryPhoneCodes = await Ajax.get('/phone-codes');
-
-      return countryPhoneCodes;
-    }
-    catch (e) {
-
-      // TODO: what kind of errors is there to handle
-
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
-    }
-  }
-
-  const getSelectedCountryPhoneCode = () => {
-
-    // TODO: get selected Phone Code
-
-    return "995";
-
-  }
 
   const validateOnGeorgianPhoneCode = () => {
 

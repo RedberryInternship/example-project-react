@@ -6,7 +6,7 @@ import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 import rootReducer, {  initialState} from "./reducers/rootReducer";
 import { saveToken } from "./actions/rootActions";
-import { Alert, StatusBar, Platform } from "react-native";
+import { StatusBar, Platform } from "react-native";
 
 
 
@@ -119,7 +119,7 @@ export function  useRoot(){
     const onReady =() =>{
 
         // NavigationActions().navigate("MainDrawer")
-        // NavigationActions().navigate("Auth")
+        NavigationActions().navigate("Auth")
         // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Registration")
         // NavigationActions().navigate("Settings");
@@ -132,7 +132,7 @@ export function  useRoot(){
         // NavigationActions().navigate("Charging");
         // NavigationActions().navigate("Favourites");
         // NavigationActions().navigate("Faq");
-        NavigationActions().navigate("Charging");
+        // NavigationActions().navigate("Charging");
         // NavigationActions().navigate("Tariffs");
         // NavigationActions().navigate("Favorites");
         // NavigationActions().navigate("Contact");
