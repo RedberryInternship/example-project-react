@@ -94,7 +94,6 @@ export default function  useLocation({ mapRef} : any){
 
       RNLocation.getLatestLocation({ timeout: 6000 })
       .then( latestLocation => {
-        
         if( latestLocation != null ){
           navigateByRef( latestLocation )
         }

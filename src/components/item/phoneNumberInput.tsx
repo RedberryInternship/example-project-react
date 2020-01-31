@@ -17,7 +17,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   const [animation] = useState(new Animated.Value(0))
   const pickerRef = useRef(null)
   const [showSelector, setShowSelector] = useState(false)
-  const [selectedCountryCode, setSelectedCountryCode] = useState({label :"", value : ""})
+  const [selectedCountryCode, setSelectedCountryCode] = useState(placeholder)
   const [pickeritemsState, setPickeritemsState] = useState(pickeritems)
   const { t } = useTranslation();
   
@@ -42,15 +42,16 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   }
 
   const phoneTextHandler= (text : string) =>{
-    _this.current.phone  = text
+    _this.current.phone  = selectedCountryCode.value + text
+    console.log('====================================');
+    console.log(selectedCountryCode.value, "selectedCountryCode.value",_this.current.phone );
+    console.log('====================================');
     if(text !== "" ){
       codeRef && codeRef.current && codeRef.current.activateButton()
     }
   }
 
   const _onSubmit= () =>{
-    _this.current.phone = (selectedCountryCode.value == '' ?placeholder.value : selectedCountryCode.value)  + _this.current.phone
-
     onSubmit()
   }
   const fetchPhoneCountryCodes = () =>{

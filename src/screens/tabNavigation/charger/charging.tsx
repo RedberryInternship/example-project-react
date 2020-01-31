@@ -115,14 +115,20 @@ const charging = ({navigation} : any) => {
         onPressLeft={navigation.navigate.bind(charging,"MainDrawer")}
         title={"charging.charge"}
       />
-      <TabView
-        navigationState={{ index : hook.activeTab, routes }}
-        renderScene={renderScene}
-        onIndexChange={hook.changeActiveTab}
-        lazy={true}
-        renderTabBar={renderTabBar}
-        initialLayout={Dimensions.get("window")}
-      />
+      {
+        routes.length  === 1 ? 
+          <ChargingView hook={hook} />
+        :
+          <TabView
+            navigationState={{ index : hook.activeTab, routes }}
+            renderScene={renderScene}
+            onIndexChange={hook.changeActiveTab}
+            lazy={true}
+            renderTabBar={renderTabBar}
+            initialLayout={Dimensions.get("window")}
+          />
+      }
+
     </View>
   );
 };
