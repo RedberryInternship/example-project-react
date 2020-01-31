@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Alert,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
@@ -35,7 +34,6 @@ const setNewPasswords = ({navigation} : any) => {
       >
         <BaseInput
           image={require("../../../assets/images/icons/lock.png")}
-          keyboardType={"email-address"}
           onChangeText={hook.newPasswordTextHandler}
           onSubmit={hook.newPasswordInputSubmit}
           ref={hook.newPasswordRef}
@@ -45,7 +43,6 @@ const setNewPasswords = ({navigation} : any) => {
         />
         <BaseInput
           image={require("../../../assets/images/icons/lock.png")}
-          keyboardType={"email-address"}
           onChangeText={hook.repeatPasswordTextHandler}
           onSubmit={hook.repeatPasswordInputSubmit}
           ref={hook.repeatPasswordRef}

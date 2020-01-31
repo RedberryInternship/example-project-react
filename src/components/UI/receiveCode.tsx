@@ -1,5 +1,12 @@
 import React, {useState, useRef, useImperativeHandle} from 'react';
-import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated} from 'react-native';
+import {
+  TextInput, 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Animated
+} from 'react-native';
 import { Colors } from '../../utils';
 import MaskedView from '@react-native-community/masked-view';
 import colors from '../../../src/utils/colors';
@@ -70,11 +77,11 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, disa
           style={styles.codeTextInput}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmit}
-          // onFocus={onFocus}
           placeholderTextColor={Colors.primaryWhite}
           allowFontScaling={false}
           ref={inputRef}
-          pointerEvents={ disableCodeInput ? "none" : "auto"}
+          pointerEvents={ !disableCodeInput ? "none" : "auto"}
+          keyboardType={"number-pad"}
         />
       </View>
       <Animated.Text style={{color:Colors.primaryGray, fontSize:11, }}>{showText && t("authentication.forgotPasswordPage.codeValidity")}</Animated.Text>

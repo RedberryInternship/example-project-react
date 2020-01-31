@@ -45,7 +45,6 @@ const forgotPassword = ({navigation} : any) => {
           onSubmit={hook.codeReceiveHandler}
           startCodeAnimation={hook.startCodeAnimation}
           recieveCode={hook.codeReceiveHandler}
-          disableCodeInput={hook.disableCodeInput}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>

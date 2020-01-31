@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 
 import { useTranslation } from 'react-i18next';
 import { Ajax, Defaults } from '../../utils';
+import { Alert } from "react-native";
 
 type _This = {
   code: string,
@@ -75,6 +76,7 @@ export default (navigation: any) => {
       .then(() => {
         codeRef.current.startCodeAnimation();
         Defaults.dropdown.alertWithType("success", t("dropDownAlert.registration.codeSentSuccessfully"));
+        setDisableCodeInput(false);
       })
       .catch(() => {
         Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
@@ -142,7 +144,7 @@ export default (navigation: any) => {
     validatePhoneNumber: (withGetSmsVerificationAlert = true): boolean => {
 
       const isCountryCodeGeorgian = _this.current.phone.slice(0,4) === '+995' ? true : false;
-  
+
       if (isCountryCodeGeorgian) {
   
         const isPhoneValidationSuccessful = validation.validateOnGeorgianPhoneCode();
@@ -155,18 +157,15 @@ export default (navigation: any) => {
           else {
             codeRef.current.focus();
           }
-          setDisableCodeInput(false);
           return true;
         }
         else {
           phoneRef.current.focus();
-          setDisableCodeInput(true);
           return false;
         }
       }
   
       codeRef.current.focus();
-      setDisableCodeInput(false);
       return true;
     }
   }

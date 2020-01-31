@@ -161,7 +161,10 @@ const FooterTabNavigator = (props: any) => {
 
 
   return (
-    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }} >
+
+
+    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }}>
+      
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
         <TabNavigationButtons 
           active={currentRouteName === "Home"} 
