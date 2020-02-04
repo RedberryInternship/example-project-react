@@ -12,6 +12,7 @@ let pickeritems : Item[] = []
 
 const placeholder = {label :"+995", value : "+995"}
 // eslint-disable-next-line react/display-name
+
 const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText, codeRef }: any, ref: any) => {
  
   const [animation] = useState(new Animated.Value(0))
@@ -41,17 +42,21 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
     }).start()
   }
 
-  const phoneTextHandler= (text : string) =>{
-    _this.current.phone  = selectedCountryCode.value + text
-    console.log('====================================');
-    console.log(selectedCountryCode.value, "selectedCountryCode.value",_this.current.phone );
-    console.log('====================================');
+  const phoneTextHandler = (text : string) =>{
+
+    _this.current.phone  =  selectedCountryCode.value + text;
+
     if(text !== "" ){
-      codeRef && codeRef.current && codeRef.current.activateButton()
+      codeRef && codeRef.current && codeRef.current.activateButton();
+    }
+    else{
+      codeRef && codeRef.current && codeRef.current.disableActivateButton();
     }
   }
 
   const _onSubmit= () =>{
+    _this.current.phone = selectedCountryCode.value + _this.current.phone
+
     onSubmit()
   }
   const fetchPhoneCountryCodes = () =>{

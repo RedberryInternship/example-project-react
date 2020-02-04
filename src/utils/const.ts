@@ -1,8 +1,9 @@
 import { Dimensions, Platform } from "react-native"
 import { ifIphoneX } from "react-native-iphone-x-helper";
+import { env } from '../../env';
 
+export const API: string = env === 'local' ? "http://espace.test/api/app/V1" : "https://api-dev.e-space.ge/api/app/V1";
 
-export const API: string = "https://api-dev.e-space.ge/api/app/V1"
 
 export const Width = Dimensions.get("window").width;
 export const Height = Dimensions.get("window").height;

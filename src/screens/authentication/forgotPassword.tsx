@@ -13,7 +13,7 @@ import { useSafeArea } from 'react-native-safe-area-context';
 
 const forgotPassword = ({navigation} : any) => {
   
-  const hook = useForgotPassword();
+  const hook = useForgotPassword(navigation);
   const insets = useSafeArea();
 
   return (
@@ -31,25 +31,25 @@ const forgotPassword = ({navigation} : any) => {
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
-        // enableResetScrollToCoords={true}
-        // resetScrollToCoords={{x:0,y:0}}
       >
         <PhoneNumberInput 
-          onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
           value={hook._this.current.phone}
-          onFocus={hook.onFocusPhone}
           ref={hook.phoneRef}
+          _this={hook._this}
+          codeRef={hook.codeRef}
         />
         <ReceiveCode
           ref={hook.codeRef}
           onChangeText={hook.codeTextHandler}
-          onSubmit={hook.codeInputSubmit}
+          onSubmit={hook.codeReceiveHandler}
+          startCodeAnimation={hook.startCodeAnimation}
+          recieveCode={hook.codeReceiveHandler}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
         <BaseButton
-          onPress={()=>{navigation.navigate("SetNewPasswords")}}
+          onPress={hook.onButtonClick}
           text={"enter"} 
           image={require("../../../assets/images/icons/arrow_right.png")}
           style={{marginTop: 0}}

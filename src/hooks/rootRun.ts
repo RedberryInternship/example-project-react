@@ -1,16 +1,16 @@
-import {useEffect, useState,useRef, useReducer} from "react";
+import { useEffect, useState, useRef, useReducer } from "react";
 import { useAppState } from 'react-native-hooks';
 import { useNetInfo } from "@react-native-community/netinfo";
 import AsyncStorage,{ useAsyncStorage, } from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
-import {useTranslation} from 'react-i18next';
-import rootReducer, {  initialState} from "./reducers/rootReducer";
+import { useTranslation } from 'react-i18next';
+import rootReducer, { initialState } from "./reducers/rootReducer";
 import { saveToken } from "./actions/rootActions";
 import { StatusBar, Platform } from "react-native";
 
 
 
-export function  useRoot(){
+export function useRoot() {
     const [state, dispatch] = useReducer(rootReducer, initialState)
 
     const currentAppState = useAppState()
@@ -19,10 +19,10 @@ export function  useRoot(){
 
     const [token, setToken] = useState<null | string>('')
     const [locale, setLocale] = useState<null | string>('');
-    
-    const {getItem, setItem} = useAsyncStorage("token")
-    const {getItem : getUserDetail, setItem : setUserDetail} = useAsyncStorage("userDetail")
-    const {getItem : getLocaleStorage, setItem : setLocaleStorage} = useAsyncStorage("locale")
+
+    const { getItem, setItem } = useAsyncStorage("token")
+    const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage("userDetail")
+    const { getItem: getLocaleStorage, setItem: setLocaleStorage } = useAsyncStorage("locale")
 
     const [appReady, setAppReady] = useState(false);
     const [navigationState, setNavigationState] = useState(false);
@@ -41,12 +41,12 @@ export function  useRoot(){
         readUserToken();
         readUserLocale()
         // onReady()
-        console.log("remounted", appReady , " appReady");
-        if(Platform.OS === "android"){
-            StatusBar.setBackgroundColor( "transparent", true)
-            StatusBar.setTranslucent( true)
+        console.log("remounted", appReady, " appReady");
+        if (Platform.OS === "android") {
+            StatusBar.setBackgroundColor("transparent", true)
+            StatusBar.setTranslucent(true)
         }
-        
+
     }, [])
 
     useEffect(() => {
@@ -68,13 +68,13 @@ export function  useRoot(){
 
     const readUserToken = async () => {
         let _token = await getItem();
-        let user : string | null = ''
-        if(_token){
-            user = await getUserDetail() ;
+        let user: string | null = ''
+        if (_token) {
+            user = await getUserDetail();
             user = user != null ? JSON.parse(user) : ''
         }
 
-        dispatch(saveToken({token : _token, user}))
+        dispatch(saveToken({ token: _token, user }))
         // setToken(_token)
 
     }
@@ -94,10 +94,10 @@ export function  useRoot(){
         setLocale(_locale)
     }
 
-    const setNavigationTopLevelElement = (ref : any) =>{
-        console.log("settingNavigationTopLevelElement",ref, NavigationActions()._navigator);
+    const setNavigationTopLevelElement = (ref: any) => {
+        console.log("settingNavigationTopLevelElement", ref, NavigationActions()._navigator);
 
-        if( ref == null ) return
+        if (ref == null) return
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
@@ -107,18 +107,20 @@ export function  useRoot(){
 
     useEffect(() => {
         // onReady()
-        
-        if(navigationState && locale !== ''){
+
+        if (navigationState && locale !== '') {
             setAppReady(true)
             userStatusHandler()
         }
         else setAppReady(false)
-    }, [token,navigationState, locale] )
+    }, [token, navigationState, locale])
 
-    
-    const onReady =() =>{
+
+    const onReady = () => {
 
         NavigationActions().navigate("MainDrawer")
+        // NavigationActions().navigate("Auth")
+        // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Auth")
         // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Registration")
@@ -133,6 +135,7 @@ export function  useRoot(){
         // NavigationActions().navigate("Favourites");
         // NavigationActions().navigate("Faq");
         // NavigationActions().navigate("Charging");
+        // NavigationActions().navigate("Favourites");
         // NavigationActions().navigate("Tariffs");
         // NavigationActions().navigate("Favorites");
         // NavigationActions().navigate("Contact");
@@ -142,15 +145,15 @@ export function  useRoot(){
         console.log(Defaults.token, "App ready to boot");
     }
 
-    const userStatusHandler= () =>{
+    const userStatusHandler = () => {
         // if(!appReady ) return
-        if(state.user == '' ){
+        if (state.user == '') {
             onReady()
         }
-        else if( state.user != null || state.user != '' ){
+        else if (state.user != null || state.user != '') {
             //ajax for user state
             onReady()
         }
     }
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this ,state, dispatch}
+    return { currentAppState, networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this, state, dispatch }
 }

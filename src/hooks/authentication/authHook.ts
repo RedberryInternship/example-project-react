@@ -74,11 +74,9 @@ export default (navigation: any, dispatch: any) => {
     }
   }
 
-
   const phoneInputSubmit = () => {
 
     if (validate.isSelectedCountryCodeGeorgian()) {
-
       const isPhoneValidationSuccessful = validate.validateOnGeorgianPhoneCode();
 
       if (isPhoneValidationSuccessful) {
@@ -153,7 +151,6 @@ export default (navigation: any, dispatch: any) => {
   return {
     loading,
     SetLoading,
-    phoneTextHandler,
     phoneInputSubmit,
     passwordTextHandler,
     passwordInputSubmit,
