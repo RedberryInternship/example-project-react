@@ -45,3 +45,14 @@ export  const getAllChargers = (dispatch : any ) =>{
     Defaults.dropdown.alertWithType("error", "დაფიქსიდა შეცდომა")
   })
 }
+
+export  const getFavoriteChargers = (dispatch : any ) =>{
+  
+  Ajax.get("/user-favorites")
+  .then(({data} :  ChargersObject ) =>{
+    dispatch({type : GET_ALL_CHARGER_SUCCESS, payload : data})
+  })
+  .catch(() =>{
+    Defaults.dropdown.alertWithType("error", "დაფიქსიდა შეცდომა")
+  })
+}

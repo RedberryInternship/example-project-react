@@ -66,7 +66,7 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
   }
 
   const onFavoritePress = () =>{
-    Ajax.post("/add-favorite", {charger_id : _this.current?.charger?.charger_id})
+    _this.current?.charger && Ajax.post("/add-favorite", {charger_id : _this.current?.charger?.charger_id})
       .then(() =>{
         Defaults.dropdown.alertWithType("success", "დაემატა წარმატებით")
       })
