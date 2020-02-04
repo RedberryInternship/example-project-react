@@ -166,7 +166,7 @@ export default {
         fillSurname : "Please, fill surname",
         incorrectEmail : "Email is not valid",
         codeSentSuccessfully : "Code sent successfully",
-        codeLengthError : "Code must be 4 letter",
+        codeLengthError : "Sms code should be exactly 4 digits long",
         incorrectCode : "code is incorrect",
         emailAlreadyToken : "The email has already been taken",
         phoneAlreadyToken : "The phone number has already been taken.",
@@ -177,6 +177,18 @@ export default {
         phoneNumberLength : "The phone number should be exactly 9 digits long.",
         passworNotEmpty: "The password field should not be empty",
         userNotFound: "User not found"
+      },
+      forgotPassword: {
+        smsCodeLength: "Sms code should be exactly 4 digits long",
+        getVerificationCode: "Get verification code",
+        userNotFound: "There is no such user with this phone number",
+        smsCodeExpired: "Sms code expired",
+        fillCode: "Please, fill the code",
+        
+        newPasswordNotFilled: "Please, fill the New Password field",
+        repeteNewPasswordNotFilled: "Please fill the Repete New Password field",
+        newPasswordIncorrectLength: "New password should contain at least 8 symbols",
+        passwordChangedSuccessfully: "Password changed successfully"
       },
       transactions:{
         transactions: "Transactions",

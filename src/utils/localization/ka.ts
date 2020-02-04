@@ -162,7 +162,7 @@ export default {
         fillSurname : "გთხოვთ ჩაწროთ გვარი",
         incorrectEmail : "ემაილი არა არის სწორი",
         codeSentSuccessfully : "კოდი გამოიგზავნა წარმატებით",
-        codeLengthError : "კოდი უნდა შეიცავდეს 4 სიმბოლოს",
+        codeLengthError : "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
         incorrectCode : "კოდი არ არის სწორი",
         emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
@@ -173,6 +173,17 @@ export default {
         phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
         passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",
         userNotFound: "მომხმარებელი ვერ მოიძებნა ბაზაში"
+      },
+      forgotPassword: {
+        smsCodeLength: "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
+        getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი",
+        userNotFound: "ამ ნომრით მომხმარებელი ვერ მოიძებნა",
+        smsCodeExpired: "sms კოდს ვადა გაუვიდა",
+        fillCode: "შეიყვანეთ sms კოდი",
+        newPasswordNotFilled: "გთხოვთ, შეიყვანოთ ახალი პაროლის ველი",
+        repeteNewPasswordNotFilled: "გთხოვთ, გაიმეორეთ პაროლი",
+        newPasswordIncorrectLength: "პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს",
+        passwordChangedSuccessfully: "პაროლი წარმატებით შეიცვალა"
       },
       transactions:{
         transactions: "ტრანზაქციები",

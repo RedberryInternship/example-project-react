@@ -31,7 +31,8 @@ import {
   Tariffs,
   TransactionList,
   ShowTransaction,
-  Partners
+  Partners,
+  SetNewPasswords
 } from './screens';
 import { TabNavigationButtons } from './components';
 import { determineTimePeriod } from './utils/mapAndLocation/mapFunctions';
@@ -145,6 +146,7 @@ const authenticationStack = createStackNavigator({
   Auth,
   ForgotPassword,
   Registration,
+  SetNewPasswords
 },
   {
     defaultNavigationOptions: {
@@ -182,5 +184,4 @@ const AppNavigator = createSwitchNavigator({
 });
 
 export default createAppContainer(AppNavigator);
-
 

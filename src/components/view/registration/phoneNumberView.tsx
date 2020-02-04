@@ -1,4 +1,4 @@
-import React, {} from 'react';
+import React  from 'react';
 import {View } from 'react-native';
 import { Const } from '../../../../src/utils';
 import { PhoneNumberInput, ReceiveCode } from '../../../../src/components';
