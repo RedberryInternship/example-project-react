@@ -6,14 +6,14 @@ import {
   Text,
 } from 'react-native';
 import { BaseInput, BaseHeader, BaseButton, ChargerItem, TitleTopLeftContainer } from '../../../components';
-import { useCharger } from '../../../hooks';
+import { useChargerWithCode } from '../../../hooks';
 import { Const, Colors } from '../../../utils';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const ChargerWithCode = ({navigation} : any) => {
   
-  const hook = useCharger();
+  const hook = useChargerWithCode(navigation);
 
   return (
     <View style={styles.container}>
@@ -31,7 +31,7 @@ const ChargerWithCode = ({navigation} : any) => {
           title={"charger.enterCode"}
         />
         <BaseButton
-          onPress={navigation.navigate.bind(ChargerWithCode,"ChargerDetail")}
+          onPress={hook.codeInputSubmit}
           text={"next"} 
           style={{marginTop: 24, marginHorizontal:0, alignSelf:"center", width: Const.Width - 32}}
           imageStyle={{tintColor:"white"}}

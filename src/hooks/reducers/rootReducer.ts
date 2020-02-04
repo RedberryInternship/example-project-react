@@ -1,16 +1,16 @@
 import { SAVE_TOKEN, GET_ALL_CHARGER_SUCCESS, LOG_OUT } from "../actions/rootActions"
 // eslint-disable-next-line no-unused-vars
-import { Chargers, State, Action } from "../../../@types/allTypes"
+import { Charger, AppState, Action } from "../../../@types/allTypes"
 
 
-export const initialState : State = {
+export const initialState : AppState = {
   user: null,
   loading : false,
   authStatus : null,
   AllChargers : null
 }
 
-function reducer(state : State = initialState, {type, payload} : Action) : State{
+function reducer(state : AppState = initialState, {type, payload} : Action) : AppState{
   switch(type) {
     case  SAVE_TOKEN:
       return {

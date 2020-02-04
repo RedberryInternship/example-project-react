@@ -68,7 +68,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
         data.forEach((val :PhoneCountryCode) =>{
           if (val.phone_code)
             pickeritems.push({value : val.phone_code, label : val.phone_code})
-        } )
+        })
         setPickeritemsState(pickeritems)
       })
       .catch(error =>{

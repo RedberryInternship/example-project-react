@@ -7,6 +7,10 @@ export default {
     save: "შენახვა",
     gel : "ლარი",
     turnOn: "ჩართვა",
+    km : "კმ",
+    kwh : "კვ/სთ",
+    from: "-დან",
+    till : "-მდე",
     authentication: {
       authentication: "ავტორიზაცია",
       number: "ნომერი",
@@ -102,13 +106,15 @@ export default {
       enterCode : "ჩაწერეთ კოდი",
       turnOn : "ჩართვა",
       allChargerList : "დამტენების სრული სია",
-      lastUsed : "ბოლოს გამოყენებული"
+      lastUsed : "ბოლოს გამოყენებული",
+
     },
     chargerDetail : {
       seeOnMap : "რუკაზე ნახვა",
       currentPrices : "მიმდინარე ტარიფები",
       connectors  : "ქონექტორები",
       additionalServices  : "დამატებითი სერვისები",
+      powerOfChargerType : "სიმძლავრე {{power}}კვ/სთ"
     },
     notAuthorized : {
       notAuthorizedText : "იმისთვის, რომ შეძლოთ ავტომობილის დატენვა საჭიროა გაიაროთ ავტორიზაცია",
@@ -156,6 +162,8 @@ export default {
     },
     dropDownAlert : {
       generalError : "დაფიქსირდა შეცდომა",
+      fillCode : "გთხოვთ ჩაწროთ დამტენის კოდი",
+      chargerNotExist : "ასეთი დამტენის კოდი არ არსებობს",
       registration : {
         fillPhoneNumber : "გთხოვთ ჩაწროთ ტელეფონის ნომერი",
         fillName : "გთხოვთ ჩაწროთ სახელი",

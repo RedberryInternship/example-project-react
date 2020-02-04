@@ -6,7 +6,7 @@ import {RefObject} from "react"
 import {Item} from 'react-native-picker-select';
 
 
-export type Chargers = {
+export type Charger = {
   id: number,
   old_id: number,
   name: {
@@ -25,8 +25,8 @@ export type Chargers = {
   },
   public: number,
   active: number,
-  lat: number | string,
-  lng: number | string,
+  lat: string,
+  lng: string,
   iban: string,
   charger_group_id: number,
   last_update: string,
@@ -77,10 +77,10 @@ type ChargerFastChargingPrices = {
 }
 
 
-export type State = {
+export type AppState = {
   user: Object | null,
   loading : boolean,
-  AllChargers : Chargers[] | null,
+  AllChargers : Charger[] | null,
   authStatus : "failed" | "success" | null
 }
 export type Action = {
@@ -89,7 +89,7 @@ export type Action = {
 }
 
 export type AppContextType = {
-  state : State,
+  state : AppState,
   dispatch : any
 }
 
@@ -130,3 +130,13 @@ export type BasePickerSelect = {
   onChange : (value: any, index: number) => void,
   value ?: Item
 }
+
+
+export type LocaleStringObject = {
+  en : string,
+  ka : string,
+  ru : string
+} | undefined
+
+
+export enum HomeNavigateModes { "chargerLocateOnMap", "showRoutesToCharger"}

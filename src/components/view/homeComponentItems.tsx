@@ -14,8 +14,6 @@ const App = ({navigation} :any) => {
   const context : any = useContext(HomeContext)
   return (
     <View style={{position:"relative", flex:1, paddingTop : insets.top,}} pointerEvents={"box-none"} >
-      
-        
       {
         Defaults.token ?
           null
@@ -26,7 +24,6 @@ const App = ({navigation} :any) => {
           text={'home.authorization'}
           style={{marginTop: 12 }}
         />
-
       }
       <View  style={{zIndex:44, elevation:12,height:100}} pointerEvents={"box-none"}>
         <OnMapRoundButton  
@@ -37,7 +34,6 @@ const App = ({navigation} :any) => {
         />
         <HomeMainInputView/>
       </View>
-      
       <View style={{flex:1}} pointerEvents={"box-none"}>
         <OnMapRoundButton  
           style={{right:24, bottom: 138, backgroundColor:"#FFFFFF"}} 

@@ -1,6 +1,11 @@
-import  { useState,useRef} from "react";
+/* eslint-disable no-unused-vars */
+import  { useState,useRef, useContext} from "react";
 import { Alert, TextInput} from "react-native"
 import {useTranslation} from 'react-i18next';
+import { AppContext } from "../../../App";
+import { AppContextType, Charger } from "../../../@types/allTypes";
+import { NavigationState ,NavigationScreenProp, NavigationParams } from "react-navigation";
+import { Defaults } from "../../../src/utils";
 
 
 type _This = {
@@ -19,12 +24,10 @@ const chargerTypesDummy = [
   { type : "ადფასდფას  ", power : "233"},
 ]
 
-const services = [ 
-  require("../../../assets/images/icons/arrow_left.png"),
-  require("../../../assets/images/icons/arrow_left.png"),
-]
-export default () => {
+export default (navigation : NavigationScreenProp<NavigationState, NavigationParams>) =>  {
 
+
+  const context : AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<Boolean>(true);
   const [activeChargerType, setActiveChargerType] = useState<Number>(0);
 
@@ -38,19 +41,33 @@ export default () => {
 
 
   const codeTextHandler = (val : string) => {
-    chargeWitchCode.current?.setNativeProps({
-      text : val
-      
-    })
     _this.current!.chargeWitchCode = val;
     // Ajax.get()
   }
 
   const codeInputSubmit = () => {
-    Alert.alert(JSON.stringify(_this.current))
+
+    if(_this.current?.chargeWitchCode == ''){
+      return Defaults.dropdown.alertWithType("error", t("dropDownAlert.fillCode"))
+    }
+
+    let charger = context.state.AllChargers?.filter((val : Charger) => {
+      return val.code == _this.current?.chargeWitchCode 
+    }) ?? []
+
+    if(charger.length == 0) {
+      return Defaults.dropdown.alertWithType("error", t("dropDownAlert.chargerNotExist"))
+    }
+    console.log('====================================');
+    console.log(charger, _this.current?.chargeWitchCode, "charger");
+    console.log('====================================');
+
+    navigation.navigate("ChargerDetail", {chargerDetails : charger[0] } )
+    
   }
 
   const lastUsed = () =>{
+    context
     // Ajax.get()
 
     return lastUsedDummy
@@ -62,5 +79,5 @@ export default () => {
   }
 
   return {loading, SetLoading, codeTextHandler, codeInputSubmit , _this, passwordRef, t , 
-    chargeWitchCode, lastUsed, chargerTypes, activeChargerType, setActiveChargerType, services}
+    chargeWitchCode, lastUsed, chargerTypes, activeChargerType, setActiveChargerType}
 }

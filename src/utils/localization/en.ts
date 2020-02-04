@@ -7,6 +7,10 @@ export default {
     save: "Save",
     gel : "Gel",
     turnOn : "Turn On",
+    km : "km",
+    kwh : "kw/h",
+    from: "-from",
+    till : "-till",
     authentication: {
       authentication: "Authentication",
       number: "Number",
@@ -112,6 +116,7 @@ export default {
       currentPrices : "Current prices",
       connectors  : "Connectors",
       additionalServices  : "Additional services",
+      powerOfChargerType : "power {{power}}kw/s"
 
     },
     notAuthorized : {
@@ -160,6 +165,8 @@ export default {
     },
     dropDownAlert : {
       generalError : "Error encountered",
+      fillCode : "Please, enter charger code",
+      chargerNotExist : "this kind of charger don't exist",
       registration : {
         fillPhoneNumber : "Please, fill phone number",
         fillName : "Please, fill name",

@@ -1,11 +1,10 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next,  } from 'react-i18next';
 
-
-import * as RNLocalize from "react-native-localize";
-
+import {LocaleStringObject} from "../../../@types/allTypes" 
 import en from "./en";
 import ka from "./ka";
+import { Defaults } from '../';
 
 // const locales = RNLocalize.getLocales();
 
@@ -43,3 +42,8 @@ i18n
 export default i18n;
 
 export const t=  i18n.t;
+
+
+export const getLocaleText = (stringObj : LocaleStringObject) : string =>{
+  return stringObj ? stringObj[ Defaults.locale ] : ""
+}

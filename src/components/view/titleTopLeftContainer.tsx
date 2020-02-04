@@ -15,7 +15,7 @@ const titleTopLeftContainer = ({title, data, onRenderItem, direction} : TitleTop
   const {t} = useTranslation();
   return (
     <View>
-      {title !== "" &&  (<Text style={{color:"white", fontSize:13, fontWeight:"bold", marginVertical:16}}>{t(title)}</Text>) }
+      {title !== "" &&  (<Text style={{color:"white", fontSize:13, fontWeight:"bold", marginVertical:16}}>{t(title ?? "")}</Text>) }
       
       <View style={{flexDirection: direction }} >
         {data.map(onRenderItem)}
