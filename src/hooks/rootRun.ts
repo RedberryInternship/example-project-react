@@ -1,7 +1,7 @@
 import {useEffect, useState,useRef, useReducer} from "react";
 import { useAppState } from 'react-native-hooks';
 import { useNetInfo } from "@react-native-community/netinfo";
-import { useAsyncStorage } from "@react-native-community/async-storage";
+import AsyncStorage,{ useAsyncStorage, } from "@react-native-community/async-storage";
 import { Defaults, NavigationActions } from "../utils";
 import {useTranslation} from 'react-i18next';
 import rootReducer, {  initialState} from "./reducers/rootReducer";
@@ -101,7 +101,7 @@ export function  useRoot(){
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
-        if(__DEV__) userStatusHandler() // for development
+        // if(__DEV__) userStatusHandler() // for development
     }
 
 
@@ -118,8 +118,8 @@ export function  useRoot(){
     
     const onReady =() =>{
 
-        // NavigationActions().navigate("MainDrawer")
-        NavigationActions().navigate("Auth")
+        NavigationActions().navigate("MainDrawer")
+        // NavigationActions().navigate("Auth")
         // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Registration")
         // NavigationActions().navigate("Settings");
