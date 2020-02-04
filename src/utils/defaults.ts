@@ -17,7 +17,7 @@ class Defaults {
     _FCMToken! : string | null;
     _token : null | string = '';
     _activeRoute! :string;
-    _locale : null | string = '';
+    _locale : "en"| "ka"| "ru" = 'ka';
     _location : null | Object = null;
     _modal : any = null;
     _bottomSheet : any = null;
@@ -57,10 +57,10 @@ class Defaults {
         return  this._activeRoute;
     }
 
-    set locale(locale) {
+    set locale(locale)  {
         this._locale = locale;
     }
-    get locale() {
+    get locale() :  "en"| "ka"| "ru" {
         return  this._locale;
     }
 

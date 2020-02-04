@@ -4,8 +4,18 @@ import { ifIphoneX } from "react-native-iphone-x-helper";
 
 export const API: string = "https://api-dev.e-space.ge/api/app/V1"
 
+export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'
+export const MAP_URL = 'https://maps.googleapis.com/maps/api'
+
 export const Width = Dimensions.get("window").width;
 export const Height = Dimensions.get("window").height;
+
+
+
+export const locationIfNoGPS = {
+    lat: 41.693036,
+    lng: 44.801419
+}
 
 
 export const NotchHeight = Platform.OS === "ios" ?  ifIphoneX(36, 16) : 16

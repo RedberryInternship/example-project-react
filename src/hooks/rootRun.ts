@@ -75,7 +75,7 @@ export function  useRoot(){
         }
 
         dispatch(saveToken({token : _token, user}))
-        // setToken(_token)
+        setToken(_token)
 
     }
 
@@ -101,14 +101,14 @@ export function  useRoot(){
 
         NavigationActions().setTopLevelNavigator(ref)
         setNavigationState(true);
-        if(__DEV__) userStatusHandler() // for development
+        // if(__DEV__) userStatusHandler() // for development
     }
 
 
     useEffect(() => {
         // onReady()
         
-        if(navigationState && locale !== ''){
+        if(navigationState && locale !== '' && token != ''){
             setAppReady(true)
             userStatusHandler()
         }
@@ -118,7 +118,7 @@ export function  useRoot(){
     
     const onReady =() =>{
 
-        // NavigationActions().navigate("MainDrawer")
+        NavigationActions().navigate("MainDrawer")
         // NavigationActions().navigate("Auth")
         // NavigationActions().navigate("ForgotPassword")
         // NavigationActions().navigate("Registration")
@@ -132,7 +132,7 @@ export function  useRoot(){
         // NavigationActions().navigate("Charging");
         // NavigationActions().navigate("Favourites");
         // NavigationActions().navigate("Faq");
-        NavigationActions().navigate("Charging");
+        // NavigationActions().navigate("Charging");
         // NavigationActions().navigate("Tariffs");
         // NavigationActions().navigate("Favorites");
         // NavigationActions().navigate("Contact");

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Dimensions, StatusBar} from 'react-native';
+import { View,Dimensions, StatusBar, StyleSheet} from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -37,8 +37,6 @@ import { TabNavigationButtons } from './components';
 import { determineTimePeriod } from './utils/mapAndLocation/mapFunctions';
 
 
-
-
 const chargerStack = createStackNavigator({
   ChargerWithCode,
   ChargerDetail,
@@ -69,10 +67,8 @@ const footerTabNavigator = (props: any) => {
     StatusBar.setBarStyle( determineTimePeriod()  ? "dark-content" : "light-content")
   }
 
-
   return (
-    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }} >
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
+    <View style={[styles.bottomTabContainer, {paddingBottom : insets.bottom, height: 65 +insets.bottom }]} >
         <TabNavigationButtons 
           active={currentRouteName === "Home"} 
           navigate={navigate.bind(footerTabNavigator, 'Home')} 
@@ -84,7 +80,7 @@ const footerTabNavigator = (props: any) => {
           image={require("../assets/images/icons/ic_charge.png")} 
         />
         {
-          Defaults.token &&
+          Defaults.token != null && Defaults.token != "" &&
             <TabNavigationButtons
               navigate={navigate.bind(footerTabNavigator, 'Favorites')}
               image={require("../assets/images/icons/ic_favorite.png")}
@@ -96,8 +92,6 @@ const footerTabNavigator = (props: any) => {
           image={require("../assets/images/icons/ic_menu.png")}
           active={currentRouteName === "drawer"}
         />
-
-      </View>
     </View>
   )
 }
@@ -184,3 +178,14 @@ const AppNavigator = createSwitchNavigator({
 export default createAppContainer(AppNavigator);
 
 
+
+
+
+const styles = StyleSheet.create({
+  bottomTabContainer: { 
+    backgroundColor: "#111314", 
+    flexDirection: "row", 
+    alignItems: "center", 
+    justifyContent: "space-around", 
+  },
+});

@@ -35,3 +35,9 @@ export function determineTimePeriod() {
 
   return moment(moment()).isBetween(times.sunrise,times.sunset ) 
 }
+
+
+export const mergeCoords = (lat : number | string , lng: number | string) : string => {
+
+  return lat + ',' + lng
+}
