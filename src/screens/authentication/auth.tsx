@@ -48,7 +48,6 @@ const auth = ({navigation} : any) => {
 
         <BaseInput
           image={require("../../../assets/images/icons/lock.png")}
-          keyboardType={"email-address"}
           onChangeText={hook.passwordTextHandler}
           onSubmit={hook.passwordInputSubmit}
           ref={hook.passwordRef}
