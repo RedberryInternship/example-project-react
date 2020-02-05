@@ -14,10 +14,12 @@ import { Colors} from '../../utils';
 
 type AvatarWithLabel = {
     onPress: ( event ?: GestureResponderEvent ) => void | undefined,
+    firstName: string,
+    lastName: string
 }
 
 
-const userAvatarWithLabel = ({ onPress } : AvatarWithLabel) => {
+const userAvatarWithLabel = ({ onPress, firstName, lastName } : AvatarWithLabel) => {
 
     const userDefaultIcon = require('../../../assets/images/icons/green-user.png');
 
@@ -37,8 +39,8 @@ const userAvatarWithLabel = ({ onPress } : AvatarWithLabel) => {
         </View>
 
         <View style={styles.usernameWrapper}>
-            <Text style={styles.username}>მერაბ</Text>
-            <Text style={styles.username}>სეფაშვილი</Text>
+            <Text style={styles.username}>{firstName}</Text>
+            <Text style={styles.username}>{lastName}</Text>
         </View>
     </View>;
 }

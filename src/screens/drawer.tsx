@@ -28,7 +28,7 @@ const drawer = ({ navigation } : any) => {
 
   const {  i18n } = useTranslation();
   const insets = useSafeArea();
-  const context : any = useContext(AppContext)
+  const context : any = useContext(AppContext);
 
   const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true;
   let $drawerListFields = null;
@@ -62,6 +62,9 @@ const drawer = ({ navigation } : any) => {
   }
   else {
 
+    const $firstName = context.state.user.first_name;
+    const $lastName = context.state.user.last_name;
+
     $drawerListFields = Const.DrawerFieldsAfterAuthorization.map((Field,key) => {
       return <DrawerTextFieldItem
         key={key} 
@@ -73,7 +76,10 @@ const drawer = ({ navigation } : any) => {
 
     $drawerContent = 
       <View>
-        <BaseUserAvatarWithLabel onPress={()=>{Alert.alert("change icon")}} />
+        <BaseUserAvatarWithLabel 
+          onPress={()=>{Alert.alert("change icon")}}
+          firstName={$firstName}
+          lastName={$lastName} />
         {$drawerListFields}
       </View>;
   }

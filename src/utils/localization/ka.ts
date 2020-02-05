@@ -57,7 +57,9 @@ export default {
       password: "პაროლი",
 
       confirmed: "დადასტურებული",
-      notconfirmed: "არ არის დამატებული",
+      notconfirmed: "არ არის დადასტურებული",
+
+      notAdded: "არ არის დამატებული",
 
       
       editFirstname: "სახელის შეცვლა",
@@ -78,7 +80,8 @@ export default {
       repetePassword: "გაიმეორეთ პაროლი",
       
       editCard: "გადახდის მეთოდი",
-      addCard: "დაამატე ბარათი"
+      addCard: "დაამატე ბარათი",
+
     },
     popup : {
       legend : "ლეგენდა",
@@ -168,6 +171,11 @@ export default {
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
         passwordNotEqual : "პაროლები ერთმანეთს არ ემთხვევა",
         minPasswordTextLength : "მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში",
+      },
+      editFirstname: {
+        firstNameNotEmpty: "გთხოვთ, შეავსეთ სახელის ველი",
+        minSize: "სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს",
+        firstNameChangeSucess: "სახელი წარმატებით შეიცვალა!"
       },
       auth:{
         phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",

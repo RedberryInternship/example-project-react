@@ -62,6 +62,8 @@ export default {
       confirmed: "Confirmed",
       notconfirmed: "Not Confirmed",
 
+      notAdded: "Has Not Added",
+
       editFirstname: "Edit First Name",
       newFirstname: "New First Name",
       
@@ -80,7 +82,7 @@ export default {
       repetePassword: "Repete Password",
 
       editCard: "Payment Method",
-      addCard: "Add Card"
+      addCard: "Add Card",
 
     },
     popup : {
@@ -171,7 +173,11 @@ export default {
         emailAlreadyToken : "The email has already been taken",
         phoneAlreadyToken : "The phone number has already been taken.",
         passwordNotEqual : "Passwords not equal",
-
+      },
+      editFirstname: {
+        firstNameNotEmpty: "Please, Fill The First Name Field",
+        minSize: "First Name should be at least 3 characters long",
+        firstNameChangeSucess: "First Name Changed Successfully!",
       },
       auth:{
         phoneNumberLength : "The phone number should be exactly 9 digits long.",

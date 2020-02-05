@@ -1,49 +1,43 @@
-import React, { useState, useEffect} from 'react';
+import React, {
+    useEffect
+} from 'react';
 
 import {
     View, 
-    Alert,
     StyleSheet
 } from 'react-native';
-
 
 // components
 import { BaseInput } from '../..';
 
+// hooks
+import { useFirstnameChange } from '../../../hooks';
 
-const firstnameChangeView = ({ clicked, navigation }:any) => {
 
+const firstnameChangeView = ({navigation, clicked, setClicked }:any) => {
 
-    const [name, setName] = useState("");
+    const mainHook = useFirstnameChange(navigation, setClicked);
 
+    // when clicked on save button, save hook released.
     useEffect(() => {
-        
         if(clicked === true){
-            updateUserFirstname(name, navigation);
+            mainHook.saveFirstname();
         }
-    });
-
+    
+    },[clicked])
 
     return (
         <View style={styles.container}>
             <BaseInput
                 title={"settings.newFirstname"}
                 image={require("../../../../assets/images/icons/blue-user.png")}
-                onChangeText={(text: string) => setName(text)}
-                onSubmitEditing={ () => {
-                    updateUserFirstname(name, navigation);
-                    
-                } }
+                onChangeText={mainHook.onChangeText}
+                onSubmit={mainHook.onSubmitEditing}
+                value={mainHook.firstname}
+                ref={mainHook.firstnameInputRef}
             />
         </View>
     );
-}
-
-
-const updateUserFirstname = ( firstname : any, navigation : any) => {
-    Alert.alert("Firstname Updated!", "", [
-        {text:"OK", onPress: () => { navigation.goBack();  } }
-    ]);
 }
 
 export default firstnameChangeView;

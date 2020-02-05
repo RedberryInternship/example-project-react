@@ -71,8 +71,12 @@ const footerTabNavigator = (props: any) => {
   }
 
 
+
+
+
+
   return (
-    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom : insets.bottom }} >
+    <View style={{ backgroundColor: "#111314", alignItems: "stretch", justifyContent: "center", paddingBottom: insets.bottom }}>
       <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-around", height: 65 }}>
         <TabNavigationButtons 
           active={currentRouteName === "Home"} 
@@ -97,7 +101,6 @@ const footerTabNavigator = (props: any) => {
           image={require("../assets/images/icons/ic_menu.png")}
           active={currentRouteName === "drawer"}
         />
-
       </View>
     </View>
   )

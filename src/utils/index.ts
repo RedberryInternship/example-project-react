@@ -10,6 +10,7 @@ import location from "./mapAndLocation/location"
 import {regionFrom} from "./mapAndLocation/mapFunctions"
 import mapStyles from "./mapAndLocation/mapStyle"
 import mapStyle2 from "./mapAndLocation/mapStyle2"
+import apiServices from "./services";
 
 
 export {
@@ -25,5 +26,6 @@ export {
     regionFrom,
     Const,
     mapStyles,
-    mapStyle2
+    mapStyle2,
+    apiServices
 }

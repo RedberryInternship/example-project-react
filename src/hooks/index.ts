@@ -15,8 +15,14 @@ import useCharger from "./charger/charger"
 import useChoosingCard from "./charger/choosingCard"
 import useChargingHook from "./charger/chargingHook"
 
+
+// UserInfo
+import useFirstnameChange from './settings/firstnameChangeHook';
+
 //reducer
 import rootReducer, {initialState} from "./reducers/rootReducer"
+
+
 
 
 export {
@@ -33,5 +39,6 @@ export {
     useChoosingCard,
     rootReducer,
     initialState,
-    useChargingHook
+    useChargingHook,
+    useFirstnameChange
 }
