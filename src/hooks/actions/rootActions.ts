@@ -1,13 +1,19 @@
 import { Defaults, Ajax } from "../../../src/utils";
 import  asyncStorage from "@react-native-community/async-storage";
-import { Chargers } from "../../../@types/allTypes";
+import { Chargers, Favorite } from "../../../@types/allTypes";
 
 export const SAVE_TOKEN = "SAVE_TOKEN";
 export const GET_ALL_CHARGER_SUCCESS = "GET_ALL_CHARGER_SUCCESS";
+export const GET_FAVORITE_CHARGERS = "GET_FAVORITE_CHARGERS";
 export const LOG_OUT = "LOG_OUT";
 
 type ChargersObject = {
   data : Chargers[]
+}
+
+type FavoriteChargerObject = {
+  data : Favorite[]
+
 }
 export  const saveToken =(payload : any) =>{
   
@@ -49,8 +55,8 @@ export  const getAllChargers = (dispatch : any ) =>{
 export  const getFavoriteChargers = (dispatch : any ) =>{
   
   Ajax.get("/user-favorites")
-  .then(({data} :  ChargersObject ) =>{
-    dispatch({type : GET_ALL_CHARGER_SUCCESS, payload : data})
+  .then(({data} :  FavoriteChargerObject ) =>{
+    dispatch({type : GET_FAVORITE_CHARGERS, payload : data})
   })
   .catch(() =>{
     Defaults.dropdown.alertWithType("error", "დაფიქსიდა შეცდომა")

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   ScrollView,
   View,
@@ -12,29 +12,41 @@ import {
   FavouriteChargerListItem
 } from '../../components';
 import { Colors } from '../../../src/utils';
+import { AppContext } from '../../../App';
+import { getLocaleText } from '../../../src/utils/localization/localization';
+import { AppContextType, Favorite } from '../../../@types/allTypes';
 
 const favourites = () => {
 
+  const context : AppContextType = useContext(AppContext)
 
+  const deleteFavoriteCharger = () =>{
+
+  }
+
+  const turonOnHandler = () =>{
+
+  }
+
+  
   return (
     <View style={{flex:1, backgroundColor: Colors.primaryBackground}}>
       <BaseHeader
         title={'favourites.favourites'}
       />
       <ScrollView style={styles.container} >
-        <FavouriteChargerListItem
-          title='თბილისი მოლი'
-          address='საიათნოვას ქუჩა'
-          turnon={() => Alert.alert("this is a turnon!")}
-          deleteItem={() => Alert.alert("this deletes the item!")} />
-
-        <FavouriteChargerListItem
-          title='ლილო მოლი'
-          address='ლუბლიანას ქუჩა'
-          turnon={() => Alert.alert("this is a turnon!")}
-          deleteItem={() => Alert.alert("this deletes the item!")} />
-
-
+      {
+        context.state.favoriteChargers?.map((val : Favorite, index : number) =>(
+          <FavouriteChargerListItem
+            key={index}
+            title={getLocaleText (val.name) }
+            address={getLocaleText (val.location)}
+            turnon={turonOnHandler.bind(favourites, val.id)}
+            deleteItem={deleteFavoriteCharger.bind(favourites,val.id )} 
+          />
+        ))
+      }
+        
       </ScrollView>
     </View>
   )

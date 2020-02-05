@@ -6,23 +6,21 @@ import {RefObject} from "react"
 import {Item} from 'react-native-picker-select';
 
 
+type LanguageType = {
+  en: string,
+  ka: string,
+  ru: string
+}
+
 export type Charger = {
   id: number,
   old_id: number,
-  name: {
-      en: string,
-      ka: string,
-      ru: string
-  },
+  name: LanguageType,
   charger_id: number,
   code: number | string,
   description: string,
   user_id: number,
-  location: {
-      en: string,
-      ka: string,
-      ru: string
-  },
+  location: LanguageType,
   public: number,
   active: number,
   lat: string,
@@ -81,7 +79,8 @@ export type AppState = {
   user: Object | null,
   loading : boolean,
   AllChargers : Charger[] | null,
-  authStatus : "failed" | "success" | null
+  authStatus : "failed" | "success" | null,
+  favoriteChargers : Favorite[] | null
 }
 export type Action = {
   type : string,
@@ -139,4 +138,32 @@ export type LocaleStringObject = {
 } | undefined
 
 
+
+
 export enum HomeNavigateModes { "chargerLocateOnMap", "showRoutesToCharger"}
+
+export type Favorite = {
+  id: number,
+  old_id: number,
+  name: LanguageType,
+  charger_id: number,
+  code: string,
+  description: string | null,
+  user_id: string | null,
+  location: LanguageType,
+  public: number,
+  active: number,
+  lat: string,
+  lng: string,
+  iban: string,
+  charger_group_id: number | null,
+  last_update: string | null,
+  created_at: string,
+  updated_at: string,
+  pivot: {
+      user_id: number,
+      charger_id: number,
+      created_at: string,
+      updated_at: string
+  }
+}

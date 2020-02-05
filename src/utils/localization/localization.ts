@@ -44,6 +44,6 @@ export default i18n;
 export const t=  i18n.t;
 
 
-export const getLocaleText = (stringObj : LocaleStringObject) : string =>{
+export const getLocaleText = (stringObj : LocaleStringObject) : string => {
   return stringObj ? stringObj[ Defaults.locale ] : ""
 }

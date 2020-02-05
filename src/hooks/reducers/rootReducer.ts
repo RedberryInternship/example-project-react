@@ -1,4 +1,4 @@
-import { SAVE_TOKEN, GET_ALL_CHARGER_SUCCESS, LOG_OUT } from "../actions/rootActions"
+import { SAVE_TOKEN, GET_ALL_CHARGER_SUCCESS, LOG_OUT, GET_FAVORITE_CHARGERS } from "../actions/rootActions"
 // eslint-disable-next-line no-unused-vars
 import { Charger, AppState, Action } from "../../../@types/allTypes"
 
@@ -7,7 +7,8 @@ export const initialState : AppState = {
   user: null,
   loading : false,
   authStatus : null,
-  AllChargers : null
+  AllChargers : null,
+  favoriteChargers : null,
 }
 
 function reducer(state : AppState = initialState, {type, payload} : Action) : AppState{
@@ -31,6 +32,12 @@ function reducer(state : AppState = initialState, {type, payload} : Action) : Ap
         ...state,
         loading: false,
         AllChargers : payload,
+      }
+    case  GET_FAVORITE_CHARGERS:
+      return {
+        ...state,
+        loading: false,
+        favoriteChargers : payload,
       }
 
     default:

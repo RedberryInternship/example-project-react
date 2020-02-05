@@ -5,7 +5,7 @@ import AsyncStorage,{ useAsyncStorage, } from "@react-native-community/async-sto
 import { Defaults, NavigationActions } from "../utils";
 import { useTranslation } from 'react-i18next';
 import rootReducer, { initialState } from "./reducers/rootReducer";
-import { saveToken } from "./actions/rootActions";
+import { saveToken, getFavoriteChargers} from "./actions/rootActions";
 import { StatusBar, Platform } from "react-native";
 
 
@@ -36,7 +36,7 @@ export function useRoot() {
     useEffect(() => {
 
         // setItem("token");
-        // AsyncStorage.clear()
+        AsyncStorage.clear()
 
         readUserToken();
         readUserLocale()
@@ -80,7 +80,7 @@ export function useRoot() {
     }
 
     const readUserLocale = async () => {
-        let _locale = await getLocaleStorage();
+        let _locale :  "en"| "ka"| "ru" | null= await getLocaleStorage();
 
         if (_locale === null) {
             _locale = "ka";
@@ -150,6 +150,7 @@ export function useRoot() {
         else if (state.user != null || state.user != '') {
             //ajax for user state
             onReady()
+            getFavoriteChargers(dispatch)
         }
     }
     return { currentAppState, networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this, state, dispatch }
