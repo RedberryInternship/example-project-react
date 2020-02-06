@@ -4,12 +4,13 @@
 import React, {useRef, forwardRef, useState} from 'react';
 import {StyleSheet,  View,Dimensions, Text, Alert, Image, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, StatusBar} from 'react-native';
 import { useTranslation } from 'react-i18next';
-import { GNOME, Const, Defaults } from '../../../src/utils';
+import { GNOME, Const, Defaults, getLocaleText } from '../../../src/utils';
 import { TextInput } from 'react-native-gesture-handler';
-import { MainSearchItem, HomeMainSearchInput, PopupFilter } from '../';
+import { MainSearchItem, PopupFilter } from '../';
 import Colors from '../../../src/utils/colors';
 import BottomSheet from 'reanimated-bottom-sheet'
 import { useSafeArea } from 'react-native-safe-area-context';
+import { Charger } from '../../../@types/allTypes.d';
 
 
 const screenHeight = Dimensions.get('window').height;
@@ -21,7 +22,7 @@ type  _This = {
   scrollPositionStatus : ScrollPositionStatus
 }
 
-const bottomSheetReanimated = forwardRef((props, ref : any) => {
+const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filteredChargers, onFilteredItemClick} : any, ref : any) => {
   const _this  = useRef<_This>({text: '', scrollPositionStatus  : ScrollPositionStatus.top});
   const InputRef  :any = useRef(null);
   const flatListRef  :any = useRef(null);
@@ -73,7 +74,6 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
       />
       <Text style={styles.headerComponentText}>
         {t("home.allChargers").toUpperCase()}
-        {"qefqwefwe".toUpperCase()}
       </Text>
       <View style={ [styles.inputStyle, { borderBottomWidth:1, borderBottomColor: Colors.primaryBackground}]} >
           <Image  source={require("../../../assets/images/icons/icon-search.png")}   style={{width:16, height:16, resizeMode:"contain" ,position:"absolute"}}/>
@@ -105,32 +105,29 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
   )
   const  renderContent = () =>{
     return(
-      <View style={{backgroundColor:"#023D63", paddingBottom:16, marginHorizontal:8}} >
-        <View>
-          <View style={{flexDirection:"row", flexWrap:"wrap", justifyContent:"center",alignItems:"center"}}>
-            <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
-            <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
-            <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
-            <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
-            <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
-            <PopupFilter text={"asdfasdf"} onPress={() =>Alert.alert("asd")}  />
+      <View style={{backgroundColor:"#023D63", paddingBottom:16, marginHorizontal:8, minHeight:"100%"}} >
+          <View style={{flexDirection:"row", flexWrap:"wrap", justifyContent:"center",alignItems:"center", marginBottom:8}}>
+            {
+              Const.FilterTypes.map((val : string, index: number) => 
+                (<PopupFilter 
+                  key={index} 
+                  text={t(val)} 
+                  onPress={onFilterClick?.bind(bottomSheetReanimated, index)} 
+                  active={selectedFilters[index]} 
+                />)
+              )
+            }
           </View>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-          <MainSearchItem  text ={"ასფაawawdსფ ადს"} mainTitle={"ტბისლawdaისი"} onPress={()=>{Alert.alert("asdf")}}/>
-        
-        </View>
+
+          {
+            filteredChargers?.map((val : Charger, index: number) =>
+              (<MainSearchItem  
+                text ={ getLocaleText(val.location) } 
+                mainTitle={ getLocaleText(val.name) } 
+                onPress={ onFilteredItemClick?.bind(bottomSheetReanimated, val)}
+              />)
+            )
+          }
         </View>
     )
   }
@@ -138,7 +135,7 @@ const bottomSheetReanimated = forwardRef((props, ref : any) => {
   return (
     <View style={{width:"100%", height:"100%", elevation:17, position:"absolute", left:0, top:0,zIndex:44 }} pointerEvents={"box-none"}>
       <BottomSheet
-        ref={Defaults.bottomSheet}
+        ref={ref}
         snapPoints = {[55, screenHeight - insets.top  - insets.bottom  - 65 - 12]}
         renderContent = {renderContent}
         renderHeader = {renderHeaderComponent}

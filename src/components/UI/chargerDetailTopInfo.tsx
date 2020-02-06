@@ -38,7 +38,7 @@ const chargerDetailTopInfo = ({chargerLocationDirectionPress,showChargerLocation
             <View  style={{flexDirection:"row", justifyContent:"flex-start", alignItems:'center'}}>
               <Image  source={require("../../../assets/images/icons/ic_map_pin.png")} style={{width:19, height:19, resizeMode:"contain"}}/>
               <Text style={{color : Colors.primaryGray, fontSize:11, marginLeft:8,}} numberOfLines={2}>{ location }</Text>
-            </View>0
+            </View>
             <TouchableOpacity 
               onPress={showChargerLocationPress}
               style={{flexDirection:"row",justifyContent:"flex-start", alignItems:"center" }}

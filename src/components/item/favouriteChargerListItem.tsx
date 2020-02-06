@@ -44,14 +44,19 @@ const favouriteChargerListItem = ({ title, address, turnon, deleteItem }: Favour
           <Text style={styles.addressTitle}>{address}</Text>
         </View>
       </View>
-      <BaseButton
-        onPress={turnon}
-        text={"turnOn"}
-        style={styles.customizedBaseButton}
-        imageStyle={{ tintColor: Colors.primaryBlue }}
-        image={require("../../../assets/images/icons/arrow_right.png")}
-        textStyle={{ color: Colors.primaryBlue }}
-      />
+      <View
+        style={{flex:0, height:"100%", marginLeft:8, justifyContent:"center"}}
+      >
+        <BaseButton
+          onPress={turnon}
+          text={"turnOn"}
+          style={styles.customizedBaseButton}
+          imageStyle={{ tintColor: Colors.primaryBlue }}
+          image={require("../../../assets/images/icons/arrow_right.png")}
+          textStyle={{ color: Colors.primaryBlue }}
+        />
+      </View>
+      
 
     </View>
   );
@@ -65,21 +70,21 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondaryDark,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems : "center",
+    alignItems : "stretch",
     marginBottom: 16,
     marginHorizontal: 16,
     padding: 12,
-    borderRadius: 8
+    borderRadius: 8,
   },
   innerLeftContainer: {
-    flexDirection: "column"
+    flex:-1
   },
   customizedBaseButton: {
     marginTop: 0,
     marginHorizontal: 0,
     alignSelf: "center",
     width: 120,
-    backgroundColor: "#0199F033"
+    backgroundColor: "#0199F033",
   },
   deleteButton: {
     backgroundColor: "rgba(255, 149, 0, 0.16)",
@@ -96,7 +101,9 @@ const styles = StyleSheet.create({
   },
   addressContainer: {
     flexDirection: "row",
-    alignItems : "center"
+    alignItems : "center",
+    justifyContent:"flex-start",
+    flexWrap:"wrap"
   },
   addressImage: {
     width: 17,
@@ -105,12 +112,15 @@ const styles = StyleSheet.create({
   },
   addressTitle: {
     color: Colors.primaryGray,
-    fontSize: 13
+    fontSize: 13,
+    lineHeight:16
   },
   title: {
     color: Colors.primaryWhite,
     lineHeight: 30,
     fontSize: 15,
-    marginVertical : 4
+    marginVertical : 8,
+    justifyContent:"flex-start",
+    flexWrap:"wrap"
   }
 });

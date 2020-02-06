@@ -140,7 +140,7 @@ export type LocaleStringObject = {
 
 
 
-export enum HomeNavigateModes { "chargerLocateOnMap", "showRoutesToCharger"}
+export enum HomeNavigateModes { "chargerLocateOnMap", "showRoutesToCharger", "showAllChargers"}
 
 export type Favorite = {
   id: number,

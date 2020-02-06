@@ -5,8 +5,8 @@ import AsyncStorage,{ useAsyncStorage, } from "@react-native-community/async-sto
 import { Defaults, NavigationActions } from "../utils";
 import { useTranslation } from 'react-i18next';
 import rootReducer, { initialState } from "./reducers/rootReducer";
-import { saveToken, getFavoriteChargers} from "./actions/rootActions";
-import { StatusBar, Platform } from "react-native";
+import { saveToken, getFavoriteChargers, rootAction} from "./actions/rootActions";
+import { StatusBar, Platform, Alert } from "react-native";
 
 
 
@@ -36,9 +36,9 @@ export function useRoot() {
     useEffect(() => {
 
         // setItem("token");
-        AsyncStorage.clear()
+        // AsyncStorage.clear()
 
-        readUserToken();
+        readUserToken()
         readUserLocale()
         // onReady()
         console.log("remounted", appReady, " appReady");
@@ -74,7 +74,7 @@ export function useRoot() {
             user = user != null ? JSON.parse(user) : ''
         }
 
-        dispatch(saveToken({token : _token, user}))
+        rootAction({token : _token, user}, dispatch)
         setToken(_token)
 
     }
@@ -138,19 +138,18 @@ export function useRoot() {
         // NavigationActions().navigate("Contact");
         // NavigationActions().navigate("Notifications");
 
-
         console.log(Defaults.token, "App ready to boot");
     }
 
     const userStatusHandler = () => {
         // if(!appReady ) return
+
         if (state.user == '') {
             onReady()
         }
         else if (state.user != null || state.user != '') {
             //ajax for user state
             onReady()
-            getFavoriteChargers(dispatch)
         }
     }
     return { currentAppState, networkState, token, setNavigationTopLevelElement, appReady, locale, t, _this, state, dispatch }

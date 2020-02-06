@@ -9,6 +9,7 @@ import { Ajax, Defaults } from "../../../src/utils";
 import { MAP_API, MAP_URL, locationIfNoGPS } from "../../../src/utils/const";
 import { mergeCoords } from "../../../src/utils/mapAndLocation/mapFunctions";
 import Axios from "axios";
+import { deleteToFavorites, getFavoriteChargers } from "../actions/rootActions";
 
 
 type _This = {
@@ -51,6 +52,7 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
 
     return lastUsedDummy
   }
+  
   const chargerTypes = () =>{
     // Ajax.get()
 
@@ -58,7 +60,11 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
   }
 
   const showChargerLocationHandler = () =>{
-    navigation.navigate("Home", {mode : HomeNavigateModes.chargerLocateOnMap});
+    navigation.navigate("Home", {
+      mode : HomeNavigateModes.chargerLocateOnMap, 
+      lat :_this.current?.charger?.lat, 
+      lng : _this.current?.charger?.lng 
+    });
   }
 
   const chargerLocationDirectionHandler = () =>{
@@ -68,6 +74,7 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
   const onFavoritePress = () =>{
     _this.current?.charger && Ajax.post("/add-favorite", {charger_id : _this.current?.charger?.charger_id})
       .then(() =>{
+        getFavoriteChargers(context.dispatch)
         Defaults.dropdown.alertWithType("success", "დაემატა წარმატებით")
       })
       .catch(() =>{

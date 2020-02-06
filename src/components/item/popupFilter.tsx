@@ -20,17 +20,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const popupFilter = ({text, onPress} : any) => {
+const popupFilter = ({text, onPress, active} : any) => {
 
   return (
-      <>
-      <TouchableOpacity
-        style={[styles.container, {backgroundColor : "white" }]}
-        onPress={onPress}
-      >
-        <Text style={{fontSize:11,color : Colors.primaryDark , lineHeight : 22}}>{text}</Text>
-      </TouchableOpacity>
-      </>
+    <TouchableOpacity
+      style={[styles.container, {backgroundColor :  active ? "#008AEE" : "white" }]}
+      onPress={onPress}
+    >
+      <Text style={{fontSize:11,color : active ? "white" :  Colors.primaryDark , lineHeight : 22}}>{text}</Text>
+    </TouchableOpacity>
   );
 };
 

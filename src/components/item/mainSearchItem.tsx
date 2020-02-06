@@ -20,7 +20,6 @@ const mainSearchItem = ({mainTitle,text, onPress} : any) => {
 
   return (
       <TouchableOpacity
-        // style={[styles.container]}
         onPress={onPress}
         
       >

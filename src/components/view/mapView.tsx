@@ -9,8 +9,8 @@ import { MapMarkerItem } from '..';
 import { determineTimePeriod } from '../../../src/utils/mapAndLocation/mapFunctions';
 
 
-const mapView = () => {
-  const hook = useMap()
+const mapView = ({mapRef}) => {
+  const hook = useMap(mapRef)
 
   return (
       <View style={styles.mapContainer}>
@@ -31,7 +31,7 @@ const mapView = () => {
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
-          ref={hook.mapRef}
+          ref={mapRef}
         >
           {
             useMemo(() =>
@@ -42,7 +42,7 @@ const mapView = () => {
                     lng={parseFloat( val.lng.toString() )}
                   />)
                 )
-            , [hook.state])
+            , [hook.state.AllChargers])
           }
           
           
