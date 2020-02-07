@@ -4,6 +4,7 @@ import {TextInput,TextInputProps,Image, ImageSourcePropType, StyleProp, ImageSty
 } from "react-native"
 import {RefObject} from "react"
 import {Item} from 'react-native-picker-select';
+import { LocationPermissionStatus } from "react-native-location";
 
 
 type LanguageType = {
@@ -141,6 +142,21 @@ export type LocaleStringObject = {
 
 
 export enum HomeNavigateModes { "chargerLocateOnMap", "showRoutesToCharger", "showAllChargers"}
+
+
+export type HomeState = {
+  PermissionStatus: LocationPermissionStatus | null,
+  loading : boolean,
+  locationImageType : ImageSourcePropType,
+  filteredChargers : Charger[] | null,
+  LocationRequestFunc : ()=>void ,
+}
+
+export type HomeContextType = {
+  state : HomeState,
+  dispatch : any
+}
+
 
 export type Favorite = {
   id: number,

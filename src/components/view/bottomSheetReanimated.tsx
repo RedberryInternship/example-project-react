@@ -22,7 +22,7 @@ type  _This = {
   scrollPositionStatus : ScrollPositionStatus
 }
 
-const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filteredChargers, onFilteredItemClick} : any, ref : any) => {
+const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filteredChargers, onFilteredItemClick, textHandler, inputSubmit} : any, ref : any) => {
   const _this  = useRef<_This>({text: '', scrollPositionStatus  : ScrollPositionStatus.top});
   const InputRef  :any = useRef(null);
   const flatListRef  :any = useRef(null);
@@ -40,20 +40,7 @@ const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filte
     setVisible(false);
   };
 
-
-  const textHandler = (text : string) =>{
-    _this.current.text = text;
-
-  }
-
-  const InputSubmit = () =>{
-
-  }
-
   const closeClick = () =>{
-    InputRef.current.setNativeProps({
-      text : ''
-    })
     _this.current.text = '';
     InputRef.current.blur();
     Keyboard.dismiss();
@@ -82,7 +69,7 @@ const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filte
             placeholder={`${t("home.location")}/${t("home.organization")}`}
             keyboardType={"default"}
             onChangeText={textHandler}
-            onSubmitEditing={InputSubmit}
+            onSubmitEditing={inputSubmit}
             // onFocus={onFocus}
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
@@ -122,6 +109,7 @@ const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filte
           {
             filteredChargers?.map((val : Charger, index: number) =>
               (<MainSearchItem  
+                key={val.id}
                 text ={ getLocaleText(val.location) } 
                 mainTitle={ getLocaleText(val.name) } 
                 onPress={ onFilteredItemClick?.bind(bottomSheetReanimated, val)}

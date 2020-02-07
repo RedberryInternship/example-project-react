@@ -13,5 +13,8 @@ import './src/utils/localization/localization';
 
 import './src/utils/mapAndLocation/location';
 
+import { enableScreens } from 'react-native-screens';
+
+// enableScreens();
 
 AppRegistry.registerComponent(appName, () => App);

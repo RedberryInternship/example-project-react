@@ -1,14 +1,17 @@
-import {useEffect, useState,useRef,} from "react";
+import {useEffect, useState,useRef, useMemo, RefObject,} from "react";
 import { Keyboard ,Animated, Easing } from "react-native"
-import { Const} from "../utils";
+import { Const, regionFrom} from "../utils";
 import {useTranslation} from 'react-i18next';
+import { Charger } from "../../@types/allTypes.d";
+import MapView from "react-native-maps";
 
 const searchContentHeight = Const.Height - 350;
 
-export default ()=> {
+export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll: (boolean : boolean) => void)=> {
 
   const InputRef : any = useRef(null);
   const [showSearchContent, setShowSearchContent] : any = useState(false);
+  const [inputText, setInputText]  = useState<string>('');
 
   const _this : any = useRef({animatedSearchContentHeight : new Animated.Value(0), text : ''})
   
@@ -16,12 +19,7 @@ export default ()=> {
 
 
   const textHandler = (val : string) => {
-    InputRef.current.setNativeProps({
-      text : val
-    })
-    _this.current.text = val;
-    // Ajax.get()
-
+    setInputText(val.toLowerCase())
   }
 
   useEffect(() =>{
@@ -39,6 +37,17 @@ export default ()=> {
     setShowSearchContent(false),
     Keyboard.dismiss();
   }
+
+  const filterChargers = useMemo(() =>{
+
+    return allChargers?.filter((val: Charger) => {
+
+      if( Object.entries(val.name).filter((val) => val[1].toLowerCase().includes(inputText)).length === 0 &&
+      Object.entries(val.location).filter((val) => val[1].toLowerCase().includes(inputText)).length === 0 ) return false
+
+      return  true
+    } )
+  }, [inputText, allChargers])
 
   const animate = () => 
     ({
@@ -59,6 +68,16 @@ export default ()=> {
         }),
     });
 
-  return{t, _this, showSearchContent ,animate, setShowSearchContent , InputRef , searchContentHeight , closeClick, textHandler}
+  const onSearchItemClickHandler = (lat : string, lng : string) =>{
+    setShowSearchContent(false),
+    Keyboard.dismiss();
+    setShowAll(true)
+    mapRef.current && mapRef.current.animateToRegion(
+      regionFrom( parseFloat(lat) , parseFloat(lng) , 100 ),
+      400,
+    ) 
+  }
+
+  return{t, _this, showSearchContent ,animate, setShowSearchContent , InputRef , searchContentHeight , closeClick, textHandler, filterChargers, onSearchItemClickHandler}
 
 }

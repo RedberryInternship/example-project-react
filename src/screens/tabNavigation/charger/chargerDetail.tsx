@@ -26,18 +26,18 @@ function chargerDetail ({navigation} : any) {
             chargerLocationDirectionPress={hook.chargerLocationDirectionHandler}
             showChargerLocationPress={hook.showChargerLocationHandler}
             favouritePress={hook.onFavoritePress}
-            code={hook._this.current?.charger?.code}
-            name={getLocaleText(hook._this.current?.charger?.name)}
-            location={getLocaleText(hook._this.current?.charger?.location)}
+            code={hook.charger?.code}
+            name={getLocaleText(hook.charger?.name)}
+            location={getLocaleText(hook.charger?.location)}
             distance={hook.getDistance}
           />
           <CurrentTariffs 
-            data={ hook._this.current?.charger?.charging_prices ?? [] }
+            data={ hook.charger?.charging_prices ?? [] }
           />
           <TitleTopLeftContainer 
             direction={"column"}
             title={"chargerDetail.connectors"}
-            data={ hook._this.current?.charger?.connector_types ?? [] }
+            data={ hook.charger?.connector_types ?? [] }
             onRenderItem={(val, index) =>(
               <ChargerTypesItem
                 key={index}

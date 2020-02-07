@@ -22,14 +22,25 @@ const Home = ({navigation} : any ) => {
   return useMemo (() =>(
     <HomeContext.Provider value={{state, dispatch}}>
       <View style={styles.mainContainer}>
-        <MapView mapRef={hook.mapRef} />
-        <HomeComponentItems />
+        <MapView mapRef={hook.mapRef} 
+          showAll={hook.showAll}
+          filteredChargersOnMap={hook.filteredChargersOnMap}
+        />
+        <HomeComponentItems 
+          allchargers={hook.context.state.AllChargers}
+          mapRef={hook.mapRef}
+          selectedFiltersOnMap={hook.selectedFiltersOnMap}
+          onFilterClickOnMap={hook.onFilterClickOnMap}
+          setShowAll={hook.setShowAll}
+        />
         <BottomSheetReanimated 
           ref={ hook.bottomSheetRef } 
           onFilterClick={ hook.onFilterClick } 
           selectedFilters={ hook.selectedFilters } 
           onFilteredItemClick={ hook.onFilteredItemClick }
-          filteredChargers={ useMemo(hook.filteredChargers, [hook.selectedFilters]) }
+          filteredChargers={hook.filteredChargers }
+          textHandler={hook.searchInputTextChangeHandler}
+          inputSubmit={hook.searchInputTextSubmit}
         />
       </View>
     </HomeContext.Provider>
