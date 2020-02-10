@@ -13,9 +13,10 @@ export default (setActivePage : any , t : any) => {
 
   const flatListRef : any = useRef(null);
 
+
   const phoneRef : BaseInputRefObject  = useRef(null);
   const codeRef : RefObject<TextInput  | any> = useRef(null);
-  const _this : RefObject<any> = useRef({phone : '', code:""});
+  const _this : RefObject<any> = useRef({phone : '', code:''});
 
 
   const phoneInputSubmit = () => {

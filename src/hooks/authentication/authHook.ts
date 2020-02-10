@@ -14,11 +14,6 @@ type _This = {
   phone: string
 }
 
-type CountryPhoneCode = {
-  country_code: string,
-  phone_code: string
-}
-
 type User = {
   id: number,
   old_id: any,
@@ -50,36 +45,32 @@ type userErroredData = {
 export default (navigation: any, dispatch: any) => {
 
   const [loading, SetLoading] = useState<Boolean>(true);
-  const [phoneFocused, setPhoneFocused] = useState<any>(false);
-
   const phoneRef: any = useRef(null);
   const passwordRef: any = useRef(null);
 
   const { t } = useTranslation();
-
-  const { setItem: setToken } = useAsyncStorage("token")
-  const { setItem: setUserDetail } = useAsyncStorage("userDetail")
-
-
   const _this: RefObject<_This> = useRef({ password: "", phone: '' })
 
+  const passwordTextHandler = (val: string) => _this.current!.password = val;
 
+  const buttonClickHandler = () => {
+    if (phoneInputSubmit() && passwordInputSubmit()) {
 
-  const phoneTextHandler = (val: string) => {
-    phoneRef.current.setNativeProps({
-      text: val
-    })
-
-    _this.current!.phone = val;
+      fetchUserData(_this.current!.phone, _this.current!.password)
+        .then((userData: userData ) => {
+          OnSuccessLogin(userData);
+        })
+        .catch((userErroredData: userErroredData) => {
+          console.log(["[Exception] User Errored Data", userErroredData]);
+          Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.userNotFound"));
+        });
+    }
   }
 
   const phoneInputSubmit = () => {
 
-    const selectedPhoneCode = getSelectedCountryPhoneCode();
-
-    if (selectedPhoneCode === '995') {
-
-      const isPhoneValidationSuccessful = validateOnGeorgianPhoneCode();
+    if (validate.isSelectedCountryCodeGeorgian()) {
+      const isPhoneValidationSuccessful = validate.validateOnGeorgianPhoneCode();
 
       if (isPhoneValidationSuccessful) {
         passwordRef.current.focus();
@@ -95,13 +86,6 @@ export default (navigation: any, dispatch: any) => {
     }
   }
 
-  const passwordTextHandler = (val: string) => {
-    passwordRef.current.setNativeProps({
-      text: val
-    });
-    _this.current!.password = val;
-  }
-
   const passwordInputSubmit = () => {
     if (_this.current!.password === "") {
       Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.passworNotEmpty"));
@@ -109,27 +93,6 @@ export default (navigation: any, dispatch: any) => {
     }
     else {
       return true;
-    }
-  }
-
-  const onFocus = () => {
-    setPhoneFocused(true)
-  }
-
-  const buttonClickHandler = () => {
-    setPhoneFocused(true)
-
-    if (phoneInputSubmit() && passwordInputSubmit()) {
-
-      fetchUserData(_this.current!.phone, _this.current!.password)
-        .then((userData: userData ) => {
-          OnSuccessLogin(userData);
-        })
-        .catch((userErroredData: userErroredData) => {
-          console.log(["[Exception] User Errored Data", userErroredData]);
-          Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.userNotFound"));
-        });
-        
     }
   }
 
@@ -143,42 +106,7 @@ export default (navigation: any, dispatch: any) => {
     navigation.navigate("MainDrawer")
   }
 
-  // ----------
 
-  const getCountryPhoneCodes = async () => {
-
-    try {
-      const countryPhoneCodes = await Ajax.get('/phone-codes');
-
-      return countryPhoneCodes;
-    }
-    catch (e) {
-
-      // TODO: what kind of errors is there to handle
-
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
-    }
-  }
-
-  const getSelectedCountryPhoneCode = () => {
-
-    // TODO: get selected Phone Code
-
-    return "995";
-
-  }
-
-  const validateOnGeorgianPhoneCode = () => {
-
-    if (_this.current!.phone.length !== 9) {
-      Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
-      return false;
-    }
-    else {
-      return true;
-    }
-
-  }
 
   const fetchUserData = async (phone_number: string, password: string) => {
 
@@ -188,20 +116,39 @@ export default (navigation: any, dispatch: any) => {
       });
 
       return user;
+  }
 
+
+  // Validate
+  const validate = {
+    validateOnGeorgianPhoneCode: () => {
+
+      if (_this.current!.phone.length < 5) {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
+        return false;
+      }
+      else if (_this.current!.phone.length - 4 !== 9) {
+        Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
+        return false;
+      }
+      else {
+        return true;
+      }
+    },
+
+    isSelectedCountryCodeGeorgian: ():boolean =>{
+      return _this.current!.phone.slice(0,4) === '+995';
+    }
   }
 
   return {
     loading,
     SetLoading,
-    phoneTextHandler,
     phoneInputSubmit,
     passwordTextHandler,
     passwordInputSubmit,
     _this,
     phoneRef,
-    onFocus,
-    phoneFocused,
     passwordRef,
     t,
     buttonClickHandler

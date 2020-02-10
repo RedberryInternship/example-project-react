@@ -17,7 +17,7 @@ type Config ={
   type : number,
   onCloseClick ?: () => void,
   subType ?: number,
-  data ? : Data,
+  data ? : Data | any,
 }
 
 type InitialState = {
@@ -32,15 +32,16 @@ export interface CustomModalInterface {
 const initialState : InitialState = {
   visible :false,
   config : {
-    type:3,
+    type:4,
     data : {
       title : "popup.thankYou",
       description : "popup.automobileChargingFinished",
-      bottomDescription : "popup.chargingFinishedWarning"
+      bottomDescription : "popup.chargingFinishedWarning",
+      address : "asdfasdf dsfd"
     }
   }
 }
-import {RegistrationType1, LegendType2, ChargerModalMainWrapper} from "./" 
+import {RegistrationType1, LegendType2, ChargerModalMainWrapper, MapPopUp} from "./" 
 
 class CustomModal extends React.PureComponent implements CustomModalInterface {
 
@@ -80,9 +81,15 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         onSwipeComplete={this.closeModal}
         swipeDirection={['down']}
         useNativeDriver={true}
+        onBackdropPress={this.closeModal}
+        onBackButtonPress={this.closeModal}
         hideModalContentWhileAnimating={true}
       >
-        <View style={[styles.modalContentContainer, {justifyContent: this.state.config.type ===3 ? "flex-start" : "space-between" }]}>
+        <View style={[styles.modalContentContainer, {
+            justifyContent: this.state.config && this.state.config.type ===3 ? "flex-start" : "space-between",
+            height : this.state.config && this.state.config.type === 4 ? "auto" : Const.Height*0.7
+          }]}
+        >
           {this.renderView()}
         </View>
       </Modal>
@@ -105,6 +112,11 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
             subType={this.state.config.subType}
             data={this.state.config.data}
           />
+      case 4:
+        return <MapPopUp 
+            onPress={this.closeModal}
+            data={this.state.config.data}
+          />
       default:
         break;
     }
@@ -115,7 +127,6 @@ export default CustomModal;
 
 const styles= StyleSheet.create({
   modalContentContainer : { 
-    height:Const.Height*0.7, 
     backgroundColor:"#E8EEF1",
     borderRadius : 10, 
     justifyContent:"space-between", 

@@ -11,13 +11,17 @@ import useRegistrationHook from "./authentication/registration/registrationHook"
 import useSetNewPasswords from "./authentication/setNewPasswords"
 
 //charger
-import useCharger from "./charger/charger"
+import useChargerWithCode from "./charger/chargerWithCode"
 import useChoosingCard from "./charger/choosingCard"
 import useChargingHook from "./charger/chargingHook"
+import useChargerDetails from "./charger/chargerDetails"
 
 
 // UserInfo
 import useFirstnameChange from './settings/firstnameChangeHook';
+import useLastnameChange from './settings/lastnameChangeHook';
+import useEmailChange from './settings/emailChangeHook';
+import usePhoneChange from './settings/phoneChangeHook';
 
 //reducer
 import rootReducer, {initialState} from "./reducers/rootReducer"
@@ -35,10 +39,14 @@ export {
     useForgotPassword,
     useRegistrationHook,
     useSetNewPasswords,
-    useCharger,
+    useChargerWithCode,
     useChoosingCard,
     rootReducer,
     initialState,
     useChargingHook,
-    useFirstnameChange
+    useFirstnameChange,
+    useLastnameChange,
+    useEmailChange,
+    useChargerDetails,
+    usePhoneChange
 }

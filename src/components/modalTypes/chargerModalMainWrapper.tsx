@@ -1,16 +1,16 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react';
-import {Text,  View, TouchableOpacity,StyleSheet, Image, Alert} from 'react-native';
-import { Colors } from '../../../../src/utils';
+import {Text,  View, TouchableOpacity,StyleSheet, Image} from 'react-native';
+import { Colors } from '../../utils';
 import { useTranslation } from 'react-i18next';
-import { PopUpCountDown, ModalPopupChargerItem } from '../../../../src/components';
+import { PopUpCountDown, ModalPopupChargerItem } from '../';
 
 
 
 export default ({ onPress, subType , data : {title, description, bottomDescription}} : any) => {
 
   const {t} = useTranslation()
-  const [view, setView] =  useState<JSX.Element[]>([undefined, undefined, undefined])
+  const [view, setView] =  useState<any>([undefined, undefined, undefined])
 
   useEffect(() => {
     subTypehandler()
@@ -82,10 +82,10 @@ export default ({ onPress, subType , data : {title, description, bottomDescripti
           style={styles.touchableStyle}
           onPress={onPress}
         > 
-          <Image  source={require("../../../../assets/images/icons/close.png")} style={{width:28, height:28, resizeMode:"contain",alignSelf:"center", tintColor: Colors.primaryBlue}}/>
+          <Image  source={require("../../../assets/images/icons/close.png")} style={{width:28, height:28, resizeMode:"contain",alignSelf:"center", tintColor: Colors.primaryBlue}}/>
         </TouchableOpacity>
         <View style={{flex:0, marginHorizontal:16}}>
-          <Image  source={require("../../../../assets/images/icons/check-circle.png")} style={{width:32, height:32, resizeMode:"contain",alignSelf:"center"}}/>
+          <Image  source={require("../../../assets/images/icons/check-circle.png")} style={{width:32, height:32, resizeMode:"contain",alignSelf:"center"}}/>
           <Text style={styles.mainTitleStyle}>{t(title)}</Text>        
           <Text style={styles.mainDescriptionStyle}>{t(description)}</Text>
         </View>

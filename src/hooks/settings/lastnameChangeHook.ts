@@ -15,42 +15,42 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
 
   const { t } = useTranslation();
   const { dispatch } = useContext(AppContext);
-  const [firstname, setFirstname] = useState(navigation.getParam('value'));
-  const firstnameInputRef: any = useRef(null);
+  const [lastname, setLastname] = useState(navigation.getParam('value'));
+  const lastnameInputRef: any = useRef(null);
 
   
   // when clicked on save button, save hook released.
   useEffect(() => {
     if (clicked === true) {
-      saveFirstname();
+      saveLastname();
     }
 
   }, [clicked])
 
 
-  const saveFirstname = () => {
+  const saveLastname = () => {
 
     if (validate.isEmpty()) {
       setClicked(false);
-      helpers.makeFirstnameFieldEmpty();
-      helpers.popAlert('dropDownAlert.editFirstname.firstNameNotEmpty');
+      helpers.makeLastnameFieldEmpty();
+      helpers.popAlert('dropDownAlert.editLastname.lastNameNotEmpty');
       return;
     }
 
     if (validate.isLessThenMinSize()) {
       setClicked(false);
-      helpers.makeFirstnameFieldEmpty();
-      helpers.popAlert('dropDownAlert.editFirstname.minSize');
+      helpers.makeLastnameFieldEmpty();
+      helpers.popAlert('dropDownAlert.editLastname.minSize');
       return;
     }
 
-    helpers.sendFirstnameToSave()
+    helpers.sendLastnameToSave()
       .then(data => {
         console.log(data);
         if (data.updated === true) {
           helpers.goToSettingsScreen();
-          helpers.popAlert('dropDownAlert.editFirstname.firstNameChangeSucess', 'success');
-          editUserInfo(dispatch, firstname, 'first_name');
+          helpers.popAlert('dropDownAlert.editLastname.lastNameChangeSucess', 'success');
+          editUserInfo(dispatch, lastname, 'last_name');
         }
         else {
           helpers.popAlert('dropDownAlert.generalError');
@@ -60,17 +60,17 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
 
 
   const onChangeText = (text: string) => {
-    setFirstname(text);
+    setLastname(text);
   }
 
   const onSubmitEditing = () => {
-    saveFirstname();
+    saveLastname();
   }
 
   // validations
   const validate = {
     isEmpty: (): boolean => {
-      if (firstname.trim() === '') {
+      if (lastname.trim() === '') {
         return true;
       }
       else {
@@ -78,7 +78,7 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
       }
     },
     isLessThenMinSize: (): boolean => {
-      if (firstname.trim().length < 3) {
+      if (lastname.trim().length < 3) {
 
         setClicked(false);
         return true;
@@ -94,12 +94,12 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
     popAlert: (text: string, type: 'success' | 'error' = 'error') => {    
       Defaults.dropdown.alertWithType(type, t(text));
     },
-    makeFirstnameFieldEmpty: () => {
-      setFirstname('');
+    makeLastnameFieldEmpty: () => {
+      setLastname('');
     },
-    sendFirstnameToSave: async () => {
+    sendLastnameToSave: async () => {
       try {
-        return await Ajax.post(apiServices.post_update_user_info, { first_name: firstname });
+        return await Ajax.post(apiServices.post_update_user_info, { last_name: lastname });
       }
       catch (err) {
         console.log(err);
@@ -114,7 +114,7 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
   return {
     onChangeText,
     onSubmitEditing,
-    firstnameInputRef,
-    firstname  
+    lastnameInputRef,
+    lastname
   };
 }

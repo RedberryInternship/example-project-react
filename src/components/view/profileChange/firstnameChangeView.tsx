@@ -1,6 +1,4 @@
-import React, {
-    useEffect
-} from 'react';
+import React from 'react';
 
 import {
     View, 
@@ -16,15 +14,7 @@ import { useFirstnameChange } from '../../../hooks';
 
 const firstnameChangeView = ({navigation, clicked, setClicked }:any) => {
 
-    const mainHook = useFirstnameChange(navigation, setClicked);
-
-    // when clicked on save button, save hook released.
-    useEffect(() => {
-        if(clicked === true){
-            mainHook.saveFirstname();
-        }
-    
-    },[clicked])
+    const mainHook = useFirstnameChange(navigation, clicked, setClicked);
 
     return (
         <View style={styles.container}>

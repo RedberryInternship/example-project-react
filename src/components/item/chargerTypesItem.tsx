@@ -2,6 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import { StyleSheet, ScrollView,Text,  View, TouchableOpacity, Image} from 'react-native';
 import { useMap } from '../../hooks';
 import { Colors } from '../../../src/utils';
+import { useTranslation } from 'react-i18next';
 
 
 const styles = StyleSheet.create({
@@ -20,6 +21,8 @@ const styles = StyleSheet.create({
 
 const filterTextItem = ({index,type, power, active, onPress} : any) => {
 
+  const {t} = useTranslation();
+
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -30,7 +33,7 @@ const filterTextItem = ({index,type, power, active, onPress} : any) => {
         </View>
         <View  style={{justifyContent:"space-between", marginLeft:12, height:"100%", paddingVertical:8}}>
           <Text style={{fontSize:13, color:Colors.primaryWhite,}}>{type}</Text>
-          <Text style={{fontSize:11, color:Colors.primaryGray}}>{power}</Text>
+          <Text style={{fontSize:11, color:Colors.primaryGray}}>{t("chargerDetail.powerOfChargerType", {power})}</Text>
         </View>
         <View style={{ alignItems:"flex-end", alignSelf:"center",flex:1, justifyContent:"center", marginRight:12}}>
           <Image  

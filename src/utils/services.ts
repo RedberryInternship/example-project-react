@@ -15,6 +15,7 @@ const post_add_charger_to_favorites = '/add-favorite';
 const post_remove_charger_from_favorites = '/remove-favorite';
 const get_user_favorite_chargers = '/user-favorites';
 const post_update_user_info = '/update-user-info';
+const get_city_based_on_current_location = '/https://api-dev.e-space.ge/api/app/V1/geo-ip';
 
 export default{
   get_chargers_list,
@@ -33,5 +34,6 @@ export default{
   post_add_charger_to_favorites,
   post_remove_charger_from_favorites,
   get_user_favorite_chargers,
-  post_update_user_info
+  post_update_user_info,
+  get_city_based_on_current_location
 }

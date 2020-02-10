@@ -7,6 +7,10 @@ export default {
     save: "შენახვა",
     gel : "ლარი",
     turnOn: "ჩართვა",
+    km : "კმ",
+    kwh : "კვ/სთ",
+    from: "-დან",
+    till : "-მდე",
     authentication: {
       authentication: "ავტორიზაცია",
       number: "ნომერი",
@@ -105,13 +109,15 @@ export default {
       enterCode : "ჩაწერეთ კოდი",
       turnOn : "ჩართვა",
       allChargerList : "დამტენების სრული სია",
-      lastUsed : "ბოლოს გამოყენებული"
+      lastUsed : "ბოლოს გამოყენებული",
+
     },
     chargerDetail : {
       seeOnMap : "რუკაზე ნახვა",
       currentPrices : "მიმდინარე ტარიფები",
       connectors  : "ქონექტორები",
       additionalServices  : "დამატებითი სერვისები",
+      powerOfChargerType : "სიმძლავრე {{power}}კვ/სთ"
     },
     notAuthorized : {
       notAuthorizedText : "იმისთვის, რომ შეძლოთ ავტომობილის დატენვა საჭიროა გაიაროთ ავტორიზაცია",
@@ -159,13 +165,15 @@ export default {
     },
     dropDownAlert : {
       generalError : "დაფიქსირდა შეცდომა",
+      fillCode : "გთხოვთ ჩაწროთ დამტენის კოდი",
+      chargerNotExist : "ასეთი დამტენის კოდი არ არსებობს",
       registration : {
         fillPhoneNumber : "გთხოვთ ჩაწროთ ტელეფონის ნომერი",
         fillName : "გთხოვთ ჩაწროთ სახელი",
         fillSurname : "გთხოვთ ჩაწროთ გვარი",
         incorrectEmail : "ემაილი არა არის სწორი",
         codeSentSuccessfully : "კოდი გამოიგზავნა წარმატებით",
-        codeLengthError : "კოდი უნდა შეიცავდეს 4 სიმბოლოს",
+        codeLengthError : "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
         incorrectCode : "კოდი არ არის სწორი",
         emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
         phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
@@ -177,10 +185,30 @@ export default {
         minSize: "სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს",
         firstNameChangeSucess: "სახელი წარმატებით შეიცვალა!"
       },
+      editLastname: {
+        lastNameNotEmpty: "გთხოვთ, შეავსეთ გვარის ველი",
+        minSize: "გვარის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს",
+        lastNameChangeSucess: "გვარი წარმატებით შეიცვალა!"
+      },
+      editEmail: {
+        incorrectFormat: "ელ.ფოსტის ფორმატი არასწორია",
+        editedSuccssesfully: "ელ.ფოსტა წარმატებით შეიცვალა!"
+      },
       auth:{
         phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
         passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",
         userNotFound: "მომხმარებელი ვერ მოიძებნა ბაზაში"
+      },
+      forgotPassword: {
+        smsCodeLength: "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
+        getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი",
+        userNotFound: "ამ ნომრით მომხმარებელი ვერ მოიძებნა",
+        smsCodeExpired: "sms კოდს ვადა გაუვიდა",
+        fillCode: "შეიყვანეთ sms კოდი",
+        newPasswordNotFilled: "გთხოვთ, შეიყვანოთ ახალი პაროლის ველი",
+        repeteNewPasswordNotFilled: "გთხოვთ, გაიმეორეთ პაროლი",
+        newPasswordIncorrectLength: "პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს",
+        passwordChangedSuccessfully: "პაროლი წარმატებით შეიცვალა"
       },
       transactions:{
         transactions: "ტრანზაქციები",

@@ -76,7 +76,8 @@ import TariffDetail from "./UI/tariffDetail";
 // modalTypes
 import RegistrationType1 from "./modalTypes/registrationType1"
 import LegendType2 from "./modalTypes/legendType2"
-import ChargerModalMainWrapper from "./modalTypes/chargeFinished/chargerModalMainWrapper"
+import ChargerModalMainWrapper from "./modalTypes/chargerModalMainWrapper"
+import MapPopUp from "./modalTypes/mapPopUp"
 
 export {
     MapView,
@@ -139,5 +140,6 @@ export {
     MapMarkerItem,
     ChargingView,
     BasePickerSelect,
-    MultiChargingTopModal
+    MultiChargingTopModal,
+    MapPopUp
 }

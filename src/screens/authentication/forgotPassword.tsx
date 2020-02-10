@@ -16,6 +16,7 @@ const forgotPassword = ({navigation} : any) => {
   const hook = useForgotPassword(navigation);
   const insets = useSafeArea();
 
+  
   return (
     <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader 
@@ -31,20 +32,18 @@ const forgotPassword = ({navigation} : any) => {
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
-        // enableResetScrollToCoords={true}
-        // resetScrollToCoords={{x:0,y:0}}
       >
         <PhoneNumberInput 
-          onChangeText={hook.phoneTextHandler}
           onSubmit={hook.phoneInputSubmit}
           value={hook._this.current.phone}
-          onFocus={hook.onFocusPhone}
           ref={hook.phoneRef}
+          _this={hook._this}
+          codeRef={hook.codeRef}
         />
         <ReceiveCode
           ref={hook.codeRef}
           onChangeText={hook.codeTextHandler}
-          onSubmit={hook.codeInputSubmit}
+          onSubmit={hook.codeReceiveHandler}
           startCodeAnimation={hook.startCodeAnimation}
           recieveCode={hook.codeReceiveHandler}
         />

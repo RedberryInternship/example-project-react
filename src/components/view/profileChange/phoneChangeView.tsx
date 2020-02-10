@@ -1,49 +1,44 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 
 import {
     View,
-    Alert,
     StyleSheet
 } from 'react-native';
 
 
 // components
-import { PhoneNumberInput, ReceiveCode } from '../..';
+import { 
+    PhoneNumberInput, 
+    ReceiveCode 
+} from '../..';
+
+// hooks
+import { usePhoneChange } from '../../../hooks';
 
 
-const phoneChangeView = ({ clicked, navigation }: any) => {
+const phoneChangeView = ({ navigation, clicked, setClicked }: any) => {
 
-
-    const [number, setNumber] = useState("");
-
-    useEffect(() => {
-
-        if (clicked === true) {
-            updateUserPhone(number, navigation);
-        }
-    });
-
-    const phoneRef = useRef<any>(null);
+    const hook = usePhoneChange(navigation, clicked, setClicked);
 
     return (
         <View style={styles.container}>
 
             <PhoneNumberInput
-                onFocus={ null }
-                phoneTextHandler = {(text: string) => setNumber(text)}
-                ref={ phoneRef }
+                value={hook._this.current.phone}
+                // onSubmit={hook.onSubmit}
+                ref={hook.phoneInputRef}
+                _this={hook._this}
+                codeRef={hook.codeRef}
             />
 
-            <ReceiveCode />
+
+            <ReceiveCode
+                onChangeText={hook.receiveCodeTextHandler}
+                onSubmit={hook.receiveCodeOnSubmit}
+                recieveCode={hook.recieveCode}
+                ref={hook.codeRef} />
         </View>
     );
-}
-
-
-const updateUserPhone = (number: any, navigation: any) => {
-    Alert.alert("Phone Number Updated!", "", [
-        { text: "OK", onPress: () => { navigation.goBack(); } }
-    ]);
 }
 
 export default phoneChangeView;

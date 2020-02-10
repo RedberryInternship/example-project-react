@@ -112,7 +112,7 @@ const charging = ({navigation} : any) => {
   return (
     <View style={[styles.container ]} >
       <BaseHeader 
-        onPressLeft={navigation.navigate.bind(charging,"MainDrawer")}
+        onPressLeft={navigation.navigate.bind(charging,"ChargerWithCode")}
         title={"charging.charge"}
       />
       {

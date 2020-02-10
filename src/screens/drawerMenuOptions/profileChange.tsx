@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import {
     View,
@@ -25,6 +25,7 @@ import {
 
 // utils
 import { Colors } from '../../utils';
+
 
 const profileChange = ({ navigation }: any) => {
 

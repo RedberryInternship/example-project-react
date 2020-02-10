@@ -18,7 +18,9 @@ const CurrentTariffs = ({data} : any) => {
             data.map((val : any , ind : Number)=>(
               <Row 
                 key={ind}
-                {...val}
+                col1= {val.min_kwt + " "+ t("kwh")+t('from')}
+                col2= {val.max_kwt + " " + t("kwh")+t('till')}
+                col3= {val.price}
               />
             ))
           }
@@ -48,13 +50,13 @@ const styles = StyleSheet.create({
 export default CurrentTariffs;
 
 
-const Row = () => {
+const Row = ({col1, col2, col3} : any) => {
 
   return (
-      <View style={{flexDirection:"row", alignItems:"center", height:44, borderTopColor:"#11222D", borderTopWidth:1}}>
-          <Text style={{flex:1,alignSelf:"center", color : Colors.primaryWhite, fontSize:11, }}>asdf</Text>
-          <Text style={{flex:1,alignSelf:"center", color : Colors.primaryWhite, fontSize:11, }}>asdf</Text>
-          <Text style={{flex:1.5,alignSelf:"center", color : Colors.primaryWhite, fontSize:11, textAlign:"center"}}>asdf</Text>
-      </View>
+    <View style={{flexDirection:"row", alignItems:"center", height:44, borderTopColor:"#11222D", borderTopWidth:1}}>
+      <Text style={{flex:1,alignSelf:"center", color : Colors.primaryWhite, fontSize:11, }}>{col1}{}</Text>
+      <Text style={{flex:1,alignSelf:"center", color : Colors.primaryWhite, fontSize:11, }}>{col2}{}</Text>
+      <Text style={{flex:1.5,alignSelf:"center", color : Colors.primaryWhite, fontSize:11, textAlign:"center"}}>{col3}{}</Text>
+    </View>
   );
 };

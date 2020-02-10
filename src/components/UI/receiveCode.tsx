@@ -1,5 +1,12 @@
 import React, {useState, useRef, useImperativeHandle} from 'react';
-import {TextInput, Text, View, StyleSheet, TouchableOpacity, Animated, Alert} from 'react-native';
+import {
+  TextInput, 
+  Text, 
+  View, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Animated
+} from 'react-native';
 import { Colors } from '../../utils';
 import MaskedView from '@react-native-community/masked-view';
 import colors from '../../../src/utils/colors';
@@ -8,8 +15,9 @@ import { useTranslation } from 'react-i18next';
 
 const CodeInputWidth = 128
 
+
 // eslint-disable-next-line react/display-name
-const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode} : any, ref: any) => {
+const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, disableCodeInput} : any, ref: any) => {
 
   const [animation] = useState(new Animated.Value(0))
   const [disabled, setDisabled] = useState(false)
@@ -18,16 +26,19 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode} : an
   const { t} = useTranslation();
   
   const codeReceiveHandler = () => {
+    
     if(disabled) return;
     setDisabled(true)
     animation.setValue(0)
 
     setShowText(true)
     //ajax
+
     Animated.timing(animation, {
       toValue:CodeInputWidth,
       duration:2000
-    }).start(()=>{
+    })
+    .start(()=>{
       setDisabled(false)
     })
   }
@@ -37,6 +48,7 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode} : an
       {
         ...inputRef.current,
         activateButton : () => animation.setValue(CodeInputWidth),
+        disableActivateButton: () => animation.setValue(0) ,
         startCodeAnimation : codeReceiveHandler,
       }
     ),
@@ -66,10 +78,11 @@ const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode} : an
           style={styles.codeTextInput}
           onChangeText={onChangeText}
           onSubmitEditing={onSubmit}
-          // onFocus={onFocus}
           placeholderTextColor={Colors.primaryWhite}
           allowFontScaling={false}
-          ref={inputRef}    
+          ref={inputRef}
+          pointerEvents={ !disableCodeInput ? "none" : "auto"}
+          keyboardType={"number-pad"}
         />
       </View>
       <Animated.Text style={{color:Colors.primaryGray, fontSize:11, }}>{showText && t("authentication.forgotPasswordPage.codeValidity")}</Animated.Text>

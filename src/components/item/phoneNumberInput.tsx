@@ -12,7 +12,8 @@ let pickeritems : Item[] = []
 
 const placeholder = {label :"+995", value : "+995"}
 // eslint-disable-next-line react/display-name
-const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText, codeRef }: any, ref: any) => {
+
+const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, style, errorText, codeRef, value }: any, ref: any) => {
  
   const [animation] = useState(new Animated.Value(0))
   const pickerRef = useRef(null)
@@ -41,17 +42,23 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
     }).start()
   }
 
-  const phoneTextHandler= (text : string) =>{
-    _this.current.phone  = selectedCountryCode.value + text
-    console.log('====================================');
-    console.log(selectedCountryCode.value, "selectedCountryCode.value",_this.current.phone );
-    console.log('====================================');
+  const phoneTextHandler = (text : string) =>{
+
+    _this.current.phone  =  selectedCountryCode.value + text;
+
+    console.log(['PhoneChange', [text, _this ]]);
+
     if(text !== "" ){
-      codeRef && codeRef.current && codeRef.current.activateButton()
+      codeRef && codeRef.current && codeRef.current.activateButton();
+    }
+    else{
+      codeRef && codeRef.current && codeRef.current.disableActivateButton();
     }
   }
 
   const _onSubmit= () =>{
+    _this.current.phone = selectedCountryCode.value + _this.current.phone
+
     onSubmit()
   }
   const fetchPhoneCountryCodes = () =>{
@@ -63,7 +70,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
         data.forEach((val :PhoneCountryCode) =>{
           if (val.phone_code)
             pickeritems.push({value : val.phone_code, label : val.phone_code})
-        } )
+        })
         setPickeritemsState(pickeritems)
       })
       .catch(error =>{
@@ -107,6 +114,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
         title={"authentication.number"}
         returnKeyType={"send"}
         errorText={errorText}
+        value={value}
       />
       <Animated.View style={{ position: "absolute", width: 53, height:48, opacity: animation, bottom : 28 }}>
         <View
