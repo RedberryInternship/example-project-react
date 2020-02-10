@@ -2,6 +2,7 @@
 declare module 'react-native-hooks';
 import {TextInput,TextInputProps,Image, ImageSourcePropType, StyleProp, ImageStyle, ViewStyle,
 } from "react-native"
+// Vobi Todo: Structure imports
 import {RefObject} from "react"
 import {Item} from 'react-native-picker-select';
 import { LocationPermissionStatus } from "react-native-location";

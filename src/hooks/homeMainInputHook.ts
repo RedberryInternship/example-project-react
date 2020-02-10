@@ -7,6 +7,9 @@ import MapView from "react-native-maps";
 
 const searchContentHeight = Const.Height - 350;
 
+// Todo Vobi: default export without naming is bad practice and its hard to find where its from
+// Todo Vobi: move this as a constant and then export it 
+// Todo Vobi: I don't think that homeMainInput is good naming but at least name this useHomeMainInput like standard hook naming
 export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll: (boolean : boolean) => void)=> {
 
   const InputRef : any = useRef(null);
@@ -33,7 +36,8 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
 
   const closeClick = () =>{
     if(_this.current.text !=='')
-      return textHandler('') 
+      return textHandler('')  // Todo Vobi: This kind of return is hard to debug if you are not using curly braces
+      // Todo Vobi: Move this return as single line
     setShowSearchContent(false),
     Keyboard.dismiss();
   }
@@ -42,6 +46,8 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
 
     return allChargers?.filter((val: Charger) => {
 
+      // Todo Vobi: This kind of thing inside if statement is not readable i can't really understand what it does
+      // Todo Vobi: At leas store each loop value inside a constant and than compare them
       if( Object.entries(val.name).filter((val) => val[1].toLowerCase().includes(inputText)).length === 0 &&
       Object.entries(val.location).filter((val) => val[1].toLowerCase().includes(inputText)).length === 0 ) return false
 
@@ -77,7 +83,8 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
       400,
     ) 
   }
-
+  // Todo Vobi: Split this vertically 
+  // Todo Vobi: t shouldn't be returned from hook you should import it wherever you need
   return{t, _this, showSearchContent ,animate, setShowSearchContent , InputRef , searchContentHeight , closeClick, textHandler, filterChargers, onSearchItemClickHandler}
 
 }
