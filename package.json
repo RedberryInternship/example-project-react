@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
-    "@react-native-community/cli-platform-android": "^3.0.5-alpha.1",
+    "@react-native-community/cli-platform-android": "^2.9.0",
     "@react-native-community/masked-view": "^0.1.6",
     "@react-native-community/netinfo": "^5.3.3",
     "@types/i18n-js": "^3.0.1",

@@ -2,7 +2,7 @@ import {useState, useEffect, useRef, RefObject, useContext, useMemo} from "react
 import { NavigationParams, NavigationScreenProp,NavigationState, NavigationEventPayload } from 'react-navigation';
 import { HomeNavigateModes, AppContextType, Charger } from "../../@types/allTypes.d";
 import BottomSheet from 'reanimated-bottom-sheet'
-import { InteractionManager } from "react-native";
+import { InteractionManager, Alert } from "react-native";
 import MapView from "react-native-maps";
 import { regionFrom } from "../../src/utils";
 import { AppContext } from "../../App";

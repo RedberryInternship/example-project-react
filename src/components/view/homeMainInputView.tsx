@@ -48,7 +48,7 @@ const MainInput = ( {allChargers , mapRef, setShowAll} : MainInput) => {
               keyboardShouldPersistTaps={"handled"}
               enableOnAndroid={true}
               enableAutomaticScroll={true}
-              extraScrollHeight={-150}
+              extraScrollHeight={0}
               showsVerticalScrollIndicator={false}
               enableResetScrollToCoords={true}
               resetScrollToCoords={{x:0,y:0}}

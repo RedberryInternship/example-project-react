@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet,Text,TouchableOpacity} from 'react-native';
-import { useMap } from '../../hooks';
+import { StyleSheet,Text, Platform} from 'react-native';
 import { Colors } from '../../utils';
+import { TouchableOpacity, TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 
 const styles = StyleSheet.create({
@@ -16,19 +16,34 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     marginHorizontal:4,
     marginVertical:6,
-    width:"30%"
+    minWidth:"30%"
   },
 });
 
 const popupFilter = ({text, onPress, active} : any) => {
 
-  return (
+  const child = (
     <TouchableOpacity
       style={[styles.container, {backgroundColor :  active ? "#008AEE" : "white" }]}
       onPress={onPress}
     >
-      <Text style={{fontSize:11,color : active ? "white" :  Colors.primaryDark , lineHeight : 22}}>{text}</Text>
+      <Text style={{fontSize:11,color : active ? "white" :  Colors.primaryDark , lineHeight : 22, flex:1}}>{text}</Text>
     </TouchableOpacity>
+  )
+  
+  return (
+    <>
+      { 
+        Platform.OS === 'ios' ?
+          <TouchableOpacity onPress={onPress}>
+            {child} 
+          </TouchableOpacity>
+        :
+          <TouchableNativeFeedback onPress={onPress}>
+            {child} 
+          </TouchableNativeFeedback>
+      }
+    </>
   );
 };
 
