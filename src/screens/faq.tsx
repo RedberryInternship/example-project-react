@@ -61,7 +61,7 @@ const faq = ({ navigation }: any) => {
     <View style={styles.container}>
       <BaseHeader
         title={'faq.frequentlyAskedQuestions'}
-        onPressLeft={() => navigation.goBack()} />
+        onPressLeft={() => navigation.navigate('MainDrawer')} />
       <ScrollView style={styles.scrollViewStyle}>
         {questions}
       </ScrollView>

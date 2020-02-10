@@ -31,7 +31,7 @@ const tarrifs = ({ navigation }: any) => {
     <View style={styles.container}>
       <BaseHeader
         title={'tariffs.tariffs'}
-        onPressLeft={() => navigation.goBack()} />
+        onPressLeft={() => navigation.navigate('MainDrawer')} />
       <TariffDetail 
         title="30 წუთი - 2ლ" 
         description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები" />

@@ -11,7 +11,6 @@ import {  Colors } from '../../../../src/utils';
 import { getLocaleText } from '../../../../src/utils/localization/localization';
 
 
-
 function chargerDetail ({navigation} : any) {
   
   const hook = useChargerDetails(navigation);

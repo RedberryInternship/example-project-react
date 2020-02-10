@@ -47,8 +47,9 @@ const chargerStack = createStackNavigator({
 },
 {
   defaultNavigationOptions: {
-    headerShown: false
-  }
+    headerShown: false,
+  },
+  initialRouteName:"ChargerWithCode"
 })
 
 
@@ -152,13 +153,6 @@ const authenticationStack = createStackNavigator({
 const drawerMenuOptionsStack = createStackNavigator({
   Settings,
   ProfileChange,
-  Faq,
-  Contact,
-  Notifications,
-  Tariffs,
-  TransactionList,
-  ShowTransaction,
-  Partners
 },
 {
   defaultNavigationOptions: {
@@ -166,13 +160,31 @@ const drawerMenuOptionsStack = createStackNavigator({
   }
 })
 
+const transactionStack = createStackNavigator({
+  TransactionList,
+  ShowTransaction,
+},
+{
+  defaultNavigationOptions: {
+    headerShown:false
+  }
+})
+
+
 const AppNavigator = createSwitchNavigator({
 
   Plashka,
   authenticationStack,
   MainDrawer,
   drawerMenuOptionsStack,
-  chargerStack
+  chargerStack,
+  Faq,
+  Contact,
+  Tariffs,
+  Partners,
+  transactionStack,
+  Notifications,
+
 }, {
   initialRouteName: "Plashka"
 });

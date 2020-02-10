@@ -32,7 +32,7 @@ const notifications = ({ navigation }: any) => {
     <View style={styles.container}>
       <BaseHeader
         title={'notifications.notifications'}
-        onPressLeft={() => navigation.goBack()} />
+        onPressLeft={() => navigation.navigate('MainDrawer')} />
       <ScrollView style={styles.scrollViewContainer}>
         {notificationItems}
       </ScrollView>

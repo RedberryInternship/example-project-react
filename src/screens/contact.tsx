@@ -60,7 +60,7 @@ const contact = ({ navigation }: any) => {
     <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
       <BaseHeader
         title={'contact.contact'}
-        onPressLeft={() => navigation.goBack() } />
+        onPressLeft={() => navigation.navigate('MainDrawer') } />
 
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"

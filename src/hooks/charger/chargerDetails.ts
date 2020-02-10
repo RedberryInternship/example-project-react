@@ -63,7 +63,10 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
 
   useEffect(() => {
     let didFocus = navigation.addListener("didFocus", onScreenFocus)
-  
+    
+    console.log('====================================');
+    console.log(navigation, navigation.isFirstRouteInParent(), navigation.dangerouslyGetParent(), "navigation, chargerDetails");
+    console.log('====================================');
     return () => {
       didFocus.remove()
     };
@@ -72,10 +75,10 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
   const onScreenFocus = (payload : NavigationEventPayload) => {
     let { params } = payload.state
 
-    navigation.setParams({charger: null})
+    navigation.setParams({chargerDetails: null})
 
     console.log('====================================');
-    console.log(params, "params");
+    console.log(params, "params, chargerDetails");
     console.log('====================================');
     if (params?.chargerDetails !== undefined){
       setCharger(params?.chargerDetails)

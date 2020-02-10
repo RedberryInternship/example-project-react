@@ -50,7 +50,8 @@ export default {
       terms_and_conditions: "წესები და პირობები",
       settings: "პარამეტრები",
       transactions: "ტრანზაქციები",
-      notifications: "შეტყობინებები"
+      notifications: "შეტყობინებები",
+      logOut : "გამოსვლა"
     },
     settings: {
       settings: "პარამეტრები",
@@ -209,12 +210,12 @@ export default {
       partnerOrganizations: "პარტნიორი ორგანიზაციები",
     },
     filterTypes :{
-      'free' : "თავისუფალი",
-      'inUse' : "დაკავებული",
-      'fast' : "სწრაფი",
-      'lvl2' : "ლვლ2",
-      'public' : "საჯარო",
-      'notPublic': "არასაჯარო",
+      free : "თავისუფალი",
+      inUse : "დაკავებული",
+      fast : "სწრაფი",
+      lvl2 : "ლვლ2",
+      public : "საჯარო",
+      notPublic: "არასაჯარო",
     },
   }
 }

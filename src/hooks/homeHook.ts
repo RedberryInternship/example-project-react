@@ -54,7 +54,7 @@ export default (navigation :  NavigationScreenProp<NavigationState, NavigationPa
     navigation.setParams({mode: null})
 
     console.log('====================================');
-    console.log(params, "params");
+    console.log(params, "params, homeHook");
     console.log('====================================');
     if (params !== undefined){
       setTimeout(
