@@ -2,9 +2,9 @@ import moment from 'moment';
 import  SunCalc from 'suncalc';
 type RegionFrom = {
   latitude : number,
-  longitude : Number,
-  latitudeDelta : Number,
-  longitudeDelta : Number,
+  longitude : number,
+  latitudeDelta : number,
+  longitudeDelta : number,
 }
 
 export function regionFrom(lat : number, lng : number, zoomLevel : number):RegionFrom {

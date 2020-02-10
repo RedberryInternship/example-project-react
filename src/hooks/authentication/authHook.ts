@@ -4,7 +4,7 @@ import { Alert, } from "react-native"
 import { useTranslation } from 'react-i18next';
 import { Defaults } from "../../../src/utils";
 import { useAsyncStorage } from "@react-native-community/async-storage";
-import { saveToken } from "../actions/rootActions";
+import { saveToken, rootAction } from "../actions/rootActions";
 
 import { Ajax } from '../../utils';
 
@@ -98,10 +98,10 @@ export default (navigation: any, dispatch: any) => {
 
   const OnSuccessLogin = async (data: any) => {
 
-    dispatch(saveToken({
+    rootAction({
       token: data.access_token,
       user: data.user
-    }));
+    }, dispatch)
 
     navigation.navigate("MainDrawer")
   }

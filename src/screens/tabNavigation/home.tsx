@@ -1,4 +1,4 @@
-import React, { createContext, useReducer} from 'react';
+import React, { createContext, useReducer, useMemo, useCallback} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,29 +8,44 @@ import { MapView, CollapsibleModal, HomeComponentItems } from '../../components'
 import { Colors } from '../../../src/utils';
 import BottomSheetReanimated from '../../../src/components/view/bottomSheetReanimated';
 import reducer, { initialState } from '../../../src/hooks/reducers/homeReducers';
-
+import  { useHomeHook } from '../../../src/hooks';
+import { NavigationParams, NavigationScreenProp,NavigationState } from 'react-navigation';
 
 export const HomeContext = createContext()
 
-const Home = (navigation) => {
+const Home = ({navigation} : any ) => {
 
   const [state, dispatch] = useReducer(reducer, initialState )
 
-  // console.log(navigation.screenProps, "navigation.props.screenProps")
-  console.log('====================================');
-  console.log("asdf");
-  console.log('====================================');
-  return (
-    <HomeContext.Provider value={{state, dispatch}}>
+  const hook = useHomeHook(navigation)
 
+  return useMemo (() =>(
+    <HomeContext.Provider value={{state, dispatch}}>
       <View style={styles.mainContainer}>
-        <MapView />
-        <HomeComponentItems />
-        <BottomSheetReanimated />
+        <MapView mapRef={hook.mapRef} 
+          showAll={hook.showAll}
+          filteredChargersOnMap={hook.filteredChargersOnMap}
+        />
+        <HomeComponentItems 
+          allchargers={hook.context.state.AllChargers}
+          mapRef={hook.mapRef}
+          selectedFiltersOnMap={hook.selectedFiltersOnMap}
+          onFilterClickOnMap={hook.onFilterClickOnMap}
+          setShowAll={hook.setShowAll}
+        />
+        <BottomSheetReanimated 
+          ref={ hook.bottomSheetRef } 
+          onFilterClick={ hook.onFilterClick } 
+          selectedFilters={ hook.selectedFilters } 
+          onFilteredItemClick={ hook.onFilteredItemClick }
+          filteredChargers={hook.filteredChargers }
+          textHandler={hook.searchInputTextChangeHandler}
+          inputSubmit={hook.searchInputTextSubmit}
+        />
       </View>
     </HomeContext.Provider>
-    
-  );
+  ),
+  [hook, ] );
 };
 
 

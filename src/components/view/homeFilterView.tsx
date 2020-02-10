@@ -2,40 +2,23 @@ import React, {useState , useEffect} from 'react';
 import { StyleSheet, Alert, ScrollView, Image,TouchableOpacity,  Animated, Easing} from 'react-native';
 import { FilterTextItem } from '..';
 import { Const, Colors } from '../../../src/utils';
+import { useTranslation } from 'react-i18next';
+import { HomeContextType } from '../../../@types/allTypes.d';
 
-const dummy = ["asdf",'asdfasdf',"asdfadsf","asdfasdf","asdfasdf"]
+type HomeFilter = {
+  context : HomeContextType,
+  selectedFiltersOnMap : number[],
+  onFilterClickOnMap : (index: number) => void,
+}
 
-const styles = StyleSheet.create({
-  container: {
-    width:"100%", 
-    height:50,
-    justifyContent:"center",
-    alignItems:"stretch",
-    position: "absolute",
-    elevation:1,
-    backgroundColor:"transparent",
-    right:0,
-    bottom:80,
-  },
-  buttonContainer : {
-    width:50, 
-    height:50,
-    borderRadius:25,
-    justifyContent:"center",
-    alignItems:"center",
-    position: "relative",
-    elevation:1,
-    backgroundColor:"#008AEE",
-    marginRight:20,
-    marginLeft : 24
-  }
-});
 
 const translate =  Const.Width - 98
 
-const homeFilter = () => {
+const homeFilter = ({context, selectedFiltersOnMap, onFilterClickOnMap} : HomeFilter, ) => {
   const [showFilter, setShowFilter ] = useState(false);
   const [activeIndex, setActiveIndex ] = useState(-1);
+  const { t } = useTranslation();
+  
   let [translateX ] = useState(new Animated.Value(translate));
 
   const handleFilterItemPress = (index : number) => {
@@ -83,14 +66,13 @@ const homeFilter = () => {
                 <Image  source={showFilter ?  require('../../../assets/images/icons/close.png') : require('../../../assets/images/icons/ic_filterType.png')} style={[showFilter ? {width:23, height: 23,} : {width:18, height: 18,},{ alignSelf : "center",resizeMode:"contain",tintColor:"white" }]}/>
             </TouchableOpacity>
           </Animated.View>
-          
           {
-            dummy.map((val, ind) => (
+            Const.FilterTypes.map((val : string, index : number) => (
               <FilterTextItem
-                text={val}
-                key={ind}
-                active={activeIndex === ind}
-                onPress={handleFilterItemPress.bind(homeFilter, ind)}
+                text={t(val)}
+                key={index}
+                active={selectedFiltersOnMap[index]}
+                onPress={onFilterClickOnMap.bind(homeFilter, index)}
               />
             ))
           }
@@ -104,3 +86,30 @@ const homeFilter = () => {
 
 
 export default homeFilter;
+
+
+const styles = StyleSheet.create({
+  container: {
+    width:"100%", 
+    height:50,
+    justifyContent:"center",
+    alignItems:"stretch",
+    position: "absolute",
+    elevation:1,
+    backgroundColor:"transparent",
+    right:0,
+    bottom:80,
+  },
+  buttonContainer : {
+    width:50, 
+    height:50,
+    borderRadius:25,
+    justifyContent:"center",
+    alignItems:"center",
+    position: "relative",
+    elevation:1,
+    backgroundColor:"#008AEE",
+    marginRight:20,
+    marginLeft : 24
+  }
+});

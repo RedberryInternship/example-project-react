@@ -90,7 +90,7 @@ const profileChange = ({ navigation }: any) => {
             <View style={{flex:1}}>
                 <BaseHeader
                     title={$headerName}
-                    onPressLeft={() => navigation.goBack()} />
+                    onPressLeft={() => navigation.navigate('MainDrawer')} />
 
                 <KeyboardAwareScrollView
                     style={{ flex: 1, backgroundColor: Colors.primaryBackground }}

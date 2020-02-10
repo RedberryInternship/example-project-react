@@ -1,32 +1,33 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { StyleSheet,Animated, View, TouchableOpacity,  Alert, Platform} from 'react-native';
 import { useHomeMainInputHook } from '../../hooks';
-import { Const, Colors, Defaults } from '../../utils';
+import { Const, Colors, Defaults, getLocaleText, regionFrom } from '../../utils';
 import { MainSearchItem, HomeMainSearchInput } from '..';
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
+import { Charger } from '../../../@types/allTypes.d';
+import MapView from 'react-native-maps';
 
 type MainInput = {
-  style?: StyleProp<ViewStyle> ,
+  allChargers : Charger[],
+  mapRef : RefObject<MapView>,
+  setShowAll : (boolean: boolean) => void
 }
 
 
-const MainInput = ( {style} : MainInput) => {
+const MainInput = ( {allChargers , mapRef, setShowAll} : MainInput) => {
 
-  const hook = useHomeMainInputHook();
+  const hook = useHomeMainInputHook(allChargers, mapRef, setShowAll);
   
   
   const InputSubmit = () => {
     Alert.alert(JSON.stringify(hook._this.current))
   }
 
-  const onFocus = () => {
-
-  }
   console.log(hook._this.animatedSearchContentHeight);
   
   
   return (
-    <TouchableOpacity activeOpacity={1} onPress={hook.closeClick} style={[styles.container, style]}>
+    <TouchableOpacity activeOpacity={1} onPress={hook.closeClick} style={[styles.container]}>
       <>
         <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
           <HomeMainSearchInput 
@@ -35,7 +36,6 @@ const MainInput = ( {style} : MainInput) => {
             placeholder={`${hook.t("home.location")}/${hook.t("home.organization")}`}
             textHandler={hook.textHandler}
             InputSubmit={InputSubmit}
-            onFocus={onFocus}
             closeClick={hook.closeClick}
             ref={hook.InputRef}
           />
@@ -56,15 +56,17 @@ const MainInput = ( {style} : MainInput) => {
               data={[1]}
               renderItem={() => (
                 <>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფასფ ადს"} mainTitle={"ტბისლისი"} onPress={()=>{Alert.alert("asdf")}}/>
-                  <MainSearchItem  text ={"ასფაawawdსფ ადს"} mainTitle={"ტბისლawdaისი"} onPress={()=>{Alert.alert("asdf")}}/>
+                {
+                  hook.filterChargers?.map((val : Charger) =>
+                    (<MainSearchItem 
+                      key={val.id} 
+                      text ={getLocaleText(val.name)} 
+                      mainTitle={getLocaleText(val.location)} 
+                      onPress={hook.onSearchItemClickHandler.bind(MainInput,val.lat, val.lng )}/>)
+                  )
+                }
+                  
+                  
                 </>
               )}
             />

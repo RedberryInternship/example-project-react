@@ -131,3 +131,13 @@ export const ContactListFields = [
         type: "webPage"
     }
 ];
+
+
+export const FilterTypes = [
+    'filterTypes.free',
+    'filterTypes.inUse',
+    'filterTypes.fast',
+    'filterTypes.lvl2',
+    'filterTypes.public',
+    'filterTypes.notPublic',
+];

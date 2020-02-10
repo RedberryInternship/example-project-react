@@ -23,8 +23,10 @@ export default (navigation : any, clicked: boolean, setClicked: any) => {
     code: ''
   });
 
-
   useEffect(() => {
+  phoneInputRef!.current!.setNativeProps({
+    text: _this.current.phone
+  });
    phoneInputRef!.current!.focus(); 
   },[]);
 
@@ -60,6 +62,7 @@ export default (navigation : any, clicked: boolean, setClicked: any) => {
   }
 
   const recieveCode = () => {
+    console.log(_this);
     if(validate.isPhoneNumberValid()){
       // TODO: Send Request
       codeRef!.current!.startCodeAnimation();

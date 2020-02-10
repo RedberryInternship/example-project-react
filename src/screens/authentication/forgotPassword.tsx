@@ -33,9 +33,9 @@ const forgotPassword = ({navigation} : any) => {
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
       >
+
         <PhoneNumberInput 
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current.phone}
           ref={hook.phoneRef}
           _this={hook._this}
           codeRef={hook.codeRef}

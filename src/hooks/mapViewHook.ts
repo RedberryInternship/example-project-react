@@ -12,11 +12,11 @@ import { determineTimePeriod } from "../../src/utils/mapAndLocation/mapFunctions
 
 
 
-export default function  useMap(){
+export default function  useMap(mapRef){
 
   const {state, dispatch} : AppContextType  = useContext(AppContext)
 
-  const mapRef : RefObject<MapView> = useRef(null);
+  // const mapRef : RefObject<MapView> = useRef(null);
 
   const location = useLocation({mapRef})
 
@@ -42,7 +42,6 @@ export default function  useMap(){
   }, [state])
 
   return {
-    mapRef,
     location,
     mapReady,
     state,

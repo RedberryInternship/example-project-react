@@ -4,18 +4,17 @@ import React, {useMemo} from 'react';
 import { StyleSheet,  View, StatusBar,} from 'react-native';
 import { useMap } from '../../../src/hooks';
 import { mapStyles, mapStyle2, Colors } from '../../../src/utils';
-import { Chargers } from '../../../@types/allTypes';
+import { Charger } from '../../../@types/allTypes';
 import { MapMarkerItem } from '..';
 import { determineTimePeriod } from '../../../src/utils/mapAndLocation/mapFunctions';
 
 
-const mapView = () => {
-  const hook = useMap()
+const mapView = ({mapRef, showAll, filteredChargersOnMap}) => {
+  const hook = useMap(mapRef)
 
   return (
       <View style={styles.mapContainer}>
       <StatusBar barStyle={determineTimePeriod() ? "dark-content" : "light-content"} />
-
         <MapView
           provider={PROVIDER_GOOGLE} 
           style={styles.map}
@@ -31,21 +30,21 @@ const mapView = () => {
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
-          ref={hook.mapRef}
+          ref={mapRef}
         >
           {
             useMemo(() =>
-              hook.state.AllChargers?.map((val : Chargers , index : number) => 
+            (showAll ? hook.state.AllChargers : filteredChargersOnMap)?.map((val : Charger) => 
                   (<MapMarkerItem
-                    key={index}
+                    key={val.id}
                     lat={parseFloat( val.lat.toString() )}
                     lng={parseFloat( val.lng.toString() )}
                   />)
                 )
-            , [hook.state])
+                
+            , [hook.state.AllChargers, showAll, filteredChargersOnMap])
           }
-          
-          
+
         </MapView>
       </View>
   );

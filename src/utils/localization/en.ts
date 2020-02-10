@@ -1,6 +1,7 @@
 export default {
   translation: {
     hello: "Hello",
+    notFound : 'Not found',
     back: "Back",
     enter: 'Login',
     next: "Next",
@@ -51,7 +52,9 @@ export default {
       terms_and_conditions: "Terms and Conditions",
       settings: "Settings",
       transactions: "Transactions",
-      notifications: "Notifications"
+      notifications: "Notifications",
+      logOut : "Log out"
+
     },
 
     settings: {
@@ -224,6 +227,14 @@ export default {
     },
     partners:{
       partnersOrganizations: "Partner Organizations",
-    }
+    },
+    filterTypes :{
+      free : "Free",
+      inUse : "In use",
+      fast : "Fast",
+      lvl2 : "Lvl2",
+      public : "Public",
+      notPublic: "Non Public",
+    },
   }
 }

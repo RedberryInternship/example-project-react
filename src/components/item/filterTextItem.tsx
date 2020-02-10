@@ -21,14 +21,12 @@ const styles = StyleSheet.create({
 const filterTextItem = ({text, onPress, active} : any) => {
 
   return (
-      <>
       <TouchableOpacity
         style={[styles.container, {backgroundColor :  active ? "#008AEE" : "white" }]}
         onPress={onPress}
       >
         <Text style={{fontSize:11,color : active ? "white" :  Colors.primaryDark , lineHeight : 22}}>{text}</Text>
       </TouchableOpacity>
-      </>
   );
 };
 

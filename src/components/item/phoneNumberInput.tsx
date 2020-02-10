@@ -46,8 +46,6 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
 
     _this.current.phone  =  selectedCountryCode.value + text;
 
-    console.log(['PhoneChange', [text, _this ]]);
-
     if(text !== "" ){
       codeRef && codeRef.current && codeRef.current.activateButton();
     }

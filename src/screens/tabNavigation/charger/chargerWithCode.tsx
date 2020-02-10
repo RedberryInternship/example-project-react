@@ -38,7 +38,7 @@ const ChargerWithCode = ({navigation} : any) => {
           image={require("../../../../assets/images/icons/arrow_right.png")}
         />
 
-        <TouchableOpacity   onPress={navigation.navigate.bind(ChargerWithCode,"")}  style={{marginVertical: 16, alignItems:"center"}}>
+        <TouchableOpacity   onPress={hook.allChargerHandler}  style={{marginVertical: 16, alignItems:"center"}}>
           <Text  style={{color: Colors.primaryGreen, fontSize:13}}>{hook.t("charger.allChargerList")}</Text>
         </TouchableOpacity>
         <View style={{height:32}}/>
@@ -65,7 +65,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: Colors.primaryBackground
+    backgroundColor: Colors.primaryBackground,
+    alignItems:"stretch"
   },
 });
 

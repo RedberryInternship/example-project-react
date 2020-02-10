@@ -26,7 +26,7 @@ import { logOut } from '../../src/hooks/actions/rootActions';
 
 const drawer = ({ navigation } : any) => {
 
-  const {  i18n } = useTranslation();
+  const {  t, i18n } = useTranslation();
   const insets = useSafeArea();
   const context : any = useContext(AppContext);
 
@@ -106,9 +106,13 @@ const drawer = ({ navigation } : any) => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
               style={styles.localeButton} 
             />
-            <TouchableOpacity onPress={() =>{context.dispatch(logOut())}} >
-                <Text style={{marginRight:24, color:"white"}}>Log out</Text>
-            </TouchableOpacity>
+            {
+              $isUserAuthorized &&
+                <TouchableOpacity onPress={() =>{context.dispatch(logOut())}} >
+                  <Text style={{marginRight:24, color:"white"}}>{t("drawer.logOut")}</Text>
+                </TouchableOpacity>
+            }
+            
           </View>
         </View>
       </ScrollView>

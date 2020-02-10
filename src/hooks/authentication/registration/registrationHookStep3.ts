@@ -4,7 +4,7 @@ import {TextInput} from "react-native"
 import { Defaults} from "../../../utils";
 import ajax from "../../../utils/ajax";
 import { useAsyncStorage } from "@react-native-community/async-storage";
-import { saveToken } from "../../../../src/hooks/actions/rootActions";
+import { saveToken, rootAction } from "../../../../src/hooks/actions/rootActions";
 import { BaseInputRefObject } from "../../../../@types/allTypes";
 
 
@@ -89,7 +89,7 @@ export default (setActivePage : any, t : any, regStep1 : any, regStep2 : any, di
 
   const onSuccessRegistration = async (data : any ) =>{
 
-    dispatch(saveToken(data))
+    rootAction(data, dispatch)
     setActivePage(3)
 
   }

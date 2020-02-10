@@ -24,9 +24,6 @@ const charging = ({navigation} : any) => {
 
 
     const renderTabBar = (props : any) => {
-      console.log('====================================');
-      console.log(props, " props, props");
-      console.log('====================================');
       const inputRange = props.navigationState.routes.map((_ : any, i : number) => i);
 
       return (
