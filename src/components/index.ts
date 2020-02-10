@@ -52,6 +52,7 @@ import ContactListItem from './item/contactListItem';
 import NotificationListItem from './item/notificationsListItem';
 import TransactionListItem from './item/transactionListItem';
 import MapMarkerItem from './item/mapMarkerItem';
+import ChargerGroupPopupItem from './item/chargerGroupPopupItem';
 
 
 //BaseUI
@@ -141,5 +142,6 @@ export {
     ChargingView,
     BasePickerSelect,
     MultiChargingTopModal,
-    MapPopUp
+    MapPopUp,
+    ChargerGroupPopupItem
 }

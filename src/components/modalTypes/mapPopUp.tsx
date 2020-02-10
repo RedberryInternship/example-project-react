@@ -1,26 +1,21 @@
 /* eslint-disable react/display-name */
 import React from 'react';
-import {Text,  View, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {Text,  View, TouchableOpacity, Image, StyleSheet, Alert} from 'react-native';
 import { Colors } from '../../../src/utils';
-import { LegendItem, LegendColorItem } from '../';
+import { LegendItem, LegendColorItem, ChargerGroupPopupItem } from '../';
 import { useTranslation } from 'react-i18next';
+import { Charger } from '../../../@types/allTypes.d';
 
 
 type Props = {
   onPress : (index : number) => void,
   data : Data,
-  addresses :Addresses
+
 }
 type Data= {
   title : string,
   address : string,
-}
-
-type Addresses = {
-  freeToUse : boolean,
-  code : string,
-
-
+  chargers : Charger[]
 }
 export default ({ onPress , data} : Props) => {
 
@@ -32,7 +27,20 @@ export default ({ onPress , data} : Props) => {
         <Image  source={require("../../../assets/images/icons/ic_map_pin.png")} style={{width:21, height:21, resizeMode:"contain"}}/>
         <Text style={styles.addressText}>{t(data.address)}</Text>
       </View>
-      
+      <View style={styles.groupChargerContainer}>
+        <ChargerGroupPopupItem
+          text={"sdf"}
+          onPress={() => {Alert.alert("sd")}}
+          code={"345"}
+          active={true}
+        />
+        <ChargerGroupPopupItem
+          text={"sdf"}
+          onPress={() => {Alert.alert("sd")}}
+          code={"345"}
+          active={false}
+        />
+      </View>
     </View>
           
   );
@@ -57,14 +65,15 @@ const styles = StyleSheet.create({
     justifyContent:"flex-start", 
     alignItems:"center", 
     paddingVertical:8,
-    borderBottomColor :Colors.primaryBackground.concat("33"),
-    borderBottomWidth:1,
+    
     paddingBottom: 16
   },
   addressText : {
     color:"#436880", 
     fontSize:13,
     marginLeft:12
+  },
+  groupChargerContainer :{
   }
 
 });

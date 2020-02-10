@@ -30,7 +30,7 @@ export interface CustomModalInterface {
 }
 
 const initialState : InitialState = {
-  visible :false,
+  visible :true,
   config : {
     type:4,
     data : {
