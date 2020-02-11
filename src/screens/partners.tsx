@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   View,
-  Text,
+  Text, // Vobi Todo: Unused imports should be removed
   StyleSheet,
   SafeAreaView,
   Image
@@ -16,18 +16,22 @@ import {
 // utils
 import { Colors } from '../utils';
 
-
+// Vobi Todo: Component Naming
 const partners = ({ navigation }: any) => {
+  // Vobi Todo: No any types
 
   return (
     <View style={styles.container}>
       <BaseHeader
         title={'partners.partnerOrganizations'}
         onPressLeft={navigation.navigate.bind(partners, "MainDrawer")} />
+        {/* Vobi Todo: Badly formated Code use eslint */}
       <View style={styles.partnersInnerContainer}>
 
         <View style={styles.partnersRowContainer}>
+          {/* Vobi Todo: No inline requires same as contact.tsx line 116 */}
           <Image source={require('../../assets/images/icons/partners/socar.png')}
+            {/* Vobi Todo: No Inline Styles same as Contact.tsx line 120 */}
             style={{ width: 80, height: 19 }} />
           <Image source={require('../../assets/images/icons/partners/gulf.png')}
             style={{ width: 45, height: 41 }} />

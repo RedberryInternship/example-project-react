@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Colors } from '../../../src/utils';
 
-
+//todo Vobi: fix spellcheck favouritePress, 
+//if use vscode install that https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker 
 const chargerDetailTopInfo = ({chargerLocationDirectionPress,showChargerLocationPress, favouritePress, code, name, location, distance } : any) => {
 
   const {t} = useTranslation();
@@ -16,6 +17,8 @@ const chargerDetailTopInfo = ({chargerLocationDirectionPress,showChargerLocation
     })
   }, [])
   
+  //todo Vobi:  Line length is so large in some case, 
+  //set in eslint max length, would be 100 or 150 https://eslint.org/docs/rules/max-lines
   return (
       <View style={styles.container}>
         <View style={{flexDirection:"row", justifyContent:"space-between",  flex:1}}>

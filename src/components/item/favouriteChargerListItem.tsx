@@ -14,7 +14,7 @@ import {
   BaseButton
 } from '..';
 
-import { Colors } from '../../utils'
+import { Colors } from '../../utils' // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 
 
 

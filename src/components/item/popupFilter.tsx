@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { StyleSheet,Text, Platform, TouchableOpacity} from 'react-native';
-import { Colors } from '../../utils';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import { Colors } from '../../utils'; //todo Vobi: remove unused imports
+import { TouchableNativeFeedback } from 'react-native-gesture-handler'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 
 
 const styles = StyleSheet.create({

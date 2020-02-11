@@ -24,6 +24,8 @@ export default function  useLocation({ mapRef} : any){
     const [permissionStatus, setPermissionStatus] = useState<LocationPermissionStatus | null>(null);
 
     const ref = useRef<Ref>({interval : 0, location : null })
+    // Todo Vobi: ref is not describing what it is referencing to you should consider renaming it
+    // Todo Vobi: like if it is referencing to input you should name it inputRef and so on
 
     useEffect(() => {
 
@@ -56,7 +58,7 @@ export default function  useLocation({ mapRef} : any){
       //         left: 20
       //     }, animated: true
       // })
-    }
+    } // Todo Vobi: remove this function if it is not use and delete commented code 
 
     const subscribePermissionUpdate = (status : LocationPermissionStatus) => {
       setPermissionStatus(status);
@@ -78,7 +80,7 @@ export default function  useLocation({ mapRef} : any){
       }
       else if(status.match(/ notDetermined /)) {
         Config.requestPermission.then((granted) => {
-          if(granted){
+          if(granted){ // Todo Vobi: this kind of if statements should be one line
             navigateToLocation()
           }
         })
@@ -91,7 +93,9 @@ export default function  useLocation({ mapRef} : any){
       navigateByRef( location )
     }
     else {
-
+      // Todo Vobi: es6 introduced one of the greatest feature to avoid callback hells
+      // Todo Vobi: use async/await and try/catch
+      // Todo Vobi: https://javascript.info/async-await
       RNLocation.getLatestLocation({ timeout: 6000 })
       .then( latestLocation => {
         if( latestLocation != null ){
@@ -112,7 +116,8 @@ export default function  useLocation({ mapRef} : any){
 
   const locate = () =>{
     navigateToLocation()
-  }
+  } // Todo Vobi: Why do you recreate functions like this
+  // Todo Vobi: you can call it by navigateToLocation 
 
   useEffect(() => {
     

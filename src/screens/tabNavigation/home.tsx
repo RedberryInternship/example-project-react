@@ -1,16 +1,15 @@
-import React, { createContext, useReducer, useMemo, useCallback} from 'react';
+import React, { createContext, useReducer, useMemo, useCallback} from 'react';// Vobi Todo: remove unused imports
 import {
   StyleSheet,
   View,
 } from 'react-native';
 
-import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';
+import { MapView, CollapsibleModal, HomeComponentItems } from '../../components';// Vobi Todo: remove unused imports
 import { Colors } from '../../../src/utils';
 import BottomSheetReanimated from '../../../src/components/view/bottomSheetReanimated';
 import reducer, { initialState } from '../../../src/hooks/reducers/homeReducers';
 import  { useHomeHook } from '../../../src/hooks';
-import { NavigationParams, NavigationScreenProp,NavigationState } from 'react-navigation';
-
+import { NavigationParams, NavigationScreenProp,NavigationState } from 'react-navigation';// Vobi Todo: remove unused imports
 export const HomeContext = createContext()
 
 const Home = ({navigation} : any ) => {
@@ -45,7 +44,7 @@ const Home = ({navigation} : any ) => {
       </View>
     </HomeContext.Provider>
   ),
-  [hook, ] );
+  [hook, ] ); // Vobi Todo: what is purpose of [hook, ] use [hook]
 };
 
 

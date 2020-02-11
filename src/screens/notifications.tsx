@@ -6,7 +6,7 @@ import {
   SafeAreaView
 } from 'react-native';
 
-
+// Vobi Todo: unstructured imports
 // components
 import {
   BaseHeader,
@@ -15,9 +15,9 @@ import {
 
 // utils
 import { Colors } from '../utils';
-
+// Vobi Todo: Component Naming
 const notifications = ({ navigation }: any) => {
-
+  // Vobi Todo: No any types
 
   const notificationItems = notificationsList.map(el => {
 

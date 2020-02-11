@@ -9,6 +9,7 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text>plashka</Text>
+      {/* Vobi Todo: What is this */}
     </View>
   );
 };

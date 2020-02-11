@@ -69,6 +69,7 @@ const footerTabNavigator = (props: any) => {
     StatusBar.setBarStyle( determineTimePeriod()  ? "dark-content" : "light-content")
   }
 
+  //todo Vobi: not import png like that require("../assets/images/icons/ic_favorite.png"), import it in header and use that in code
   return (
     <View style={[styles.bottomTabContainer, {paddingBottom : insets.bottom, height: 65 +insets.bottom }]} >
         <TabNavigationButtons 

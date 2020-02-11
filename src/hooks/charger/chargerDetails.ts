@@ -98,6 +98,7 @@ export default   (navigation : NavigationScreenProp<NavigationState, NavigationP
   }
 
   const onFavoritePress = () =>{
+    // Todo Vobi: use async/await
     charger && Ajax.post("/add-favorite", {charger_id : charger?.charger_id})
       .then(() =>{
         getFavoriteChargers(context.dispatch)
