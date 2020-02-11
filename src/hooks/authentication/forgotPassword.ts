@@ -1,180 +1,206 @@
-import { useState, useRef } from "react";
+import {useState, useRef} from 'react'
 
-import { useTranslation } from 'react-i18next';
-import { Ajax, Defaults } from '../../utils';
-import { Alert } from "react-native";
+import {useTranslation} from 'react-i18next'
+import {Ajax, Defaults} from 'utils'
 
 type _This = {
-  code: string,
+  code: string
   phone: string
 }
 
 export default (navigation: any) => {
+  const [receiveCodeButtonClicked, setReceiveCodeButtonClicked] = useState<
+    boolean
+  >(false)
+  const [startCodeAnimation, setStartCodeAnimation] = useState<any>(false)
+  const [disableCodeInput, setDisableCodeInput] = useState<boolean>(true)
+  const phoneRef: any = useRef(null)
+  const codeRef: any = useRef(null)
 
-  const [recieveCodeButtonClicked, setRecieveCodeButtonClicked] = useState<boolean>(false);
-  const [startCodeAnimation, setStartCodeAnimation] = useState<any>(false);
-  const [disableCodeInput, setDisableCodeInput] = useState<boolean>(true);
-  const phoneRef: any = useRef(null);
-  const codeRef: any = useRef(null);
-
-  const { t } = useTranslation();
+  const {t} = useTranslation()
 
   const _this = useRef<_This>({
     code: '',
-    phone: ''
-  });
-
+    phone: '',
+  })
 
   const onButtonClick = () => {
-    const isValidationResultSuccessful = validation.validatePhoneNumber() && validation.validateCode();
+    const isValidationResultSuccessful =
+      validation.validatePhoneNumber() && validation.validateCode()
 
     if (isValidationResultSuccessful) {
-
       verifyCode()
         .then(() => {
           navigation.navigate('SetNewPasswords', {
             phone: _this.current.phone,
           })
         })
-        .catch((e) => {
+        .catch(e => {
           switch (e.status) {
-
             case 401:
-              Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.incorrectCode"));
-              return;
+              Defaults.dropdown.alertWithType(
+                'error',
+                t('dropDownAlert.registration.incorrectCode'),
+              )
+              return
 
             case 409:
-              Defaults.dropdown.alertWithType("error", t("dropDownAlert.forgotPassword.userNotFound"));
-              return;
+              Defaults.dropdown.alertWithType(
+                'error',
+                t('dropDownAlert.forgotPassword.userNotFound'),
+              )
+              return
 
             case 440:
-              Defaults.dropdown.alertWithType("error", t("dropDownAlert.forgotPassword.smsCodeExpired"));
-              return;
-
+              Defaults.dropdown.alertWithType(
+                'error',
+                t('dropDownAlert.forgotPassword.smsCodeExpired'),
+              )
+              return
           }
-        });
+        })
     }
   }
 
   const verifyCode = async () => {
-    
-    const verifyCodeResults = await Ajax.post('/verify-code-for-password-recovery', {
-      phone_number: _this.current.phone,
-      code: _this.current.code
-    });
+    const verifyCodeResults = await Ajax.post(
+      '/verify-code-for-password-recovery',
+      {
+        phone_number: _this.current.phone,
+        code: _this.current.code,
+      },
+    )
 
-    return verifyCodeResults;
+    return verifyCodeResults
   }
 
   const codeReceiveHandler = () => {
-
-    if (!validation.validatePhoneNumber(false)) return;
+    if (!validation.validatePhoneNumber(false)) return
 
     Ajax.post('/send-sms-code', {
-      phone_number: _this.current.phone
+      phone_number: _this.current.phone,
     })
       .then(() => {
-        codeRef.current.startCodeAnimation();
-        Defaults.dropdown.alertWithType("success", t("dropDownAlert.registration.codeSentSuccessfully"));
-        setDisableCodeInput(false);
+        codeRef.current.startCodeAnimation()
+        Defaults.dropdown.alertWithType(
+          'success',
+          t('dropDownAlert.registration.codeSentSuccessfully'),
+        )
+        setDisableCodeInput(false)
       })
       .catch(() => {
-        Defaults.dropdown.alertWithType("error", t("dropDownAlert.generalError"));
-      });
-    
-    setRecieveCodeButtonClicked(true);
+        Defaults.dropdown.alertWithType(
+          'error',
+          t('dropDownAlert.generalError'),
+        )
+      })
+
+    setReceiveCodeButtonClicked(true)
   }
 
   const codeInputSubmit = () => {
-    codeReceiveHandler();
+    codeReceiveHandler()
   }
 
-
   const phoneInputSubmit = () => {
-    validation.validatePhoneNumber();
+    validation.validatePhoneNumber()
   }
 
   const codeTextHandler = (val: string) => {
-
     if (val.length > 4) {
       codeRef.current.setNativeProps({
-        text: _this.current.code
-      });
-      return;
+        text: _this.current.code,
+      })
+      return
     }
 
     codeRef.current.setNativeProps({
-      text: val
+      text: val,
     })
-    _this.current.code = val;
+    _this.current.code = val
   }
 
-
-  
   // validation
   const validation = {
     validateCode: (): boolean => {
-
       if (_this.current.code.length === 0) {
-        Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.fillCode"));
-        return false;
-      }
-      else if (_this.current.code.length !== 4) {
-        Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.smsCodeLength"));
-        return false;
-      }
-      else {
-        return true;
+        Defaults.dropdown.alertWithType(
+          'error',
+          t('dropDownAlert.forgotPassword.fillCode'),
+        )
+        return false
+      } else if (_this.current.code.length !== 4) {
+        Defaults.dropdown.alertWithType(
+          'error',
+          t('dropDownAlert.forgotPassword.smsCodeLength'),
+        )
+        return false
+      } else {
+        return true
       }
     },
 
     validateOnGeorgianPhoneCode: () => {
       if (_this.current!.phone.length < 5) {
-        Defaults.dropdown.alertWithType("error", t("dropDownAlert.registration.fillPhoneNumber"));
-      }
-      else if (_this.current!.phone.length - 4 !== 9) {
-        Defaults.dropdown.alertWithType("error", t("dropDownAlert.auth.phoneNumberLength"));
-        return false;
-      }
-      else {
-        return true;
+        Defaults.dropdown.alertWithType(
+          'error',
+          t('dropDownAlert.registration.fillPhoneNumber'),
+        )
+      } else if (_this.current!.phone.length - 4 !== 9) {
+        Defaults.dropdown.alertWithType(
+          'error',
+          t('dropDownAlert.auth.phoneNumberLength'),
+        )
+        return false
+      } else {
+        return true
       }
     },
 
     validatePhoneNumber: (withGetSmsVerificationAlert = true): boolean => {
-
-      const isCountryCodeGeorgian = _this.current.phone.slice(0,4) === '+995' ? true : false;
+      const isCountryCodeGeorgian =
+        _this.current.phone.slice(0, 4) === '+995' ? true : false
 
       if (isCountryCodeGeorgian) {
-  
-        const isPhoneValidationSuccessful = validation.validateOnGeorgianPhoneCode();
+        const isPhoneValidationSuccessful = validation.validateOnGeorgianPhoneCode()
         if (isPhoneValidationSuccessful) {
-  
-          if (withGetSmsVerificationAlert && recieveCodeButtonClicked === false) {
-            Defaults.dropdown.alertWithType('error', t("dropDownAlert.forgotPassword.getVerificationCode"));
-            phoneRef.current.blur();
+          if (
+            withGetSmsVerificationAlert &&
+            receiveCodeButtonClicked === false
+          ) {
+            Defaults.dropdown.alertWithType(
+              'error',
+              t('dropDownAlert.forgotPassword.getVerificationCode'),
+            )
+            phoneRef.current.blur()
+          } else {
+            codeRef.current.focus()
           }
-          else {
-            codeRef.current.focus();
-          }
-          return true;
-        }
-        else {
-          phoneRef.current.focus();
-          return false;
+          return true
+        } else {
+          phoneRef.current.focus()
+          return false
         }
       }
-  
-      codeRef.current.focus();
-      return true;
-    }
+
+      codeRef.current.focus()
+      return true
+    },
   }
 
   // return statement
   return {
-    phoneInputSubmit, onButtonClick, disableCodeInput,
-    codeTextHandler, codeInputSubmit, _this, phoneRef,
-    t, codeReceiveHandler, codeRef,startCodeAnimation, 
-    setStartCodeAnimation
+    phoneInputSubmit,
+    onButtonClick,
+    disableCodeInput,
+    codeTextHandler,
+    codeInputSubmit,
+    _this,
+    phoneRef,
+    t,
+    codeReceiveHandler,
+    codeRef,
+    startCodeAnimation,
+    setStartCodeAnimation,
   }
 }

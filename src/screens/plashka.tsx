@@ -1,17 +1,13 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import React from 'react'
+import {StyleSheet, View, Text} from 'react-native'
 
 const App = () => {
   return (
     <View style={styles.container}>
       <Text>plashka</Text>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +16,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'green',
   },
-});
+})
 
-export default App;
+export default App

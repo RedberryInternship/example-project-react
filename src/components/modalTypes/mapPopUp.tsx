@@ -1,79 +1,77 @@
 /* eslint-disable react/display-name */
-import React from 'react';
-import {Text,  View, TouchableOpacity, Image, StyleSheet, Alert} from 'react-native';
-import { Colors } from '../../../src/utils';
-import { LegendItem, LegendColorItem, ChargerGroupPopupItem } from '../';
-import { useTranslation } from 'react-i18next';
-import { Charger } from '../../../@types/allTypes.d';
-
+import React from 'react'
+import {Text, View, Image, StyleSheet, Alert} from 'react-native'
+import {Colors} from '../../../src/utils'
+import {ChargerGroupPopupItem} from 'components'
+import {useTranslation} from 'react-i18next'
+import {Charger} from 'allTypes'
 
 type Props = {
-  onPress : (index : number) => void,
-  data : Data,
-
+  onPress?: (index: number) => void
+  data: Data
 }
-type Data= {
-  title : string,
-  address : string,
-  chargers : Charger[]
+type Data = {
+  title: string
+  address: string
+  chargers: Charger[]
 }
-export default ({ onPress , data} : Props) => {
-
+export default ({data}: Props) => {
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{t(data.title)}</Text>
       <View style={styles.addressContainer}>
-        <Image  source={require("../../../assets/images/icons/ic_map_pin.png")} style={{width:21, height:21, resizeMode:"contain"}}/>
+        <Image
+          source={require('../../../assets/images/icons/ic_map_pin.png')}
+          style={{width: 21, height: 21, resizeMode: 'contain'}}
+        />
         <Text style={styles.addressText}>{t(data.address)}</Text>
       </View>
       <View style={styles.groupChargerContainer}>
         <ChargerGroupPopupItem
-          text={"sdf"}
-          onPress={() => {Alert.alert("sd")}}
-          code={"345"}
+          text={'sdf'}
+          onPress={() => {
+            Alert.alert('sd')
+          }}
+          code={'345'}
           active={true}
         />
         <ChargerGroupPopupItem
-          text={"sdf"}
-          onPress={() => {Alert.alert("sd")}}
-          code={"345"}
+          text={'sdf'}
+          onPress={() => {
+            Alert.alert('sd')
+          }}
+          code={'345'}
           active={false}
         />
       </View>
     </View>
-          
-  );
-};
-
-
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal:24,
-    marginVertical:8,
+    marginHorizontal: 24,
+    marginVertical: 8,
   },
-  title : {
-    fontSize:17, 
-    lineHeight:22, 
+  title: {
+    fontSize: 17,
+    lineHeight: 22,
     color: Colors.primaryDark,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+  },
+  addressContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingVertical: 8,
 
+    paddingBottom: 16,
   },
-  addressContainer : {
-    flexDirection:"row", 
-    justifyContent:"flex-start", 
-    alignItems:"center", 
-    paddingVertical:8,
-    
-    paddingBottom: 16
+  addressText: {
+    color: '#436880',
+    fontSize: 13,
+    marginLeft: 12,
   },
-  addressText : {
-    color:"#436880", 
-    fontSize:13,
-    marginLeft:12
-  },
-  groupChargerContainer :{
-  }
-
-});
+  groupChargerContainer: {},
+})

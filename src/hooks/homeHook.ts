@@ -1,153 +1,197 @@
-import {useState, useEffect, useRef, RefObject, useContext, useMemo} from "react";
-import { NavigationParams, NavigationScreenProp,NavigationState, NavigationEventPayload } from 'react-navigation';
-import { HomeNavigateModes, AppContextType, Charger } from "../../@types/allTypes.d";
+import {
+  useState,
+  useEffect,
+  useRef,
+  RefObject,
+  useContext,
+  useMemo,
+} from 'react'
+import {
+  NavigationParams,
+  NavigationScreenProp,
+  NavigationState,
+  NavigationEventPayload,
+} from 'react-navigation'
+// import {HomeNavigateModes, AppContextType, Charger} from 'allTypes'
 import BottomSheet from 'reanimated-bottom-sheet'
-import { InteractionManager, Alert } from "react-native";
-import MapView from "react-native-maps";
-import { regionFrom } from "../../src/utils";
-import { AppContext } from "../../App";
+import MapView from 'react-native-maps'
+import {regionFrom} from 'utils'
+import {AppContext} from '../../App'
 
-type _This = {
-  
-}
+type _This = {}
 
-const ZOOM_LEVEL : number = 200;
+const ZOOM_LEVEL: number = 200
 
+export default (
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+) => {
+  const context: AppContextType = useContext(AppContext)
+  const [loading, setLoading] = useState<Boolean>(true)
 
-export default (navigation :  NavigationScreenProp<NavigationState, NavigationParams>) => {
+  const [selectedFilters, setSelectedFilters] = useState<number[]>(
+    Array(6).fill(0),
+  )
+  const [selectedFiltersOnMap, setSelectedFiltersOnMap] = useState<number[]>(
+    Array(6).fill(0),
+  )
 
-
-  const context : AppContextType = useContext(AppContext)
-  const [loading, setLoading] = useState<Boolean>(true);
-
-  const [selectedFilters, setSelectedFilters] = useState<number[]>(Array(6).fill(0));
-  const [selectedFiltersOnMap, setSelectedFiltersOnMap] = useState<number[]>(Array(6).fill(0));
-
-  const [inputText, setInputText] = useState<string>('');
-  const [showAll, setShowAll] = useState<boolean>(true);
-  const _this : _This = useRef({})
-  const bottomSheetRef : RefObject<BottomSheet> = useRef(null)
-  const mapRef : RefObject<MapView> = useRef(null)
+  const [inputText, setInputText] = useState<string>('')
+  const [showAll, setShowAll] = useState<boolean>(true)
+  const _this: _This = useRef({})
+  const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
+  const mapRef: RefObject<MapView> = useRef(null)
 
   useEffect(() => {
-    let didFocus = navigation.addListener("didFocus", onScreenFocus)
-  
+    let didFocus = navigation.addListener('didFocus', onScreenFocus)
+
     return () => {
       didFocus.remove()
-    };
+    }
   }, [])
 
   useEffect(() => {
-    if(showAll){
+    if (showAll) {
       setSelectedFiltersOnMap(Array(6).fill(0))
-    }
-    else {
+    } else {
       setInputText('')
       setSelectedFilters(Array(6).fill(0))
     }
-    
   }, [showAll])
 
-  const onScreenFocus = (payload : NavigationEventPayload) =>{
-    let { params } = payload.state
+  const onScreenFocus = (payload: NavigationEventPayload) => {
+    let {params} = payload.state
 
     navigation.setParams({mode: null})
 
-    console.log('====================================');
-    console.log(params, "params, homeHook");
-    console.log('====================================');
-    if (params !== undefined){
-      setTimeout(
-        () =>{
-          switch (params?.mode) {
-            case HomeNavigateModes.showAllChargers:
-              bottomSheetRef.current?.snapTo(1)
-              break;
-            case HomeNavigateModes.chargerLocateOnMap:
-              bottomSheetRef.current?.snapTo(0)
-              mapRef.current && mapRef.current.animateToRegion(
-                regionFrom( params?.lat, params.lng, ZOOM_LEVEL ),
+    console.log('====================================')
+    console.log(params, 'params, homeHook')
+    console.log('====================================')
+    if (params !== undefined) {
+      setTimeout(() => {
+        switch (params?.mode) {
+          case HomeNavigateModes.showAllChargers:
+            bottomSheetRef.current?.snapTo(1)
+            break
+          case HomeNavigateModes.chargerLocateOnMap:
+            bottomSheetRef.current?.snapTo(0)
+            mapRef.current &&
+              mapRef.current.animateToRegion(
+                regionFrom(params?.lat, params.lng, ZOOM_LEVEL),
                 400,
               )
-              break;
-          
-            default:
-              break;
-          }
-        }, 600
-      )
+            break
+
+          default:
+            break
+        }
+      }, 600)
     }
   }
 
-
-  const onFilterClick = (index: number) =>{
-    let newSelectedFilters : number[] = [];
-    ++selectedFilters[index] 
-    newSelectedFilters = selectedFilters.map((val) => val > 1 || val === 0 ? 0 : 1 )
+  const onFilterClick = (index: number) => {
+    let newSelectedFilters: number[] = []
+    ++selectedFilters[index]
+    newSelectedFilters = selectedFilters.map(val =>
+      val > 1 || val === 0 ? 0 : 1,
+    )
 
     setSelectedFilters(newSelectedFilters)
   }
 
-
-  const filteredChargers = useMemo( () =>{
+  const filteredChargers = useMemo(() => {
     return context.state.AllChargers?.filter((val: Charger) => {
-      if( selectedFilters[0] && !val.active  ) return false
-      if( selectedFilters[1] && val.active ) return false
-      if( selectedFilters[2] ) {
-        if( !val.charger_types.filter((type : any) => type.name === "Fast" ).length ) return false
+      if (selectedFilters[0] && !val.active) return false
+      if (selectedFilters[1] && val.active) return false
+      if (selectedFilters[2]) {
+        if (
+          !val.charger_types.filter((type: any) => type.name === 'Fast').length
+        )
+          return false
       }
-      if( selectedFilters[3] ) {
-        if( !val.charger_types.filter((type : any) => type.name === "Lvl 2" ).length ) return false
+      if (selectedFilters[3]) {
+        if (
+          !val.charger_types.filter((type: any) => type.name === 'Lvl 2').length
+        )
+          return false
       }
-      if( selectedFilters[4] && !val.public && !selectedFilters[5] ) return false
-      if( selectedFilters[5] && val.public && !selectedFilters[4] ) return false
+      if (selectedFilters[4] && !val.public && !selectedFilters[5]) return false
+      if (selectedFilters[5] && val.public && !selectedFilters[4]) return false
 
-      if( Object.entries(val.name).filter((val) => val[1].includes(inputText)).length === 0 &&
-      Object.entries(val.location).filter((val) => val[1].includes(inputText)).length === 0 ) return false
+      if (
+        Object.entries(val.name).filter(val => val[1].includes(inputText))
+          .length === 0 &&
+        Object.entries(val.location).filter(val => val[1].includes(inputText))
+          .length === 0
+      )
+        return false
 
-      return  true
-    } )
+      return true
+    })
   }, [selectedFilters, inputText, []])
 
-  const onFilteredItemClick = (charger : Charger) =>{
-    navigation.navigate("ChargerDetail", {chargerDetails : charger } )
+  const onFilteredItemClick = (charger: Charger) => {
+    navigation.navigate('ChargerDetail', {chargerDetails: charger})
   }
 
-  const searchInputTextChangeHandler = (text : string) =>{
+  const searchInputTextChangeHandler = (text: string) => {
     setInputText(text)
   }
 
-  const searchInputTextSubmit = () =>{
+  const searchInputTextSubmit = () => {}
 
-  }
-
-  const onFilterClickOnMap = (index: number) =>{
-    let newSelectedFilters : number[] = [];
-    ++selectedFiltersOnMap[index] 
-    newSelectedFilters = selectedFiltersOnMap.map((val) => val > 1 || val === 0 ? 0 : 1 )
+  const onFilterClickOnMap = (index: number) => {
+    let newSelectedFilters: number[] = []
+    ++selectedFiltersOnMap[index]
+    newSelectedFilters = selectedFiltersOnMap.map(val =>
+      val > 1 || val === 0 ? 0 : 1,
+    )
     setSelectedFiltersOnMap(newSelectedFilters)
     setShowAll(false)
   }
 
-  const filteredChargersOnMap =  useMemo( () =>{
+  const filteredChargersOnMap = useMemo(() => {
     return context.state.AllChargers?.filter((val: Charger) => {
-      if( selectedFiltersOnMap[0] && !val.active  ) return false
-      if( selectedFiltersOnMap[1] && val.active ) return false
-      if( selectedFiltersOnMap[2] ) {
-        if( !val.charger_types.filter((type : any) => type.name === "Fast" ).length ) return false
+      if (selectedFiltersOnMap[0] && !val.active) return false
+      if (selectedFiltersOnMap[1] && val.active) return false
+      if (selectedFiltersOnMap[2]) {
+        if (
+          !val.charger_types.filter((type: any) => type.name === 'Fast').length
+        )
+          return false
       }
-      if( selectedFiltersOnMap[3] ) {
-        if( !val.charger_types.filter((type : any) => type.name === "Lvl 2" ).length ) return false
+      if (selectedFiltersOnMap[3]) {
+        if (
+          !val.charger_types.filter((type: any) => type.name === 'Lvl 2').length
+        )
+          return false
       }
-      if( selectedFiltersOnMap[4] && !val.public && !selectedFiltersOnMap[5] ) return false
-      if( selectedFiltersOnMap[5] && val.public && !selectedFiltersOnMap[4] ) return false
+      if (selectedFiltersOnMap[4] && !val.public && !selectedFiltersOnMap[5])
+        return false
+      if (selectedFiltersOnMap[5] && val.public && !selectedFiltersOnMap[4])
+        return false
 
-      return  true
-    } )
-  }, [selectedFiltersOnMap,[]])
+      return true
+    })
+  }, [selectedFiltersOnMap, []])
 
   return {
-    loading, setLoading, _this, bottomSheetRef, mapRef, selectedFilters,  onFilterClick, onFilteredItemClick, filteredChargers, searchInputTextChangeHandler,
-    searchInputTextSubmit, context, showAll, setShowAll, filteredChargersOnMap, onFilterClickOnMap, selectedFiltersOnMap, setSelectedFiltersOnMap, 
+    loading,
+    setLoading,
+    _this,
+    bottomSheetRef,
+    mapRef,
+    selectedFilters,
+    onFilterClick,
+    onFilteredItemClick,
+    filteredChargers,
+    searchInputTextChangeHandler,
+    searchInputTextSubmit,
+    context,
+    showAll,
+    setShowAll,
+    filteredChargersOnMap,
+    onFilterClickOnMap,
+    selectedFiltersOnMap,
+    setSelectedFiltersOnMap,
   }
 }

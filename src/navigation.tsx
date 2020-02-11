@@ -1,12 +1,12 @@
-import React from 'react';
-import { View,Dimensions, StatusBar, StyleSheet} from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { useSafeArea } from 'react-native-safe-area-context';
+import React from 'react'
+import {View, Dimensions, StatusBar, StyleSheet} from 'react-native'
+import {createAppContainer, createSwitchNavigator} from 'react-navigation'
+import {createStackNavigator} from 'react-navigation-stack'
+import {createDrawerNavigator} from 'react-navigation-drawer'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
+import {useSafeArea} from 'react-native-safe-area-context'
 
-import { Defaults } from './utils';
+import {Defaults} from './utils'
 
 //screens
 import {
@@ -32,82 +32,93 @@ import {
   TransactionList,
   ShowTransaction,
   Partners,
-  SetNewPasswords
-} from './screens';
-import { TabNavigationButtons } from './components';
-import { determineTimePeriod } from './utils/mapAndLocation/mapFunctions';
+  SetNewPasswords,
+} from 'screens'
+import {TabNavigationButtons} from 'components'
+import {determineTimePeriod} from './utils/mapAndLocation/mapFunctions'
 
-
-const chargerStack = createStackNavigator({
-  ChargerWithCode,
-  ChargerDetail,
-  ChooseChargeMethod,
-  Charging,
-  ChoosingCard
-},
-{
-  defaultNavigationOptions: {
-    headerShown: false,
+const chargerStack = createStackNavigator(
+  {
+    ChargerWithCode,
+    ChargerDetail,
+    ChooseChargeMethod,
+    Charging,
+    ChoosingCard,
   },
-  initialRouteName:"ChargerWithCode"
-})
-
-
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
+    initialRouteName: 'ChargerWithCode',
+  },
+)
 
 const footerTabNavigator = (props: any) => {
-  let currentRouteName = props.navigation.state.routes[props.navigation.state.index].key;
-  const insets = useSafeArea();
+  let currentRouteName =
+    props.navigation.state.routes[props.navigation.state.index].key
+  const insets = useSafeArea()
 
   const navigate = (name: string) => {
-    if (name === "drawer") return props.navigation.openDrawer();
+    if (name === 'drawer') return props.navigation.openDrawer()
     props.navigation.navigate(name)
   }
-  if(currentRouteName !== "Home"){
-    StatusBar.setBarStyle( "light-content")
-  }
-  else {
-    StatusBar.setBarStyle( determineTimePeriod()  ? "dark-content" : "light-content")
+  if (currentRouteName !== 'Home') {
+    StatusBar.setBarStyle('light-content')
+  } else {
+    StatusBar.setBarStyle(
+      determineTimePeriod() ? 'dark-content' : 'light-content',
+    )
   }
 
   return (
-    <View style={[styles.bottomTabContainer, {paddingBottom : insets.bottom, height: 65 +insets.bottom }]} >
-        <TabNavigationButtons 
-          active={currentRouteName === "Home"} 
-          navigate={navigate.bind(footerTabNavigator, 'Home')} 
-          image={require("../assets/images/icons/ic_map_pin.png")} 
-        />
-        <TabNavigationButtons 
-          active={currentRouteName === "chargerStack" || currentRouteName === "NotAuthorized"} 
-          navigate={navigate.bind(footerTabNavigator, Defaults.token ? "chargerStack" :  "NotAuthorized"  )} 
-          image={require("../assets/images/icons/ic_charge.png")} 
-        />
-        {
-          Defaults.token != null && Defaults.token != "" &&
-            <TabNavigationButtons
-              navigate={navigate.bind(footerTabNavigator, 'Favorites')}
-              image={require("../assets/images/icons/ic_favorite.png")}
-              active={currentRouteName === "Favorites"}
-            />
+    <View
+      style={[
+        styles.bottomTabContainer,
+        {paddingBottom: insets.bottom, height: 65 + insets.bottom},
+      ]}>
+      <TabNavigationButtons
+        active={currentRouteName === 'Home'}
+        navigate={navigate.bind(footerTabNavigator, 'Home')}
+        image={require('../assets/images/icons/ic_map_pin.png')}
+      />
+      <TabNavigationButtons
+        active={
+          currentRouteName === 'chargerStack' ||
+          currentRouteName === 'NotAuthorized'
         }
+        navigate={navigate.bind(
+          footerTabNavigator,
+          Defaults.token ? 'chargerStack' : 'NotAuthorized',
+        )}
+        image={require('../assets/images/icons/ic_charge.png')}
+      />
+      {Defaults.token != null && Defaults.token != '' && (
         <TabNavigationButtons
-          navigate={navigate.bind(footerTabNavigator, 'drawer')}
-          image={require("../assets/images/icons/ic_menu.png")}
-          active={currentRouteName === "drawer"}
+          navigate={navigate.bind(footerTabNavigator, 'Favorites')}
+          image={require('../assets/images/icons/ic_favorite.png')}
+          active={currentRouteName === 'Favorites'}
         />
+      )}
+      <TabNavigationButtons
+        navigate={navigate.bind(footerTabNavigator, 'drawer')}
+        image={require('../assets/images/icons/ic_menu.png')}
+        active={currentRouteName === 'drawer'}
+      />
     </View>
   )
 }
 
-const HomeTabNavigation = createBottomTabNavigator({
-  Home,
-  NotAuthorized,
-  chargerStack,
-  Favorites
-},
+const HomeTabNavigation = createBottomTabNavigator(
+  {
+    Home,
+    NotAuthorized,
+    chargerStack,
+    Favorites,
+  },
   {
     // eslint-disable-next-line react/display-name
     tabBarComponent: footerTabNavigator,
-    initialRouteName: "Home",
+    initialRouteName: 'Home',
     tabBarOptions: {
       activeTintColor: 'tomato',
       inactiveTintColor: 'gray',
@@ -115,91 +126,90 @@ const HomeTabNavigation = createBottomTabNavigator({
         height: 60,
       },
       style: {
-        backgroundColor: "#111314"
-      }
+        backgroundColor: '#111314',
+      },
     },
-  }
+  },
 )
-
 
 export const MainDrawer = createDrawerNavigator(
   {
-    HomeTabNavigation
+    HomeTabNavigation,
   },
   {
-    drawerPosition: "right",
-    drawerBackgroundColor: "transparent",
-    drawerType: "front",
-    drawerWidth: Dimensions.get("window").width * 0.8,
+    drawerPosition: 'right',
+    drawerBackgroundColor: 'transparent',
+    drawerType: 'front',
+    drawerWidth: Dimensions.get('window').width * 0.8,
     contentComponent: Drawer,
-    keyboardDismissMode: "on-drag",
-
+    keyboardDismissMode: 'on-drag',
   },
 )
 
-const authenticationStack = createStackNavigator({
-  Auth,
-  ForgotPassword,
-  Registration,
-  SetNewPasswords
-},
+const authenticationStack = createStackNavigator(
+  {
+    Auth,
+    ForgotPassword,
+    Registration,
+    SetNewPasswords,
+  },
   {
     defaultNavigationOptions: {
-      headerShown: false
-    }
-})
+      headerShown: false,
+    },
+  },
+)
 
+const drawerMenuOptionsStack = createStackNavigator(
+  {
+    Settings,
+    ProfileChange,
+  },
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
+  },
+)
 
-const drawerMenuOptionsStack = createStackNavigator({
-  Settings,
-  ProfileChange,
-},
-{
-  defaultNavigationOptions: {
-    headerShown:false
-  }
-})
+const transactionStack = createStackNavigator(
+  {
+    TransactionList,
+    ShowTransaction,
+  },
+  {
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
+  },
+)
 
-const transactionStack = createStackNavigator({
-  TransactionList,
-  ShowTransaction,
-},
-{
-  defaultNavigationOptions: {
-    headerShown:false
-  }
-})
+const AppNavigator = createSwitchNavigator(
+  {
+    Plashka,
+    authenticationStack,
+    MainDrawer,
+    drawerMenuOptionsStack,
+    chargerStack,
+    Faq,
+    Contact,
+    Tariffs,
+    Partners,
+    transactionStack,
+    Notifications,
+  },
+  {
+    initialRouteName: 'Plashka',
+  },
+)
 
-
-const AppNavigator = createSwitchNavigator({
-
-  Plashka,
-  authenticationStack,
-  MainDrawer,
-  drawerMenuOptionsStack,
-  chargerStack,
-  Faq,
-  Contact,
-  Tariffs,
-  Partners,
-  transactionStack,
-  Notifications,
-
-}, {
-  initialRouteName: "Plashka"
-});
-
-export default createAppContainer(AppNavigator);
-
-
-
-
+export default createAppContainer(AppNavigator)
 
 const styles = StyleSheet.create({
-  bottomTabContainer: { 
-    backgroundColor: "#111314", 
-    flexDirection: "row", 
-    alignItems: "center", 
-    justifyContent: "space-around", 
+  bottomTabContainer: {
+    backgroundColor: '#111314',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
-});
+})

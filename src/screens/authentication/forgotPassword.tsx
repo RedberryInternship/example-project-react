@@ -1,38 +1,31 @@
-import React from 'react';
-import {
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import { Colors } from '../../../src/utils';
-import { BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode } from '../../../src/components';
-import { useForgotPassword } from '../../../src/hooks';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useSafeArea } from 'react-native-safe-area-context';
+import React from 'react'
+import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
+import {Colors} from 'utils'
+import {BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode} from 'components'
+import {useForgotPassword} from 'hooks'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {useSafeArea} from 'react-native-safe-area-context'
 
-const forgotPassword = ({navigation} : any) => {
-  
-  const hook = useForgotPassword(navigation);
-  const insets = useSafeArea();
+const forgotPassword = ({navigation}: any) => {
+  const hook = useForgotPassword(navigation)
+  const insets = useSafeArea()
 
   return (
-    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
-      <BaseHeader 
-        onPressLeft={navigation.navigate.bind(forgotPassword, "Auth")}
-        title={"authentication.forgotPasswordPage.recoverPassword"}
+    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+      <BaseHeader
+        onPressLeft={navigation.navigate.bind(forgotPassword, 'Auth')}
+        title={'authentication.forgotPasswordPage.recoverPassword'}
       />
       <KeyboardAwareScrollView
-        style={{flex:0,paddingHorizontal:16, marginVertical:16}}
-        contentContainerStyle={{justifyContent:"flex-start",flex:0}}
-        keyboardShouldPersistTaps={"handled"}
+        style={{flex: 0, paddingHorizontal: 16, marginVertical: 16}}
+        contentContainerStyle={{justifyContent: 'flex-start', flex: 0}}
+        keyboardShouldPersistTaps={'handled'}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
-        automaticallyAdjustContentInsets={false}
-      >
-        <PhoneNumberInput 
+        automaticallyAdjustContentInsets={false}>
+        <PhoneNumberInput
           onSubmit={hook.phoneInputSubmit}
           value={hook._this.current.phone}
           ref={hook.phoneRef}
@@ -47,28 +40,30 @@ const forgotPassword = ({navigation} : any) => {
           recieveCode={hook.codeReceiveHandler}
         />
       </KeyboardAwareScrollView>
-      <KeyboardAvoidingView behavior={"padding"} style={{}} contentContainerStyle={{flex:1,}} keyboardVerticalOffset={Platform.OS === "ios" ? 16 : 41}>
+      <KeyboardAvoidingView
+        behavior={'padding'}
+        style={{}}
+        contentContainerStyle={{flex: 1}}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
         <BaseButton
           onPress={hook.onButtonClick}
-          text={"enter"} 
-          image={require("../../../assets/images/icons/arrow_right.png")}
+          text={'enter'}
+          image={require('../../../assets/images/icons/arrow_right.png')}
           style={{marginTop: 0}}
-          imageStyle={{width:21, height:21}}
+          imageStyle={{width: 21, height: 21}}
         />
-      </KeyboardAvoidingView>      
+      </KeyboardAvoidingView>
     </View>
-  );
-};
-
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
     alignItems: 'stretch',
-    backgroundColor: Colors.primaryBackground  
+    backgroundColor: Colors.primaryBackground,
   },
-  
-});
+})
 
-export default forgotPassword;
+export default forgotPassword
