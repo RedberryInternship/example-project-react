@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet,Text,TouchableOpacity} from 'react-native';
-import { useMap } from '../../hooks';
-import { Colors } from '../../utils';
+import { useMap } from '../../hooks'; //todo Vobi: remove unused imports
+import { Colors } from '../../utils'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 
 
 const styles = StyleSheet.create({

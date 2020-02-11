@@ -4,7 +4,7 @@ import { StyleSheet, View, Animated, Platform } from 'react-native';
 import { BaseInput, BasePickerSelect } from "../"
 import {  Ajax, Defaults } from '../../../src/utils';
 import { useTranslation } from 'react-i18next';
-import { PhoneCountryCodesData, PhoneCountryCode } from '../../../@types/allTypes';
+import { PhoneCountryCodesData, PhoneCountryCode } from '../../../@types/allTypes'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 import { Item } from 'react-native-picker-select';
 
 

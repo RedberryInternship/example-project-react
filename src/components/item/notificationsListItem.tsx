@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 
-import { Colors } from '../../utils';
+import { Colors } from '../../utils'; // todo Vobi: use absolute imports  https://medium.com/beqode/absolute-vs-relative-import-paths-nodejs-1e4efa65a7bb
 
 
 type NotificationItem = {

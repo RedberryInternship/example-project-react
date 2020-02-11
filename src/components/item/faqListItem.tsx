@@ -9,7 +9,7 @@ import {
 
 
 // utils
-import { Const, Colors } from '../../utils';
+import { Const, Colors } from '../../utils'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 
 type FaqItem = {
   number: number,

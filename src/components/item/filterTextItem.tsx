@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import { StyleSheet, ScrollView,Text,  View, TouchableOpacity, Image} from 'react-native';
 import { useMap } from '../../hooks';
-import { Colors } from '../../../src/utils';
+import { Colors } from '../../../src/utils'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 
 
 const styles = StyleSheet.create({
