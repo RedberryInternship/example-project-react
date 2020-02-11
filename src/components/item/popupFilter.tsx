@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet,Text,TouchableOpacity} from 'react-native';
-import { useMap } from '../../hooks'; //todo Vobi: remove unused imports
-import { Colors } from '../../utils'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
+
+import { StyleSheet,Text, Platform, TouchableOpacity} from 'react-native';
+import { Colors } from '../../utils'; //todo Vobi: remove unused imports
+import { TouchableNativeFeedback } from 'react-native-gesture-handler'; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 
 
 const styles = StyleSheet.create({
@@ -16,19 +17,34 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     marginHorizontal:4,
     marginVertical:6,
-    width:"30%"
+    minWidth:"30%"
   },
 });
 
 const popupFilter = ({text, onPress, active} : any) => {
 
-  return (
+  const child = (
     <TouchableOpacity
       style={[styles.container, {backgroundColor :  active ? "#008AEE" : "white" }]}
       onPress={onPress}
     >
-      <Text style={{fontSize:11,color : active ? "white" :  Colors.primaryDark , lineHeight : 22}}>{text}</Text>
+      <Text style={{fontSize:11,color : active ? "white" :  Colors.primaryDark , lineHeight : 22, flex:1}}>{text}</Text>
     </TouchableOpacity>
+  )
+  
+  return (
+    <>
+      { 
+        Platform.OS === 'ios' ?
+          <TouchableOpacity onPress={onPress}>
+            {child} 
+          </TouchableOpacity>
+        :
+          <TouchableNativeFeedback onPress={onPress}>
+            {child} 
+          </TouchableNativeFeedback>
+      }
+    </>
   );
 };
 

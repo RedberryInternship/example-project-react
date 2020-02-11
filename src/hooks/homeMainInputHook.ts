@@ -4,8 +4,7 @@ import { Const, regionFrom} from "../utils";
 import {useTranslation} from 'react-i18next';
 import { Charger } from "../../@types/allTypes.d";
 import MapView from "react-native-maps";
-
-const searchContentHeight = Const.Height - 350;
+import { useSafeArea } from "react-native-safe-area-context";
 
 // Todo Vobi: default export without naming is bad practice and its hard to find where its from
 // Todo Vobi: move this as a constant and then export it 
@@ -15,9 +14,9 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
   const InputRef : any = useRef(null);
   const [showSearchContent, setShowSearchContent] : any = useState(false);
   const [inputText, setInputText]  = useState<string>('');
+  const insets = useSafeArea();
 
-  const _this : any = useRef({animatedSearchContentHeight : new Animated.Value(0), text : ''})
-  
+  const _this : any = useRef({animatedSearchContentHeight : new Animated.Value(0), text : '', searchContentHeight : Const.Height - 65 - insets.top - insets.bottom - 180, })
   const { t } = useTranslation();
 
 
@@ -27,7 +26,7 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
 
   useEffect(() =>{
     Animated.timing(_this.current.animatedSearchContentHeight, {
-      toValue : showSearchContent ? searchContentHeight : 0,
+      toValue : showSearchContent ? _this.current.searchContentHeight : 0,
       duration: 350,
       easing : Easing.out(Easing.ease),
       // useNativeDriver : true,
@@ -59,17 +58,17 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
     ({
       opacity : 
         _this.current.animatedSearchContentHeight.interpolate({
-          inputRange : [0, searchContentHeight],
+          inputRange : [0, _this.current.searchContentHeight],
           outputRange : [0.8 , 1],
         }),
         borderTopLeftRadius :  10,
         borderTopRightRadius :  10,
         borderBottomLeftRadius : _this.current.animatedSearchContentHeight.interpolate({
-          inputRange : [0, searchContentHeight],
+          inputRange : [0, _this.current.searchContentHeight],
           outputRange : [10 , 0],
         }),
       borderBottomRightRadius : _this.current.animatedSearchContentHeight.interpolate({
-          inputRange : [0, searchContentHeight],
+          inputRange : [0, _this.current.searchContentHeight],
           outputRange : [10 , 0],
         }),
     });
@@ -85,6 +84,6 @@ export default (allChargers : Charger[], mapRef : RefObject<MapView>, setShowAll
   }
   // Todo Vobi: Split this vertically 
   // Todo Vobi: t shouldn't be returned from hook you should import it wherever you need
-  return{t, _this, showSearchContent ,animate, setShowSearchContent , InputRef , searchContentHeight , closeClick, textHandler, filterChargers, onSearchItemClickHandler}
+  return{t, _this, showSearchContent ,animate, setShowSearchContent , InputRef  , closeClick, textHandler, filterChargers, onSearchItemClickHandler}
 
 }

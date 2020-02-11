@@ -92,7 +92,7 @@ const bottomSheetReanimated = forwardRef(({onFilterClick, selectedFilters, filte
   )
   const  renderContent = () =>{
     return(
-      <View style={{backgroundColor:"#023D63", paddingBottom:16, marginHorizontal:8, minHeight:"100%"}} >
+      <View style={{backgroundColor:"#023D63", paddingBottom:16, marginHorizontal:8,marginTop:0, minHeight:"100%"}} >
           <View style={{flexDirection:"row", flexWrap:"wrap", justifyContent:"center",alignItems:"center", marginBottom:8}}>
             {
               Const.FilterTypes.map((val : string, index: number) => 
@@ -151,7 +151,8 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    marginHorizontal:8
+    marginHorizontal:8,
+    marginBottom:0,
   },
   headerComponentText : {
     flex: 0,

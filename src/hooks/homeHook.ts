@@ -2,7 +2,7 @@ import {useState, useEffect, useRef, RefObject, useContext, useMemo} from "react
 import { NavigationParams, NavigationScreenProp,NavigationState, NavigationEventPayload } from 'react-navigation';
 import { HomeNavigateModes, AppContextType, Charger } from "../../@types/allTypes.d";
 import BottomSheet from 'reanimated-bottom-sheet'
-import { InteractionManager } from "react-native"; // Todo Vobi: Remove unused Imports
+import { InteractionManager, Alert } from "react-native"; // Todo Vobi: Remove unused Imports
 import MapView from "react-native-maps";
 import { regionFrom } from "../../src/utils"; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957
 import { AppContext } from "../../App"; // todo Vobi: use absolute imports  https://hackernoon.com/react-pro-tip-use-absolute-imports-for-better-readability-and-easy-refactoring-2ad5c7f2f957

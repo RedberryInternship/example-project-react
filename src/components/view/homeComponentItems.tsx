@@ -9,7 +9,7 @@ import { useSafeArea } from 'react-native-safe-area-context';
 import { AppContextType, HomeContextType } from '../../../@types/allTypes';
 
 
-const App = ({navigation,allchargers, mapRef, selectedFiltersOnMap, onFilterClickOnMap, setShowAll} :any) => {
+const HomeComponentItems = ({navigation,allchargers, mapRef, selectedFiltersOnMap, onFilterClickOnMap, setShowAll} :any) => {
 
   const insets = useSafeArea();
 
@@ -23,12 +23,12 @@ const App = ({navigation,allchargers, mapRef, selectedFiltersOnMap, onFilterClic
         :
           <BaseButton
             image={require("../../../assets/images/icons/user.png")}
-            onPress={navigation.navigate.bind(App, "Auth")}
+            onPress={navigation.navigate.bind(HomeComponentItems, "Auth")}
             text={'home.authorization'}
             style={{marginTop: 12 }}
           />
       }
-      <View  style={{zIndex:44, elevation:12,height:100}} pointerEvents={"box-none"}>
+      <View  style={{zIndex:44, elevation:12,height:100, flex:1}} pointerEvents={"box-none"}>
         <OnMapRoundButton  
           style={{ backgroundColor:"#FFFFFF", width:38, height:38, borderRadius : 19, position : "absolute", marginTop : 60, right : 24, alignSelf : "flex-end"}} 
           onPress={context.state.LocationRequestFunc}
@@ -41,10 +41,10 @@ const App = ({navigation,allchargers, mapRef, selectedFiltersOnMap, onFilterClic
           setShowAll={setShowAll}
         />
       </View>
-      <View style={{flex:1}} pointerEvents={"box-none"}>
+      <View style={{flex:0,}} pointerEvents={"box-none"}>
         <OnMapRoundButton  
           style={{right:24, bottom: 138, backgroundColor:"#FFFFFF"}} 
-          onPress={Defaults.modal.current && Defaults.modal.current.customUpdate.bind(App, true, {type:2})} 
+          onPress={Defaults.modal.current && Defaults.modal.current.customUpdate.bind(HomeComponentItems, true, {type:2})} 
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
         />
         <HomeFilterView
@@ -61,4 +61,4 @@ const App = ({navigation,allchargers, mapRef, selectedFiltersOnMap, onFilterClic
 };
 
 
-export default withNavigation(App);
+export default withNavigation(HomeComponentItems);
