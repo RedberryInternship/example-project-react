@@ -60,7 +60,7 @@ const receiveCode = React.forwardRef(
         <View
           style={{
             flexDirection: 'row',
-            backgroundColor: colors.primaryBackground,
+            backgroundColor: Colors.primaryBackground,
             marginBottom: 8,
           }}>
           <TouchableOpacity

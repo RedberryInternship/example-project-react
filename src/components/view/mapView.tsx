@@ -4,11 +4,11 @@ import React, {useMemo} from 'react'
 import {StyleSheet, View, StatusBar} from 'react-native'
 import {useMap} from 'hooks'
 import {mapStyles, mapStyle2, Colors} from 'utils'
-import {Charger} from '../../../@types/allTypes'
-import {MapMarkerItem} from '..'
-import {determineTimePeriod} from '../../../src/utils/mapAndLocation/mapFunctions'
+import {Charger} from 'allTypes'
+import {MapMarkerItem} from 'components'
+import {determineTimePeriod} from 'utils'
 
-const mapView = ({mapRef, showAll, filteredChargersOnMap}: any) => {
+const _mapView = ({mapRef, showAll, filteredChargersOnMap}: any) => {
   const hook = useMap(mapRef)
 
   return (
@@ -52,7 +52,7 @@ const mapView = ({mapRef, showAll, filteredChargersOnMap}: any) => {
   )
 }
 
-export default mapView
+export default _mapView
 
 const styles = StyleSheet.create({
   container: {

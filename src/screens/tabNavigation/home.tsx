@@ -6,7 +6,7 @@ import {Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
 import {useHomeHook} from 'hooks'
 
-export const HomeContext = createContext()
+export const HomeContext = createContext({})
 
 const Home = ({navigation}: any) => {
   const [state, dispatch] = useReducer(reducer, initialState)

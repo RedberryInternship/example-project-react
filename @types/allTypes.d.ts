@@ -82,7 +82,7 @@ type ChargerFastChargingPrices = {
 }
 
 export type AppState = {
-  user: Object | null
+  user: Record<string, any> | null
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
@@ -112,8 +112,7 @@ export interface BaseInput extends TextInputProps {
 interface baseInputRefProp {
   errorText: (val: string) => void
 }
-export interface BaseInputRefObject
-  extends RefObject<TextInputProps & baseInputRefProp> {}
+export type BaseInputRefObject = RefObject<TextInputProps & baseInputRefProp>
 
 export type PhoneCountryCode = {
   id: number

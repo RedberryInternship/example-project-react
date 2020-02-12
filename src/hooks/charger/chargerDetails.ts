@@ -3,7 +3,11 @@ import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {AppContext} from '../../../App'
-// import {AppContextType, Charger, HomeNavigateModes} from 'allTypes'
+import {
+  AppContextType,
+  Charger,
+  HomeNavigateModes,
+} from '../../../@types/allTypes.d'
 import {
   NavigationState,
   NavigationScreenProp,
@@ -49,8 +53,8 @@ export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const context: AppContextType = useContext(AppContext)
-  const [loading, SetLoading] = useState<Boolean>(true)
-  const [activeChargerType, setActiveChargerType] = useState<Number>(0)
+  const [loading, SetLoading] = useState<boolean>(true)
+  const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [charger, setCharger] = useState<Charger | undefined>(
     navigation.getParam('chargerDetails', undefined),
   )
@@ -58,11 +62,11 @@ export default (
   // const _this : React.RefObject<_This> = useRef({charger : navigation.getParam("chargerDetails" , undefined)})
 
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
-  const passwordRef: any = useRef(null)
+  const passwordRef: React.RefObject<TextInput> = useRef(null)
 
   const {t, i18n} = useTranslation()
 
-  const lastUsed = () => {
+  const lastUsed = (): any => {
     // context.state
     // Ajax.get()
 
@@ -76,7 +80,7 @@ export default (
   }
 
   useEffect(() => {
-    let didFocus = navigation.addListener('didFocus', onScreenFocus)
+    const didFocus = navigation.addListener('didFocus', onScreenFocus)
 
     console.log('====================================')
     console.log(
@@ -92,7 +96,7 @@ export default (
   }, [])
 
   const onScreenFocus = (payload: NavigationEventPayload) => {
-    let {params} = payload.state
+    const {params} = payload.state
 
     navigation.setParams({chargerDetails: null})
 

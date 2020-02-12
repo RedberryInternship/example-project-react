@@ -12,7 +12,11 @@ import {
   NavigationState,
   NavigationEventPayload,
 } from 'react-navigation'
-// import {HomeNavigateModes, AppContextType, Charger} from 'allTypes'
+import {
+  HomeNavigateModes,
+  AppContextType,
+  Charger,
+} from '../../@types/allTypes.d'
 import BottomSheet from 'reanimated-bottom-sheet'
 import MapView from 'react-native-maps'
 import {regionFrom} from 'utils'
@@ -20,13 +24,13 @@ import {AppContext} from '../../App'
 
 type _This = {}
 
-const ZOOM_LEVEL: number = 200
+const ZOOM_LEVEL = 200
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-) => {
+): any => {
   const context: AppContextType = useContext(AppContext)
-  const [loading, setLoading] = useState<Boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true)
 
   const [selectedFilters, setSelectedFilters] = useState<number[]>(
     Array(6).fill(0),
@@ -42,7 +46,7 @@ export default (
   const mapRef: RefObject<MapView> = useRef(null)
 
   useEffect(() => {
-    let didFocus = navigation.addListener('didFocus', onScreenFocus)
+    const didFocus = navigation.addListener('didFocus', onScreenFocus)
 
     return () => {
       didFocus.remove()
@@ -59,7 +63,7 @@ export default (
   }, [showAll])
 
   const onScreenFocus = (payload: NavigationEventPayload) => {
-    let {params} = payload.state
+    const {params} = payload.state
 
     navigation.setParams({mode: null})
 
@@ -153,13 +157,13 @@ export default (
     return context.state.AllChargers?.filter((val: Charger) => {
       if (selectedFiltersOnMap[0] && !val.active) return false
       if (selectedFiltersOnMap[1] && val.active) return false
-      if (selectedFiltersOnMap[2]) {
+      if (selectedFiltersOnMap[2] && !selectedFiltersOnMap[3]) {
         if (
           !val.charger_types.filter((type: any) => type.name === 'Fast').length
         )
           return false
       }
-      if (selectedFiltersOnMap[3]) {
+      if (selectedFiltersOnMap[3] && !selectedFiltersOnMap[2]) {
         if (
           !val.charger_types.filter((type: any) => type.name === 'Lvl 2').length
         )

@@ -7,6 +7,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
@@ -27,6 +28,10 @@ module.exports = {
   rules: {
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
+    '@typescript-eslint/no-use-before-define': [
+      'error',
+      {functions: false, variables: false},
+    ],
   },
   settings: {
     react: {

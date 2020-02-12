@@ -3,7 +3,11 @@ import {useState, useRef, useContext} from 'react'
 import {Alert, TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {AppContext} from '../../../App'
-// import {AppContextType, Charger, HomeNavigateModes} from 'allTypes'
+import {
+  AppContextType,
+  Charger,
+  HomeNavigateModes,
+} from '../../../@types/allTypes.d'
 import {
   NavigationState,
   NavigationScreenProp,
