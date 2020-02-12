@@ -14,9 +14,9 @@ type Ref = {
   interval: number
   location: Location | null | Location[]
 }
-const ZOOM_LEVEL: number = 400
+const ZOOM_LEVEL = 400
 
-export default function useLocation({mapRef}: any) {
+const useLocation = ({mapRef}: any) => {
   const context: any = useContext(HomeContext)
 
   const [location, setLocation] = useState<Location | null>(null)
@@ -26,6 +26,8 @@ export default function useLocation({mapRef}: any) {
   ] = useState<LocationPermissionStatus | null>(null)
 
   const ref = useRef<Ref>({interval: 0, location: null})
+  // Todo Vobi: ref is not describing what it is referencing to you should consider renaming it
+  // Todo Vobi: like if it is referencing to input you should name it inputRef and so on
 
   useEffect(() => {
     RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
@@ -35,7 +37,7 @@ export default function useLocation({mapRef}: any) {
     context.dispatch(setLocationHandler(locate.bind(useLocation)))
 
     // let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
-    let subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
+    const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
       subscribePermissionUpdate,
     )
 
@@ -57,7 +59,7 @@ export default function useLocation({mapRef}: any) {
     //         left: 20
     //     }, animated: true
     // })
-  }
+  } // Todo Vobi: remove this function if it is not use and delete commented code
 
   const subscribePermissionUpdate = (status: LocationPermissionStatus) => {
     setPermissionStatus(status)
@@ -79,6 +81,7 @@ export default function useLocation({mapRef}: any) {
     } else if (status.match(/ notDetermined /)) {
       Config.requestPermission.then(granted => {
         if (granted) {
+          // Todo Vobi: this kind of if statements should be one line
           navigateToLocation()
         }
       })
@@ -89,6 +92,9 @@ export default function useLocation({mapRef}: any) {
     if (location != null) {
       navigateByRef(location)
     } else {
+      // Todo Vobi: es6 introduced one of the greatest feature to avoid callback hells
+      // Todo Vobi: use async/await and try/catch
+      // Todo Vobi: https://javascript.info/async-await
       RNLocation.getLatestLocation({timeout: 6000}).then(latestLocation => {
         if (latestLocation != null) {
           navigateByRef(latestLocation)
@@ -108,9 +114,12 @@ export default function useLocation({mapRef}: any) {
 
   const locate = () => {
     navigateToLocation()
-  }
+  } // Todo Vobi: Why do you recreate functions like this
+  // Todo Vobi: you can call it by navigateToLocation
 
   useEffect(() => {}, [location])
 
   return {ref, permissionStatus, location, context, locate}
 }
+
+export default useLocation

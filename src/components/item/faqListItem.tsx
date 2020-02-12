@@ -21,9 +21,9 @@ const faqListItem = ({
 }: FaqItem) => {
   const [toggleAnswerAnim] = useState(new Animated.Value(0))
 
-  const toggleFaq = (intend: string = 'open') => {
-    let $toValue: number = 0
-    let $duration: number = 300
+  const toggleFaq = (intend = 'open') => {
+    let $toValue = 0
+    const $duration = 300
 
     if (intend === 'open') {
       $toValue = 120

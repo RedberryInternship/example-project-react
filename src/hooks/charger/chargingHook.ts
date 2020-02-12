@@ -5,7 +5,7 @@ import {Defaults} from 'utils'
 import {Alert} from 'react-native'
 
 export default (navigation: any) => {
-  const [loading, SetLoading] = useState<Boolean>(true)
+  const [loading, SetLoading] = useState<boolean>(true)
   const [activeTab, SetActiveTab] = useState<number>(0)
 
   const _this: React.RefObject<any> = useRef()

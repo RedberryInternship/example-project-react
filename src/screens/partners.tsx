@@ -7,13 +7,17 @@ import {BaseHeader} from 'components'
 // utils
 import {Colors} from 'utils'
 
+// Vobi Todo: Component Naming
 const partners = ({navigation}: any) => {
+  // Vobi Todo: No any types
+
   return (
     <View style={styles.container}>
       <BaseHeader
         title={'partners.partnerOrganizations'}
         onPressLeft={navigation.navigate.bind(partners, 'MainDrawer')}
       />
+      {/* Vobi Todo: Badly formated Code use eslint */}
       <View style={styles.partnersInnerContainer}>
         <View style={styles.partnersRowContainer}>
           <Image

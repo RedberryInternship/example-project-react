@@ -70,6 +70,7 @@ const footerTabNavigator = (props: any) => {
     )
   }
 
+  //todo Vobi: not import png like that require("../assets/images/icons/ic_favorite.png"), import it in header and use that in code
   return (
     <View
       style={[

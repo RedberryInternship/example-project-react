@@ -38,8 +38,8 @@ export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const context: AppContextType = useContext(AppContext)
-  const [loading, SetLoading] = useState<Boolean>(true)
-  const [activeChargerType, setActiveChargerType] = useState<Number>(0)
+  const [loading, SetLoading] = useState<boolean>(true)
+  const [activeChargerType, setActiveChargerType] = useState<number>(0)
 
   const _this: React.RefObject<_This> = useRef({chargeWitchCode: ''})
 
@@ -61,7 +61,7 @@ export default (
       )
     }
 
-    let charger =
+    const charger =
       context.state.AllChargers?.filter((val: Charger) => {
         return val.code == _this.current?.chargeWitchCode
       }) ?? []

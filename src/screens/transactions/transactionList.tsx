@@ -8,10 +8,13 @@ import {BaseHeader, TransactionListItem} from 'components'
 import {Colors} from 'utils'
 
 const transactionList = ({navigation}: any) => {
+  // Vobi Todo: No any types
+
   const transactions = transactionListContent.map(el => {
     return (
       <TransactionListItem
         key={el.title}
+        // Vobi Todo: I can not see reason to use binding instead of arrow function
         onPress={navigation.navigate.bind(
           transactionList,
           'ShowTransaction',
@@ -48,6 +51,7 @@ const styles = StyleSheet.create({
   },
 })
 
+// Vobi Todo: move this in constants
 const transactionListContent = [
   {
     title: 'მაჭახელა',

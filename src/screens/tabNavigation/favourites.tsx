@@ -10,6 +10,8 @@ import {AppContextType, Favorite, Charger} from 'allTypes'
 import {useTranslation} from 'react-i18next'
 
 const favourites = ({navigation}: any) => {
+  // Vobi Todo: No any types
+  // Vobi Todo: Correct name is Favorites
   const {t} = useTranslation()
   const context: AppContextType = useContext(AppContext)
 
@@ -18,8 +20,9 @@ const favourites = ({navigation}: any) => {
   }
 
   const turonOnHandler = (id: number) => {
-    let charger =
+    const charger =
       context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
+    // Vobi Todo: what is this operator ?? and why do we need to use it
 
     if (charger.length !== 0) {
       navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
@@ -30,6 +33,9 @@ const favourites = ({navigation}: any) => {
       )
     }
   }
+  // const { state: { favoriteChargers } } = context
+  //
+  //
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.primaryBackground}}>
@@ -56,6 +62,21 @@ const favourites = ({navigation}: any) => {
             {t('notFound')}
           </Text>
         )}
+        {/* Vobi Todo: move above script to following */}
+        {/* !favoriteChargers.length && 
+        <Text style={styles.notFound}>{t("notFound")}</Text>
+      */}
+
+        {/* favoriteChargers?.length && favoriteChargers?.map((val : Favorite, index : number) => (
+              <FavouriteChargerListItem
+                key={index}
+                title={getLocaleText (val.name) }
+                address={getLocaleText (val.location)}
+                turnon={turonOnHandler.bind(favourites, val.id)}
+                deleteItem={deleteFavoriteCharger.bind(favourites,val.charger_id )} 
+              />
+            ))
+      */}
       </ScrollView>
     </View>
   )
@@ -67,4 +88,9 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 32,
   },
+  // notFound: {
+  //   margin: 32,
+  //   alignSelf:"center",
+  //   color:"white"
+  // }
 })

@@ -23,9 +23,18 @@ import {BaseHeader, BaseButton, ContactListItem} from 'components'
 // utils
 import {Colors, Const, Defaults} from 'utils'
 
+// Vobi Todo: When using typescript using "any" type is bad practice
+// Vobi Todo: navigation type is NavigationScreenProps almost every module has option to integrate with typescript
+// Vobi Todo: and they export their interfaces from it
+// Vobi Todo: There is a good talk about typescript which is worth watching https://www.youtube.com/watch?v=wD5WGkOEJRs&t=3361s
 const contact = ({navigation}: any) => {
+  // Vobi Todo: Component Names Are Camel Case
+  // Vobi Todo: https://hackernoon.com/structuring-projects-and-naming-components-in-react-1261b6e18d76
+  // Vobi Todo: Extra spaces makes code unreadable.
+
   const {t} = useTranslation()
   const [message, setMessage] = useState()
+  // Vobi Todo: const [message, setMessage] = useState<string>('');
   const insets = useSafeArea()
 
   const listItems = Const.ContactListFields.map((el, key) => {
@@ -74,8 +83,10 @@ const contact = ({navigation}: any) => {
           />
           <TextInput
             multiline={true}
+            /* Vobi Todo: just pass multiline instead of multiline={true} */
             style={styles.message}
             onChangeText={text => setMessage(text)}
+            /* Vobi Todo: You can just pass onChangeText={setMessage} instead of onChangeText={(text) => setMessage(text)} */
             numberOfLines={4}
           />
         </View>
@@ -91,7 +102,12 @@ const contact = ({navigation}: any) => {
           onPress={() => sendMessage(message)}
           text="save"
           image={require('../../assets/images/icons/arrow_left.png')}
+          /* Vobi Todo: Make index.ts inside images/icons and require images like this: https://tppr.me/4zNYN */
+          /* Vobi Todo: then import image with dynamic name and set it to the source */
+          /* Vobi Todo: This makes it really easy to change assets and update their imports */
           style={{marginTop: 0, marginBottom: 16}}
+          /* Vobi Todo: Inline styles are bad practice to use even small styles should be placed inside StyleSheet.create({}) */
+          /* Vobi Todo: By Inline styles code becomes unreadable and hard to track component styles */
           isImageRight={true}
         />
       </KeyboardAvoidingView>
@@ -144,6 +160,7 @@ const styles = StyleSheet.create({
   },
 })
 
+// Vobi Todo: This is Constant and should be moved inside constants
 const contactInfos = [
   'საირმის ქუჩა 11ო',
   '+995 591 93 50 80',
@@ -152,8 +169,10 @@ const contactInfos = [
   'www.espace.ge',
 ]
 
+// Vobi Todo: any Type again if you don't use types there is no point using typescript at all
 const outgoingLinkMethods: any = {
   address: () => {
+    // Vobi Todo: Move to constants
     const mapsInfo = {
       scheme: Platform.select({android: 'geo:0,0?q=', ios: 'maps:0,0?q='}),
       latitude: 41.707204,
@@ -165,10 +184,14 @@ const outgoingLinkMethods: any = {
 
     Linking.openURL(mapsUrl)
   },
+  // Vobi Todo: Write helper function to do that openUrl(successUrl, elseCB, catchCB)
+  // Vobi Todo: This huge code can be reduced for about 12 lines of code
 
   phone: () => {
     Linking.canOpenURL(`tel:591935080`)
       .then(supported => {
+        // Vobi Todo: use async/await and try/catch
+        // Vobi Todo: https://blog.hellojs.org/asynchronous-javascript-from-callback-hell-to-async-and-await-9b9ceb63c8e8
         if (supported) {
           Linking.openURL(`tel:591935080`)
         } else {
@@ -185,6 +208,8 @@ const outgoingLinkMethods: any = {
           'Error',
           'Something Went Wrong While Calling...',
         )
+        // Vobi Todo: Create a logging function which logs on development mode but on production it sends errors to sentry
+        // Vobi Todo: https://sentry.io/ is great tool for catching bugs in production
         console.log(err)
       })
   },

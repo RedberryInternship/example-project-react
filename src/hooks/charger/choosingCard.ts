@@ -15,7 +15,7 @@ const defCard = [
 ]
 
 export default () => {
-  const [loading, SetLoading] = useState<Boolean>(true)
+  const [loading, SetLoading] = useState<boolean>(true)
   const [activeCardIndex, setActiveCardIndex] = useState<number>(0)
 
   const _this: React.RefObject<_This> = useRef({

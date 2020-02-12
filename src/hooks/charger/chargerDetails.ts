@@ -121,7 +121,9 @@ export default (
   }
 
   const onFavoritePress = () => {
+    // Todo Vobi: use async/await
     charger &&
+      // eslint-disable-next-line @typescript-eslint/camelcase
       Ajax.post('/add-favorite', {charger_id: charger?.charger_id})
         .then(() => {
           getFavoriteChargers(context.dispatch)

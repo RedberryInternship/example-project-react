@@ -28,9 +28,15 @@ const faqs = [
   },
 ]
 
+// Vobi Todo: Component naming is Camel Case
 const faq = ({navigation}: any) => {
-  const [activeFaq, setActiveFaq] = useState(1)
+  // Vobi Todo: No Any types
 
+  const [activeFaq, setActiveFaq] = useState(1)
+  // Vobi Todo: useState<number>(1)
+
+  // Vobi Todo: Code is Badly formated
+  // Vobi Todo: Inline map is preferred in this cases if you don't want to use memo
   const questions = faqs.map((el, ind) => {
     return (
       <FaqListItem

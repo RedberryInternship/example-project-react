@@ -26,6 +26,8 @@ const chargerDetailTopInfo = ({
     })
   }, [])
 
+  //todo Vobi:  Line length is so large in some case,
+  //set in eslint max length, would be 100 or 150 https://eslint.org/docs/rules/max-lines
   return (
     <View style={styles.container}>
       <View

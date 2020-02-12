@@ -9,7 +9,14 @@ import {Colors} from '../utils'
 
 const tarrifs = ({navigation}: any) => {
   const tariffList = tariffsInfo.map(el => {
-    return <TariffListItem key={el.company} {...el} />
+    return (
+      <TariffListItem
+        key={el.company}
+        /* Vobi Todo: Spreading is bad practice in react when you need to modify something in that */
+        /* Vobi Todo: And Get Back To Code you have no clue whats going on */
+        {...el}
+      />
+    )
   })
 
   return (
@@ -22,7 +29,7 @@ const tarrifs = ({navigation}: any) => {
         title="30 წუთი - 2ლ"
         description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
       />
-
+      {/* Vobi Todo: useTranslations() use translation json everywhere to display static text */}
       <Text style={styles.note}>
         ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
       </Text>

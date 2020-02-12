@@ -7,7 +7,7 @@ import {PhoneCountryCodesData, PhoneCountryCode} from 'allTypes'
 import {Item} from 'react-native-picker-select'
 import {BaseInput, BasePickerSelect} from 'components'
 
-let pickeritems: Item[] = []
+const pickeritems: Item[] = []
 
 const placeholder = {label: '+995', value: '+995'}
 // eslint-disable-next-line react/display-name

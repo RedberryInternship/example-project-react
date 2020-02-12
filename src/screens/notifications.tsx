@@ -6,8 +6,10 @@ import {BaseHeader, NotificationListItem} from 'components'
 
 // utils
 import {Colors} from 'utils'
-
+// Vobi Todo: Component Naming
 const notifications = ({navigation}: any) => {
+  // Vobi Todo: No any types
+
   const notificationItems = notificationsList.map(el => {
     return <NotificationListItem key={el.title} {...el} />
   })

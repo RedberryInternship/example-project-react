@@ -34,6 +34,8 @@ export default function useMap(mapRef) {
   useEffect(() => {
     console.log('====================================')
     console.log(state, 'context.state')
+    // Todo Vobi: What is the purpose of this listener
+    // Todo Vobi: remove this kind of things after using them to debug something
     console.log('====================================')
   }, [state])
 

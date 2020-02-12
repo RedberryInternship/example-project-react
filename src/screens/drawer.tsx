@@ -12,28 +12,33 @@ import {useSafeArea} from 'react-native-safe-area-context'
 // import components
 import {
   BaseButton,
-  BaseLocaleButton,
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,
+  BaseLocaleButton,
 } from '../components'
 
 // import utils
 import {Const, Colors, Defaults} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {AppContext} from '../../App'
-import {logOut} from 'hooks/actions/rootActions'
 
+// Vobi Todo: Component name should start with upper case
 const drawer = ({navigation}: any) => {
+  // Vobi Todo: Same as contact.tsx
   const {t, i18n} = useTranslation()
   const insets = useSafeArea()
   const context: any = useContext(AppContext)
 
   const $isUserAuthorized =
     Defaults.token === '' || Defaults.token == null ? false : true
+  // Vobi Todo: !Defaults.token does the same
   let $drawerListFields = null
   let $drawerContent = null
+  // Vobi Todo: $:variableName is not javascript standard
 
   if (!$isUserAuthorized) {
+    // Vobi Todo: (Field, ind) variable Names Shouldn't start with upper case letter
+    // Vobi Todo: instead of { return ... } you can do this (...)
     $drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(
       (Field, ind) => {
         return (
@@ -50,8 +55,9 @@ const drawer = ({navigation}: any) => {
     $drawerContent = (
       <>
         <View style={{flex: 0}}>
+          {/* Vobi Todo: Same as contact.tsx no inline styles */}
           <BaseButton
-            image={require('../../assets/images/icons/user.png')}
+            image={require('../../assets/images/icons/user.png')} // Vobi Todo: Same as contact.tsx
             onPress={() => navigation.navigate('Auth')}
             text={'home.authorization'}
             style={styles.drawerAuthBtn}
@@ -64,6 +70,8 @@ const drawer = ({navigation}: any) => {
       </>
     )
   } else {
+    // Vobi Todo: (Field, ind) variable Names Shouldn't start with upper case letter
+    // Vobi Todo: instead of { return ... } you can do this (...)
     $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(
       (Field, key) => {
         return (
@@ -115,6 +123,7 @@ const drawer = ({navigation}: any) => {
               image={require('../../assets/images/icons/green-tick.png')}
             />
           )}
+          {/* Vobi Todo: Same as contact.tsx no inline styles */}
           <View
             style={{
               flexDirection: 'row',
@@ -126,6 +135,9 @@ const drawer = ({navigation}: any) => {
               onPress={() => {
                 i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')
               }}
+              // Vobi Todo: This is badly formated code and eslint would catch that right away
+              // Vobi Todo: onPress={() => i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')} if you wanna go this way
+              // Vobi Todo: But the best practice is to declare function on top and call it here like onPress={toggleLanguage}
               text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
               style={styles.localeButton}
             />
@@ -134,6 +146,7 @@ const drawer = ({navigation}: any) => {
                 onPress={() => {
                   context.dispatch(logOut())
                 }}>
+                {/* Vobi Todo: Same as contact.tsx no inline styles */}
                 <Text style={{marginRight: 24, color: 'white'}}>
                   {t('drawer.logOut')}
                 </Text>
