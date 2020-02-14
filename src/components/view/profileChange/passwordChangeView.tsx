@@ -1,13 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 import {
-    Text,
     View,
-    StyleSheet,
-    TextInput,
-    Alert
+    StyleSheet
 } from 'react-native';
 
+
+// hooks
+
+import { usePasswordChange } from '../../../hooks';
 
 // components
 
@@ -15,65 +16,45 @@ import {
     BaseInput
 } from '../..';
 
-const passwordChangeView = ({ navigation }: any) => {
+const passwordChangeView = ({ navigation, clicked, setClicked }: any) => {
 
-
-    const firstInput = useRef<any>(null);
-    const secondInput = useRef<any>(null);
-    const thirdInput = useRef<any>(null);
-
-
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [repetePassword, setRepetePassword] = useState("");
-
-
+    const hook = usePasswordChange({navigation, clicked, setClicked});
 
     return (
         <View style={styles.container}>
             <BaseInput
                 title={"settings.currentPassword"}
                 image={require("../../../../assets/images/icons/lock.png")}
-                onChangeText={(text: string) => setCurrentPassword(text)}
-                onSubmitEditing={() => {
-                    secondInput.current.focus();
-                }}
-                secureTextEntry={true}
-                ref={firstInput}
+                onChangeText={hook.currentPassword.onChangeText}
+                onSubmit={hook.currentPassword.onSubmit}
+                ref={hook.currentPasswordRef}
+                secure
             />
 
             <BaseInput
                 title={"settings.newPassword"}
                 image={require("../../../../assets/images/icons/lock.png")}
-                onChangeText={(text: string) => setNewPassword(text)}
-                onSubmitEditing={() => {
-                    thirdInput.current.focus()
-                }}
-                secureTextEntry={true}
-                ref={secondInput}
+                onChangeText={hook.repetePassword.onChangeText}
+                onSubmit={hook.repetePassword.onSubmit}
+                ref={hook.repetePasswordRef}
+                onFocus={hook.repetePassword.onFocus}
+                secure
             />
 
 
             <BaseInput
                 title={"settings.repetePassword"}
                 image={require("../../../../assets/images/icons/lock.png")}
-                onChangeText={(text: string) => setRepetePassword(text)}
-                onSubmitEditing={() => {
-                    updateUserPassword(currentPassword, newPassword, repetePassword, navigation);
-                }}
-                secureTextEntry={true}
-                ref={thirdInput}
+                onChangeText={hook.newPassword.onChangeText}
+                onSubmit={hook.newPassword.onSubmit}
+                onFocus={hook.newPassword.onFocus}
+                ref={hook.newPasswordRef}
+                secure
             />
-
-
         </View>
     );
 }
 
-const updateUserPassword = (currentPassword: string, newPassword: string, repetePassword: string,  navigation: any) => {
-    Alert.alert("Password Change", `${currentPassword} | ${newPassword} | ${repetePassword}`);
-    navigation.goBack();
-}
 
 export default passwordChangeView;
 

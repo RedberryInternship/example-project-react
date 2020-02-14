@@ -46,7 +46,6 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
 
     helpers.sendFirstnameToSave()
       .then(data => {
-        console.log(data);
         if (data.updated === true) {
           helpers.goToSettingsScreen();
           helpers.popAlert('dropDownAlert.editFirstname.firstNameChangeSucess', 'success');
@@ -102,11 +101,11 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
         return await Ajax.post(apiServices.post_update_user_info, { first_name: firstname });
       }
       catch (err) {
-        console.log(err);
         helpers.popAlert('dropDownAlert.generalError');
       }
     },
     goToSettingsScreen: () => {
+      // TODO: Navigation Go Back Properly
       navigation.goBack();
     }
   }

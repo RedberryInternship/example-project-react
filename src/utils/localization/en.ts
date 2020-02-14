@@ -198,6 +198,19 @@ export default {
         incorrectFormat: "Email Format is Incorrects",
         editedSuccssesfully: "Email Edited Successfully"
       },
+      editPhoneNumber: {
+        success: "Phone Number Edited Successfully",
+        phoneTaken: "Phone Number Already Taken"
+      },
+      editPassword: {
+        success: "Password Edited Successfully",
+        fillCurrentPassword: "Please, Fill Current Password Field",
+        fillRepetePassword: "Please, Fill Repete Password Filed",
+        fillNewPassword: "Please, Fill New Password Field",
+        minSize: "Password Field Should Contain At Least 8 Characters",
+        passwordsMismatch: "Passwords arn't identical",
+        passwordNotValid: "Current Password Was Not Correct"
+      },
       auth:{
         phoneNumberLength : "The phone number should be exactly 9 digits long.",
         passworNotEmpty: "The password field should not be empty",

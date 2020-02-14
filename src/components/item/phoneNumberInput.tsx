@@ -22,6 +22,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   const [pickeritemsState, setPickeritemsState] = useState(pickeritems)
   const { t } = useTranslation();
   
+  
   useEffect(() => {
     fetchPhoneCountryCodes()
   }, [])
@@ -80,10 +81,18 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
   const onPickerDone = () =>{
     ref.current.focus()
   }
+
   const onPickerChange = (val : string, index: number) =>{
-    setSelectedCountryCode({label :val, value : val})
-    // phoneTextHandler.bind(phoneNumberInput,'')
+
+    const countryCodePrefixLength = selectedCountryCode.value.length;
+    _this.current.phone = val + _this.current.phone.slice(countryCodePrefixLength);
+
+    setSelectedCountryCode({label :val, value : val});
+
+    
     if(Platform.OS == "android") ref.current.focus()
+
+    console.log(_this.current.phone);
   }
 
 
@@ -123,9 +132,7 @@ const phoneNumberInput = React.forwardRef(({ _this, onSubmit, onBlur, onFocus, s
             onChange={onPickerChange}
             items={pickeritemsState}
             placeholder={placeholder}
-            // value={selectedCountryCode}
             ref={pickerRef}
-            // onOpen={phoneTextHandler.bind(phoneNumberInput,' ')}
           />
         </View>
       </Animated.View>

@@ -196,6 +196,19 @@ export default {
         incorrectFormat: "ელ.ფოსტის ფორმატი არასწორია",
         editedSuccssesfully: "ელ.ფოსტა წარმატებით შეიცვალა!"
       },
+      editPhoneNumber: {
+        success: "ტელეფონის ნომერი წარმატებით შეიცვალა!",
+        phoneTaken: "ეს ტელეფონის ნომერი დაკავებულია"
+      },
+      editPassword: {
+        success: "პაროლი წარმატებით შეიცვალა",
+        fillCurrentPassword: "გთხოვთ, შეიყვანეთ ამჟამინდელი პაროლი",
+        fillRepetePassword: "გთხოვთ, გაიმეოროთ პაროლი",
+        fillNewPassword: "გთხოვთ, შეიყვანოთ ახალი პაროლი",
+        minSize: "პაროლის ველი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს",
+        passwordsMismatch: "პაროლები არ ემთხვევა ერთმანეთს",
+        passwordNotValid: "თქვენს მიერ შეყვანილი ამჟამინდელი პაროლი არასწორია"
+      },
       auth:{
         phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
         passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",

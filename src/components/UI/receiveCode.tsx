@@ -13,8 +13,7 @@ import colors from '../../../src/utils/colors';
 import { useTranslation } from 'react-i18next';
 
 
-const CodeInputWidth = 128
-
+const CodeInputWidth = 128;
 
 // eslint-disable-next-line react/display-name
 const receiveCode = React.forwardRef( ({onChangeText, onSubmit,recieveCode, disableCodeInput} : any, ref: any) => {

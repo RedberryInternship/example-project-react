@@ -33,7 +33,7 @@ const forgotPassword = ({navigation} : any) => {
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
       >
-
+        
         <PhoneNumberInput 
           onSubmit={hook.phoneInputSubmit}
           ref={hook.phoneRef}

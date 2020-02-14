@@ -8,6 +8,7 @@ const post_send_sms_code = '/send-sms-code';
 const post_verify_code = '/verify-code';
 const post_verify_code_for_password_recovery = '/verify-code-for-password-recovery';
 const post_reset_password = '/reset-password';
+const post_edit_password = '/edit-password';
 const post_add_user_car = '/add-user-car';
 const post_delete_user_car = '/delete-user-car';
 const get_user_cars = '/get-user-cars';
@@ -28,6 +29,7 @@ export default{
   post_verify_code,
   post_verify_code_for_password_recovery,
   post_reset_password,
+  post_edit_password,
   post_add_user_car,
   post_delete_user_car,
   get_user_cars,

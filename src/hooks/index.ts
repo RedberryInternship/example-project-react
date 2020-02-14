@@ -22,6 +22,7 @@ import useFirstnameChange from './settings/firstnameChangeHook';
 import useLastnameChange from './settings/lastnameChangeHook';
 import useEmailChange from './settings/emailChangeHook';
 import usePhoneChange from './settings/phoneChangeHook';
+import usePasswordChange from './settings/changePasswordHook';
 
 //reducer
 import rootReducer, {initialState} from "./reducers/rootReducer"
@@ -48,5 +49,6 @@ export {
     useLastnameChange,
     useEmailChange,
     useChargerDetails,
-    usePhoneChange
+    usePhoneChange,
+    usePasswordChange
 }

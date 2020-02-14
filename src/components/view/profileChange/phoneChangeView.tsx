@@ -23,6 +23,7 @@ const phoneChangeView = ({ navigation, clicked, setClicked }: any) => {
     return (
         <View style={styles.container}>
 
+
             <PhoneNumberInput
                 onSubmit={hook.onSubmit}
                 ref={hook.phoneInputRef}
@@ -35,7 +36,8 @@ const phoneChangeView = ({ navigation, clicked, setClicked }: any) => {
                 onChangeText={hook.receiveCodeTextHandler}
                 onSubmit={hook.receiveCodeOnSubmit}
                 recieveCode={hook.recieveCode}
-                ref={hook.codeRef} />
+                ref={hook.codeRef}
+                disableCodeInput={hook.recieveCodeButtonClicked} />
         </View>
     );
 }
