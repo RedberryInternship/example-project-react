@@ -6,14 +6,11 @@ import {
 import { AppContext } from '../../../App';
 
 // components
-import {
-    BaseHeader,
-    SettingsListItem
-} from '../../components';
+import {BaseHeader, SettingsListItem} from 'components'
 
 // utils
-import { Colors, Const } from '../../utils'
-import { ScrollView } from 'react-native-gesture-handler';
+import {Colors, Const} from 'utils'
+import {ScrollView} from 'react-native-gesture-handler'
 
 const settings = ({ navigation }: any) => {
     const $settingsInfo = helpers.makeSettingsInfo();
@@ -57,15 +54,14 @@ const settings = ({ navigation }: any) => {
 export default settings;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: Colors.primaryBackground
-    },
-    listItemsContainer: {
-        marginTop: 35
-    }
-});
-
+  container: {
+    flex: 1,
+    backgroundColor: Colors.primaryBackground,
+  },
+  listItemsContainer: {
+    marginTop: 35,
+  },
+})
 
 type SettingsInfoType = {
     firstName: string,

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { 
   SAVE_TOKEN, 
   GET_ALL_CHARGER_SUCCESS, 
@@ -5,45 +6,55 @@ import {
   GET_FAVORITE_CHARGERS, 
   EDIT_USER_INFO
 } from "../actions/rootActions"
+=======
+import {
+  SAVE_TOKEN,
+  GET_ALL_CHARGER_SUCCESS,
+  LOG_OUT,
+  GET_FAVORITE_CHARGERS,
+} from '../actions/rootActions'
+>>>>>>> 4299d9bdd7e079a5c1ea8b3c6683d1fccfc9d598
 // eslint-disable-next-line no-unused-vars
-import { Charger, AppState, Action } from "../../../@types/allTypes"
+import {Charger, AppState, Action} from 'allTypes'
 
-
-export const initialState : AppState = {
+export const initialState: AppState = {
   user: null,
-  loading : false,
-  authStatus : null,
-  AllChargers : null,
-  favoriteChargers : null,
+  loading: false,
+  authStatus: null,
+  AllChargers: null,
+  favoriteChargers: null,
 }
 
-function reducer(state : AppState = initialState, {type, payload} : Action) : AppState{
-  switch(type) {
-    case  SAVE_TOKEN:
+function reducer(
+  state: AppState = initialState,
+  {type, payload}: Action,
+): AppState {
+  switch (type) {
+    case SAVE_TOKEN:
       return {
         ...state,
         loading: false,
-        user : payload.user,
-        authStatus : typeof payload.token === "string" ? "failed" : "success"
+        user: payload.user,
+        authStatus: typeof payload.token === 'string' ? 'failed' : 'success',
       }
-    case  LOG_OUT:
+    case LOG_OUT:
       return {
         ...state,
         loading: false,
-        user : null,
-        authStatus : "failed"
+        user: null,
+        authStatus: 'failed',
       }
-    case  GET_ALL_CHARGER_SUCCESS:
+    case GET_ALL_CHARGER_SUCCESS:
       return {
         ...state,
         loading: false,
-        AllChargers : payload,
+        AllChargers: payload,
       }
-    case  GET_FAVORITE_CHARGERS:
+    case GET_FAVORITE_CHARGERS:
       return {
         ...state,
         loading: false,
-        favoriteChargers : payload,
+        favoriteChargers: payload,
       }
 
     case EDIT_USER_INFO:
@@ -60,4 +71,4 @@ function reducer(state : AppState = initialState, {type, payload} : Action) : Ap
   }
 }
 
-export default reducer;
+export default reducer

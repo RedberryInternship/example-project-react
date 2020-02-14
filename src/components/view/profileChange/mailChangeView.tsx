@@ -33,11 +33,11 @@ const mailChangeView = ({ navigation, clicked, setClicked  }: any) => {
 
 
 
-export default mailChangeView;
+export default mailChangeView
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

@@ -1,28 +1,18 @@
-import React from 'react';
+import React from 'react'
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
+import {useTranslation} from 'react-i18next'
+import {Colors} from 'utils'
 
-import { useTranslation } from 'react-i18next';
-
-import { Colors } from '../../utils';
-
+// import {Colors} from 'utils'
 
 type AddCard = {
   onPress: () => void | null
-};
+}
 
-
-const baseAddCardButton = ({ onPress }: AddCard) => {
-
-
-  const { t } = useTranslation();
-
+const baseAddCardButton = ({onPress}: AddCard) => {
+  const {t} = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -34,39 +24,38 @@ const baseAddCardButton = ({ onPress }: AddCard) => {
         </View>
       </View>
     </TouchableOpacity>
-  );
+  )
 }
 
-export default baseAddCardButton;
-
+export default baseAddCardButton
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.primaryDark,
     height: 66,
     marginBottom: 10,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 10,
-    paddingHorizontal: 31
+    paddingHorizontal: 31,
   },
-  title:{
-    color: Colors.primaryWhite
+  title: {
+    color: Colors.primaryWhite,
   },
-  addCard:{
+  addCard: {
     width: 32,
     height: 32,
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.secondaryBlue,
     color: Colors.primaryWhite,
-    borderRadius: 25
+    borderRadius: 25,
   },
-  addCardText:{
+  addCardText: {
     color: Colors.primaryWhite,
     fontSize: 25,
     marginLeft: 1,
-    marginTop: -2
-  }
-});
+    marginTop: -2,
+  },
+})

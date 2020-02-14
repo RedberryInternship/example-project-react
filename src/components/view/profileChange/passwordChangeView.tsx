@@ -5,7 +5,6 @@ import {
     StyleSheet
 } from 'react-native';
 
-
 // hooks
 
 import { usePasswordChange } from '../../../hooks';
@@ -56,13 +55,12 @@ const passwordChangeView = ({ navigation, clicked, setClicked }: any) => {
 }
 
 
-export default passwordChangeView;
-
+export default passwordChangeView
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

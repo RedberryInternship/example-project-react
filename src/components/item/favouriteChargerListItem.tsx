@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import {
   View,
@@ -6,121 +6,124 @@ import {
   Image,
   StyleSheet,
   TouchableOpacity,
-  GestureResponderEvent
-} from 'react-native';
+  GestureResponderEvent,
+} from 'react-native'
 
+import {BaseButton} from '..'
 
-import {
-  BaseButton
-} from '..';
-
-import { Colors } from '../../utils'
-
-
+import {Colors} from 'utils'
 
 type FavouriteChargerItem = {
-  title: string,
-  address: string,
-  turnon: (event ?: GestureResponderEvent ) => void | undefined,
-  deleteItem: (event ?: GestureResponderEvent ) => void | undefined
+  title: string
+  address: string
+  turnon: (event?: GestureResponderEvent) => void | undefined
+  deleteItem: (event?: GestureResponderEvent) => void | undefined
 }
 
-
-const favouriteChargerListItem = ({ title, address, turnon, deleteItem }: FavouriteChargerItem) => {
-
+const favouriteChargerListItem = ({
+  title,
+  address,
+  turnon,
+  deleteItem,
+}: FavouriteChargerItem) => {
   return (
     <View style={styles.container}>
       <View style={styles.innerLeftContainer}>
-        <TouchableOpacity onPress={ deleteItem }>
+        <TouchableOpacity onPress={deleteItem}>
           <View style={styles.deleteButton}>
-            <Image style={styles.deleteButtonImage}
-              source={require('../../../assets/images/icons/orange-trash.png')} />
+            <Image
+              style={styles.deleteButtonImage}
+              source={require('../../../assets/images/icons/orange-trash.png')}
+            />
           </View>
         </TouchableOpacity>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.addressContainer}>
-          <Image style={styles.addressImage}
-            source={require('../../../assets/images/icons/ic_map_pin.png')} />
+          <Image
+            style={styles.addressImage}
+            source={require('../../../assets/images/icons/ic_map_pin.png')}
+          />
           <Text style={styles.addressTitle}>{address}</Text>
         </View>
       </View>
       <View
-        style={{flex:0, height:"100%", marginLeft:8, justifyContent:"center"}}
-      >
+        style={{
+          flex: 0,
+          height: '100%',
+          marginLeft: 8,
+          justifyContent: 'center',
+        }}>
         <BaseButton
           onPress={turnon}
-          text={"turnOn"}
+          text={'turnOn'}
           style={styles.customizedBaseButton}
-          imageStyle={{ tintColor: Colors.primaryBlue }}
-          image={require("../../../assets/images/icons/arrow_right.png")}
-          textStyle={{ color: Colors.primaryBlue }}
+          imageStyle={{tintColor: Colors.primaryBlue}}
+          image={require('../../../assets/images/icons/arrow_right.png')}
+          textStyle={{color: Colors.primaryBlue}}
         />
       </View>
-      
-
     </View>
-  );
+  )
 }
 
-export default favouriteChargerListItem;
-
+export default favouriteChargerListItem
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.secondaryDark,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems : "stretch",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
     marginBottom: 16,
     marginHorizontal: 16,
     padding: 12,
     borderRadius: 8,
   },
   innerLeftContainer: {
-    flex:-1
+    flex: -1,
   },
   customizedBaseButton: {
     marginTop: 0,
     marginHorizontal: 0,
-    alignSelf: "center",
+    alignSelf: 'center',
     width: 120,
-    backgroundColor: "#0199F033",
+    backgroundColor: '#0199F033',
   },
   deleteButton: {
-    backgroundColor: "rgba(255, 149, 0, 0.16)",
+    backgroundColor: 'rgba(255, 149, 0, 0.16)',
     width: 39,
     height: 39,
     borderRadius: 20,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   deleteButtonImage: {
     width: 15,
     height: 15,
-    resizeMode : "contain"
+    resizeMode: 'contain',
   },
   addressContainer: {
-    flexDirection: "row",
-    alignItems : "center",
-    justifyContent:"flex-start",
-    flexWrap:"wrap"
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
   },
   addressImage: {
     width: 17,
     height: 17,
-    marginRight: 10
+    marginRight: 10,
   },
   addressTitle: {
     color: Colors.primaryGray,
     fontSize: 13,
-    lineHeight:16
+    lineHeight: 16,
   },
   title: {
     color: Colors.primaryWhite,
     lineHeight: 30,
     fontSize: 15,
-    marginVertical : 8,
-    justifyContent:"flex-start",
-    flexWrap:"wrap"
-  }
-});
+    marginVertical: 8,
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+  },
+})

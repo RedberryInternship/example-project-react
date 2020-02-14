@@ -1,85 +1,81 @@
 export default {
   translation: {
-    hello: "გამარჯობა",
-    notFound : 'ვერ მოიძებნა',
-    back: "უკან",
+    hello: 'გამარჯობა',
+    notFound: 'ვერ მოიძებნა',
+    back: 'უკან',
     enter: 'შესვლა',
-    next: "შემდეგი",
-    save: "შენახვა",
-    gel : "ლარი",
-    turnOn: "ჩართვა",
-    km : "კმ",
-    kwh : "კვ/სთ",
-    from: "-დან",
-    till : "-მდე",
+    next: 'შემდეგი',
+    save: 'შენახვა',
+    gel: 'ლარი',
+    turnOn: 'ჩართვა',
+    km: 'კმ',
+    kwh: 'კვ/სთ',
+    from: '-დან',
+    till: '-მდე',
+    yes: 'დიახ',
+    no: 'არა',
     authentication: {
-      authentication: "ავტორიზაცია",
-      number: "ნომერი",
-      password: "პაროლი",
-      forgotPassword: "დაგავიწყდა პაროლი?",
-      newRegistration: "არ ხართ დარეგისტრირებული?",
+      authentication: 'ავტორიზაცია',
+      number: 'ნომერი',
+      password: 'პაროლი',
+      forgotPassword: 'დაგავიწყდა პაროლი?',
+      newRegistration: 'არ ხართ დარეგისტრირებული?',
       forgotPasswordPage: {
-        recoverPassword: "პაროლის აღდგენა",
-        smsCode: "Sms კოდი",
-        receiveCode: "კოდის მიღება",
-        newPassword: "ახალი პაროლი",
-        repeatPassword: "გაიმეორეთ პაროლი",
-        codeValidity: "კოდი ვალიდურია 3 წუთის განმავლობაში"
+        recoverPassword: 'პაროლის აღდგენა',
+        smsCode: 'Sms კოდი',
+        receiveCode: 'კოდის მიღება',
+        newPassword: 'ახალი პაროლი',
+        repeatPassword: 'გაიმეორეთ პაროლი',
+        codeValidity: 'კოდი ვალიდურია 3 წუთის განმავლობაში',
       },
       registration: {
-        registration : "რეგისტრაცია",
-        name: "სახელი",
-        surname: "გვარი",
-        email: "ელ-ფოსტა",
-        password: "პაროლი",
-        repeatPassword: "გაიმეორეთ პაროლი",
-        skip: "  გამოტოვება",
+        registration: 'რეგისტრაცია',
+        name: 'სახელი',
+        surname: 'გვარი',
+        email: 'ელ-ფოსტა',
+        password: 'პაროლი',
+        repeatPassword: 'გაიმეორეთ პაროლი',
+        skip: '  გამოტოვება',
       },
     },
     home: {
       allChargers: 'ყველა დამტენი',
-      authorization: "ავტორიზაცია",
-      location: "ლოკაცია",
-      organization: "ორგანიზაცია"
+      authorization: 'ავტორიზაცია',
+      location: 'ლოკაცია',
+      organization: 'ორგანიზაცია',
     },
     drawer: {
-      tariff: "ტარიფები",
-      contact: "კონტაქტი",
-      faq: "ხდკ",
-      partners: "პარტნიორები",
-      terms_and_conditions: "წესები და პირობები",
-      settings: "პარამეტრები",
-      transactions: "ტრანზაქციები",
-      notifications: "შეტყობინებები",
-      logOut : "გამოსვლა"
+      tariff: 'ტარიფები',
+      contact: 'კონტაქტი',
+      faq: 'ხდკ',
+      partners: 'პარტნიორები',
+      terms_and_conditions: 'წესები და პირობები',
+      settings: 'პარამეტრები',
+      transactions: 'ტრანზაქციები',
+      notifications: 'შეტყობინებები',
+      logOut: 'გამოსვლა',
     },
     settings: {
-      settings: "პარამეტრები",
-      firstname: "სახელი",
-      lastname: "გვარი",
-      mail: "ელ-ფოსტა",
-      phone: "ტელეფონი",
-      cards: "ბარათები",
-      password: "პაროლი",
+      settings: 'პარამეტრები',
+      firstname: 'სახელი',
+      lastname: 'გვარი',
+      mail: 'ელ-ფოსტა',
+      phone: 'ტელეფონი',
+      cards: 'ბარათები',
+      password: 'პაროლი',
 
       confirmed: "დადასტურებული",
       notconfirmed: "არ არის დადასტურებული",
-
       notAdded: "არ არის დამატებული",
 
-      
-      editFirstname: "სახელის შეცვლა",
-      newFirstname: "ახალი სახელი",
+      editFirstname: 'სახელის შეცვლა',
+      newFirstname: 'ახალი სახელი',
 
-      editLastname: "გვარის შეცვლა",
-      newLastname: "ახალი გვარი",
+      editLastname: 'გვარის შეცვლა',
+      newLastname: 'ახალი გვარი',
 
-      editPhoneNumber: "ნომრის შეცვლა",
-      phoneNumber: "ნომერი",
-      
-      editMail: "ელ-ფოსტის შეცვლა",
-      newMail: "ახალი ელ-ფოსტა",
-
+      editPhoneNumber: 'ნომრის შეცვლა',
+      phoneNumber: 'ნომერი',
       editPassword: "პაროლის შეცვლა",
       currentPassword: "ახლანდელი პაროლი",
       newPassword: "ახალი პაროლი",
@@ -87,9 +83,10 @@ export default {
       
       editCard: "გადახდის მეთოდი",
       addCard: "დაამატე ბარათი",
-
+      editMail: 'ელ-ფოსტის შეცვლა',
+      newMail: 'ახალი ელ-ფოსტა',
     },
-    popup : {
+    popup: {
       legend : "ლეგენდა",
       fastNonCommercial : "სწრაფი არასაჯარო",
       fastCommercial : "სწრაფი საჯარო",
@@ -106,81 +103,81 @@ export default {
       continueCharging : "დატენვის გაგრძელება",
       finishedChargingOfAutomobile : "თქვენი ავტომობილის დატევა დასრულდა"
     },
-    charger : {
+    charger: {
       chargeWitchCode : "დატენვა კოდით",
       enterCode : "ჩაწერეთ კოდი",
       turnOn : "ჩართვა",
       allChargerList : "დამტენების სრული სია",
       lastUsed : "ბოლოს გამოყენებული",
-
     },
-    chargerDetail : {
-      seeOnMap : "რუკაზე ნახვა",
-      currentPrices : "მიმდინარე ტარიფები",
-      connectors  : "ქონექტორები",
-      additionalServices  : "დამატებითი სერვისები",
-      powerOfChargerType : "სიმძლავრე {{power}}კვ/სთ"
+    chargerDetail: {
+      seeOnMap: 'რუკაზე ნახვა',
+      currentPrices: 'მიმდინარე ტარიფები',
+      connectors: 'ქონექტორები',
+      additionalServices: 'დამატებითი სერვისები',
+      powerOfChargerType: 'სიმძლავრე {{power}}კვ/სთ',
     },
-    notAuthorized : {
-      notAuthorizedText : "იმისთვის, რომ შეძლოთ ავტომობილის დატენვა საჭიროა გაიაროთ ავტორიზაცია",
+    notAuthorized: {
+      notAuthorizedText:
+        'იმისთვის, რომ შეძლოთ ავტომობილის დატენვა საჭიროა გაიაროთ ავტორიზაცია',
     },
-    chooseChargeMethod : {
-      choose : "აირჩიეთ",
-      chooseChargeMethod : "აირჩიეთ თქვენთვის სასურველი დატენვის მეთოდი",
-      or : "ან",
-      untilTurnOff : "გათიშვამდე",
-      withEnteringPrice : "თანხის მითითებით"
+    chooseChargeMethod: {
+      choose: 'აირჩიეთ',
+      chooseChargeMethod: 'აირჩიეთ თქვენთვის სასურველი დატენვის მეთოდი',
+      or: 'ან',
+      untilTurnOff: 'გათიშვამდე',
+      withEnteringPrice: 'თანხის მითითებით',
     },
-    charging : {
-      charge : "დატენვა",
-      chargeAnotherCar : "დატენე სხვა ავტომობილი",
-      finish : "დასრულება",
+    charging: {
+      charge: 'დატენვა',
+      chargeAnotherCar: 'დატენე სხვა ავტომობილი',
+      finish: 'დასრულება',
     },
-    chooseCard : {
-      chooseCard : "ბარათის არჩევა",
-      enterPrice : "მიუთითეთ თანხა",
+    chooseCard: {
+      chooseCard: 'ბარათის არჩევა',
+      enterPrice: 'მიუთითეთ თანხა',
     },
-    favourites:{
-      favourites: "ფავორიტები",
+    favourites: {
+      favourites: 'ფავორიტები',
     },
-    faq:{
-      faq:"ხდკ",
-      frequentlyAskedQuestions: "ხშირად დასმული კითხვები"
+    faq: {
+      faq: 'ხდკ',
+      frequentlyAskedQuestions: 'ხშირად დასმული კითხვები',
     },
-    tariffs:{
-      tariffs: "ტარიფები",
-      company: "კომპანია",
-      power: "სიმძლავრე",
-      chargerType: "დამტენის ტიპი"
+    tariffs: {
+      tariffs: 'ტარიფები',
+      company: 'კომპანია',
+      power: 'სიმძლავრე',
+      chargerType: 'დამტენის ტიპი',
     },
     contact: {
-      contact: "კონტაქტი",
-      address: "მისამართი",
-      phone: "ტელეფონი",
-      eMail: "მეილი",
-      facebookPage: "ფეისბუქის გვერდი",
-      webPage: "ვებ-გვერდი",
-      message: "შეტყობინება"
+      contact: 'კონტაქტი',
+      address: 'მისამართი',
+      phone: 'ტელეფონი',
+      eMail: 'მეილი',
+      facebookPage: 'ფეისბუქის გვერდი',
+      webPage: 'ვებ-გვერდი',
+      message: 'შეტყობინება',
     },
-    notifications:{
-      notifications: "შეტყობინებები"
+    notifications: {
+      notifications: 'შეტყობინებები',
     },
-    dropDownAlert : {
-      generalError : "დაფიქსირდა შეცდომა",
-      fillCode : "გთხოვთ ჩაწროთ დამტენის კოდი",
-      chargerNotExist : "ასეთი დამტენის კოდი არ არსებობს",
-      registration : {
-        fillPhoneNumber : "გთხოვთ ჩაწროთ ტელეფონის ნომერი",
-        fillName : "გთხოვთ ჩაწროთ სახელი",
-        fillSurname : "გთხოვთ ჩაწროთ გვარი",
-        incorrectEmail : "ემაილი არა არის სწორი",
-        codeSentSuccessfully : "კოდი გამოიგზავნა წარმატებით",
-        codeLengthError : "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
-        incorrectCode : "კოდი არ არის სწორი",
-        emailAlreadyToken : "ეს ემაილი ბაზაში უკვე არსებობს",
-        phoneAlreadyToken : "ეს ნომერი ბაზაში უკვე არსებობს",
-        passwordNotEqual : "პაროლები ერთმანეთს არ ემთხვევა",
-        minPasswordTextLength : "მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში",
+    dropDownAlert: {
+      generalError: 'დაფიქსირდა შეცდომა',
+      fillCode: 'გთხოვთ ჩაწროთ დამტენის კოდი',
+      chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
+      registration: {
+        fillPhoneNumber: 'გთხოვთ ჩაწროთ ტელეფონის ნომერი',
+        fillName: 'გთხოვთ ჩაწროთ სახელი',
+        fillSurname: 'გთხოვთ ჩაწროთ გვარი',
+        incorrectEmail: 'ემაილი არა არის სწორი',
+        codeSentSuccessfully: 'კოდი გამოიგზავნა წარმატებით',
+        codeLengthError: 'sms კოდი 4 ციფრისგან უნდა შედგებოდეს',
+        incorrectCode: 'კოდი არ არის სწორი',
+        emailAlreadyToken: 'ეს ემაილი ბაზაში უკვე არსებობს',
+        phoneAlreadyToken: 'ეს ნომერი ბაზაში უკვე არსებობს',
+        passwordNotEqual: 'პაროლები ერთმანეთს არ ემთხვევა',
+        minPasswordTextLength: 'მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში',
       },
       editFirstname: {
         firstNameNotEmpty: "გთხოვთ, შეავსეთ სახელის ველი",
@@ -209,43 +206,45 @@ export default {
         passwordsMismatch: "პაროლები არ ემთხვევა ერთმანეთს",
         passwordNotValid: "თქვენს მიერ შეყვანილი ამჟამინდელი პაროლი არასწორია"
       },
-      auth:{
-        phoneNumberLength : "მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს",
-        passworNotEmpty: "პაროლის ველი ცარიელი არ უნდა იყოს",
-        userNotFound: "მომხმარებელი ვერ მოიძებნა ბაზაში"
+      auth: {
+        phoneNumberLength: 'მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს',
+        passworNotEmpty: 'პაროლის ველი ცარიელი არ უნდა იყოს',
+        userNotFound: 'მომხმარებელი ვერ მოიძებნა ბაზაში',
       },
       forgotPassword: {
-        smsCodeLength: "sms კოდი 4 ციფრისგან უნდა შედგებოდეს",
-        getVerificationCode: "მიიღეთ ვერიფიკაციის კოდი",
-        userNotFound: "ამ ნომრით მომხმარებელი ვერ მოიძებნა",
-        smsCodeExpired: "sms კოდს ვადა გაუვიდა",
-        fillCode: "შეიყვანეთ sms კოდი",
-        newPasswordNotFilled: "გთხოვთ, შეიყვანოთ ახალი პაროლის ველი",
-        repeteNewPasswordNotFilled: "გთხოვთ, გაიმეორეთ პაროლი",
-        newPasswordIncorrectLength: "პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს",
-        passwordChangedSuccessfully: "პაროლი წარმატებით შეიცვალა"
+        smsCodeLength: 'sms კოდი 4 ციფრისგან უნდა შედგებოდეს',
+        getVerificationCode: 'მიიღეთ ვერიფიკაციის კოდი',
+        userNotFound: 'ამ ნომრით მომხმარებელი ვერ მოიძებნა',
+        smsCodeExpired: 'sms კოდს ვადა გაუვიდა',
+        fillCode: 'შეიყვანეთ sms კოდი',
+        newPasswordNotFilled: 'გთხოვთ, შეიყვანოთ ახალი პაროლის ველი',
+        repeteNewPasswordNotFilled: 'გთხოვთ, გაიმეორეთ პაროლი',
+        newPasswordIncorrectLength: 'პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
+        passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
       },
-      transactions:{
-        transactions: "ტრანზაქციები",
-        details: "დეტალები",
-        duration: "ხანგრძლივობა",
-        power: "სიმძლავრე",
-        energy: "ენერგია",
-        address: "მისამართი",
-        cardNumber: "ბარათის ნომერი",
+      transactions: {
+        transactions: 'ტრანზაქციები',
+        details: 'დეტალები',
+        duration: 'ხანგრძლივობა',
+        power: 'სიმძლავრე',
+        energy: 'ენერგია',
+        address: 'მისამართი',
+        cardNumber: 'ბარათის ნომერი',
       },
-      
+      charging: {
+        areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
+      },
     },
-    partners:{
-      partnerOrganizations: "პარტნიორი ორგანიზაციები",
+    partners: {
+      partnerOrganizations: 'პარტნიორი ორგანიზაციები',
     },
-    filterTypes :{
-      free : "თავისუფალი",
-      inUse : "დაკავებული",
-      fast : "სწრაფი",
-      lvl2 : "ლვლ2",
-      public : "საჯარო",
-      notPublic: "არასაჯარო",
+    filterTypes: {
+      free: 'თავისუფალი',
+      inUse: 'დაკავებული',
+      fast: 'სწრაფი',
+      lvl2: 'ლვლ2',
+      public: 'საჯარო',
+      notPublic: 'არასაჯარო',
     },
-  }
+  },
 }

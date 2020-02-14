@@ -33,8 +33,8 @@ const lastnameChangeView = ({navigation, clicked, setClicked }:any) => {
 export default lastnameChangeView;
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

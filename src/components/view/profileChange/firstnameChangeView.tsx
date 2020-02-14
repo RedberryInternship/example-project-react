@@ -33,8 +33,8 @@ const firstnameChangeView = ({navigation, clicked, setClicked }:any) => {
 export default firstnameChangeView;
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

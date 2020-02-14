@@ -1,27 +1,21 @@
 import React, { useState, useContext } from 'react';
 
-import {
-    View,
-    StyleSheet,
-    KeyboardAvoidingView,
-    Platform
-} from 'react-native';
+import {View, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native'
 
 // keyboarad aware scroll view
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 // components
 import {
-    BaseHeader,
-    BaseButton,
-
-    FirstnameChangeView,
-    LastnameChangeView,
-    MailChangeView,
-    PhoneChangeView,
-    PasswordChangeView,
-    CardListView
-} from '../../components';
+  BaseHeader,
+  BaseButton,
+  FirstnameChangeView,
+  LastnameChangeView,
+  MailChangeView,
+  PhoneChangeView,
+  PasswordChangeView,
+  CardListView,
+} from 'components'
 
 // utils
 import { Colors } from '../../utils';
@@ -122,17 +116,16 @@ const profileChange = ({ navigation }: any) => {
     );
 }
 
-
-export default profileChange;
+export default profileChange
 
 const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        paddingBottom: 30,
-        backgroundColor: Colors.primaryBackground
-    },
-    keyboardAvoidingViewContainer: {
-        backgroundColor: Colors.primaryBackground,
-        justifyContent: "space-between",
-    }
-});
+  container: {
+    flex: 1,
+    paddingBottom: 30,
+    backgroundColor: Colors.primaryBackground,
+  },
+  keyboardAvoidingViewContainer: {
+    backgroundColor: Colors.primaryBackground,
+    justifyContent: 'space-between',
+  },
+})

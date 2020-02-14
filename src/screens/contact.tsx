@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react'
 import {
   View,
   Text,
@@ -9,104 +9,113 @@ import {
   Platform,
   Linking,
   Alert,
-  StatusBar
-} from 'react-native';
+  StatusBar,
+} from 'react-native'
 
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
-import { useTranslation } from 'react-i18next'
-import { useSafeArea } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next'
+import {useSafeArea} from 'react-native-safe-area-context'
 
 // components
-import {
-  BaseHeader,
-  BaseButton,
-  ContactListItem
-} from '../components';
+import {BaseHeader, BaseButton, ContactListItem} from 'components'
 
 // utils
-import {
-  Colors,
-  Const,
-  Defaults
-} from '../utils';
+import {Colors, Const, Defaults} from 'utils'
 
-const contact = ({ navigation }: any) => {
+// Vobi Todo: When using typescript using "any" type is bad practice
+// Vobi Todo: navigation type is NavigationScreenProps almost every module has option to integrate with typescript
+// Vobi Todo: and they export their interfaces from it
+// Vobi Todo: There is a good talk about typescript which is worth watching https://www.youtube.com/watch?v=wD5WGkOEJRs&t=3361s
+const contact = ({navigation}: any) => {
+  // Vobi Todo: Component Names Are Camel Case
+  // Vobi Todo: https://hackernoon.com/structuring-projects-and-naming-components-in-react-1261b6e18d76
+  // Vobi Todo: Extra spaces makes code unreadable.
 
+  const {t} = useTranslation()
+  const [message, setMessage] = useState()
+  // Vobi Todo: const [message, setMessage] = useState<string>('');
+  const insets = useSafeArea()
 
-  const { t } = useTranslation();
-  const [message, setMessage] = useState();
-  const insets = useSafeArea();
-
-  const listItems = Const.ContactListFields
-    .map((el, key) => {
-      return <ContactListItem
-              key={el.type}
-              image={el.image}
-              name={el.name}
-              value={contactInfos[key]}
-              onPress={outgoingLinkMethods[el.type]}
-            />
-  });
-
+  const listItems = Const.ContactListFields.map((el, key) => {
+    return (
+      <ContactListItem
+        key={el.type}
+        image={el.image}
+        name={el.name}
+        value={contactInfos[key]}
+        onPress={outgoingLinkMethods[el.type]}
+      />
+    )
+  })
 
   const sendMessage = (msg: string) => {
-    Alert.alert("", msg, [{ text: "Got It!", onPress: () => navigation.goBack() }]);
+    Alert.alert('', msg, [
+      {text: 'Got It!', onPress: () => navigation.goBack()},
+    ])
   }
 
-
   return (
-    <View style={[styles.container,{paddingBottom : insets.bottom + 16}]}>
+    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
         title={'contact.contact'}
-        onPressLeft={() => navigation.navigate('MainDrawer') } />
+        onPressLeft={() => navigation.navigate('MainDrawer')}
+      />
 
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.select({ ios: -300, android: 150 })}
+        extraScrollHeight={Platform.select({ios: -300, android: 150})}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
-        contentContainerStyle={{ flex: 0 }}
-        overScrollMode={"always"}
-        extraHeight={Platform.select({ ios: 500, android: 75 })}
+        contentContainerStyle={{flex: 0}}
+        overScrollMode={'always'}
+        extraHeight={Platform.select({ios: 500, android: 75})}
         // keyboardDismissMode={"on-drag"}
-        resetScrollToCoords={{ x: 0, y: 0 }} >
-        <View style={styles.contactItemsContainer}>
-          {listItems}
-        </View>
+        resetScrollToCoords={{x: 0, y: 0}}>
+        <View style={styles.contactItemsContainer}>{listItems}</View>
 
         <View style={styles.messageContainer}>
-          <Text style={styles.messageTitle}>{t("contact.message")}</Text>
-          <Image source={require("../../assets/images/icons/mail.png")} style={styles.messageIcon} />
+          <Text style={styles.messageTitle}>{t('contact.message')}</Text>
+          <Image
+            source={require('../../assets/images/icons/mail.png')}
+            style={styles.messageIcon}
+          />
           <TextInput
             multiline={true}
+            /* Vobi Todo: just pass multiline instead of multiline={true} */
             style={styles.message}
-            onChangeText={(text) => setMessage(text)}
+            onChangeText={text => setMessage(text)}
+            /* Vobi Todo: You can just pass onChangeText={setMessage} instead of onChangeText={(text) => setMessage(text)} */
             numberOfLines={4}
           />
         </View>
       </KeyboardAwareScrollView>
 
-
-
       <KeyboardAvoidingView
         behavior="padding"
-        // contentContainerStyle={{ flex: 1 }} 
-        keyboardVerticalOffset={Platform.OS === "ios" ? 16 : StatusBar.currentHeight}>
+        // contentContainerStyle={{ flex: 1 }}
+        keyboardVerticalOffset={
+          Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
+        }>
         <BaseButton
           onPress={() => sendMessage(message)}
           text="save"
-          image={require("../../assets/images/icons/arrow_left.png")}
-          style={{ marginTop: 0, marginBottom: 16 }}
-          isImageRight={true} />
+          image={require('../../assets/images/icons/arrow_left.png')}
+          /* Vobi Todo: Make index.ts inside images/icons and require images like this: https://tppr.me/4zNYN */
+          /* Vobi Todo: then import image with dynamic name and set it to the source */
+          /* Vobi Todo: This makes it really easy to change assets and update their imports */
+          style={{marginTop: 0, marginBottom: 16}}
+          /* Vobi Todo: Inline styles are bad practice to use even small styles should be placed inside StyleSheet.create({}) */
+          /* Vobi Todo: By Inline styles code becomes unreadable and hard to track component styles */
+          isImageRight={true}
+        />
       </KeyboardAvoidingView>
     </View>
-  );
+  )
 }
 
-export default contact;
+export default contact
 
 const styles = StyleSheet.create({
   container: {
@@ -120,24 +129,24 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingTop: 32,
-    marginTop: 32
+    marginTop: 32,
   },
   messageContainer: {
     marginHorizontal: 16,
     marginVertical: 32,
-    position: "relative",
+    position: 'relative',
   },
   messageTitle: {
     color: Colors.primaryGray,
-    marginBottom: 16
+    marginBottom: 16,
   },
   messageIcon: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 1,
     width: 24,
     height: 24,
     top: 40,
-    left: 8
+    left: 8,
   },
   message: {
     height: 200,
@@ -147,93 +156,120 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     paddingRight: 16,
     paddingTop: 10,
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
+  },
+})
 
-  }
-});
-
+// Vobi Todo: This is Constant and should be moved inside constants
 const contactInfos = [
-  "საირმის ქუჩა 11ო",
-  "+995 591 93 50 80",
-  "gela@espace.ge",
-  "e-space",
-  "www.espace.ge"
-];
+  'საირმის ქუჩა 11ო',
+  '+995 591 93 50 80',
+  'gela@espace.ge',
+  'e-space',
+  'www.espace.ge',
+]
 
-
-const outgoingLinkMethods : any = {
-
-  "address": () => {
-
+// Vobi Todo: any Type again if you don't use types there is no point using typescript at all
+const outgoingLinkMethods: any = {
+  address: () => {
+    // Vobi Todo: Move to constants
     const mapsInfo = {
-      scheme: Platform.select({ android: 'geo:0,0?q=', ios: 'maps:0,0?q=' }),
+      scheme: Platform.select({android: 'geo:0,0?q=', ios: 'maps:0,0?q='}),
       latitude: 41.707204,
       longitude: 44.784487,
-      label: 'E-space'
-    };
+      label: 'E-space',
+    }
 
-    const mapsUrl = `${mapsInfo.scheme}@${mapsInfo.latitude},${mapsInfo.longitude}( ${mapsInfo.label} )`;
+    const mapsUrl = `${mapsInfo.scheme}@${mapsInfo.latitude},${mapsInfo.longitude}( ${mapsInfo.label} )`
 
-    Linking.openURL(mapsUrl);
+    Linking.openURL(mapsUrl)
   },
+  // Vobi Todo: Write helper function to do that openUrl(successUrl, elseCB, catchCB)
+  // Vobi Todo: This huge code can be reduced for about 12 lines of code
 
-  "phone": () => {
-    Linking.canOpenURL(`tel:591935080`).then(supported => {
-      if (supported) {
-        Linking.openURL(`tel:591935080`);
-      }
-      else {
-        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Calling...");
-      }
-    })
+  phone: () => {
+    Linking.canOpenURL(`tel:591935080`)
+      .then(supported => {
+        // Vobi Todo: use async/await and try/catch
+        // Vobi Todo: https://blog.hellojs.org/asynchronous-javascript-from-callback-hell-to-async-and-await-9b9ceb63c8e8
+        if (supported) {
+          Linking.openURL(`tel:591935080`)
+        } else {
+          Defaults.dropdown.alertWithType(
+            'error',
+            'Error',
+            'Something Went Wrong While Calling...',
+          )
+        }
+      })
       .catch(err => {
-        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Calling...");
+        Defaults.dropdown.alertWithType(
+          'error',
+          'Error',
+          'Something Went Wrong While Calling...',
+        )
+        // Vobi Todo: Create a logging function which logs on development mode but on production it sends errors to sentry
+        // Vobi Todo: https://sentry.io/ is great tool for catching bugs in production
         console.log(err)
-      });
+      })
   },
 
-  "eMail": () => {
-    Linking.canOpenURL(`mailto:gela@espace.ge`).then(supported => {
-      if (supported) {
-        Linking.openURL(`mailto:gela@espace.ge?subject=e-space`);
-      }
-    })
+  eMail: () => {
+    Linking.canOpenURL(`mailto:gela@espace.ge`)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(`mailto:gela@espace.ge?subject=e-space`)
+        }
+      })
       .catch(err => {
-        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Opening Email...");
+        Defaults.dropdown.alertWithType(
+          'error',
+          'Error',
+          'Something Went Wrong While Opening Email...',
+        )
         console.log(err)
-      });
+      })
   },
 
-  "facebookPage": () => {
+  facebookPage: () => {
     Linking.canOpenURL('fb://group/272061007052173')
       .then(supported => {
         if (supported) {
-          Linking.openURL('fb://group/272061007052173');
-        }
-        else {
-          Linking.openURL('https://www.facebook.com/groups/272061007052173/');
+          Linking.openURL('fb://group/272061007052173')
+        } else {
+          Linking.openURL('https://www.facebook.com/groups/272061007052173/')
         }
       })
       .catch(err => {
-        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong While Opening Facebook...");
+        Defaults.dropdown.alertWithType(
+          'error',
+          'Error',
+          'Something Went Wrong While Opening Facebook...',
+        )
         console.log(err)
-      });
+      })
   },
 
-  "webPage": () => {
+  webPage: () => {
     Linking.canOpenURL('http://e-space.ge/')
       .then(supported => {
         if (supported) {
-          Linking.openURL('http://e-space.ge/');
-        }
-        else {
-          Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong while Opening Web Page...");
+          Linking.openURL('http://e-space.ge/')
+        } else {
+          Defaults.dropdown.alertWithType(
+            'error',
+            'Error',
+            'Something Went Wrong while Opening Web Page...',
+          )
         }
       })
       .catch(err => {
-        Defaults.dropdown.alertWithType("error", "Error", "Something Went Wrong while Opening Web Page...");
+        Defaults.dropdown.alertWithType(
+          'error',
+          'Error',
+          'Something Went Wrong while Opening Web Page...',
+        )
         console.log(err)
-      });
-  }
+      })
+  },
 }
-
