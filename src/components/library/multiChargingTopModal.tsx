@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import React, {useRef} from 'react'
+import React, {useRef, ReactElement} from 'react'
 import {StyleSheet} from 'react-native'
 import {PanGestureHandler, State} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
@@ -14,17 +13,9 @@ const {
   add,
   block,
   Clock,
-  sub,
-  log,
   or,
   and,
-  clockRunning,
   greaterThan,
-  startClock,
-  timing,
-  stopClock,
-  debug,
-  lessThan,
 } = Animated
 
 const distance = 200
@@ -32,7 +23,7 @@ enum PopupStatus {
   'OPENED' = 0,
   'CLOSED' = 1,
 }
-export default () => {
+const MultiChargingTopModal = (): ReactElement => {
   const insets = useSafeArea()
 
   const _This = useRef({
@@ -48,7 +39,7 @@ export default () => {
     frameTime: new Value(0),
   })
 
-  let _onGestureEvent = event(
+  const _onGestureEvent = event(
     [
       {
         nativeEvent: {
@@ -60,7 +51,7 @@ export default () => {
     {useNativeDriver: true},
   )
 
-  let _translateY = block([
+  const _translateY = block([
     cond(
       or(
         eq(_This.current._state, State.ACTIVE),
@@ -143,3 +134,5 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
   },
 })
+
+export default MultiChargingTopModal

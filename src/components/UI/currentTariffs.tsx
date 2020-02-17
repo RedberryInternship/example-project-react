@@ -1,22 +1,26 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 
-const CurrentTariffs = ({data}: any) => {
+type CurrentTariffsProps = {
+  data: any
+}
+
+const CurrentTariffs = ({data}: CurrentTariffsProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
-        <Text style={{letterSpacing: -0.41, color: 'white'}}>
+        <Text style={styles.currentPriceText}>
           {t('chargerDetail.currentPrices')}
         </Text>
-        <Text style={{letterSpacing: -0.41, fontSize: 11, color: '#A1A8AB'}}>
+        <Text style={styles.currentPrice2Text}>
           {t('chargerDetail.currentPrices')}
         </Text>
       </View>
-      {data.map((val: any, ind: Number) => (
+      {data.map((val: any, ind: number) => (
         <Row
           key={ind}
           col1={val.min_kwt + ' ' + t('kwh') + t('from')}
@@ -24,6 +28,55 @@ const CurrentTariffs = ({data}: any) => {
           col3={val.price}
         />
       ))}
+    </View>
+  )
+}
+
+export default CurrentTariffs
+
+type RowProps = {
+  col1: string
+  col2: string
+  col3: string
+}
+const Row = ({col1, col2, col3}: RowProps): ReactElement => {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 44,
+        borderTopColor: '#11222D',
+        borderTopWidth: 1,
+      }}>
+      <Text
+        style={{
+          flex: 1,
+          alignSelf: 'center',
+          color: Colors.primaryWhite,
+          fontSize: 11,
+        }}>
+        {col1}
+      </Text>
+      <Text
+        style={{
+          flex: 1,
+          alignSelf: 'center',
+          color: Colors.primaryWhite,
+          fontSize: 11,
+        }}>
+        {col2}
+      </Text>
+      <Text
+        style={{
+          flex: 1.5,
+          alignSelf: 'center',
+          color: Colors.primaryWhite,
+          fontSize: 11,
+          textAlign: 'center',
+        }}>
+        {col3}
+      </Text>
     </View>
   )
 }
@@ -43,51 +96,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  currentPriceText: {
+    letterSpacing: -0.41,
+    color: 'white',
+  },
+  currentPrice2Text: {
+    letterSpacing: -0.41,
+    fontSize: 11,
+    color: '#A1A8AB',
+  },
 })
-
-export default CurrentTariffs
-
-const Row = ({col1, col2, col3}: any) => {
-  return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 44,
-        borderTopColor: '#11222D',
-        borderTopWidth: 1,
-      }}>
-      <Text
-        style={{
-          flex: 1,
-          alignSelf: 'center',
-          color: Colors.primaryWhite,
-          fontSize: 11,
-        }}>
-        {col1}
-        {}
-      </Text>
-      <Text
-        style={{
-          flex: 1,
-          alignSelf: 'center',
-          color: Colors.primaryWhite,
-          fontSize: 11,
-        }}>
-        {col2}
-        {}
-      </Text>
-      <Text
-        style={{
-          flex: 1.5,
-          alignSelf: 'center',
-          color: Colors.primaryWhite,
-          fontSize: 11,
-          textAlign: 'center',
-        }}>
-        {col3}
-        {}
-      </Text>
-    </View>
-  )
-}

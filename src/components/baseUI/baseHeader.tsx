@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,45 +7,29 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native'
-import {Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
+import {Colors} from 'utils'
+import {BaseNativeTouchable, BaseText} from 'components'
+// import Images from 'assets/images'
 
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 0,
-    backgroundColor: Colors.primaryBackground,
-    width: '100%',
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    height: Platform.OS === 'ios' ? 44 : 60,
-    flexDirection: 'row',
-    width: '100%',
-    position: 'relative',
-  },
-  imageStyle: {
-    width: 21,
-    height: 21,
-    marginHorizontal: 4,
-    resizeMode: 'contain',
-  },
-  rightImageStyle: {
-    width: 9,
-    height: 15,
-    marginHorizontal: 8,
-    resizeMode: 'contain',
-    transform: [{rotateY: '180deg'}],
-    tintColor: '#FF9500',
-  },
-})
+type Header = {
+  onPressLeft: () => void
+  title: string
+  onPressRight: () => void
+  titleRight: string
+}
 
-const baseHeader = ({onPressLeft, title, onPressRight, titleRight}: any) => {
+const BaseHeader = ({
+  onPressLeft,
+  title,
+  onPressRight,
+  titleRight,
+}: Header): Element => {
   const {t} = useTranslation()
   const insets = useSafeArea()
 
-  const renderLeft = () => {
+  const renderLeft = (): ReactElement => {
     return (
       onPressLeft && (
         <View
@@ -56,7 +40,7 @@ const baseHeader = ({onPressLeft, title, onPressRight, titleRight}: any) => {
             left: 0,
             top: 0,
           }}>
-          <TouchableOpacity
+          <BaseNativeTouchable
             onPress={onPressLeft}
             style={{
               flex: 1,
@@ -64,17 +48,16 @@ const baseHeader = ({onPressLeft, title, onPressRight, titleRight}: any) => {
               alignItems: 'center',
               flexDirection: 'row',
               marginLeft: 4,
-            }}
-            hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
+            }}>
             {Platform.OS === 'ios' ? (
               <>
                 <Image
                   source={require('../../../assets/images/icons/ios_back.png')}
                   style={styles.imageStyle}
                 />
-                <Text style={{color: '#D1CFD7', fontSize: 15}}>
+                <BaseText style={{color: '#D1CFD7', fontSize: 15}}>
                   {t('back')}
-                </Text>
+                </BaseText>
               </>
             ) : (
               <>
@@ -82,16 +65,15 @@ const baseHeader = ({onPressLeft, title, onPressRight, titleRight}: any) => {
                   source={require('../../../assets/images/icons/ios_back.png')}
                   style={styles.imageStyle}
                 />
-                {/* <Text>{t("back")}</Text> */}
               </>
             )}
-          </TouchableOpacity>
+          </BaseNativeTouchable>
         </View>
       )
     )
   }
 
-  const renderMiddle = () => {
+  const renderMiddle = (): Element => {
     return (
       title && (
         <View
@@ -109,7 +91,7 @@ const baseHeader = ({onPressLeft, title, onPressRight, titleRight}: any) => {
     )
   }
 
-  const renderRight = () => {
+  const renderRight = (): Element => {
     return (
       onPressRight && (
         <View
@@ -153,4 +135,34 @@ const baseHeader = ({onPressLeft, title, onPressRight, titleRight}: any) => {
   )
 }
 
-export default baseHeader
+export default BaseHeader
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 0,
+    backgroundColor: Colors.primaryBackground,
+    width: '100%',
+  },
+  container: {
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    height: Platform.OS === 'ios' ? 44 : 60,
+    flexDirection: 'row',
+    width: '100%',
+    position: 'relative',
+  },
+  imageStyle: {
+    width: 21,
+    height: 21,
+    marginHorizontal: 4,
+    resizeMode: 'contain',
+  },
+  rightImageStyle: {
+    width: 9,
+    height: 15,
+    marginHorizontal: 8,
+    resizeMode: 'contain',
+    transform: [{rotateY: '180deg'}],
+    tintColor: '#FF9500',
+  },
+})

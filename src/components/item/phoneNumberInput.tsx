@@ -1,21 +1,48 @@
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect, useRef} from 'react'
-import {StyleSheet, View, Animated, Platform} from 'react-native'
+import React, {useState, useEffect, useRef, Ref} from 'react'
+import {
+  StyleSheet,
+  View,
+  Animated,
+  Platform,
+  TextInputProps,
+  StyleProp,
+} from 'react-native'
 import {Ajax, Defaults} from 'utils'
 import {useTranslation} from 'react-i18next'
-import {PhoneCountryCodesData, PhoneCountryCode} from 'allTypes'
+import {
+  PhoneCountryCodesData,
+  PhoneCountryCode,
+  BaseInputRefProp,
+} from 'allTypes'
 import {Item} from 'react-native-picker-select'
 import {BaseInput, BasePickerSelect} from 'components'
 
 const pickeritems: Item[] = []
 
 const placeholder = {label: '+995', value: '+995'}
+type PhoneNumberInputProps = {
+  _this: any
+  onSubmit: () => void
+  onBlur: () => void
+  onFocus: () => void
+  style: StyleProp<TextInputProps>
+  errorText: string
+  codeRef: any
+}
 // eslint-disable-next-line react/display-name
-
-const phoneNumberInput = React.forwardRef(
+const PhoneNumberInput = React.forwardRef(
   (
-    {_this, onSubmit, onBlur, onFocus, style, errorText, codeRef}: any,
-    ref: any,
+    {
+      _this,
+      onSubmit,
+      onBlur,
+      onFocus,
+      style,
+      errorText,
+      codeRef,
+    }: PhoneNumberInputProps,
+    ref: Ref<TextInputProps & BaseInputRefProp>,
   ) => {
     const [animation] = useState(new Animated.Value(0))
     const pickerRef = useRef(null)
@@ -28,8 +55,8 @@ const phoneNumberInput = React.forwardRef(
       fetchPhoneCountryCodes()
     }, [])
 
-    const _onChange = (e: any, show = true) => {
-      show ? onFocus && onFocus(e) : onBlur && onBlur(e)
+    const _onChange = (show = true): void => {
+      show ? onFocus && onFocus() : onBlur && onBlur()
 
       if (_this.current && _this.current.phone !== '' && !show) {
         return
@@ -43,7 +70,7 @@ const phoneNumberInput = React.forwardRef(
       }).start()
     }
 
-    const phoneTextHandler = (text: string) => {
+    const phoneTextHandler = (text: string): void => {
       _this.current.phone = selectedCountryCode.value + text
 
       if (text !== '') {
@@ -53,12 +80,12 @@ const phoneNumberInput = React.forwardRef(
       }
     }
 
-    const _onSubmit = () => {
+    const _onSubmit = (): void => {
       _this.current.phone = selectedCountryCode.value + _this.current.phone
-
       onSubmit()
     }
-    const fetchPhoneCountryCodes = () => {
+
+    const fetchPhoneCountryCodes = (): void => {
       if (pickeritemsState.length === 0) {
         Ajax.get('/phone-codes')
           .then(({data}: PhoneCountryCodesData) => {
@@ -78,10 +105,12 @@ const phoneNumberInput = React.forwardRef(
           })
       }
     }
-    const onPickerDone = () => {
+
+    const onPickerDone = (): void => {
       ref.current.focus()
     }
-    const onPickerChange = (val: string, index: number) => {
+
+    const onPickerChange = (val: string): void => {
       setSelectedCountryCode({label: val, value: val})
       // phoneTextHandler.bind(phoneNumberInput,'')
       if (Platform.OS == 'android') ref.current.focus()
@@ -93,7 +122,7 @@ const phoneNumberInput = React.forwardRef(
     })
 
     return (
-      <View style={{flex: 0, position: 'relative'}}>
+      <View style={styles.container}>
         <View pointerEvents={'none'} style={styles.imageContainer}>
           <Animated.Image
             source={require('../../../assets/images/icons/phone.png')}
@@ -108,8 +137,8 @@ const phoneNumberInput = React.forwardRef(
           keyboardType={'phone-pad'}
           onChangeText={phoneTextHandler}
           onSubmit={_onSubmit}
-          onFocus={_onChange}
-          onBlur={(e: any) => _onChange(e, false)}
+          onFocus={(): void => _onChange()}
+          onBlur={(): void => _onChange(false)}
           ref={ref}
           testID={'loginPhone'}
           title={'authentication.number'}
@@ -117,13 +146,7 @@ const phoneNumberInput = React.forwardRef(
           errorText={errorText}
         />
         <Animated.View
-          style={{
-            position: 'absolute',
-            width: 53,
-            height: 48,
-            opacity: animation,
-            bottom: 28,
-          }}>
+          style={[styles.modalSelectorContainer, {opacity: animation}]}>
           <View style={styles.touchableStyle}>
             <BasePickerSelect
               onDone={onPickerDone}
@@ -140,18 +163,19 @@ const phoneNumberInput = React.forwardRef(
   },
 )
 
-export default phoneNumberInput
+export default PhoneNumberInput
 
 const styles = StyleSheet.create({
   container: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 0,
+    position: 'relative',
+  },
+  modalSelectorContainer: {
     position: 'absolute',
-    elevation: 1,
-    backgroundColor: '#008AEE',
+    width: 53,
+    height: 48,
+
+    bottom: 28,
   },
   touchableStyle: {
     marginVertical: 4,

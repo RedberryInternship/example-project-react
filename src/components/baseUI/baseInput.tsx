@@ -1,94 +1,103 @@
-import React, {useState, useImperativeHandle, useRef} from 'react'
+import React, {
+  useState,
+  useImperativeHandle,
+  useRef,
+  RefObject,
+  Ref,
+} from 'react'
 
-import {View, TextInput, Text, Image, StyleSheet} from 'react-native'
+import {View, TextInput, Image, StyleSheet, TextInputProps} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
-import {BaseInput} from 'allTypes'
+import {BaseInputProps, BaseInputRefProp} from 'allTypes'
+import {BaseText} from 'components'
 
 // eslint-disable-next-line react/display-name
-const baseInput = React.forwardRef((props: BaseInput, ref: any) => {
-  const {t} = useTranslation()
-  const inputRef: any = useRef(null)
+const BaseInput = React.forwardRef(
+  (props: BaseInputProps, ref: Ref<TextInputProps & BaseInputRefProp>) => {
+    const {t} = useTranslation()
+    const inputRef: RefObject<TextInput> = useRef(null)
 
-  const [errorText, setErrorText] = useState('')
+    const [errorText, setErrorText] = useState('')
 
-  useImperativeHandle(ref, () => ({
-    ...inputRef.current,
-    errorText: setErrorText,
-  }))
+    useImperativeHandle(ref, () => ({
+      ...inputRef.current,
+      errorText: setErrorText,
+    }))
 
-  const _onChangeText = (text: string) => {
-    props.onChangeText && props.onChangeText(text)
-    setErrorText('')
-  }
+    const _onChangeText = (text: string): void => {
+      props.onChangeText && props.onChangeText(text)
+      setErrorText('')
+    }
 
-  return (
-    <View style={{flex: 0, marginVertical: 16, marginBottom: 8}}>
-      <Text style={styles.title}>{t(props.title)}</Text>
-      <View style={{width: '100%', position: 'relative'}}>
-        {props.image && (
-          <Image
-            source={props.image}
+    return (
+      <View style={{flex: 0, marginVertical: 16, marginBottom: 8}}>
+        <BaseText style={styles.title}>{t(props.title)}</BaseText>
+        <View style={{width: '100%', position: 'relative'}}>
+          {props.image && (
+            <Image
+              source={props.image}
+              style={[
+                {
+                  width: 24,
+                  flex: -1,
+                  height: 24,
+                  position: 'absolute',
+                  left: 12.5,
+                  bottom: 12.5,
+                  zIndex: 22,
+                  alignSelf: 'center',
+                },
+                {...props.imageStyle},
+              ]}
+              resizeMode="contain"
+            />
+          )}
+          <TextInput
+            {...props}
+            placeholder={props.placeholder}
+            keyboardType={props.keyboardType ? props.keyboardType : 'default'}
+            onChangeText={_onChangeText}
+            onSubmitEditing={props.onSubmit}
+            onFocus={props.onFocus}
+            placeholderTextColor={Colors.primaryWhite}
+            allowFontScaling={false}
+            ref={inputRef}
+            secureTextEntry={props.secure || false}
+            autoCorrect={false}
+            editable={true}
+            autoCapitalize={'none'}
+            returnKeyType={props.returnKeyType}
+            testID={props.testID}
             style={[
+              styles.Input,
+              props.style,
               {
-                width: 24,
-                flex: -1,
-                height: 24,
-                position: 'absolute',
-                left: 12.5,
-                bottom: 12.5,
-                zIndex: 22,
-                alignSelf: 'center',
+                paddingLeft: props.image ? 50 : props.paddingLeft || 20,
+                borderColor: errorText ? '#FF3B3B' : 'transparent',
               },
-              {...props.imageStyle},
             ]}
-            resizeMode="contain"
           />
-        )}
-        <TextInput
-          {...props}
-          placeholder={props.placeholder}
-          keyboardType={props.keyboardType ? props.keyboardType : 'default'}
-          onChangeText={_onChangeText}
-          onSubmitEditing={props.onSubmit}
-          onFocus={props.onFocus}
-          placeholderTextColor={Colors.primaryWhite}
-          allowFontScaling={false}
-          ref={inputRef}
-          secureTextEntry={props.secure || false}
-          autoCorrect={false}
-          editable={true}
-          autoCapitalize={'none'}
-          returnKeyType={props.returnKeyType}
-          testID={props.testID}
-          style={[
-            styles.Input,
-            props.style,
-            {
-              paddingLeft: props.image ? 50 : props.paddingLeft || 20,
-              borderColor: errorText ? '#FF3B3B' : 'transparent',
-            },
-          ]}
-        />
-        {props.required && (
-          <Text
-            style={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: 'white',
-              fontSize: 18,
-            }}>
-            *
-          </Text>
-        )}
+          {props.required && (
+            <BaseText
+              style={{
+                position: 'absolute',
+                right: 8,
+                top: 8,
+                color: 'white',
+                fontSize: 18,
+              }}>
+              *
+            </BaseText>
+          )}
+        </View>
+        <BaseText style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>
+          {errorText ? t(errorText) : ' '}
+        </BaseText>
       </View>
-      <Text style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>
-        {errorText ? t(errorText) : ' '}
-      </Text>
-    </View>
-  )
-})
+    )
+  },
+)
 
 const styles = StyleSheet.create({
   containerInput: {
@@ -125,4 +134,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default baseInput
+export default BaseInput

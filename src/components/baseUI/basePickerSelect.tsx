@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */
 
 import React, {forwardRef} from 'react'
-import {View} from 'react-native'
 import RNPickerSelect from 'react-native-picker-select'
-import {BasePickerSelect} from 'allTypes'
+import {BasePickerSelectProp} from 'allTypes'
+import {View, StyleSheet} from 'react-native'
 
-export default forwardRef(
+const BasePickerSelect = forwardRef(
   (
-    {style, placeholder, items, onChange, onDone, onOpen}: BasePickerSelect,
+    {style, placeholder, items, onChange, onDone, onOpen}: BasePickerSelectProp,
     ref,
   ) => {
     return (
@@ -16,30 +16,7 @@ export default forwardRef(
           placeholder={placeholder}
           items={items}
           onValueChange={onChange}
-          style={{
-            inputIOSContainer: {
-              height: 48,
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-            inputAndroidContainer: {
-              height: 48,
-              alignItems: 'center',
-              justifyContent: 'center',
-            },
-            inputIOS: {
-              fontSize: 13,
-              color: 'white',
-            },
-            inputAndroid: {
-              fontSize: 13,
-              color: 'white',
-            },
-            placeholder: {
-              color: 'white',
-              fontSize: 13,
-            },
-          }}
+          style={styles}
           onDonePress={onDone}
           // value={value}
           useNativeAndroidPickerStyle={false}
@@ -50,3 +27,29 @@ export default forwardRef(
     )
   },
 )
+export default BasePickerSelect
+
+const styles = StyleSheet.create({
+  inputIOSContainer: {
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputAndroidContainer: {
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputIOS: {
+    fontSize: 13,
+    color: 'white',
+  },
+  inputAndroid: {
+    fontSize: 13,
+    color: 'white',
+  },
+  placeholder: {
+    color: 'white',
+    fontSize: 13,
+  },
+})

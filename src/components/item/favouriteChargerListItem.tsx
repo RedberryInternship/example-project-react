@@ -1,31 +1,24 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-  GestureResponderEvent,
-} from 'react-native'
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {BaseButton} from '..'
 
 import {Colors} from 'utils'
 
-type FavouriteChargerItem = {
+type FavouriteChargerItemProps = {
   title: string
   address: string
-  turnon: (event?: GestureResponderEvent) => void | undefined
-  deleteItem: (event?: GestureResponderEvent) => void | undefined
+  turnon: () => void | undefined
+  deleteItem: () => void | undefined
 }
 
-const favouriteChargerListItem = ({
+const FavouriteChargerListItem = ({
   title,
   address,
   turnon,
   deleteItem,
-}: FavouriteChargerItem) => {
+}: FavouriteChargerItemProps): ReactElement => {
   return (
     <View style={styles.container}>
       <View style={styles.innerLeftContainer}>
@@ -46,13 +39,7 @@ const favouriteChargerListItem = ({
           <Text style={styles.addressTitle}>{address}</Text>
         </View>
       </View>
-      <View
-        style={{
-          flex: 0,
-          height: '100%',
-          marginLeft: 8,
-          justifyContent: 'center',
-        }}>
+      <View style={styles.customizedBaseButtonContainer}>
         <BaseButton
           onPress={turnon}
           text={'turnOn'}
@@ -66,7 +53,7 @@ const favouriteChargerListItem = ({
   )
 }
 
-export default favouriteChargerListItem
+export default FavouriteChargerListItem
 
 const styles = StyleSheet.create({
   container: {
@@ -81,6 +68,12 @@ const styles = StyleSheet.create({
   },
   innerLeftContainer: {
     flex: -1,
+  },
+  customizedBaseButtonContainer: {
+    flex: 0,
+    height: '100%',
+    marginLeft: 8,
+    justifyContent: 'center',
   },
   customizedBaseButton: {
     marginTop: 0,

@@ -1,24 +1,36 @@
 /* eslint-disable react/display-name */
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, ReactElement} from 'react'
 import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import {Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {PopUpCountDown, ModalPopupChargerItem} from 'components'
 
-export default ({
+type ChargerModalMainWrapperProps = {
+  onPress: () => void
+  subType: number
+  data: Data
+}
+
+type Data = {
+  title: string
+  description: string
+  bottomDescription: string
+}
+
+const ChargerModalMainWrapper = ({
   onPress,
   subType,
   data: {title, description, bottomDescription},
-}: any) => {
+}: ChargerModalMainWrapperProps): ReactElement => {
   const {t} = useTranslation()
-  const [view, setView] = useState<any>([undefined, undefined, undefined])
+  const [view, setView] = useState<ReactElement[]>([])
 
   useEffect(() => {
     subTypehandler()
   }, [])
 
-  function subTypehandler() {
-    let _view = []
+  const subTypehandler = (): void => {
+    const _view = []
     switch (subType) {
       case 1:
         _view[0] = (
@@ -54,6 +66,7 @@ export default ({
               {val: 3, type: 1},
               {val: 33, type: 2},
             ].map((val, ind) => (
+              //TODO: not stable data options from back
               <ModalPopupChargerItem key={ind} {...val} />
             ))}
           </View>
@@ -62,19 +75,12 @@ export default ({
       case 3:
         _view[2] = (
           <>
-            <View
-              style={{
-                backgroundColor: Colors.primaryBackground,
-                opacity: 0.1,
-                height: 1,
-                width: '100%',
-                justifyContent: 'center',
-              }}
-            />
+            <View style={styles.lineView} />
             <TouchableOpacity
-              onPress={() => {}}
-              style={{marginVertical: 16, alignItems: 'center'}}>
-              <Text style={{color: Colors.primaryGreen, fontSize: 13}}>
+              //TODO: no action known yet
+              onPress={(): void => {}}
+              style={styles.subtype2Touchable}>
+              <Text style={{color: Colors.primaryGreen}}>
                 {t('charger.allChargerList')}
               </Text>
             </TouchableOpacity>
@@ -100,39 +106,20 @@ export default ({
       <TouchableOpacity style={styles.touchableStyle} onPress={onPress}>
         <Image
           source={require('../../../assets/images/icons/close.png')}
-          style={{
-            width: 28,
-            height: 28,
-            resizeMode: 'contain',
-            alignSelf: 'center',
-            tintColor: Colors.primaryBlue,
-          }}
+          style={styles.closeIcon}
         />
       </TouchableOpacity>
       <View style={{flex: 0, marginHorizontal: 16}}>
         <Image
           source={require('../../../assets/images/icons/check-circle.png')}
-          style={{
-            width: 32,
-            height: 32,
-            resizeMode: 'contain',
-            alignSelf: 'center',
-          }}
+          style={styles.checkmarkIcon}
         />
         <Text style={styles.mainTitleStyle}>{t(title)}</Text>
         <Text style={styles.mainDescriptionStyle}>{t(description)}</Text>
       </View>
       <View style={styles.bottomContentContainer}>
         {view[0]}
-        <View
-          style={{
-            backgroundColor: Colors.primaryBackground,
-            opacity: 0.1,
-            height: 1,
-            width: '100%',
-            justifyContent: 'center',
-          }}
-        />
+        <View style={styles.lineView} />
         {view[1]}
         {view[2]}
       </View>
@@ -205,4 +192,30 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontWeight: 'bold',
   },
+  lineView: {
+    backgroundColor: Colors.primaryBackground,
+    opacity: 0.1,
+    height: 1,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  subtype2Touchable: {
+    marginVertical: 16,
+    alignItems: 'center',
+  },
+  closeIcon: {
+    width: 28,
+    height: 28,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    tintColor: Colors.primaryBlue,
+  },
+  checkmarkIcon: {
+    width: 32,
+    height: 32,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+  },
 })
+
+export default ChargerModalMainWrapper

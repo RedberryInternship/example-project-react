@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {
   View,
   Text,
@@ -13,10 +13,9 @@ import {
 import {useTranslation} from 'react-i18next'
 
 // utils
-
 import {Colors} from 'utils'
 
-type ContactItem = {
+type ContactItemProps = {
   image: ImageSourcePropType
   name: string
   value: string
@@ -24,7 +23,13 @@ type ContactItem = {
   style?: StyleProp<ViewStyle>
 }
 
-const contactListItem = ({image, name, value, onPress, style}: ContactItem) => {
+const ContactListItem = ({
+  image,
+  name,
+  value,
+  onPress,
+  style,
+}: ContactItemProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
@@ -34,14 +39,13 @@ const contactListItem = ({image, name, value, onPress, style}: ContactItem) => {
           <Image source={image} style={styles.image} />
           <Text style={styles.name}>{t(name)}</Text>
         </View>
-
         <Text style={styles.value}>{value}</Text>
       </View>
     </TouchableOpacity>
   )
 }
 
-export default contactListItem
+export default ContactListItem
 
 const styles = StyleSheet.create({
   container: {

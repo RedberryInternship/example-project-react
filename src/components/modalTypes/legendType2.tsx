@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image} from 'react-native'
 import {Colors} from 'utils'
 import {LegendItem, LegendColorItem} from 'components'
@@ -28,8 +28,10 @@ const legendColorTypes = [
   {text: 'popup.notWorking', color: '#FF3B3B'},
   {text: 'popup.free', color: '#3FD560'},
 ]
-
-export default ({onPress}: any) => {
+type LegendType2Props = {
+  onPress: () => void
+}
+const LegendType2 = ({onPress}: LegendType2Props): ReactElement => {
   const {t} = useTranslation()
   return (
     <>
@@ -97,3 +99,5 @@ export default ({onPress}: any) => {
     </>
   )
 }
+
+export default LegendType2

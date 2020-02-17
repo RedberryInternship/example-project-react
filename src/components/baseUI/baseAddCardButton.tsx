@@ -1,33 +1,31 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {View, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
-
-// import {Colors} from 'utils'
+import {BaseText} from 'components'
 
 type AddCard = {
   onPress: () => void | null
 }
 
-const baseAddCardButton = ({onPress}: AddCard) => {
+const BaseAddCardButton = ({onPress}: AddCard): ReactElement => {
   const {t} = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <Text style={styles.title}>{t('settings.addCard')}</Text>
-
+        <BaseText style={styles.title}>{t('settings.addCard')}</BaseText>
         <View style={styles.addCard}>
-          <Text style={styles.addCardText}>+</Text>
+          <BaseText style={styles.addCardText}>+</BaseText>
         </View>
       </View>
     </TouchableOpacity>
   )
 }
 
-export default baseAddCardButton
+export default BaseAddCardButton
 
 const styles = StyleSheet.create({
   container: {

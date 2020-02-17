@@ -1,16 +1,20 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
-
+import {View, StyleSheet, Image} from 'react-native'
 import {Colors} from 'utils'
+import {BaseNativeTouchable, BaseText} from 'components'
 
-type Card = {
+type CardListItemProps = {
   code: string
   selected: boolean
   onPress: () => void | null
 }
 
-const cardListItem = ({code, onPress, selected = false}: Card) => {
+const CardListItem = ({
+  code,
+  onPress,
+  selected = false,
+}: CardListItemProps): ReactElement => {
   const selectedStatus = selected ? (
     <Image
       source={require('../../../assets/images/icons/green-tick.png')}
@@ -21,28 +25,30 @@ const cardListItem = ({code, onPress, selected = false}: Card) => {
   )
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <BaseNativeTouchable onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.innerLeftContainer}>
           <Image
             source={require('../../../assets/images/icons/credit-card.png')}
             style={styles.image}
           />
-          <Text style={{color: Colors.primaryGray}}>{'xxxx xxxx xxxx '}</Text>
-          <Text
+          <BaseText style={{color: Colors.primaryGray}}>
+            {'xxxx xxxx xxxx '}
+          </BaseText>
+          <BaseText
             style={{
               color: selected ? Colors.primaryWhite : Colors.primaryGray,
             }}>
             {code.slice(12, 16)}
-          </Text>
+          </BaseText>
         </View>
         {selectedStatus}
       </View>
-    </TouchableOpacity>
+    </BaseNativeTouchable>
   )
 }
 
-export default cardListItem
+export default CardListItem
 
 const styles = StyleSheet.create({
   container: {

@@ -1,19 +1,19 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 
 import {Colors} from 'utils'
 
-type NotificationItem = {
+type NotificationItemProps = {
   title: string
   description: string
   date: string
 }
 
-const notificationsListItem = ({
+const NotificationsListItem = ({
   title,
   description,
   date,
-}: NotificationItem) => {
+}: NotificationItemProps): ReactElement => {
   return (
     <View style={styles.container}>
       <Text style={styles.date}>{date}</Text>
@@ -23,7 +23,7 @@ const notificationsListItem = ({
   )
 }
 
-export default notificationsListItem
+export default NotificationsListItem
 
 const styles = StyleSheet.create({
   container: {

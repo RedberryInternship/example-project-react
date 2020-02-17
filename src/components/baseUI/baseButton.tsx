@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {
   StyleSheet,
   StyleProp,
@@ -8,44 +8,16 @@ import {
   TextStyle,
   Text,
   Image,
-  GestureResponderEvent,
   ViewStyle,
+  View,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Const, Colors} from 'utils'
-import {TouchableOpacity} from 'react-native-gesture-handler'
 import LinearGradient from 'react-native-linear-gradient'
-
-const styles = StyleSheet.create({
-  style: {
-    width: Const.Width - 48,
-    height: 44,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    elevation: 1,
-    marginHorizontal: 24,
-    marginTop: Const.NotchHeight + 16,
-    flex: 0,
-  },
-  touchableStyle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  textStyle: {
-    color: Colors.primaryWhite,
-    fontSize: 15,
-    lineHeight: 24,
-    fontWeight: 'bold',
-    marginHorizontal: 4,
-    textAlign: 'center',
-    alignSelf: 'center',
-  },
-})
+import {BaseNativeTouchable} from 'components'
 
 type Button = {
-  onPress: (event?: GestureResponderEvent) => void
+  onPress: () => void
   text: string
   textStyle?: TextStyle
   image?: ImageSourcePropType
@@ -54,7 +26,7 @@ type Button = {
   isImageRight?: boolean
 }
 
-const onMapRoundButton = ({
+const BaseButton = ({
   onPress,
   style,
   image,
@@ -62,7 +34,7 @@ const onMapRoundButton = ({
   textStyle,
   text,
   isImageRight,
-}: Button) => {
+}: Button): ReactElement => {
   const {t} = useTranslation()
 
   const btnImage = image && (
@@ -82,16 +54,50 @@ const onMapRoundButton = ({
       start={{x: 0, y: 1}}
       end={{x: 1, y: 0}}
       style={[styles.style, style]}>
-      <TouchableOpacity
-        onPress={onPress}
-        hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
-        style={[styles.touchableStyle]}>
-        {isImageRight ? btnImage : null}
-        <Text style={[styles.textStyle, textStyle]}>{t(text)}</Text>
-        {!isImageRight ? btnImage : null}
-      </TouchableOpacity>
+      <View style={{flex: 1, backgroundColor: '#ffffff00'}}>
+        <BaseNativeTouchable
+          onPress={onPress}
+          borderless={false}
+          style={[styles.touchableStyle]}>
+          <>
+            {isImageRight ? btnImage : null}
+            <Text style={[styles.textStyle, textStyle]}>{t(text)}</Text>
+            {!isImageRight ? btnImage : null}
+          </>
+        </BaseNativeTouchable>
+      </View>
     </LinearGradient>
   )
 }
 
-export default onMapRoundButton
+export default BaseButton
+
+const styles = StyleSheet.create({
+  style: {
+    width: Const.Width - 48,
+    height: 44,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+    elevation: 1,
+    marginHorizontal: 24,
+    marginTop: Const.NotchHeight + 16,
+  },
+  touchableStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    borderRadius: 8,
+    flex: 1,
+    flexGrow: 1,
+  },
+  textStyle: {
+    color: Colors.primaryWhite,
+    fontSize: 15,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    marginHorizontal: 4,
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
+})

@@ -1,37 +1,35 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-  TouchableOpacity,
-  GestureResponderEvent,
-} from 'react-native'
+import {View, StyleSheet, ViewStyle, TextStyle} from 'react-native'
 
 import {Colors} from 'utils'
+import {BaseNativeTouchable, BaseText} from 'components'
 
 type LocaleButton = {
-  onPress: (event?: GestureResponderEvent) => void | undefined
+  onPress: () => void
   text: string
   style?: ViewStyle
   textStyle?: TextStyle
 }
 
-const baseLocaleButton = ({onPress, style, text, textStyle}: LocaleButton) => {
+const BaseLocaleButton = ({
+  onPress,
+  style,
+  text,
+  textStyle,
+}: LocaleButton): ReactElement => {
   return (
     <View style={[{width: 50}, style]}>
-      <TouchableOpacity onPress={onPress}>
+      <BaseNativeTouchable onPress={onPress}>
         <View style={[styles.localeUiContainer]}>
-          <Text style={[styles.localeText, textStyle]}>{text}</Text>
+          <BaseText style={[styles.localeText, textStyle]}>{text}</BaseText>
         </View>
-      </TouchableOpacity>
+      </BaseNativeTouchable>
     </View>
   )
 }
 
-export default baseLocaleButton
+export default BaseLocaleButton
 
 const styles = StyleSheet.create({
   localeUiContainer: {

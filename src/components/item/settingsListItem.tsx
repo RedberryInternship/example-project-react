@@ -1,8 +1,7 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {
   View,
   Text,
-  GestureResponderEvent,
   ImageSourcePropType,
   Image,
   TouchableOpacity,
@@ -13,8 +12,8 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
 
-type ListItem = {
-  onPress: (event?: GestureResponderEvent) => void | undefined
+type SettingsListItemProps = {
+  onPress: () => void
   image: ImageSourcePropType
   name: string
   value: string
@@ -22,14 +21,14 @@ type ListItem = {
   valueColor: string
 }
 
-const settingsListItem = ({
+const SettingsListItem = ({
   onPress,
   image,
   name,
   value,
   confirmed,
   valueColor = Colors.primaryWhite,
-}: ListItem) => {
+}: SettingsListItemProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
@@ -54,7 +53,7 @@ const settingsListItem = ({
   )
 }
 
-export default settingsListItem
+export default SettingsListItem
 
 const styles = StyleSheet.create({
   container: {

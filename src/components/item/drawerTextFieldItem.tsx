@@ -1,7 +1,6 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {
   TouchableOpacity,
-  GestureResponderEvent,
   ImageSourcePropType,
   TextProperties,
   ImageStyle,
@@ -16,8 +15,8 @@ import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 
 // declare text field type
-type TextField = {
-  onPress: (event?: GestureResponderEvent) => void | undefined
+type DrawerTextFieldItemProps = {
+  onPress: () => void
   text: string
   textProps?: TextProperties
   image: ImageSourcePropType
@@ -26,14 +25,14 @@ type TextField = {
   badge?: number
 }
 
-const textFieldItem = ({
+const DrawerTextFieldItem = ({
   onPress,
   text,
   image,
   imageStyle,
   container,
   badge,
-}: TextField) => {
+}: DrawerTextFieldItemProps): ReactElement => {
   const {t} = useTranslation()
 
   // if badge exist make it apper on item
@@ -48,9 +47,8 @@ const textFieldItem = ({
     <TouchableOpacity
       onPress={onPress}
       style={[styles.textFieldContainer, container]}>
-      <View style={{flex: 6, flexDirection: 'row', alignItems: 'center'}}>
+      <View style={styles.drawerImageContainer}>
         <Image style={[styles.image, imageStyle]} source={image} />
-
         <Text style={[styles.textField]}>{t(text)}</Text>
       </View>
       <View style={{flex: 1}}>{textFieldBadge}</View>
@@ -58,7 +56,7 @@ const textFieldItem = ({
   )
 }
 
-export default textFieldItem
+export default DrawerTextFieldItem
 
 const styles = StyleSheet.create({
   textFieldContainer: {
@@ -93,5 +91,10 @@ const styles = StyleSheet.create({
   },
   badgeCounter: {
     color: Colors.primaryGreyishWhite,
+  },
+  drawerImageContainer: {
+    flex: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 })

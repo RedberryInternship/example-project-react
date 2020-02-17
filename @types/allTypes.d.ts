@@ -9,7 +9,7 @@ import {
   ImageStyle,
   ViewStyle,
 } from 'react-native'
-import {RefObject} from 'react'
+import {RefObject, Ref} from 'react'
 import {Item} from 'react-native-picker-select'
 import {LocationPermissionStatus} from 'react-native-location'
 
@@ -98,7 +98,7 @@ export type AppContextType = {
   dispatch: any
 }
 
-export interface BaseInput extends TextInputProps {
+export interface BaseInputProps extends TextInputProps {
   title: string
   errorText?: string | null
   image?: ImageSourcePropType
@@ -109,10 +109,11 @@ export interface BaseInput extends TextInputProps {
   imageStyle?: ImageStyle
 }
 
-interface baseInputRefProp {
-  errorText: (val: string) => void
+export interface BaseInputRefProp {
+  errorText: (text: string) => void
 }
-export type BaseInputRefObject = RefObject<TextInputProps & baseInputRefProp>
+
+export type BaseInputRefObject = RefObject<TextInputProps | BaseInputRefProp>
 
 export type PhoneCountryCode = {
   id: number
@@ -123,7 +124,7 @@ export type PhoneCountryCode = {
 export type PhoneCountryCodesData = {
   data: PhoneCountryCode[]
 }
-export type BasePickerSelect = {
+export type BasePickerSelectProp = {
   style?: StyleProp<ViewStyle>
   placeholder?: Item
   items: Item[]

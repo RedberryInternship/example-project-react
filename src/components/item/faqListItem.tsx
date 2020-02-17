@@ -1,27 +1,27 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, ReactElement} from 'react'
 import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native'
 
 // utils
 import {Const, Colors} from 'utils'
 
-type FaqItem = {
+type FaqListItemProps = {
   number: number
   question: string
   answer: string
   activeFaq: number
-  setActiveFaq: (index: any) => void | undefined
+  setActiveFaq: (index: number) => void
 }
 
-const faqListItem = ({
+const FaqListItem = ({
   number,
   question,
   answer,
   activeFaq,
   setActiveFaq,
-}: FaqItem) => {
+}: FaqListItemProps): ReactElement => {
   const [toggleAnswerAnim] = useState(new Animated.Value(0))
 
-  const toggleFaq = (intend = 'open') => {
+  const toggleFaq = (intend = 'open'): void => {
     let $toValue = 0
     const $duration = 300
 
@@ -69,7 +69,7 @@ const faqListItem = ({
   }, [])
 
   return (
-    <TouchableOpacity onPress={() => toggleFaq('open')}>
+    <TouchableOpacity onPress={toggleFaq.bind(FaqListItem, 'open')}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
           <Text style={styles.number}>{number}</Text>
@@ -106,7 +106,7 @@ const faqListItem = ({
   )
 }
 
-export default faqListItem
+export default FaqListItem
 
 const styles = StyleSheet.create({
   container: {

@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 // utils
 import {Colors} from 'utils'
 
-type TransactionItem = {
+type TransactionItemProps = {
   title: string
   date: string
   time: string
@@ -18,7 +18,7 @@ const transactionListItem = ({
   time,
   price,
   onPress,
-}: TransactionItem) => {
+}: TransactionItemProps): ReactElement => {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
@@ -27,7 +27,6 @@ const transactionListItem = ({
             source={require('../../../assets/images/icons/transaction.png')}
             style={styles.transactionIcon}
           />
-
           <View style={styles.textContainer}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.dateAndTime}>

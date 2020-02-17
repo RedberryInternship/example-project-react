@@ -1,7 +1,45 @@
-import React from 'react'
-import {StyleSheet, Text, Platform, TouchableOpacity} from 'react-native'
+import React, {ReactElement} from 'react'
+import {StyleSheet, Text, Platform, TouchableOpacity, View} from 'react-native'
 import {Colors} from 'utils'
-import {TouchableNativeFeedback} from 'react-native-gesture-handler'
+import {BaseNativeTouchable} from 'components'
+
+type PopupFilterProps = {
+  text: string
+  onPress: () => void
+  active: boolean
+}
+
+const PopupFilter = ({
+  text,
+  onPress,
+  active,
+}: PopupFilterProps): ReactElement => {
+  const child = (
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: active ? '#008AEE' : 'white'},
+      ]}>
+      <Text
+        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}>
+        {text}
+      </Text>
+    </View>
+  )
+  return (
+    <>
+      {Platform.OS === 'ios' ? (
+        <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
+      ) : (
+        <BaseNativeTouchable borderless={false} onPress={onPress}>
+          {child}
+        </BaseNativeTouchable>
+      )}
+    </>
+  )
+}
+
+export default PopupFilter
 
 const styles = StyleSheet.create({
   container: {
@@ -17,39 +55,9 @@ const styles = StyleSheet.create({
     marginVertical: 6,
     minWidth: '30%',
   },
+  text: {
+    fontSize: 11,
+    lineHeight: 22,
+    flex: 1,
+  },
 })
-
-const popupFilter = ({text, onPress, active}: any) => {
-  const child = (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        {backgroundColor: active ? '#008AEE' : 'white'},
-      ]}
-      onPress={onPress}>
-      <Text
-        style={{
-          fontSize: 11,
-          color: active ? 'white' : Colors.primaryDark,
-          lineHeight: 22,
-          flex: 1,
-        }}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  )
-
-  return (
-    <>
-      {Platform.OS === 'ios' ? (
-        <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
-      ) : (
-        <TouchableNativeFeedback onPress={onPress}>
-          {child}
-        </TouchableNativeFeedback>
-      )}
-    </>
-  )
-}
-
-export default popupFilter

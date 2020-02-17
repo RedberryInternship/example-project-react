@@ -1,6 +1,33 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {Colors} from 'utils'
+
+type FilterTextItemProps = {
+  text: string
+  onPress: () => void
+  active: boolean
+}
+const FilterTextItem = ({
+  text,
+  onPress,
+  active,
+}: FilterTextItemProps): ReactElement => {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.container,
+        {backgroundColor: active ? '#008AEE' : 'white'},
+      ]}
+      onPress={onPress}>
+      <Text
+        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}>
+        {text}
+      </Text>
+    </TouchableOpacity>
+  )
+}
+
+export default FilterTextItem
 
 const styles = StyleSheet.create({
   container: {
@@ -14,26 +41,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginHorizontal: 8,
   },
+  text: {
+    fontSize: 11,
+    lineHeight: 22,
+  },
 })
-
-const filterTextItem = ({text, onPress, active}: any) => {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.container,
-        {backgroundColor: active ? '#008AEE' : 'white'},
-      ]}
-      onPress={onPress}>
-      <Text
-        style={{
-          fontSize: 11,
-          color: active ? 'white' : Colors.primaryDark,
-          lineHeight: 22,
-        }}>
-        {text}
-      </Text>
-    </TouchableOpacity>
-  )
-}
-
-export default filterTextItem

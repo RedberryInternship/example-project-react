@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'
 
-type ChargerGroupPupupItem = {
+type ChargerGroupPupupItemProp = {
   code: string
   onPress: () => void | null
   active: boolean
@@ -16,7 +16,7 @@ const chargerGroupPopupItem = ({
   onPress,
   active,
   text,
-}: ChargerGroupPupupItem) => {
+}: ChargerGroupPupupItemProp): ReactElement => {
   return (
     <TouchableOpacity onPress={onPress} disabled={!active}>
       <View style={styles.container}>

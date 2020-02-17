@@ -47,10 +47,8 @@ const useHomeHook = (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
-    // Todo Vobi: Immutable variables should be stored as const not let
-    // Todo Vobi: This way when you look at some variable you know that it's reference or primitive value can not be modified
 
-    return () => {
+    return (): void => {
       didFocus.remove()
     }
   }, [])
@@ -64,15 +62,11 @@ const useHomeHook = (
     }
   }, [showAll])
 
-  const onScreenFocus = (payload: NavigationEventPayload) => {
+  const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
 
     navigation.setParams({mode: null})
 
-    console.log('====================================')
-    // Vobi Todo: console logs must be removed everywhere
-    console.log(params, 'params, homeHook')
-    console.log('====================================')
     if (params !== undefined) {
       setTimeout(() => {
         switch (params?.mode) {
@@ -95,7 +89,7 @@ const useHomeHook = (
     }
   }
 
-  const onFilterClick = (index: number) => {
+  const onFilterClick = (index: number): void => {
     let newSelectedFilters: number[] = []
     ++selectedFilters[index]
     // Todo Vobi: Mutating State is now allowed in react like this
@@ -143,17 +137,17 @@ const useHomeHook = (
   }, [selectedFilters, inputText, []]) // Todo Vobi: why do you need to listen to empty array change?
   // Todo Vobi: move like this [selectedFilters, inputText]
 
-  const onFilteredItemClick = (charger: Charger) => {
+  const onFilteredItemClick = (charger: Charger): void => {
     navigation.navigate('ChargerDetail', {chargerDetails: charger})
   }
 
-  const searchInputTextChangeHandler = (text: string) => {
+  const searchInputTextChangeHandler = (text: string): void => {
     setInputText(text)
   }
 
   const searchInputTextSubmit = () => {} // Todo Vobi: remove unused function
 
-  const onFilterClickOnMap = (index: number) => {
+  const onFilterClickOnMap = (index: number): void => {
     let newSelectedFilters: number[] = []
     ++selectedFiltersOnMap[index]
     // Todo Vobi: Mutating State is now allowed in react like this
@@ -218,5 +212,4 @@ const useHomeHook = (
     setSelectedFiltersOnMap,
   }
 }
-
 export default useHomeHook

@@ -1,10 +1,20 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, ReactElement} from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Colors} from 'utils'
 
-const chargerDetailTopInfo = ({
+type ChargerDetailTopInfoProps = {
+  chargerLocationDirectionPress: () => void
+  showChargerLocationPress: () => void
+  favouritePress: () => void
+  code: string
+  name: string
+  location: string
+  distance: Promise<any> // Promis
+}
+
+const ChargerDetailTopInfo = ({
   chargerLocationDirectionPress,
   showChargerLocationPress,
   favouritePress,
@@ -12,7 +22,7 @@ const chargerDetailTopInfo = ({
   name,
   location,
   distance,
-}: any) => {
+}: ChargerDetailTopInfoProps): ReactElement => {
   const {t} = useTranslation()
   const [_distance, setDistance] = useState('')
 
@@ -26,118 +36,57 @@ const chargerDetailTopInfo = ({
     })
   }, [])
 
-  //todo Vobi:  Line length is so large in some case,
-  //set in eslint max length, would be 100 or 150 https://eslint.org/docs/rules/max-lines
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          flex: 1,
-        }}>
-        <View style={{flex: 1, justifyContent: 'space-between'}}>
-          <Text style={{fontSize: 13, color: 'white', opacity: 0.8}}>
-            {name}
-          </Text>
-          <Text style={{fontSize: 15, color: 'white', fontWeight: 'bold'}}>
-            კოდი:#{code}
-          </Text>
+      <View style={styles.nameAndfavIconContainer}>
+        <View style={styles.nameAndCodeContainer}>
+          <Text style={styles.nameText}>{name}</Text>
+          <Text style={styles.codeContainer}>კოდი:#{code}</Text>
         </View>
-        <View style={{}}>
+        <View>
           <TouchableOpacity
             onPress={favouritePress}
-            style={{
-              width: 50,
-              height: 50,
-              borderRadius: 25,
-              backgroundColor: '#0199F016',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
+            style={styles.favIconContainer}>
             <Image
               source={require('../../../assets/images/icons/ic_favorite.png')}
-              style={{
-                width: 23,
-                height: 23,
-                resizeMode: 'contain',
-                tintColor: Colors.primaryBlue,
-              }}
+              style={styles.favIcon}
             />
           </TouchableOpacity>
         </View>
       </View>
       <View style={{height: 24}} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          flex: 1,
-        }}>
-        <View style={{flex: 1, justifyContent: 'space-between'}}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}>
+      <View style={styles.locationAndDistanceContainer}>
+        <View style={styles.locationAndMapPressContainer}>
+          <View style={styles.loactionContainer}>
             <Image
               source={require('../../../assets/images/icons/ic_map_pin.png')}
-              style={{width: 19, height: 19, resizeMode: 'contain'}}
+              style={styles.locationIcon}
             />
-            <Text
-              style={{color: Colors.primaryGray, fontSize: 11, marginLeft: 8}}
-              numberOfLines={2}>
+            <Text style={styles.locationText} numberOfLines={2}>
               {location}
             </Text>
           </View>
           <TouchableOpacity
             onPress={showChargerLocationPress}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{color: Colors.primaryGreen, fontSize: 13, marginLeft: 8}}
-              numberOfLines={1}>
+            style={styles.seeOnMapContainer}>
+            <Text style={styles.seeOnMapText} numberOfLines={1}>
               {t('chargerDetail.seeOnMap')}
             </Text>
             <Image
               source={require('../../../assets/images/icons/arrow_right.png')}
-              style={{
-                width: 23,
-                height: 23,
-                resizeMode: 'contain',
-                tintColor: Colors.primaryGreen,
-              }}
+              style={styles.arrowRightIcon}
             />
           </TouchableOpacity>
         </View>
-        <View style={{justifyContent: 'flex-end'}}>
+        <View style={styles.distanceContainer}>
           <TouchableOpacity
             onPress={chargerLocationDirectionPress}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: Colors.primaryBlue,
-              height: 41,
-              borderRadius: 6,
-              width: 100,
-            }}>
+            style={styles.distanceTouchable}>
             <Image
               source={require('../../../assets/images/icons/corner-up-right.png')}
-              style={{width: 28, height: 28, resizeMode: 'contain'}}
+              style={styles.distanceIcon}
             />
-            <Text
-              style={{
-                color: Colors.primaryWhite,
-                fontSize: 13,
-                marginLeft: 8,
-                fontWeight: 'bold',
-              }}
-              numberOfLines={1}>
+            <Text style={styles.distanceText} numberOfLines={1}>
               {_distance} {t('km')}
             </Text>
           </TouchableOpacity>
@@ -146,6 +95,8 @@ const chargerDetailTopInfo = ({
     </View>
   )
 }
+
+export default ChargerDetailTopInfo
 
 const styles = StyleSheet.create({
   container: {
@@ -156,6 +107,96 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 152,
   },
+  nameAndfavIconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  nameAndCodeContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  nameText: {
+    opacity: 0.8,
+  },
+  codeContainer: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  favIconContainer: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: '#0199F016',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  favIcon: {
+    width: 23,
+    height: 23,
+    resizeMode: 'contain',
+    tintColor: Colors.primaryBlue,
+  },
+  locationAndDistanceContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  locationAndMapPressContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  loactionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  locationIcon: {
+    width: 19,
+    height: 19,
+    resizeMode: 'contain',
+  },
+  locationText: {
+    color: Colors.primaryGray,
+    fontSize: 11,
+    marginLeft: 8,
+  },
+  seeOnMapContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  seeOnMapText: {
+    color: Colors.primaryGreen,
+    marginLeft: 8,
+  },
+  arrowRightIcon: {
+    width: 23,
+    height: 23,
+    resizeMode: 'contain',
+    tintColor: Colors.primaryGreen,
+  },
+  distanceContainer: {
+    justifyContent: 'flex-end',
+  },
+  distanceTouchable: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.primaryBlue,
+    height: 41,
+    borderRadius: 6,
+    width: 100,
+  },
+  distanceIcon: {
+    width: 28,
+    height: 28,
+    resizeMode: 'contain',
+  },
+  distanceText: {
+    color: Colors.primaryWhite,
+    fontSize: 13,
+    marginLeft: 8,
+    fontWeight: 'bold',
+  },
 })
-
-export default chargerDetailTopInfo

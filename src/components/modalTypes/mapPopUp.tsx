@@ -1,12 +1,12 @@
 /* eslint-disable react/display-name */
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet, Alert} from 'react-native'
-import {Colors} from '../../../src/utils'
+import {Colors} from '../../utils'
 import {ChargerGroupPopupItem} from 'components'
 import {useTranslation} from 'react-i18next'
 import {Charger} from 'allTypes'
 
-type Props = {
+type MapPopUpProps = {
   onPress?: (index: number) => void
   data: Data
 }
@@ -15,7 +15,7 @@ type Data = {
   address: string
   chargers: Charger[]
 }
-export default ({data}: Props) => {
+const MapPopUp = ({data}: MapPopUpProps): ReactElement => {
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
@@ -23,13 +23,14 @@ export default ({data}: Props) => {
       <View style={styles.addressContainer}>
         <Image
           source={require('../../../assets/images/icons/ic_map_pin.png')}
-          style={{width: 21, height: 21, resizeMode: 'contain'}}
+          style={styles.mapPinIcon}
         />
         <Text style={styles.addressText}>{t(data.address)}</Text>
       </View>
       <View style={styles.groupChargerContainer}>
         <ChargerGroupPopupItem
           text={'sdf'}
+          //TODO : handle onPress
           onPress={() => {
             Alert.alert('sd')
           }}
@@ -38,6 +39,7 @@ export default ({data}: Props) => {
         />
         <ChargerGroupPopupItem
           text={'sdf'}
+          //TODO : handle onPress
           onPress={() => {
             Alert.alert('sd')
           }}
@@ -48,6 +50,7 @@ export default ({data}: Props) => {
     </View>
   )
 }
+export default MapPopUp
 
 const styles = StyleSheet.create({
   container: {
@@ -74,4 +77,9 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   groupChargerContainer: {},
+  mapPinIcon: {
+    width: 21,
+    height: 21,
+    resizeMode: 'contain',
+  },
 })

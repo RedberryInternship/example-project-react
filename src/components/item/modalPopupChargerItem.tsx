@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {Text, View, Image} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Colors, GNOME} from 'utils'
@@ -17,8 +17,15 @@ const modalPopupChargerItemTypes = [
     text: 'popup.returned',
   },
 ]
+type ModalPopupChargerItemProps = {
+  type: number
+  val: string
+}
 
-const modalPopupChargerItem = ({type, val}: any) => {
+const ModalPopupChargerItem = ({
+  type,
+  val,
+}: ModalPopupChargerItemProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
@@ -61,4 +68,4 @@ const modalPopupChargerItem = ({type, val}: any) => {
   )
 }
 
-export default modalPopupChargerItem
+export default ModalPopupChargerItem

@@ -1,11 +1,11 @@
 import React, {useMemo, createContext} from 'react'
 import {StatusBar} from 'react-native'
 import {Navigation} from './src'
-import {useRoot} from 'hooks'
 import {CustomModal} from 'components'
 import DropdownAlert from 'react-native-dropdownalert'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import {Defaults} from 'utils'
+import {useRoot} from 'hooks'
 
 console.disableYellowBox = true
 

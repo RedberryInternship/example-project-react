@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 
 import {useTranslation} from 'react-i18next'
@@ -6,14 +6,19 @@ import {useTranslation} from 'react-i18next'
 // utils
 import {Colors} from 'utils'
 
-type TariffItem = {
+type TariffItemProps = {
   company: string
   power: string
   chargerType: string
   title: string
 }
 
-const tariffListItem = ({company, power, chargerType, title}: TariffItem) => {
+const TariffListItem = ({
+  company,
+  power,
+  chargerType,
+  title,
+}: TariffItemProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
@@ -43,13 +48,12 @@ const tariffListItem = ({company, power, chargerType, title}: TariffItem) => {
           <Text style={styles.lowerFieldsText}>{chargerType}</Text>
         </View>
       </View>
-
       <Text style={styles.title}>{title}</Text>
     </View>
   )
 }
 
-export default tariffListItem
+export default TariffListItem
 
 const styles = StyleSheet.create({
   container: {
