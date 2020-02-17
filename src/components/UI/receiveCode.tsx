@@ -11,7 +11,7 @@ import {Colors} from 'utils'
 import MaskedView from '@react-native-community/masked-view'
 import {useTranslation} from 'react-i18next'
 
-const CodeInputWidth = 128
+const CodeInputWidth = 128;
 
 // eslint-disable-next-line react/display-name
 const receiveCode = React.forwardRef(

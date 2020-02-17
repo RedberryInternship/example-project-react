@@ -69,11 +69,13 @@ export default {
       confirmed: 'Confirmed',
       notconfirmed: 'Not Confirmed',
 
-      editFirstname: 'Edit First Name',
-      newFirstname: 'New First Name',
+      notAdded: "Has Not Added",
 
-      editLasttname: 'Edit Last Name',
-      newLastName: 'New Last Name',
+      editFirstname: "Edit First Name",
+      newFirstname: "New First Name",
+      
+      editLasttname: "Edit Last Name",
+      newLastName: "New Last Name",
 
       editPhoneNumber: 'Edit Phone Number',
       phoneNumber: 'Number',
@@ -83,6 +85,7 @@ export default {
 
       editPassword: 'Edit Password',
       currentPassword: 'Current Password',
+
       newPassword: 'New Password',
       repetePassword: 'Repete Password',
 
@@ -161,8 +164,8 @@ export default {
       webPage: 'Web Page',
       message: 'Message',
     },
-    notifications: {
-      notifications: 'Notifications',
+    notifications:{
+      notifications: "Notifications"
     },
     dropDownAlert: {
       generalError: 'Error encountered',
@@ -179,6 +182,33 @@ export default {
         emailAlreadyToken: 'The email has already been taken',
         phoneAlreadyToken: 'The phone number has already been taken.',
         passwordNotEqual: 'Passwords not equal',
+      },
+      editFirstname: {
+        firstNameNotEmpty: "Please, Fill The First Name Field",
+        minSize: "First Name should be at least 3 characters long",
+        firstNameChangeSucess: "First Name Changed Successfully!",
+      },
+      editLastname: {
+        lastNameNotEmpty: "Please, Fill The Last Name Field",
+        minSize: "Last Name should be at least 3 characters long",
+        lastNameChangeSucess: "Last Name Changed Successfully!",
+      },
+      editEmail: {
+        incorrectFormat: "Email Format is Incorrects",
+        editedSuccssesfully: "Email Edited Successfully"
+      },
+      editPhoneNumber: {
+        success: "Phone Number Edited Successfully",
+        phoneTaken: "Phone Number Already Taken"
+      },
+      editPassword: {
+        success: "Password Edited Successfully",
+        fillCurrentPassword: "Please, Fill Current Password Field",
+        fillRepetePassword: "Please, Fill Repete Password Filed",
+        fillNewPassword: "Please, Fill New Password Field",
+        minSize: "Password Field Should Contain At Least 8 Characters",
+        passwordsMismatch: "Passwords arn't identical",
+        passwordNotValid: "Current Password Was Not Correct"
       },
       auth: {
         phoneNumberLength: 'The phone number should be exactly 9 digits long.',

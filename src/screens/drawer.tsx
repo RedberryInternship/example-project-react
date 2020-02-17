@@ -18,9 +18,10 @@ import {
 } from '../components'
 
 // import utils
-import {Const, Colors, Defaults} from 'utils'
-import {useTranslation} from 'react-i18next'
-import {AppContext} from '../../App'
+import { Const, Colors, Defaults } from '../utils';
+import { useTranslation } from 'react-i18next';
+import { AppContext } from '../../App';
+import { logOut } from '../../src/hooks/actions/rootActions';
 
 // Vobi Todo: Component name should start with upper case
 const drawer = ({navigation}: any) => {
@@ -29,8 +30,7 @@ const drawer = ({navigation}: any) => {
   const insets = useSafeArea()
   const context: any = useContext(AppContext)
 
-  const $isUserAuthorized =
-    Defaults.token === '' || Defaults.token == null ? false : true
+  const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true
   // Vobi Todo: !Defaults.token does the same
   let $drawerListFields = null
   let $drawerContent = null
@@ -70,17 +70,21 @@ const drawer = ({navigation}: any) => {
       </>
     )
   } else {
+
+    const $firstName = context.state.user.first_name;
+    const $lastName = context.state.user.last_name;
+
     // Vobi Todo: (Field, ind) variable Names Shouldn't start with upper case letter
     // Vobi Todo: instead of { return ... } you can do this (...)
     $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(
       (Field, key) => {
         return (
           <DrawerTextFieldItem
-            key={key}
-            onPress={() => navigation.navigate(Field.route)}
-            text={Field.text}
-            image={Field.image}
-            badge={Field.route === 'notifications' ? 1 : 0}
+          key={key} 
+          onPress={() => navigation.navigate(Field.route) }
+          text={Field.text}
+          image={Field.image}
+          badge={ Field.route === 'notifications' ? 1 : 0 }
           />
         )
       },
@@ -89,9 +93,9 @@ const drawer = ({navigation}: any) => {
     $drawerContent = (
       <View>
         <BaseUserAvatarWithLabel
-          onPress={() => {
-            Alert.alert('change icon')
-          }}
+          onPress={()=>{Alert.alert("change icon")}}
+          firstName={$firstName}
+          lastName={$lastName}
         />
         {$drawerListFields}
       </View>

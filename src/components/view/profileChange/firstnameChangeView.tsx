@@ -1,45 +1,36 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react';
 
-import {View, Alert, StyleSheet} from 'react-native'
+import {
+    View, 
+    StyleSheet
+} from 'react-native';
 
 // components
-import {BaseInput} from 'components'
+import { BaseInput } from '../..';
 
-const firstnameChangeView = ({clicked, navigation}: any) => {
-  const [name, setName] = useState('')
+// hooks
+import { useFirstnameChange } from '../../../hooks';
 
-  useEffect(() => {
-    if (clicked === true) {
-      updateUserFirstname(name, navigation)
-    }
-  })
 
-  return (
-    <View style={styles.container}>
-      <BaseInput
-        title={'settings.newFirstname'}
-        image={require('../../../../assets/images/icons/blue-user.png')}
-        onChangeText={(text: string) => setName(text)}
-        onSubmitEditing={() => {
-          updateUserFirstname(name, navigation)
-        }}
-      />
-    </View>
-  )
+const firstnameChangeView = ({navigation, clicked, setClicked }:any) => {
+
+    const mainHook = useFirstnameChange(navigation, clicked, setClicked);
+
+    return (
+        <View style={styles.container}>
+            <BaseInput
+                title={"settings.newFirstname"}
+                image={require("../../../../assets/images/icons/blue-user.png")}
+                onChangeText={mainHook.onChangeText}
+                onSubmit={mainHook.onSubmitEditing}
+                value={mainHook.firstname}
+                ref={mainHook.firstnameInputRef}
+            />
+        </View>
+    );
 }
 
-const updateUserFirstname = (firstname: any, navigation: any) => {
-  Alert.alert('Firstname Updated!', '', [
-    {
-      text: 'OK',
-      onPress: () => {
-        navigation.goBack()
-      },
-    },
-  ])
-}
-
-export default firstnameChangeView
+export default firstnameChangeView;
 
 const styles = StyleSheet.create({
   container: {

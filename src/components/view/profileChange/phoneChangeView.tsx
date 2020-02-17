@@ -1,50 +1,52 @@
-import React, {useState, useEffect, useRef} from 'react'
+import React from 'react';
 
-import {View, Alert, StyleSheet} from 'react-native'
+import {
+    View,
+    StyleSheet
+} from 'react-native';
+
 
 // components
-import {PhoneNumberInput, ReceiveCode} from 'components'
+import { 
+    PhoneNumberInput, 
+    ReceiveCode 
+} from '../..';
 
-const phoneChangeView = ({clicked, navigation}: any) => {
-  const [number, setNumber] = useState('')
+// hooks
+import { usePhoneChange } from '../../../hooks';
 
-  useEffect(() => {
-    if (clicked === true) {
-      updateUserPhone(number, navigation)
-    }
-  })
 
-  const phoneRef = useRef<any>(null)
+const phoneChangeView = ({ navigation, clicked, setClicked }: any) => {
 
-  return (
-    <View style={styles.container}>
-      <PhoneNumberInput
-        onFocus={null}
-        phoneTextHandler={(text: string) => setNumber(text)}
-        ref={phoneRef}
-      />
+    const hook = usePhoneChange(navigation, clicked, setClicked);
 
-      <ReceiveCode />
-    </View>
-  )
+    return (
+        <View style={styles.container}>
+
+
+            <PhoneNumberInput
+                onSubmit={hook.onSubmit}
+                ref={hook.phoneInputRef}
+                _this={hook._this}
+                codeRef={hook.codeRef}
+            />
+
+
+            <ReceiveCode
+                onChangeText={hook.receiveCodeTextHandler}
+                onSubmit={hook.receiveCodeOnSubmit}
+                recieveCode={hook.recieveCode}
+                ref={hook.codeRef}
+                disableCodeInput={hook.recieveCodeButtonClicked} />
+        </View>
+    );
 }
 
-const updateUserPhone = (number: any, navigation: any) => {
-  Alert.alert('Phone Number Updated!', '', [
-    {
-      text: 'OK',
-      onPress: () => {
-        navigation.goBack()
-      },
-    },
-  ])
-}
-
-export default phoneChangeView
+export default phoneChangeView;
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 15,
-    paddingTop: 80,
-  },
-})
+    container: {
+        paddingHorizontal: 15,
+        paddingTop: 80
+    }
+});

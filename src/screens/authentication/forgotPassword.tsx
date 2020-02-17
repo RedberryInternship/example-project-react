@@ -10,6 +10,7 @@ const forgotPassword = ({navigation}: any) => {
   const hook = useForgotPassword(navigation)
   const insets = useSafeArea()
 
+  
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
@@ -27,7 +28,6 @@ const forgotPassword = ({navigation}: any) => {
         automaticallyAdjustContentInsets={false}>
         <PhoneNumberInput
           onSubmit={hook.phoneInputSubmit}
-          value={hook._this.current.phone}
           ref={hook.phoneRef}
           _this={hook._this}
           codeRef={hook.codeRef}

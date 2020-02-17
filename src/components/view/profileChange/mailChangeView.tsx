@@ -1,59 +1,37 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react';
 
-import {View, Alert, StyleSheet} from 'react-native'
+import {
+  View,
+  StyleSheet
+} from 'react-native';
+
 
 // components
-import {BaseInput} from 'components'
+import { BaseInput } from '../..';
 
-const mailChangeView = ({clicked, setClicked, navigation}: any) => {
-  const [mail, setMail] = useState('')
+// hooks
+import { useEmailChange } from '../../../hooks';
 
-  useEffect(() => {
-    if (clicked === true) {
-      // if button clicked
-      updateUserMail(mail, navigation, setClicked)
-    }
-  })
+
+const mailChangeView = ({ navigation, clicked, setClicked }: any) => {
+
+  const hook = useEmailChange(navigation, clicked, setClicked);
 
   return (
     <View style={styles.container}>
       <BaseInput
-        title={'settings.newMail'}
-        image={require('../../../../assets/images/icons/mail.png')}
-        onChangeText={(text: string) => setMail(text)}
-        onSubmitEditing={() => {
-          updateUserMail(mail, navigation, setClicked)
-        }}
+        title={"settings.newMail"}
+        image={require("../../../../assets/images/icons/mail.png")}
+        value={hook.email}
+        onChangeText={hook.onChangeText}
+        onSubmit={hook.onSubmit}
+        ref={hook.emailInputRef}
       />
     </View>
-  )
+  );
 }
 
-const updateUserMail = (mail: any, navigation: any, setClicked: any = null) => {
-  if (ValidateEmail(mail)) {
-    Alert.alert('mail Updated!', '', [
-      {text: 'Got it', onPress: () => navigation.goBack()},
-    ])
-  } else {
-    Alert.alert('InvalidEmail', '', [
-      {
-        text: 'Got it',
-        onPress: () => {
-          setClicked(false)
-        },
-      },
-    ])
-  }
-}
 
-const ValidateEmail = (mail: string) => {
-  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-
-  if (emailRegex.test(mail)) {
-    return true
-  }
-  return false
-}
 
 export default mailChangeView
 

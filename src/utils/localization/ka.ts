@@ -64,8 +64,9 @@ export default {
       cards: 'ბარათები',
       password: 'პაროლი',
 
-      confirmed: 'დადასტურებული',
-      notconfirmed: 'არ არის დამატებული',
+      confirmed: "დადასტურებული",
+      notconfirmed: "არ არის დადასტურებული",
+      notAdded: "არ არის დამატებული",
 
       editFirstname: 'სახელის შეცვლა',
       newFirstname: 'ახალი სახელი',
@@ -75,42 +76,39 @@ export default {
 
       editPhoneNumber: 'ნომრის შეცვლა',
       phoneNumber: 'ნომერი',
-
+      editPassword: "პაროლის შეცვლა",
+      currentPassword: "ახლანდელი პაროლი",
+      newPassword: "ახალი პაროლი",
+      repetePassword: "გაიმეორეთ პაროლი",
+      
+      editCard: "გადახდის მეთოდი",
+      addCard: "დაამატე ბარათი",
       editMail: 'ელ-ფოსტის შეცვლა',
       newMail: 'ახალი ელ-ფოსტა',
-
-      editPassword: 'პაროლის შეცვლა',
-      currentPassword: 'ახლანდელი პაროლი',
-      newPassword: 'ახალი პაროლი',
-      repetePassword: 'გაიმეორეთ პაროლი',
-
-      editCard: 'გადახდის მეთოდი',
-      addCard: 'დაამატე ბარათი',
     },
     popup: {
-      legend: 'ლეგენდა',
-      fastNonCommercial: 'სწრაფი არასაჯარო',
-      fastCommercial: 'სწრაფი საჯარო',
-      lvl2NonCommercial: 'ლვლ 2 არასაჯარო',
-      lvl2Commercial: 'ლვლ 2 საჯარო',
-      busy: 'დაკავებული',
-      notWorking: 'არ მუშაობს',
-      free: 'თავისუფალი',
-      thankYou: 'მადლობა',
-      automobileChargingFinished: 'ავტომობილის დატენვა დასრულენულია',
-      chargingFinishedWarning:
-        'თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე',
-      chargeOff: 'ანგარიშიდან ჩამოგეჭრათ',
-      returned: 'დაგიბრუნდათ',
-      continueCharging: 'დატენვის გაგრძელება',
-      finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატევა დასრულდა',
+      legend : "ლეგენდა",
+      fastNonCommercial : "სწრაფი არასაჯარო",
+      fastCommercial : "სწრაფი საჯარო",
+      lvl2NonCommercial : "ლვლ 2 არასაჯარო",
+      lvl2Commercial : "ლვლ 2 საჯარო",
+      busy : "დაკავებული",
+      notWorking : "არ მუშაობს",
+      free : "თავისუფალი",
+      thankYou : "მადლობა",
+      automobileChargingFinished : "ავტომობილის დატენვა დასრულენულია",
+      chargingFinishedWarning : "თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე",
+      chargeOff : "ანგარიშიდან ჩამოგეჭრათ",
+      returned : "დაგიბრუნდათ",
+      continueCharging : "დატენვის გაგრძელება",
+      finishedChargingOfAutomobile : "თქვენი ავტომობილის დატევა დასრულდა"
     },
     charger: {
-      chargeWitchCode: 'დატენვა კოდით',
-      enterCode: 'ჩაწერეთ კოდი',
-      turnOn: 'ჩართვა',
-      allChargerList: 'დამტენების სრული სია',
-      lastUsed: 'ბოლოს გამოყენებული',
+      chargeWitchCode : "დატენვა კოდით",
+      enterCode : "ჩაწერეთ კოდი",
+      turnOn : "ჩართვა",
+      allChargerList : "დამტენების სრული სია",
+      lastUsed : "ბოლოს გამოყენებული",
     },
     chargerDetail: {
       seeOnMap: 'რუკაზე ნახვა',
@@ -180,6 +178,33 @@ export default {
         phoneAlreadyToken: 'ეს ნომერი ბაზაში უკვე არსებობს',
         passwordNotEqual: 'პაროლები ერთმანეთს არ ემთხვევა',
         minPasswordTextLength: 'მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში',
+      },
+      editFirstname: {
+        firstNameNotEmpty: "გთხოვთ, შეავსეთ სახელის ველი",
+        minSize: "სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს",
+        firstNameChangeSucess: "სახელი წარმატებით შეიცვალა!"
+      },
+      editLastname: {
+        lastNameNotEmpty: "გთხოვთ, შეავსეთ გვარის ველი",
+        minSize: "გვარის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს",
+        lastNameChangeSucess: "გვარი წარმატებით შეიცვალა!"
+      },
+      editEmail: {
+        incorrectFormat: "ელ.ფოსტის ფორმატი არასწორია",
+        editedSuccssesfully: "ელ.ფოსტა წარმატებით შეიცვალა!"
+      },
+      editPhoneNumber: {
+        success: "ტელეფონის ნომერი წარმატებით შეიცვალა!",
+        phoneTaken: "ეს ტელეფონის ნომერი დაკავებულია"
+      },
+      editPassword: {
+        success: "პაროლი წარმატებით შეიცვალა",
+        fillCurrentPassword: "გთხოვთ, შეიყვანეთ ამჟამინდელი პაროლი",
+        fillRepetePassword: "გთხოვთ, გაიმეოროთ პაროლი",
+        fillNewPassword: "გთხოვთ, შეიყვანოთ ახალი პაროლი",
+        minSize: "პაროლის ველი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს",
+        passwordsMismatch: "პაროლები არ ემთხვევა ერთმანეთს",
+        passwordNotValid: "თქვენს მიერ შეყვანილი ამჟამინდელი პაროლი არასწორია"
       },
       auth: {
         phoneNumberLength: 'მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს',

@@ -1,33 +1,41 @@
 import React, {ReactElement} from 'react'
 
-import {View, StyleSheet, Image} from 'react-native'
+import {View, StyleSheet, Image, GestureResponderEvent} from 'react-native'
 
 import {Colors} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
 
 type AvatarWithLabel = {
-  onPress: () => void | undefined
+  onPress: (event?: GestureResponderEvent) => void | undefined
+  firstName: string
+  lastName: string
 }
 
-const BaseUserAvatarWithLabel = ({onPress}: AvatarWithLabel): ReactElement => {
+const BaseUserAvatarWithLabel = ({
+  onPress,
+  firstName,
+  lastName,
+}: AvatarWithLabel): ReactElement => {
+  const userDefaultIcon = require('../../../assets/images/icons/green-user.png')
+
   return (
     <View style={[styles.container]}>
       <View style={styles.imageContainer}>
-        <Image
-          source={require('../../../assets/images/icons/green-user.png')}
-          style={styles.image}
-        />
-        <BaseNativeTouchable onPress={onPress} style={styles.editButton}>
+        <Image source={userDefaultIcon} style={styles.image} />
+        <BaseNativeTouchable
+          onPress={onPress}
+          style={styles.editButton}
+          hitSlop={{left: 10, top: 10, bottom: 10, right: 10}}>
           <Image
             source={require('../../../assets/images/icons/blue-pencil.png')}
-            style={styles.editButtonImage}
+            style={styles.editButtonImawge}
           />
         </BaseNativeTouchable>
       </View>
 
       <View style={styles.usernameWrapper}>
-        <BaseText style={styles.username}>მერაბ</BaseText>
-        <BaseText style={styles.username}>სეფაშვილი</BaseText>
+        <BaseText style={styles.username}>{firstName}</BaseText>
+        <BaseText style={styles.username}>{lastName}</BaseText>
       </View>
     </View>
   )
