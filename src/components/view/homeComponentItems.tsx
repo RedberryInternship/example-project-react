@@ -51,7 +51,9 @@ const HomeComponentItems = ({
             right: 24,
             alignSelf: 'flex-end',
           }}
-          onPress={context.state.LocationRequestFunc}
+          onPress={(): void => {
+            mapRef.current.locate()
+          }}
           image={context.state.locationImageType}
           imageStyle={{width: 24, height: 24}}
         />
@@ -64,12 +66,16 @@ const HomeComponentItems = ({
       <View style={{flex: 0}} pointerEvents={'box-none'}>
         <OnMapRoundButton
           style={{right: 24, bottom: 138, backgroundColor: '#FFFFFF'}}
-          onPress={
+          onPress={(): void => {
             Defaults.modal.current &&
-            Defaults.modal.current.customUpdate.bind(HomeComponentItems, true, {
-              type: 2,
-            })
-          }
+              Defaults.modal.current.customUpdate.bind(
+                HomeComponentItems,
+                true,
+                {
+                  type: 2,
+                },
+              )
+          }}
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
         />
         <HomeFilterView

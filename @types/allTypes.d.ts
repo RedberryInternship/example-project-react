@@ -148,6 +148,11 @@ export enum HomeNavigateModes {
   'showAllChargers',
 }
 
+export type Coords = {
+  lng: number
+  lat: number
+} | null
+
 export type HomeState = {
   PermissionStatus: LocationPermissionStatus | null
   loading: boolean

@@ -77,7 +77,7 @@ const useHomeHook = (
             bottomSheetRef.current?.snapTo(0)
             mapRef.current &&
               mapRef.current.animateToRegion(
-                regionFrom(params?.lat, params.lng, ZOOM_LEVEL),
+                regionFrom(params?.lat, params?.lng, ZOOM_LEVEL),
                 400,
               )
             break
@@ -101,12 +101,9 @@ const useHomeHook = (
   const onFilterClick = (index: number): void => {
     let newSelectedFilters: number[] = []
     ++selectedFilters[index]
-    // Todo Vobi: Mutating State is now allowed in react like this
-    // Redberry: This is not a mutation, map doesn't mutate array
     newSelectedFilters = selectedFilters.map(val =>
       val > 1 || val === 0 ? 0 : 1,
     )
-
     setSelectedFilters(newSelectedFilters)
   }
 

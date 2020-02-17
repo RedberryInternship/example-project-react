@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import {Defaults, Ajax} from 'utils'
 import asyncStorage from '@react-native-community/async-storage'
 import {Chargers, Favorite} from 'allTypes'
@@ -53,7 +54,7 @@ export const logOut = () => {
   }
 }
 
-export const getAllChargers = (dispatch: any) => {
+export const getAllChargers = (dispatch: any): void => {
   Ajax.get('/chargers')
     .then(({data}: ChargersObject) => {
       dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
@@ -66,7 +67,7 @@ export const getAllChargers = (dispatch: any) => {
     })
 }
 
-export const getFavoriteChargers = (dispatch: any) => {
+export const getFavoriteChargers = (dispatch: any): void => {
   Ajax.get('/user-favorites')
     .then(({user_favorite_chargers}: FavoriteChargerObject) => {
       dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
@@ -79,7 +80,7 @@ export const getFavoriteChargers = (dispatch: any) => {
     })
 }
 
-export const addToFavorites = (payload: number, dispatch: any) => {
+export const addToFavorites = (payload: number, dispatch: any): void => {
   Ajax.post('/add-favorite', {charger_id: payload})
     .then(({status}: AddFavoriteCharger) => {
       if (status) {

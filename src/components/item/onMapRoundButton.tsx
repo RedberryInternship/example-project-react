@@ -5,15 +5,15 @@ import {
   StyleProp,
   ViewStyle,
   ImageSourcePropType,
-  ImageProps,
   TouchableOpacity,
+  ImageStyle,
 } from 'react-native'
 
 type OnMapRoundButtonProps = {
   onPress: () => void
   style: StyleProp<ViewStyle>
   image: ImageSourcePropType
-  imageStyle: StyleProp<ImageProps>
+  imageStyle?: StyleProp<ImageStyle>
 }
 
 const OnMapRoundButton = ({

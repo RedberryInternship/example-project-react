@@ -1,14 +1,22 @@
-import React, {createContext, useReducer, useMemo} from 'react'
+import React, {createContext, useReducer, useMemo, ReactElement} from 'react'
 import {StyleSheet, View} from 'react-native'
 
 import {MapView, HomeComponentItems, BottomSheetReanimated} from 'components'
 import {Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
 import {useHomeHook} from 'hooks'
+import {
+  NavigationScreenProp,
+  NavigationParams,
+  NavigationState,
+} from 'react-navigation'
 
 export const HomeContext = createContext({})
 
-const Home = ({navigation}: any) => {
+type HomeProps = {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+const Home = ({navigation}: HomeProps): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const hook = useHomeHook(navigation)
@@ -18,7 +26,7 @@ const Home = ({navigation}: any) => {
       <HomeContext.Provider value={{state, dispatch}}>
         <View style={styles.mainContainer}>
           <MapView
-            mapRef={hook.mapRef}
+            ref={hook.mapRef}
             showAll={hook.showAll}
             filteredChargersOnMap={hook.filteredChargersOnMap}
           />
@@ -50,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'relative',
     backgroundColor: Colors.primaryBackground,
-    // minHeight : Const.Height
   },
 })
 

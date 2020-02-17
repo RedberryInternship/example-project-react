@@ -33,7 +33,7 @@ export function regionFrom(
 }
 
 export function determineTimePeriod() {
-  var times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
+  const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
 
   return moment(moment()).isBetween(times.sunrise, times.sunset)
 }
