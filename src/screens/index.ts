@@ -1,6 +1,6 @@
 import Home from './tabNavigation/home'
 import ChargerWithCode from './tabNavigation/charger/chargerWithCode'
-import ChargerDetail from './tabNavigation/charger/chargerDetail'
+import ChargerDetail from './tabNavigation/charger/ChargerDetail'
 import NotAuthorized from './tabNavigation/charger/notAuthorized'
 import ChooseChargeMethod from './tabNavigation/charger/chooseChargeMethod'
 import Charging from './tabNavigation/charger/charging'

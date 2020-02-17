@@ -51,7 +51,7 @@ const services = [
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-) => {
+): any => {
   const context: AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
@@ -59,21 +59,21 @@ export default (
     navigation.getParam('chargerDetails', undefined),
   )
 
-  // const _this : React.RefObject<_This> = useRef({charger : navigation.getParam("chargerDetails" , undefined)})
-
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
   const passwordRef: React.RefObject<TextInput> = useRef(null)
 
   const {t, i18n} = useTranslation()
 
   const lastUsed = (): any => {
+    //TODO: when we get service info
     // context.state
     // Ajax.get()
 
     return lastUsedDummy
   }
 
-  const chargerTypes = () => {
+  const chargerTypes = (): any => {
+    //TODO: no service
     // Ajax.get()
 
     return chargerTypesDummy
@@ -81,21 +81,12 @@ export default (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
-
-    console.log('====================================')
-    console.log(
-      navigation,
-      navigation.isFirstRouteInParent(),
-      navigation.dangerouslyGetParent(),
-      'navigation, chargerDetails',
-    )
-    console.log('====================================')
-    return () => {
+    return (): void => {
       didFocus.remove()
     }
   }, [])
 
-  const onScreenFocus = (payload: NavigationEventPayload) => {
+  const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
 
     navigation.setParams({chargerDetails: null})
@@ -108,7 +99,7 @@ export default (
     }
   }
 
-  const showChargerLocationHandler = () => {
+  const showChargerLocationHandler = (): void => {
     navigation.navigate('Home', {
       mode: HomeNavigateModes.chargerLocateOnMap,
       lat: charger?.lat,
@@ -116,7 +107,7 @@ export default (
     })
   }
 
-  const chargerLocationDirectionHandler = () => {
+  const chargerLocationDirectionHandler = (): void => {
     navigation.navigate('Home', {mode: HomeNavigateModes.showRoutesToCharger})
   }
 

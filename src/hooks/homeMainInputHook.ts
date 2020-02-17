@@ -90,7 +90,6 @@ const useHomeMainInputHook = (
         400,
       )
   }
-  // Todo Vobi: Split this vertically
   // Todo Vobi: t shouldn't be returned from hook you should import it wherever you need
   return {
     t,
