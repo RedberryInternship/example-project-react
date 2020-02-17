@@ -9,7 +9,6 @@ type _This = {
   phone: string
 }
 
-
 type User = {
   id: number
   old_id: any
@@ -39,7 +38,7 @@ type userErroredData = {
 }
 
 export default (navigation: any, dispatch: any) => {
-  const [loading, SetLoading] = useState<Boolean>(true)
+  const [loading, SetLoading] = useState<boolean>(true)
   const phoneRef: any = useRef(null)
   const passwordRef: any = useRef(null)
 

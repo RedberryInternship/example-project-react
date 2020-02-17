@@ -1,8 +1,8 @@
 import React from 'react';
 
 import {
-    View,
-    StyleSheet
+  View,
+  StyleSheet
 } from 'react-native';
 
 
@@ -13,22 +13,22 @@ import { BaseInput } from '../..';
 import { useEmailChange } from '../../../hooks';
 
 
-const mailChangeView = ({ navigation, clicked, setClicked  }: any) => {
+const mailChangeView = ({ navigation, clicked, setClicked }: any) => {
 
-    const hook = useEmailChange(navigation, clicked, setClicked);
+  const hook = useEmailChange(navigation, clicked, setClicked);
 
-    return (
-        <View style={styles.container}>
-            <BaseInput
-                title={"settings.newMail"}
-                image={require("../../../../assets/images/icons/mail.png")}
-                value={hook.email}
-                onChangeText={hook.onChangeText}
-                onSubmit={hook.onSubmit}
-                ref={hook.emailInputRef}
-            />
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <BaseInput
+        title={"settings.newMail"}
+        image={require("../../../../assets/images/icons/mail.png")}
+        value={hook.email}
+        onChangeText={hook.onChangeText}
+        onSubmit={hook.onSubmit}
+        ref={hook.emailInputRef}
+      />
+    </View>
+  );
 }
 
 

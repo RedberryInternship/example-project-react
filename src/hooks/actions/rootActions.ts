@@ -1,20 +1,17 @@
-import { Defaults, Ajax, t } from "../../../src/utils";
-import  asyncStorage from "@react-native-community/async-storage";
-import { Chargers, Favorite } from "../../../@types/allTypes";
-import { Alert } from "react-native";
-import i18n from 'i18next';
+import {Defaults, Ajax, t} from 'utils'
+import asyncStorage from '@react-native-community/async-storage'
+import {Charger, Favorite} from 'allTypes'
+import i18n from 'i18next'
 
-export const SAVE_TOKEN = "SAVE_TOKEN";
-export const GET_ALL_CHARGER_SUCCESS = "GET_ALL_CHARGER_SUCCESS";
-export const GET_FAVORITE_CHARGERS = "GET_FAVORITE_CHARGERS";
-export const ADD_FAVORITE_CHARGER = "ADD_FAVORITE_CHARGER";
-export const LOG_OUT = "LOG_OUT";
-export const EDIT_USER_INFO = 'EDIT_USER_INFO';
-
-
+export const SAVE_TOKEN = 'SAVE_TOKEN'
+export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
+export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
+export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
+export const LOG_OUT = 'LOG_OUT'
+export const EDIT_USER_INFO = 'EDIT_USER_INFO'
 
 type ChargersObject = {
-  data: Chargers[]
+  data: Charger[]
 }
 
 type FavoriteChargerObject = {
@@ -123,19 +120,22 @@ export const deleteToFavorites = (payload: number, dispatch: any) => {
     })
 }
 
-type UserColumnType = 'first_name' | 'last_name' | 'email' | 'phone_number';
+type UserColumnType = 'first_name' | 'last_name' | 'email' | 'phone_number'
 
-export const editUserInfo = (dispatch: any, payload: any, user_column_type: UserColumnType) => {
-  
-  Defaults.userDetail[user_column_type] = payload;
+export const editUserInfo = (
+  dispatch: any,
+  payload: any,
+  user_column_type: UserColumnType,
+) => {
+  Defaults.userDetail[user_column_type] = payload
 
-  asyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail));
+  asyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))
 
   return dispatch({
     type: EDIT_USER_INFO,
     payload: {
       data: payload,
-      type: user_column_type
-    }
-  });
+      type: user_column_type,
+    },
+  })
 }

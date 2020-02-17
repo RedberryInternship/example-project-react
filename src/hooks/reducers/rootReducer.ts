@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { 
   SAVE_TOKEN, 
   GET_ALL_CHARGER_SUCCESS, 
@@ -6,14 +5,6 @@ import {
   GET_FAVORITE_CHARGERS, 
   EDIT_USER_INFO
 } from "../actions/rootActions"
-=======
-import {
-  SAVE_TOKEN,
-  GET_ALL_CHARGER_SUCCESS,
-  LOG_OUT,
-  GET_FAVORITE_CHARGERS,
-} from '../actions/rootActions'
->>>>>>> 4299d9bdd7e079a5c1ea8b3c6683d1fccfc9d598
 // eslint-disable-next-line no-unused-vars
 import {Charger, AppState, Action} from 'allTypes'
 
