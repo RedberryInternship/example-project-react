@@ -1,56 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react'
 
-import {
-    View, 
-    Alert,
-    StyleSheet
-} from 'react-native';
-
+import {View, Alert, StyleSheet} from 'react-native'
 
 // components
-import { BaseInput } from '../..';
+import {BaseInput} from 'components'
 
+const lastnameChangeView = ({clicked, navigation}: any) => {
+  const [name, setName] = useState('')
 
-const lastnameChangeView = ({ clicked, navigation }:any) => {
+  useEffect(() => {
+    if (clicked === true) {
+      updateUserLastname(name, navigation)
+    }
+  })
 
-
-    const [name, setName] = useState("");
-
-    useEffect(() => {
-        
-        if(clicked === true){
-            updateUserLastname(name, navigation);
-        }
-    });
-
-
-    return (
-        <View style={styles.container}>
-            <BaseInput
-                title={"settings.newLastname"}
-                image={require("../../../../assets/images/icons/blue-user.png")}
-                onChangeText={(text: string) => setName(text)}
-                onSubmitEditing={ () => {
-                    updateUserLastname(name, navigation);
-                    
-                } }
-            />
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <BaseInput
+        title={'settings.newLastname'}
+        image={require('../../../../assets/images/icons/blue-user.png')}
+        onChangeText={(text: string) => setName(text)}
+        onSubmitEditing={() => {
+          updateUserLastname(name, navigation)
+        }}
+      />
+    </View>
+  )
 }
 
-
-const updateUserLastname = ( firstname : any, navigation : any) => {
-    Alert.alert("Lastname Updated!", "", [
-        {text:"OK", onPress: () => { navigation.goBack();  } }
-    ]);
+const updateUserLastname = (firstname: any, navigation: any) => {
+  Alert.alert('Lastname Updated!', '', [
+    {
+      text: 'OK',
+      onPress: () => {
+        navigation.goBack()
+      },
+    },
+  ])
 }
 
-export default lastnameChangeView;
+export default lastnameChangeView
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

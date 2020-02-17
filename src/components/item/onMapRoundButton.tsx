@@ -1,38 +1,51 @@
-import React, {useRef} from 'react';
-import { StyleSheet, TouchableOpacity, Image} from 'react-native';
-import { useMap } from '../../hooks';
+import React, {ReactElement} from 'react'
+import {
+  StyleSheet,
+  Image,
+  StyleProp,
+  ViewStyle,
+  ImageSourcePropType,
+  ImageProps,
+  TouchableOpacity,
+} from 'react-native'
 
+type OnMapRoundButtonProps = {
+  onPress: () => void
+  style: StyleProp<ViewStyle>
+  image: ImageSourcePropType
+  imageStyle: StyleProp<ImageProps>
+}
+
+const OnMapRoundButton = ({
+  onPress,
+  style,
+  image,
+  imageStyle,
+}: OnMapRoundButtonProps): ReactElement => {
+  return (
+    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
+      <Image source={image} style={[styles.image, imageStyle]} />
+    </TouchableOpacity>
+  )
+}
+
+export default OnMapRoundButton
 
 const styles = StyleSheet.create({
-  container : {
-    width:50, 
-    height:50,
-    borderRadius:25,
-    justifyContent:"center",
-    alignItems:"center",
-    position: "absolute",
-    elevation:1,
-    backgroundColor:"#008AEE"
+  container: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    elevation: 1,
+    backgroundColor: '#008AEE',
   },
-});
-
-const onMapRoundButton = ({onPress, style, image, imageStyle} : any) => {
-
-  return (
-    <TouchableOpacity
-      style={[styles.container,style]}
-      onPress={onPress}
-      hitSlop={{
-        top: 20,
-        bottom: 20,
-        left: 20,
-        right: 20
-      }}
-    >
-      <Image  source={image} style={[{width:30,height:30, alignSelf : "center",resizeMode:"contain", },imageStyle]}/>
-    </TouchableOpacity>
-  );
-};
-
-
-export default onMapRoundButton;
+  image: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+  },
+})

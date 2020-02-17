@@ -1,39 +1,84 @@
-import React, {useRef, useEffect} from 'react';
-import { StyleSheet, ScrollView,Text,  View, TouchableOpacity,TouchableWithoutFeedback, Image} from 'react-native';
-import { Colors } from '../../utils';
+import React, {ReactElement} from 'react'
+import {
+  StyleSheet,
+  Platform,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+} from 'react-native'
+import {Colors} from '../../utils'
+import {BaseNativeTouchable} from 'components'
 
-
-const styles = StyleSheet.create({
-  container : {
-    justifyContent:"center",
-    alignItems:"center",
-    elevation:1,
-    backgroundColor:"transparent",
-    margin:16,
-    height: 40,
-    flexDirection:"row",
-    width:"100%"
-  },
-});
-
-const mainSearchItem = ({mainTitle,text, onPress} : any) => {
+type MainSearchItemProps = {
+  mainTitle: string
+  text: string
+  onPress: () => void
+}
+const MainSearchItem = ({
+  mainTitle,
+  text,
+  onPress,
+}: MainSearchItemProps): ReactElement => {
+  const child = (
+    <View style={styles.container}>
+      <Image
+        source={require('../../../assets/images/icons/map-pin.png')}
+        style={styles.image}
+      />
+      <View style={styles.textContainer}>
+        <Text numberOfLines={1} style={styles.mainTitleText}>
+          {mainTitle}
+        </Text>
+        <Text numberOfLines={1} style={styles.addressText}>
+          {text}
+        </Text>
+      </View>
+    </View>
+  )
 
   return (
-      <TouchableOpacity
-        // style={[styles.container]}
-        onPress={onPress}
-        
-      >
-        <View style={styles.container}>
-          <Image source={require('../../../assets/images/icons/map-pin.png')} style={{width: 23, height:23,  marginRight:16}} />
-          <View style={{flex:1}}>
-            <Text numberOfLines={1} style={{fontSize:13, fontWeight:"bold",color :"white" , lineHeight : 22}}>{mainTitle}</Text>
-            <Text numberOfLines={1} style={{fontSize:13,color : Colors.primaryGray, lineHeight : 22}}>{text}</Text>
-          </View>
-          </View>
-      </TouchableOpacity>
-  );
-};
+    <>
+      {Platform.OS === 'ios' ? (
+        <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
+      ) : (
+        <BaseNativeTouchable onPress={onPress} borderless={false}>
+          {child}
+        </BaseNativeTouchable>
+      )}
+    </>
+  )
+}
 
+export default MainSearchItem
 
-export default mainSearchItem;
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 1,
+    backgroundColor: 'transparent',
+    margin: 16,
+    height: 40,
+    flexDirection: 'row',
+  },
+  image: {
+    width: 23,
+    height: 23,
+    marginRight: 16,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  mainTitleText: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    color: 'white',
+    lineHeight: 22,
+  },
+  addressText: {
+    fontSize: 13,
+    color: Colors.primaryGray,
+    lineHeight: 22,
+  },
+})

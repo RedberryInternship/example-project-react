@@ -1,19 +1,19 @@
 export default [
   {
-    "featureType": "poi.business",
-    "stylers": [
+    featureType: 'poi.business',
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
+        visibility: 'off',
+      },
+    ],
   },
   {
-    "featureType": "poi.park",
-    "elementType": "labels.text",
-    "stylers": [
+    featureType: 'poi.park',
+    elementType: 'labels.text',
+    stylers: [
       {
-        "visibility": "off"
-      }
-    ]
-  }
+        visibility: 'off',
+      },
+    ],
+  },
 ]

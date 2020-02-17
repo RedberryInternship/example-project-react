@@ -1,4 +1,4 @@
-package com.espace;
+package com.boxwood.espaceboxwoodrelease;
 
 import com.facebook.react.ReactActivity;
 

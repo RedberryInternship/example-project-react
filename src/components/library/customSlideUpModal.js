@@ -1,42 +1,40 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React from 'react'
 import {
   View,
   Animated,
   PanResponder,
   Keyboard,
-  Platform,
   StyleSheet,
   Easing,
   Alert,
-} from 'react-native';
+} from 'react-native'
 
-const PopupStatus = ['opened', 'closed'];
+const PopupStatus = ['opened', 'closed']
 export default class SwipeGesture extends React.PureComponent {
-  state = {};
-  popupStatus = 'closed';
+  state = {}
+  popupStatus = 'closed'
 
-  sliderRef = React.createRef();
-  distance = parseFloat(this.props.height - this.props.minHeight);
+  sliderRef = React.createRef()
+  distance = parseFloat(this.props.height - this.props.minHeight)
 
   componentWillMount = () => {
-    let valueY;
-    this.animatedValue = new Animated.Value(this.distance);
+    this.animatedValue = new Animated.Value(this.distance)
 
     this.PanResponder = PanResponder.create({
       onPanResponderGrant: (evt, gestureState) => {
-        console.log('====================================');
+        console.log('====================================')
         console.log(
           JSON.stringify(gestureState),
           this.sliderRef.current,
           'this.sliderRef.current',
           'onPanResponderGrant',
-        );
-        console.log('====================================');
+        )
+        console.log('====================================')
       },
 
       onPanResponderMove: (evt, gestureState) => {
-        let panY = gestureState.dy;
+        let panY = gestureState.dy
 
         this.animatedValue.setValue(
           this.popupStatus === PopupStatus[1]
@@ -44,46 +42,46 @@ export default class SwipeGesture extends React.PureComponent {
             : panY > 0
             ? panY
             : 0,
-        );
+        )
 
         this.sliderRef.current.setNativeProps({
           opacity: 0.5,
-        });
+        })
 
-        console.log('====================================');
-        console.log(JSON.stringify(gestureState), 'onPanResponderMove');
-        console.log('====================================');
+        console.log('====================================')
+        console.log(JSON.stringify(gestureState), 'onPanResponderMove')
+        console.log('====================================')
       },
 
       onPanResponderRelease: (evt, gestureState) => {
-        let x = gestureState.dx;
-        let y = gestureState.dy;
+        let x = gestureState.dx
+        let y = gestureState.dy
 
-        console.log('====================================');
-        console.log(JSON.stringify(gestureState), 'onPanResponderRelease');
-        console.log('====================================');
+        console.log('====================================')
+        console.log(JSON.stringify(gestureState), 'onPanResponderRelease')
+        console.log('====================================')
 
         if (Math.abs(x) > Math.abs(y)) {
           if (x >= 0) {
-            this.props.onSwipePerformed('right');
+            this.props.onSwipePerformed('right')
           } else {
-            this.props.onSwipePerformed('left');
+            this.props.onSwipePerformed('left')
           }
         } else {
-          let status = '';
+          let status = ''
           if (y > 0) {
             if (y >= 40) {
-              status = 'down';
-              this.popupStatus = PopupStatus[1];
+              status = 'down'
+              this.popupStatus = PopupStatus[1]
             } else {
-              status = 'notEnough';
+              status = 'notEnough'
             }
           } else {
             if (y <= -40) {
-              status = 'up';
-              this.popupStatus = PopupStatus[0];
+              status = 'up'
+              this.popupStatus = PopupStatus[0]
             } else {
-              status = 'notEnough';
+              status = 'notEnough'
             }
           }
         }
@@ -93,40 +91,40 @@ export default class SwipeGesture extends React.PureComponent {
           duration: 200,
           easing: Easing.out(Easing.ease),
           useNativeDriver: true,
-        }).start();
+        }).start()
 
         if (this.popupStatus === PopupStatus[1]) {
-          this.props.onClose();
+          this.props.onClose()
           // this.props.flatListRef.current.scrollToIndex({index :0, animated: false})
-          Keyboard.dismiss();
+          Keyboard.dismiss()
         } else {
-          this.props.onOpen();
+          this.props.onOpen()
         }
         this.sliderRef.current.setNativeProps({
           opacity: 1,
-        });
+        })
       },
 
       onStartShouldSetPanResponder: (evt, gestureState) => {
-        return false;
+        return false
       },
       onStartShouldSetPanResponderCapture: (evt, gestureState) => {
-        return false;
+        return false
       },
       onMoveShouldSetPanResponder: (e, gestureState) => {
-        const {dx, dy} = gestureState;
-        let touchThreshold = 0;
-        return Math.abs(dx) > touchThreshold || Math.abs(dy) > touchThreshold;
+        const {dx, dy} = gestureState
+        let touchThreshold = 0
+        return Math.abs(dx) > touchThreshold || Math.abs(dy) > touchThreshold
       },
 
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
       onPanResponderTerminationRequest: () => {
-        Alert.alert('sd');
-        return true;
+        Alert.alert('sd')
+        return true
       },
       onShouldBlockNativeResponder: () => true,
-    });
-  };
+    })
+  }
 
   toggle = func => {
     Animated.timing(this.animatedValue, {
@@ -135,15 +133,15 @@ export default class SwipeGesture extends React.PureComponent {
       easing: Easing.out(Easing.ease),
       useNativeDriver: true,
     }).start(() => {
-      func.bind(this, this.popupStatus), Keyboard.dismiss();
-    });
-  };
+      func.bind(this, this.popupStatus), Keyboard.dismiss()
+    })
+  }
   render() {
-    const {minHeight, height} = this.props;
+    const {minHeight, height} = this.props
 
     // const translateY = this.animatedValue;
 
-    const translateY = this.animatedValue;
+    const translateY = this.animatedValue
     //   .interpolate({
     //     inputRange: [0, screenHeight],
     //     outputRange: [ 0 , height ],
@@ -173,7 +171,7 @@ export default class SwipeGesture extends React.PureComponent {
           <View style={{width: '100%'}}>{this.props.children}</View>
         </View>
       </Animated.View>
-    );
+    )
   }
 }
 
@@ -192,4 +190,4 @@ const styles = new StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-});
+})

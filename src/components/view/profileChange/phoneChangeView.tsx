@@ -1,56 +1,50 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react'
 
-import {
-    View,
-    Alert,
-    StyleSheet
-} from 'react-native';
-
+import {View, Alert, StyleSheet} from 'react-native'
 
 // components
-import { PhoneNumberInput, ReceiveCode } from '../..';
+import {PhoneNumberInput, ReceiveCode} from 'components'
 
+const phoneChangeView = ({clicked, navigation}: any) => {
+  const [number, setNumber] = useState('')
 
-const phoneChangeView = ({ clicked, navigation }: any) => {
+  useEffect(() => {
+    if (clicked === true) {
+      updateUserPhone(number, navigation)
+    }
+  })
 
+  const phoneRef = useRef<any>(null)
 
-    const [number, setNumber] = useState("");
+  return (
+    <View style={styles.container}>
+      <PhoneNumberInput
+        onFocus={null}
+        phoneTextHandler={(text: string) => setNumber(text)}
+        ref={phoneRef}
+      />
 
-    useEffect(() => {
-
-        if (clicked === true) {
-            updateUserPhone(number, navigation);
-        }
-    });
-
-    const phoneRef = useRef<any>(null);
-
-    return (
-        <View style={styles.container}>
-
-            <PhoneNumberInput
-                onFocus={ null }
-                phoneTextHandler = {(text: string) => setNumber(text)}
-                ref={ phoneRef }
-            />
-
-            <ReceiveCode />
-        </View>
-    );
+      <ReceiveCode />
+    </View>
+  )
 }
-
 
 const updateUserPhone = (number: any, navigation: any) => {
-    Alert.alert("Phone Number Updated!", "", [
-        { text: "OK", onPress: () => { navigation.goBack(); } }
-    ]);
+  Alert.alert('Phone Number Updated!', '', [
+    {
+      text: 'OK',
+      onPress: () => {
+        navigation.goBack()
+      },
+    },
+  ])
 }
 
-export default phoneChangeView;
+export default phoneChangeView
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

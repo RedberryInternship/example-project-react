@@ -1,47 +1,81 @@
-import React, {useRef, useEffect} from 'react';
-import { StyleSheet, ScrollView,Text,  View, TouchableOpacity, Image} from 'react-native';
-import { useMap } from '../../hooks';
-import { Colors } from '../../../src/utils';
+import React, {ReactElement} from 'react'
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native'
+import {Colors} from 'utils'
+import {useTranslation} from 'react-i18next'
+import {BaseCheckbox} from 'components'
 
+type ChargerTypesItemProps = {
+  index: number
+  type: string
+  power: string
+  active: boolean
+  onPress: () => void
+}
 
-const styles = StyleSheet.create({
-  container : {
-    height:30,
-    borderRadius:15,
-    justifyContent:"center",
-    alignItems:"center",
-    elevation:1,
-    paddingHorizontal:16,
-    paddingVertical:4,
-    backgroundColor:"white",
-    marginHorizontal:8
-  },
-});
-
-const filterTextItem = ({index,type, power, active, onPress} : any) => {
+const ChargerTypesItem = ({
+  index,
+  type,
+  power,
+  active,
+  onPress,
+}: ChargerTypesItemProps): ReactElement => {
+  const {t} = useTranslation()
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-    >
-      <View style={{flexDirection:"row",alignItems:"center", borderRadius:8, backgroundColor:"#08141B", height:55, marginBottom:8,}}>
-        <View style={{width:48,height:"100%", backgroundColor:"#4CD96433", borderTopLeftRadius:8, borderBottomLeftRadius : 8, justifyContent:"center", alignItems:"center"}}>
-          <Text style={{fontSize:17, color:Colors.primaryGreen, fontWeight:"bold"}}>{index}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <View style={styles.indexTextContainer}>
+          <Text style={styles.indexText}>{index}</Text>
         </View>
-        <View  style={{justifyContent:"space-between", marginLeft:12, height:"100%", paddingVertical:8}}>
-          <Text style={{fontSize:13, color:Colors.primaryWhite,}}>{type}</Text>
-          <Text style={{fontSize:11, color:Colors.primaryGray}}>{power}</Text>
+        <View style={styles.powerAndTypeTextContainer}>
+          <Text style={styles.typeText}>{type}</Text>
+          <Text style={styles.powerText}>
+            {t('chargerDetail.powerOfChargerType', {power})}
+          </Text>
         </View>
-        <View style={{ alignItems:"flex-end", alignSelf:"center",flex:1, justifyContent:"center", marginRight:12}}>
-          <Image  
-            source={active ? require("../../../assets/images/icons/green_checkmark.png") : require("../../../assets/images/icons/cicle.png") }  
-            style={{width:28, height:28, resizeMode:"contain"}}
-          />
-        </View>
+        <BaseCheckbox active={active} />
       </View>
     </TouchableOpacity>
-  );
-};
+  )
+}
 
+export default ChargerTypesItem
 
-export default filterTextItem;
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 8,
+    backgroundColor: '#08141B',
+    height: 55,
+    marginBottom: 8,
+  },
+  indexTextContainer: {
+    width: 48,
+    height: '100%',
+    backgroundColor: '#4CD96433',
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  indexText: {
+    fontSize: 17,
+    color: Colors.primaryGreen,
+    fontWeight: 'bold',
+  },
+  powerAndTypeTextContainer: {
+    justifyContent: 'space-between',
+    marginLeft: 12,
+    height: '100%',
+    paddingVertical: 8,
+  },
+  typeText: {
+    fontSize: 13,
+    color: Colors.primaryWhite,
+  },
+  powerText: {
+    fontSize: 11,
+    color: Colors.primaryGray,
+  },
+})

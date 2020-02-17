@@ -1,19 +1,40 @@
-import React, {} from 'react';
-import {  Text,  View} from 'react-native';
-import { useTranslation } from 'react-i18next';
+import React, {ReactElement} from 'react'
+import {Text, View, StyleSheet} from 'react-native'
+import {useTranslation} from 'react-i18next'
 
-
-const mainSearchItem = ({text, color} : any) => {
-
-  const {t} = useTranslation();
-  
+type LegendColorItemProps = {
+  text: string
+  color: string
+}
+const LegendColorItem = ({text, color}: LegendColorItemProps): ReactElement => {
+  const {t} = useTranslation()
   return (
-      <View style={{flexDirection:"row",justifyContent:"space-between", alignItems:"center", marginVertical:8,  paddingLeft:32, width:"50%"}}>
-        <Text style={{color:"#436880", fontSize:13,}}>{t(text)}</Text>
-        <View style={{width:12, height:12, backgroundColor: color, marginLeft:8, borderRadius:6}}/>
-      </View>
-  );
-};
+    <View style={styles.container}>
+      <Text style={styles.text}>{t(text)}</Text>
+      <View style={[styles.backgrondView, {backgroundColor: color}]} />
+    </View>
+  )
+}
 
+export default LegendColorItem
 
-export default mainSearchItem;
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 8,
+    paddingLeft: 32,
+    width: '50%',
+  },
+  text: {
+    color: '#436880',
+    fontSize: 13,
+  },
+  backgrondView: {
+    width: 12,
+    height: 12,
+    marginLeft: 8,
+    borderRadius: 6,
+  },
+})

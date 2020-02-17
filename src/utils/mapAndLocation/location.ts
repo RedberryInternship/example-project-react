@@ -1,43 +1,39 @@
-import RNLocation from 'react-native-location';
-import { Alert } from 'react-native';
-import Defaults  from '../defaults';
-
+import RNLocation from 'react-native-location'
 
 const requestPermission = RNLocation.requestPermission({
-  ios: "always",
+  ios: 'always',
   android: {
-    detail: "fine",
+    detail: 'fine',
     rationale: {
-        title: "ლოკაციაზე წვდომა",
-        message: "აპის გამოყენებისთვის საჭიროა ლოკაციის გააქტიურება",
-        buttonPositive: "დიახ",
-        buttonNegative: "არა"
-    }
-  }
+      title: 'ლოკაციაზე წვდომა',
+      message: 'აპის გამოყენებისთვის საჭიროა ლოკაციის გააქტიურება',
+      buttonPositive: 'დიახ',
+      buttonNegative: 'არა',
+    },
+  },
 })
 
 const configure = RNLocation.configure({
-    distanceFilter: 50, // Meters
-    desiredAccuracy: {
-      ios: "best",
-      android: "balancedPowerAccuracy"
-    },
-    // Android only
-    androidProvider: "auto",
-    interval: 5000, // Milliseconds
-    fastestInterval: 10000, // Milliseconds
-    maxWaitTime: 5000, // Milliseconds
-    // iOS Only
-    activityType: "automotiveNavigation",
-    allowsBackgroundLocationUpdates: false,
-    headingFilter: 1, // Degrees
-    headingOrientation: "portrait",
-    pausesLocationUpdatesAutomatically: false,
-    showsBackgroundLocationIndicator: false,
+  distanceFilter: 50, // Meters
+  desiredAccuracy: {
+    ios: 'best',
+    android: 'balancedPowerAccuracy',
+  },
+  // Android only
+  androidProvider: 'auto',
+  interval: 5000, // Milliseconds
+  fastestInterval: 10000, // Milliseconds
+  maxWaitTime: 5000, // Milliseconds
+  // iOS Only
+  activityType: 'automotiveNavigation',
+  allowsBackgroundLocationUpdates: false,
+  headingFilter: 1, // Degrees
+  headingOrientation: 'portrait',
+  pausesLocationUpdatesAutomatically: false,
+  showsBackgroundLocationIndicator: false,
 })
 
 export default {
-    configure,
-    requestPermission
+  configure,
+  requestPermission,
 }
-

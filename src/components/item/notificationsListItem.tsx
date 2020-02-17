@@ -1,31 +1,29 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet
-} from 'react-native';
+import React, {ReactElement} from 'react'
+import {View, Text, StyleSheet} from 'react-native'
 
+import {Colors} from 'utils'
 
-import { Colors } from '../../utils';
-
-
-type NotificationItem = {
-  title: string,
-  description: string,
+type NotificationItemProps = {
+  title: string
+  description: string
   date: string
 }
 
-const notificationsListItem = ({ title, description, date }: NotificationItem) => {
+const NotificationsListItem = ({
+  title,
+  description,
+  date,
+}: NotificationItemProps): ReactElement => {
   return (
     <View style={styles.container}>
       <Text style={styles.date}>{date}</Text>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
     </View>
-  );
+  )
 }
 
-export default notificationsListItem;
+export default NotificationsListItem
 
 const styles = StyleSheet.create({
   container: {
@@ -33,23 +31,23 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     marginHorizontal: 16,
     borderRadius: 10,
-    padding:16
+    padding: 16,
   },
   date: {
     color: Colors.primaryGray,
     fontSize: 13,
-    textAlign: "right",
-    letterSpacing: .2
+    textAlign: 'right',
+    letterSpacing: 0.2,
   },
   title: {
     color: Colors.primaryBackground,
     fontSize: 15,
     marginVertical: 16,
-    letterSpacing: .2
+    letterSpacing: 0.2,
   },
   description: {
     color: Colors.primaryGray,
     fontSize: 13,
-    letterSpacing: .2
-  }
-});
+    letterSpacing: 0.2,
+  },
+})
