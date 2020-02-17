@@ -41,7 +41,6 @@ const useHomeHook = (
 
   const [inputText, setInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
-  const _this: _This = useRef({}) // Todo Vobi: this is left without type why?
   const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
   const mapRef: RefObject<MapView> = useRef(null)
 
@@ -67,13 +66,14 @@ const useHomeHook = (
 
     navigation.setParams({mode: null})
 
-    if (params !== undefined) {
+    if (params !== undefined && params?.mode) {
       setTimeout(() => {
         switch (params?.mode) {
-          case HomeNavigateModes.showAllChargers:
+          case HomeNavigateModes.showAllChargers: {
             bottomSheetRef.current?.snapTo(1)
             break
-          case HomeNavigateModes.chargerLocateOnMap:
+          }
+          case HomeNavigateModes.chargerLocateOnMap: {
             bottomSheetRef.current?.snapTo(0)
             mapRef.current &&
               mapRef.current.animateToRegion(
@@ -81,7 +81,16 @@ const useHomeHook = (
                 400,
               )
             break
-
+          }
+          case HomeNavigateModes.showRoutesToCharger: {
+            bottomSheetRef.current?.snapTo(0)
+            mapRef.current &&
+              mapRef.current.animateToRegion(
+                regionFrom(params?.lat, params.lng, ZOOM_LEVEL),
+                400,
+              )
+            break
+          }
           default:
             break
         }
@@ -93,6 +102,7 @@ const useHomeHook = (
     let newSelectedFilters: number[] = []
     ++selectedFilters[index]
     // Todo Vobi: Mutating State is now allowed in react like this
+    // Redberry: This is not a mutation, map doesn't mutate array
     newSelectedFilters = selectedFilters.map(val =>
       val > 1 || val === 0 ? 0 : 1,
     )
@@ -194,7 +204,6 @@ const useHomeHook = (
   return {
     loading,
     setLoading,
-    _this,
     bottomSheetRef,
     mapRef,
     selectedFilters,
