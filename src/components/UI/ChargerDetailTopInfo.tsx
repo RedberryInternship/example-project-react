@@ -119,10 +119,12 @@ const styles = StyleSheet.create({
   },
   nameText: {
     opacity: 0.8,
+    color: 'white',
   },
   codeContainer: {
     fontSize: 15,
     fontWeight: 'bold',
+    color: 'white',
   },
   favIconContainer: {
     width: 50,

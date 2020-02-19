@@ -1,15 +1,21 @@
-import {useContext, Ref, useImperativeHandle, RefObject, useRef} from 'react'
+import {
+  useContext,
+  Ref,
+  useImperativeHandle,
+  RefObject,
+  useRef,
+  useState,
+} from 'react'
 import useLocation from './locationHook'
-import {AppContextType, Location} from 'allTypes'
+import {AppContextType} from 'allTypes'
 import {getAllChargers} from 'hooks/actions/rootActions'
 import {AppContext} from '../../App'
-import MapView from 'react-native-maps'
+import MapView, {Region} from 'react-native-maps'
 
-const useMap = (ref: Ref<MapView>): any => {
+const useMap = (ref: Ref<MapView>, mapRef: RefObject<MapView>): any => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
-  const mapRef: RefObject<MapView> = useRef(null)
-
-  const location = useLocation({mapRef})
+  const [polyline, setPolyline] = useState([])
+  const location = useLocation({mapRef, setPolyline})
 
   const mapReady = (): void => {
     location.navigateToLocation()
@@ -19,19 +25,18 @@ const useMap = (ref: Ref<MapView>): any => {
   const getChargerPins = (): void => {
     getAllChargers(dispatch)
   }
-
   useImperativeHandle(ref, (): any => ({
-    ...mapRef.current,
+    animateToRegion: location.navigateByRef,
     locate: location.navigateToLocation,
     showRoute: location.showRoute,
   }))
-
   return {
     location,
     mapReady,
     state,
     dispatch,
     mapRef,
+    polyline,
   }
 }
 

@@ -1,17 +1,17 @@
-import {useEffect, useState, useRef, useContext} from 'react'
-import {regionFrom, Defaults, Const} from 'utils'
+import {useEffect, useState, useRef, useContext, RefObject, Ref} from 'react'
+import {regionFrom, Defaults, Const, Ajax} from 'utils'
 import Config from '../../src/utils/mapAndLocation/location'
-
+import polyline from '@mapbox/polyline'
 import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
 import {HomeContext} from 'screens/tabNavigation/home'
-import {setLocationHandler} from 'hooks/actions/homeActions'
-import {Coords} from 'allTypes'
-import i18n from 'i18next'
+import {Coords, GoogleGetDirection, LocationViaIP} from 'allTypes'
+import i18next from 'i18next'
 import Axios from 'axios'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
+import MapView from 'react-native-maps'
 
 type ThisRef = {
   interval: number
@@ -19,7 +19,11 @@ type ThisRef = {
 }
 const ZOOM_LEVEL = 400
 
-const useLocation = ({mapRef}: any) => {
+type useLocationProps = {
+  mapRef: RefObject<MapView>
+  setPolyline: (data: any) => void
+}
+const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   const context: any = useContext(HomeContext)
 
   const [
@@ -34,8 +38,6 @@ const useLocation = ({mapRef}: any) => {
 
     RNLocation.getCurrentPermission().then(getPermissionStatus)
 
-    context.dispatch(setLocationHandler(navigateToLocation.bind(useLocation)))
-
     // let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
       subscribePermissionUpdate,
@@ -48,19 +50,6 @@ const useLocation = ({mapRef}: any) => {
     }
   }, [])
 
-  const subscribeToLocationStatus = (_location: Location[]): void => {
-    _this.current.location = _location[0]
-    //   setLocation(ref.current.location);
-    //   mapRef.current.fitToCoordinates(newProps.data.polyline, {
-    //     edgePadding: {
-    //         top: 20,
-    //         right: 20,
-    //         bottom: 100,
-    //         left: 20
-    //     }, animated: true
-    // })
-  } // Todo Vobi: remove this function if it is not use and delete commented code
-
   const subscribePermissionUpdate = (
     status: LocationPermissionStatus,
   ): void => {
@@ -72,18 +61,16 @@ const useLocation = ({mapRef}: any) => {
   }
 
   const getLatestLocation = (_location: Location | null): void => {
-    _this.current.location = _location
+    _this.current.location = _location // for testing on emulator comment out
     _location && navigateByRef(_location.latitude, _location.longitude)
   }
 
   const getPermissionStatus = (status: LocationPermissionStatus): void => {
     setPermissionStatus(status)
-    if (!status.match(/ denied | restricted | notDetermined /)) {
+    if (!status.match(/ denied | restricted/)) {
       navigateToLocation()
     } else if (status.match(/ notDetermined /)) {
-      Config.requestPermission.then(granted => {
-        if (granted) navigateToLocation()
-      })
+      requestPermission()
     }
   }
 
@@ -98,6 +85,11 @@ const useLocation = ({mapRef}: any) => {
       )
     } else {
       try {
+        if (permissionStatus?.match(/ denied | restricted | notDetermined/)) {
+          const permission = await Config.requestPermission
+          if (!permission) getLocationViaIP()
+          return
+        }
         const latestLocation: Location | null = await RNLocation.getLatestLocation(
           {
             timeout: 6000,
@@ -110,29 +102,92 @@ const useLocation = ({mapRef}: any) => {
       } catch (error) {
         Defaults.dropdown.alertWithType(
           'error',
-          i18n.t('dropDownAlert.generalError'),
+          i18next.t('dropDownAlert.generalError'),
         )
       }
     }
   }
 
-  const navigateByRef = (lat: number, lng: number): void => {
+  const requestPermission = async (): Promise<any> => {
+    Config.requestPermission.then(granted => {
+      if (granted) navigateToLocation()
+    })
+  }
+
+  const navigateByRef = (
+    lat: number,
+    lng: number,
+    zoomLevel: number = ZOOM_LEVEL,
+    duration = 400,
+  ): void => {
     mapRef.current &&
-      mapRef.current.animateToRegion(regionFrom(lat, lng, ZOOM_LEVEL), 400)
+      mapRef.current.animateToRegion(regionFrom(lat, lng, zoomLevel), duration)
   }
 
   const showRoute = async (
     finishLat: number,
     finishLng: number,
+    showRoute = true,
   ): Promise<void> => {
-    const res = await Axios.get(
-      `https://maps.googleapis.com/maps/api/directions/json?origin=${mergeCoords(
-        _this.current.location?.latitude ?? Const.locationIfNoGPS.lat,
-        _this.current.location?.longitude ?? Const.locationIfNoGPS.lng,
-      )}&destination=${mergeCoords(finishLat, finishLng)}&mode=driving&key=${
-        Const.MAP_API
-      }`,
-    )
+    if (!showRoute) {
+      setPolyline([])
+      return
+    }
+    try {
+      const res = await Axios.get<GoogleGetDirection>(
+        `https://maps.googleapis.com/maps/api/directions/json?origin=${mergeCoords(
+          _this.current.location?.latitude ?? Const.locationIfNoGPS.lat,
+          _this.current.location?.longitude ?? Const.locationIfNoGPS.lng,
+        )}&destination=${mergeCoords(finishLat, finishLng)}&mode=driving&key=${
+          Const.MAP_API
+        }`,
+      )
+
+      if (res.data.status === 'ZERO_RESULTS') throw 'ZERO_RESULTS'
+      if (res.data.status !== 'OK') throw 'ERROR'
+      const array = polyline.decode(res.data.routes[0].overview_polyline.points)
+      const coordsBetween = array.map(point => {
+        return {
+          latitude: point[0],
+          longitude: point[1],
+        }
+      })
+
+      setPolyline(coordsBetween)
+      mapRef.current?.fitToCoordinates(coordsBetween, {
+        edgePadding: {
+          top: 20,
+          right: 20,
+          bottom: 80,
+          left: 20,
+        },
+        animated: true,
+      })
+    } catch (error) {
+      if (error === 'ERROR')
+        Defaults.dropdown.alertWithType(
+          'error',
+          i18next.t('dropDownAlert.generalError'),
+        )
+      else if (error === 'ZERO_RESULTS')
+        Defaults.dropdown.alertWithType(
+          'error',
+          i18next.t('dropDownAlert.home.noRouteFound'),
+        )
+    }
+  }
+
+  const getLocationViaIP = async (): Promise<string | undefined> => {
+    try {
+      const res = await Ajax.get('/geo-ip')
+      navigateByRef(res.data?.latitude, res.data?.longitude, 500)
+    } catch (error) {
+      Defaults.dropdown.alertWithType(
+        'error',
+        i18next.t('dropDownAlert.generalError'),
+      )
+      return
+    }
   }
 
   return {
@@ -141,6 +196,7 @@ const useLocation = ({mapRef}: any) => {
     context,
     navigateToLocation,
     showRoute,
+    navigateByRef,
   }
 }
 

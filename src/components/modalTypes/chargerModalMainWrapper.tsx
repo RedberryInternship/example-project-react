@@ -7,7 +7,7 @@ import {PopUpCountDown, ModalPopupChargerItem} from 'components'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
-  subType: number
+  subType: number | undefined
   data: Data
 }
 

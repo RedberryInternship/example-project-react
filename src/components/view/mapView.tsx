@@ -1,6 +1,6 @@
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps'
+import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps'
 
-import React, {useMemo, RefObject, ReactElement, forwardRef, Ref} from 'react'
+import React, {useMemo, RefObject, forwardRef, Ref, useRef} from 'react'
 import {StyleSheet, View, StatusBar} from 'react-native'
 import {useMap} from 'hooks'
 import {mapStyles, mapStyle2, Colors} from 'utils'
@@ -16,7 +16,9 @@ type MapViewProps = {
 // eslint-disable-next-line react/display-name
 const _mapView = forwardRef(
   ({showAll, filteredChargersOnMap}: MapViewProps, ref: Ref<MapView>) => {
-    const hook = useMap(ref)
+    const mapRef: RefObject<MapView> = useRef(null)
+
+    const hook = useMap(ref, mapRef)
 
     return (
       <View style={styles.mapContainer}>
@@ -38,7 +40,7 @@ const _mapView = forwardRef(
           showsPointsOfInterest
           showsTraffic
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
-          ref={hook.mapRef}>
+          ref={mapRef}>
           {useMemo(
             () =>
               (showAll
@@ -53,6 +55,17 @@ const _mapView = forwardRef(
               )),
 
             [hook.state.AllChargers, showAll, filteredChargersOnMap],
+          )}
+          {useMemo(
+            () => (
+              <Polyline
+                key={1.4}
+                coordinates={hook.polyline}
+                strokeWidth={4}
+                strokeColor={Colors.faqBlue}
+              />
+            ),
+            [hook.polyline],
           )}
         </MapView>
       </View>

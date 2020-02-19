@@ -16,11 +16,13 @@ import {
   HomeNavigateModes,
   AppContextType,
   Charger,
+  MapImperativeRefObject,
 } from '../../@types/allTypes.d'
 import BottomSheet from 'reanimated-bottom-sheet'
 import MapView from 'react-native-maps'
 import {regionFrom} from 'utils'
 import {AppContext} from '../../App'
+import {Alert} from 'react-native'
 
 type _This = {}
 
@@ -42,7 +44,7 @@ const useHomeHook = (
   const [inputText, setInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
   const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
-  const mapRef: RefObject<MapView> = useRef(null)
+  const mapRef: MapImperativeRefObject = useRef(null)
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
@@ -65,7 +67,10 @@ const useHomeHook = (
     const {params} = payload.state
 
     navigation.setParams({mode: null})
-
+    if (!params || !params?.mode) {
+      mapRef.current &&
+        mapRef.current.showRoute(params?.lat, params?.lng, false)
+    }
     if (params !== undefined && params?.mode) {
       setTimeout(() => {
         switch (params?.mode) {
@@ -75,20 +80,12 @@ const useHomeHook = (
           }
           case HomeNavigateModes.chargerLocateOnMap: {
             bottomSheetRef.current?.snapTo(0)
-            mapRef.current &&
-              mapRef.current.animateToRegion(
-                regionFrom(params?.lat, params?.lng, ZOOM_LEVEL),
-                400,
-              )
+            mapRef.current?.animateToRegion(params?.lat, params?.lng)
             break
           }
           case HomeNavigateModes.showRoutesToCharger: {
             bottomSheetRef.current?.snapTo(0)
-            mapRef.current &&
-              mapRef.current.animateToRegion(
-                regionFrom(params?.lat, params.lng, ZOOM_LEVEL),
-                400,
-              )
+            mapRef.current?.showRoute(params?.lat, params?.lng)
             break
           }
           default:

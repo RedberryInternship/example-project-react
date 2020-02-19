@@ -108,7 +108,11 @@ export default (
   }
 
   const chargerLocationDirectionHandler = (): void => {
-    navigation.navigate('Home', {mode: HomeNavigateModes.showRoutesToCharger})
+    navigation.navigate('Home', {
+      mode: HomeNavigateModes.showRoutesToCharger,
+      lat: charger?.lat,
+      lng: charger?.lng,
+    })
   }
 
   const onFavoritePress = () => {

@@ -210,6 +210,9 @@ export default {
       charging: {
         areUSore: 'Are you sore u want to finish',
       },
+      home: {
+        noRouteFound: 'No route found',
+      },
     },
     partners: {
       partnersOrganizations: 'Partner Organizations',

@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   codeText: {
     fontSize: 15,
     fontWeight: 'bold',
+    color: 'white',
   },
   addressContainer: {
     flexDirection: 'row',
