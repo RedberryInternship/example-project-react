@@ -18,7 +18,7 @@ import CardListView from './view/profileChange/cardListView'
 import MailChangeView from './view/profileChange/mailChangeView'
 import PhoneChangeView from './view/profileChange/phoneChangeView'
 import PasswordChangeView from './view/profileChange/passwordChangeView'
-import BottomSheetReanimated from './view/bottomSheetReanimated'
+import BottomSheetReanimated from './view/BottomSheetReanimated'
 
 // ./
 import CustomModal from './customModal'
