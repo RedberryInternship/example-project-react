@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef, useContext, RefObject, Ref} from 'react'
+import {useEffect, useState, useRef, useContext, RefObject} from 'react'
 import {regionFrom, Defaults, Const, Ajax} from 'utils'
 import Config from '../../src/utils/mapAndLocation/location'
 import polyline from '@mapbox/polyline'
@@ -7,7 +7,7 @@ import RNLocation, {
   LocationPermissionStatus,
 } from 'react-native-location'
 import {HomeContext} from 'screens/tabNavigation/home'
-import {Coords, GoogleGetDirection, LocationViaIP} from 'allTypes'
+import {Coords, GoogleGetDirection} from 'allTypes'
 import i18next from 'i18next'
 import Axios from 'axios'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
@@ -16,6 +16,7 @@ import MapView from 'react-native-maps'
 type ThisRef = {
   interval: number
   location: Location | null
+  permissionStatus: LocationPermissionStatus | null
 }
 const ZOOM_LEVEL = 400
 
@@ -31,7 +32,11 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     setPermissionStatus,
   ] = useState<LocationPermissionStatus | null>(null)
 
-  const _this = useRef<ThisRef>({interval: 0, location: null})
+  const _this = useRef<ThisRef>({
+    interval: 0,
+    location: null,
+    permissionStatus: null,
+  })
 
   useEffect(() => {
     RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
@@ -55,7 +60,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   ): void => {
     setPermissionStatus(status)
     console.log(status, 'LocationPermissionStatus')
-    if (!status.match(/ denied | restricted | notDetermined /)) {
+    if (!status.match(/denied|restricted|notDetermined/)) {
       navigateToLocation()
     }
   }
@@ -67,9 +72,11 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
 
   const getPermissionStatus = (status: LocationPermissionStatus): void => {
     setPermissionStatus(status)
-    if (!status.match(/ denied | restricted/)) {
+    _this.current.permissionStatus = status
+    if (!status.match(/denied|restricted/)) {
       navigateToLocation()
-    } else if (status.match(/ notDetermined /)) {
+      console.log('sdf', status)
+    } else if (status.match(/notDetermined/)) {
       requestPermission()
     }
   }
@@ -85,7 +92,11 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       )
     } else {
       try {
-        if (permissionStatus?.match(/ denied | restricted | notDetermined/)) {
+        if (
+          _this.current.permissionStatus?.match(
+            /denied|restricted|notDetermined/,
+          )
+        ) {
           const permission = await Config.requestPermission
           if (!permission) getLocationViaIP()
           return
@@ -120,8 +131,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     zoomLevel: number = ZOOM_LEVEL,
     duration = 400,
   ): void => {
-    mapRef.current &&
-      mapRef.current.animateToRegion(regionFrom(lat, lng, zoomLevel), duration)
+    mapRef.current?.animateToRegion(regionFrom(lat, lng, zoomLevel), duration)
   }
 
   const showRoute = async (
@@ -180,7 +190,11 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   const getLocationViaIP = async (): Promise<string | undefined> => {
     try {
       const res = await Ajax.get('/geo-ip')
-      navigateByRef(res.data?.latitude, res.data?.longitude, 500)
+      navigateByRef(
+        res?.Latitude ?? Const.locationIfNoGPS.lat,
+        res?.Longitude ?? Const.locationIfNoGPS.lng,
+        10000,
+      )
     } catch (error) {
       Defaults.dropdown.alertWithType(
         'error',

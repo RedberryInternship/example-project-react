@@ -12,7 +12,7 @@ type ChargerDetailTopInfoProps = {
   code: string | number | undefined
   name: string
   location: string
-  distance: () => Promise<AxiosResponse<any>> // Promis
+  distance: () => Promise<AxiosResponse<any>>
 }
 
 const ChargerDetailTopInfo = ({

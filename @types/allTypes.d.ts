@@ -152,7 +152,12 @@ export enum HomeNavigateModes {
 type MapImperativeCustomProps = {
   locate: () => void
   showRoute: (lat: number, lng: number, showRoute?: boolean) => void
-  animateToRegion: (region: Region, duration?: number) => void
+  animateToCoords: (
+    lat: number,
+    lng: number,
+    zoomLevel?: number,
+    duration?: number,
+  ) => void
 }
 export type MapImperativeRefObject = RefObject<
   MapImperativeCustomProps & MapViewProps

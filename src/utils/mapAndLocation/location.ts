@@ -30,7 +30,7 @@ const configure = RNLocation.configure({
   headingFilter: 1, // Degrees
   headingOrientation: 'portrait',
   pausesLocationUpdatesAutomatically: false,
-  showsBackgroundLocationIndicator: false,
+  showsBackgroundLocationIndicator: true,
 })
 
 export default {

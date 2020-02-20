@@ -1,18 +1,17 @@
 import {useEffect, useState, useRef, useMemo, RefObject} from 'react'
-import {Keyboard, Animated, Easing} from 'react-native'
-import {Const, regionFrom} from '../utils'
+import {Keyboard, Animated, Easing, TextInput} from 'react-native'
+import {Const} from '../utils'
 import {useTranslation} from 'react-i18next'
-import {Charger} from 'allTypes'
-import MapView from 'react-native-maps'
+import {Charger, MapImperativeRefObject} from 'allTypes'
 import {useSafeArea} from 'react-native-safe-area-context'
 
 const useHomeMainInputHook = (
   allChargers: Charger[],
-  mapRef: RefObject<MapView>,
+  mapRef: MapImperativeRefObject,
   setShowAll: (boolean: boolean) => void,
-) => {
-  const InputRef: any = useRef(null)
-  const [showSearchContent, setShowSearchContent]: any = useState(false)
+): any => {
+  const InputRef = useRef<TextInput>(null)
+  const [showSearchContent, setShowSearchContent] = useState<boolean>(false)
   const [inputText, setInputText] = useState<string>('')
   const insets = useSafeArea()
 
@@ -33,12 +32,11 @@ const useHomeMainInputHook = (
       duration: 350,
       easing: Easing.out(Easing.ease),
       // useNativeDriver : true,
-    }).start(() => (showSearchContent ? InputRef.current.focus() : 0))
+    }).start(() => (showSearchContent ? InputRef.current?.focus() : 0))
   }, [showSearchContent])
 
-  const closeClick = () => {
-    if (_this.current.text !== '') return textHandler('') // Todo Vobi: This kind of return is hard to debug if you are not using curly braces
-    // Todo Vobi: Move this return as single line
+  const closeClick = (): void => {
+    if (_this.current.text !== '') return textHandler('')
     setShowSearchContent(false), Keyboard.dismiss()
   }
 
@@ -60,7 +58,7 @@ const useHomeMainInputHook = (
     })
   }, [inputText, allChargers])
 
-  const animate = () => ({
+  const animate = (): any => ({
     opacity: _this.current.animatedSearchContentHeight.interpolate({
       inputRange: [0, _this.current.searchContentHeight],
       outputRange: [0.8, 1],
@@ -81,14 +79,10 @@ const useHomeMainInputHook = (
     ),
   })
 
-  const onSearchItemClickHandler = (lat: string, lng: string) => {
+  const onSearchItemClickHandler = (lat: string, lng: string): void => {
     setShowSearchContent(false), Keyboard.dismiss()
     setShowAll(true)
-    mapRef.current &&
-      mapRef.current.animateToRegion(
-        regionFrom(parseFloat(lat), parseFloat(lng), 100),
-        400,
-      )
+    mapRef.current?.animateToCoords(parseFloat(lat), parseFloat(lng))
   }
   return {
     t,

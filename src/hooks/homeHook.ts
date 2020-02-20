@@ -19,10 +19,7 @@ import {
   MapImperativeRefObject,
 } from '../../@types/allTypes.d'
 import BottomSheet from 'reanimated-bottom-sheet'
-import MapView from 'react-native-maps'
-import {regionFrom} from 'utils'
 import {AppContext} from '../../App'
-import {Alert} from 'react-native'
 
 type _This = {}
 
@@ -45,9 +42,11 @@ const useHomeHook = (
   const [showAll, setShowAll] = useState<boolean>(true)
   const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
   const mapRef: MapImperativeRefObject = useRef(null)
+  const mainInputRef: any = useRef(null)
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    bottomSheetRef.current?.snapTo(0)
 
     return (): void => {
       didFocus.remove()
@@ -66,12 +65,16 @@ const useHomeHook = (
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
 
-    navigation.setParams({mode: null})
-    if (!params || !params?.mode) {
+    navigation.setParams({undefined})
+
+    // remove directions on every focus
+    if (!params?.mode) {
       mapRef.current &&
         mapRef.current.showRoute(params?.lat, params?.lng, false)
     }
-    if (params !== undefined && params?.mode) {
+
+    mainInputRef.current?.close() //close main input always
+    if (params !== undefined) {
       setTimeout(() => {
         switch (params?.mode) {
           case HomeNavigateModes.showAllChargers: {
@@ -79,8 +82,7 @@ const useHomeHook = (
             break
           }
           case HomeNavigateModes.chargerLocateOnMap: {
-            bottomSheetRef.current?.snapTo(0)
-            mapRef.current?.animateToRegion(params?.lat, params?.lng)
+            mapRef.current?.animateToCoords(params?.lat, params?.lng)
             break
           }
           case HomeNavigateModes.showRoutesToCharger: {
@@ -213,6 +215,7 @@ const useHomeHook = (
     onFilterClickOnMap,
     selectedFiltersOnMap,
     setSelectedFiltersOnMap,
+    mainInputRef,
   }
 }
 export default useHomeHook

@@ -36,6 +36,7 @@ const Home = ({navigation}: HomeProps): ReactElement => {
             selectedFiltersOnMap={hook.selectedFiltersOnMap}
             onFilterClickOnMap={hook.onFilterClickOnMap}
             setShowAll={hook.setShowAll}
+            mainInputRef={hook.mainInputRef}
           />
           <BottomSheetReanimated
             ref={hook.bottomSheetRef}

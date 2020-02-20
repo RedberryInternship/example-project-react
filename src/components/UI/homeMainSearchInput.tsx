@@ -25,7 +25,7 @@ const homeMainSearchInput = React.forwardRef(
   ) => {
     return (
       <TouchableOpacity
-        onPress={() => {
+        onPress={(): void => {
           setShowSearchContent(!showSearchContent)
         }}
         style={[styles.inputStyle]}

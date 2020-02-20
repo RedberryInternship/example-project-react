@@ -1,95 +1,108 @@
-import React, {RefObject} from 'react'
+import React, {
+  RefObject,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  ReactElement,
+} from 'react'
 import {StyleSheet, Animated, View, TouchableOpacity, Alert} from 'react-native'
 import {useHomeMainInputHook} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
 import {MainSearchItem, HomeMainSearchInput} from 'components'
 import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
-import {Charger} from 'allTypes'
+import {Charger, MapImperativeRefObject} from 'allTypes'
 import MapView from 'react-native-maps'
 
 type MainInput = {
   allChargers: Charger[]
-  mapRef: RefObject<MapView>
+  mapRef: MapImperativeRefObject
   setShowAll: (boolean: boolean) => void
 }
+// eslint-disable-next-line react/display-name
+const MainInput = forwardRef(
+  ({allChargers, mapRef, setShowAll}: MainInput, ref: any) => {
+    const hook = useHomeMainInputHook(allChargers, mapRef, setShowAll)
 
-const MainInput = ({allChargers, mapRef, setShowAll}: MainInput) => {
-  const hook = useHomeMainInputHook(allChargers, mapRef, setShowAll)
+    const InputSubmit = (): void => {
+      Alert.alert(JSON.stringify(hook._this.current))
+    }
 
-  const InputSubmit = () => {
-    Alert.alert(JSON.stringify(hook._this.current))
-  }
-
-  console.log(hook._this.animatedSearchContentHeight)
-
-  return (
-    <TouchableOpacity
-      activeOpacity={1}
-      onPress={hook.closeClick}
-      style={[styles.container]}>
-      <>
-        <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
-          <HomeMainSearchInput
-            setShowSearchContent={hook.setShowSearchContent.bind(
-              MainInput,
-              !hook.showSearchContent,
-            )}
-            showSearchContent={hook.showSearchContent}
-            placeholder={`${hook.t('home.location')}/${hook.t(
-              'home.organization',
-            )}`}
-            textHandler={hook.textHandler}
-            InputSubmit={InputSubmit}
-            closeClick={hook.closeClick}
-            ref={hook.InputRef}
-          />
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.searchContent,
-            {height: hook._this.current.animatedSearchContentHeight},
-          ]}>
-          <View
-            style={{
-              display: hook.showSearchContent ? 'flex' : 'none',
-              flex: 1,
-              marginBottom: 16,
-            }}>
-            <KeyboardAwareFlatList
-              style={{flex: 1}}
-              contentContainerStyle={{}}
-              keyboardShouldPersistTaps={'handled'}
-              enableOnAndroid={true}
-              enableAutomaticScroll={true}
-              extraScrollHeight={0}
-              showsVerticalScrollIndicator={false}
-              enableResetScrollToCoords={true}
-              resetScrollToCoords={{x: 0, y: 0}}
-              viewIsInsideTabBar={true}
-              data={[1]}
-              renderItem={() => (
-                <>
-                  {hook.filterChargers?.map((val: Charger) => (
-                    <MainSearchItem
-                      key={val.id}
-                      text={getLocaleText(val.name)}
-                      mainTitle={getLocaleText(val.location)}
-                      onPress={hook.onSearchItemClickHandler.bind(
-                        MainInput,
-                        val.lat,
-                        val.lng,
-                      )}
-                    />
-                  ))}
-                </>
-              )}
-            />
-          </View>
-        </Animated.View>
-      </>
-    </TouchableOpacity>
-  )
-}
+    useImperativeHandle(ref, () => ({
+      close: hook.closeClick.bind(MainInput),
+      show: hook.setShowSearchContent.bind(MainInput, true),
+    }))
+    return useMemo(
+      () => (
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={hook.closeClick}
+          style={[styles.container]}>
+          <>
+            <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
+              <HomeMainSearchInput
+                setShowSearchContent={hook.setShowSearchContent.bind(
+                  MainInput,
+                  !hook.showSearchContent,
+                )}
+                showSearchContent={hook.showSearchContent}
+                placeholder={`${hook.t('home.location')}/${hook.t(
+                  'home.organization',
+                )}`}
+                textHandler={hook.textHandler}
+                InputSubmit={InputSubmit}
+                closeClick={hook.closeClick}
+                ref={hook.InputRef}
+              />
+            </Animated.View>
+            <Animated.View
+              style={[
+                styles.searchContent,
+                {height: hook._this.current.animatedSearchContentHeight},
+              ]}>
+              <View
+                style={{
+                  display: hook.showSearchContent ? 'flex' : 'none',
+                  flex: 1,
+                  marginBottom: 16,
+                }}>
+                <KeyboardAwareFlatList
+                  style={{flex: 1}}
+                  contentContainerStyle={{}}
+                  keyboardShouldPersistTaps={'handled'}
+                  enableOnAndroid={true}
+                  enableAutomaticScroll={true}
+                  extraScrollHeight={0}
+                  showsVerticalScrollIndicator={false}
+                  enableResetScrollToCoords={true}
+                  resetScrollToCoords={{x: 0, y: 0}}
+                  viewIsInsideTabBar={true}
+                  data={[1]}
+                  renderItem={(): ReactElement => (
+                    <>
+                      {hook.filterChargers?.map((val: Charger) => (
+                        <MainSearchItem
+                          key={val.id}
+                          text={getLocaleText(val.name)}
+                          mainTitle={getLocaleText(val.location)}
+                          onPress={hook.onSearchItemClickHandler.bind(
+                            MainInput,
+                            val.lat,
+                            val.lng,
+                          )}
+                        />
+                      ))}
+                    </>
+                  )}
+                />
+              </View>
+            </Animated.View>
+          </>
+        </TouchableOpacity>
+      ),
+      [allChargers, setShowAll, hook],
+    )
+  },
+)
 
 export default MainInput
 
