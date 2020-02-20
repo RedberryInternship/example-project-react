@@ -1,11 +1,18 @@
-import React from 'react'
-import {NavigationScreenProp} from 'react-navigation'
+import React, {ReactElement} from 'react'
+import {
+  NavigationScreenProp,
+  NavigationParams,
+  NavigationState,
+} from 'react-navigation'
 import {View, StyleSheet} from 'react-native'
 
 // components
 import {CardListItem, BaseAddCardButton} from 'components'
 
-const CardListView = ({navigation}: NavigationScreenProp<any, any>) => {
+type CardListViewProps = {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+const CardListView = ({navigation}: CardListViewProps): ReactElement => {
   return (
     <View style={styles.container}>
       <CardListItem

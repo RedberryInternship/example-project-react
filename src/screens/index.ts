@@ -16,7 +16,7 @@ import Settings from './drawerMenuOptions/Settings'
 import ProfileChange from './drawerMenuOptions/ProfileChange'
 
 import Favorites from './tabNavigation/favourites'
-import Faq from './Faq'
+import Faq from './faq'
 import Tariffs from './tariffs'
 import Contact from './Contact'
 import Notifications from './notifications'
