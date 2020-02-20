@@ -13,11 +13,12 @@ import CountDown from './view/time/countDown'
 import ChargingView from './view/chargingView'
 
 import FirstnameChangeView from './view/profileChange/FirstnameChangeView'
-import LastnameChangeView from './view/profileChange/lastnameChangeView'
+import LastnameChangeView from './view/profileChange/LastnameChangeView'
 import CardListView from './view/profileChange/cardListView'
-import MailChangeView from './view/profileChange/mailChangeView'
-import PhoneChangeView from './view/profileChange/phoneChangeView'
-import PasswordChangeView from './view/profileChange/passwordChangeView'
+import MailChangeView from './view/profileChange/MailChangeView'
+import PhoneChangeView from './view/profileChange/PhoneChangeView'
+import PasswordChangeView from './view/profileChange/PasswordChangeView'
+
 import BottomSheetReanimated from './view/bottomSheetReanimated'
 
 // ./

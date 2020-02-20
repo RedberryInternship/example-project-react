@@ -11,7 +11,7 @@ import {usePhoneChange} from 'hooks'
 // types
 import {ProfileFieldChange} from 'allTypes'
 
-const phoneChangeView = ({
+const PhoneChangeView = ({
   navigation,
   clicked,
   setClicked,
@@ -38,7 +38,7 @@ const phoneChangeView = ({
   )
 }
 
-export default phoneChangeView
+export default PhoneChangeView
 
 const styles = StyleSheet.create({
   container: {

@@ -2,10 +2,11 @@ import React from 'react'
 
 import {View, StyleSheet} from 'react-native'
 
-import {useLastnameChange} from 'hooks'
-
 // components
 import {BaseInput} from 'components'
+
+// hooks
+import {useEmailChange} from 'hooks'
 
 // images
 import Imgs from '../../../../assets/images'
@@ -13,28 +14,28 @@ import Imgs from '../../../../assets/images'
 // types
 import {ProfileFieldChange} from 'allTypes'
 
-const lastnameChangeView = ({
+const MailChangeView = ({
   navigation,
   clicked,
   setClicked,
 }: ProfileFieldChange) => {
-  const hook = useLastnameChange({navigation, clicked, setClicked})
+  const hook = useEmailChange({navigation, clicked, setClicked})
 
   return (
     <View style={styles.container}>
       <BaseInput
-        title={'settings.newLastname'}
-        image={Imgs.blueUser}
-        value={hook.lastname}
+        title={'settings.newMail'}
+        image={Imgs.mail}
+        value={hook.email}
         onChangeText={hook.onChangeText}
-        onSubmit={hook.onSubmitEditing}
-        ref={hook.lastnameInputRef}
+        onSubmit={hook.onSubmit}
+        ref={hook.emailInputRef}
       />
     </View>
   )
 }
 
-export default lastnameChangeView
+export default MailChangeView
 
 const styles = StyleSheet.create({
   container: {

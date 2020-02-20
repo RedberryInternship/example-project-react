@@ -10,7 +10,7 @@ import {usePasswordChange} from '../../../hooks'
 
 import {BaseInput} from '../..'
 
-const passwordChangeView = ({navigation, clicked, setClicked}: any) => {
+const PasswordChangeView = ({navigation, clicked, setClicked}: any) => {
   const hook = usePasswordChange({navigation, clicked, setClicked})
 
   return (
@@ -47,7 +47,7 @@ const passwordChangeView = ({navigation, clicked, setClicked}: any) => {
   )
 }
 
-export default passwordChangeView
+export default PasswordChangeView
 
 const styles = StyleSheet.create({
   container: {
