@@ -16,14 +16,13 @@ type AvatarWithLabel = {
   firstName: string
   lastName: string
 }
+const userDefaultIcon = require('../../../assets/images/icons/green-user.png')
 
 const userAvatarWithLabel = ({
   onPress,
   firstName,
   lastName,
 }: AvatarWithLabel): ReactElement => {
-  const userDefaultIcon = require('../../../assets/images/icons/green-user.png')
-
   return (
     <View style={[styles.container]}>
       <View style={styles.imageContainer}>
