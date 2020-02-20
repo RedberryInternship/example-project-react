@@ -1,11 +1,11 @@
 import React from 'react'
-
+import {NavigationScreenProp} from 'react-navigation'
 import {View, StyleSheet} from 'react-native'
 
 // components
 import {CardListItem, BaseAddCardButton} from 'components'
 
-const cardListView = ({navigation}: any) => {
+const CardListView = ({navigation}: NavigationScreenProp<any, any>) => {
   return (
     <View style={styles.container}>
       <CardListItem
@@ -23,12 +23,12 @@ const cardListView = ({navigation}: any) => {
         selected={false}
         onPress={() => null}
       />
-      <BaseAddCardButton onPress={() => navigation.navigate('')} />
+      <BaseAddCardButton onPress={navigation.navigate.bind(CardListItem, '')} />
     </View>
   )
 }
 
-export default cardListView
+export default CardListView
 
 const styles = StyleSheet.create({
   container: {

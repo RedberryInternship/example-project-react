@@ -14,7 +14,7 @@ import ChargingView from './view/chargingView'
 
 import FirstnameChangeView from './view/profileChange/FirstnameChangeView'
 import LastnameChangeView from './view/profileChange/LastnameChangeView'
-import CardListView from './view/profileChange/cardListView'
+import CardListView from './view/profileChange/CardListView'
 import MailChangeView from './view/profileChange/MailChangeView'
 import PhoneChangeView from './view/profileChange/PhoneChangeView'
 import PasswordChangeView from './view/profileChange/PasswordChangeView'
