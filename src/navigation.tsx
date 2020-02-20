@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, Dimensions, StatusBar, StyleSheet} from 'react-native'
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
@@ -53,12 +53,12 @@ const chargerStack = createStackNavigator(
   },
 )
 
-const footerTabNavigator = (props: any) => {
-  let currentRouteName =
+const footerTabNavigator = (props: any): ReactElement => {
+  const currentRouteName =
     props.navigation.state.routes[props.navigation.state.index].key
   const insets = useSafeArea()
 
-  const navigate = (name: string) => {
+  const navigate = (name: string): void => {
     if (name === 'drawer') return props.navigation.openDrawer()
     props.navigation.navigate(name)
   }
