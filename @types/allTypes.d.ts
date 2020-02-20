@@ -12,7 +12,7 @@ import {
 import {RefObject, Ref} from 'react'
 import {Item} from 'react-native-picker-select'
 import {LocationPermissionStatus} from 'react-native-location'
-import {NavigationScreenProp} from 'react-navigation'
+import {NavigationScreenProp,NavigationState, NavigationParams} from 'react-navigation'
 
 type LanguageType = {
   en: string
@@ -189,7 +189,7 @@ export type Favorite = {
 }
 
 export type ProfileFieldChange = {
-  navigation: NavigationScreenProp<any, any>
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
   clicked: boolean
   setClicked: (status: boolean) => void
 }
