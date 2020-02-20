@@ -54,7 +54,7 @@ class Ajax {
     return promise
   }
 
-  static getParams(payload: any, request: Boolean) {
+  static getParams(payload: any, request: boolean) {
     return payload
       ? '\n>>>>>>>>' +
           (request ? '>>>>>' : '<<<<<') +
@@ -63,7 +63,12 @@ class Ajax {
       : ''
   }
 
-  logRequest(method: Method, url: string, headers: Object, payload: any = '') {
+  logRequest(
+    method: Method,
+    url: string,
+    headers: Record<string, any>,
+    payload: any = '',
+  ) {
     console.log(
       '>>>>>>>>>>>>>> Headers: ' +
         JSON.stringify(headers) +

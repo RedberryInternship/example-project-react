@@ -16,10 +16,9 @@ import {
   HomeNavigateModes,
   AppContextType,
   Charger,
+  MapImperativeRefObject,
 } from '../../@types/allTypes.d'
 import BottomSheet from 'reanimated-bottom-sheet'
-import MapView from 'react-native-maps'
-import {regionFrom} from 'utils'
 import {AppContext} from '../../App'
 
 type _This = {}
@@ -42,10 +41,12 @@ const useHomeHook = (
   const [inputText, setInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
   const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
-  const mapRef: RefObject<MapView> = useRef(null)
+  const mapRef: MapImperativeRefObject = useRef(null)
+  const mainInputRef: any = useRef(null)
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    bottomSheetRef.current?.snapTo(0)
 
     return (): void => {
       didFocus.remove()
@@ -64,9 +65,16 @@ const useHomeHook = (
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
 
-    navigation.setParams({mode: null})
+    navigation.setParams({undefined})
 
-    if (params !== undefined && params?.mode) {
+    // remove directions on every focus
+    if (!params?.mode) {
+      mapRef.current &&
+        mapRef.current.showRoute(params?.lat, params?.lng, false)
+    }
+
+    mainInputRef.current?.close() //close main input always
+    if (params !== undefined) {
       setTimeout(() => {
         switch (params?.mode) {
           case HomeNavigateModes.showAllChargers: {
@@ -74,21 +82,12 @@ const useHomeHook = (
             break
           }
           case HomeNavigateModes.chargerLocateOnMap: {
-            bottomSheetRef.current?.snapTo(0)
-            mapRef.current &&
-              mapRef.current.animateToRegion(
-                regionFrom(params?.lat, params.lng, ZOOM_LEVEL),
-                400,
-              )
+            mapRef.current?.animateToCoords(params?.lat, params?.lng)
             break
           }
           case HomeNavigateModes.showRoutesToCharger: {
             bottomSheetRef.current?.snapTo(0)
-            mapRef.current &&
-              mapRef.current.animateToRegion(
-                regionFrom(params?.lat, params.lng, ZOOM_LEVEL),
-                400,
-              )
+            mapRef.current?.showRoute(params?.lat, params?.lng)
             break
           }
           default:
@@ -101,12 +100,9 @@ const useHomeHook = (
   const onFilterClick = (index: number): void => {
     let newSelectedFilters: number[] = []
     ++selectedFilters[index]
-    // Todo Vobi: Mutating State is now allowed in react like this
-    // Redberry: This is not a mutation, map doesn't mutate array
     newSelectedFilters = selectedFilters.map(val =>
       val > 1 || val === 0 ? 0 : 1,
     )
-
     setSelectedFilters(newSelectedFilters)
   }
 
@@ -219,6 +215,7 @@ const useHomeHook = (
     onFilterClickOnMap,
     selectedFiltersOnMap,
     setSelectedFiltersOnMap,
+    mainInputRef,
   }
 }
 export default useHomeHook

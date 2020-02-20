@@ -234,6 +234,9 @@ export default {
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
       },
+      home: {
+        noRouteFound: 'გზა ვერ მოიძებნა',
+      },
     },
     partners: {
       partnerOrganizations: 'პარტნიორი ორგანიზაციები',

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/display-name */
 
-import React, {useRef, forwardRef, useState} from 'react'
+import React, {useRef, forwardRef, ReactElement} from 'react'
 import {
   StyleSheet,
   View,
@@ -18,6 +18,7 @@ import {MainSearchItem, PopupFilter} from 'components'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Charger} from 'allTypes'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 const screenHeight = Dimensions.get('window').height
 
@@ -31,7 +32,16 @@ type _This = {
   scrollPositionStatus: ScrollPositionStatus
 }
 
-const bottomSheetReanimated = forwardRef(
+type BottomSheetReanimatedProps = {
+  onFilterClick: (index: number) => void
+  selectedFilters: number[]
+  filteredChargers: Charger[]
+  onFilteredItemClick: (charger: Charger) => void
+  textHandler: (text: string) => void
+  inputSubmit: () => void
+}
+
+const BottomSheetReanimated = forwardRef(
   (
     {
       onFilterClick,
@@ -40,73 +50,45 @@ const bottomSheetReanimated = forwardRef(
       onFilteredItemClick,
       textHandler,
       inputSubmit,
-    }: any,
+    }: BottomSheetReanimatedProps,
     ref: any,
   ) => {
     const _this = useRef<_This>({
       text: '',
       scrollPositionStatus: ScrollPositionStatus.top,
     })
-    const InputRef: any = useRef(null)
-    const flatListRef: any = useRef(null)
+    const InputRef = useRef<TextInput>(null)
+
     const {t} = useTranslation()
-    const [visible, setVisible] = useState(true)
 
     const insets = useSafeArea()
 
-    const handleOpen = () => {
-      setVisible(true)
-    }
-
-    const handleClose = () => {
-      setVisible(false)
-    }
-
-    const closeClick = () => {
+    const closeClick = (): void => {
       _this.current.text = ''
-      InputRef.current.blur()
+      InputRef.current?.blur()
       Keyboard.dismiss()
       setTimeout(() => {
         Keyboard.dismiss()
       }, 400)
     }
 
-    const renderHeaderComponent = () => (
+    const renderHeaderComponent = (): ReactElement => (
       <View style={styles.headerComponent}>
-        <View
-          style={{
-            backgroundColor: '#FFFFFF',
-            width: 60,
-            height: 4,
-            borderRadius: 2,
-            alignSelf: 'center',
-            marginVertical: 8,
-          }}
-        />
+        <View style={styles.headerComponentWrapper} />
         <Text style={styles.headerComponentText}>
           {t('home.allChargers').toUpperCase()}
         </Text>
         <View
           style={[
-            styles.inputStyle,
+            styles.textInputContainer,
             {borderBottomWidth: 1, borderBottomColor: Colors.primaryBackground},
           ]}>
           <Image
             source={require('../../../assets/images/icons/icon-search.png')}
-            style={{
-              width: 16,
-              height: 16,
-              resizeMode: 'contain',
-              position: 'absolute',
-            }}
+            style={styles.searchIcon}
           />
           <TextInput
-            style={{
-              paddingLeft: 32,
-              marginRight: 32,
-              color: Colors.primaryWhite,
-              height: 40,
-            }}
+            style={styles.textInput}
             placeholder={`${t('home.location')}/${t('home.organization')}`}
             keyboardType={'default'}
             onChangeText={textHandler}
@@ -124,79 +106,50 @@ const bottomSheetReanimated = forwardRef(
           <TouchableWithoutFeedback
             onPress={closeClick}
             hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
-            style={{backgroundColor: 'red'}}>
+            style={styles.closeTouchable}>
             <Image
               source={require('../../../assets/images/icons/Delete.png')}
-              style={{
-                width: 16,
-                height: 16,
-                resizeMode: 'contain',
-                position: 'absolute',
-                right: 0,
-              }}
+              style={styles.deleteIcon}
             />
           </TouchableWithoutFeedback>
         </View>
       </View>
     )
-    const renderContent = () => {
+    const renderContent = (): ReactElement => {
       return (
-        <View
-          style={{
-            backgroundColor: '#023D63',
-            paddingBottom: 16,
-            marginHorizontal: 8,
-            marginTop: 0,
-            minHeight: '100%',
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignItems: 'center',
-              marginBottom: 8,
-            }}>
+        <View style={styles.bodyContainer}>
+          <View style={styles.filterContainer}>
             {Const.FilterTypes.map((val: string, index: number) => (
               <PopupFilter
                 key={index}
                 text={t(val)}
-                onPress={onFilterClick?.bind(bottomSheetReanimated, index)}
-                active={selectedFilters[index]}
+                onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
+                active={Boolean(selectedFilters[index])}
               />
             ))}
           </View>
 
-          {filteredChargers?.map((val: Charger, index: number) => (
+          {filteredChargers?.map((val: Charger) => (
             <MainSearchItem
               key={val.id}
               text={getLocaleText(val.location)}
               mainTitle={getLocaleText(val.name)}
-              onPress={onFilteredItemClick?.bind(bottomSheetReanimated, val)}
+              onPress={onFilteredItemClick?.bind(BottomSheetReanimated, val)}
             />
           ))}
+          <KeyboardSpacer />
         </View>
       )
     }
 
     return (
-      <View
-        style={{
-          width: '100%',
-          height: '100%',
-          elevation: 17,
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          zIndex: 44,
-        }}
-        pointerEvents={'box-none'}>
+      <View style={styles.container} pointerEvents={'box-none'}>
         <BottomSheet
           ref={ref}
           snapPoints={[55, screenHeight - insets.top - insets.bottom - 65 - 12]}
           renderContent={renderContent}
           renderHeader={renderHeaderComponent}
-          onCloseEnd={() => {
+          onCloseEnd={(): void => {
             Keyboard.dismiss()
           }}
         />
@@ -205,12 +158,17 @@ const bottomSheetReanimated = forwardRef(
   },
 )
 
+export default BottomSheetReanimated
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'blue',
+    width: '100%',
+    height: '100%',
+    elevation: 17,
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 44,
   },
   headerComponent: {
     justifyContent: 'center',
@@ -223,33 +181,50 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
     marginBottom: 0,
   },
+  headerComponentWrapper: {
+    backgroundColor: '#FFFFFF',
+    width: 60,
+    height: 4,
+    borderRadius: 2,
+    alignSelf: 'center',
+    marginVertical: 8,
+  },
   headerComponentText: {
     flex: 0,
     fontSize: 11,
     lineHeight: 22,
     color: '#FFFFFF',
-    // fontFamily : GNOME.HELV_EX,
-    // fontFamily : "cursive",
     alignSelf: 'center',
     marginBottom: 16,
     textTransform: 'uppercase',
   },
-  inputStyleContainer: {
-    flex: 1,
-    width: Const.Width - 48,
-    height: 36,
-    position: 'relative',
-    elevation: 1,
-    backgroundColor: '#023D63',
-    marginHorizontal: 24,
+  searchIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    position: 'absolute',
   },
-  inputStyle: {
+  textInputContainer: {
     alignItems: 'stretch',
     justifyContent: 'center',
     height: 36,
     position: 'relative',
     paddingBottom: 4,
   },
+  textInput: {
+    paddingLeft: 32,
+    marginRight: 32,
+    color: Colors.primaryWhite,
+    height: 40,
+  },
+  deleteIcon: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    position: 'absolute',
+    right: 0,
+  },
+  closeTouchable: {backgroundColor: 'red'},
   searchContent: {
     width: Const.Width - 48,
     backgroundColor: Colors.primaryBackground,
@@ -259,6 +234,18 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignContent: 'stretch',
   },
+  bodyContainer: {
+    backgroundColor: '#023D63',
+    paddingBottom: 16,
+    marginHorizontal: 8,
+    marginTop: 0,
+    minHeight: '100%',
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
 })
-
-export default bottomSheetReanimated

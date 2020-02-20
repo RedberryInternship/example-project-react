@@ -12,7 +12,7 @@ type ChargerDetailTopInfoProps = {
   code: string | number | undefined
   name: string
   location: string
-  distance: () => Promise<AxiosResponse<any>> // Promis
+  distance: () => Promise<AxiosResponse<any>>
 }
 
 const ChargerDetailTopInfo = ({
@@ -119,10 +119,12 @@ const styles = StyleSheet.create({
   },
   nameText: {
     opacity: 0.8,
+    color: 'white',
   },
   codeContainer: {
     fontSize: 15,
     fontWeight: 'bold',
+    color: 'white',
   },
   favIconContainer: {
     width: 50,

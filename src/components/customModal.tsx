@@ -23,7 +23,7 @@ type InitialState = {
 }
 
 export interface CustomModalInterface {
-  customUpdate: (visible: Boolean, config: Config) => void
+  customUpdate: (visible: boolean, config: Config) => void
 }
 
 const initialState: InitialState = {
@@ -64,7 +64,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  customUpdate = (visible: Boolean, config: Config) => {
+  customUpdate = (visible: boolean, config: Config) => {
     this.setState({
       ...initialState,
       visible,

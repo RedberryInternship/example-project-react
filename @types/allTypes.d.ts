@@ -12,7 +12,11 @@ import {
 import {RefObject, Ref} from 'react'
 import {Item} from 'react-native-picker-select'
 import {LocationPermissionStatus} from 'react-native-location'
+<<<<<<< HEAD
 import {NavigationScreenProp,NavigationState, NavigationParams} from 'react-navigation'
+=======
+import {MapViewProps, Region} from 'react-native-maps'
+>>>>>>> development
 
 type LanguageType = {
   en: string
@@ -149,6 +153,25 @@ export enum HomeNavigateModes {
   'showAllChargers',
 }
 
+type MapImperativeCustomProps = {
+  locate: () => void
+  showRoute: (lat: number, lng: number, showRoute?: boolean) => void
+  animateToCoords: (
+    lat: number,
+    lng: number,
+    zoomLevel?: number,
+    duration?: number,
+  ) => void
+}
+export type MapImperativeRefObject = RefObject<
+  MapImperativeCustomProps & MapViewProps
+>
+
+export type Coords = {
+  lng: number
+  lat: number
+} | null
+
 export type HomeState = {
   PermissionStatus: LocationPermissionStatus | null
   loading: boolean
@@ -159,7 +182,7 @@ export type HomeState = {
 
 export type HomeContextType = {
   state: HomeState
-  dispatch: any
+  dispatch: (val: any) => void
 }
 
 export type Favorite = {
@@ -188,8 +211,44 @@ export type Favorite = {
   }
 }
 
+<<<<<<< HEAD
 export type ProfileFieldChange = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
   clicked: boolean
   setClicked: (status: boolean) => void
+=======
+export type GoogleGetDirection = {
+  routes: GoogleRoutes[]
+  status: string
+}
+
+type GoogleRoutes = {
+  legs: GoogleRouteLegs[]
+  overview_polyline: GoogleOverviewPolyline
+}
+type GoogleRouteLegs = {
+  distance: GoogleDistance
+  duration: GoogleDuration
+  end_address: string
+  end_location: Coords
+  start_address: string
+  start_location: Coords
+}
+type GoogleDistance = {
+  text: string
+  value: number
+}
+
+type GoogleDuration = {
+  text: string
+  value: number
+}
+
+type GoogleOverviewPolyline = {
+  points: string
+}
+
+export type LocationViaIP = {
+  city: string
+>>>>>>> development
 }

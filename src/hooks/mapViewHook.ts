@@ -1,48 +1,36 @@
-import {useEffect, useContext} from 'react'
-import {Defaults, NavigationActions, Ajax} from 'utils'
-
-import RNLocation, {Location} from 'react-native-location'
+import {useContext, Ref, useImperativeHandle, RefObject, useState} from 'react'
 import useLocation from './locationHook'
-import {MapView} from 'react-native-maps'
-import {Chargers, AppContextType} from 'allTypes'
+import {AppContextType} from 'allTypes'
 import {getAllChargers} from 'hooks/actions/rootActions'
 import {AppContext} from '../../App'
-import {Alert, StatusBar} from 'react-native'
+import MapView from 'react-native-maps'
 
-export default function useMap(mapRef) {
+const useMap = (ref: Ref<MapView>, mapRef: RefObject<MapView>): any => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
+  const [polyline, setPolyline] = useState([])
+  const location = useLocation({mapRef, setPolyline})
 
-  // const mapRef : RefObject<MapView> = useRef(null);
-
-  const location = useLocation({mapRef})
-
-  useEffect(() => {
-    return () => {
-      StatusBar.setBarStyle('light-content')
-    }
-  }, [])
-
-  const mapReady = () => {
-    location.locate()
+  const mapReady = (): void => {
+    location.navigateToLocation()
     getChargerPins()
   }
 
-  const getChargerPins = () => {
+  const getChargerPins = (): void => {
     getAllChargers(dispatch)
   }
-
-  useEffect(() => {
-    console.log('====================================')
-    console.log(state, 'context.state')
-    // Todo Vobi: What is the purpose of this listener
-    // Todo Vobi: remove this kind of things after using them to debug something
-    console.log('====================================')
-  }, [state])
-
+  useImperativeHandle(ref, (): any => ({
+    animateToCoords: location.navigateByRef,
+    locate: location.navigateToLocation,
+    showRoute: location.showRoute,
+  }))
   return {
     location,
     mapReady,
     state,
     dispatch,
+    mapRef,
+    polyline,
   }
 }
+
+export default useMap
