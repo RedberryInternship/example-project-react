@@ -23,7 +23,6 @@ import {regionFrom} from 'utils'
 import {AppContext} from '../../App'
 
 type _This = {}
-
 const ZOOM_LEVEL = 200
 
 const useHomeHook = (
