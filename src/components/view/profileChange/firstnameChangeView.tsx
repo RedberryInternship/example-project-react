@@ -1,36 +1,40 @@
-import React from 'react';
-
-import {
-    View, 
-    StyleSheet
-} from 'react-native';
+import React, {ReactElement} from 'react'
+import {View, StyleSheet} from 'react-native'
 
 // components
-import { BaseInput } from '../..';
+import {BaseInput} from 'components'
 
 // hooks
-import { useFirstnameChange } from '../../../hooks';
+import {useFirstnameChange} from 'hooks'
 
+// assets
+import Imgs from '../../../../assets/images'
 
-const firstnameChangeView = ({navigation, clicked, setClicked }:any) => {
+// types
+import {ProfileFieldChange} from 'allTypes'
 
-    const mainHook = useFirstnameChange(navigation, clicked, setClicked);
+const FirstnameChangeView = ({
+  navigation,
+  clicked,
+  setClicked,
+}: ProfileFieldChange): ReactElement => {
+  const mainHook = useFirstnameChange({navigation, clicked, setClicked})
 
-    return (
-        <View style={styles.container}>
-            <BaseInput
-                title={"settings.newFirstname"}
-                image={require("../../../../assets/images/icons/blue-user.png")}
-                onChangeText={mainHook.onChangeText}
-                onSubmit={mainHook.onSubmitEditing}
-                value={mainHook.firstname}
-                ref={mainHook.firstnameInputRef}
-            />
-        </View>
-    );
+  return (
+    <View style={styles.container}>
+      <BaseInput
+        title={'settings.newFirstname'}
+        image={Imgs.blueUser}
+        onChangeText={mainHook.onChangeText}
+        onSubmit={mainHook.onSubmitEditing}
+        value={mainHook.firstname}
+        ref={mainHook.firstnameInputRef}
+      />
+    </View>
+  )
 }
 
-export default firstnameChangeView;
+export default FirstnameChangeView
 
 const styles = StyleSheet.create({
   container: {

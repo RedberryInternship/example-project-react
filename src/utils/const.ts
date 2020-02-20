@@ -137,3 +137,10 @@ export const FilterTypes = [
   'filterTypes.public',
   'filterTypes.notPublic',
 ]
+
+export const eSpaceLocationOnMapInfo = {
+  scheme: Platform.select({android: 'geo:0,0?q=', ios: 'maps:0,0?q='}),
+  latitude: 41.707204,
+  longitude: 44.784487,
+  label: 'E-space',
+}

@@ -1,52 +1,48 @@
-import React from 'react';
+import React, {ReactElement} from 'react'
 
-import {
-    View,
-    StyleSheet
-} from 'react-native';
-
+import {View, StyleSheet} from 'react-native'
 
 // components
-import { 
-    PhoneNumberInput, 
-    ReceiveCode 
-} from '../..';
+import {PhoneNumberInput, ReceiveCode} from 'components'
 
 // hooks
-import { usePhoneChange } from '../../../hooks';
+import {usePhoneChange} from 'hooks'
 
+// types
+import {ProfileFieldChange} from 'allTypes'
 
-const phoneChangeView = ({ navigation, clicked, setClicked }: any) => {
+const phoneChangeView = ({
+  navigation,
+  clicked,
+  setClicked,
+}: ProfileFieldChange): ReactElement => {
+  const hook = usePhoneChange({navigation, clicked, setClicked})
 
-    const hook = usePhoneChange(navigation, clicked, setClicked);
+  return (
+    <View style={styles.container}>
+      <PhoneNumberInput
+        onSubmit={hook.onSubmit}
+        ref={hook.phoneInputRef}
+        _this={hook._this}
+        codeRef={hook.codeRef}
+      />
 
-    return (
-        <View style={styles.container}>
-
-
-            <PhoneNumberInput
-                onSubmit={hook.onSubmit}
-                ref={hook.phoneInputRef}
-                _this={hook._this}
-                codeRef={hook.codeRef}
-            />
-
-
-            <ReceiveCode
-                onChangeText={hook.receiveCodeTextHandler}
-                onSubmit={hook.receiveCodeOnSubmit}
-                recieveCode={hook.recieveCode}
-                ref={hook.codeRef}
-                disableCodeInput={hook.recieveCodeButtonClicked} />
-        </View>
-    );
+      <ReceiveCode
+        onChangeText={hook.receiveCodeTextHandler}
+        onSubmit={hook.receiveCodeOnSubmit}
+        recieveCode={hook.recieveCode}
+        ref={hook.codeRef}
+        disableCodeInput={hook.recieveCodeButtonClicked}
+      />
+    </View>
+  )
 }
 
-export default phoneChangeView;
+export default phoneChangeView
 
 const styles = StyleSheet.create({
-    container: {
-        paddingHorizontal: 15,
-        paddingTop: 80
-    }
-});
+  container: {
+    paddingHorizontal: 15,
+    paddingTop: 80,
+  },
+})

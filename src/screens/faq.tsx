@@ -1,11 +1,13 @@
-import React, {useState} from 'react'
+import React, {useState, ReactElement} from 'react'
 import {View, StyleSheet, ScrollView} from 'react-native'
+
+import {NavigationScreenProp} from 'react-navigation'
 
 // components
 import {BaseHeader, FaqListItem} from 'components'
 
 // utils
-import {Colors} from '../utils'
+import {Colors} from 'utils'
 
 const faqs = [
   {
@@ -28,40 +30,36 @@ const faqs = [
   },
 ]
 
-// Vobi Todo: Component naming is Camel Case
-const faq = ({navigation}: any) => {
-  // Vobi Todo: No Any types
+type FaqPropsType = {
+  navigation: NavigationScreenProp<any, any>
+}
 
-  const [activeFaq, setActiveFaq] = useState(1)
-  // Vobi Todo: useState<number>(1)
+const Faq = ({navigation}: FaqPropsType): ReactElement => {
+  const [activeFaq, setActiveFaq] = useState<number>(1)
 
-  // Vobi Todo: Code is Badly formated
-  // Vobi Todo: Inline map is preferred in this cases if you don't want to use memo
-  const questions = faqs.map((el, ind) => {
-    return (
-      <FaqListItem
-        key={el.question}
-        number={ind + 1}
-        question={el.question}
-        answer={el.answer}
-        activeFaq={activeFaq}
-        setActiveFaq={setActiveFaq}
-      />
-    )
-  })
+  const questions = faqs.map((el, ind) => (
+    <FaqListItem
+      key={el.question}
+      number={ind + 1}
+      question={el.question}
+      answer={el.answer}
+      activeFaq={activeFaq}
+      setActiveFaq={setActiveFaq}
+    />
+  ))
 
   return (
     <View style={styles.container}>
       <BaseHeader
         title={'faq.frequentlyAskedQuestions'}
-        onPressLeft={() => navigation.navigate('MainDrawer')}
+        onPressLeft={navigation.navigate.bind(Faq, 'MainDrawer')}
       />
       <ScrollView style={styles.scrollViewStyle}>{questions}</ScrollView>
     </View>
   )
 }
 
-export default faq
+export default Faq
 
 const styles = StyleSheet.create({
   container: {

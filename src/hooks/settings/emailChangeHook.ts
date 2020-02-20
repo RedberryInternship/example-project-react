@@ -1,125 +1,105 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  useContext
-} from 'react';
+import {useState, useEffect, useRef, useContext} from 'react'
+import {TextInput} from 'react-native'
+import {AppContext} from '../../../App'
+import {Defaults, Ajax, apiServices} from '../../utils'
+import {editUserInfo} from '../../hooks/actions/rootActions'
+import {useTranslation} from 'react-i18next'
+import {ProfileFieldChange} from 'allTypes'
 
-import { AppContext } from '../../../App';
-import { Defaults, Ajax, apiServices } from '../../utils';
-import { editUserInfo } from '../../hooks/actions/rootActions';
-import { useTranslation } from 'react-i18next';
-
-export default (navigation: any, clicked: boolean, setClicked: any) => {
-
-
-  const [email, setEmail] = useState(navigation.getParam('value'));
-  const { dispatch } = useContext(AppContext);
-  const { t } = useTranslation();
-  const emailInputRef = useRef(null);
+export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
+  const [email, setEmail] = useState<string>(navigation.getParam('value'))
+  const {dispatch} = useContext(AppContext)
+  const {t} = useTranslation()
+  const emailInputRef = useRef<TextInput>(null)
 
   // When User Clicks Save Btn
-  useEffect(()=> {
-    if(clicked === true){
-      saveEmail();
+  useEffect(() => {
+    if (clicked === true) {
+      saveEmail()
+      setClicked(false)
     }
-  }, [clicked]);
+  }, [clicked])
 
-
-  const saveEmail = () => {
-
-
+  const saveEmail = (): void => {
     // If Empty => save email
-    if(validate.isEmailEmpty()){
-      helpers.sendRequestToSaveEmail()
-        .then(data => {
-          if (data.updated === true) {
-            editUserInfo(dispatch, email.trim(), 'email');
-            helpers.goToSettingsScreen();
-            helpers.popAlert('dropDownAlert.editEmail.editedSuccssesfully');
-          }
-          else {
-            helpers.popAlert('dropDownAlert.generalError');
-            setClicked(false);
-          }
-        });
+    if (validate.isEmailEmpty()) {
+      helpers.sendRequestToSaveEmailAndUpdateState()
     }
     // False => check email validity
-    else{
-
-      if(validate.isEmailValid()){
-        
-        helpers.sendRequestToSaveEmail()
-          .then(data => {
-            if(data.updated){
-              editUserInfo(dispatch, email.trim(), 'email');
-              helpers.goToSettingsScreen();
-              helpers.popAlert('dropDownAlert.editEmail.editedSuccssesfully','success');
-            }
-          });
-
-      }
-      else{
-        helpers.popAlert('dropDownAlert.editEmail.incorrectFormat','error');
-        helpers.emptyEmailField();
-        setClicked(false);
+    else {
+      if (validate.isEmailValid()) {
+        helpers.sendRequestToSaveEmailAndUpdateState()
+      } else {
+        helpers.popAlert('dropDownAlert.editEmail.incorrectFormat', 'error')
+        helpers.emptyEmailField()
       }
     }
   }
 
-  const onChangeText = (text: string) => {
-    setEmail(text);
+  const onChangeText = (text: string): void => {
+    setEmail(text.trim())
+    emailInputRef.current?.setNativeProps({
+      text: text.trim(),
+    })
   }
 
-  const onSubmit = () => {
-    saveEmail();
+  const onSubmit = (): void => {
+    saveEmail()
   }
-
-
 
   // validation
   const validate = {
-
     isEmailEmpty: (): boolean => {
-      return email.trim() === '';
+      return email.trim() === ''
     },
 
     isEmailValid: (): boolean => {
-      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-      return emailRegex.test(email.trim());
-    }
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+      return emailRegex.test(email.trim())
+    },
   }
-
 
   // helpers
   const helpers = {
-    popAlert: (text: string, type: 'success' | 'error' = 'error') => {    
-      Defaults.dropdown.alertWithType(type, t(text));
+    popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
+      Defaults.dropdown.alertWithType(type, t(text))
     },
 
-    sendRequestToSaveEmail: async () => {
-      try{
-        return await Ajax.post(apiServices.post_update_user_info, {email: email});
+    sendRequestToSaveEmailAndUpdateState: async (): Promise<void> => {
+      try {
+        const result = await Ajax.post(apiServices.post_update_user_info, {
+          email: email,
+        })
+
+        if (result.updated === true) {
+          editUserInfo(dispatch, email, 'email')
+          helpers.goToSettingsScreen()
+          helpers.popAlert(
+            'dropDownAlert.editEmail.editedSuccssesfully',
+            'success',
+          )
+        } else {
+          throw new Error('Something Went Wrong...')
+        }
+      } catch (err) {
+        helpers.popAlert('dropDownAlert.generalError')
+        helpers.emptyEmailField()
       }
-      catch(err) {
-        console.log(['Email-Send-Request-To-Save',err]);
-        helpers.emptyEmailField();
-      }
     },
 
-    emptyEmailField: () => {
-      setEmail('');
+    emptyEmailField: (): void => {
+      setEmail('')
     },
 
-    goToSettingsScreen: () => {
-      navigation.goBack();
-    }
+    goToSettingsScreen: (): void => {
+      navigation.navigate('Settings')
+    },
   }
 
   return {
     email,
     onChangeText,
     onSubmit,
-    emailInputRef
-  };
-};
+    emailInputRef,
+  }
+}

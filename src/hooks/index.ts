@@ -1,8 +1,9 @@
-import { useRoot } from './rootRun'
+import {useRoot} from './rootRun'
 import useMap from './mapViewHook'
 import useLocation from './locationHook'
 import useHomeHook from './homeHook'
 import useHomeMainInputHook from './homeMainInputHook'
+import useContact from './contactHook'
 
 //authentication
 import useAuthHook from './authentication/authHook'
@@ -16,18 +17,16 @@ import useChoosingCard from './charger/choosingCard'
 import useChargingHook from './charger/chargingHook'
 import useChargerDetails from './charger/chargerDetails'
 
-
 // UserInfo
-import useFirstnameChange from './settings/firstnameChangeHook';
-import useLastnameChange from './settings/lastnameChangeHook';
-import useEmailChange from './settings/emailChangeHook';
-import usePhoneChange from './settings/phoneChangeHook';
-import usePasswordChange from './settings/changePasswordHook';
+import useSettings from './settings/mainHook'
+import useFirstnameChange from './settings/firstnameChangeHook'
+import useLastnameChange from './settings/lastnameChangeHook'
+import useEmailChange from './settings/emailChangeHook'
+import usePhoneChange from './settings/phoneChangeHook'
+import usePasswordChange from './settings/changePasswordHook'
 
 //reducer
-import rootReducer, { initialState } from './reducers/rootReducer'
-
-
+import rootReducer, {initialState} from './reducers/rootReducer'
 
 export {
   useRoot,
@@ -49,5 +48,7 @@ export {
   useLastnameChange,
   useEmailChange,
   usePhoneChange,
-  usePasswordChange
+  usePasswordChange,
+  useContact,
+  useSettings,
 }

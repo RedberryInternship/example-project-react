@@ -1,219 +1,203 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  useContext
-} from 'react';
-
-import { useTranslation } from 'react-i18next';
+import {useRef, useState, useEffect, useContext} from 'react'
+import {TextInput} from 'react-native'
+import {useTranslation} from 'react-i18next'
 
 // utils
-import {
-  Defaults,
-  Ajax,
-  apiServices
-} from '../../utils';
+import {Defaults, Ajax, apiServices} from 'utils'
 
+import {AppContext} from '../../../App'
+import {editUserInfo} from 'hooks/actions/rootActions'
+import {ProfileFieldChange} from 'allTypes'
 
-import { AppContext } from '../../../App';
-import { editUserInfo } from '../actions/rootActions';
-
-
-export default (navigation: any, clicked: boolean, setClicked: any) => {
-
-  const { t } = useTranslation();
-  const { dispatch } = useContext(AppContext);
-  const phoneInputRef: any = useRef(null);
-  const codeRef: any = useRef();
-  const [recieveCodeButtonClicked, setRecieveCodeButtonClicked] = useState<boolean>(false);
+export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
+  const {t} = useTranslation()
+  const {dispatch} = useContext(AppContext)
+  const phoneInputRef = useRef<TextInput>()
+  const codeRef = useRef<any>()
+  const [recieveCodeButtonClicked, setRecieveCodeButtonClicked] = useState<
+    boolean
+  >(false)
   const _this = useRef({
     phone: navigation.getParam('value'),
-    code: ''
-  });
+    code: '',
+  })
 
   useEffect(() => {
-    phoneInputRef!.current!.setNativeProps({
-      text: navigation.getParam('value').slice(4)
-    });
-    phoneInputRef!.current!.focus();
-
-  }, []);
+    phoneInputRef?.current?.setNativeProps({
+      text: navigation.getParam('value').slice(4),
+    })
+    phoneInputRef?.current?.focus()
+  }, [])
 
   useEffect(() => {
     if (clicked === true) {
-      savePhoneNumber();
-      setClicked(false);
+      savePhoneNumber()
+      setClicked(false)
     }
   }, [clicked])
 
-  const savePhoneNumber = () => {
-    validate.isCodeValid() && helpers.tryVerifyingSmsCodeWithUpdateUserPhone();
+  const savePhoneNumber = (): void => {
+    validate.isCodeValid() && helpers.tryVerifyingSmsCodeWithUpdateUserPhone()
   }
 
   // phone handlers
-  const onSubmit = () => {
-    savePhoneNumber();
+  const onSubmit = (): void => {
+    savePhoneNumber()
   }
-
 
   // Receive Code Handlers
-  const receiveCodeTextHandler = (text: string) => {
-
+  const receiveCodeTextHandler = (text: string): void => {
     if (text.length > 4) {
       codeRef.current.setNativeProps({
-        text: _this.current.code
-      });
-      return;
+        text: _this.current.code,
+      })
+      return
     }
-    _this.current.code = text.trim();
+    _this.current.code = text.trim()
   }
 
-  const receiveCodeOnSubmit = () => {
-    recieveCode();
+  const receiveCodeOnSubmit = (): void => {
+    recieveCode()
   }
 
-  const recieveCode = () => {
+  const recieveCode = (): void => {
     if (validate.isPhoneNumberValid()) {
-
-      helpers.tryRequestingSmsCode();
+      helpers.tryRequestingSmsCode()
     }
   }
 
   const validate = {
-    isPhoneNumberValid: () => {
+    isPhoneNumberValid: (): boolean => {
       if (validate.isPhoneEmpty()) {
-        return false;
+        return false
       }
 
       if (validate.isPhoneNumberGeorgian()) {
-        return validate.isGeorgianPhoneNumberValid();
-      }
-      else {
-        return true;
+        return validate.isGeorgianPhoneNumberValid()
+      } else {
+        return true
       }
     },
 
-    isPhoneEmpty: () => {
-      return _this.current.phone.trim() === '';
+    isPhoneEmpty: (): boolean => {
+      return _this.current.phone.trim() === ''
     },
 
-    isGeorgianPhoneNumberValid: () => {
-      if (_this.current!.phone.length < 5) {
-        helpers.popAlert('dropDownAlert.registration.fillPhoneNumber');
-        return false;
-      }
-      else if (_this.current!.phone.length - 4 !== 9) {
-        helpers.popAlert('dropDownAlert.auth.phoneNumberLength');
-        return false;
-      }
-      else {
-        return true;
+    isGeorgianPhoneNumberValid: (): boolean => {
+      if (_this.current?.phone.length < 5) {
+        helpers.popAlert('dropDownAlert.registration.fillPhoneNumber')
+        return false
+      } else if (_this.current?.phone.length - 4 !== 9) {
+        helpers.popAlert('dropDownAlert.auth.phoneNumberLength')
+        return false
+      } else {
+        return true
       }
     },
-    isPhoneNumberGeorgian: () => {
-      return _this.current.phone.slice(0, 4) === '+995';
+    isPhoneNumberGeorgian: (): boolean => {
+      return _this.current.phone.slice(0, 4) === '+995'
     },
     isCodeValid: (): boolean => {
       if (_this.current.code.length === 0) {
-        helpers.popAlert('dropDownAlert.forgotPassword.fillCode');
-        codeRef.current.focus();
-        return false;
-      }
-      else if (_this.current.code.length !== 4) {
-        helpers.popAlert('dropDownAlert.forgotPassword.smsCodeLength');
-        codeRef.current.focus();
-        return false;
+        helpers.popAlert('dropDownAlert.forgotPassword.fillCode')
+        codeRef.current.focus()
+        return false
+      } else if (_this.current.code.length !== 4) {
+        helpers.popAlert('dropDownAlert.forgotPassword.smsCodeLength')
+        codeRef.current.focus()
+        return false
       }
 
-      return true;
-    }
+      return true
+    },
   }
-
 
   const helpers = {
-    popAlert: (text: string, type: 'success' | 'error' = 'error') => {
-      Defaults.dropdown.alertWithType(type, t(text));
+    popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
+      Defaults.dropdown.alertWithType(type, t(text))
     },
-    tryRequestingSmsCode: async () => {
+    tryRequestingSmsCode: async (): Promise<void> => {
       try {
-        const dataToSend = { phone_number: _this.current.phone };
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        const dataToSend = {phone_number: _this.current.phone}
 
-        const result = await Ajax.post(apiServices.post_send_sms_code, dataToSend);
+        const result = await Ajax.post(
+          apiServices.post_send_sms_code,
+          dataToSend,
+        )
 
         if (result) {
-          helpers.popAlert('dropDownAlert.registration.codeSentSuccessfully', 'success');
-          codeRef!.current!.startCodeAnimation();
-          setRecieveCodeButtonClicked(true);
+          helpers.popAlert(
+            'dropDownAlert.registration.codeSentSuccessfully',
+            'success',
+          )
+          codeRef?.current?.startCodeAnimation()
+          codeRef.current.focus()
+          setRecieveCodeButtonClicked(true)
         }
-      }
-      catch (e) {
-        helpers.popAlert('dropDownAlert.generalError');
+      } catch (e) {
+        helpers.popAlert('dropDownAlert.generalError')
       }
     },
 
-
-    tryVerifyingSmsCodeWithUpdateUserPhone: async () => {
+    tryVerifyingSmsCodeWithUpdateUserPhone: async (): Promise<void> => {
       try {
-
         const dataToSend = {
+          // eslint-disable-next-line @typescript-eslint/camelcase
           phone_number: _this.current.phone,
-          code: _this.current.code
-        };
+          code: _this.current.code,
+        }
 
-        const result = await Ajax.post(apiServices.post_verify_code, dataToSend);
+        const result = await Ajax.post(apiServices.post_verify_code, dataToSend)
 
         if (result.status === 200) {
-          helpers.updateUserInfo();
+          helpers.updateUserInfo()
+        } else {
+          helpers.popAlert('dropDownAlert.generalError')
         }
-        else{
-          helpers.popAlert('dropDownAlert.generalError');
-        }
-      }
-      catch (e) {
+      } catch (e) {
         switch (e.status) {
-
           case 401:
-            helpers.popAlert('dropDownAlert.registration.incorrectCode');
-            return;
+            helpers.popAlert('dropDownAlert.registration.incorrectCode')
+            return
 
           case 409:
-            helpers.popAlert('dropDownAlert.editPhoneNumber.phoneTaken');
-            return;
+            helpers.popAlert('dropDownAlert.editPhoneNumber.phoneTaken')
+            return
 
           case 440:
-            helpers.popAlert('dropDownAlert.forgotPassword.smsCodeExpired');
-            return;
+            helpers.popAlert('dropDownAlert.forgotPassword.smsCodeExpired')
+            return
 
           default:
-            helpers.popAlert('dropDownAlert.generalError');
+            helpers.popAlert('dropDownAlert.generalError')
         }
       }
     },
 
-    updateUserInfo: async () => {
-
+    updateUserInfo: async (): Promise<void> => {
       try {
         const dataToSend = {
-          phone_number: _this.current.phone
-        };
-        const result = await Ajax.post(apiServices.post_update_user_info, dataToSend);
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          phone_number: _this.current.phone,
+        }
+        const result = await Ajax.post(
+          apiServices.post_update_user_info,
+          dataToSend,
+        )
 
         if (result.updated) {
-          helpers.popAlert('dropDownAlert.editPhoneNumber.success', 'success');
-          editUserInfo(dispatch, _this.current.phone, 'phone_number');
-          navigation.goBack();
+          helpers.popAlert('dropDownAlert.editPhoneNumber.success', 'success')
+          editUserInfo(dispatch, _this.current.phone, 'phone_number')
+          navigation.goBack()
+        } else {
+          helpers.popAlert('dropDownAlert.generalError')
         }
-        else {
-          helpers.popAlert('dropDownAlert.generalError');
-        }
+      } catch (e) {
+        helpers.popAlert('dropDownAlert.generalError')
       }
-      catch (e) {
-        helpers.popAlert('dropDownAlert.generalError');
-      }
-
-    }
+    },
   }
-
 
   return {
     _this,
@@ -223,6 +207,6 @@ export default (navigation: any, clicked: boolean, setClicked: any) => {
     receiveCodeTextHandler,
     receiveCodeOnSubmit,
     recieveCode,
-    recieveCodeButtonClicked
-  };
+    recieveCodeButtonClicked,
+  }
 }

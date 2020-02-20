@@ -12,7 +12,7 @@ import TitleTopLeftContainer from './view/titleTopLeftContainer'
 import CountDown from './view/time/countDown'
 import ChargingView from './view/chargingView'
 
-import FirstnameChangeView from './view/profileChange/firstnameChangeView'
+import FirstnameChangeView from './view/profileChange/FirstnameChangeView'
 import LastnameChangeView from './view/profileChange/lastnameChangeView'
 import CardListView from './view/profileChange/cardListView'
 import MailChangeView from './view/profileChange/mailChangeView'

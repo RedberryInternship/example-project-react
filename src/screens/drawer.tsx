@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, ReactElement, Context} from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -17,89 +17,93 @@ import {
   BaseLocaleButton,
 } from '../components'
 
-// import utils
-import { Const, Colors, Defaults } from '../utils';
-import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../App';
-import { logOut } from '../../src/hooks/actions/rootActions';
+// Navigation
+import {NavigationScreenProp} from 'react-navigation'
 
-// Vobi Todo: Component name should start with upper case
-const drawer = ({navigation}: any) => {
-  // Vobi Todo: Same as contact.tsx
+// import utils
+import {Const, Colors, Defaults} from '../utils'
+import {useTranslation} from 'react-i18next'
+import {AppContext} from '../../App'
+import {logOut} from '../hooks/actions/rootActions'
+
+// assets
+import Imgs from '../../assets/images'
+import {AppContextType} from 'allTypes'
+
+type DrawerPropsType = {
+  navigation: NavigationScreenProp<any, any>
+}
+const Drawer = ({navigation}: DrawerPropsType): ReactElement => {
   const {t, i18n} = useTranslation()
   const insets = useSafeArea()
-  const context: any = useContext(AppContext)
+  const context: AppContextType = useContext(AppContext)
+  const isUserAuthorized = !Defaults.token ? false : true
 
-  const $isUserAuthorized = Defaults.token === '' || Defaults.token == null ? false : true
-  // Vobi Todo: !Defaults.token does the same
-  let $drawerListFields = null
-  let $drawerContent = null
-  // Vobi Todo: $:variableName is not javascript standard
+  let drawerListFields = null
+  let drawerContent = null
 
-  if (!$isUserAuthorized) {
-    // Vobi Todo: (Field, ind) variable Names Shouldn't start with upper case letter
-    // Vobi Todo: instead of { return ... } you can do this (...)
-    $drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(
-      (Field, ind) => {
+  if (!isUserAuthorized) {
+    drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(
+      (field, ind) => {
         return (
           <DrawerTextFieldItem
             key={ind}
-            onPress={() => navigation.navigate(Field.route)}
-            text={Field.text}
-            image={Field.image}
+            onPress={navigation.navigate.bind(Drawer, field.route)}
+            {...field}
           />
         )
       },
     )
 
-    $drawerContent = (
+    drawerContent = (
       <>
-        <View style={{flex: 0}}>
-          {/* Vobi Todo: Same as contact.tsx no inline styles */}
+        <View>
           <BaseButton
-            image={require('../../assets/images/icons/user.png')} // Vobi Todo: Same as contact.tsx
-            onPress={() => navigation.navigate('Auth')}
+            image={Imgs.user}
+            onPress={navigation.navigate.bind(Drawer, 'Auth')}
             text={'home.authorization'}
             style={styles.drawerAuthBtn}
           />
 
-          {$drawerListFields}
+          {drawerListFields}
         </View>
 
-        <View style={{flex: 0, justifyContent: 'flex-end'}}></View>
+        <View style={{justifyContent: 'flex-end'}}></View>
       </>
     )
   } else {
+    const firstName = context?.state?.user?.first_name
+    const lastName = context?.state?.user?.last_name
 
-    const $firstName = context.state.user.first_name;
-    const $lastName = context.state.user.last_name;
-
-    // Vobi Todo: (Field, ind) variable Names Shouldn't start with upper case letter
-    // Vobi Todo: instead of { return ... } you can do this (...)
-    $drawerListFields = Const.DrawerFieldsAfterAuthorization.map(
-      (Field, key) => {
+    drawerListFields = Const.DrawerFieldsAfterAuthorization.map(
+      (field, key) => {
         return (
           <DrawerTextFieldItem
-          key={key} 
-          onPress={() => navigation.navigate(Field.route) }
-          text={Field.text}
-          image={Field.image}
-          badge={ Field.route === 'notifications' ? 1 : 0 }
+            key={key}
+            onPress={navigation.navigate.bind(Drawer, field.route)}
+            badge={field.route === 'notifications' ? 1 : 0}
+            {...field}
           />
         )
       },
     )
 
-    $drawerContent = (
+    drawerContent = (
       <View>
         <BaseUserAvatarWithLabel
-          onPress={()=>{Alert.alert("change icon")}}
-          firstName={$firstName}
-          lastName={$lastName}
+          onPress={() => {
+            Alert.alert('change icon')
+          }}
+          firstName={firstName}
+          lastName={lastName}
         />
-        {$drawerListFields}
+        {drawerListFields}
       </View>
     )
+  }
+
+  const toggleLanguage = (): void => {
+    i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')
   }
 
   return (
@@ -110,50 +114,31 @@ const drawer = ({navigation}: any) => {
       ]}>
       <ScrollView
         bounces={false}
-        style={{flex: 0}}
-        contentContainerStyle={{
-          flex: 0,
-          flexGrow: 1,
-          justifyContent: 'space-between',
-        }}>
-        {$drawerContent}
+        style={styles.scrollViewStyle}
+        contentContainerStyle={styles.scrollViewContentContainerStyle}>
+        {drawerContent}
         <View>
-          {!$isUserAuthorized && (
+          {!isUserAuthorized && (
             <DrawerTextFieldItem
               onPress={() => {
                 Alert.alert('asfas')
               }}
               text={'drawer.terms_and_conditions'}
-              image={require('../../assets/images/icons/green-tick.png')}
+              image={Imgs.greenTick}
             />
           )}
-          {/* Vobi Todo: Same as contact.tsx no inline styles */}
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              marginTop: 16,
-            }}>
+          <View style={styles.localeAndLogoutWrapper}>
             <BaseLocaleButton
-              onPress={() => {
-                i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')
-              }}
-              // Vobi Todo: This is badly formated code and eslint would catch that right away
-              // Vobi Todo: onPress={() => i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')} if you wanna go this way
-              // Vobi Todo: But the best practice is to declare function on top and call it here like onPress={toggleLanguage}
+              onPress={toggleLanguage}
               text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
               style={styles.localeButton}
             />
-            {$isUserAuthorized && (
+            {isUserAuthorized && (
               <TouchableOpacity
                 onPress={() => {
                   context.dispatch(logOut())
                 }}>
-                {/* Vobi Todo: Same as contact.tsx no inline styles */}
-                <Text style={{marginRight: 24, color: 'white'}}>
-                  {t('drawer.logOut')}
-                </Text>
+                <Text style={styles.logOut}>{t('drawer.logOut')}</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -163,12 +148,22 @@ const drawer = ({navigation}: any) => {
   )
 }
 
+export default Drawer
+
 const styles = StyleSheet.create({
   safeAreaViewContainer: {
     flex: 1,
     borderBottomLeftRadius: 24,
     borderTopLeftRadius: 24,
     backgroundColor: Colors.primaryBackground,
+  },
+  scrollViewStyle: {
+    flex: 0,
+  },
+  scrollViewContentContainerStyle: {
+    flex: 0,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   container: {
     flex: 1,
@@ -179,11 +174,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 60,
   },
+  localeAndLogoutWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 16,
+  },
   localeButton: {
     marginLeft: 24,
     marginTop: 20,
     marginBottom: 20,
   },
+  logOut: {
+    marginRight: 24,
+    color: 'white',
+  },
 })
-
-export default drawer

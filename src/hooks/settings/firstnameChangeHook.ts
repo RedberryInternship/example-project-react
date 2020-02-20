@@ -1,119 +1,103 @@
-import {
-  useState,
-  useRef,
-  useContext,
-  useEffect
-} from 'react';
+import {useState, useRef, useContext, useEffect} from 'react'
+import {Defaults, apiServices, Ajax} from 'utils'
+import {useTranslation} from 'react-i18next'
+import {AppContext} from '../../../App'
+import {editUserInfo} from 'hooks/actions/rootActions'
+import {ProfileFieldChange} from 'allTypes'
 
-import { Defaults, apiServices, Ajax } from '../../utils';
-import { useTranslation } from 'react-i18next';
-import { AppContext } from '../../../App';
-import { editUserInfo } from '../actions/rootActions';
+export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
+  const {t} = useTranslation()
+  const {dispatch} = useContext(AppContext)
+  const [firstname, setFirstname] = useState(navigation.getParam('value'))
+  const firstnameInputRef: any = useRef(null)
 
-
-export default (navigation: any, clicked: boolean, setClicked: any) => {
-
-  const { t } = useTranslation();
-  const { dispatch } = useContext(AppContext);
-  const [firstname, setFirstname] = useState(navigation.getParam('value'));
-  const firstnameInputRef: any = useRef(null);
-
-  
   // when clicked on save button, save hook released.
   useEffect(() => {
     if (clicked === true) {
-      saveFirstname();
+      saveFirstname()
+      setClicked(false)
     }
-
   }, [clicked])
 
-
-  const saveFirstname = () => {
-
+  const saveFirstname = (): void => {
     if (validate.isEmpty()) {
-      setClicked(false);
-      helpers.makeFirstnameFieldEmpty();
-      helpers.popAlert('dropDownAlert.editFirstname.firstNameNotEmpty');
-      return;
+      helpers.popAlert('dropDownAlert.editFirstname.firstNameNotEmpty')
+      return
     }
 
     if (validate.isLessThenMinSize()) {
-      setClicked(false);
-      helpers.makeFirstnameFieldEmpty();
-      helpers.popAlert('dropDownAlert.editFirstname.minSize');
-      return;
+      helpers.makeFirstnameFieldEmpty()
+      helpers.popAlert('dropDownAlert.editFirstname.minSize')
+      return
     }
 
-    helpers.sendFirstnameToSave()
-      .then(data => {
-        if (data.updated === true) {
-          helpers.goToSettingsScreen();
-          helpers.popAlert('dropDownAlert.editFirstname.firstNameChangeSucess', 'success');
-          editUserInfo(dispatch, firstname, 'first_name');
-        }
-        else {
-          helpers.popAlert('dropDownAlert.generalError');
-        }
-      });
+    helpers.sendFirstnameToSaveAndUpdateState()
   }
 
-
-  const onChangeText = (text: string) => {
-    setFirstname(text);
+  const onChangeText = (text: string): void => {
+    setFirstname(text)
   }
 
-  const onSubmitEditing = () => {
-    saveFirstname();
+  const onSubmitEditing = (): void => {
+    saveFirstname()
   }
 
   // validations
   const validate = {
     isEmpty: (): boolean => {
       if (firstname.trim() === '') {
-        return true;
-      }
-      else {
-        return false;
+        return true
+      } else {
+        return false
       }
     },
     isLessThenMinSize: (): boolean => {
       if (firstname.trim().length < 3) {
-
-        setClicked(false);
-        return true;
+        return true
+      } else {
+        return false
       }
-      else {
-        return false;
-      }
-    }
+    },
   }
 
   // helpers
   const helpers = {
-    popAlert: (text: string, type: 'success' | 'error' = 'error') => {    
-      Defaults.dropdown.alertWithType(type, t(text));
+    popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
+      Defaults.dropdown.alertWithType(type, t(text))
     },
-    makeFirstnameFieldEmpty: () => {
-      setFirstname('');
+    makeFirstnameFieldEmpty: (): void => {
+      setFirstname('')
     },
-    sendFirstnameToSave: async () => {
+    sendFirstnameToSaveAndUpdateState: async (): Promise<void> => {
       try {
-        return await Ajax.post(apiServices.post_update_user_info, { first_name: firstname });
-      }
-      catch (err) {
-        helpers.popAlert('dropDownAlert.generalError');
+        const result = await Ajax.post(apiServices.post_update_user_info, {
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          first_name: firstname,
+        })
+
+        if (result.updated === true) {
+          helpers.goToSettingsScreen()
+          helpers.popAlert(
+            'dropDownAlert.editFirstname.firstNameChangeSucess',
+            'success',
+          )
+          editUserInfo(dispatch, firstname, 'first_name')
+        } else {
+          throw new Error('Something Went Wrong...')
+        }
+      } catch (err) {
+        helpers.popAlert('dropDownAlert.generalError')
       }
     },
-    goToSettingsScreen: () => {
-      // TODO: Navigation Go Back Properly
-      navigation.goBack();
-    }
+    goToSettingsScreen: (): void => {
+      navigation.navigate('Settings')
+    },
   }
 
   return {
     onChangeText,
     onSubmitEditing,
     firstnameInputRef,
-    firstname  
-  };
+    firstname,
+  }
 }
