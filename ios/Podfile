@@ -33,12 +33,14 @@ target 'Espace' do
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
+  
   target 'EspaceTests' do
     inherit! :search_paths
     # Pods for testing
   end
-
+  pod 'Firebase/Messaging', '~> 6.13.0'
+  pod 'Firebase/Core', '~> 6.13.0'
+  
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path
   pod 'GoogleMaps'

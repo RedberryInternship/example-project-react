@@ -4,6 +4,13 @@ import Modal from 'react-native-modal'
 
 import {Const} from 'utils'
 
+import {
+  RegistrationType1,
+  LegendType2,
+  ChargerModalMainWrapper,
+  MapPopUp,
+} from 'components'
+
 type Data = {
   title?: string
   description?: string
@@ -38,12 +45,6 @@ const initialState: InitialState = {
     },
   },
 }
-import {
-  RegistrationType1,
-  LegendType2,
-  ChargerModalMainWrapper,
-  MapPopUp,
-} from './'
 
 class CustomModal extends React.PureComponent implements CustomModalInterface {
   state = {...initialState}

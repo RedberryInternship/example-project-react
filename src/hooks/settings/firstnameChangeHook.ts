@@ -3,13 +3,16 @@ import {Defaults, apiServices, Ajax} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {AppContext} from '../../../App'
 import {editUserInfo} from 'hooks/actions/rootActions'
-import {ProfileFieldChange} from 'allTypes'
+import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
+import {TextInputProps} from 'react-native'
 
 export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const {t} = useTranslation()
   const {dispatch} = useContext(AppContext)
-  const [firstname, setFirstname] = useState(navigation.getParam('value'))
-  const firstnameInputRef: any = useRef(null)
+  const [firstname, setFirstname] = useState<string>(
+    navigation.getParam('value', ''),
+  )
+  const firstnameInputRef = useRef<TextInputProps & BaseInputRefProp>(null)
 
   // when clicked on save button, save hook released.
   useEffect(() => {

@@ -12,11 +12,12 @@ import {
 import {RefObject, Ref} from 'react'
 import {Item} from 'react-native-picker-select'
 import {LocationPermissionStatus} from 'react-native-location'
-<<<<<<< HEAD
-import {NavigationScreenProp,NavigationState, NavigationParams} from 'react-navigation'
-=======
+import {
+  NavigationScreenProp,
+  NavigationState,
+  NavigationParams,
+} from 'react-navigation'
 import {MapViewProps, Region} from 'react-native-maps'
->>>>>>> development
 
 type LanguageType = {
   en: string
@@ -211,12 +212,11 @@ export type Favorite = {
   }
 }
 
-<<<<<<< HEAD
 export type ProfileFieldChange = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
   clicked: boolean
   setClicked: (status: boolean) => void
-=======
+}
 export type GoogleGetDirection = {
   routes: GoogleRoutes[]
   status: string
@@ -250,5 +250,4 @@ type GoogleOverviewPolyline = {
 
 export type LocationViaIP = {
   city: string
->>>>>>> development
 }

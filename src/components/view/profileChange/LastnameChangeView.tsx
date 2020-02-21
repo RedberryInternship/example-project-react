@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
 import {View, StyleSheet} from 'react-native'
 
@@ -17,7 +17,7 @@ const LastnameChangeView = ({
   navigation,
   clicked,
   setClicked,
-}: ProfileFieldChange) => {
+}: ProfileFieldChange): ReactElement => {
   const hook = useLastnameChange({navigation, clicked, setClicked})
 
   return (

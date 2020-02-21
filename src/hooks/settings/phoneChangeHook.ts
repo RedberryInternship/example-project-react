@@ -18,7 +18,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     boolean
   >(false)
   const _this = useRef({
-    phone: navigation.getParam('value'),
+    phone: navigation.getParam('value', ''),
     code: '',
   })
 

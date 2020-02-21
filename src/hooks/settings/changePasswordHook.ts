@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react'
-import {TextInput} from 'react-native'
-import {ProfileFieldChange} from 'allTypes'
+import {TextInputProps} from 'react-native'
+import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 import {useTranslation} from 'react-i18next'
 
 import {apiServices, Defaults, Ajax} from '../../utils'
@@ -12,9 +12,9 @@ type _This = {
 }
 
 export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
-  const currentPasswordRef = useRef<TextInput>()
-  const repetePasswordRef = useRef<TextInput>()
-  const newPasswordRef = useRef<TextInput>()
+  const currentPasswordRef = useRef<TextInputProps & BaseInputRefProp>()
+  const repetePasswordRef = useRef<TextInputProps & BaseInputRefProp>()
+  const newPasswordRef = useRef<TextInputProps & BaseInputRefProp>()
 
   const {t} = useTranslation()
 

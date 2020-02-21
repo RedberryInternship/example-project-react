@@ -1,205 +1,166 @@
-// import React from "react";
-// import { Platform,Alert,AppRegistry,View } from 'react-native';
-// import Defaults from "./defaults";
-// import AsyncStorage from "@react-native-community/async-storage";
+import {useEffect, useRef} from 'react'
+import {Platform, Alert} from 'react-native'
+import Defaults from './defaults'
+import AsyncStorage from '@react-native-community/async-storage'
+import firebase from 'react-native-firebase'
+// pluck values from your `GoogleService-Info.plist` you created on the firebase console
+const iosConfig = {
+  clientId:
+    '480798332479-e4nt83nh3en888jq8vdtaiqv40u1k07r.apps.googleusercontent.com',
+  appId: '1:480798332479:ios:54159517e51c7890038a8a',
+  apiKey: 'AIzaSyBJKYL5eKCce-l9c0MfDdHVbmGj24JqPMg',
+  databaseURL: 'https://espace-739b6.firebaseio.com',
+  storageBucket: 'espace-739b6.appspot.com',
+  messagingSenderId: '480798332479',
+  projectId: 'espace-739b6',
 
+  // enable persistence by adding the below flag
+  persistence: true,
+}
 
-// // pluck values from your `GoogleService-Info.plist` you created on the firebase console
-// const iosConfig = {
-//   clientId: '704554134224-jjc2o78c84jih86btjknh3ed5rs79n2e.apps.googleusercontent.com',
-//   appId: '1:704554134224:ios:1fa06d9f5cbbc68b',
-//   apiKey: 'AIzaSyDg1MDfdH_KPy4W0MP2gGkZABL-m12pBQY',
-//   databaseURL: 'https://lunchoba-5b9e9.firebaseio.com',
-//   storageBucket: 'lunchoba-5b9e9.appspot.com',
-//   messagingSenderId: '704554134224',
-//   projectId: 'lunchoba-5b9e9',
-    
-//   // enable persistence by adding the below flag
-//   persistence: true,
-// };
+// pluck values from your `google-services.json` file you created on the firebase console
+const androidConfig = {
+  clientId:
+    '480798332479-tvo4q62f8eocb5vjqsad28rp4cs4qpf4.apps.googleusercontent.com',
+  appId: '1:480798332479:android:3dc2641ca2616c55038a8a',
+  apiKey: 'AIzaSyCxqETw2uFjKw2aVMhi3TKByj0eumVDXh4',
+  databaseURL: 'https://espace-739b6.firebaseio.com',
+  storageBucket: 'espace-739b6.appspot.com',
+  messagingSenderId: '480798332479',
+  projectId: 'espace-739b6',
 
-// // pluck values from your `google-services.json` file you created on the firebase console
-// const androidConfig = {
-//   clientId: "704554134224-t1j453ggmb0fstbnghhtm0g512gdclrr.apps.googleusercontent.com",
-//   appId: "1:704554134224:android:d57c45c57a0a60ca",
-//   apiKey: "AIzaSyBI-QR8_RkbDvvZjG9ZMun6XVKzx8p5fig",
-//   databaseURL: 'https://lunchoba-5b9e9.firebaseio.com',
-//   storageBucket: 'lunchoba-5b9e9.appspot.com',
-//   messagingSenderId: '704554134224',
-//   projectId: 'lunchoba-5b9e9',
-  
-//   // enable persistence by adding the below flag
-//   persistence: true,
-// };
+  persistence: true,
+}
+type This = {
+  channel: any
+}
+const useFirebase = (): void => {
+  const _this = useRef<This>({channel: ''})
+  useEffect(() => {
+    initialRun()
+  }, [])
 
-// class Ntification extends React.PureComponent {
-  
-//     componentDidMount=  async () => {
-//         if (!firebase.apps.length)
-//         firebase.initializeApp(
-//             // use platform specific firebase config
-//             Platform.OS === 'ios' ? iosConfig : androidConfig,
-//             // name of this app
-//             'lunchoba',
-//         );
-//         this.onTokenRefreshListener = firebase.messaging().onTokenRefresh(async newFCMToken => {
-            
-//             // handle token change, if change update everywere
-//             let fcmToken = await AsyncStorage.getItem('fcmToken');
-//             if((fcmToken === null || fcmToken !== newFCMToken) && Defaults.token){
+  const initialRun = async (): Promise<any> => {
+    if (!firebase.apps.length)
+      firebase.initializeApp(
+        // use platform specific firebase config
+        Platform.OS === 'ios' ? iosConfig : androidConfig,
+        // name of this app
+        'Espace',
+      )
+    // console.log(firebase);
+    const permissionStatus = await firebase.messaging().hasPermission()
 
-//                 console.log(Defaults.FCMToken);
-//                 Defaults.FCMToken = newFCMToken;
-//                 AsyncStorage.setItem('fcmToken', newFCMToken);
-//             }
-//         });
-//         // console.log(firebase);
-//         this.checkPermission();
-//         await this.createNotificationListeners();
-//     }
-    
-//     componentWillUnmount() {
-//         this.notificationListener();
-//         this.checkPermission();
-//         this.createNotificationListeners();
-//     }
-    
-//     //1
-//     async checkPermission() {
-//         const enabled = await firebase.messaging().hasPermission();
-//         if (enabled) {
-//             this.getToken();
-//         } else {
-//             this.requestPermission();
-//     }
-//     }
-    
-//     //3
-//     async getToken() {
+    if (!permissionStatus) await requestPermission()
+    createNotificationListeners()
 
-//         let fcmToken: string | null = await AsyncStorage.getItem('fcmToken');
-        
-//         if (!fcmToken) { 
-//             fcmToken = await firebase.messaging().getToken();
-//             if (fcmToken) {
-                
-//                 // user has a device token
-//                 AsyncStorage.setItem('fcmToken', fcmToken);
-//             }
-//         }
+    const onTokenRefreshListener = firebase
+      .messaging()
+      .onTokenRefresh(tokenRefresh)
 
-//         Defaults.FCMToken = fcmToken;
+    const notificationListener = firebase
+      .notifications()
+      .onNotification((message: any) => {
+        renderNotification(message)
+      })
 
-//         console.log(Defaults.FCMToken);
-        
-//     }
-    
-//     //2
-//     requestPermission = async () =>  {
-//         try {
-//             await firebase.messaging().requestPermission();
-//             await firebase.messaging().ios.registerForRemoteNotifications();
+    return (): void => {
+      onTokenRefreshListener()
+      notificationListener()
+    }
+  }
 
-//             // User has authorised
-//             this.getToken();
-//         } catch (error) {
-//             // User has rejected permissions
-//             console.log('permission rejected');
-//         }
-//     }
-    
-//     createNotificationListeners = async () => {
-//       // Build a channel
-//       this.channel = new firebase.notifications.Android.Channel('Notification', 'Notification', 
-//       firebase.notifications.Android.Importance.Max).setDescription('Notification chanel description').setSound('alert');
-      
-//       // Create the channel
-//       firebase.notifications().android.createChannel(this.channel);
-      
-//       // Build a channel group
-//       const channelGroup = new firebase.notifications.Android.ChannelGroup('Daily-notification', 'Daily-notification');
-      
-//       // Create the channel group
-//       firebase.notifications().android.createChannelGroup(channelGroup);
-      
-//       /*
-//       * triggered when a particular notification has been received in foreground
-//       * 
-//       */
-//       this.notificationListener = firebase.notifications().onNotification((message) => {
-//         this.renderNotification(message)
-//       });
-      
-//       /*
-//       * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
-//       * */
-//       firebase.notifications().onNotificationOpened((notificationOpen) => {
-//         const { title, body } = notificationOpen.notification;
-//         Mixpanel.trackWithProperties("Notification", {status: "opened from background state by notification"})
+  const tokenRefresh = async (newFCMToken: string): Promise<void> => {
+    // handle token change, if change update everywhere
+    const fcmToken = await AsyncStorage.getItem('fcmToken')
+    if ((fcmToken === null || fcmToken !== newFCMToken) && Defaults.token) {
+      console.log(Defaults.FCMToken)
+      Defaults.FCMToken = newFCMToken
+      AsyncStorage.setItem('fcmToken', newFCMToken)
+    }
+  }
 
-//         if(body || title)
-//             Defaults.dropdown.alertWithType('success',title,body);
+  //3
+  const getToken = async (): Promise<void> => {
+    let fcmToken: string | null = await AsyncStorage.getItem('fcmToken')
 
-//         // firebase.analytics().setCurrentScreen("fromNotification");
-//         firebase.notifications().removeAllDeliveredNotifications()
-//       });
-      
-//       /*
-//       * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
-//       * */
-//       const notificationOpen = await firebase.notifications().getInitialNotification();
-//       if (notificationOpen) {
-//         // firebase.analytics().setCurrentScreen("fromNotification");
-//         Mixpanel.trackWithProperties("Notification", {status: "opened from killed application by notification"})
+    if (!fcmToken) {
+      fcmToken = await firebase.messaging().getToken()
+      if (fcmToken) {
+        AsyncStorage.setItem('fcmToken', fcmToken)
+      }
+    }
 
-//         const { title, body } = notificationOpen.notification;
-//         if(body || title)
-//             Defaults.dropdown.alertWithType('success',title,body);
+    Defaults.FCMToken = fcmToken
 
-//         firebase.notifications().removeAllDeliveredNotifications()
+    console.log(Defaults.FCMToken, 'Defaults.FCMToken')
+  }
 
-//       }
-//       /*
-//       * Triggered for data only payload in foreground
-//       * */
-//       firebase.messaging().onMessage((message) => {
+  //2
+  const requestPermission = async (): Promise<void> => {
+    try {
+      await firebase.messaging().requestPermission()
+      await firebase.messaging().ios.registerForRemoteNotifications()
+      // User has authorised
+      getToken()
+    } catch (error) {
+      // User has rejected permissions
+      console.log('permission rejected')
+    }
+  }
 
-//             this.renderNotification(message)
+  const createNotificationListeners = (): void => {
+    // Build a channel
+    _this.current.channel = new firebase.notifications.Android.Channel(
+      'Notification',
+      'Notification',
+      firebase.notifications.Android.Importance.Max,
+    )
+      .setDescription('Notification chanel description')
+      .setSound('alert')
 
-//         });
-//     }
+    // Create the channel
+    firebase.notifications().android.createChannel(_this.current.channel)
 
-//     renderNotification = (message) => {
-//         console.log(message, "message");
+    // Build a channel group
+    const channelGroup = new firebase.notifications.Android.ChannelGroup(
+      'Daily-notification',
+      'Daily-notification',
+    )
 
-//         if(Defaults.token)
+    // Create the channel group
+    firebase.notifications().android.createChannelGroup(channelGroup)
 
-//         Mixpanel.trackWithProperties("Notification", {status: "Received Notification"})
+    /*
+     * Triggered for data only payload in foreground
+     * */
+    firebase.messaging().onMessage(message => {
+      renderNotification(message)
+    })
+  }
 
-//         const notification_dat = message
-        
-//         const notificatiosn = new firebase.notifications.Notification({ show_in_foreground: true })
-//         .setNotificationId("notification_dat._notificationId")
-//         .setTitle(notification_dat._title)
-//         .setBody(notification_dat._body)
-//         // .setSubtitle(notification_dat._body)
-//         .setSound('default')
-//         .android.setColor('#fb634f')
-//         .android.setChannelId(this.channel.channelId)
-//         .android.setSmallIcon("ic_launcher_round1")
-//         // .ios.setBadge(2)
-//         // .android.setTag("tag")
-//         // .android.setBigPicture(notification.data.image)
-//         .android.setAutoCancel(true)
-//         .android.setPriority(firebase.notifications.Android.Priority.High);
-//         firebase.notifications().displayNotification(notificatiosn).catch(err =>console.log(err));
-//     }
+  const renderNotification = (message: any): void => {
+    console.log(message, 'message')
 
-//     render(){
-//         return(
-//             <View></View>
-//         )
-//     }
-// } 
+    const notification = new firebase.notifications.Notification()
+      .setNotificationId('notification_dat._notificationId')
+      .setTitle(message._title)
+      .setBody(message._body)
+      // .setSubtitle(notification_dat._body)
+      .setSound('default')
+      .android.setColor('#fb634f')
+      .android.setChannelId(_this.current.channel.channelId)
+      // .android.setSmallIcon('ic_launcher_round')
+      // .ios.setBadge(2)
+      // .android.setTag("tag")
+      // .android.setBigPicture(notification.data.image)
+      .android.setAutoCancel(true)
+      .android.setPriority(firebase.notifications.Android.Priority.High)
+    firebase
+      .notifications()
+      .displayNotification(notification)
+      .catch(err => console.log(err))
+  }
+}
 
-// export default  Ntification;
+export default useFirebase

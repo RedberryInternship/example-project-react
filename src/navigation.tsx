@@ -53,7 +53,7 @@ const chargerStack = createStackNavigator(
   },
 )
 
-const footerTabNavigator = (props: any): ReactElement => {
+const FooterTabNavigator = (props: any): ReactElement => {
   const currentRouteName =
     props.navigation.state.routes[props.navigation.state.index].key
   const insets = useSafeArea()
@@ -79,7 +79,7 @@ const footerTabNavigator = (props: any): ReactElement => {
       ]}>
       <TabNavigationButtons
         active={currentRouteName === 'Home'}
-        navigate={navigate.bind(footerTabNavigator, 'Home')}
+        navigate={navigate.bind(FooterTabNavigator, 'Home')}
         image={require('../assets/images/icons/ic_map_pin.png')}
       />
       <TabNavigationButtons
@@ -88,20 +88,20 @@ const footerTabNavigator = (props: any): ReactElement => {
           currentRouteName === 'NotAuthorized'
         }
         navigate={navigate.bind(
-          footerTabNavigator,
+          FooterTabNavigator,
           Defaults.token ? 'chargerStack' : 'NotAuthorized',
         )}
         image={require('../assets/images/icons/ic_charge.png')}
       />
       {Defaults.token != null && Defaults.token != '' && (
         <TabNavigationButtons
-          navigate={navigate.bind(footerTabNavigator, 'Favorites')}
+          navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
           image={require('../assets/images/icons/ic_favorite.png')}
           active={currentRouteName === 'Favorites'}
         />
       )}
       <TabNavigationButtons
-        navigate={navigate.bind(footerTabNavigator, 'drawer')}
+        navigate={navigate.bind(FooterTabNavigator, 'drawer')}
         image={require('../assets/images/icons/ic_menu.png')}
         active={currentRouteName === 'drawer'}
       />
@@ -117,8 +117,7 @@ const HomeTabNavigation = createBottomTabNavigator(
     Favorites,
   },
   {
-    // eslint-disable-next-line react/display-name
-    tabBarComponent: footerTabNavigator,
+    tabBarComponent: FooterTabNavigator,
     initialRouteName: 'Home',
     tabBarOptions: {
       activeTintColor: 'tomato',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 
 import {View, StyleSheet} from 'react-native'
 
@@ -18,7 +18,7 @@ const MailChangeView = ({
   navigation,
   clicked,
   setClicked,
-}: ProfileFieldChange) => {
+}: ProfileFieldChange): ReactElement => {
   const hook = useEmailChange({navigation, clicked, setClicked})
 
   return (

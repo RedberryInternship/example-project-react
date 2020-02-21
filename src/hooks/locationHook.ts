@@ -6,7 +6,7 @@ import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
-import {HomeContext} from 'screens/tabNavigation/home'
+import {HomeContext} from 'screens/tabNavigation/Home'
 import {Coords, GoogleGetDirection} from 'allTypes'
 import i18next from 'i18next'
 import Axios from 'axios'
@@ -59,9 +59,10 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     status: LocationPermissionStatus,
   ): void => {
     setPermissionStatus(status)
-    console.log(status, 'LocationPermissionStatus')
-    if (!status.match(/denied|restricted|notDetermined/)) {
-      navigateToLocation()
+    _this.current.permissionStatus = status
+    Defaults.locationPermissionStatus = status
+    if (status.match(/notDetermined/)) {
+      requestPermission()
     }
   }
 
@@ -73,9 +74,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   const getPermissionStatus = (status: LocationPermissionStatus): void => {
     setPermissionStatus(status)
     _this.current.permissionStatus = status
+    Defaults.locationPermissionStatus = status
     if (!status.match(/denied|restricted/)) {
       navigateToLocation()
-      console.log('sdf', status)
     } else if (status.match(/notDetermined/)) {
       requestPermission()
     }

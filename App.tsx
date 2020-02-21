@@ -4,7 +4,7 @@ import {Navigation} from './src'
 import {CustomModal} from 'components'
 import DropdownAlert from 'react-native-dropdownalert'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
-import {Defaults} from 'utils'
+import {Defaults, useFirebase} from 'utils'
 import {useRoot} from 'hooks'
 
 console.disableYellowBox = true
@@ -16,6 +16,7 @@ if (__DEV__) {
 export const AppContext = createContext()
 
 const App = () => {
+  const firebase = useFirebase()
   const hook = useRoot()
 
   return useMemo(

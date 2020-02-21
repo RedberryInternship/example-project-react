@@ -51,7 +51,7 @@ const services = [
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-): any => {
+) => {
   const context: AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
@@ -115,7 +115,7 @@ export default (
     })
   }
 
-  const onFavoritePress = () => {
+  const onFavoritePress = (): void => {
     // Todo Vobi: use async/await
     charger &&
       // eslint-disable-next-line @typescript-eslint/camelcase
@@ -129,11 +129,11 @@ export default (
         })
   }
 
-  const mainButtonClickHandler = () => {
+  const mainButtonClickHandler = (): void => {
     navigation.navigate('ChooseChargeMethod')
   }
 
-  const getDistance = () => {
+  const getDistance = (): Promise<any> => {
     return Axios.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
       locationIfNoGPS.lat,
       locationIfNoGPS.lng,
