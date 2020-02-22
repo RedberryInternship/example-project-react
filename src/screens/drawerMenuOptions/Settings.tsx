@@ -1,8 +1,6 @@
 import React, {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
 
-import {NavigationScreenProp} from 'react-navigation'
-
 // components
 import {BaseHeader, SettingsListItem} from 'components'
 
@@ -13,11 +11,9 @@ import {ScrollView} from 'react-native-gesture-handler'
 // hooks
 import {useSettings} from 'hooks'
 
-type SettingsPropsType = {
-  navigation: NavigationScreenProp<any, any>
-}
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const Settings = ({navigation}: SettingsPropsType): ReactElement => {
+const Settings = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {
     makeSettingsInfo,
     makeValue,

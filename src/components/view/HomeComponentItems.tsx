@@ -13,7 +13,7 @@ import {
   MultiChargingTopModal,
 } from 'components'
 import {Defaults} from 'utils'
-import {HomeContext} from 'screens/tabNavigation/home'
+import {HomeContext} from 'screens/tabNavigation/Home'
 import {View} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'

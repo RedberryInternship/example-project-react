@@ -1,25 +1,28 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
 import {Colors} from 'utils'
 import {BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode} from 'components'
 import {useForgotPassword} from 'hooks'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useSafeArea} from 'react-native-safe-area-context'
+import {ScreenPropsWithNavigation} from 'allTypes'
+import Imgs from '../../../assets/images'
 
-const forgotPassword = ({navigation}: any) => {
+const ForgotPassword = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const hook = useForgotPassword(navigation)
   const insets = useSafeArea()
 
-  
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(forgotPassword, 'Auth')}
+        onPressLeft={navigation.navigate.bind(ForgotPassword, 'Auth')}
         title={'authentication.forgotPasswordPage.recoverPassword'}
       />
       <KeyboardAwareScrollView
-        style={{flex: 0, paddingHorizontal: 16, marginVertical: 16}}
-        contentContainerStyle={{justifyContent: 'flex-start', flex: 0}}
+        style={styles.keyboardAwareScrollView}
+        contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
         keyboardShouldPersistTaps={'handled'}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
@@ -42,20 +45,21 @@ const forgotPassword = ({navigation}: any) => {
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
         behavior={'padding'}
-        style={{}}
-        contentContainerStyle={{flex: 1}}
+        contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
         <BaseButton
           onPress={hook.onButtonClick}
           text={'enter'}
-          image={require('../../../assets/images/icons/arrow_right.png')}
-          style={{marginTop: 0}}
-          imageStyle={{width: 21, height: 21}}
+          image={Imgs.arrowRight}
+          style={styles.baseButton}
+          imageStyle={styles.baseButtonImageStyle}
         />
       </KeyboardAvoidingView>
     </View>
   )
 }
+
+export default ForgotPassword
 
 const styles = StyleSheet.create({
   container: {
@@ -64,6 +68,23 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: Colors.primaryBackground,
   },
+  keyboardAwareScrollView: {
+    flex: 0,
+    paddingHorizontal: 16,
+    marginVertical: 16,
+  },
+  keyboardAwareScrollViewContentContainer: {
+    justifyContent: 'flex-start',
+    flex: 0,
+  },
+  keyboardAvoidingViewContentContainer: {
+    flex: 1,
+  },
+  baseButton: {
+    marginTop: 0,
+  },
+  baseButtonImageStyle: {
+    width: 21,
+    height: 21,
+  },
 })
-
-export default forgotPassword

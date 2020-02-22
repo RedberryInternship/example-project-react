@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 // declare module 'react-native-hooks'
 import {
-  TextInput,
   TextInputProps,
-  Image,
   ImageSourcePropType,
   StyleProp,
   ImageStyle,
@@ -12,11 +10,12 @@ import {
 import {RefObject, Ref} from 'react'
 import {Item} from 'react-native-picker-select'
 import {LocationPermissionStatus} from 'react-native-location'
-<<<<<<< HEAD
-import {NavigationScreenProp,NavigationState, NavigationParams} from 'react-navigation'
-=======
-import {MapViewProps, Region} from 'react-native-maps'
->>>>>>> development
+import {
+  NavigationScreenProp,
+  NavigationState,
+  NavigationParams,
+} from 'react-navigation'
+import {MapViewProps} from 'react-native-maps'
 
 type LanguageType = {
   en: string
@@ -211,12 +210,6 @@ export type Favorite = {
   }
 }
 
-<<<<<<< HEAD
-export type ProfileFieldChange = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-  clicked: boolean
-  setClicked: (status: boolean) => void
-=======
 export type GoogleGetDirection = {
   routes: GoogleRoutes[]
   status: string
@@ -250,5 +243,16 @@ type GoogleOverviewPolyline = {
 
 export type LocationViaIP = {
   city: string
->>>>>>> development
+}
+
+export type ProfileFieldChange = {
+  navigation: Navigation
+  clicked: boolean
+  setClicked: (status: boolean) => void
+}
+
+export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
+
+export type ScreenPropsWithNavigation = {
+  navigation: Navigation
 }

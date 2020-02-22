@@ -121,21 +121,23 @@ export function useRoot() {
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate("ForgotPassword")
     // NavigationActions().navigate("Registration")
-    NavigationActions().navigate('Settings')
+    // NavigationActions().navigate('Settings')
     // NavigationActions().navigate("ProfileChange");
     // NavigationActions().navigate("ChargerWithCode");
-    // NavigationActions().navigate("ChargerDetail");
-    // NavigationActions().navigate("NotAuthorized");
-    // NavigationActions().navigate("ChoosingCard");
+    // NavigationActions().navigate('ChargerDetail')
+    NavigationActions().navigate('NotAuthorized')
+    // NavigationActions().navigate('ChoosingCard')
     // NavigationActions().navigate("ChooseChargeMethod");
     // NavigationActions().navigate("Charging");
-    // NavigationActions().navigate("Favourites");
+    // NavigationActions().navigate('Favourites')
     // NavigationActions().navigate('Faq')
     // NavigationActions().navigate("Charging");
-    // NavigationActions().navigate("Tariffs");
+    // NavigationActions().navigate('Tariffs')
     // NavigationActions().navigate('Favorites')
     // NavigationActions().navigate('Contact')
-    // NavigationActions().navigate("Notifications");
+    // NavigationActions().navigate('Notifications')
+    // NavigationActions().navigate('Partners')
+    // NavigationActions().navigate('TransactionList')
 
     console.log(Defaults.token, 'App ready to boot')
   }

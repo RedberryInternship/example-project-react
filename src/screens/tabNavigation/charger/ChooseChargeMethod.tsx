@@ -1,50 +1,41 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {BaseHeader, BaseButton} from 'components'
 import {Const, Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const chargerDetail = ({navigation}: any) => {
+const ChargerDetail = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(chargerDetail, 'MainDrawer')}
+        onPressLeft={navigation.navigate.bind(ChargerDetail, 'MainDrawer')}
         title={'chooseChargeMethod.choose'}
       />
-      <View style={{justifyContent: 'space-between', flex: 1}}>
+      <View style={styles.innerContainer}>
         <Text style={styles.topInfoText}>
           {t('chooseChargeMethod.chooseChargeMethod')}
         </Text>
 
         <View>
           <BaseButton
-            onPress={navigation.navigate.bind(chargerDetail, 'ChoosingCard', {
+            onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
               type: 1,
             })}
             text={'chooseChargeMethod.untilTurnOff'}
-            style={{
-              marginTop: 0,
-              marginVertical: 16,
-              marginHorizontal: 0,
-              alignSelf: 'center',
-              width: Const.Width - 88,
-            }}
+            style={styles.untilTurnOffBtn}
           />
           <Text style={styles.orText}>{t('chooseChargeMethod.or')}</Text>
 
           <BaseButton
-            onPress={navigation.navigate.bind(chargerDetail, 'ChoosingCard', {
+            onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
               type: 0,
             })}
             text={'chooseChargeMethod.withEnteringPrice'}
-            style={{
-              marginTop: 16,
-              marginVertical: 16,
-              marginHorizontal: 0,
-              alignSelf: 'center',
-              width: Const.Width - 88,
-            }}
+            style={styles.withEnteringPriceBtn}
           />
         </View>
         <View />
@@ -58,6 +49,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground,
+  },
+  innerContainer: {
+    justifyContent: 'space-between',
+    flex: 1,
   },
   topInfoText: {
     color: Colors.primaryGray,
@@ -74,6 +69,20 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+  untilTurnOffBtn: {
+    marginTop: 0,
+    marginVertical: 16,
+    marginHorizontal: 0,
+    alignSelf: 'center',
+    width: Const.Width - 88,
+  },
+  withEnteringPriceBtn: {
+    marginTop: 16,
+    marginVertical: 16,
+    marginHorizontal: 0,
+    alignSelf: 'center',
+    width: Const.Width - 88,
+  },
 })
 
-export default chargerDetail
+export default ChargerDetail

@@ -6,7 +6,7 @@ import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
-import {HomeContext} from 'screens/tabNavigation/home'
+import {HomeContext} from 'screens/tabNavigation/Home'
 import {Coords, GoogleGetDirection} from 'allTypes'
 import i18next from 'i18next'
 import Axios from 'axios'

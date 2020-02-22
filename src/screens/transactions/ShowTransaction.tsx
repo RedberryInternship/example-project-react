@@ -1,95 +1,76 @@
-import React, {useEffect} from 'react'
+import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native'
-
+import {NavigationScreenProp, NavigationState} from 'react-navigation'
+import {TransactionListItemType} from './TransactionList'
 import {useTranslation} from 'react-i18next'
 
-// Vobi Todo: structure imports
 // components
 import {BaseHeader} from 'components'
 
 // utils
 import {Colors} from 'utils'
 
-type DetailsItemType = {
-  name: string
-  value: string
+// images
+import Imgs from '../../../assets/images'
+
+type NavigationStateType = {
+  params: TransactionListItemType
 }
 
-const DetailsItem = ({name, value}: DetailsItemType) => {
-  return (
-    <View style={styles.detailsItem}>
-      <Text style={styles.detailsItemName}>{name}: </Text>
-      <Text style={styles.detailsItemValue}>{value}</Text>
-    </View>
-  )
+type ShowTransactionsScreenPropsType = {
+  navigation: NavigationScreenProp<NavigationStateType & NavigationState>
 }
 
-const showTransactions = ({navigation}: any) => {
+const ShowTransactions = ({
+  navigation,
+}: ShowTransactionsScreenPropsType): ReactElement => {
   const {t} = useTranslation()
-  const params = navigation.state.params
-
-  useEffect(() => {
-    // Vobi Todo: Remove unused console logs it is synchronous
-    // Vobi Todo: And slows down event loop execution
-    console.log(params)
-  }, [])
+  const {
+    title,
+    date,
+    time,
+    price,
+    duration,
+    power,
+    energy,
+    address,
+    cardNumber,
+  } = navigation.state.params
 
   return (
     <View style={styles.container}>
       <BaseHeader
         title={'transactions.transactions'}
-        onPressLeft={() => navigation.goBack()}
+        onPressLeft={navigation.goBack}
       />
-      {/* Vobi Todo: You can just do onPressLeft={navigation.goBack} */}
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
-          <Image
-            /* Vobi Todo: Move images as Constants same as contact.tsx */
-            source={require('../../../assets/images/icons/transaction.png')}
-            style={styles.transactionIcon}
-          />
-          <Text style={styles.title}>{params.title}</Text>
-          {/* Vobi Todo: In this cases add destructuring */}
-          {/* Vobi Todo: https://hacks.mozilla.org/2015/05/es6-in-depth-destructuring/ */}
-          {/*
-            const {
-              date,
-              ...etc
-            } = params
-            and render like
-            <Text>{date}</Text>
-          */}
+          <Image source={Imgs.transaction} style={styles.transactionIcon} />
+          <Text style={styles.title}>{title}</Text>
           <Text style={styles.dateAndTime}>
             {' '}
-            {params.date} {params.time}
+            {date} {time}
           </Text>
-          <Text style={styles.price}>{params.price}</Text>
+          <Text style={styles.price}>{price}</Text>
         </View>
 
         <Text style={styles.detailsCopy}>{t('transactions.details')}</Text>
 
         <View style={styles.detailsContainer}>
-          <DetailsItem
-            name={t('transactions.duration')}
-            value={params.duration}
-          />
-          <DetailsItem name={t('transactions.power')} value={params.power} />
-          <DetailsItem name={t('transactions.energy')} value={params.energy} />
+          <DetailsItem name={t('transactions.duration')} value={duration} />
+          <DetailsItem name={t('transactions.power')} value={power} />
+          <DetailsItem name={t('transactions.energy')} value={energy} />
         </View>
 
-        {/* Vobi Todo: do not misname styles */}
-        <View style={styles.addressConatainer}>
-          <DetailsItem
-            name={t('transactions.address')}
-            value={params.address}
-          />
+        <View style={styles.addressFieldConatainer}>
+          <DetailsItem name={t('transactions.address')} value={address} />
         </View>
 
         <View style={styles.cardDetailsContainer}>
           <Text style={styles.cardNumberCopy}>
             {t('transactions.cardNumber')}
           </Text>
-          <Text style={styles.cardNumber}>{params.cardNumber}</Text>
+          <Text style={styles.cardNumber}>{cardNumber}</Text>
         </View>
       </View>
       <SafeAreaView />
@@ -97,7 +78,21 @@ const showTransactions = ({navigation}: any) => {
   )
 }
 
-export default showTransactions
+export default ShowTransactions
+
+type DetailsItemType = {
+  name: string
+  value: string
+}
+
+const DetailsItem = ({name, value}: DetailsItemType): ReactElement => {
+  return (
+    <View style={styles.detailsItem}>
+      <Text style={styles.detailsItemName}>{name}: </Text>
+      <Text style={styles.detailsItemValue}>{value}</Text>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -171,7 +166,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
     color: Colors.primaryBackground,
   },
-  addressConatainer: {
+  addressFieldConatainer: {
     borderBottomWidth: 1,
     borderBottomColor: Colors.primaryLightGrey,
     paddingLeft: 32,

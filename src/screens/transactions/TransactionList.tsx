@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {ScrollView, View, StyleSheet, SafeAreaView} from 'react-native'
 
 // components
@@ -7,16 +7,19 @@ import {BaseHeader, TransactionListItem} from 'components'
 // utils
 import {Colors} from 'utils'
 
-const transactionList = ({navigation}: any) => {
-  // Vobi Todo: No any types
+import {ScreenPropsWithNavigation} from 'allTypes'
 
+const TransactionList = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const transactions = transactionListContent.map(el => {
     return (
       <TransactionListItem
         key={el.title}
         // Vobi Todo: I can not see reason to use binding instead of arrow function
+        // Redbery: bind passes the reference to the function and arrow function does not
         onPress={navigation.navigate.bind(
-          transactionList,
+          TransactionList,
           'ShowTransaction',
           el,
         )}
@@ -29,7 +32,7 @@ const transactionList = ({navigation}: any) => {
     <View style={styles.container}>
       <BaseHeader
         title={'transactions.transactions'}
-        onPressLeft={navigation.navigate.bind(transactionList, 'MainDrawer')}
+        onPressLeft={navigation.navigate.bind(TransactionList, 'MainDrawer')}
       />
       <ScrollView style={styles.transactionsContainer}>
         {transactions}
@@ -39,7 +42,7 @@ const transactionList = ({navigation}: any) => {
   )
 }
 
-export default transactionList
+export default TransactionList
 
 const styles = StyleSheet.create({
   container: {
@@ -51,8 +54,20 @@ const styles = StyleSheet.create({
   },
 })
 
-// Vobi Todo: move this in constants
-const transactionListContent = [
+export type TransactionListItemType = {
+  title: string
+  date: string
+  time: string
+  price: string
+  duration: string
+  power: string
+  energy: string
+  address: string
+  cardNumber: string
+}
+
+// Dummy Content - For Now
+const transactionListContent: Array<TransactionListItemType> = [
   {
     title: 'მაჭახელა',
     date: '12/11/2020',

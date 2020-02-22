@@ -2,9 +2,11 @@ import React, {ReactElement} from 'react'
 
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 
-import {BaseButton} from '..'
+import {BaseButton} from 'components'
 
 import {Colors} from 'utils'
+
+import Imgs from '../../../assets/images'
 
 type FavouriteChargerItemProps = {
   title: string
@@ -24,18 +26,12 @@ const FavouriteChargerListItem = ({
       <View style={styles.innerLeftContainer}>
         <TouchableOpacity onPress={deleteItem}>
           <View style={styles.deleteButton}>
-            <Image
-              style={styles.deleteButtonImage}
-              source={require('../../../assets/images/icons/orange-trash.png')}
-            />
+            <Image style={styles.deleteButtonImage} source={Imgs.orangeTrash} />
           </View>
         </TouchableOpacity>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.addressContainer}>
-          <Image
-            style={styles.addressImage}
-            source={require('../../../assets/images/icons/ic_map_pin.png')}
-          />
+          <Image style={styles.addressImage} source={Imgs.mapPin} />
           <Text style={styles.addressTitle}>{address}</Text>
         </View>
       </View>
@@ -45,7 +41,7 @@ const FavouriteChargerListItem = ({
           text={'turnOn'}
           style={styles.customizedBaseButton}
           imageStyle={{tintColor: Colors.primaryBlue}}
-          image={require('../../../assets/images/icons/arrow_right.png')}
+          image={Imgs.arrowRight}
           textStyle={{color: Colors.primaryBlue}}
         />
       </View>

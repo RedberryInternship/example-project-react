@@ -69,13 +69,13 @@ export default {
       confirmed: 'Confirmed',
       notconfirmed: 'Not Confirmed',
 
-      notAdded: "Has Not Added",
+      notAdded: 'Has Not Added',
 
-      editFirstname: "Edit First Name",
-      newFirstname: "New First Name",
-      
-      editLasttname: "Edit Last Name",
-      newLastName: "New Last Name",
+      editFirstname: 'Edit First Name',
+      newFirstname: 'New First Name',
+
+      editLasttname: 'Edit Last Name',
+      newLastName: 'New Last Name',
 
       editPhoneNumber: 'Edit Phone Number',
       phoneNumber: 'Number',
@@ -164,8 +164,17 @@ export default {
       webPage: 'Web Page',
       message: 'Message',
     },
-    notifications:{
-      notifications: "Notifications"
+    notifications: {
+      notifications: 'Notifications',
+    },
+    transactions: {
+      transactions: 'Transactions',
+      details: 'Details',
+      duration: 'Duration',
+      power: 'Power',
+      energy: 'Energy',
+      address: 'Address',
+      cardNumber: 'Card Number',
     },
     dropDownAlert: {
       generalError: 'Error encountered',
@@ -184,31 +193,31 @@ export default {
         passwordNotEqual: 'Passwords not equal',
       },
       editFirstname: {
-        firstNameNotEmpty: "Please, Fill The First Name Field",
-        minSize: "First Name should be at least 3 characters long",
-        firstNameChangeSucess: "First Name Changed Successfully!",
+        firstNameNotEmpty: 'Please, Fill The First Name Field',
+        minSize: 'First Name should be at least 3 characters long',
+        firstNameChangeSucess: 'First Name Changed Successfully!',
       },
       editLastname: {
-        lastNameNotEmpty: "Please, Fill The Last Name Field",
-        minSize: "Last Name should be at least 3 characters long",
-        lastNameChangeSucess: "Last Name Changed Successfully!",
+        lastNameNotEmpty: 'Please, Fill The Last Name Field',
+        minSize: 'Last Name should be at least 3 characters long',
+        lastNameChangeSucess: 'Last Name Changed Successfully!',
       },
       editEmail: {
-        incorrectFormat: "Email Format is Incorrects",
-        editedSuccssesfully: "Email Edited Successfully"
+        incorrectFormat: 'Email Format is Incorrects',
+        editedSuccssesfully: 'Email Edited Successfully',
       },
       editPhoneNumber: {
-        success: "Phone Number Edited Successfully",
-        phoneTaken: "Phone Number Already Taken"
+        success: 'Phone Number Edited Successfully',
+        phoneTaken: 'Phone Number Already Taken',
       },
       editPassword: {
-        success: "Password Edited Successfully",
-        fillCurrentPassword: "Please, Fill Current Password Field",
-        fillRepetePassword: "Please, Fill Repete Password Filed",
-        fillNewPassword: "Please, Fill New Password Field",
-        minSize: "Password Field Should Contain At Least 8 Characters",
+        success: 'Password Edited Successfully',
+        fillCurrentPassword: 'Please, Fill Current Password Field',
+        fillRepetePassword: 'Please, Fill Repete Password Filed',
+        fillNewPassword: 'Please, Fill New Password Field',
+        minSize: 'Password Field Should Contain At Least 8 Characters',
         passwordsMismatch: "Passwords arn't identical",
-        passwordNotValid: "Current Password Was Not Correct"
+        passwordNotValid: 'Current Password Was Not Correct',
       },
       auth: {
         phoneNumberLength: 'The phone number should be exactly 9 digits long.',
@@ -227,15 +236,6 @@ export default {
         newPasswordIncorrectLength:
           'New password should contain at least 8 symbols',
         passwordChangedSuccessfully: 'Password changed successfully',
-      },
-      transactions: {
-        transactions: 'Transactions',
-        details: 'Details',
-        duration: 'Duration',
-        power: 'Power',
-        energy: 'Energy',
-        address: 'Address',
-        cardNumber: 'Card Number',
       },
       charging: {
         areUSore: 'Are you sore u want to finish',
