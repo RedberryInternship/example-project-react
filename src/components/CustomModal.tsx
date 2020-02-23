@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import Modal from 'react-native-modal'
 
@@ -9,6 +9,7 @@ import {
   LegendType2,
   ChargerModalMainWrapper,
   MapPopUp,
+  LocationPermission,
 } from 'components'
 
 type Data = {
@@ -26,11 +27,12 @@ type Config = {
 
 type InitialState = {
   visible: boolean
-  config: Config
+  config?: Config
 }
 
 export interface CustomModalInterface {
-  customUpdate: (visible: boolean, config: Config) => void
+  customUpdate: (visible: boolean, config?: Config) => void
+  state: InitialState
 }
 
 const initialState: InitialState = {
@@ -50,13 +52,13 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   state = {...initialState}
   ref: any = React.createRef()
 
-  showModal = () => {
+  showModal = (): void => {
     this.setState({
       visible: true,
     })
   }
 
-  closeModal = () => {
+  closeModal = (): void => {
     this.setState({
       visible: false,
     })
@@ -65,7 +67,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  customUpdate = (visible: boolean, config: Config) => {
+  customUpdate = (visible: boolean, config?: Config): void => {
     this.setState({
       ...initialState,
       visible,
@@ -73,7 +75,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  render() {
+  render(): ReactElement {
     return (
       <Modal
         isVisible={this.state.visible}
@@ -104,7 +106,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     )
   }
 
-  renderView = () => {
+  renderView = (): ReactElement => {
     switch (this.state.config.type) {
       case 1:
         return <RegistrationType1 onPress={this.closeModal} />
@@ -122,8 +124,16 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         return (
           <MapPopUp onPress={this.closeModal} data={this.state.config.data} />
         )
-      default:
-        break
+      case 5:
+        return (
+          <LocationPermission
+            onPress={this.closeModal}
+            data={this.state.config.data}
+          />
+        )
+      default: {
+        return <></>
+      }
     }
   }
 }

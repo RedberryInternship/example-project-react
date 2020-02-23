@@ -1,9 +1,9 @@
 import {useEffect, useRef} from 'react'
-import {Platform, Alert} from 'react-native'
+import {Platform} from 'react-native'
 import Defaults from './defaults'
 import AsyncStorage from '@react-native-community/async-storage'
 import firebase from 'react-native-firebase'
-// pluck values from your `GoogleService-Info.plist` you created on the firebase console
+
 const iosConfig = {
   clientId:
     '480798332479-e4nt83nh3en888jq8vdtaiqv40u1k07r.apps.googleusercontent.com',
@@ -18,7 +18,6 @@ const iosConfig = {
   persistence: true,
 }
 
-// pluck values from your `google-services.json` file you created on the firebase console
 const androidConfig = {
   clientId:
     '480798332479-tvo4q62f8eocb5vjqsad28rp4cs4qpf4.apps.googleusercontent.com',
@@ -101,7 +100,7 @@ const useFirebase = (): void => {
     try {
       await firebase.messaging().requestPermission()
       await firebase.messaging().ios.registerForRemoteNotifications()
-      // User has authorised
+      // User has authorized
       getToken()
     } catch (error) {
       // User has rejected permissions

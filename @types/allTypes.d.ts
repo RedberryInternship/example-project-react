@@ -88,7 +88,7 @@ type ChargerFastChargingPrices = {
 }
 
 export type AppState = {
-  user: Record<string, any> | null
+  user: string | null
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null

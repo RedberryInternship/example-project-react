@@ -63,6 +63,13 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     Defaults.locationPermissionStatus = status
     if (status.match(/notDetermined/)) {
       requestPermission()
+    } else if (
+      status.match(
+        /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
+      )
+    ) {
+      if (Defaults.modal.current?.state?.config?.type === 5)
+        Defaults.modal.current?.customUpdate(false)
     }
   }
 

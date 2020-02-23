@@ -14,7 +14,7 @@ import {
 } from 'components'
 import {Defaults} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/Home'
-import {View} from 'react-native'
+import {View, Alert} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 
@@ -83,14 +83,9 @@ const HomeComponentItems = ({
         <OnMapRoundButton
           style={{right: 24, bottom: 138, backgroundColor: '#FFFFFF'}}
           onPress={(): void => {
-            Defaults.modal.current &&
-              Defaults.modal.current.customUpdate.bind(
-                HomeComponentItems,
-                true,
-                {
-                  type: 2,
-                },
-              )
+            Defaults.modal.current?.customUpdate(true, {
+              type: 2,
+            })
           }}
           image={require('../../../assets/images/icons/ic_alert-circle.png')}
         />

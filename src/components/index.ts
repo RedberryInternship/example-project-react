@@ -79,6 +79,7 @@ import RegistrationType1 from './modalTypes/RegistrationType1'
 import LegendType2 from './modalTypes/LegendType2'
 import ChargerModalMainWrapper from './modalTypes/ChargerModalMainWrapper'
 import MapPopUp from './modalTypes/MapPopUp'
+import LocationPermission from './modalTypes/LocationPermission'
 
 export {
   MapView,
@@ -148,4 +149,5 @@ export {
   BaseNativeTouchable,
   BaseText,
   BaseCheckbox,
+  LocationPermission,
 }
