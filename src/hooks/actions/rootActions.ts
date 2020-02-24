@@ -61,7 +61,7 @@ export const getAllChargers = (dispatch: any): void => {
       dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
     })
     .catch(() => {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         i18n.t('dropDownAlert.generalError'),
       )
@@ -74,7 +74,7 @@ export const getFavoriteChargers = (dispatch: any): void => {
       dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
     })
     .catch(() => {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         i18n.t('dropDownAlert.generalError'),
       )
@@ -87,14 +87,14 @@ export const addToFavorites = (payload: number, dispatch: any): void => {
       if (status) {
         getFavoriteChargers(dispatch)
       } else {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18n.t('dropDownAlert.generalError'),
         )
       }
     })
     .catch(() => {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         i18n.t('dropDownAlert.generalError'),
       )
@@ -107,14 +107,14 @@ export const deleteToFavorites = (payload: number, dispatch: any) => {
       if (status) {
         getFavoriteChargers(dispatch)
       } else {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18n.t('dropDownAlert.generalError'),
         )
       }
     })
     .catch(() => {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         i18n.t('dropDownAlert.generalError'),
       )

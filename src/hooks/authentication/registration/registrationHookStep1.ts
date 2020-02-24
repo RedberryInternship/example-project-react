@@ -13,9 +13,9 @@ export default (setActivePage: any, t: any) => {
   const _this: RefObject<any> = useRef({phone: '', code: ''})
 
   const phoneInputSubmit = () => {
-    let {phone} = _this.current
+    const {phone} = _this.current
     if (phone == '')
-      return Defaults.dropdown.alertWithType(
+      return Defaults.dropdown?.alertWithType(
         'error',
         'please, Fill Phone number',
       )
@@ -26,7 +26,7 @@ export default (setActivePage: any, t: any) => {
       .then(({json_status}: any) => {
         if (json_status == 'SMS Sent') {
           codeRef.current && codeRef.current.focus()
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'success',
             t('dropDownAlert.registration.codeSentSuccessfully'),
           )
@@ -35,12 +35,12 @@ export default (setActivePage: any, t: any) => {
       .catch((error: any) => {
         if (error) {
           /* TODO */
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.generalError'),
           )
         } else {
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.generalError'),
           )
@@ -49,7 +49,7 @@ export default (setActivePage: any, t: any) => {
   }
 
   const verifyCode = () => {
-    let {code, phone} = _this.current
+    const {code, phone} = _this.current
     Ajax.post('/verify-code', {phone_number: phone, code})
       .then(({status}: any) => {
         if (status == 200) {
@@ -58,17 +58,17 @@ export default (setActivePage: any, t: any) => {
       })
       .catch((error: any) => {
         if (error.data.status === 401) {
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.registration.incorrectCode'),
           )
         } else if (error.data.status === 409) {
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.registration.phoneAlreadyToken'),
           )
         } else {
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.generalError'),
           )
@@ -77,19 +77,19 @@ export default (setActivePage: any, t: any) => {
   }
 
   const buttonClickHandler = () => {
-    let {code, phone} = _this.current
+    const {code, phone} = _this.current
 
     console.log(phone, code, 'phone')
 
     if (phone == '') {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.registration.fillPhoneNumber'),
       )
     } else if (code == '') {
       phoneInputSubmit()
     } else if (code.length != 4) {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.registration.codeLengthError'),
       )

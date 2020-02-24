@@ -19,7 +19,7 @@ import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 
 type HomeComponentItemsProps = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+  navigation?: NavigationScreenProp<NavigationState, NavigationParams>
   allchargers: Charger[]
   mapRef: MapImperativeRefObject
   selectedFiltersOnMap: number[]

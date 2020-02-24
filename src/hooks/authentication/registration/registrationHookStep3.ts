@@ -19,8 +19,8 @@ type RegisterSuccess = {
   token: string
 }
 type RegisterError = {
-  email: Array<String>
-  phone_number: Array<String>
+  email: Array<string>
+  phone_number: Array<string>
 }
 
 export default (
@@ -36,9 +36,9 @@ export default (
   const _this: RefObject<any> = useRef({password: '', confirmedPassword: ''})
 
   const postData = () => {
-    let {password: _password} = _this.current
-    let {phone} = regStep1._this.current
-    let {name, surname, email} = regStep2._this.current
+    const {password: _password} = _this.current
+    const {phone} = regStep1._this.current
+    const {name, surname, email} = regStep2._this.current
 
     Ajax.post('/register', {
       first_name: name,
@@ -54,11 +54,11 @@ export default (
       })
       .catch(error => {
         if (typeof error.data === 'string') {
-          let data: RegisterError = JSON.parse(error.data)
+          const data: RegisterError = JSON.parse(error.data)
 
           if (Object.prototype.hasOwnProperty.call(data, 'email')) {
             if (data.email[0] == 'The email has already been taken.') {
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.registration.emailAlreadyToken'),
               )
@@ -68,7 +68,7 @@ export default (
               )
               setActivePage(1)
             } else {
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.generalError'),
               )
@@ -79,7 +79,7 @@ export default (
             if (
               data.phone_number[0] == 'The phone number has already been taken.'
             ) {
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.registration.phoneAlreadyToken'),
               )
@@ -88,19 +88,19 @@ export default (
               )
               setActivePage(0)
             } else {
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.generalError'),
               )
             }
           } else {
-            Defaults.dropdown.alertWithType(
+            Defaults.dropdown?.alertWithType(
               'error',
               t('dropDownAlert.generalError'),
             )
           }
         } else {
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.generalError'),
           )
@@ -114,7 +114,7 @@ export default (
   }
 
   const buttonClickHandler = () => {
-    let {
+    const {
       password: _password,
       confirmedPassword: _confirmedPassword,
     } = _this.current
@@ -122,9 +122,12 @@ export default (
     console.log(_password, _confirmedPassword, 'password, confirmedPassword,')
 
     if (_password != _confirmedPassword) {
-      Defaults.dropdown.alertWithType('error', 'dropDownAlert.passwordNotEqual')
+      Defaults.dropdown?.alertWithType(
+        'error',
+        'dropDownAlert.passwordNotEqual',
+      )
     } else if (_password.length < 8) {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         'dropDownAlert.minPasswordTextLength',
       )

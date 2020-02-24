@@ -217,7 +217,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
-      Defaults.dropdown.alertWithType(type, t(text))
+      Defaults.dropdown?.alertWithType(type, t(text))
     },
 
     resetFields: (): void => {

@@ -113,7 +113,7 @@ export default (
     ) {
       const status = await locationConfig.requestPermission()
       if (!status) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.generalError'),
         )
@@ -134,10 +134,10 @@ export default (
       Ajax.post('/add-favorite', {charger_id: charger?.charger_id})
         .then(() => {
           getFavoriteChargers(context.dispatch)
-          Defaults.dropdown.alertWithType('success', 'დაემატა წარმატებით')
+          Defaults.dropdown?.alertWithType('success', 'დაემატა წარმატებით')
         })
         .catch(() => {
-          Defaults.dropdown.alertWithType('error', 'დაფიქსიდა შეცდომა')
+          Defaults.dropdown?.alertWithType('error', 'დაფიქსიდა შეცდომა')
         })
   }
 

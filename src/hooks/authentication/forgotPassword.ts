@@ -38,21 +38,21 @@ export default (navigation: any) => {
         .catch(e => {
           switch (e.status) {
             case 401:
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.registration.incorrectCode'),
               )
               return
 
             case 409:
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.forgotPassword.userNotFound'),
               )
               return
 
             case 440:
-              Defaults.dropdown.alertWithType(
+              Defaults.dropdown?.alertWithType(
                 'error',
                 t('dropDownAlert.forgotPassword.smsCodeExpired'),
               )
@@ -82,14 +82,14 @@ export default (navigation: any) => {
     })
       .then(() => {
         codeRef.current.startCodeAnimation()
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'success',
           t('dropDownAlert.registration.codeSentSuccessfully'),
         )
         setDisableCodeInput(false)
       })
       .catch(() => {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.generalError'),
         )
@@ -124,13 +124,13 @@ export default (navigation: any) => {
   const validation = {
     validateCode: (): boolean => {
       if (_this.current.code.length === 0) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.forgotPassword.fillCode'),
         )
         return false
       } else if (_this.current.code.length !== 4) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.forgotPassword.smsCodeLength'),
         )
@@ -142,12 +142,12 @@ export default (navigation: any) => {
 
     validateOnGeorgianPhoneCode: () => {
       if (_this.current!.phone.length < 5) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.registration.fillPhoneNumber'),
         )
       } else if (_this.current!.phone.length - 4 !== 9) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.auth.phoneNumberLength'),
         )
@@ -168,7 +168,7 @@ export default (navigation: any) => {
             withGetSmsVerificationAlert &&
             receiveCodeButtonClicked === false
           ) {
-            Defaults.dropdown.alertWithType(
+            Defaults.dropdown?.alertWithType(
               'error',
               t('dropDownAlert.forgotPassword.getVerificationCode'),
             )

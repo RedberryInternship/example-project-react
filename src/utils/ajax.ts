@@ -45,7 +45,7 @@ class Ajax {
             if (error.response && error.response.status === 401) {
               AsyncStorage.clear()
             }
-            // Defaults.dropdown && Defaults.dropdown.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
+            // Defaults.dropdown && Defaults.dropdown?.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
             else this.logResponse(method, url, headers, error.response)
             reject(error.response)
           })

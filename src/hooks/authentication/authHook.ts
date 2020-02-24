@@ -57,7 +57,7 @@ export default (navigation: any, dispatch: any) => {
         })
         .catch((userErroredData: userErroredData) => {
           console.log(['[Exception] User Errored Data', userErroredData])
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.auth.userNotFound'),
           )
@@ -84,7 +84,7 @@ export default (navigation: any, dispatch: any) => {
 
   const passwordInputSubmit = () => {
     if (_this.current!.password === '') {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.auth.passworNotEmpty'),
       )
@@ -119,13 +119,13 @@ export default (navigation: any, dispatch: any) => {
   const validate = {
     validateOnGeorgianPhoneCode: () => {
       if (_this.current!.phone.length < 5) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.registration.fillPhoneNumber'),
         )
         return false
       } else if (_this.current!.phone.length - 4 !== 9) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.auth.phoneNumberLength'),
         )

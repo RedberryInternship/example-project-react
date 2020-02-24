@@ -124,7 +124,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
           navigateByRef(latestLocation.latitude, latestLocation.longitude)
         }
       } catch (error) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18next.t('dropDownAlert.generalError'),
         )
@@ -187,12 +187,12 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       })
     } catch (error) {
       if (error === 'ERROR')
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18next.t('dropDownAlert.generalError'),
         )
       else if (error === 'ZERO_RESULTS')
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18next.t('dropDownAlert.home.noRouteFound'),
         )
@@ -208,7 +208,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
         10000,
       )
     } catch (error) {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         i18next.t('dropDownAlert.generalError'),
       )

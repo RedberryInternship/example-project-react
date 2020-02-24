@@ -27,14 +27,18 @@ const App = () => {
           <Navigation
             ref={ref => hook.setNavigationTopLevelElement(ref)}
             screenProps={{token: Defaults.token}}
+            onNavigationStateChange={(_, state) => {
+              Defaults.activeRoute = hook.getCurrentRoute(state)
+            }}
           />
         </AppContext.Provider>
 
         <StatusBar barStyle="light-content" />
         <DropdownAlert
-          // errorColor={Colors.errorColor}
-          // infoColor={Colors.infoColor}
-          // inactiveStatusBarBackgroundColor={"#fb634f"}
+          translucent={true}
+          useNativeDriver={true}
+          inactiveStatusBarBackgroundColor={'transparent'}
+          inactiveStatusBarStyle={hook.dropDownInactiveBarColor()}
           ref={ref => (Defaults.dropdown = ref)}
           testID={'dropdownAlert'}
           titleStyle={{fontSize: 14, color: 'white'}}
