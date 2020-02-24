@@ -6,7 +6,7 @@ import * as Const from './const'
 import GNOME from './GNOME'
 import NavigationActions from './navigation.service'
 import i18n, {getLocaleText} from './localization/localization'
-import location from './mapAndLocation/location'
+import locationConfig from './mapAndLocation/location'
 import {regionFrom, determineTimePeriod} from './mapAndLocation/mapFunctions'
 import mapStyles from './mapAndLocation/mapStyle'
 import mapStyle2 from './mapAndLocation/mapStyle2'
@@ -22,7 +22,7 @@ export {
   NavigationActions,
   i18n,
   getLocaleText,
-  location,
+  locationConfig,
   regionFrom,
   Const,
   mapStyles,

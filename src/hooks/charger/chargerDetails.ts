@@ -14,11 +14,12 @@ import {
   NavigationParams,
   NavigationEventPayload,
 } from 'react-navigation'
-import {Ajax, Defaults} from 'utils'
+import {Ajax, Defaults, locationConfig} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import Axios from 'axios'
 import {getFavoriteChargers} from '../actions/rootActions'
+import i18next from 'i18next'
 
 type _This = {
   charger: Charger | undefined
@@ -91,9 +92,6 @@ export default (
 
     navigation.setParams({chargerDetails: null})
 
-    console.log('====================================')
-    console.log(params, 'params, chargerDetails')
-    console.log('====================================')
     if (params?.chargerDetails !== undefined) {
       setCharger(params?.chargerDetails)
     }
@@ -107,7 +105,21 @@ export default (
     })
   }
 
-  const chargerLocationDirectionHandler = (): void => {
+  const chargerLocationDirectionHandler = async (): Promise<void> => {
+    if (
+      Defaults.locationPermissionStatus?.match(
+        /denied|restricted|notDetermined/,
+      )
+    ) {
+      const status = await locationConfig.requestPermission()
+      if (!status) {
+        Defaults.dropdown.alertWithType(
+          'error',
+          t('dropDownAlert.generalError'),
+        )
+        return
+      }
+    }
     navigation.navigate('Home', {
       mode: HomeNavigateModes.showRoutesToCharger,
       lat: charger?.lat,

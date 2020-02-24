@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef, useContext, RefObject} from 'react'
 import {regionFrom, Defaults, Const, Ajax} from 'utils'
-import Config from '../../src/utils/mapAndLocation/location'
+import {locationConfig} from 'utils'
 import polyline from '@mapbox/polyline'
 import RNLocation, {
   Location,
@@ -12,11 +12,13 @@ import i18next from 'i18next'
 import Axios from 'axios'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import MapView from 'react-native-maps'
-
+import {Alert, Platform} from 'react-native'
+import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box'
 type ThisRef = {
   interval: number
   location: Location | null
   permissionStatus: LocationPermissionStatus | null
+  GPSEnabled: boolean
 }
 const ZOOM_LEVEL = 400
 
@@ -36,22 +38,23 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     interval: 0,
     location: null,
     permissionStatus: null,
+    GPSEnabled: false,
   })
 
   useEffect(() => {
-    RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
+    try {
+      RNLocation.getCurrentPermission().then(getPermissionStatus)
+      RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
+    } catch (error) {}
 
-    RNLocation.getCurrentPermission().then(getPermissionStatus)
-
-    // let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
       subscribePermissionUpdate,
     )
 
     return (): void => {
-      // subscribedLocation()
       subscribedPermissionUpdate()
       clearInterval(_this.current.interval)
+      LocationServicesDialogBox.stopListener()
     }
   }, [])
 
@@ -71,6 +74,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)
     }
+    console.log('====================================')
+    console.log(status, ' LocationPermissionStatus')
+    console.log('====================================')
   }
 
   const getLatestLocation = (_location: Location | null): void => {
@@ -82,11 +88,15 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     setPermissionStatus(status)
     _this.current.permissionStatus = status
     Defaults.locationPermissionStatus = status
-    if (!status.match(/denied|restricted/)) {
+    if (!status.match(/denied|restricted|notDetermined/)) {
       navigateToLocation()
     } else if (status.match(/notDetermined/)) {
-      requestPermission()
+      // requestPermission()
     }
+
+    console.log('====================================')
+    console.log(status, 'getPermissionStatus LocationPermissionStatus')
+    console.log('====================================')
   }
 
   const navigateToLocation = async (
@@ -100,13 +110,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       )
     } else {
       try {
-        if (
-          _this.current.permissionStatus?.match(
-            /denied|restricted|notDetermined/,
-          )
-        ) {
-          const permission = await Config.requestPermission
-          if (!permission) getLocationViaIP()
+        const permission = await locationConfig.requestPermission()
+        if (!permission) {
+          getLocationViaIP()
           return
         }
         const latestLocation: Location | null = await RNLocation.getLatestLocation(
@@ -114,7 +120,6 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
             timeout: 6000,
           },
         )
-
         if (latestLocation != null) {
           navigateByRef(latestLocation.latitude, latestLocation.longitude)
         }
@@ -128,9 +133,8 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   }
 
   const requestPermission = async (): Promise<any> => {
-    Config.requestPermission.then(granted => {
-      if (granted) navigateToLocation()
-    })
+    const status = await locationConfig.requestPermission()
+    if (status) navigateToLocation()
   }
 
   const navigateByRef = (
