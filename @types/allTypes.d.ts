@@ -210,12 +210,6 @@ export type Favorite = {
   }
 }
 
-export type ProfileFieldChange = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-  clicked: boolean
-  setClicked: (status: boolean) => void
-}
-
 export type GoogleGetDirection = {
   routes: GoogleRoutes[]
   status: string
