@@ -3,6 +3,9 @@ import {StyleSheet, Text, View, Image} from 'react-native'
 import {Colors} from 'utils'
 import {BaseButton} from 'components'
 
+// images
+import Imgs from '../../../assets/images'
+
 type ChargerItemProps = {
   code: string | undefined
   address: string | undefined
@@ -19,10 +22,7 @@ const ChargerItem = ({
       <View style={styles.codeTextContainer}>
         <Text style={styles.codeText}>#{code}</Text>
         <View style={styles.addressContainer}>
-          <Image
-            source={require('../../../assets/images/icons/ic_map_pin.png')}
-            style={styles.addressImage}
-          />
+          <Image source={Imgs.mapPin} style={styles.addressImage} />
           <Text style={styles.addressText} numberOfLines={1}>
             {address}
           </Text>
@@ -33,7 +33,7 @@ const ChargerItem = ({
         text={'next'}
         style={styles.buttonStyle}
         imageStyle={{tintColor: Colors.primaryBlue}}
-        image={require('../../../assets/images/icons/arrow_right.png')}
+        image={Imgs.arrowRight}
         textStyle={{color: Colors.primaryBlue}}
       />
     </View>

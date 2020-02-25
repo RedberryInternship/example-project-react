@@ -5,18 +5,11 @@ import {MapView, HomeComponentItems, BottomSheetReanimated} from 'components'
 import {Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
 import {useHomeHook} from 'hooks'
-import {
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-} from 'react-navigation'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
 export const HomeContext = createContext({})
 
-type HomeProps = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-}
-const Home = ({navigation}: HomeProps): ReactElement => {
+const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const hook = useHomeHook(navigation)

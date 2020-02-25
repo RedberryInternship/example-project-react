@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, ReactElement} from 'react'
 import {
   StyleSheet,
   View,
@@ -20,8 +20,12 @@ import {useRegistrationHook} from 'hooks'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {AppContext} from '../../../App'
 import {useSafeArea} from 'react-native-safe-area-context'
+import {ScreenPropsWithNavigation} from 'allTypes'
+import Imgs from '../../../assets/images'
 
-const registration = ({navigation}: any) => {
+const Registration = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const {dispatch} = useContext(AppContext)
   const insets = useSafeArea()
 
@@ -51,7 +55,7 @@ const registration = ({navigation}: any) => {
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(registration, 'Auth')}
+        onPressLeft={navigation.navigate.bind(Registration, 'Auth')}
         title={'authentication.registration.registration'}
         titleRight={'authentication.registration.skip'}
         onPressRight={hook.activePage === 3 ? hook.headerRightClick : undefined}
@@ -61,8 +65,8 @@ const registration = ({navigation}: any) => {
         activePage={hook.activePage}
       />
       <KeyboardAwareScrollView
-        style={{flex: 0, marginVertical: 16}}
-        contentContainerStyle={{justifyContent: 'flex-start', flex: 0}}
+        style={styles.keyboardAwareScrollView}
+        contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
         keyboardShouldPersistTaps={'handled'}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
@@ -74,33 +78,33 @@ const registration = ({navigation}: any) => {
         ref={hook.KeyboardAwareScrollViewRef}>
         <FlatList
           pagingEnabled={true}
-          style={{flex: 0, flexGrow: 1}}
+          style={styles.flatList}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{flexGrow: 1, flex: 0}}
+          contentContainerStyle={styles.flatListContentContainer}
           ref={hook.flatListRef}
           keyboardShouldPersistTaps={'handled'}
           scrollEnabled={false}
           data={pages}
-          renderItem={({item}) => item}
+          renderItem={({item}): ReactElement => item}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
         behavior={'padding'}
-        style={{}}
-        contentContainerStyle={{flex: 1}}
+        contentContainerStyle={styles.keyboardAvoidingView}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
         <BaseButton
           onPress={hook.registrationStepHandler}
           text={'enter'}
-          image={require('../../../assets/images/icons/arrow_right.png')}
-          style={{marginTop: 0}}
-          imageStyle={{width: 21, height: 21}}
+          image={Imgs.arrowRight}
+          style={styles.baseButton}
+          imageStyle={styles.baseButtonImageStyle}
         />
       </KeyboardAvoidingView>
     </View>
   )
 }
+export default Registration
 
 const styles = StyleSheet.create({
   container: {
@@ -109,6 +113,30 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: Colors.primaryBackground,
   },
+  keyboardAwareScrollView: {
+    flex: 0,
+    marginVertical: 16,
+  },
+  keyboardAwareScrollViewContentContainer: {
+    justifyContent: 'flex-start',
+    flex: 0,
+  },
+  flatList: {
+    flex: 0,
+    flexGrow: 1,
+  },
+  flatListContentContainer: {
+    flexGrow: 1,
+    flex: 0,
+  },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
+  baseButton: {
+    marginTop: 0,
+  },
+  baseButtonImageStyle: {
+    width: 21,
+    height: 21,
+  },
 })
-
-export default registration

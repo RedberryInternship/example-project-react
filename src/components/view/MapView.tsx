@@ -34,7 +34,6 @@ const _mapView = forwardRef(
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}
-          // onKmlReady={()=>{}}
           onMapReady={hook.mapReady}
           showsUserLocation
           showsPointsOfInterest

@@ -1,18 +1,18 @@
-import React, {useState} from 'react'
+import React, {useState, ReactElement} from 'react'
 import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native'
 import {BaseHeader, ChargingView} from 'components'
 import {Colors} from 'utils'
 import {TabView} from 'react-native-tab-view'
-// import {useChargingHook} from '/src/hooks'
 import Animated from 'react-native-reanimated'
 import {useChargingHook} from 'hooks'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const charging = ({navigation}: any) => {
+const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const hook = useChargingHook(navigation)
 
   const [routes] = useState(navigation.getParam('tabsArray', ['']))
 
-  const renderScene = ({route}: any) => {
+  const renderScene = ({route}: any): ReactElement => {
     return <ChargingView hook={hook} routeKey={route.key} />
   }
 
@@ -107,7 +107,7 @@ const charging = ({navigation}: any) => {
   return (
     <View style={[styles.container]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(charging, 'ChargerWithCode')}
+        onPressLeft={navigation.navigate.bind(Charging, 'ChargerWithCode')}
         title={'charging.charge'}
       />
       {routes.length === 1 ? (
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default charging
+export default Charging

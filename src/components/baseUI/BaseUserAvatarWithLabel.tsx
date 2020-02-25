@@ -10,15 +10,15 @@ import {
 } from 'react-native'
 
 import {Colors} from 'utils'
+import Imgs from '../../../assets/images'
 
 type AvatarWithLabel = {
   onPress: (event?: GestureResponderEvent) => void | undefined
   firstName: string
   lastName: string
 }
-const userDefaultIcon = require('../../../assets/images/icons/green-user.png')
 
-const userAvatarWithLabel = ({
+const UserAvatarWithLabel = ({
   onPress,
   firstName,
   lastName,
@@ -26,15 +26,12 @@ const userAvatarWithLabel = ({
   return (
     <View style={[styles.container]}>
       <View style={styles.imageContainer}>
-        <Image source={userDefaultIcon} style={styles.image} />
+        <Image source={Imgs.greenUser} style={styles.image} />
         <TouchableOpacity
           onPress={onPress}
           style={styles.editButton}
           hitSlop={{left: 10, top: 10, bottom: 10, right: 10}}>
-          <Image
-            source={require('../../../assets/images/icons/blue-pencil.png')}
-            style={styles.editButtonImage}
-          />
+          <Image source={Imgs.bluePencil} style={styles.editButtonImage} />
         </TouchableOpacity>
       </View>
 
@@ -46,7 +43,7 @@ const userAvatarWithLabel = ({
   )
 }
 
-export default userAvatarWithLabel
+export default UserAvatarWithLabel
 
 const styles = StyleSheet.create({
   container: {
@@ -55,7 +52,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryDark,
     alignItems: 'center',
     flexDirection: 'row',
-    // justifyContent: "space-evenly"
   },
 
   imageContainer: {

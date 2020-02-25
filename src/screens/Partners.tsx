@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
 
 // components
@@ -7,76 +7,41 @@ import {BaseHeader} from 'components'
 // utils
 import {Colors} from 'utils'
 
-// Vobi Todo: Component Naming
-const partners = ({navigation}: any) => {
-  // Vobi Todo: No any types
+// images
+import {Partners as PartnersImgs} from '../../assets/images'
 
+import {ScreenPropsWithNavigation} from 'allTypes'
+
+const Partners = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   return (
     <View style={styles.container}>
       <BaseHeader
         title={'partners.partnerOrganizations'}
-        onPressLeft={navigation.navigate.bind(partners, 'MainDrawer')}
+        onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
-      {/* Vobi Todo: Badly formated Code use eslint */}
       <View style={styles.partnersInnerContainer}>
         <View style={styles.partnersRowContainer}>
-          <Image
-            source={require('../../assets/images/icons/partners/socar.png')}
-            style={{width: 80, height: 19}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/gulf.png')}
-            style={{width: 45, height: 41}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/neogas.png')}
-            style={{width: 82, height: 26}}
-          />
+          <Image source={PartnersImgs.socar} style={{width: 80, height: 19}} />
+          <Image source={PartnersImgs.gulf} style={{width: 45, height: 41}} />
+          <Image source={PartnersImgs.neogas} style={{width: 82, height: 26}} />
         </View>
 
         <View style={styles.partnersRowContainer}>
-          <Image
-            source={require('../../assets/images/icons/partners/m2.png')}
-            style={{width: 87, height: 25}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/wissol.png')}
-            style={{width: 41, height: 37}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/bog.png')}
-            style={{width: 83, height: 14}}
-          />
+          <Image source={PartnersImgs.bog} style={{width: 87, height: 25}} />
+          <Image source={PartnersImgs.wissol} style={{width: 41, height: 37}} />
+          <Image source={PartnersImgs.bog} style={{width: 83, height: 14}} />
         </View>
 
         <View style={styles.partnersRowContainer}>
-          <Image
-            source={require('../../assets/images/icons/partners/socar.png')}
-            style={{width: 80, height: 19}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/gulf.png')}
-            style={{width: 45, height: 41}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/neogas.png')}
-            style={{width: 82, height: 26}}
-          />
+          <Image source={PartnersImgs.socar} style={{width: 80, height: 19}} />
+          <Image source={PartnersImgs.gulf} style={{width: 45, height: 41}} />
+          <Image source={PartnersImgs.neogas} style={{width: 82, height: 26}} />
         </View>
 
         <View style={styles.partnersRowContainer}>
-          <Image
-            source={require('../../assets/images/icons/partners/m2.png')}
-            style={{width: 87, height: 25}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/wissol.png')}
-            style={{width: 41, height: 37}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/bog.png')}
-            style={{width: 83, height: 14}}
-          />
+          <Image source={PartnersImgs.m2} style={{width: 87, height: 25}} />
+          <Image source={PartnersImgs.wissol} style={{width: 41, height: 37}} />
+          <Image source={PartnersImgs.bog} style={{width: 83, height: 14}} />
         </View>
       </View>
       <SafeAreaView />
@@ -84,7 +49,7 @@ const partners = ({navigation}: any) => {
   )
 }
 
-export default partners
+export default Partners
 
 const styles = StyleSheet.create({
   container: {

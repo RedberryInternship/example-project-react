@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {ScrollView, StyleSheet, View, SafeAreaView} from 'react-native'
 
 // components
@@ -6,10 +6,12 @@ import {BaseHeader, NotificationListItem} from 'components'
 
 // utils
 import {Colors} from 'utils'
-// Vobi Todo: Component Naming
-const notifications = ({navigation}: any) => {
-  // Vobi Todo: No any types
 
+import {ScreenPropsWithNavigation} from 'allTypes'
+
+const Notifications = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const notificationItems = notificationsList.map(el => {
     return <NotificationListItem key={el.title} {...el} />
   })
@@ -18,7 +20,7 @@ const notifications = ({navigation}: any) => {
     <View style={styles.container}>
       <BaseHeader
         title={'notifications.notifications'}
-        onPressLeft={() => navigation.navigate('MainDrawer')}
+        onPressLeft={navigation.navigate.bind(Notifications, 'MainDrawer')}
       />
       <ScrollView style={styles.scrollViewContainer}>
         {notificationItems}
@@ -28,7 +30,7 @@ const notifications = ({navigation}: any) => {
   )
 }
 
-export default notifications
+export default Notifications
 
 const styles = StyleSheet.create({
   container: {

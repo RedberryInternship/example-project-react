@@ -14,13 +14,14 @@ import {
 } from 'components'
 import {Defaults} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/Home'
-import {View, Alert} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
+import Imgs from '../../../assets/images'
 
 type HomeComponentItemsProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
-  allchargers: Charger[]
+  allChargers: Charger[]
   mapRef: MapImperativeRefObject
   selectedFiltersOnMap: number[]
   onFilterClickOnMap: (index: number) => void
@@ -29,7 +30,7 @@ type HomeComponentItemsProps = {
 }
 const HomeComponentItems = ({
   navigation,
-  allchargers,
+  allChargers,
   mapRef,
   selectedFiltersOnMap,
   onFilterClickOnMap,
@@ -42,52 +43,41 @@ const HomeComponentItems = ({
 
   return (
     <View
-      style={{position: 'relative', flex: 1, paddingTop: insets.top}}
+      style={[styles.container, {paddingTop: insets.top}]}
       pointerEvents={'box-none'}>
       {Defaults.token ? null : (
         <BaseButton
-          image={require('../../../assets/images/icons/user.png')}
+          image={Imgs.user}
           onPress={navigation.navigate.bind(HomeComponentItems, 'Auth')}
           text={'home.authorization'}
-          style={{marginTop: 12}}
+          style={styles.authorizeBtn}
         />
       )}
-      <View
-        style={{zIndex: 44, elevation: 12, height: 100, flex: 1}}
-        pointerEvents={'box-none'}>
+      <View style={styles.onMapRoundContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
-          style={{
-            backgroundColor: '#FFFFFF',
-            width: 38,
-            height: 38,
-            borderRadius: 19,
-            position: 'absolute',
-            marginTop: 60,
-            right: 24,
-            alignSelf: 'flex-end',
-          }}
+          style={styles.onMapRoundBtn}
           onPress={(): void => {
             mapRef.current?.locate()
           }}
           image={context.state.locationImageType}
-          imageStyle={{width: 24, height: 24}}
+          imageStyle={styles.onMapRoundImage}
         />
         <HomeMainInputView
-          allChargers={allchargers}
+          allChargers={allChargers}
           mapRef={mapRef}
           setShowAll={setShowAll}
           ref={mainInputRef}
         />
       </View>
-      <View style={{flex: 0}} pointerEvents={'box-none'}>
+      <View style={styles.modalContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
-          style={{right: 24, bottom: 138, backgroundColor: '#FFFFFF'}}
+          style={styles.modalOnMapRound}
           onPress={(): void => {
             Defaults.modal.current?.customUpdate(true, {
               type: 2,
             })
           }}
-          image={require('../../../assets/images/icons/ic_alert-circle.png')}
+          image={Imgs.alertCircle2}
         />
         <HomeFilterView
           context={context}
@@ -102,3 +92,41 @@ const HomeComponentItems = ({
 }
 
 export default withNavigation(HomeComponentItems)
+
+const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    flex: 1,
+  },
+  authorizeBtn: {
+    marginTop: 12,
+  },
+  onMapRoundContainer: {
+    zIndex: 44,
+    elevation: 12,
+    height: 100,
+    flex: 1,
+  },
+  onMapRoundBtn: {
+    backgroundColor: '#FFFFFF',
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    position: 'absolute',
+    marginTop: 60,
+    right: 24,
+    alignSelf: 'flex-end',
+  },
+  onMapRoundImage: {
+    width: 24,
+    height: 24,
+  },
+  modalContainer: {
+    flex: 0,
+  },
+  modalOnMapRound: {
+    right: 24,
+    bottom: 138,
+    backgroundColor: '#FFFFFF',
+  },
+})

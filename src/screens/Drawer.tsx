@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement, Context} from 'react'
+import React, {useContext, ReactElement} from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -17,9 +17,6 @@ import {
   BaseLocaleButton,
 } from '../components'
 
-// Navigation
-import {NavigationScreenProp} from 'react-navigation'
-
 // import utils
 import {Const, Colors, Defaults} from '../utils'
 import {useTranslation} from 'react-i18next'
@@ -28,12 +25,9 @@ import {logOut} from '../hooks/actions/rootActions'
 
 // assets
 import Imgs from '../../assets/images'
-import {AppContextType} from 'allTypes'
+import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
-type DrawerPropsType = {
-  navigation: NavigationScreenProp<any, any>
-}
-const Drawer = ({navigation}: DrawerPropsType): ReactElement => {
+const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t, i18n} = useTranslation()
   const insets = useSafeArea()
   const context: AppContextType = useContext(AppContext)
@@ -91,7 +85,7 @@ const Drawer = ({navigation}: DrawerPropsType): ReactElement => {
     drawerContent = (
       <View>
         <BaseUserAvatarWithLabel
-          onPress={() => {
+          onPress={(): void => {
             Alert.alert('change icon')
           }}
           firstName={firstName}
@@ -120,7 +114,7 @@ const Drawer = ({navigation}: DrawerPropsType): ReactElement => {
         <View>
           {!isUserAuthorized && (
             <DrawerTextFieldItem
-              onPress={() => {
+              onPress={(): void => {
                 Alert.alert('asfas')
               }}
               text={'drawer.terms_and_conditions'}
@@ -135,7 +129,7 @@ const Drawer = ({navigation}: DrawerPropsType): ReactElement => {
             />
             {isUserAuthorized && (
               <TouchableOpacity
-                onPress={() => {
+                onPress={(): void => {
                   context.dispatch(logOut())
                 }}>
                 <Text style={styles.logOut}>{t('drawer.logOut')}</Text>

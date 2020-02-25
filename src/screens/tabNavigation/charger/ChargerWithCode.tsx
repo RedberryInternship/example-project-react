@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, ScrollView, View, Text} from 'react-native'
 import {
   BaseInput,
@@ -10,16 +10,20 @@ import {
 import {useChargerWithCode} from 'hooks'
 import {Const, Colors} from 'utils'
 import {TouchableOpacity} from 'react-native-gesture-handler'
+import Imgs from '../../../../assets/images'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const ChargerWithCode = ({navigation}: any) => {
+const ChargerWithCode = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const hook = useChargerWithCode(navigation)
 
   return (
     <View style={styles.container}>
       <BaseHeader title={'charger.chargeWitchCode'} />
-      <ScrollView style={{paddingHorizontal: 16, marginTop: 8}}>
+      <ScrollView style={styles.scrollView}>
         <BaseInput
-          image={require('../../../../assets/images/icons/lock.png')}
+          image={Imgs.lock}
           keyboardType={'email-address'}
           onChangeText={hook.codeTextHandler}
           onSubmit={hook.codeInputSubmit}
@@ -30,20 +34,15 @@ const ChargerWithCode = ({navigation}: any) => {
         <BaseButton
           onPress={hook.codeInputSubmit}
           text={'next'}
-          style={{
-            marginTop: 24,
-            marginHorizontal: 0,
-            alignSelf: 'center',
-            width: Const.Width - 32,
-          }}
-          imageStyle={{tintColor: 'white'}}
-          image={require('../../../../assets/images/icons/arrow_right.png')}
+          style={styles.baseButton}
+          imageStyle={styles.baseButtonImageStyle}
+          image={Imgs.arrowRight}
         />
 
         <TouchableOpacity
           onPress={hook.allChargerHandler}
-          style={{marginVertical: 16, alignItems: 'center'}}>
-          <Text style={{color: Colors.primaryGreen, fontSize: 13}}>
+          style={styles.allChargersWrapper}>
+          <Text style={styles.allChargersText}>
             {hook.t('charger.allChargerList')}
           </Text>
         </TouchableOpacity>
@@ -53,7 +52,7 @@ const ChargerWithCode = ({navigation}: any) => {
           title={'charger.lastUsed'}
           direction={'column'}
           data={hook.lastUsed()}
-          onRenderItem={(val, ind) => (
+          onRenderItem={(val, ind): ReactElement => (
             <ChargerItem
               key={ind}
               onPress={() => {}}
@@ -73,6 +72,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground,
     alignItems: 'stretch',
+  },
+  scrollView: {
+    paddingHorizontal: 16,
+    marginTop: 8,
+  },
+  baseButton: {
+    marginTop: 24,
+    marginHorizontal: 0,
+    alignSelf: 'center',
+    width: Const.Width - 32,
+  },
+  baseButtonImageStyle: {
+    tintColor: 'white',
+  },
+  allChargersWrapper: {
+    marginVertical: 16,
+    alignItems: 'center',
+  },
+  allChargersText: {
+    color: Colors.primaryGreen,
+    fontSize: 13,
   },
 })
 
