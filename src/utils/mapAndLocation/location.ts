@@ -1,19 +1,47 @@
 import RNLocation from 'react-native-location'
+import {Platform, PermissionsAndroid} from 'react-native'
+import Geolocation from 'react-native-geolocation-service'
+import RNAndroidLocationEnabler from 'react-native-android-location-enabler'
 
-const requestPermission = RNLocation.requestPermission({
-  ios: 'always',
-  android: {
-    detail: 'fine',
-    rationale: {
-      title: 'ლოკაციაზე წვდომა',
-      message: 'აპის გამოყენებისთვის საჭიროა ლოკაციის გააქტიურება',
-      buttonPositive: 'დიახ',
-      buttonNegative: 'არა',
-    },
-  },
-})
+const requestPermission = async (): Promise<boolean> => {
+  if (Platform.OS == 'ios') {
+    Geolocation.requestAuthorization()
+    return true
+  } else {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        {
+          title: 'we need GPS location service',
+          message: 'we need location service to provide your location',
+          // buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        try {
+          await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
+            interval: 10000,
+            fastInterval: 5000,
+          })
+          return true
+        } catch (error) {
+          return false
+        }
+      } else {
+        //render modal
+        return false
+      }
+    } catch (err) {
+      console.warn(err)
+      //render modal
+      return false
+    }
+  }
+}
 
-const configure = RNLocation.configure({
+const configure = RNLocation.configure.bind(this, {
   distanceFilter: 50, // Meters
   desiredAccuracy: {
     ios: 'best',

@@ -55,7 +55,7 @@ export default (
 
   const codeInputSubmit = () => {
     if (_this.current?.chargeWitchCode == '') {
-      return Defaults.dropdown.alertWithType(
+      return Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.fillCode'),
       )
@@ -67,7 +67,7 @@ export default (
       }) ?? []
 
     if (charger.length == 0) {
-      return Defaults.dropdown.alertWithType(
+      return Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.chargerNotExist'),
       )

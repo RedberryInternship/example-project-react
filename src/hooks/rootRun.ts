@@ -2,7 +2,7 @@ import {useEffect, useState, useRef, useReducer} from 'react'
 import {useAppState} from 'react-native-hooks'
 import {useNetInfo} from '@react-native-community/netinfo'
 import {useAsyncStorage} from '@react-native-community/async-storage'
-import {Defaults, NavigationActions} from 'utils'
+import {Defaults, NavigationActions, determineTimePeriod} from 'utils'
 import {useTranslation} from 'react-i18next'
 import rootReducer, {initialState} from './reducers/rootReducer'
 import {rootAction} from './actions/rootActions'
@@ -152,6 +152,19 @@ export function useRoot() {
       onReady()
     }
   }
+
+  const getCurrentRoute = (state: any): string =>
+    state.index !== undefined
+      ? getCurrentRoute(state.routes[state.index])
+      : state.routeName
+
+  const dropDownInactiveBarColor = (): string => {
+    if (Defaults.activeRoute !== 'Home') {
+      return 'light-content'
+    } else {
+      return determineTimePeriod() ? 'dark-content' : 'light-content'
+    }
+  }
   return {
     currentAppState,
     networkState,
@@ -163,5 +176,7 @@ export function useRoot() {
     _this,
     state,
     dispatch,
+    getCurrentRoute,
+    dropDownInactiveBarColor,
   }
 }

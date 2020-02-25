@@ -97,7 +97,7 @@ const PhoneNumberInput = React.forwardRef(
             setPickeritemsState(pickeritems)
           })
           .catch(error => {
-            Defaults.dropdown.alertWithType(
+            Defaults.dropdown?.alertWithType(
               'success',
               t('dropDownAlert.registration.codeSentSuccessfully'),
             )

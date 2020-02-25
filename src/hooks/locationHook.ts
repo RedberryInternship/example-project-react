@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef, useContext, RefObject} from 'react'
 import {regionFrom, Defaults, Const, Ajax} from 'utils'
-import Config from '../../src/utils/mapAndLocation/location'
+import {locationConfig} from 'utils'
 import polyline from '@mapbox/polyline'
 import RNLocation, {
   Location,
@@ -17,6 +17,7 @@ type ThisRef = {
   interval: number
   location: Location | null
   permissionStatus: LocationPermissionStatus | null
+  GPSEnabled: boolean
 }
 const ZOOM_LEVEL = 400
 
@@ -36,20 +37,20 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     interval: 0,
     location: null,
     permissionStatus: null,
+    GPSEnabled: false,
   })
 
   useEffect(() => {
-    RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
+    try {
+      RNLocation.getCurrentPermission().then(getPermissionStatus)
+      RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
+    } catch (error) {}
 
-    RNLocation.getCurrentPermission().then(getPermissionStatus)
-
-    // let subscribedLocation = RNLocation.subscribeToLocationUpdates(subscribeToLocationStatus)
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
       subscribePermissionUpdate,
     )
 
     return (): void => {
-      // subscribedLocation()
       subscribedPermissionUpdate()
       clearInterval(_this.current.interval)
     }
@@ -82,10 +83,10 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     setPermissionStatus(status)
     _this.current.permissionStatus = status
     Defaults.locationPermissionStatus = status
-    if (!status.match(/denied|restricted/)) {
+    if (!status.match(/denied|restricted|notDetermined/)) {
       navigateToLocation()
     } else if (status.match(/notDetermined/)) {
-      requestPermission()
+      // requestPermission()
     }
   }
 
@@ -100,13 +101,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       )
     } else {
       try {
-        if (
-          _this.current.permissionStatus?.match(
-            /denied|restricted|notDetermined/,
-          )
-        ) {
-          const permission = await Config.requestPermission
-          if (!permission) getLocationViaIP()
+        const permission = await locationConfig.requestPermission()
+        if (!permission) {
+          getLocationViaIP()
           return
         }
         const latestLocation: Location | null = await RNLocation.getLatestLocation(
@@ -114,12 +111,11 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
             timeout: 6000,
           },
         )
-
         if (latestLocation != null) {
           navigateByRef(latestLocation.latitude, latestLocation.longitude)
         }
       } catch (error) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18next.t('dropDownAlert.generalError'),
         )
@@ -128,9 +124,8 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   }
 
   const requestPermission = async (): Promise<any> => {
-    Config.requestPermission.then(granted => {
-      if (granted) navigateToLocation()
-    })
+    const status = await locationConfig.requestPermission()
+    if (status) navigateToLocation()
   }
 
   const navigateByRef = (
@@ -183,12 +178,12 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       })
     } catch (error) {
       if (error === 'ERROR')
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18next.t('dropDownAlert.generalError'),
         )
       else if (error === 'ZERO_RESULTS')
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           i18next.t('dropDownAlert.home.noRouteFound'),
         )
@@ -204,7 +199,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
         10000,
       )
     } catch (error) {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         i18next.t('dropDownAlert.generalError'),
       )

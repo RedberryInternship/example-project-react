@@ -107,7 +107,7 @@ const useHomeHook = (
   }
 
   const filteredChargers = useMemo(() => {
-    return context.state.AllChargers?.filter((val: Charger) => {
+    return context?.state.AllChargers?.filter((val: Charger) => {
       if (selectedFilters[0] && !val.active) return false
       if (selectedFilters[1] && val.active) return false
       if (selectedFilters[2]) {
@@ -167,7 +167,7 @@ const useHomeHook = (
   }
 
   const filteredChargersOnMap = useMemo(() => {
-    return context.state.AllChargers?.filter((val: Charger) => {
+    return context?.state.AllChargers?.filter((val: Charger) => {
       // Todo Vobi: I think that way we store chargers and checking selected filters can be modified to be more readable
       // Todo Vobi: I Would just delete this and think of the way to store this kind of data to be more readable and easily accessible
       if (selectedFiltersOnMap[0] && !val.active) return false

@@ -25,24 +25,6 @@ const Partners = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           <Image source={PartnersImgs.gulf} style={{width: 45, height: 41}} />
           <Image source={PartnersImgs.neogas} style={{width: 82, height: 26}} />
         </View>
-
-        <View style={styles.partnersRowContainer}>
-          <Image source={PartnersImgs.bog} style={{width: 87, height: 25}} />
-          <Image source={PartnersImgs.wissol} style={{width: 41, height: 37}} />
-          <Image source={PartnersImgs.bog} style={{width: 83, height: 14}} />
-        </View>
-
-        <View style={styles.partnersRowContainer}>
-          <Image source={PartnersImgs.socar} style={{width: 80, height: 19}} />
-          <Image source={PartnersImgs.gulf} style={{width: 45, height: 41}} />
-          <Image source={PartnersImgs.neogas} style={{width: 82, height: 26}} />
-        </View>
-
-        <View style={styles.partnersRowContainer}>
-          <Image source={PartnersImgs.m2} style={{width: 87, height: 25}} />
-          <Image source={PartnersImgs.wissol} style={{width: 41, height: 37}} />
-          <Image source={PartnersImgs.bog} style={{width: 83, height: 14}} />
-        </View>
       </View>
       <SafeAreaView />
     </View>

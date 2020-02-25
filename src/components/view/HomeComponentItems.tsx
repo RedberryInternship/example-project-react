@@ -20,8 +20,8 @@ import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 import Imgs from '../../../assets/images'
 
 type HomeComponentItemsProps = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-  allChargers: Charger[]
+  navigation?: NavigationScreenProp<NavigationState, NavigationParams>
+  allchargers: Charger[]
   mapRef: MapImperativeRefObject
   selectedFiltersOnMap: number[]
   onFilterClickOnMap: (index: number) => void
