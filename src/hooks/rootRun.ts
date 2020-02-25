@@ -116,7 +116,7 @@ export function useRoot() {
     } else setAppReady(false)
   }, [token, navigationState, locale])
 
-  const onReady = () => {
+  const onReady = (): void => {
     NavigationActions().navigate('MainDrawer')
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate("ForgotPassword")
@@ -124,7 +124,7 @@ export function useRoot() {
     // NavigationActions().navigate('Settings')
     // NavigationActions().navigate("ProfileChange");
     // NavigationActions().navigate("ChargerWithCode");
-    NavigationActions().navigate('ChargerDetail')
+    // NavigationActions().navigate('ChargerDetail')
     // NavigationActions().navigate('NotAuthorized')
     // NavigationActions().navigate('ChoosingCard')
     // NavigationActions().navigate("ChooseChargeMethod");
