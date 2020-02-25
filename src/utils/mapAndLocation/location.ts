@@ -1,5 +1,4 @@
 import RNLocation from 'react-native-location'
-import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box'
 import {Platform, PermissionsAndroid} from 'react-native'
 import Geolocation from 'react-native-geolocation-service'
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler'
@@ -62,23 +61,7 @@ const configure = RNLocation.configure.bind(this, {
   showsBackgroundLocationIndicator: true,
 })
 
-const locationServicesDialogBox = LocationServicesDialogBox.checkLocationServicesIsEnabled.bind(
-  this,
-  {
-    message: '',
-    ok: 'YES',
-    cancel: 'NO',
-    enableHighAccuracy: true, // true => GPS AND NETWORK PROVIDER, false => GPS OR NETWORK PROVIDER
-    showDialog: true, // false => Opens the Location access page directly
-    openLocationServices: true, // false => Directly catch method is called if location services are turned off
-    preventOutSideTouch: false, // true => To prevent the location services window from closing when it is clicked outside
-    preventBackClick: false, // true => To prevent the location services popup from closing when it is clicked back button
-    providerListener: false, // true ==> Trigger locationProviderStatusChange listener when the location state changes
-  },
-)
-
 export default {
   configure,
   requestPermission,
-  locationServicesDialogBox,
 }

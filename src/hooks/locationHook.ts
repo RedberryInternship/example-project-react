@@ -12,8 +12,7 @@ import i18next from 'i18next'
 import Axios from 'axios'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import MapView from 'react-native-maps'
-import {Alert, Platform} from 'react-native'
-import LocationServicesDialogBox from 'react-native-android-location-services-dialog-box'
+
 type ThisRef = {
   interval: number
   location: Location | null
@@ -54,7 +53,6 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     return (): void => {
       subscribedPermissionUpdate()
       clearInterval(_this.current.interval)
-      LocationServicesDialogBox.stopListener()
     }
   }, [])
 
@@ -74,9 +72,6 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)
     }
-    console.log('====================================')
-    console.log(status, ' LocationPermissionStatus')
-    console.log('====================================')
   }
 
   const getLatestLocation = (_location: Location | null): void => {
@@ -93,10 +88,6 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     } else if (status.match(/notDetermined/)) {
       // requestPermission()
     }
-
-    console.log('====================================')
-    console.log(status, 'getPermissionStatus LocationPermissionStatus')
-    console.log('====================================')
   }
 
   const navigateToLocation = async (
