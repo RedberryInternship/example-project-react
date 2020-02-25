@@ -8,7 +8,6 @@ import Imgs from '../../../assets/images'
 type TransactionItemProps = {
   title: string
   date: string
-  time: string
   price: string
   onPress: () => void
 }
@@ -16,7 +15,6 @@ type TransactionItemProps = {
 const TransactionListItem = ({
   title,
   date,
-  time,
   price,
   onPress,
 }: TransactionItemProps): ReactElement => {
@@ -27,9 +25,7 @@ const TransactionListItem = ({
           <Image source={Imgs.transaction} style={styles.transactionIcon} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.dateAndTime}>
-              {date} {time}
-            </Text>
+            <Text style={styles.dateAndTime}>{date}</Text>
           </View>
         </View>
         <Text style={styles.price}>{price}</Text>
