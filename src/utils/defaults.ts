@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-import {CustomModalInterface} from '../components/customModal'
+import {CustomModalInterface} from '../components/CustomModal'
 import {RefObject} from 'react'
 import BottomSheetBehavior from 'reanimated-bottom-sheet'
+import {LocationPermissionStatus} from 'react-native-location'
 
 type userDetail = {
   first_name: string
@@ -18,7 +19,8 @@ class Defaults {
   _token: null | string = ''
   _activeRoute!: string
   _locale: 'en' | 'ka' | 'ru' = 'ka'
-  _location: null | Object = null
+  _location: null | Record<string, any> = null
+  _locationPermission: LocationPermissionStatus = 'notDetermined'
   _modal: any = null
   _bottomSheet: any = null
   _userDetail: userDetail = null
@@ -69,6 +71,12 @@ class Defaults {
   }
   get location() {
     return this._location
+  }
+  set locationPermissionStatus(permissionStatus: LocationPermissionStatus) {
+    this._locationPermission = permissionStatus
+  }
+  get locationPermissionStatus(): LocationPermissionStatus {
+    return this._locationPermission
   }
 
   set modal(modal) {

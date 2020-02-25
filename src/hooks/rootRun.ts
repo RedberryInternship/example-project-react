@@ -93,7 +93,7 @@ export function useRoot() {
     setLocale(_locale)
   }
 
-  const setNavigationTopLevelElement = (ref: any) => {
+  const setNavigationTopLevelElement = (ref: any): void => {
     console.log(
       'settingNavigationTopLevelElement',
       ref,
@@ -117,7 +117,7 @@ export function useRoot() {
   }, [token, navigationState, locale])
 
   const onReady = () => {
-    // NavigationActions().navigate('MainDrawer')
+    NavigationActions().navigate('MainDrawer')
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate("ForgotPassword")
     // NavigationActions().navigate("Registration")

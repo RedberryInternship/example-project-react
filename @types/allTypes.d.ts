@@ -86,7 +86,7 @@ type ChargerFastChargingPrices = {
 }
 
 export type AppState = {
-  user: Record<string, any> | null
+  user: string | null
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
@@ -208,6 +208,12 @@ export type Favorite = {
     created_at: string
     updated_at: string
   }
+}
+
+export type ProfileFieldChange = {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+  clicked: boolean
+  setClicked: (status: boolean) => void
 }
 
 export type GoogleGetDirection = {

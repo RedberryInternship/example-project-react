@@ -19,6 +19,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* EspaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EspaceTests.m */; };
 		4319851581954EC8B69D1AF5 /* libPods-Espace-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */; };
 		484F158468821A89F402DAE8 /* libPods-EspaceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */; };
+		84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84502BB623FFBF800078412A /* GoogleService-Info.plist */; };
 		84DAB4D323D5E83500E1FE34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DAB4D223D5E83500E1FE34 /* MapKit.framework */; };
 		871CE13AF90545BCA6209DFA /* HelveticaNeueLTStd-HvEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7423AC001CCC4A2FA2C79B6E /* HelveticaNeueLTStd-HvEx.ttf */; };
 		9530F6D57536E0355B3BF7F6 /* libPods-Espace-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */; };
@@ -63,6 +64,7 @@
 		45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EspaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5354A6DD9C6039E2C4880068 /* Pods-Espace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.release.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.release.xcconfig"; sourceTree = "<group>"; };
 		7423AC001CCC4A2FA2C79B6E /* HelveticaNeueLTStd-HvEx.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeueLTStd-HvEx.ttf"; path = "../assets/fonts/HelveticaNeueLTStd-HvEx.ttf"; sourceTree = "<group>"; };
+		84502BB623FFBF800078412A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84DAB4D123D5E81200E1FE34 /* Espace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Espace.entitlements; path = Espace/Espace.entitlements; sourceTree = "<group>"; };
 		84DAB4D223D5E83500E1FE34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		89DB7ECE93323D79230D9C72 /* Pods-Espace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.debug.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.debug.xcconfig"; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			children = (
 				84DAB4D123D5E81200E1FE34 /* Espace.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				84502BB623FFBF800078412A /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -368,6 +371,7 @@
 				E0C4001B2732478E84EB5405 /* HelveticaNeueLTStd-Ex.ttf in Resources */,
 				871CE13AF90545BCA6209DFA /* HelveticaNeueLTStd-HvEx.ttf in Resources */,
 				0F7399F15A8D4FC6BE4BB2B0 /* HelveticaNeueLTStd-MdEx.ttf in Resources */,
+				84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -48,6 +48,7 @@ const chargerStack = createStackNavigator(
   },
 )
 
+
 const HomeTabNavigation = createBottomTabNavigator(
   {
     Home,

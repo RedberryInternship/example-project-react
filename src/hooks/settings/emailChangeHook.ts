@@ -1,16 +1,16 @@
 import {useState, useEffect, useRef, useContext} from 'react'
-import {TextInput} from 'react-native'
+import {TextInputProps} from 'react-native'
 import {AppContext} from '../../../App'
 import {Defaults, Ajax, apiServices} from '../../utils'
 import {editUserInfo} from '../../hooks/actions/rootActions'
 import {useTranslation} from 'react-i18next'
-import {ProfileFieldChange} from 'allTypes'
+import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 
 export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const [email, setEmail] = useState<string>(navigation.getParam('value'))
   const {dispatch} = useContext(AppContext)
   const {t} = useTranslation()
-  const emailInputRef = useRef<TextInput>(null)
+  const emailInputRef = useRef<TextInputProps & BaseInputRefProp>(null)
 
   // When User Clicks Save Btn
   useEffect(() => {

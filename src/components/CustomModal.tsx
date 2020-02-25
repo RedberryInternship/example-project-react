@@ -4,6 +4,14 @@ import Modal from 'react-native-modal'
 
 import {Const} from 'utils'
 
+import {
+  RegistrationType1,
+  LegendType2,
+  ChargerModalMainWrapper,
+  MapPopUp,
+  LocationPermission,
+} from 'components'
+
 type Data = {
   title?: string
   description?: string
@@ -19,11 +27,12 @@ type Config = {
 
 type InitialState = {
   visible: boolean
-  config: Config
+  config?: Config
 }
 
 export interface CustomModalInterface {
-  customUpdate: (visible: boolean, config: Config) => void
+  customUpdate: (visible: boolean, config?: Config) => void
+  state: InitialState
 }
 
 const initialState: InitialState = {
@@ -38,12 +47,6 @@ const initialState: InitialState = {
     },
   },
 }
-import {
-  RegistrationType1,
-  LegendType2,
-  ChargerModalMainWrapper,
-  MapPopUp,
-} from './'
 
 class CustomModal extends React.PureComponent implements CustomModalInterface {
   state = {...initialState}
@@ -64,7 +67,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  customUpdate = (visible: boolean, config: Config): void => {
+  customUpdate = (visible: boolean, config?: Config): void => {
     this.setState({
       ...initialState,
       visible,
@@ -121,8 +124,16 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         return (
           <MapPopUp onPress={this.closeModal} data={this.state.config.data} />
         )
-      default:
-        break
+      case 5:
+        return (
+          <LocationPermission
+            onPress={this.closeModal}
+            data={this.state.config.data}
+          />
+        )
+      default: {
+        return <></>
+      }
     }
   }
 }

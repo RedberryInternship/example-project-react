@@ -1,5 +1,6 @@
 //View
 import MapView from './view/MapView'
+import CollapsibleModal from './view/CollapsibleModal'
 import HomeComponentItems from './view/HomeComponentItems'
 import HomeFilterView from './view/HomeFilterView'
 import HomeMainInputView from './view/HomeMainInputView'
@@ -79,6 +80,7 @@ import RegistrationType1 from './modalTypes/RegistrationType1'
 import LegendType2 from './modalTypes/LegendType2'
 import ChargerModalMainWrapper from './modalTypes/ChargerModalMainWrapper'
 import MapPopUp from './modalTypes/MapPopUp'
+import LocationPermission from './modalTypes/LocationPermission'
 
 export {
   MapView,
@@ -148,4 +150,5 @@ export {
   BaseText,
   BaseCheckbox,
   FooterTabNavigation,
+  LocationPermission,
 }

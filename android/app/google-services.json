@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "480798332479",
+    "firebase_url": "https://espace-739b6.firebaseio.com",
+    "project_id": "espace-739b6",
+    "storage_bucket": "espace-739b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480798332479:android:3dc2641ca2616c55038a8a",
+        "android_client_info": {
+          "package_name": "com.boxwood.espaceboxwoodrelease"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480798332479-tvo4q62f8eocb5vjqsad28rp4cs4qpf4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxqETw2uFjKw2aVMhi3TKByj0eumVDXh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480798332479-tvo4q62f8eocb5vjqsad28rp4cs4qpf4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "480798332479-e4nt83nh3en888jq8vdtaiqv40u1k07r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.boxwood.espaceboxwoodrelease"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

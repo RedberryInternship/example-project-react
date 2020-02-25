@@ -128,7 +128,7 @@ export const editUserInfo = (
   payload: any,
   user_column_type: UserColumnType,
 ) => {
-  Defaults.userDetail[user_column_type] = payload
+  if (Defaults.userDetail) Defaults.userDetail[user_column_type] = payload
 
   asyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))
 

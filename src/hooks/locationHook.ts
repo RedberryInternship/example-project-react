@@ -59,9 +59,17 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     status: LocationPermissionStatus,
   ): void => {
     setPermissionStatus(status)
-    console.log(status, 'LocationPermissionStatus')
-    if (!status.match(/denied|restricted|notDetermined/)) {
-      navigateToLocation()
+    _this.current.permissionStatus = status
+    Defaults.locationPermissionStatus = status
+    if (status.match(/notDetermined/)) {
+      requestPermission()
+    } else if (
+      status.match(
+        /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
+      )
+    ) {
+      if (Defaults.modal.current?.state?.config?.type === 5)
+        Defaults.modal.current?.customUpdate(false)
     }
   }
 
@@ -73,9 +81,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   const getPermissionStatus = (status: LocationPermissionStatus): void => {
     setPermissionStatus(status)
     _this.current.permissionStatus = status
+    Defaults.locationPermissionStatus = status
     if (!status.match(/denied|restricted/)) {
       navigateToLocation()
-      console.log('sdf', status)
     } else if (status.match(/notDetermined/)) {
       requestPermission()
     }

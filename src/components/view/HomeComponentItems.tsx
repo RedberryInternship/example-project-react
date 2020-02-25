@@ -73,14 +73,9 @@ const HomeComponentItems = ({
         <OnMapRoundButton
           style={styles.modalOnMapRound}
           onPress={(): void => {
-            Defaults.modal.current &&
-              Defaults.modal.current.customUpdate.bind(
-                HomeComponentItems,
-                true,
-                {
-                  type: 2,
-                },
-              )
+            Defaults.modal.current?.customUpdate(true, {
+              type: 2,
+            })
           }}
           image={Imgs.alertCircle2}
         />
