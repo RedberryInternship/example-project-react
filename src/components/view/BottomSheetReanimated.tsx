@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/display-name */
-
 import React, {useRef, forwardRef, ReactElement} from 'react'
 import {
   StyleSheet,
@@ -19,6 +16,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Charger} from 'allTypes'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+import Imgs from '../../../assets/images'
 
 const screenHeight = Dimensions.get('window').height
 
@@ -78,22 +76,14 @@ const BottomSheetReanimated = forwardRef(
         <Text style={styles.headerComponentText}>
           {t('home.allChargers').toUpperCase()}
         </Text>
-        <View
-          style={[
-            styles.textInputContainer,
-            {borderBottomWidth: 1, borderBottomColor: Colors.primaryBackground},
-          ]}>
-          <Image
-            source={require('../../../assets/images/icons/icon-search.png')}
-            style={styles.searchIcon}
-          />
+        <View style={styles.textInputContainer}>
+          <Image source={Imgs.iconSearch} style={styles.searchIcon} />
           <TextInput
             style={styles.textInput}
             placeholder={`${t('home.location')}/${t('home.organization')}`}
             keyboardType={'default'}
             onChangeText={textHandler}
             onSubmitEditing={inputSubmit}
-            // onFocus={onFocus}
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
             ref={InputRef}
@@ -107,10 +97,7 @@ const BottomSheetReanimated = forwardRef(
             onPress={closeClick}
             hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
             style={styles.closeTouchable}>
-            <Image
-              source={require('../../../assets/images/icons/Delete.png')}
-              style={styles.deleteIcon}
-            />
+            <Image source={Imgs.delete} style={styles.deleteIcon} />
           </TouchableWithoutFeedback>
         </View>
       </View>
@@ -210,6 +197,8 @@ const styles = StyleSheet.create({
     height: 36,
     position: 'relative',
     paddingBottom: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.primaryBackground,
   },
   textInput: {
     paddingLeft: 32,

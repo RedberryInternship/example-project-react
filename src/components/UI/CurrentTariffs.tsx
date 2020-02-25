@@ -41,42 +41,10 @@ type RowProps = {
 }
 const Row = ({col1, col2, col3}: RowProps): ReactElement => {
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'center',
-        height: 44,
-        borderTopColor: '#11222D',
-        borderTopWidth: 1,
-      }}>
-      <Text
-        style={{
-          flex: 1,
-          alignSelf: 'center',
-          color: Colors.primaryWhite,
-          fontSize: 11,
-        }}>
-        {col1}
-      </Text>
-      <Text
-        style={{
-          flex: 1,
-          alignSelf: 'center',
-          color: Colors.primaryWhite,
-          fontSize: 11,
-        }}>
-        {col2}
-      </Text>
-      <Text
-        style={{
-          flex: 1.5,
-          alignSelf: 'center',
-          color: Colors.primaryWhite,
-          fontSize: 11,
-          textAlign: 'center',
-        }}>
-        {col3}
-      </Text>
+    <View style={styles.rowContainer}>
+      <Text style={styles.rowCol1}>{col1}</Text>
+      <Text style={styles.rowCol2}>{col2}</Text>
+      <Text style={styles.rowCol3}>{col3}</Text>
     </View>
   )
 }
@@ -104,5 +72,31 @@ const styles = StyleSheet.create({
     letterSpacing: -0.41,
     fontSize: 11,
     color: '#A1A8AB',
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: 44,
+    borderTopColor: '#11222D',
+    borderTopWidth: 1,
+  },
+  rowCol1: {
+    flex: 1,
+    alignSelf: 'center',
+    color: Colors.primaryWhite,
+    fontSize: 11,
+  },
+  rowCol2: {
+    flex: 1,
+    alignSelf: 'center',
+    color: Colors.primaryWhite,
+    fontSize: 11,
+  },
+  rowCol3: {
+    flex: 1.5,
+    alignSelf: 'center',
+    color: Colors.primaryWhite,
+    fontSize: 11,
+    textAlign: 'center',
   },
 })

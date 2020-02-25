@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, ReactElement} from 'react'
 import {
   StyleSheet,
-  Alert,
   ScrollView,
   Image,
   TouchableOpacity,
@@ -12,6 +11,7 @@ import {FilterTextItem} from 'components'
 import {Const, Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {HomeContextType} from 'allTypes'
+import Imgs from '../../../assets/images'
 
 type HomeFilter = {
   context: HomeContextType
@@ -21,21 +21,17 @@ type HomeFilter = {
 
 const translate = Const.Width - 98
 
-const homeFilter = ({selectedFiltersOnMap, onFilterClickOnMap}: HomeFilter) => {
+const HomeFilter = ({
+  selectedFiltersOnMap,
+  onFilterClickOnMap,
+}: HomeFilter): ReactElement => {
   const [showFilter, setShowFilter] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(-1)
   const {t} = useTranslation()
 
-  let [translateX] = useState(new Animated.Value(translate))
+  const [translateX] = useState(new Animated.Value(translate))
 
-  const handleFilterItemPress = (index: number) => {
-    Alert.alert(index.toString())
-    setActiveIndex(index)
-  }
-
-  const handleFilterButton = () => {
+  const handleFilterButton = (): void => {
     setShowFilter(!showFilter)
-    setActiveIndex(-1)
   }
 
   useEffect(() => {
@@ -43,20 +39,18 @@ const homeFilter = ({selectedFiltersOnMap, onFilterClickOnMap}: HomeFilter) => {
       toValue: showFilter ? 0 : translate,
       duration: 300,
       easing: Easing.out(Easing.ease),
-      // useNativeDriver : true
     }).start()
   }, [showFilter])
+
+  const buttonImageStyle = showFilter
+    ? {width: 23, height: 23}
+    : {width: 18, height: 18}
 
   return (
     <Animated.View style={[styles.container, {transform: [{translateX}]}]}>
       <ScrollView
-        style={{flex: 1}}
-        contentContainerStyle={{
-          flex: 0,
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContentContainer}
         horizontal
         pointerEvents={'box-none'}
         showsHorizontalScrollIndicator={false}
@@ -73,26 +67,10 @@ const homeFilter = ({selectedFiltersOnMap, onFilterClickOnMap}: HomeFilter) => {
           ]}>
           <TouchableOpacity
             onPress={handleFilterButton}
-            hitSlop={{
-              top: 20,
-              bottom: 20,
-              left: 20,
-              right: 20,
-            }}>
+            hitSlop={styles.buttonHitSlop}>
             <Image
-              source={
-                showFilter
-                  ? require('../../../assets/images/icons/close.png')
-                  : require('../../../assets/images/icons/ic_filterType.png')
-              }
-              style={[
-                showFilter ? {width: 23, height: 23} : {width: 18, height: 18},
-                {
-                  alignSelf: 'center',
-                  resizeMode: 'contain',
-                  tintColor: 'white',
-                },
-              ]}
+              source={showFilter ? Imgs.close : Imgs.filterType}
+              style={[buttonImageStyle, styles.buttonImage]}
             />
           </TouchableOpacity>
         </Animated.View>
@@ -100,8 +78,8 @@ const homeFilter = ({selectedFiltersOnMap, onFilterClickOnMap}: HomeFilter) => {
           <FilterTextItem
             text={t(val)}
             key={index}
-            active={selectedFiltersOnMap[index]}
-            onPress={onFilterClickOnMap.bind(homeFilter, index)}
+            active={!!selectedFiltersOnMap[index]}
+            onPress={onFilterClickOnMap.bind(HomeFilter, index)}
           />
         ))}
       </ScrollView>
@@ -109,7 +87,7 @@ const homeFilter = ({selectedFiltersOnMap, onFilterClickOnMap}: HomeFilter) => {
   )
 }
 
-export default homeFilter
+export default HomeFilter
 
 const styles = StyleSheet.create({
   container: {
@@ -123,6 +101,15 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 80,
   },
+  scrollView: {
+    flex: 1,
+  },
+  scrollViewContentContainer: {
+    flex: 0,
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   buttonContainer: {
     width: 50,
     height: 50,
@@ -134,5 +121,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#008AEE',
     marginRight: 20,
     marginLeft: 24,
+  },
+  buttonHitSlop: {
+    top: 20,
+    bottom: 20,
+    left: 20,
+    right: 20,
+  },
+  buttonImage: {
+    alignSelf: 'center',
+    resizeMode: 'contain',
+    tintColor: 'white',
   },
 })

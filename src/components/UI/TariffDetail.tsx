@@ -1,20 +1,18 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet, Image} from 'react-native'
 
 import {Colors} from 'utils'
+import Imgs from '../../../assets/images'
 
 type Tariff = {
   title: string
   description: string
 }
 
-const tariffDetail = ({title, description}: Tariff) => {
+const tariffDetail = ({title, description}: Tariff): ReactElement => {
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../../../assets/images/icons/alert-circle.png')}
-        style={styles.image}
-      />
+      <Image source={Imgs.alertCircle} style={styles.image} />
       <Text style={styles.description}> {description} </Text>
       <Text style={styles.title}> {title} </Text>
     </View>

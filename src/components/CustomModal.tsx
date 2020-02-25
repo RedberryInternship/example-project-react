@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, StyleSheet, InteractionManager} from 'react-native'
 import Modal from 'react-native-modal'
 
@@ -49,13 +49,13 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   state = {...initialState}
   ref: any = React.createRef()
 
-  showModal = () => {
+  showModal = (): void => {
     this.setState({
       visible: true,
     })
   }
 
-  closeModal = () => {
+  closeModal = (): void => {
     this.setState({
       visible: false,
     })
@@ -64,7 +64,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  customUpdate = (visible: boolean, config: Config) => {
+  customUpdate = (visible: boolean, config: Config): void => {
     this.setState({
       ...initialState,
       visible,
@@ -72,7 +72,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  render() {
+  render(): ReactElement {
     return (
       <Modal
         isVisible={this.state.visible}
@@ -103,7 +103,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     )
   }
 
-  renderView = () => {
+  renderView = (): ReactElement | undefined => {
     switch (this.state.config.type) {
       case 1:
         return <RegistrationType1 onPress={this.closeModal} />

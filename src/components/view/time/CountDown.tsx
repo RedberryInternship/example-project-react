@@ -1,11 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, ReactElement} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import moment from 'moment'
 import {Colors} from 'utils'
-
-const styles = StyleSheet.create({
-  container: {},
-})
 
 enum Status {
   'finished',
@@ -14,17 +10,23 @@ enum Status {
 }
 type CountDown = {
   duration: number
-  up: Boolean
-  alarm: Boolean
-  popup?: Boolean
+  up: boolean
+  alarm: boolean
+  popup?: boolean
   onChange?: (status: Status) => void
 }
 const Interval = 1000
 
-const countDown = ({duration, up, alarm, onChange, popup}: CountDown) => {
-  let [time, setTime] = useState(``)
+const CountDown = ({
+  duration,
+  up,
+  alarm,
+  onChange,
+  popup,
+}: CountDown): ReactElement => {
+  const [time, setTime] = useState(``)
 
-  const showDate = () => {
+  const showDate = (): string => {
     return moment(duration)
       .utcOffset(0)
       .format(`${alarm ? '' : 'HH : '}mm : ss`)
@@ -47,24 +49,29 @@ const countDown = ({duration, up, alarm, onChange, popup}: CountDown) => {
       setTime(showDate())
     }, 1000)
 
-    return () => {
+    return (): void => {
       clearInterval(timeInterval)
     }
   }, [])
 
+  const textStyle = {
+    fontSize: popup ? 17 : 22,
+    color: popup ? Colors.primaryBackground : Colors.primaryWhite,
+  }
+
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          fontSize: popup ? 17 : 22,
-          lineHeight: 36,
-          letterSpacing: -0.41,
-          color: popup ? Colors.primaryBackground : Colors.primaryWhite,
-        }}>
-        {time}
-      </Text>
+      <Text style={[styles.text, textStyle]}>{time}</Text>
     </View>
   )
 }
 
-export default countDown
+export default CountDown
+
+const styles = StyleSheet.create({
+  container: {},
+  text: {
+    lineHeight: 36,
+    letterSpacing: -0.41,
+  },
+})

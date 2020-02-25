@@ -1,6 +1,5 @@
 //View
 import MapView from './view/MapView'
-import CollapsibleModal from './view/CollapsibleModal'
 import HomeComponentItems from './view/HomeComponentItems'
 import HomeFilterView from './view/HomeFilterView'
 import HomeMainInputView from './view/HomeMainInputView'
@@ -19,6 +18,7 @@ import MailChangeView from './view/profileChange/MailChangeView'
 import PhoneChangeView from './view/profileChange/PhoneChangeView'
 import PasswordChangeView from './view/profileChange/PasswordChangeView'
 import BottomSheetReanimated from './view/BottomSheetReanimated'
+import FooterTabNavigation from './view/FooterTabNavigationView'
 
 // ./
 import CustomModal from './CustomModal'
@@ -82,7 +82,6 @@ import MapPopUp from './modalTypes/MapPopUp'
 
 export {
   MapView,
-  CollapsibleModal,
   CustomSlideUpModal,
   TabNavigationButtons,
   HomeComponentItems,
@@ -148,4 +147,5 @@ export {
   BaseNativeTouchable,
   BaseText,
   BaseCheckbox,
+  FooterTabNavigation,
 }

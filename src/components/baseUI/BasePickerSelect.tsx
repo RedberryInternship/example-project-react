@@ -18,7 +18,6 @@ const BasePickerSelect = forwardRef(
           onValueChange={onChange}
           style={styles}
           onDonePress={onDone}
-          // value={value}
           useNativeAndroidPickerStyle={false}
           ref={ref}
           onOpen={onOpen}

@@ -1,31 +1,34 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View} from 'react-native'
 import {Colors, Const} from 'utils'
 import {BaseInput} from 'components'
+import Imgs from '../../../../assets/images'
 
-const filterTextItem = ({_this, hook}: any) => {
-  const nameTextHandler = (text: string) => {
+const FilterTextItem = ({_this, hook}: any): ReactElement => {
+  const nameTextHandler = (text: string): void => {
     _this.current.name = text
   }
-  const nameInputSubmit = () => {
+  const nameInputSubmit = (): void => {
     // hook.current.code = text
   }
-  const surNameTextHandler = (text: string) => {
+  const surNameTextHandler = (text: string): void => {
     _this.current.surname = text
   }
-  const surNameInputSubmit = () => {}
+  const surNameInputSubmit = (): void => {
+    // TODO
+  }
 
-  const emailTextHandler = (text: string) => {
+  const emailTextHandler = (text: string): void => {
     _this.current.email = text
   }
-  const emailInputSubmit = () => {
+  const emailInputSubmit = (): void => {
     hook.buttonClickHandler()
   }
 
   return (
     <View style={{width: Const.Width, paddingHorizontal: 16}}>
       <BaseInput
-        image={require('../../../../assets/images/icons/user.png')}
+        image={Imgs.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
         onChangeText={nameTextHandler}
         onSubmit={nameInputSubmit}
@@ -36,7 +39,7 @@ const filterTextItem = ({_this, hook}: any) => {
         ref={hook.name}
       />
       <BaseInput
-        image={require('../../../../assets/images/icons/user.png')}
+        image={Imgs.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
         onChangeText={surNameTextHandler}
         onSubmit={surNameInputSubmit}
@@ -47,7 +50,7 @@ const filterTextItem = ({_this, hook}: any) => {
         ref={hook.surname}
       />
       <BaseInput
-        image={require('../../../../assets/images/icons/mail.png')}
+        image={Imgs.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
         keyboardType={'email-address'}
         onChangeText={emailTextHandler}
@@ -61,4 +64,4 @@ const filterTextItem = ({_this, hook}: any) => {
   )
 }
 
-export default filterTextItem
+export default FilterTextItem

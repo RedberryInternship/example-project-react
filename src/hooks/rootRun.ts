@@ -124,14 +124,14 @@ export function useRoot() {
     // NavigationActions().navigate('Settings')
     // NavigationActions().navigate("ProfileChange");
     // NavigationActions().navigate("ChargerWithCode");
-    // NavigationActions().navigate('ChargerDetail')
-    NavigationActions().navigate('NotAuthorized')
+    NavigationActions().navigate('ChargerDetail')
+    // NavigationActions().navigate('NotAuthorized')
     // NavigationActions().navigate('ChoosingCard')
     // NavigationActions().navigate("ChooseChargeMethod");
     // NavigationActions().navigate("Charging");
     // NavigationActions().navigate('Favourites')
     // NavigationActions().navigate('Faq')
-    // NavigationActions().navigate("Charging");
+    // NavigationActions().navigate('Charging')
     // NavigationActions().navigate('Tariffs')
     // NavigationActions().navigate('Favorites')
     // NavigationActions().navigate('Contact')

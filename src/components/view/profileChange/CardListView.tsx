@@ -30,7 +30,11 @@ const CardListView = ({navigation}: CardListViewProps): ReactElement => {
         selected={false}
         onPress={() => null}
       />
-      <BaseAddCardButton onPress={navigation.navigate.bind(CardListItem, '')} />
+      <BaseAddCardButton
+        onPress={(): void => {
+          navigation.navigate('')
+        }}
+      />
     </View>
   )
 }

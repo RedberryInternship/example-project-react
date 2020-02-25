@@ -12,6 +12,8 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
 
+import Imgs from '../../../assets/images'
+
 type SettingsListItemProps = {
   onPress: () => void
   image: ImageSourcePropType
@@ -43,10 +45,7 @@ const SettingsListItem = ({
           <Text style={[styles.value, {color: valueColor}]}>
             {confirmed !== null ? t(value) : value}
           </Text>
-          <Image
-            source={require('../../../assets/images/icons/chevron-right.png')}
-            style={styles.arrow}
-          />
+          <Image source={Imgs.chervonRight} style={styles.arrow} />
         </View>
       </View>
     </TouchableOpacity>
@@ -74,7 +73,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 24,
-    // backgroundColor:"red"
   },
   arrow: {
     width: 15,
