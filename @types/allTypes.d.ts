@@ -251,3 +251,49 @@ type GoogleOverviewPolyline = {
 export type LocationViaIP = {
   city: string
 }
+
+export type OrderResponseObject = {
+  orders: OrderResponse[]
+}
+export type OrderResponse = {
+  id: number
+  charger_id: number
+  user_id: number
+  finished: number
+  charge_fee: string | null
+  charge_time: string | null
+  confirmed: number
+  confirm_date: string
+  refunded: number
+  price: string
+  target_price: string
+  created_at: string
+  updated_at: string
+  charger: OrderCharger
+  payments: OrderPayment[]
+}
+
+type OrderCharger = {
+  id: number
+  name: LocaleStringObject
+  charger_id: number
+  code: string
+  user_id: null | number
+  location: LocaleStringObject
+  public: number
+  active: number
+  lat: string
+  lng: string
+  charger_group_id: null | number
+  created_at: string
+  updated_at: string
+}
+
+type OrderPayment = {
+  id: number
+  price: string
+  user_card: OrderUserCard
+}
+type OrderUserCard = {
+  masked_pan: string
+}

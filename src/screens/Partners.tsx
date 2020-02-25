@@ -1,13 +1,41 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useEffect, useState} from 'react'
 import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
 
 // components
 import {BaseHeader} from 'components'
 
 // utils
-import {Colors} from 'utils'
+import {Colors, Ajax, Defaults, Const} from 'utils'
+import i18next from 'i18next'
+
+type PartnersResponseType = {
+  name: string
+  image: string
+}
+
+let PartnersArray: PartnersResponseType[] = []
 
 const Partners = ({navigation}: any): ReactElement => {
+  const [partners, setPartners] = useState(PartnersArray)
+  useEffect(() => {
+    getPartners()
+  }, [])
+
+  const getPartners = async (): Promise<void> => {
+    if (PartnersArray.length === 0) {
+      try {
+        const res = await Ajax.get('/partners')
+        setPartners(res.partners)
+        PartnersArray = res.partners
+      } catch (error) {
+        Defaults.dropdown?.alertWithType(
+          'error',
+          i18next.t('dropDownAlert.generalError'),
+        )
+      }
+    }
+  }
+
   return (
     <View style={styles.container}>
       <BaseHeader
@@ -15,20 +43,17 @@ const Partners = ({navigation}: any): ReactElement => {
         onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
       <View style={styles.partnersInnerContainer}>
-        <View style={styles.partnersRowContainer}>
-          <Image
-            source={require('../../assets/images/icons/partners/socar.png')}
-            style={{width: 80, height: 19}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/gulf.png')}
-            style={{width: 45, height: 41}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/neogas.png')}
-            style={{width: 82, height: 26}}
-          />
-        </View>
+        {partners.map(
+          (val: PartnersResponseType, index: number): ReactElement => (
+            <View key={index} style={styles.partnerImageContainer}>
+              <Image
+                source={{uri: val.image}}
+                style={{width: 80, height: 40}}
+                resizeMode={'contain'}
+              />
+            </View>
+          ),
+        )}
       </View>
       <SafeAreaView />
     </View>
@@ -50,11 +75,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 10,
     padding: 32,
-  },
-  partnersRowContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+  },
+  partnerImageContainer: {
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 32,
+    width: (Const.Width - 32) / 3,
+    height: 80,
   },
 })

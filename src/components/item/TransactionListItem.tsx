@@ -7,7 +7,6 @@ import {Colors} from 'utils'
 type TransactionItemProps = {
   title: string
   date: string
-  time: string
   price: string
   onPress: () => void
 }
@@ -15,7 +14,6 @@ type TransactionItemProps = {
 const transactionListItem = ({
   title,
   date,
-  time,
   price,
   onPress,
 }: TransactionItemProps): ReactElement => {
@@ -29,9 +27,7 @@ const transactionListItem = ({
           />
           <View style={styles.textContainer}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.dateAndTime}>
-              {date} {time}
-            </Text>
+            <Text style={styles.dateAndTime}>{date}</Text>
           </View>
         </View>
         <Text style={styles.price}>{price}</Text>

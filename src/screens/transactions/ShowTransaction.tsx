@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, ReactElement} from 'react'
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native'
 
 import {useTranslation} from 'react-i18next'
@@ -8,14 +8,22 @@ import {useTranslation} from 'react-i18next'
 import {BaseHeader} from 'components'
 
 // utils
-import {Colors} from 'utils'
+import {Colors, getLocaleText} from 'utils'
+import {
+  NavigationScreenProp,
+  NavigationState,
+  NavigationParams,
+} from 'react-navigation'
+import {OrderResponse} from 'allTypes'
 
 type DetailsItemType = {
   name: string
-  value: string
+  value: string | null
 }
-
-const DetailsItem = ({name, value}: DetailsItemType) => {
+type ShowTransactionsProps = {
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+const DetailsItem = ({name, value}: DetailsItemType): ReactElement => {
   return (
     <View style={styles.detailsItem}>
       <Text style={styles.detailsItemName}>{name}: </Text>
@@ -24,15 +32,11 @@ const DetailsItem = ({name, value}: DetailsItemType) => {
   )
 }
 
-const showTransactions = ({navigation}: any) => {
+const ShowTransactions = ({
+  navigation,
+}: ShowTransactionsProps): ReactElement => {
   const {t} = useTranslation()
-  const params = navigation.state.params
-
-  useEffect(() => {
-    // Vobi Todo: Remove unused console logs it is synchronous
-    // Vobi Todo: And slows down event loop execution
-    console.log(params)
-  }, [])
+  const order: OrderResponse = navigation.getParam('order', [])
 
   return (
     <View style={styles.container}>
@@ -40,56 +44,39 @@ const showTransactions = ({navigation}: any) => {
         title={'transactions.transactions'}
         onPressLeft={() => navigation.goBack()}
       />
-      {/* Vobi Todo: You can just do onPressLeft={navigation.goBack} */}
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
           <Image
-            /* Vobi Todo: Move images as Constants same as contact.tsx */
             source={require('../../../assets/images/icons/transaction.png')}
             style={styles.transactionIcon}
           />
-          <Text style={styles.title}>{params.title}</Text>
-          {/* Vobi Todo: In this cases add destructuring */}
-          {/* Vobi Todo: https://hacks.mozilla.org/2015/05/es6-in-depth-destructuring/ */}
-          {/*
-            const {
-              date,
-              ...etc
-            } = params
-            and render like
-            <Text>{date}</Text>
-          */}
-          <Text style={styles.dateAndTime}>
-            {' '}
-            {params.date} {params.time}
-          </Text>
-          <Text style={styles.price}>{params.price}</Text>
+          <Text style={styles.title}>{getLocaleText(order.charger.name)}</Text>
+          <Text style={styles.dateAndTime}> {order.confirm_date}</Text>
+          <Text style={styles.price}>{order.price}</Text>
         </View>
-
         <Text style={styles.detailsCopy}>{t('transactions.details')}</Text>
-
         <View style={styles.detailsContainer}>
           <DetailsItem
             name={t('transactions.duration')}
-            value={params.duration}
+            value={order.charge_time}
           />
-          <DetailsItem name={t('transactions.power')} value={params.power} />
-          <DetailsItem name={t('transactions.energy')} value={params.energy} />
+          {/* TODO */}
+          {/* <DetailsItem name={t('transactions.power')} value={order.power} />
+          <DetailsItem name={t('transactions.energy')} value={order.energy} /> */}
         </View>
-
-        {/* Vobi Todo: do not misname styles */}
         <View style={styles.addressConatainer}>
           <DetailsItem
             name={t('transactions.address')}
-            value={params.address}
+            value={getLocaleText(order.charger.location)}
           />
         </View>
-
         <View style={styles.cardDetailsContainer}>
           <Text style={styles.cardNumberCopy}>
             {t('transactions.cardNumber')}
           </Text>
-          <Text style={styles.cardNumber}>{params.cardNumber}</Text>
+          <Text style={styles.cardNumber}>
+            {order.payments[0]?.user_card?.masked_pan}
+          </Text>
         </View>
       </View>
       <SafeAreaView />
@@ -97,7 +84,7 @@ const showTransactions = ({navigation}: any) => {
   )
 }
 
-export default showTransactions
+export default ShowTransactions
 
 const styles = StyleSheet.create({
   container: {
