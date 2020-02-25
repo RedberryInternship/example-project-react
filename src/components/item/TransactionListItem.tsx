@@ -3,6 +3,7 @@ import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 // utils
 import {Colors} from 'utils'
+import Imgs from '../../../assets/images'
 
 type TransactionItemProps = {
   title: string
@@ -11,7 +12,7 @@ type TransactionItemProps = {
   onPress: () => void
 }
 
-const transactionListItem = ({
+const TransactionListItem = ({
   title,
   date,
   price,
@@ -21,10 +22,7 @@ const transactionListItem = ({
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.innerLeftContainer}>
-          <Image
-            source={require('../../../assets/images/icons/transaction.png')}
-            style={styles.transactionIcon}
-          />
+          <Image source={Imgs.transaction} style={styles.transactionIcon} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.dateAndTime}>{date}</Text>
@@ -36,7 +34,7 @@ const transactionListItem = ({
   )
 }
 
-export default transactionListItem
+export default TransactionListItem
 
 const styles = StyleSheet.create({
   container: {

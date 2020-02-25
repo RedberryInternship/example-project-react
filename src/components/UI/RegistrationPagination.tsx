@@ -1,22 +1,20 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 import {Colors} from 'utils'
 
 const pagination = [1, 2, 3, 4]
 
-const registartionPagination = ({activePage, paginationClickHandler}: any) => {
+const RegistrationPagination = ({
+  activePage,
+  paginationClickHandler,
+}: any): ReactElement => {
   return (
-    <View
-      style={{margin: 16, flexDirection: 'row', justifyContent: 'flex-end'}}>
+    <View style={styles.container}>
       {pagination.map((val, ind) => (
         <TouchableOpacity
-          onPress={paginationClickHandler.bind(registartionPagination, ind)}
+          onPress={paginationClickHandler.bind(RegistrationPagination, ind)}
           key={val}
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+          style={styles.touchable}>
           <View
             style={[
               styles.paginationContainer,
@@ -26,42 +24,32 @@ const registartionPagination = ({activePage, paginationClickHandler}: any) => {
               },
             ]}>
             <Text
-              style={{
-                fontSize: 15,
-                color: ind !== activePage ? '#B8BDC0' : Colors.primaryGreen,
-                fontWeight: 'bold',
-              }}>
+              style={[
+                styles.paginationText,
+                {color: ind !== activePage ? '#B8BDC0' : Colors.primaryGreen},
+              ]}>
               {val}
             </Text>
           </View>
-          {ind !== pagination.length - 1 && (
-            <View
-              style={{
-                width: 6,
-                height: 1,
-                backgroundColor: '#879299',
-                marginHorizontal: 2,
-              }}></View>
-          )}
+          {ind !== pagination.length - 1 && <View style={styles.gap}></View>}
         </TouchableOpacity>
       ))}
     </View>
   )
 }
 
-export default registartionPagination
+export default RegistrationPagination
 
 const styles = StyleSheet.create({
   container: {
-    height: 30,
-    borderRadius: 15,
+    margin: 16,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  touchable: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 4,
-    backgroundColor: 'white',
-    marginHorizontal: 8,
   },
   paginationContainer: {
     flex: 0,
@@ -72,5 +60,15 @@ const styles = StyleSheet.create({
     borderColor: '#B8BDC0',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  paginationText: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  gap: {
+    width: 6,
+    height: 1,
+    backgroundColor: '#879299',
+    marginHorizontal: 2,
   },
 })

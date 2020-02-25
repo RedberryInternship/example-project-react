@@ -11,29 +11,20 @@ import {
 import {useChargerDetails} from 'hooks'
 import {Colors} from 'utils'
 import {getLocaleText} from 'utils/localization/localization'
-import {
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-} from 'react-navigation'
+import Imgs from '../../../../assets/images'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-type ChargerDetailProps = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-}
-
-const ChargerDetail = ({navigation}: ChargerDetailProps): ReactElement => {
+const ChargerDetail = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const hook = useChargerDetails(navigation)
 
   return (
     <View style={styles.container}>
-      <BaseHeader
-        onPressLeft={(): void => {
-          navigation.goBack()
-        }}
-      />
+      <BaseHeader onPressLeft={navigation.goBack} />
       <ScrollView
-        style={{paddingHorizontal: 16, marginTop: 8}}
-        contentContainerStyle={{paddingBottom: 32}}>
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContentContainer}>
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={hook.chargerLocationDirectionHandler}
           showChargerLocationPress={hook.showChargerLocationHandler}
@@ -73,9 +64,9 @@ const ChargerDetail = ({navigation}: ChargerDetailProps): ReactElement => {
       <BaseButton
         onPress={hook.mainButtonClickHandler}
         text={'charger.turnOn'}
-        style={{marginTop: 0, marginVertical: 16, marginBottom: 16}}
-        image={require('../../../../assets/images/icons/ic_charge.png')}
-        imageStyle={{tintColor: 'white'}}
+        style={styles.baseButton}
+        image={Imgs.charge}
+        imageStyle={styles.baseButtonImageStyle}
       />
     </View>
   )
@@ -86,6 +77,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground,
+  },
+  scrollView: {
+    paddingHorizontal: 16,
+    marginTop: 8,
+  },
+  scrollViewContentContainer: {
+    paddingBottom: 32,
   },
   serviceContainer: {
     width: 50,
@@ -101,6 +99,14 @@ const styles = StyleSheet.create({
     height: 28,
     resizeMode: 'contain',
     tintColor: Colors.primaryGreen,
+  },
+  baseButton: {
+    marginTop: 0,
+    marginVertical: 16,
+    marginBottom: 16,
+  },
+  baseButtonImageStyle: {
+    tintColor: 'white',
   },
 })
 

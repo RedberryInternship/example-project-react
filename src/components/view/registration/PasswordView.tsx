@@ -1,27 +1,28 @@
-import React from 'react'
-import {View} from 'react-native'
+import React, {ReactElement} from 'react'
+import {View, StyleSheet} from 'react-native'
 import {Colors, Const} from 'utils'
 import {BaseInput} from 'components'
+import Imgs from '../../../../assets/images'
 
-const PasswordView = ({_this, hook}: any) => {
-  const passwordTextHandler = (text: string) => {
+const PasswordView = ({_this, hook}: any): ReactElement => {
+  const passwordTextHandler = (text: string): void => {
     _this.current.password = text
   }
-  const passwordInputSubmit = () => {
+  const passwordInputSubmit = (): void => {
     hook.confirmedPassword.current.focus()
   }
 
-  const repeatPasswordTextHandler = (text: string) => {
+  const repeatPasswordTextHandler = (text: string): void => {
     _this.current.confirmedPassword = text
   }
-  const repeatPasswordInputSubmit = () => {
+  const repeatPasswordInputSubmit = (): void => {
     hook.buttonClickHandler()
   }
 
   return (
-    <View style={{width: Const.Width, paddingHorizontal: 16}}>
+    <View style={styles.container}>
       <BaseInput
-        image={require('../../../../assets/images/icons/lock.png')}
+        image={Imgs.lock}
         imageStyle={{tintColor: Colors.primaryBlue}}
         keyboardType={'email-address'}
         onChangeText={passwordTextHandler}
@@ -33,7 +34,7 @@ const PasswordView = ({_this, hook}: any) => {
         ref={hook.password}
       />
       <BaseInput
-        image={require('../../../../assets/images/icons/lock.png')}
+        image={Imgs.lock}
         imageStyle={{tintColor: Colors.primaryBlue}}
         keyboardType={'email-address'}
         onChangeText={repeatPasswordTextHandler}
@@ -49,3 +50,10 @@ const PasswordView = ({_this, hook}: any) => {
 }
 
 export default PasswordView
+
+const styles = StyleSheet.create({
+  container: {
+    width: Const.Width,
+    paddingHorizontal: 16,
+  },
+})

@@ -1,49 +1,72 @@
-import React from 'react'
-import {View} from 'react-native'
-
-import {TabNavigationButtons} from 'components'
+import React, {ReactElement} from 'react'
+import {View, StatusBar, StyleSheet} from 'react-native'
 import {Defaults} from 'utils'
+import {useSafeArea} from 'react-native-safe-area-context'
+import {TabNavigationButtons} from 'components'
+import {determineTimePeriod} from 'utils/mapAndLocation/mapFunctions'
+import Imgs from '../../../assets/images'
 
-const footerTabNavigationView = (props: any) => {
-  const navigate = (name: string) => {
+const FooterTabNavigator = (props: any): ReactElement => {
+  const currentRouteName =
+    props.navigation.state.routes[props.navigation.state.index].key
+  const insets = useSafeArea()
+
+  const navigate = (name: string): void => {
     if (name === 'drawer') return props.navigation.openDrawer()
     props.navigation.navigate(name)
   }
+  if (currentRouteName !== 'Home') {
+    StatusBar.setBarStyle('light-content')
+  } else {
+    StatusBar.setBarStyle(
+      determineTimePeriod() ? 'dark-content' : 'light-content',
+    )
+  }
+
   return (
     <View
-      style={{
-        backgroundColor: '#111314',
-        alignItems: 'stretch',
-        justifyContent: 'center',
-      }}>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-          height: 65,
-        }}>
-        <TabNavigationButtons
-          navigate={navigate.bind(navigate, 'Home')}
-          image={require('../assets/images/ic_map_pin.png')}
-        />
-        <TabNavigationButtons
-          navigate={navigate.bind(navigate, 'Charger')}
-          image={require('../assets/images/ic_charge.png')}
-        />
-        {Defaults.token && (
-          <TabNavigationButtons
-            navigate={navigate.bind(navigate, 'Favorite')}
-            image={require('../assets/images/ic_favorite.png')}
-          />
+      style={[
+        styles.bottomTabContainer,
+        {paddingBottom: insets.bottom, height: 65 + insets.bottom},
+      ]}>
+      <TabNavigationButtons
+        active={currentRouteName === 'Home'}
+        navigate={navigate.bind(FooterTabNavigator, 'Home')}
+        image={Imgs.mapPin}
+      />
+      <TabNavigationButtons
+        active={
+          currentRouteName === 'chargerStack' ||
+          currentRouteName === 'NotAuthorized'
+        }
+        navigate={navigate.bind(
+          FooterTabNavigator,
+          Defaults.token ? 'chargerStack' : 'NotAuthorized',
         )}
+        image={Imgs.charge}
+      />
+      {Defaults.token != null && Defaults.token != '' && (
         <TabNavigationButtons
-          navigate={navigate.bind(navigate, 'drawer')}
-          image={require('../assets/images/ic_menu.png')}
+          navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
+          image={Imgs.favorite}
+          active={currentRouteName === 'Favorites'}
         />
-      </View>
+      )}
+      <TabNavigationButtons
+        navigate={navigate.bind(FooterTabNavigator, 'drawer')}
+        image={Imgs.menu}
+        active={currentRouteName === 'drawer'}
+      />
     </View>
   )
 }
+export default FooterTabNavigator
 
-export default footerTabNavigationView
+const styles = StyleSheet.create({
+  bottomTabContainer: {
+    backgroundColor: '#111314',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+})

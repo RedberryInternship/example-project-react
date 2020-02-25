@@ -4,6 +4,8 @@ import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native'
 // utils
 import {Const, Colors} from 'utils'
 
+import Imgs from '../../../assets/images'
+
 type FaqListItemProps = {
   number: number
   question: string
@@ -19,54 +21,14 @@ const FaqListItem = ({
   activeFaq,
   setActiveFaq,
 }: FaqListItemProps): ReactElement => {
-  const [toggleAnswerAnim] = useState(new Animated.Value(0))
-
-  const toggleFaq = (intend = 'open'): void => {
-    let $toValue = 0
-    const $duration = 300
-
-    if (intend === 'open') {
-      $toValue = 120
-      setActiveFaq(number)
-    }
-
-    Animated.timing(toggleAnswerAnim, {
-      toValue: $toValue,
-      duration: $duration,
-    }).start()
-  }
-
-  const rotationValue = toggleAnswerAnim.interpolate({
-    inputRange: [0, 50, 100],
-    outputRange: ['180deg', '0deg', '0deg'],
-  })
-
-  const paddingMarginValue = toggleAnswerAnim.interpolate({
-    inputRange: [0, 100],
-    outputRange: [0, 16],
-  })
-
-  const onOrOff = toggleAnswerAnim.interpolate({
-    inputRange: [0, 100],
-    outputRange: [0, 1],
-  })
-
-  const opacity = toggleAnswerAnim.interpolate({
-    inputRange: [0, 75, 100],
-    outputRange: [0, 0, 1],
-  })
-
-  useEffect(() => {
-    if (activeFaq !== number) {
-      toggleFaq('close')
-    }
-  }, [activeFaq])
-
-  useEffect(() => {
-    if (activeFaq === number) {
-      toggleFaq('open')
-    }
-  }, [])
+  const {
+    onOrOff,
+    opacity,
+    paddingMarginValue,
+    rotationValue,
+    toggleFaq,
+    toggleAnswerAnim,
+  } = useMyAnim({activeFaq, setActiveFaq, number})
 
   return (
     <TouchableOpacity onPress={toggleFaq.bind(FaqListItem, 'open')}>
@@ -82,7 +44,7 @@ const FaqListItem = ({
                 styles.arrowImage,
                 {transform: [{rotateZ: rotationValue}]},
               ]}
-              source={require('../../../assets/images/icons/arrow-up.png')}
+              source={Imgs.arrowUp}
             />
           </View>
         </View>
@@ -158,3 +120,69 @@ const styles = StyleSheet.create({
     height: 6,
   },
 })
+
+type MyAnimProps = {
+  activeFaq: number
+  setActiveFaq: (num: number) => void
+  number: number
+}
+
+const useMyAnim = ({activeFaq, setActiveFaq, number}: MyAnimProps) => {
+  const [toggleAnswerAnim] = useState(new Animated.Value(0))
+
+  const toggleFaq = (intend = 'open'): void => {
+    let toValue = 0
+    const duration = 300
+
+    if (intend === 'open') {
+      toValue = 120
+      setActiveFaq(number)
+    }
+
+    Animated.timing(toggleAnswerAnim, {
+      toValue: toValue,
+      duration: duration,
+    }).start()
+  }
+
+  const rotationValue = toggleAnswerAnim.interpolate({
+    inputRange: [0, 50, 100],
+    outputRange: ['180deg', '0deg', '0deg'],
+  })
+
+  const paddingMarginValue = toggleAnswerAnim.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, 16],
+  })
+
+  const onOrOff = toggleAnswerAnim.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, 1],
+  })
+
+  const opacity = toggleAnswerAnim.interpolate({
+    inputRange: [0, 75, 100],
+    outputRange: [0, 0, 1],
+  })
+
+  useEffect(() => {
+    if (activeFaq !== number) {
+      toggleFaq('close')
+    }
+  }, [activeFaq])
+
+  useEffect(() => {
+    if (activeFaq === number) {
+      toggleFaq('open')
+    }
+  }, [])
+
+  return {
+    rotationValue,
+    paddingMarginValue,
+    onOrOff,
+    opacity,
+    toggleFaq,
+    toggleAnswerAnim,
+  }
+}

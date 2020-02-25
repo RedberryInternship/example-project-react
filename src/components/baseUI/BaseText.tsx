@@ -4,21 +4,21 @@ import {Colors} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
+  style: any
 }
 const BaseText = (props: BaseTextPropType): ReactElement => {
   const setFontFamily = (): string => {
-    if ('fontFamily' in props.style) return props.style?.fontFamily
+    if ('fontFamily' in props.style) {
+      return props.style?.fontFamily
+    }
+
     return 'HelveticaNeueLTStd-Ex'
   }
+
+  const fontFamily = setFontFamily()
+
   return (
-    <Text
-      style={{
-        letterSpacing: 0.2,
-        color: 'white',
-        fontSize: 13,
-        fontFamily: setFontFamily(),
-      }}
-      {...props}>
+    <Text style={[styles.text, fontFamily]} {...props}>
       {props.children}
     </Text>
   )
@@ -27,15 +27,9 @@ const BaseText = (props: BaseTextPropType): ReactElement => {
 export default BaseText
 
 const styles = StyleSheet.create({
-  localeUiContainer: {
-    width: 50,
-    height: 50,
-    backgroundColor: Colors.primaryBlue,
-    borderRadius: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  localeText: {
+  text: {
+    letterSpacing: 0.2,
     color: Colors.primaryWhite,
+    fontSize: 13,
   },
 })

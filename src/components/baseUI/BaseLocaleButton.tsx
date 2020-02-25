@@ -19,7 +19,7 @@ const BaseLocaleButton = ({
   textStyle,
 }: LocaleButton): ReactElement => {
   return (
-    <View style={[{width: 50}, style]}>
+    <View style={[styles.container, style]}>
       <BaseNativeTouchable onPress={onPress}>
         <View style={[styles.localeUiContainer]}>
           <BaseText style={[styles.localeText, textStyle]}>{text}</BaseText>
@@ -32,6 +32,9 @@ const BaseLocaleButton = ({
 export default BaseLocaleButton
 
 const styles = StyleSheet.create({
+  container: {
+    width: 50,
+  },
   localeUiContainer: {
     width: 50,
     height: 50,

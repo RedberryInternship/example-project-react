@@ -5,6 +5,7 @@ import {Colors} from '../../utils'
 import {ChargerGroupPopupItem} from 'components'
 import {useTranslation} from 'react-i18next'
 import {Charger} from 'allTypes'
+import Imgs from '../../../assets/images'
 
 type MapPopUpProps = {
   onPress?: (index: number) => void
@@ -21,17 +22,14 @@ const MapPopUp = ({data}: MapPopUpProps): ReactElement => {
     <View style={styles.container}>
       <Text style={styles.title}>{t(data.title)}</Text>
       <View style={styles.addressContainer}>
-        <Image
-          source={require('../../../assets/images/icons/ic_map_pin.png')}
-          style={styles.mapPinIcon}
-        />
+        <Image source={Imgs.mapPin} style={styles.mapPinIcon} />
         <Text style={styles.addressText}>{t(data.address)}</Text>
       </View>
       <View style={styles.groupChargerContainer}>
         <ChargerGroupPopupItem
           text={'sdf'}
           //TODO : handle onPress
-          onPress={() => {
+          onPress={(): void => {
             Alert.alert('sd')
           }}
           code={'345'}
@@ -40,7 +38,7 @@ const MapPopUp = ({data}: MapPopUpProps): ReactElement => {
         <ChargerGroupPopupItem
           text={'sdf'}
           //TODO : handle onPress
-          onPress={() => {
+          onPress={(): void => {
             Alert.alert('sd')
           }}
           code={'345'}

@@ -1,7 +1,6 @@
 import React, {useState, ReactElement} from 'react'
 
 import {View, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native'
-import {NavigationScreenProp} from 'react-navigation'
 
 // keyboarad aware scroll view
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
@@ -24,11 +23,11 @@ import {Colors} from 'utils'
 // assets
 import Imgs from '../../../assets/images'
 
-type ProfileChangeType = {
-  navigation: NavigationScreenProp<any, any>
-}
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const ProfileChange = ({navigation}: ProfileChangeType): ReactElement => {
+const ProfileChange = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   let editView = null
   const headerName = navigation.getParam('name')
   const type = navigation.getParam('type')
@@ -76,7 +75,6 @@ const ProfileChange = ({navigation}: ProfileChangeType): ReactElement => {
 
         <KeyboardAwareScrollView
           style={styles.keyboardAwareScrollView}
-          contentContainerStyle={{}}
           bounces={true}
           enableOnAndroid={true}
           enableAutomaticScroll={false}

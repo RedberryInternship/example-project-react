@@ -2,14 +2,12 @@ import React, {useState, ReactElement, useEffect} from 'react'
 import {View, StyleSheet, ScrollView} from 'react-native'
 import i18next from 'i18next'
 
-import {NavigationScreenProp} from 'react-navigation'
-
 // components
 import {BaseHeader, FaqListItem} from 'components'
 
 // utils
 import {Colors, Ajax, Defaults, getLocaleText} from 'utils'
-import {LocaleStringObject} from 'allTypes'
+import {LocaleStringObject, ScreenPropsWithNavigation} from 'allTypes'
 
 type FAQResponseType = {
   question: LocaleStringObject
@@ -18,11 +16,7 @@ type FAQResponseType = {
 
 let FAQStatic: FAQResponseType[] = []
 
-type FaqPropsType = {
-  navigation: NavigationScreenProp<any, any>
-}
-
-const Faq = ({navigation}: FaqPropsType): ReactElement => {
+const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [activeFaq, setActiveFaq] = useState<number>(1)
   const [faqs, setFaqs] = useState(FAQStatic)
 

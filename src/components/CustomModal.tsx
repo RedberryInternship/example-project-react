@@ -106,7 +106,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     )
   }
 
-  renderView = (): ReactElement => {
+  renderView = (): ReactElement | undefined => {
     switch (this.state.config.type) {
       case 1:
         return <RegistrationType1 onPress={this.closeModal} />

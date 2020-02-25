@@ -1,24 +1,29 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
 import {Colors} from 'utils'
 import {BaseHeader, BaseInput, BaseButton} from 'components'
 import {useSetNewPasswords} from 'hooks'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useSafeArea} from 'react-native-safe-area-context'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const setNewPasswords = ({navigation}: any) => {
+import Imgs from '../../../assets/images'
+
+const SetNewPasswords = ({
+  navigation,
+}: ScreenPropsWithNavigation): ReactElement => {
   const hook = useSetNewPasswords(navigation)
   const insets = useSafeArea()
 
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
-        onPressLeft={() => navigation.goBack()}
+        onPressLeft={navigation.goBack}
         title={'authentication.forgotPasswordPage.recoverPassword'}
       />
       <KeyboardAwareScrollView
-        style={{flex: 0, paddingHorizontal: 16, marginVertical: 16}}
-        contentContainerStyle={{justifyContent: 'flex-start', flex: 0}}
+        style={styles.keyboardAwareScrollView}
+        contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
         keyboardShouldPersistTaps={'handled'}
         enableOnAndroid={true}
         enableAutomaticScroll={true}
@@ -26,7 +31,7 @@ const setNewPasswords = ({navigation}: any) => {
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}>
         <BaseInput
-          image={require('../../../assets/images/icons/lock.png')}
+          image={Imgs.lock}
           onChangeText={hook.newPasswordTextHandler}
           onSubmit={hook.newPasswordInputSubmit}
           ref={hook.newPasswordRef}
@@ -35,7 +40,7 @@ const setNewPasswords = ({navigation}: any) => {
           title={'authentication.forgotPasswordPage.newPassword'}
         />
         <BaseInput
-          image={require('../../../assets/images/icons/lock.png')}
+          image={Imgs.lock}
           onChangeText={hook.repeatPasswordTextHandler}
           onSubmit={hook.repeatPasswordInputSubmit}
           ref={hook.repeatPasswordRef}
@@ -46,20 +51,21 @@ const setNewPasswords = ({navigation}: any) => {
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
         behavior={'padding'}
-        style={{}}
-        contentContainerStyle={{flex: 1}}
+        contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
         <BaseButton
           onPress={hook.onClickSubmitButton}
           text={'enter'}
-          image={require('../../../assets/images/icons/arrow_right.png')}
-          style={{marginTop: 0}}
-          imageStyle={{width: 21, height: 21}}
+          image={Imgs.lock}
+          style={styles.baseButton}
+          imageStyle={styles.baseButtonImageStyle}
         />
       </KeyboardAvoidingView>
     </View>
   )
 }
+
+export default SetNewPasswords
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +74,23 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     backgroundColor: Colors.primaryBackground,
   },
+  keyboardAwareScrollView: {
+    flex: 0,
+    paddingHorizontal: 16,
+    marginVertical: 16,
+  },
+  keyboardAwareScrollViewContentContainer: {
+    justifyContent: 'flex-start',
+    flex: 0,
+  },
+  keyboardAvoidingViewContentContainer: {
+    flex: 1,
+  },
+  baseButton: {
+    marginTop: 0,
+  },
+  baseButtonImageStyle: {
+    width: 21,
+    height: 21,
+  },
 })
-
-export default setNewPasswords

@@ -31,25 +31,13 @@ const BaseInput = React.forwardRef(
     }
 
     return (
-      <View style={{flex: 0, marginVertical: 16, marginBottom: 8}}>
+      <View style={styles.container}>
         <BaseText style={styles.title}>{t(props.title)}</BaseText>
-        <View style={{width: '100%', position: 'relative'}}>
+        <View style={styles.innerContainer}>
           {props.image && (
             <Image
               source={props.image}
-              style={[
-                {
-                  width: 24,
-                  flex: -1,
-                  height: 24,
-                  position: 'absolute',
-                  left: 12.5,
-                  bottom: 12.5,
-                  zIndex: 22,
-                  alignSelf: 'center',
-                },
-                {...props.imageStyle},
-              ]}
+              style={[styles.inputImage, {...props.imageStyle}]}
               resizeMode="contain"
             />
           )}
@@ -78,18 +66,7 @@ const BaseInput = React.forwardRef(
               },
             ]}
           />
-          {props.required && (
-            <BaseText
-              style={{
-                position: 'absolute',
-                right: 8,
-                top: 8,
-                color: 'white',
-                fontSize: 18,
-              }}>
-              *
-            </BaseText>
-          )}
+          {props.required && <BaseText style={styles.baseText}>*</BaseText>}
         </View>
         <BaseText style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>
           {errorText ? t(errorText) : ' '}
@@ -100,13 +77,14 @@ const BaseInput = React.forwardRef(
 )
 
 const styles = StyleSheet.create({
-  containerInput: {
+  container: {
     flex: 0,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    height: 50,
+    marginVertical: 16,
+    marginBottom: 8,
+  },
+  innerContainer: {
     width: '100%',
-    // backgroundColor:"red"
+    position: 'relative',
   },
   title: {
     flex: 0,
@@ -125,12 +103,29 @@ const styles = StyleSheet.create({
     height: 48,
     borderWidth: 0.5,
   },
+  inputImage: {
+    width: 24,
+    flex: -1,
+    height: 24,
+    position: 'absolute',
+    left: 12.5,
+    bottom: 12.5,
+    zIndex: 22,
+    alignSelf: 'center',
+  },
   errorText: {
     flex: 0,
     width: '100%',
     fontSize: 13,
     color: '#FF3B3B',
     marginTop: 4,
+  },
+  baseText: {
+    position: 'absolute',
+    right: 8,
+    top: 8,
+    color: 'white',
+    fontSize: 18,
   },
 })
 

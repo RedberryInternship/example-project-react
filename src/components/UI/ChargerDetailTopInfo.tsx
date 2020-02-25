@@ -4,11 +4,12 @@ import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Colors} from 'utils'
 import {AxiosResponse} from 'axios'
+import Imgs from '../../../assets/images'
 
 type ChargerDetailTopInfoProps = {
   chargerLocationDirectionPress: () => void
   showChargerLocationPress: () => void
-  favouritePress: () => void
+  favoritePress: () => void
   code: string | number | undefined
   name: string
   location: string
@@ -18,7 +19,7 @@ type ChargerDetailTopInfoProps = {
 const ChargerDetailTopInfo = ({
   chargerLocationDirectionPress,
   showChargerLocationPress,
-  favouritePress,
+  favoritePress,
   code,
   name,
   location,
@@ -46,23 +47,17 @@ const ChargerDetailTopInfo = ({
         </View>
         <View>
           <TouchableOpacity
-            onPress={favouritePress}
+            onPress={favoritePress}
             style={styles.favIconContainer}>
-            <Image
-              source={require('../../../assets/images/icons/ic_favorite.png')}
-              style={styles.favIcon}
-            />
+            <Image source={Imgs.favorite} style={styles.favIcon} />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{height: 24}} />
+      <View style={styles.divisor} />
       <View style={styles.locationAndDistanceContainer}>
         <View style={styles.locationAndMapPressContainer}>
-          <View style={styles.loactionContainer}>
-            <Image
-              source={require('../../../assets/images/icons/ic_map_pin.png')}
-              style={styles.locationIcon}
-            />
+          <View style={styles.locationContainer}>
+            <Image source={Imgs.mapPin} style={styles.locationIcon} />
             <Text style={styles.locationText} numberOfLines={2}>
               {location}
             </Text>
@@ -73,20 +68,14 @@ const ChargerDetailTopInfo = ({
             <Text style={styles.seeOnMapText} numberOfLines={1}>
               {t('chargerDetail.seeOnMap')}
             </Text>
-            <Image
-              source={require('../../../assets/images/icons/arrow_right.png')}
-              style={styles.arrowRightIcon}
-            />
+            <Image source={Imgs.arrowRight} style={styles.arrowRightIcon} />
           </TouchableOpacity>
         </View>
         <View style={styles.distanceContainer}>
           <TouchableOpacity
             onPress={chargerLocationDirectionPress}
             style={styles.distanceTouchable}>
-            <Image
-              source={require('../../../assets/images/icons/corner-up-right.png')}
-              style={styles.distanceIcon}
-            />
+            <Image source={Imgs.cornerUpRight} style={styles.distanceIcon} />
             <Text style={styles.distanceText} numberOfLines={1}>
               {_distance} {t('km')}
             </Text>
@@ -140,6 +129,9 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     tintColor: Colors.primaryBlue,
   },
+  divisor: {
+    height: 24,
+  },
   locationAndDistanceContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -149,7 +141,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
   },
-  loactionContainer: {
+  locationContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',

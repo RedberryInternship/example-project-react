@@ -11,6 +11,7 @@ import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Colors} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
+import Imgs from '../../../assets/images'
 
 type HeaderProps = {
   onPressLeft?: () => void
@@ -31,39 +32,20 @@ const BaseHeader = ({
   const renderLeft = (): ReactElement | undefined => {
     return (
       onPressLeft && (
-        <View
-          style={{
-            justifyContent: 'center',
-            height: '100%',
-            position: 'absolute',
-            left: 0,
-            top: 0,
-          }}>
+        <View style={styles.renderLeftContainer}>
           <BaseNativeTouchable
             onPress={onPressLeft}
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginLeft: 4,
-            }}>
+            style={styles.renderLeftTouchable}>
             {Platform.OS === 'ios' ? (
               <>
-                <Image
-                  source={require('../../../assets/images/icons/ios_back.png')}
-                  style={styles.imageStyle}
-                />
-                <BaseText style={{color: '#D1CFD7', fontSize: 15}}>
+                <Image source={Imgs.iosBack} style={styles.imageStyle} />
+                <BaseText style={styles.renderLeftBaseText}>
                   {t('back')}
                 </BaseText>
               </>
             ) : (
               <>
-                <Image
-                  source={require('../../../assets/images/icons/ios_back.png')}
-                  style={styles.imageStyle}
-                />
+                <Image source={Imgs.iosBack} style={styles.imageStyle} />
               </>
             )}
           </BaseNativeTouchable>
@@ -74,16 +56,8 @@ const BaseHeader = ({
 
   const renderMiddle = (): ReactElement | undefined => {
     return title ? (
-      <View
-        style={{
-          flex: 1,
-          height: '100%',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <Text style={{color: Colors.primaryWhite, fontSize: 18}}>
-          {t(title)}
-        </Text>
+      <View style={styles.renderMiddleContainer}>
+        <Text style={styles.renderMiddleText}>{t(title)}</Text>
       </View>
     ) : (
       undefined
@@ -93,31 +67,13 @@ const BaseHeader = ({
   const renderRight = (): ReactElement | undefined => {
     return (
       onPressRight && (
-        <View
-          style={{
-            justifyContent: 'center',
-            height: '100%',
-            position: 'absolute',
-            right: 0,
-            top: 0,
-          }}>
+        <View style={styles.renderRightConatainer}>
           <TouchableOpacity
             onPress={onPressRight}
-            style={{
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'row',
-              marginLeft: 4,
-            }}
+            style={styles.renderRightTouchable}
             hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
-            <Text style={{color: '#FF9500', fontSize: 13, letterSpacing: 0.2}}>
-              {t(titleRight)}
-            </Text>
-            <Image
-              source={require('../../../assets/images/icons/ios_back.png')}
-              style={styles.rightImageStyle}
-            />
+            <Text style={styles.renderRightText}>{t(titleRight)}</Text>
+            <Image source={Imgs.iosBack} style={styles.rightImageStyle} />
           </TouchableOpacity>
         </View>
       )
@@ -163,5 +119,52 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     transform: [{rotateY: '180deg'}],
     tintColor: '#FF9500',
+  },
+  renderLeftContainer: {
+    justifyContent: 'center',
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  renderLeftTouchable: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginLeft: 4,
+  },
+  renderLeftBaseText: {
+    color: '#D1CFD7',
+    fontSize: 15,
+  },
+  renderMiddleContainer: {
+    flex: 1,
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  renderMiddleText: {
+    color: Colors.primaryWhite,
+    fontSize: 18,
+  },
+  renderRightConatainer: {
+    justifyContent: 'center',
+    height: '100%',
+    position: 'absolute',
+    right: 0,
+    top: 0,
+  },
+  renderRightTouchable: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginLeft: 4,
+  },
+  renderRightText: {
+    color: '#FF9500',
+    fontSize: 13,
+    letterSpacing: 0.2,
   },
 })

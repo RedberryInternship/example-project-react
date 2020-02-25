@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 // declare module 'react-native-hooks'
 import {
-  TextInput,
   TextInputProps,
-  Image,
   ImageSourcePropType,
   StyleProp,
   ImageStyle,
@@ -17,7 +15,7 @@ import {
   NavigationState,
   NavigationParams,
 } from 'react-navigation'
-import {MapViewProps, Region} from 'react-native-maps'
+import {MapViewProps} from 'react-native-maps'
 
 type LanguageType = {
   en: string
@@ -217,6 +215,7 @@ export type ProfileFieldChange = {
   clicked: boolean
   setClicked: (status: boolean) => void
 }
+
 export type GoogleGetDirection = {
   routes: GoogleRoutes[]
   status: string
@@ -296,4 +295,15 @@ type OrderPayment = {
 }
 type OrderUserCard = {
   masked_pan: string
+}
+export type ProfileFieldChange = {
+  navigation: Navigation
+  clicked: boolean
+  setClicked: (status: boolean) => void
+}
+
+export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
+
+export type ScreenPropsWithNavigation = {
+  navigation: Navigation
 }

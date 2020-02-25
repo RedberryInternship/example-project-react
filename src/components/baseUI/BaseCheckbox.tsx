@@ -2,6 +2,8 @@ import React, {ReactElement} from 'react'
 
 import {View, StyleSheet, Image} from 'react-native'
 
+import Imgs from '../../../assets/images'
+
 type BaseCheckboxProp = {
   active: boolean
 }
@@ -10,11 +12,7 @@ const BaseCheckbox = ({active}: BaseCheckboxProp): ReactElement => {
   return (
     <View style={styles.checkboxImageContainer}>
       <Image
-        source={
-          active
-            ? require('../../../assets/images/icons/green_checkmark.png')
-            : require('../../../assets/images/icons/cicle.png')
-        }
+        source={active ? Imgs.greenCheckmark : Imgs.circle}
         style={styles.checkBoxImage}
       />
     </View>

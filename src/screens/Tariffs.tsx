@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View, StyleSheet, Text} from 'react-native'
 
 // components
@@ -7,13 +7,17 @@ import {BaseHeader, TariffDetail, TariffListItem} from 'components'
 // utils
 import {Colors} from '../utils'
 
-const tarrifs = ({navigation}: any) => {
+import {ScreenPropsWithNavigation} from 'allTypes'
+
+const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const tariffList = tariffsInfo.map(el => {
     return (
       <TariffListItem
         key={el.company}
         /* Vobi Todo: Spreading is bad practice in react when you need to modify something in that */
         /* Vobi Todo: And Get Back To Code you have no clue whats going on */
+
+        /* Redberry: What am I modifing? */
         {...el}
       />
     )
@@ -23,13 +27,14 @@ const tarrifs = ({navigation}: any) => {
     <View style={styles.container}>
       <BaseHeader
         title={'tariffs.tariffs'}
-        onPressLeft={() => navigation.navigate('MainDrawer')}
+        onPressLeft={navigation.navigate.bind(Tarrifs, 'MainDrawer')}
       />
       <TariffDetail
         title="30 წუთი - 2ლ"
         description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
       />
       {/* Vobi Todo: useTranslations() use translation json everywhere to display static text */}
+      {/* Redberry: These are copies we don't yet now what they'll be... */}
       <Text style={styles.note}>
         ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
       </Text>
@@ -38,7 +43,7 @@ const tarrifs = ({navigation}: any) => {
   )
 }
 
-export default tarrifs
+export default Tarrifs
 
 const styles = StyleSheet.create({
   container: {
