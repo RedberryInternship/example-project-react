@@ -3,6 +3,7 @@ import React, {ReactElement} from 'react'
 import {View, StyleSheet, Image} from 'react-native'
 import {Colors} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
+import Imgs from '../../../assets/images'
 
 type CardListItemProps = {
   code: string
@@ -16,10 +17,7 @@ const CardListItem = ({
   selected = false,
 }: CardListItemProps): ReactElement => {
   const selectedStatus = selected ? (
-    <Image
-      source={require('../../../assets/images/icons/green-tick.png')}
-      style={styles.selectedCardCircle}
-    />
+    <Image source={Imgs.greenTick} style={styles.selectedCardCircle} />
   ) : (
     <View style={styles.selectableCardCircle} />
   )
@@ -28,10 +26,7 @@ const CardListItem = ({
     <BaseNativeTouchable onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.innerLeftContainer}>
-          <Image
-            source={require('../../../assets/images/icons/credit-card.png')}
-            style={styles.image}
-          />
+          <Image source={Imgs.creditCard} style={styles.image} />
           <BaseText style={{color: Colors.primaryGray}}>
             {'xxxx xxxx xxxx '}
           </BaseText>

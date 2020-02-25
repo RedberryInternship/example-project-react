@@ -1,19 +1,20 @@
 import React, {ReactElement} from 'react'
-import {Text, View, Image} from 'react-native'
+import {Text, View, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Colors, GNOME} from 'utils'
+import Imgs from '../../../assets/images'
 
 const modalPopupChargerItemTypes = [
   {
-    image: require('../../../assets/images/icons/credit-card.png'),
+    image: Imgs.creditCard,
     text: 'popup.chargeOff',
   },
   {
-    image: require('../../../assets/images/icons/zap.png'),
+    image: Imgs.zap,
     text: 'charging.charge',
   },
   {
-    image: require('../../../assets/images/icons/corner-up-left.png'),
+    image: Imgs.cornerUpLeft,
     text: 'popup.returned',
   },
 ]
@@ -28,40 +29,20 @@ const ModalPopupChargerItem = ({
 }: ModalPopupChargerItemProps): ReactElement => {
   const {t} = useTranslation()
 
+  const popupItemPriceColorStyle = {
+    color: type === 2 ? Colors.primaryBlue : Colors.primaryBackground,
+  }
+
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginVertical: 12,
-        maxWidth: '100%',
-        flexWrap: 'wrap',
-      }}>
+    <View style={styles.container}>
       <Image
         source={modalPopupChargerItemTypes[type].image}
-        style={{width: 20, height: 20, resizeMode: 'contain'}}
+        style={styles.popUpItemImg}
       />
-      <Text
-        style={{
-          color: '#436880',
-          fontSize: 13,
-          marginLeft: 12,
-          marginRight: 4,
-          fontFamily: GNOME.HELV_EX,
-          fontVariant: ['tabular-nums'],
-        }}>
+      <Text style={styles.popUpItemText}>
         {t(modalPopupChargerItemTypes[type].text)}
       </Text>
-      <Text
-        style={{
-          color: type === 2 ? Colors.primaryBlue : Colors.primaryBackground,
-          fontSize: 13,
-          fontWeight: 'bold',
-          letterSpacing: 0.5,
-          textAlign: 'center',
-          lineHeight: 18,
-        }}>
+      <Text style={[styles.popUpItemPriceText, popupItemPriceColorStyle]}>
         {val} {t('gel')}
       </Text>
     </View>
@@ -69,3 +50,34 @@ const ModalPopupChargerItem = ({
 }
 
 export default ModalPopupChargerItem
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginVertical: 12,
+    maxWidth: '100%',
+    flexWrap: 'wrap',
+  },
+  popUpItemImg: {
+    width: 20,
+    height: 20,
+    resizeMode: 'contain',
+  },
+  popUpItemText: {
+    color: '#436880',
+    fontSize: 13,
+    marginLeft: 12,
+    marginRight: 4,
+    fontFamily: GNOME.HELV_EX,
+    fontVariant: ['tabular-nums'],
+  },
+  popUpItemPriceText: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
+    textAlign: 'center',
+    lineHeight: 18,
+  },
+})

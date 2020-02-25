@@ -17,6 +17,7 @@ import {
 } from 'allTypes'
 import {Item} from 'react-native-picker-select'
 import {BaseInput, BasePickerSelect} from 'components'
+import Imgs from '../../../assets/images'
 
 const pickeritems: Item[] = []
 
@@ -89,8 +90,6 @@ const PhoneNumberInput = React.forwardRef(
       if (pickeritemsState.length === 0) {
         Ajax.get('/phone-codes')
           .then(({data}: PhoneCountryCodesData) => {
-            // pickeritems.push({value :  "+995", label : "+995"})
-
             data.forEach((val: PhoneCountryCode) => {
               if (val.phone_code)
                 pickeritems.push({value: val.phone_code, label: val.phone_code})
@@ -125,7 +124,7 @@ const PhoneNumberInput = React.forwardRef(
       <View style={styles.container}>
         <View pointerEvents={'none'} style={styles.imageContainer}>
           <Animated.Image
-            source={require('../../../assets/images/icons/phone.png')}
+            source={Imgs.phone}
             style={[styles.image, {opacity: imageAnimatedOpacity}]}
             resizeMode="contain"
           />
@@ -153,7 +152,6 @@ const PhoneNumberInput = React.forwardRef(
               onChange={onPickerChange}
               items={pickeritemsState}
               placeholder={placeholder}
-              // value={selectedCountryCode}
               ref={pickerRef}
             />
           </View>

@@ -8,9 +8,10 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import {Colors, Const} from 'utils'
+import Imgs from '../../../assets/images'
 
 // eslint-disable-next-line react/display-name
-const homeMainSearchInput = React.forwardRef(
+const HomeMainSearchInput = React.forwardRef(
   (
     {
       setShowSearchContent,
@@ -30,23 +31,10 @@ const homeMainSearchInput = React.forwardRef(
         }}
         style={[styles.inputStyle]}
         activeOpacity={1}>
-        <Image
-          source={require('../../../assets/images/icons/icon-search.png')}
-          style={{
-            width: 16,
-            height: 16,
-            resizeMode: 'contain',
-            position: 'absolute',
-            left: 12,
-          }}
-        />
+        <Image source={Imgs.iconSearch} style={styles.searchImage} />
         <View pointerEvents={showSearchContent ? 'auto' : 'none'}>
           <TextInput
-            style={{
-              paddingLeft: 40,
-              marginRight: 32,
-              color: Colors.primaryWhite,
-            }}
+            style={styles.searchTextInput}
             placeholder={placeholder}
             keyboardType={'default'}
             onChangeText={textHandler}
@@ -64,25 +52,16 @@ const homeMainSearchInput = React.forwardRef(
         </View>
         <TouchableWithoutFeedback
           onPress={closeClick}
-          style={{zIndex: 3}}
+          style={styles.deleteTouchable}
           hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
-          <Image
-            source={require('../../../assets/images/icons/Delete.png')}
-            style={{
-              width: 16,
-              height: 16,
-              resizeMode: 'contain',
-              position: 'absolute',
-              right: 12,
-            }}
-          />
+          <Image source={Imgs.delete} style={styles.deleteImage} />
         </TouchableWithoutFeedback>
       </TouchableOpacity>
     )
   },
 )
 
-export default homeMainSearchInput
+export default HomeMainSearchInput
 
 const styles = StyleSheet.create({
   container: {
@@ -119,5 +98,27 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4,
     position: 'relative',
     alignContent: 'stretch',
+  },
+  searchImage: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    position: 'absolute',
+    left: 12,
+  },
+  searchTextInput: {
+    paddingLeft: 40,
+    marginRight: 32,
+    color: Colors.primaryWhite,
+  },
+  deleteImage: {
+    width: 16,
+    height: 16,
+    resizeMode: 'contain',
+    position: 'absolute',
+    right: 12,
+  },
+  deleteTouchable: {
+    zIndex: 3,
   },
 })

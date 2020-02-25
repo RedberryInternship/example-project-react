@@ -49,9 +49,9 @@ const DrawerTextFieldItem = ({
       style={[styles.textFieldContainer, container]}>
       <View style={styles.drawerImageContainer}>
         <Image style={[styles.image, imageStyle]} source={image} />
-        <Text style={[styles.textField]}>{t(text)}</Text>
+        <Text style={styles.textField}>{t(text)}</Text>
       </View>
-      <View style={{flex: 1}}>{textFieldBadge}</View>
+      <View style={styles.textFieldBadge}>{textFieldBadge}</View>
     </TouchableOpacity>
   )
 }
@@ -96,5 +96,8 @@ const styles = StyleSheet.create({
     flex: 6,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  textFieldBadge: {
+    flex: 1,
   },
 })

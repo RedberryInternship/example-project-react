@@ -3,6 +3,7 @@ import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'
+import Imgs from '../../../assets/images'
 
 type ChargerGroupPupupItemProp = {
   code: string
@@ -11,7 +12,7 @@ type ChargerGroupPupupItemProp = {
   text: string
 }
 
-const chargerGroupPopupItem = ({
+const ChargerGroupPopupItem = ({
   code,
   onPress,
   active,
@@ -22,11 +23,7 @@ const chargerGroupPopupItem = ({
       <View style={styles.container}>
         <Image
           style={styles.chargerPin}
-          source={
-            active
-              ? require('../../../assets/images/icons/close.png')
-              : require('../../../assets/images/icons/ic_filterType.png')
-          }
+          source={active ? Imgs.close : Imgs.filterType}
         />
         <View style={styles.chargerTypeContainer}>
           <Text style={styles.chargerTypeText}>{text}</Text>
@@ -34,14 +31,14 @@ const chargerGroupPopupItem = ({
         </View>
         <Image
           style={[styles.goToDetailIcon, {opacity: active ? 1 : 0.2}]}
-          source={require('../../../assets/images/icons/Back.png')}
+          source={Imgs.back}
         />
       </View>
     </TouchableOpacity>
   )
 }
 
-export default chargerGroupPopupItem
+export default ChargerGroupPopupItem
 
 const styles = StyleSheet.create({
   container: {

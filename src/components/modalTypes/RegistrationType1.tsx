@@ -2,6 +2,7 @@
 import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import {Colors} from 'utils'
+import Imgs from '../../../assets/images'
 
 type RegistrationType1Props = {
   onPress: () => void
@@ -11,24 +12,21 @@ const RegistrationType1 = ({onPress}: RegistrationType1Props): ReactElement => {
   return (
     <>
       <View style={styles.container}>
-        <Image
-          source={require('../../../assets/images/icons/user.png')}
-          style={styles.useIcon}
-        />
-        <Text style={styles.titleText}>მოგესალმებბიტ</Text>
-        <Text style={styles.nameSurnameText}>saxel gvari</Text>
+        <Image source={Imgs.user} style={styles.useIcon} />
+        {/* TODO: Title Text */}
+        <Text style={styles.titleText}>title</Text>
+        {/* TODO: First Name & Last Name Text */}
+        <Text style={styles.nameSurnameText}>First Name and Last Name</Text>
       </View>
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionText}>
-          saxel gasf asdf as df as df asdf vari
+          {/* TODO: Description Text */}
+          Description
         </Text>
       </View>
       <View style={styles.closeContainer}>
         <TouchableOpacity style={styles.closeTouchable} onPress={onPress}>
-          <Image
-            source={require('../../../assets/images/icons/close.png')}
-            style={styles.closeIcon}
-          />
+          <Image source={Imgs.close} style={styles.closeIcon} />
         </TouchableOpacity>
       </View>
     </>

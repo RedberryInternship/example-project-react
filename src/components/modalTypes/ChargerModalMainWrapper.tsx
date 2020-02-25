@@ -4,6 +4,7 @@ import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import {Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {PopUpCountDown, ModalPopupChargerItem} from 'components'
+import Imgs from '../../../assets/images'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
@@ -26,10 +27,10 @@ const ChargerModalMainWrapper = ({
   const [view, setView] = useState<ReactElement[]>([])
 
   useEffect(() => {
-    subTypehandler()
+    subTypeHandler()
   }, [])
 
-  const subTypehandler = (): void => {
+  const subTypeHandler = (): void => {
     const _view = []
     switch (subType) {
       case 1:
@@ -104,16 +105,10 @@ const ChargerModalMainWrapper = ({
   return (
     <>
       <TouchableOpacity style={styles.touchableStyle} onPress={onPress}>
-        <Image
-          source={require('../../../assets/images/icons/close.png')}
-          style={styles.closeIcon}
-        />
+        <Image source={Imgs.close} style={styles.closeIcon} />
       </TouchableOpacity>
       <View style={{flex: 0, marginHorizontal: 16}}>
-        <Image
-          source={require('../../../assets/images/icons/check-circle.png')}
-          style={styles.checkmarkIcon}
-        />
+        <Image source={Imgs.checkCircle} style={styles.checkMarkIcon} />
         <Text style={styles.mainTitleStyle}>{t(title)}</Text>
         <Text style={styles.mainDescriptionStyle}>{t(description)}</Text>
       </View>
@@ -210,7 +205,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     tintColor: Colors.primaryBlue,
   },
-  checkmarkIcon: {
+  checkMarkIcon: {
     width: 32,
     height: 32,
     resizeMode: 'contain',

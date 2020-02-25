@@ -7,7 +7,12 @@ import {BaseHeader} from 'components'
 // utils
 import {Colors} from 'utils'
 
-const Partners = ({navigation}: any): ReactElement => {
+// images
+import {Partners as PartnersImgs} from '../../assets/images'
+
+import {ScreenPropsWithNavigation} from 'allTypes'
+
+const Partners = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   return (
     <View style={styles.container}>
       <BaseHeader
@@ -16,18 +21,9 @@ const Partners = ({navigation}: any): ReactElement => {
       />
       <View style={styles.partnersInnerContainer}>
         <View style={styles.partnersRowContainer}>
-          <Image
-            source={require('../../assets/images/icons/partners/socar.png')}
-            style={{width: 80, height: 19}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/gulf.png')}
-            style={{width: 45, height: 41}}
-          />
-          <Image
-            source={require('../../assets/images/icons/partners/neogas.png')}
-            style={{width: 82, height: 26}}
-          />
+          <Image source={PartnersImgs.socar} style={{width: 80, height: 19}} />
+          <Image source={PartnersImgs.gulf} style={{width: 45, height: 41}} />
+          <Image source={PartnersImgs.neogas} style={{width: 82, height: 26}} />
         </View>
       </View>
       <SafeAreaView />

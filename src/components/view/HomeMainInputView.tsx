@@ -1,5 +1,4 @@
 import React, {
-  RefObject,
   forwardRef,
   useImperativeHandle,
   useMemo,
@@ -11,7 +10,6 @@ import {Const, Colors, getLocaleText} from 'utils'
 import {MainSearchItem, HomeMainSearchInput} from 'components'
 import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
 import {Charger, MapImperativeRefObject} from 'allTypes'
-import MapView from 'react-native-maps'
 
 type MainInput = {
   allChargers: Charger[]
@@ -20,7 +18,7 @@ type MainInput = {
 }
 // eslint-disable-next-line react/display-name
 const MainInput = forwardRef(
-  ({allChargers, mapRef, setShowAll}: MainInput, ref: any) => {
+  ({allChargers, mapRef, setShowAll}: MainInput, ref: any): ReactElement => {
     const hook = useHomeMainInputHook(allChargers, mapRef, setShowAll)
 
     const InputSubmit = (): void => {
@@ -31,12 +29,30 @@ const MainInput = forwardRef(
       close: hook.closeClick.bind(MainInput),
       show: hook.setShowSearchContent.bind(MainInput, true),
     }))
+
+    const searchedItems = (): ReactElement => (
+      <>
+        {hook.filterChargers?.map((val: Charger) => (
+          <MainSearchItem
+            key={val.id}
+            text={getLocaleText(val.name)}
+            mainTitle={getLocaleText(val.location)}
+            onPress={hook.onSearchItemClickHandler.bind(
+              MainInput,
+              val.lat,
+              val.lng,
+            )}
+          />
+        ))}
+      </>
+    )
+
     return useMemo(
       () => (
         <TouchableOpacity
           activeOpacity={1}
           onPress={hook.closeClick}
-          style={[styles.container]}>
+          style={styles.container}>
           <>
             <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
               <HomeMainSearchInput
@@ -77,22 +93,7 @@ const MainInput = forwardRef(
                   resetScrollToCoords={{x: 0, y: 0}}
                   viewIsInsideTabBar={true}
                   data={[1]}
-                  renderItem={(): ReactElement => (
-                    <>
-                      {hook.filterChargers?.map((val: Charger) => (
-                        <MainSearchItem
-                          key={val.id}
-                          text={getLocaleText(val.name)}
-                          mainTitle={getLocaleText(val.location)}
-                          onPress={hook.onSearchItemClickHandler.bind(
-                            MainInput,
-                            val.lat,
-                            val.lng,
-                          )}
-                        />
-                      ))}
-                    </>
-                  )}
+                  renderItem={searchedItems}
                 />
               </View>
             </Animated.View>

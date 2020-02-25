@@ -4,16 +4,16 @@ import {Const} from 'utils'
 import {PhoneNumberInput, ReceiveCode} from 'components'
 
 // eslint-disable-next-line react/display-name
-const filterTextItem = React.memo(
+const FilterTextItem = React.memo(
   ({hook, startCodeAnimation}: any) => {
-    const codeTextHandler = (text: string) => {
+    const codeTextHandler = (text: string): void => {
       hook._this.current.code = text
     }
-    const codeInputSubmit = () => {
+    const codeInputSubmit = (): void => {
       // hook.current.code = text
     }
 
-    const phoneInputSubmitHandler = () => {
+    const phoneInputSubmitHandler = (): void => {
       hook.phoneInputSubmit()
     }
 
@@ -39,4 +39,4 @@ const filterTextItem = React.memo(
     nextActivePage != 0 || activePage != 0,
 )
 
-export default filterTextItem
+export default FilterTextItem

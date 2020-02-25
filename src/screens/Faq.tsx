@@ -1,13 +1,13 @@
 import React, {useState, ReactElement} from 'react'
 import {View, StyleSheet, ScrollView} from 'react-native'
 
-import {NavigationScreenProp} from 'react-navigation'
-
 // components
 import {BaseHeader, FaqListItem} from 'components'
 
 // utils
 import {Colors} from 'utils'
+
+import {ScreenPropsWithNavigation} from 'allTypes'
 
 const faqs = [
   {
@@ -30,11 +30,7 @@ const faqs = [
   },
 ]
 
-type FaqPropsType = {
-  navigation: NavigationScreenProp<any, any>
-}
-
-const Faq = ({navigation}: FaqPropsType): ReactElement => {
+const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [activeFaq, setActiveFaq] = useState<number>(1)
 
   const questions = faqs.map((el, ind) => (

@@ -19,6 +19,7 @@ import MailChangeView from './view/profileChange/MailChangeView'
 import PhoneChangeView from './view/profileChange/PhoneChangeView'
 import PasswordChangeView from './view/profileChange/PasswordChangeView'
 import BottomSheetReanimated from './view/BottomSheetReanimated'
+import FooterTabNavigation from './view/FooterTabNavigationView'
 
 // ./
 import CustomModal from './CustomModal'
@@ -83,7 +84,6 @@ import LocationPermission from './modalTypes/LocationPermission'
 
 export {
   MapView,
-  CollapsibleModal,
   CustomSlideUpModal,
   TabNavigationButtons,
   HomeComponentItems,
@@ -149,5 +149,6 @@ export {
   BaseNativeTouchable,
   BaseText,
   BaseCheckbox,
+  FooterTabNavigation,
   LocationPermission,
 }

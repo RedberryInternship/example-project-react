@@ -1,6 +1,5 @@
-import React, {useContext} from 'react'
+import React, {useContext, ReactElement} from 'react'
 import {ScrollView, View, StyleSheet, Text} from 'react-native'
-
 import {BaseHeader, FavouriteChargerListItem} from 'components'
 import {Colors, Defaults} from 'utils'
 import {deleteToFavorites} from 'hooks/actions/rootActions'
@@ -8,18 +7,17 @@ import {AppContext} from '../../../App'
 import {getLocaleText} from 'utils/localization/localization'
 import {AppContextType, Favorite, Charger} from 'allTypes'
 import {useTranslation} from 'react-i18next'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const favourites = ({navigation}: any) => {
-  // Vobi Todo: No any types
-  // Vobi Todo: Correct name is Favorites
+const Favourites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const context: AppContextType = useContext(AppContext)
 
-  const deleteFavoriteCharger = (charger_id: number) => {
-    deleteToFavorites(charger_id, context.dispatch)
+  const deleteFavoriteCharger = (chargerId: number): void => {
+    deleteToFavorites(chargerId, context.dispatch)
   }
 
-  const turonOnHandler = (id: number) => {
+  const turonOnHandler = (id: number): void => {
     const charger =
       context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
     // Vobi Todo: what is this operator ?? and why do we need to use it
@@ -49,9 +47,9 @@ const favourites = ({navigation}: any) => {
                 key={index}
                 title={getLocaleText(val.name)}
                 address={getLocaleText(val.location)}
-                turnon={turonOnHandler.bind(favourites, val.id)}
+                turnon={turonOnHandler.bind(Favourites, val.id)}
                 deleteItem={deleteFavoriteCharger.bind(
-                  favourites,
+                  Favourites,
                   val.charger_id,
                 )}
               />
@@ -82,7 +80,7 @@ const favourites = ({navigation}: any) => {
   )
 }
 
-export default favourites
+export default Favourites
 
 const styles = StyleSheet.create({
   container: {

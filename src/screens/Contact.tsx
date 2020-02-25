@@ -10,8 +10,6 @@ import {
   StatusBar,
 } from 'react-native'
 
-import {NavigationScreenProp} from 'react-navigation'
-
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 
 import {useTranslation} from 'react-i18next'
@@ -31,11 +29,9 @@ import {useContact} from 'hooks'
  */
 import Imgs from '../../assets/images'
 
-type ContactPropsType = {
-  navigation: NavigationScreenProp<any, any>
-}
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-const Contact = ({navigation}: ContactPropsType): ReactElement => {
+const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const insets = useSafeArea()
   const mainHook = useContact(navigation)
@@ -74,7 +70,7 @@ const Contact = ({navigation}: ContactPropsType): ReactElement => {
         extraScrollHeight={Platform.select({ios: -300, android: 150})}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
-        contentContainerStyle={{flex: 0}}
+        contentContainerStyle={styles.keyboardScrollViewContentContainer}
         overScrollMode={'always'}
         extraHeight={Platform.select({ios: 500, android: 75})}
         resetScrollToCoords={{x: 0, y: 0}}>
@@ -82,10 +78,7 @@ const Contact = ({navigation}: ContactPropsType): ReactElement => {
 
         <View style={styles.messageContainer}>
           <Text style={styles.messageTitle}>{t('contact.message')}</Text>
-          <Image
-            source={require('../../assets/images/icons/mail.png')}
-            style={styles.messageIcon}
-          />
+          <Image source={Imgs.mail} style={styles.messageIcon} />
           <TextInput
             multiline
             style={styles.message}
@@ -118,6 +111,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.primaryBackground,
+  },
+  keyboardScrollViewContentContainer: {
+    flex: 0,
   },
   contactItemsContainer: {
     backgroundColor: Colors.secondaryGray,
