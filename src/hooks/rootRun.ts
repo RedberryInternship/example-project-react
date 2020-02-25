@@ -6,7 +6,7 @@ import {Defaults, NavigationActions} from 'utils'
 import {useTranslation} from 'react-i18next'
 import rootReducer, {initialState} from './reducers/rootReducer'
 import {rootAction} from './actions/rootActions'
-import {StatusBar, Platform, Alert} from 'react-native'
+import {StatusBar, Platform} from 'react-native'
 
 export function useRoot() {
   const [state, dispatch] = useReducer(rootReducer, initialState)
@@ -64,7 +64,7 @@ export function useRoot() {
     // Todo Vobi: What is the purpose of this listener delete unused code
   }, [currentAppState, networkState])
 
-  const readUserToken = async () => {
+  const readUserToken = async (): Promise<void> => {
     const _token = await getItem()
     let user: string | null = ''
     if (_token) {
@@ -76,7 +76,7 @@ export function useRoot() {
     setToken(_token)
   }
 
-  const readUserLocale = async () => {
+  const readUserLocale = async (): Promise<void> => {
     let _locale: 'en' | 'ka' | 'ru' | null = await getLocaleStorage()
     // Todo Vobi: javascript's variables shouldn't be named like this
     // Todo Vobi: It's an OOP syntax which tells developers that this method is private for class and should be called from outside
@@ -116,15 +116,15 @@ export function useRoot() {
     } else setAppReady(false)
   }, [token, navigationState, locale])
 
-  const onReady = () => {
-    NavigationActions().navigate('MainDrawer')
+  const onReady = (): void => {
+    // NavigationActions().navigate('MainDrawer')
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate("ForgotPassword")
     // NavigationActions().navigate("Registration")
     // NavigationActions().navigate('Settings')
     // NavigationActions().navigate("ProfileChange");
     // NavigationActions().navigate("ChargerWithCode");
-    NavigationActions().navigate('ChargerDetail')
+    // NavigationActions().navigate('ChargerDetail')
     // NavigationActions().navigate('NotAuthorized')
     // NavigationActions().navigate('ChoosingCard')
     // NavigationActions().navigate("ChooseChargeMethod");
@@ -132,7 +132,7 @@ export function useRoot() {
     // NavigationActions().navigate('Favourites')
     // NavigationActions().navigate('Faq')
     // NavigationActions().navigate('Charging')
-    // NavigationActions().navigate('Tariffs')
+    NavigationActions().navigate('Tariffs')
     // NavigationActions().navigate('Favorites')
     // NavigationActions().navigate('Contact')
     // NavigationActions().navigate('Notifications')
@@ -142,7 +142,7 @@ export function useRoot() {
     console.log(Defaults.token, 'App ready to boot')
   }
 
-  const userStatusHandler = () => {
+  const userStatusHandler = (): void => {
     // if(!appReady ) return
 
     if (state.user == '') {

@@ -251,12 +251,6 @@ export type LocationViaIP = {
   city: string
 }
 
-export type ProfileFieldChange = {
-  navigation: Navigation
-  clicked: boolean
-  setClicked: (status: boolean) => void
-}
-
 export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
 
 export type ScreenPropsWithNavigation = {
