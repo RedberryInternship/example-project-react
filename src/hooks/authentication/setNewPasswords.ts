@@ -8,7 +8,7 @@ type _This = {
 }
 
 export default (navigation: any) => {
-  const [loading, SetLoading] = useState<Boolean>(true)
+  const [loading, SetLoading] = useState<boolean>(true)
   const newPasswordRef: any = useRef(null)
   const repeatPasswordRef: any = useRef(null)
 
@@ -20,13 +20,13 @@ export default (navigation: any) => {
       setNewPassword()
         .then(({json_status}: any) => {
           if (json_status === 'Password Changed') {
-            Defaults.dropdown.alertWithType(
+            Defaults.dropdown?.alertWithType(
               'success',
               t('dropDownAlert.forgotPassword.passwordChangedSuccessfully'),
             )
             navigation.navigate('Auth')
           } else {
-            Defaults.dropdown.alertWithType(
+            Defaults.dropdown?.alertWithType(
               'error',
               t('dropDownAlert.generalError'),
             )
@@ -34,7 +34,7 @@ export default (navigation: any) => {
         })
         .catch(err => {
           console.log(err)
-          Defaults.dropdown.alertWithType(
+          Defaults.dropdown?.alertWithType(
             'error',
             t('dropDownAlert.generalError'),
           )
@@ -54,13 +54,13 @@ export default (navigation: any) => {
 
   const validateNewPasswordInput = (): boolean => {
     if (_this.current.newPassword.length === 0) {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.forgotPassword.newPasswordNotFilled'),
       )
       return false
     } else if (_this.current.newPassword.length < 8) {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.forgotPassword.newPasswordIncorrectLength'),
       )
@@ -82,7 +82,7 @@ export default (navigation: any) => {
     if (_this.current.newPassword !== _this.current.repeatPassword) {
       if (_this.current.repeatPassword.length === 0) {
         repeatPasswordRef.current.focus()
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.forgotPassword.repeteNewPasswordNotFilled'),
         )
@@ -97,7 +97,7 @@ export default (navigation: any) => {
   }
 
   const cleanPaswordFieldsAndFocusOnNewPassword = () => {
-    Defaults.dropdown.alertWithType(
+    Defaults.dropdown?.alertWithType(
       'error',
       t('dropDownAlert.registration.passwordNotEqual'),
     )

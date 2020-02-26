@@ -10,17 +10,17 @@ export default (setActivePage: any, t: any) => {
 
   const _this: RefObject<any> = useRef({name: '', surname: '', email: ''})
   const buttonClickHandler = () => {
-    let {name: _name, surname: _surname, email: _email} = _this.current
+    const {name: _name, surname: _surname, email: _email} = _this.current
 
     if (_name === '') {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.registration.fillName'),
       )
       name.current?.errorText('dropDownAlert.registration.fillName')
       return
     } else if (_surname === '') {
-      Defaults.dropdown.alertWithType(
+      Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.registration.fillSurname'),
       )
@@ -28,9 +28,9 @@ export default (setActivePage: any, t: any) => {
 
       return
     } else if (_email !== '') {
-      let reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/
+      const reg = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/
       if (!reg.test(_email)) {
-        Defaults.dropdown.alertWithType(
+        Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.registration.incorrectEmail'),
         )

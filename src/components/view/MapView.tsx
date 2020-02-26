@@ -43,7 +43,7 @@ const _mapView = forwardRef(
           {useMemo(
             () =>
               (showAll
-                ? hook.state.AllChargers
+                ? hook.state?.AllChargers
                 : filteredChargersOnMap
               )?.map((val: Charger) => (
                 <MapMarkerItem
@@ -53,7 +53,7 @@ const _mapView = forwardRef(
                 />
               )),
 
-            [hook.state.AllChargers, showAll, filteredChargersOnMap],
+            [hook.state?.AllChargers, showAll, filteredChargersOnMap],
           )}
           {useMemo(
             () => (

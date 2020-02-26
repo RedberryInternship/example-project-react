@@ -81,7 +81,7 @@ export default (navigation: NavigationScreenProp<any, any>) => {
           msg = 'Something Went Wrong...'
       }
 
-      Defaults.dropdown.alertWithType('error', 'Error', msg)
+      Defaults.dropdown?.alertWithType('error', 'Error', msg)
     }
   }
 

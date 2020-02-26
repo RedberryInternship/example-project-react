@@ -24,7 +24,7 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             filteredChargersOnMap={hook.filteredChargersOnMap}
           />
           <HomeComponentItems
-            allchargers={hook.context.state.AllChargers}
+            allchargers={hook.context?.state.AllChargers}
             mapRef={hook.mapRef}
             selectedFiltersOnMap={hook.selectedFiltersOnMap}
             onFilterClickOnMap={hook.onFilterClickOnMap}

@@ -1,10 +1,10 @@
-import { 
-  SAVE_TOKEN, 
-  GET_ALL_CHARGER_SUCCESS, 
-  LOG_OUT, 
-  GET_FAVORITE_CHARGERS, 
-  EDIT_USER_INFO
-} from "../actions/rootActions"
+import {
+  SAVE_TOKEN,
+  GET_ALL_CHARGER_SUCCESS,
+  LOG_OUT,
+  GET_FAVORITE_CHARGERS,
+  EDIT_USER_INFO,
+} from '../actions/rootActions'
 // eslint-disable-next-line no-unused-vars
 import {Charger, AppState, Action} from 'allTypes'
 
@@ -53,12 +53,12 @@ function reducer(
         ...state,
         user: {
           ...state.user,
-          [payload.type]: payload.data
-        }
+          [payload.type]: payload.data,
+        },
       }
 
     default:
-      return state;
+      return state
   }
 }
 

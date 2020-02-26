@@ -114,7 +114,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   const helpers = {
     popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
-      Defaults.dropdown.alertWithType(type, t(text))
+      Defaults.dropdown?.alertWithType(type, t(text))
     },
     tryRequestingSmsCode: async (): Promise<void> => {
       try {

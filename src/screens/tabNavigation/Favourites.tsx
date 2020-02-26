@@ -25,7 +25,7 @@ const Favourites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     if (charger.length !== 0) {
       navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
     } else {
-      return Defaults.dropdown.alertWithType(
+      return Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.chargerNotExist'),
       )
