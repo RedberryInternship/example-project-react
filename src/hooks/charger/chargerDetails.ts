@@ -90,7 +90,7 @@ export default (
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
 
-    navigation.setParams({chargerDetails: null})
+    // navigation.setParams({chargerDetails: null})
 
     if (params?.chargerDetails !== undefined) {
       setCharger(params?.chargerDetails)

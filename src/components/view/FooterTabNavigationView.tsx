@@ -13,7 +13,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
 
   const navigate = (name: string): void => {
     if (name === 'drawer') return props.navigation.openDrawer()
-    props.navigation.navigate(name)
+    props.navigation.navigate(name, {mode: null})
   }
   if (currentRouteName !== 'Home') {
     StatusBar.setBarStyle('light-content')
@@ -31,7 +31,10 @@ const FooterTabNavigator = (props: any): ReactElement => {
       ]}>
       <TabNavigationButtons
         active={currentRouteName === 'Home'}
-        navigate={navigate.bind(FooterTabNavigator, 'Home')}
+        navigate={() => {
+          props.navigation.setParams({})
+          navigate('Home')
+        }}
         image={Imgs.mapPin}
       />
       <TabNavigationButtons

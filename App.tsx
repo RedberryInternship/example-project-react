@@ -28,6 +28,9 @@ const App = () => {
             ref={ref => hook.setNavigationTopLevelElement(ref)}
             screenProps={{token: Defaults.token}}
             onNavigationStateChange={(_, state) => {
+              console.log('====================================')
+              console.log(state, 'navigation state')
+              console.log('====================================')
               Defaults.activeRoute = hook.getCurrentRoute(state)
             }}
           />

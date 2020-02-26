@@ -65,8 +65,6 @@ const useHomeHook = (
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
 
-    navigation.setParams({undefined})
-
     // remove directions on every focus
     if (!params?.mode) {
       mapRef.current &&
