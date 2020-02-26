@@ -31,6 +31,7 @@ import {
   Partners,
   SetNewPasswords,
 } from 'screens'
+import {Defaults} from 'utils'
 
 const chargerStack = createStackNavigator(
   {
@@ -39,6 +40,7 @@ const chargerStack = createStackNavigator(
     ChooseChargeMethod,
     Charging,
     ChoosingCard,
+    NotAuthorized,
   },
   {
     defaultNavigationOptions: {
@@ -48,11 +50,9 @@ const chargerStack = createStackNavigator(
   },
 )
 
-
 const HomeTabNavigation = createBottomTabNavigator(
   {
     Home,
-    NotAuthorized,
     chargerStack,
     Favorites,
   },

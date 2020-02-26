@@ -14,6 +14,7 @@ export default {
     till: '-till',
     yes: 'Yes',
     no: 'No',
+    loading: 'Loading ...',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',

@@ -27,7 +27,7 @@ const ZOOM_LEVEL = 200
 
 const useHomeHook = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-): any => {
+) => {
   const context: AppContextType = useContext(AppContext)
   const [loading, setLoading] = useState<boolean>(true)
 
@@ -64,8 +64,6 @@ const useHomeHook = (
 
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
-
-    navigation.setParams({undefined})
 
     // remove directions on every focus
     if (!params?.mode) {

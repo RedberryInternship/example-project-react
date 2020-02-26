@@ -72,7 +72,7 @@ export function useRoot() {
       user = user != null ? JSON.parse(user) : ''
     }
 
-    rootAction({token: _token, user}, dispatch)
+    rootAction({token: _token ?? '', user}, dispatch)
     setToken(_token)
   }
 
@@ -117,11 +117,11 @@ export function useRoot() {
   }, [token, navigationState, locale])
 
   const onReady = (): void => {
-    // NavigationActions().navigate('MainDrawer')
+    NavigationActions().navigate('MainDrawer')
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate("ForgotPassword")
     // NavigationActions().navigate("Registration")
-    NavigationActions().navigate('Settings')
+    // NavigationActions().navigate('Settings')
     // NavigationActions().navigate("ProfileChange");
     // NavigationActions().navigate("ChargerWithCode");
     // NavigationActions().navigate('ChargerDetail')

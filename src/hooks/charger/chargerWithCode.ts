@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {useState, useRef, useContext} from 'react'
+import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {AppContext} from '../../../App'
@@ -7,32 +7,21 @@ import {
   AppContextType,
   Charger,
   HomeNavigateModes,
+  LastUsedCharger,
+  LastUsedChargerResponseObject,
 } from '../../../@types/allTypes.d'
 import {
   NavigationState,
   NavigationScreenProp,
   NavigationParams,
 } from 'react-navigation'
-import {Defaults} from 'utils'
+import {Defaults, Ajax} from 'utils'
 
 type _This = {
   chargeWitchCode: string
 }
 
-const lastUsedDummy = [
-  {
-    address: 'ადფასდფას ადფ  ად ასდფასდ ას დფ ასდფ ასდფ ასდფ ასდ ',
-    code: '23423',
-  },
-  {
-    address: 'ადფასდფას ადფ  ად ასდფასდ ას დფ ასდფ ასდფ ასდფ ასდ ',
-    code: '23423',
-  },
-  {
-    address: 'ადფასდფას ადფ  ად ასდფასდ ას დფ ასდფ ასდფ ასდფ ასდ ',
-    code: '23423',
-  },
-]
+let LastUsedChargersStatic: LastUsedCharger[] | null = null
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -40,6 +29,9 @@ export default (
   const context: AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
+  const [lastUsedChargers, setLastUsedChargers] = useState<
+    LastUsedCharger[] | null
+  >(LastUsedChargersStatic)
 
   const _this: React.RefObject<_This> = useRef({chargeWitchCode: ''})
 
@@ -47,6 +39,10 @@ export default (
   const passwordRef: any = useRef(null)
 
   const {t} = useTranslation()
+
+  useEffect(() => {
+    lastUsed()
+  }, [])
 
   const codeTextHandler = (val: string) => {
     _this.current!.chargeWitchCode = val
@@ -76,14 +72,23 @@ export default (
     navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
   }
 
-  const lastUsed = () => {
-    context
-    // Ajax.get()
-
-    return lastUsedDummy
+  const lastUsed = async (): Promise<void> => {
+    if (Defaults.token !== '')
+      try {
+        const res: LastUsedChargerResponseObject = await Ajax.get(
+          '/user-chargers',
+        )
+        setLastUsedChargers(res.chargers)
+        LastUsedChargersStatic = res.chargers
+      } catch (error) {
+        Defaults.dropdown?.alertWithType(
+          'error',
+          t('dropDownAlert.generalError'),
+        )
+      }
   }
 
-  const allChargerHandler = () => {
+  const allChargerHandler = (): void => {
     navigation.navigate('Home', {mode: HomeNavigateModes.showAllChargers})
   }
 
@@ -100,5 +105,6 @@ export default (
     allChargerHandler,
     activeChargerType,
     setActiveChargerType,
+    lastUsedChargers,
   }
 }

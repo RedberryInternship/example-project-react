@@ -18,7 +18,7 @@ const BaseText = (props: BaseTextPropType): ReactElement => {
   const fontFamily = setFontFamily()
 
   return (
-    <Text style={[styles.text, fontFamily]} {...props}>
+    <Text {...props} style={[styles.text, fontFamily, props.style]}>
       {props.children}
     </Text>
   )

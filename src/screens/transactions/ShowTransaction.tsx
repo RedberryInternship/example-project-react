@@ -54,11 +54,14 @@ const ShowTransactions = ({
         </View>
         <Text style={styles.detailsCopy}>{t('transactions.details')}</Text>
         <View style={styles.detailsContainer}>
-          <DetailsItem
-            name={t('transactions.duration')}
-            value={order.charge_time}
-          />
-          {/* TODO */}
+          {order.charge_time && (
+            <DetailsItem
+              name={t('transactions.duration')}
+              value={order.charge_time}
+            />
+          )}
+
+          {/* TODO: No info about powers and energy */}
           {/* <DetailsItem name={t('transactions.power')} value={order.power} />
           <DetailsItem name={t('transactions.energy')} value={order.energy} /> */}
         </View>

@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react'
-import {StyleSheet, ScrollView, View, Image} from 'react-native'
+import {StyleSheet, ScrollView, View, Image, Alert} from 'react-native'
 import {
   BaseHeader,
   ChargerDetailTopInfo,
@@ -9,7 +9,7 @@ import {
   BaseButton,
 } from 'components'
 import {useChargerDetails} from 'hooks'
-import {Colors} from 'utils'
+import {Colors, Defaults} from 'utils'
 import {getLocaleText} from 'utils/localization/localization'
 import Imgs from '../../../../assets/images'
 import {ScreenPropsWithNavigation} from 'allTypes'
@@ -21,7 +21,15 @@ const ChargerDetail = ({
 
   return (
     <View style={styles.container}>
-      <BaseHeader onPressLeft={navigation.goBack} />
+      <BaseHeader
+        onPressLeft={() => {
+          if (Defaults.token !== '') {
+            navigation.goBack()
+          } else {
+            navigation.navigate('NotAuthorized')
+          }
+        }}
+      />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContentContainer}>
