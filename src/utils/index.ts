@@ -12,6 +12,8 @@ import mapStyles from './mapAndLocation/mapStyle'
 import mapStyle2 from './mapAndLocation/mapStyle2'
 import apiServices from './services'
 import useFirebase from './firebase'
+import Sentry from './sentry'
+import Helpers from './helpers'
 
 export {
   Defaults,
@@ -30,4 +32,6 @@ export {
   determineTimePeriod,
   apiServices,
   useFirebase,
+  Sentry,
+  Helpers,
 }

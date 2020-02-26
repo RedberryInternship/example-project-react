@@ -4,7 +4,7 @@ import asyncStorage from '@react-native-community/async-storage'
 import {Charger, Favorite} from 'allTypes'
 import i18n from 'i18next'
 
-import {apiServices} from 'utils'
+import {apiServices, Helpers} from 'utils'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
@@ -25,6 +25,8 @@ type AddFavoriteCharger = {
   status: boolean
 }
 
+const {Logger} = Helpers
+
 export const rootAction = (data: any, dispatch: any) => {
   dispatch(saveToken(data))
 
@@ -33,7 +35,10 @@ export const rootAction = (data: any, dispatch: any) => {
       .then(user => {
         saveToken({user, token: data.token})
       })
-      .catch(() => displayGeneralError())
+      .catch(err => {
+        Logger(err)
+        displayGeneralError()
+      })
 
     getFavoriteChargers(dispatch)
   }
@@ -76,7 +81,10 @@ export const getFavoriteChargers = (dispatch: any): void => {
     .then(({user_favorite_chargers}: FavoriteChargerObject) => {
       dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
     })
-    .catch(() => displayGeneralError())
+    .catch(err => {
+      displayGeneralError()
+      Logger(err)
+    })
 }
 
 export const addToFavorites = (payload: number, dispatch: any): void => {
@@ -88,7 +96,10 @@ export const addToFavorites = (payload: number, dispatch: any): void => {
         throw new Error()
       }
     })
-    .catch(() => displayGeneralError())
+    .catch(err => {
+      displayGeneralError()
+      Logger(err)
+    })
 }
 
 export const deleteToFavorites = (payload: number, dispatch: any) => {
@@ -100,7 +111,10 @@ export const deleteToFavorites = (payload: number, dispatch: any) => {
         throw new Error()
       }
     })
-    .catch(() => displayGeneralError())
+    .catch(err => {
+      displayGeneralError()
+      Logger(err)
+    })
 }
 
 type UserColumnType = 'first_name' | 'last_name' | 'email' | 'phone_number'

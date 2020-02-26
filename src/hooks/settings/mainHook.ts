@@ -1,4 +1,5 @@
 import {useContext} from 'react'
+import {Sentry} from 'utils'
 /*
  * in this case I couldn't import App Context by means of absolute path
  */
