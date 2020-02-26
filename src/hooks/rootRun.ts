@@ -64,7 +64,7 @@ export function useRoot() {
     // Todo Vobi: What is the purpose of this listener delete unused code
   }, [currentAppState, networkState])
 
-  const readUserToken = async () => {
+  const readUserToken = async (): Promise<void> => {
     const _token = await getItem()
     let user: string | null = ''
     if (_token) {
@@ -72,7 +72,7 @@ export function useRoot() {
       user = user != null ? JSON.parse(user) : ''
     }
 
-    rootAction({token: _token, user}, dispatch)
+    rootAction({token: _token ?? '', user}, dispatch)
     setToken(_token)
   }
 

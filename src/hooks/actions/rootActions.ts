@@ -47,7 +47,7 @@ export const saveToken = (payload: any) => {
 export const logOut = () => {
   asyncStorage.clear()
 
-  Defaults.token = null
+  Defaults.token = ''
   Defaults.userDetail = null
 
   return {

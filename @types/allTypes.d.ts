@@ -301,3 +301,25 @@ export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
 export type ScreenPropsWithNavigation = {
   navigation: Navigation
 }
+
+type LastUsedChargerResponseObject = {
+  chargers: LastUsedCharger[]
+}
+
+type LastUsedCharger = {
+  id: number
+  old_id: number
+  name: LocaleStringObject
+  charger_id: null
+  code: string
+  description: null | string
+  user_id: null | string
+  location: LocaleStringObject
+  public: number
+  active: number
+  lat: string
+  lng: string
+  iban: string
+  charger_group_id: null | number
+  last_update: null | string
+}

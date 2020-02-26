@@ -27,7 +27,7 @@ const ZOOM_LEVEL = 200
 
 const useHomeHook = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-): any => {
+) => {
   const context: AppContextType = useContext(AppContext)
   const [loading, setLoading] = useState<boolean>(true)
 

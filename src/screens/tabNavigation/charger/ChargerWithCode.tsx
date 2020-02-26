@@ -8,10 +8,10 @@ import {
   TitleTopLeftContainer,
 } from 'components'
 import {useChargerWithCode} from 'hooks'
-import {Const, Colors} from 'utils'
+import {Const, Colors, getLocaleText} from 'utils'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import Imgs from '../../../../assets/images'
-import {ScreenPropsWithNavigation} from 'allTypes'
+import {ScreenPropsWithNavigation, LastUsedCharger} from 'allTypes'
 
 const ChargerWithCode = ({
   navigation,
@@ -51,12 +51,12 @@ const ChargerWithCode = ({
         <TitleTopLeftContainer
           title={'charger.lastUsed'}
           direction={'column'}
-          data={hook.lastUsed()}
-          onRenderItem={(val, ind): ReactElement => (
+          data={hook.lastUsedChargers}
+          onRenderItem={(val: LastUsedCharger): ReactElement => (
             <ChargerItem
-              key={ind}
+              key={val.id}
               onPress={() => {}}
-              address={val.address}
+              address={getLocaleText(val.location)}
               code={val.code}
             />
           )}

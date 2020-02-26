@@ -14,6 +14,7 @@ export default {
     till: '-მდე',
     yes: 'დიახ',
     no: 'არა',
+    loading: 'იტვირთება ...',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',

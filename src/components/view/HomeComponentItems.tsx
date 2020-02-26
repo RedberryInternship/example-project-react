@@ -30,7 +30,7 @@ type HomeComponentItemsProps = {
 }
 const HomeComponentItems = ({
   navigation,
-  allChargers,
+  allchargers,
   mapRef,
   selectedFiltersOnMap,
   onFilterClickOnMap,
@@ -63,7 +63,7 @@ const HomeComponentItems = ({
           imageStyle={styles.onMapRoundImage}
         />
         <HomeMainInputView
-          allChargers={allChargers}
+          allChargers={allchargers}
           mapRef={mapRef}
           setShowAll={setShowAll}
           ref={mainInputRef}
