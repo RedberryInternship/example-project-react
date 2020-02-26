@@ -15,7 +15,7 @@ import SetNewPasswords from './authentication/SetNewPasswords'
 import Settings from './drawerMenuOptions/Settings'
 import ProfileChange from './drawerMenuOptions/ProfileChange'
 
-import Favorites from './tabNavigation/Favourites'
+import Favorites from './tabNavigation/Favorites'
 import Faq from './Faq'
 import Tariffs from './Tariffs'
 import Contact from './Contact'

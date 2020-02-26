@@ -8,19 +8,19 @@ import {Colors} from 'utils'
 
 import Imgs from '../../../assets/images'
 
-type FavouriteChargerItemProps = {
+type FavoriteChargerItemProps = {
   title: string
   address: string
   turnon: () => void | undefined
   deleteItem: () => void | undefined
 }
 
-const FavouriteChargerListItem = ({
+const FavoriteChargerListItem = ({
   title,
   address,
   turnon,
   deleteItem,
-}: FavouriteChargerItemProps): ReactElement => {
+}: FavoriteChargerItemProps): ReactElement => {
   return (
     <View style={styles.container}>
       <View style={styles.innerLeftContainer}>
@@ -49,7 +49,7 @@ const FavouriteChargerListItem = ({
   )
 }
 
-export default FavouriteChargerListItem
+export default FavoriteChargerListItem
 
 const styles = StyleSheet.create({
   container: {
