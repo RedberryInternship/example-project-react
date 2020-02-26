@@ -20,6 +20,9 @@ const get_user_favorite_chargers = '/user-favorites'
 const post_update_user_info = '/update-user-info'
 const get_city_based_on_current_location =
   '/https://api-dev.e-space.ge/api/app/V1/geo-ip'
+const get_me = '/me'
+const get_faq = '/faq'
+const get_partners = '/partners'
 
 export default {
   get_chargers_list,
@@ -41,4 +44,7 @@ export default {
   get_user_favorite_chargers,
   post_update_user_info,
   get_city_based_on_current_location,
+  get_me,
+  get_faq,
+  get_partners,
 }

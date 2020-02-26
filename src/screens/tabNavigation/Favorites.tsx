@@ -9,7 +9,7 @@ import {AppContextType, Favorite, Charger} from 'allTypes'
 import {useTranslation} from 'react-i18next'
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-const Favourites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
+const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const context: AppContextType = useContext(AppContext)
 
@@ -47,9 +47,9 @@ const Favourites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 key={index}
                 title={getLocaleText(val.name)}
                 address={getLocaleText(val.location)}
-                turnon={turonOnHandler.bind(Favourites, val.id)}
+                turnon={turonOnHandler.bind(Favorites, val.id)}
                 deleteItem={deleteFavoriteCharger.bind(
-                  Favourites,
+                  Favorites,
                   val.charger_id,
                 )}
               />
@@ -80,7 +80,7 @@ const Favourites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   )
 }
 
-export default Favourites
+export default Favorites
 
 const styles = StyleSheet.create({
   container: {

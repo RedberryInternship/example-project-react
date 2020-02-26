@@ -1,6 +1,5 @@
 //View
 import MapView from './view/MapView'
-import CollapsibleModal from './view/CollapsibleModal'
 import HomeComponentItems from './view/HomeComponentItems'
 import HomeFilterView from './view/HomeFilterView'
 import HomeMainInputView from './view/HomeMainInputView'
@@ -45,7 +44,7 @@ import ChargerItem from './item/ChargerItem'
 import ChargerTypesItem from './item/ChargerTypesItem'
 import ModalPopupChargerItem from './item/ModalPopupChargerItem'
 import ChooseCardOnCharging from './item/ChooseCardOnCharging'
-import FavouriteChargerListItem from './item/FavouriteChargerListItem'
+import FavoriteChargerListItem from './item/FavoriteChargerListItem'
 import FaqListItem from './item/FaqListItem'
 import TariffListItem from './item/TariffListItem'
 import ContactListItem from './item/ContactListItem'
@@ -133,7 +132,7 @@ export {
   FaqListItem,
   ModalPopupChargerItem,
   ChooseCardOnCharging,
-  FavouriteChargerListItem,
+  FavoriteChargerListItem,
   ContactListItem,
   NotificationListItem,
   TariffDetail,

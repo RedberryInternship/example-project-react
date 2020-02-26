@@ -4,6 +4,8 @@ import asyncStorage from '@react-native-community/async-storage'
 import {Charger, Favorite} from 'allTypes'
 import i18n from 'i18next'
 
+import {apiServices} from 'utils'
+
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
 export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
@@ -27,6 +29,12 @@ export const rootAction = (data: any, dispatch: any) => {
   dispatch(saveToken(data))
 
   if (data.token !== '') {
+    Ajax.get(apiServices.get_me)
+      .then(user => {
+        saveToken({user, token: data.token})
+      })
+      .catch(() => displayGeneralError())
+
     getFavoriteChargers(dispatch)
   }
 }
@@ -60,12 +68,7 @@ export const getAllChargers = (dispatch: any): void => {
     .then(({data}: ChargersObject) => {
       dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
     })
-    .catch(() => {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        i18n.t('dropDownAlert.generalError'),
-      )
-    })
+    .catch(() => displayGeneralError())
 }
 
 export const getFavoriteChargers = (dispatch: any): void => {
@@ -73,12 +76,7 @@ export const getFavoriteChargers = (dispatch: any): void => {
     .then(({user_favorite_chargers}: FavoriteChargerObject) => {
       dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
     })
-    .catch(() => {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        i18n.t('dropDownAlert.generalError'),
-      )
-    })
+    .catch(() => displayGeneralError())
 }
 
 export const addToFavorites = (payload: number, dispatch: any): void => {
@@ -87,18 +85,10 @@ export const addToFavorites = (payload: number, dispatch: any): void => {
       if (status) {
         getFavoriteChargers(dispatch)
       } else {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18n.t('dropDownAlert.generalError'),
-        )
+        throw new Error()
       }
     })
-    .catch(() => {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        i18n.t('dropDownAlert.generalError'),
-      )
-    })
+    .catch(() => displayGeneralError())
 }
 
 export const deleteToFavorites = (payload: number, dispatch: any) => {
@@ -107,18 +97,10 @@ export const deleteToFavorites = (payload: number, dispatch: any) => {
       if (status) {
         getFavoriteChargers(dispatch)
       } else {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18n.t('dropDownAlert.generalError'),
-        )
+        throw new Error()
       }
     })
-    .catch(() => {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        i18n.t('dropDownAlert.generalError'),
-      )
-    })
+    .catch(() => displayGeneralError())
 }
 
 type UserColumnType = 'first_name' | 'last_name' | 'email' | 'phone_number'
@@ -139,4 +121,11 @@ export const editUserInfo = (
       type: user_column_type,
     },
   })
+}
+
+const displayGeneralError = (): void => {
+  Defaults.dropdown?.alertWithType(
+    'error',
+    i18n.t('dropDownAlert.generalError'),
+  )
 }
