@@ -2,38 +2,20 @@ import React, {ReactElement, useEffect, useState} from 'react'
 import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
 
 // components
-import {BaseHeader} from 'components'
+import {BaseHeader, FetchedDataRenderer} from 'components'
 
 // utils
-import {Colors, Ajax, Defaults, Const} from 'utils'
-import i18next from 'i18next'
+import {Colors, Ajax, Const} from 'utils'
 
 type PartnersResponseType = {
   name: string
   image: string
 }
 
-let PartnersArray: PartnersResponseType[] = []
-
 const Partners = ({navigation}: any): ReactElement => {
-  const [partners, setPartners] = useState(PartnersArray)
-  useEffect(() => {
-    getPartners()
-  }, [])
-
   const getPartners = async (): Promise<void> => {
-    if (PartnersArray.length === 0) {
-      try {
-        const res = await Ajax.get('/partners')
-        setPartners(res.partners)
-        PartnersArray = res.partners
-      } catch (error) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18next.t('dropDownAlert.generalError'),
-        )
-      }
-    }
+    const res = await Ajax.get('/partners')
+    return res.partners
   }
 
   return (
@@ -43,17 +25,21 @@ const Partners = ({navigation}: any): ReactElement => {
         onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
       <View style={styles.partnersInnerContainer}>
-        {partners.map(
-          (val: PartnersResponseType, index: number): ReactElement => (
-            <View key={index} style={styles.partnerImageContainer}>
-              <Image
-                source={{uri: val.image}}
-                style={{width: 80, height: 40}}
-                resizeMode={'contain'}
-              />
-            </View>
-          ),
-        )}
+        {
+          <FetchedDataRenderer
+            property={'Partners'}
+            onItemRender={(val: PartnersResponseType, index): ReactElement => (
+              <View key={index} style={styles.partnerImageContainer}>
+                <Image
+                  source={{uri: val.image}}
+                  style={{width: 80, height: 40}}
+                  resizeMode={'contain'}
+                />
+              </View>
+            )}
+            fetchData={getPartners}
+          />
+        }
       </View>
       <SafeAreaView />
     </View>

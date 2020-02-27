@@ -34,6 +34,7 @@ const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
       />
       {/* Vobi Todo: useTranslations() use translation json everywhere to display static text */}
+
       {/* Redberry: These are copies we don't yet now what they'll be... */}
       <Text style={styles.note}>
         ტარიფები მაქსიმალურად მიახლოებულია რეალურთან

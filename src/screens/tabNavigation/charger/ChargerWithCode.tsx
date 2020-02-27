@@ -6,6 +6,7 @@ import {
   BaseButton,
   ChargerItem,
   TitleTopLeftContainer,
+  FetchedDataRenderer,
 } from 'components'
 import {useChargerWithCode} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
@@ -47,17 +48,23 @@ const ChargerWithCode = ({
           </Text>
         </TouchableOpacity>
         <View style={{height: 32}} />
-
         <TitleTopLeftContainer
           title={'charger.lastUsed'}
           direction={'column'}
-          data={hook.lastUsedChargers}
-          onRenderItem={(val: LastUsedCharger): ReactElement => (
-            <ChargerItem
-              key={val.id}
-              onPress={() => {}}
-              address={getLocaleText(val.location)}
-              code={val.code}
+          data={['s']}
+          onRenderItem={(val: any): ReactElement => (
+            <FetchedDataRenderer
+              property={'Faq'}
+              onItemRender={(val: any): ReactElement => (
+                <ChargerItem
+                  key={val.id}
+                  onPress={() => {}}
+                  address={getLocaleText(val.location)}
+                  code={val.code}
+                />
+              )}
+              fetchData={hook.lastUsed}
+              updateAlways={true}
             />
           )}
         />

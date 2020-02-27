@@ -1,6 +1,11 @@
 import React, {useContext, ReactElement} from 'react'
 import {ScrollView, View, StyleSheet, Text} from 'react-native'
-import {BaseHeader, FavouriteChargerListItem} from 'components'
+import {
+  BaseHeader,
+  FavoriteChargerListItem,
+  BaseText,
+  FetchedDataRenderer,
+} from 'components'
 import {Colors, Defaults} from 'utils'
 import {deleteToFavorites} from 'hooks/actions/rootActions'
 import {AppContext} from '../../../App'
@@ -21,6 +26,9 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     const charger =
       context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
     // Vobi Todo: what is this operator ?? and why do we need to use it
+    // it same as
+    // let messages: string = "3"
+    // console.log(messages ?? "ee")  // under the hood => messages !== null && messages !== void 0 ? messages : "ee"
 
     if (charger.length !== 0) {
       navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
@@ -31,19 +39,16 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       )
     }
   }
-  // const { state: { favoriteChargers } } = context
-  //
-  //
 
   return (
     <View style={{flex: 1, backgroundColor: Colors.primaryBackground}}>
       <BaseHeader title={'favourites.favourites'} />
       <ScrollView style={styles.container}>
-        {context.state.favoriteChargers &&
-        context.state.favoriteChargers?.length > 0 ? (
-          context.state.favoriteChargers?.map(
-            (val: Favorite, index: number) => (
-              <FavouriteChargerListItem
+        {
+          <FetchedDataRenderer
+            property={'Favourites'}
+            onItemRender={(val, index): ReactElement => (
+              <FavoriteChargerListItem
                 key={index}
                 title={getLocaleText(val.name)}
                 address={getLocaleText(val.location)}
@@ -53,28 +58,10 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                   val.charger_id,
                 )}
               />
-            ),
-          )
-        ) : (
-          <Text style={{margin: 32, alignSelf: 'center', color: 'white'}}>
-            {t('notFound')}
-          </Text>
-        )}
-        {/* Vobi Todo: move above script to following */}
-        {/* !favoriteChargers.length && 
-        <Text style={styles.notFound}>{t("notFound")}</Text>
-      */}
-
-        {/* favoriteChargers?.length && favoriteChargers?.map((val : Favorite, index : number) => (
-              <FavouriteChargerListItem
-                key={index}
-                title={getLocaleText (val.name) }
-                address={getLocaleText (val.location)}
-                turnon={turonOnHandler.bind(favourites, val.id)}
-                deleteItem={deleteFavoriteCharger.bind(favourites,val.charger_id )} 
-              />
-            ))
-      */}
+            )}
+            fetchData={() => Promise.resolve(context.state.favoriteChargers)}
+          />
+        }
       </ScrollView>
     </View>
   )
@@ -86,9 +73,8 @@ const styles = StyleSheet.create({
   container: {
     paddingVertical: 32,
   },
-  // notFound: {
-  //   margin: 32,
-  //   alignSelf:"center",
-  //   color:"white"
-  // }
+  notFound: {
+    margin: 32,
+    alignSelf: 'center',
+  },
 })

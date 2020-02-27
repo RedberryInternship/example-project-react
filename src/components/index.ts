@@ -27,6 +27,7 @@ import CustomModal from './CustomModal'
 import CustomSlideUpModal from './library/CustomSlideUpModal'
 import Pulse from './library/Pulse'
 import MultiChargingTopModal from './library/MultiChargingTopModal'
+import FetchedDataRenderer from './library/FetchedDataRenderer'
 
 //Item
 import TabNavigationButtons from './item/TabNavigationButtonsItem'
@@ -150,4 +151,5 @@ export {
   BaseCheckbox,
   FooterTabNavigation,
   LocationPermission,
+  FetchedDataRenderer,
 }

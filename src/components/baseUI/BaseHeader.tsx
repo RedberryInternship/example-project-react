@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   },
   renderMiddleText: {
     color: Colors.primaryWhite,
-    fontSize: 18,
+    fontSize: 17,
   },
   renderRightConatainer: {
     justifyContent: 'center',

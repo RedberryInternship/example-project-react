@@ -21,7 +21,7 @@ type _This = {
   chargeWitchCode: string
 }
 
-let LastUsedChargersStatic: LastUsedCharger[] | null = null
+const LastUsedChargersStatic: LastUsedCharger[] | null = null
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -40,9 +40,7 @@ export default (
 
   const {t} = useTranslation()
 
-  useEffect(() => {
-    lastUsed()
-  }, [])
+  useEffect(() => {}, [])
 
   const codeTextHandler = (val: string) => {
     _this.current!.chargeWitchCode = val
@@ -72,20 +70,15 @@ export default (
     navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
   }
 
-  const lastUsed = async (): Promise<void> => {
-    if (Defaults.token !== '')
-      try {
-        const res: LastUsedChargerResponseObject = await Ajax.get(
-          '/user-chargers',
-        )
-        setLastUsedChargers(res.chargers)
-        LastUsedChargersStatic = res.chargers
-      } catch (error) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.generalError'),
-        )
-      }
+  const lastUsed = async (): Promise<LastUsedCharger[]> => {
+    if (Defaults.token !== '') {
+      const res: LastUsedChargerResponseObject = await Ajax.get(
+        '/user-chargers',
+      )
+      return res.chargers
+    } else {
+      return []
+    }
   }
 
   const allChargerHandler = (): void => {
