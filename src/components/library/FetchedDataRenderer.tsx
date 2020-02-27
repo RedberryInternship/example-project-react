@@ -9,7 +9,7 @@ import {BaseText} from 'components'
 
 type FetchedDataRendererProp = {
   property: string
-  onItemRender: (val: any, index: number) => ReactElement
+  onItemRender: (val: any, index?: number) => ReactElement
   fetchData: () => Promise<any>
   updateAlways?: boolean
 }

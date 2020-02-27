@@ -40,9 +40,6 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     }
   }
 
-  console.log('====================================')
-  console.log(context.state.favoriteChargers, 'context.state.favoriteChargers')
-  console.log('====================================')
   return (
     <View style={{flex: 1, backgroundColor: Colors.primaryBackground}}>
       <BaseHeader title={'favourites.favourites'} />
