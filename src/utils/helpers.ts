@@ -1,9 +1,8 @@
 import {Sentry} from 'utils'
 import {Exception} from '@sentry/react-native'
-import {env} from '../../env'
 
-const Logger = (err: Exception): void => {
-  if (env === 'production') {
+const Logger = (err: Exception | string | number): void => {
+  if (__DEV__) {
     Sentry.captureException(err)
   } else {
     console.log(['Logger', err])

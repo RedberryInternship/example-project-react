@@ -40,7 +40,7 @@ const ForgotPassword = ({
           onChangeText={hook.codeTextHandler}
           onSubmit={hook.codeReceiveHandler}
           startCodeAnimation={hook.startCodeAnimation}
-          recieveCode={hook.codeReceiveHandler}
+          receiveCode={hook.codeReceiveHandler}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView

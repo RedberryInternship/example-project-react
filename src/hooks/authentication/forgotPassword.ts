@@ -1,9 +1,10 @@
 import {useState, useRef} from 'react'
 
 import {useTranslation} from 'react-i18next'
-import {Ajax, Defaults} from 'utils'
+import {Ajax, Defaults, Helpers} from 'utils'
 
-type _This = {
+const {Logger} = Helpers
+type This = {
   code: string
   phone: string
 }
@@ -19,7 +20,7 @@ export default (navigation: any) => {
 
   const {t} = useTranslation()
 
-  const _this = useRef<_This>({
+  const _this = useRef<This>({
     code: '',
     phone: '',
   })
@@ -75,6 +76,7 @@ export default (navigation: any) => {
   }
 
   const codeReceiveHandler = () => {
+    Logger(_this.current.phone)
     if (!validation.validatePhoneNumber(false)) return
 
     Ajax.post('/send-sms-code', {

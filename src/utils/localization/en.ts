@@ -88,7 +88,7 @@ export default {
       currentPassword: 'Current Password',
 
       newPassword: 'New Password',
-      repetePassword: 'Repete Password',
+      repeatPassword: 'Repeat Password',
 
       editCard: 'Payment Method',
       addCard: 'Add Card',
@@ -204,7 +204,7 @@ export default {
         lastNameChangeSucess: 'Last Name Changed Successfully!',
       },
       editEmail: {
-        incorrectFormat: 'Email Format is Incorrects',
+        incorrectFormat: 'Email Format is Incorrect',
         editedSuccssesfully: 'Email Edited Successfully',
       },
       editPhoneNumber: {
@@ -214,10 +214,10 @@ export default {
       editPassword: {
         success: 'Password Edited Successfully',
         fillCurrentPassword: 'Please, Fill Current Password Field',
-        fillRepetePassword: 'Please, Fill Repete Password Filed',
+        fillRepeatPassword: 'Please, Fill Repeat Password Filed',
         fillNewPassword: 'Please, Fill New Password Field',
         minSize: 'Password Field Should Contain At Least 8 Characters',
-        passwordsMismatch: "Passwords arn't identical",
+        passwordsMismatch: "Passwords aren't identical",
         passwordNotValid: 'Current Password Was Not Correct',
       },
       auth: {

@@ -1,43 +1,45 @@
 import {useState, useRef} from 'react'
+import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {Defaults, Ajax} from 'utils'
+import {Defaults, Ajax, Helpers} from 'utils'
+import {Navigation} from 'allTypes'
 
-type _This = {
+const {Logger} = Helpers
+
+type This = {
   newPassword: string
   repeatPassword: string
 }
 
-export default (navigation: any) => {
+type RequestResponse = {
+  json_status: string
+}
+
+export default (navigation: Navigation) => {
   const [loading, SetLoading] = useState<boolean>(true)
-  const newPasswordRef: any = useRef(null)
-  const repeatPasswordRef: any = useRef(null)
+  const newPasswordRef = useRef<TextInput>(null)
+  const repeatPasswordRef = useRef<TextInput>(null)
 
   const {t} = useTranslation()
-  const _this = useRef<_This>({newPassword: '', repeatPassword: ''})
+  const _this = useRef<This>({newPassword: '', repeatPassword: ''})
 
-  const onClickSubmitButton = () => {
+  const onClickSubmitButton = (): void => {
     if (validateNewPasswordInput() && validateRepeatedPasswordInput()) {
       setNewPassword()
-        .then(({json_status}: any) => {
+        .then(({json_status}: RequestResponse) => {
           if (json_status === 'Password Changed') {
-            Defaults.dropdown?.alertWithType(
+            helpers.popAlert(
+              'dropDownAlert.forgotPassword.passwordChangedSuccessfully',
               'success',
-              t('dropDownAlert.forgotPassword.passwordChangedSuccessfully'),
             )
             navigation.navigate('Auth')
           } else {
-            Defaults.dropdown?.alertWithType(
-              'error',
-              t('dropDownAlert.generalError'),
-            )
+            throw new Error()
           }
         })
         .catch(err => {
-          console.log(err)
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.generalError'),
-          )
+          Logger(err)
+          helpers.popAlert('dropDownAlert.generalError', 'error')
         })
     }
   }
@@ -48,7 +50,7 @@ export default (navigation: any) => {
 
   const newPasswordInputSubmit = () => {
     if (validateNewPasswordInput() === true) {
-      repeatPasswordRef.current.focus()
+      repeatPasswordRef?.current?.focus()
     }
   }
 
@@ -81,13 +83,13 @@ export default (navigation: any) => {
   const validateRepeatedPasswordInput = (): boolean => {
     if (_this.current.newPassword !== _this.current.repeatPassword) {
       if (_this.current.repeatPassword.length === 0) {
-        repeatPasswordRef.current.focus()
+        repeatPasswordRef?.current?.focus()
         Defaults.dropdown?.alertWithType(
           'error',
-          t('dropDownAlert.forgotPassword.repeteNewPasswordNotFilled'),
+          t('dropDownAlert.forgotPassword.repeatNewPasswordNotFilled'),
         )
       } else {
-        cleanPaswordFieldsAndFocusOnNewPassword()
+        cleanPasswordFieldsAndFocusOnNewPassword()
       }
 
       return false
@@ -96,23 +98,23 @@ export default (navigation: any) => {
     }
   }
 
-  const cleanPaswordFieldsAndFocusOnNewPassword = () => {
+  const cleanPasswordFieldsAndFocusOnNewPassword = () => {
     Defaults.dropdown?.alertWithType(
       'error',
       t('dropDownAlert.registration.passwordNotEqual'),
     )
 
-    newPasswordRef.current.setNativeProps({
+    newPasswordRef?.current?.setNativeProps({
       text: '',
     })
     _this.current.newPassword = ''
 
-    repeatPasswordRef.current.setNativeProps({
+    repeatPasswordRef?.current?.setNativeProps({
       text: '',
     })
     _this.current.repeatPassword = ''
 
-    newPasswordRef.current.focus()
+    newPasswordRef?.current?.focus()
   }
 
   const setNewPassword = async () => {
@@ -120,6 +122,12 @@ export default (navigation: any) => {
       phone_number: navigation.state.params.phone,
       password: _this.current.newPassword,
     })
+  }
+
+  const helpers = {
+    popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
+      Defaults.dropdown?.alertWithType(type, t(text))
+    },
   }
 
   return {

@@ -32,20 +32,20 @@ const PasswordChangeView = ({
       <BaseInput
         title={'settings.newPassword'}
         image={Imgs.lock}
-        onChangeText={hook.repetePassword.onChangeText}
-        onSubmit={hook.repetePassword.onSubmit}
-        ref={hook.repetePasswordRef}
-        onFocus={hook.repetePassword.onFocus}
+        onChangeText={hook.setNewPassword.onChangeText}
+        onSubmit={hook.setNewPassword.onSubmit}
+        ref={hook.setNewPasswordRef}
+        onFocus={hook.setNewPassword.onFocus}
         secure
       />
 
       <BaseInput
-        title={'settings.repetePassword'}
+        title={'settings.repeatPassword'}
         image={Imgs.lock}
-        onChangeText={hook.newPassword.onChangeText}
-        onSubmit={hook.newPassword.onSubmit}
-        onFocus={hook.newPassword.onFocus}
-        ref={hook.newPasswordRef}
+        onChangeText={hook.repeatNewPassword.onChangeText}
+        onSubmit={hook.repeatNewPassword.onSubmit}
+        onFocus={hook.repeatNewPassword.onFocus}
+        ref={hook.repeatNewPasswordRef}
         secure
       />
     </View>

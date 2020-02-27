@@ -80,7 +80,7 @@ export default {
       editPassword: 'პაროლის შეცვლა',
       currentPassword: 'ახლანდელი პაროლი',
       newPassword: 'ახალი პაროლი',
-      repetePassword: 'გაიმეორეთ პაროლი',
+      repeatPassword: 'გაიმეორეთ პაროლი',
 
       editCard: 'გადახდის მეთოდი',
       addCard: 'დაამატე ბარათი',
@@ -211,7 +211,7 @@ export default {
       editPassword: {
         success: 'პაროლი წარმატებით შეიცვალა',
         fillCurrentPassword: 'გთხოვთ, შეიყვანეთ ამჟამინდელი პაროლი',
-        fillRepetePassword: 'გთხოვთ, გაიმეოროთ პაროლი',
+        fillRepeatPassword: 'გთხოვთ, გაიმეოროთ პაროლი',
         fillNewPassword: 'გთხოვთ, შეიყვანოთ ახალი პაროლი',
         minSize: 'პაროლის ველი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
         passwordsMismatch: 'პაროლები არ ემთხვევა ერთმანეთს',
@@ -229,7 +229,7 @@ export default {
         smsCodeExpired: 'sms კოდს ვადა გაუვიდა',
         fillCode: 'შეიყვანეთ sms კოდი',
         newPasswordNotFilled: 'გთხოვთ, შეიყვანოთ ახალი პაროლის ველი',
-        repeteNewPasswordNotFilled: 'გთხოვთ, გაიმეორეთ პაროლი',
+        repeatNewPasswordNotFilled: 'გთხოვთ, გაიმეორეთ პაროლი',
         newPasswordIncorrectLength: 'პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
         passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
       },

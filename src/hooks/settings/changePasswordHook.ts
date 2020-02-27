@@ -1,27 +1,29 @@
 import {useEffect, useRef} from 'react'
-import {TextInputProps} from 'react-native'
+import {TextInput} from 'react-native'
 import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 import {useTranslation} from 'react-i18next'
 
-import {apiServices, Defaults, Ajax} from '../../utils'
+import {apiServices, Defaults, Ajax, Helpers} from '../../utils'
 
 type _This = {
   currentPassword: string
-  repetePassword: string
-  newPassword: string
+  setNewPassword: string
+  repeatNewPassword: string
 }
 
+const {Logger} = Helpers
+
 export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
-  const currentPasswordRef = useRef<TextInputProps & BaseInputRefProp>()
-  const repetePasswordRef = useRef<TextInputProps & BaseInputRefProp>()
-  const newPasswordRef = useRef<TextInputProps & BaseInputRefProp>()
+  const currentPasswordRef = useRef<TextInput & BaseInputRefProp>()
+  const setNewPasswordRef = useRef<TextInput & BaseInputRefProp>()
+  const repeatNewPasswordRef = useRef<TextInput & BaseInputRefProp>()
 
   const {t} = useTranslation()
 
   const _this = useRef<_This>({
     currentPassword: '',
-    repetePassword: '',
-    newPassword: '',
+    setNewPassword: '',
+    repeatNewPassword: '',
   })
 
   useEffect(() => {
@@ -37,10 +39,9 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   const saveNewPassword = (): void => {
     validate.currentPassword() &&
-      validate.newPassword() &&
-      validate.repetePassword() &&
-      validate.newPassword() &&
-      helpers.trySendingSavePassworRequest()
+      validate.setNewPassword() &&
+      validate.repeatNewPassword() &&
+      helpers.trySendingSavePasswordRequest()
   }
 
   const currentPassword = {
@@ -51,39 +52,39 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       })
     },
     onSubmit: (): void => {
-      validate.currentPassword() && repetePasswordRef.current?.focus()
+      validate.currentPassword() && setNewPasswordRef.current?.focus()
     },
   }
 
-  const repetePassword = {
+  const setNewPassword = {
     onChangeText: (text: string): void => {
-      _this.current.repetePassword = text.trim()
-      repetePasswordRef.current?.setNativeProps({
-        text: _this.current.repetePassword,
+      _this.current.setNewPassword = text.trim()
+      setNewPasswordRef.current?.setNativeProps({
+        text: _this.current.setNewPassword,
       })
     },
     onSubmit: (): void => {
       validate.currentPassword() &&
-        validate.repetePassword() &&
-        newPasswordRef.current?.focus()
+        validate.setNewPassword() &&
+        repeatNewPasswordRef.current?.focus()
     },
     onFocus: (): void => {
       validate.currentPassword()
     },
   }
 
-  const newPassword = {
+  const repeatNewPassword = {
     onChangeText: (text: string): void => {
-      _this.current.newPassword = text.trim()
-      newPasswordRef.current?.setNativeProps({
-        text: _this.current.newPassword,
+      _this.current.repeatNewPassword = text.trim()
+      repeatNewPasswordRef.current?.setNativeProps({
+        text: _this.current.repeatNewPassword,
       })
     },
     onSubmit: (): void => {
       saveNewPassword()
     },
     onFocus: (): void => {
-      validate.currentPassword() && validate.repetePassword()
+      validate.currentPassword() && validate.setNewPassword()
     },
   }
 
@@ -110,89 +111,93 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
         helpers.popAlert('dropDownAlert.editPassword.minSize')
         currentPasswordRef.current?.focus()
         helpers.emptyCurrentPassword()
-        helpers.emptyRepetePassword()
+        helpers.emptySetNewPassword()
         helpers.emptyNewPassword()
         return false
       }
     },
 
-    repetePassword: (): boolean => {
+    setNewPassword: (): boolean => {
       return (
         validate.currentPassword() &&
-        validate.isRepetePasswordFilled() &&
-        validate.isRepetePasswordLengthValid() &&
-        validate.isRepetePasswordIdenticalToCurrentPassword()
+        validate.isSetNewPasswordFilled() &&
+        validate.isSetNewPasswordLengthValid()
       )
     },
 
-    isRepetePasswordFilled: (): boolean => {
-      if (_this.current.repetePassword !== '') {
-        return true
-      } else {
-        helpers.popAlert('dropDownAlert.editPassword.fillRepetePassword')
-        repetePasswordRef.current?.focus()
-
-        return false
-      }
-    },
-
-    isRepetePasswordLengthValid: (): boolean => {
-      if (_this.current.repetePassword.length > 7) {
-        return true
-      } else {
-        helpers.popAlert('dropDownAlert.editPassword.minSize')
-        helpers.resetFields()
-        return false
-      }
-    },
-    isRepetePasswordIdenticalToCurrentPassword: (): boolean => {
-      if (_this.current.currentPassword === _this.current.repetePassword) {
-        return true
-      } else {
-        helpers.popAlert('dropDownAlert.editPassword.passwordsMismatch')
-        helpers.resetFields()
-        return false
-      }
-    },
-
-    newPassword: (): boolean => {
-      return (
-        validate.currentPassword() &&
-        validate.repetePassword() &&
-        validate.isNewPasswordFilled() &&
-        validate.isNewPasswordLengthValid()
-      )
-    },
-    isNewPasswordFilled: (): boolean => {
-      if (_this.current.newPassword !== '') {
+    isSetNewPasswordFilled: (): boolean => {
+      if (_this.current.setNewPassword !== '') {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.fillNewPassword')
-        newPasswordRef.current?.focus()
+        setNewPasswordRef.current?.focus()
+
         return false
       }
     },
-    isNewPasswordLengthValid: (): boolean => {
-      if (_this.current.newPassword.length > 7) {
+
+    isSetNewPasswordLengthValid: (): boolean => {
+      if (_this.current.setNewPassword.length > 7) {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.minSize')
-        newPasswordRef.current?.focus()
+        helpers.resetFields()
+        return false
+      }
+    },
+
+    repeatNewPassword: (): boolean => {
+      return (
+        validate.currentPassword() &&
+        validate.setNewPassword() &&
+        validate.isRepeatNewPasswordFilled() &&
+        validate.isRepeatNewPasswordLengthValid() &&
+        validate.isRepeatNewPasswordIdenticalToSetNewPassword()
+      )
+    },
+    isRepeatNewPasswordFilled: (): boolean => {
+      if (_this.current.repeatNewPassword !== '') {
+        return true
+      } else {
+        helpers.popAlert('dropDownAlert.editPassword.fillRepeatPassword')
+        repeatNewPasswordRef.current?.focus()
+        return false
+      }
+    },
+    isRepeatNewPasswordLengthValid: (): boolean => {
+      if (_this.current.repeatNewPassword.length > 7) {
+        return true
+      } else {
+        helpers.popAlert('dropDownAlert.editPassword.minSize')
+        helpers.emptySetNewPassword()
         helpers.emptyNewPassword()
+        setNewPasswordRef.current?.focus()
+        return false
+      }
+    },
+
+    isRepeatNewPasswordIdenticalToSetNewPassword: (): boolean => {
+      if (_this.current.setNewPassword === _this.current.repeatNewPassword) {
+        return true
+      } else {
+        helpers.popAlert('dropDownAlert.editPassword.passwordsMismatch')
+        helpers.emptySetNewPassword()
+        helpers.emptyNewPassword()
+        setNewPasswordRef.current?.focus()
         return false
       }
     },
   }
 
   const helpers = {
-    trySendingSavePassworRequest: async (): Promise<void> => {
+    trySendingSavePasswordRequest: async (): Promise<void> => {
       const dataToSend = {
         // eslint-disable-next-line @typescript-eslint/camelcase
         phone_number: Defaults.userDetail?.phone_number,
         // eslint-disable-next-line @typescript-eslint/camelcase
         old_password: _this.current.currentPassword,
         // eslint-disable-next-line @typescript-eslint/camelcase
-        new_password: _this.current.newPassword,
+        new_password: _this.current.repeatNewPassword,
       }
 
       try {
@@ -213,6 +218,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
           helpers.popAlert('dropDownAlert.generalError')
         }
         helpers.resetFields()
+        Logger(e)
       }
     },
 
@@ -222,7 +228,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
     resetFields: (): void => {
       helpers.emptyCurrentPassword()
-      helpers.emptyRepetePassword()
+      helpers.emptySetNewPassword()
       helpers.emptyNewPassword()
       currentPasswordRef.current?.focus()
     },
@@ -234,16 +240,16 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       })
     },
 
-    emptyRepetePassword: (): void => {
-      _this.current.repetePassword = ''
-      repetePasswordRef.current?.setNativeProps({
+    emptySetNewPassword: (): void => {
+      _this.current.setNewPassword = ''
+      setNewPasswordRef.current?.setNativeProps({
         text: '',
       })
     },
 
     emptyNewPassword: (): void => {
-      _this.current.newPassword = ''
-      newPasswordRef.current?.setNativeProps({
+      _this.current.repeatNewPassword = ''
+      repeatNewPasswordRef.current?.setNativeProps({
         text: '',
       })
     },
@@ -251,10 +257,10 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   return {
     currentPasswordRef,
-    repetePasswordRef,
-    newPasswordRef,
+    setNewPasswordRef,
+    repeatNewPasswordRef,
     currentPassword,
-    repetePassword,
-    newPassword,
+    setNewPassword,
+    repeatNewPassword,
   }
 }
