@@ -193,16 +193,16 @@ export default {
       editFirstname: {
         firstNameNotEmpty: 'გთხოვთ, შეავსეთ სახელის ველი',
         minSize: 'სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
-        firstNameChangeSucess: 'სახელი წარმატებით შეიცვალა!',
+        firstNameChangeSuccess: 'სახელი წარმატებით შეიცვალა!',
       },
       editLastname: {
         lastNameNotEmpty: 'გთხოვთ, შეავსეთ გვარის ველი',
         minSize: 'გვარის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
-        lastNameChangeSucess: 'გვარი წარმატებით შეიცვალა!',
+        lastNameChangeSuccess: 'გვარი წარმატებით შეიცვალა!',
       },
       editEmail: {
         incorrectFormat: 'ელ.ფოსტის ფორმატი არასწორია',
-        editedSuccssesfully: 'ელ.ფოსტა წარმატებით შეიცვალა!',
+        editedSuccessfully: 'ელ.ფოსტა წარმატებით შეიცვალა!',
       },
       editPhoneNumber: {
         success: 'ტელეფონის ნომერი წარმატებით შეიცვალა!',
@@ -219,7 +219,7 @@ export default {
       },
       auth: {
         phoneNumberLength: 'მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს',
-        passworNotEmpty: 'პაროლის ველი ცარიელი არ უნდა იყოს',
+        passwordNotEmpty: 'პაროლის ველი ცარიელი არ უნდა იყოს',
         userNotFound: 'მომხმარებელი ვერ მოიძებნა ბაზაში',
       },
       forgotPassword: {

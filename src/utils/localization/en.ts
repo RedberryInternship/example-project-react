@@ -196,16 +196,16 @@ export default {
       editFirstname: {
         firstNameNotEmpty: 'Please, Fill The First Name Field',
         minSize: 'First Name should be at least 3 characters long',
-        firstNameChangeSucess: 'First Name Changed Successfully!',
+        firstNameChangeSuccess: 'First Name Changed Successfully!',
       },
       editLastname: {
         lastNameNotEmpty: 'Please, Fill The Last Name Field',
         minSize: 'Last Name should be at least 3 characters long',
-        lastNameChangeSucess: 'Last Name Changed Successfully!',
+        lastNameChangeSuccess: 'Last Name Changed Successfully!',
       },
       editEmail: {
         incorrectFormat: 'Email Format is Incorrect',
-        editedSuccssesfully: 'Email Edited Successfully',
+        editedSuccessfully: 'Email Edited Successfully',
       },
       editPhoneNumber: {
         success: 'Phone Number Edited Successfully',
@@ -222,7 +222,7 @@ export default {
       },
       auth: {
         phoneNumberLength: 'The phone number should be exactly 9 digits long.',
-        passworNotEmpty: 'The password field should not be empty',
+        passwordNotEmpty: 'The password field should not be empty',
         userNotFound: 'User not found',
       },
       forgotPassword: {
@@ -233,7 +233,7 @@ export default {
         fillCode: 'Please, fill the code',
 
         newPasswordNotFilled: 'Please, fill the New Password field',
-        repeteNewPasswordNotFilled: 'Please fill the Repete New Password field',
+        repeatNewPasswordNotFilled: 'Please fill the Repeat New Password field',
         newPasswordIncorrectLength:
           'New password should contain at least 8 symbols',
         passwordChangedSuccessfully: 'Password changed successfully',
