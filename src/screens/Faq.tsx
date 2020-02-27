@@ -1,12 +1,11 @@
-import React, {useState, ReactElement, useEffect} from 'react'
+import React, {useState, ReactElement} from 'react'
 import {View, StyleSheet, ScrollView} from 'react-native'
-import i18next from 'i18next'
 
 // components
-import {BaseHeader, FaqListItem} from 'components'
+import {BaseHeader, FaqListItem, FetchedDataRenderer} from 'components'
 
 // utils
-import {Colors, Ajax, Defaults, getLocaleText} from 'utils'
+import {Colors, Ajax, getLocaleText} from 'utils'
 import {LocaleStringObject, ScreenPropsWithNavigation} from 'allTypes'
 
 type FAQResponseType = {
@@ -14,29 +13,12 @@ type FAQResponseType = {
   answer: LocaleStringObject
 }
 
-let FAQStatic: FAQResponseType[] = []
-
 const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [activeFaq, setActiveFaq] = useState<number>(1)
-  const [faqs, setFaqs] = useState(FAQStatic)
 
-  useEffect(() => {
-    getFAQ()
-  }, [])
-
-  const getFAQ = async (): Promise<void> => {
-    if (FAQStatic.length === 0) {
-      try {
-        const res = await Ajax.get('/faq')
-        setFaqs(res.faq)
-        FAQStatic = res.faq
-      } catch (error) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18next.t('dropDownAlert.generalError'),
-        )
-      }
-    }
+  const getFAQ = async (): Promise<any> => {
+    const res = await Ajax.get('/faq')
+    return res.faq
   }
 
   return (
@@ -46,16 +28,22 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         onPressLeft={navigation.navigate.bind(Faq, 'MainDrawer')}
       />
       <ScrollView style={styles.scrollViewStyle}>
-        {faqs.map((el, ind) => (
-          <FaqListItem
-            key={ind}
-            number={ind + 1}
-            question={getLocaleText(el.question)}
-            answer={getLocaleText(el.answer)}
-            activeFaq={activeFaq}
-            setActiveFaq={setActiveFaq}
+        {
+          <FetchedDataRenderer
+            property={'Faq'}
+            onItemRender={(val: FAQResponseType, index): ReactElement => (
+              <FaqListItem
+                key={index}
+                number={index + 1}
+                question={getLocaleText(val.question)}
+                answer={getLocaleText(val.answer)}
+                activeFaq={activeFaq}
+                setActiveFaq={setActiveFaq}
+              />
+            )}
+            fetchData={getFAQ}
           />
-        ))}
+        }
       </ScrollView>
     </View>
   )

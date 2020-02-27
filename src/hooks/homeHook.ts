@@ -47,6 +47,7 @@ const useHomeHook = (
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
     bottomSheetRef.current?.snapTo(0)
+    bottomSheetRef.current?.snapTo(0)
 
     return (): void => {
       didFocus.remove()
@@ -76,15 +77,16 @@ const useHomeHook = (
       setTimeout(() => {
         switch (params?.mode) {
           case HomeNavigateModes.showAllChargers: {
-            bottomSheetRef.current?.snapTo(1)
+            bottomSheetSnapTo(1)
             break
           }
           case HomeNavigateModes.chargerLocateOnMap: {
+            bottomSheetSnapTo()
             mapRef.current?.animateToCoords(params?.lat, params?.lng)
             break
           }
           case HomeNavigateModes.showRoutesToCharger: {
-            bottomSheetRef.current?.snapTo(0)
+            bottomSheetSnapTo()
             mapRef.current?.showRoute(params?.lat, params?.lng)
             break
           }
@@ -93,6 +95,11 @@ const useHomeHook = (
         }
       }, 600)
     }
+  }
+  const bottomSheetSnapTo = (snapPoint = 0): void => {
+    // because of library bug
+    bottomSheetRef.current?.snapTo(snapPoint)
+    bottomSheetRef.current?.snapTo(snapPoint)
   }
 
   const onFilterClick = (index: number): void => {
