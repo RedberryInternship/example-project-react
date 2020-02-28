@@ -56,7 +56,7 @@ export default (navigation: NavigationScreenProp<any, any>) => {
         if (typeof backupUrl === 'string') {
           Linking.openURL(backupUrl)
         } else {
-          throw new Error(`Opening Url Not Supproted`)
+          throw new Error(`Opening Url Not Supported`)
         }
       }
     } catch (e) {

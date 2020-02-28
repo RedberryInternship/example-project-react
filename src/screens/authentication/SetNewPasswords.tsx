@@ -32,8 +32,8 @@ const SetNewPasswords = ({
         automaticallyAdjustContentInsets={false}>
         <BaseInput
           image={Imgs.lock}
-          onChangeText={hook.newPasswordTextHandler}
-          onSubmit={hook.newPasswordInputSubmit}
+          onChangeText={hook.newPassword.textHandler}
+          onSubmit={hook.newPassword.onSubmit}
           ref={hook.newPasswordRef}
           secure={true}
           testID={'emailInput'}
@@ -41,8 +41,8 @@ const SetNewPasswords = ({
         />
         <BaseInput
           image={Imgs.lock}
-          onChangeText={hook.repeatPasswordTextHandler}
-          onSubmit={hook.repeatPasswordInputSubmit}
+          onChangeText={hook.repeatPassword.textHandler}
+          onSubmit={hook.repeatPassword.onSubmit}
           ref={hook.repeatPasswordRef}
           secure={true}
           testID={'emailInput'}

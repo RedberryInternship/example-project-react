@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef} from 'react'
+import {useRef, useEffect} from 'react'
 import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Ajax, Defaults, Helpers} from 'utils'
@@ -16,6 +16,9 @@ type CodeRefType = {
 }
 
 export default (navigation: Navigation) => {
+  useEffect(() => {
+    setTimeout(() => phoneRef.current?.focus(), 500)
+  }, [])
   const phoneRef = useRef<TextInput>()
   const codeRef = useRef<TextInput & CodeRefType>()
 

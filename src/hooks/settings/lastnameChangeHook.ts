@@ -82,7 +82,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
         if (result.updated === true) {
           helpers.goToSettingsScreen()
           helpers.popAlert(
-            'dropDownAlert.editLastname.lastNameChangeSucess',
+            'dropDownAlert.editLastname.lastNameChangeSuccess',
             'success',
           )
           editUserInfo(dispatch, lastname, 'last_name')

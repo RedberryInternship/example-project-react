@@ -1,5 +1,5 @@
 import {useState, useEffect, useRef, useContext} from 'react'
-import {TextInputProps} from 'react-native'
+import {TextInput} from 'react-native'
 import {AppContext} from '../../../App'
 import {Defaults, Ajax, apiServices} from '../../utils'
 import {editUserInfo} from '../../hooks/actions/rootActions'
@@ -10,7 +10,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const [email, setEmail] = useState<string>(navigation.getParam('value'))
   const {dispatch} = useContext(AppContext)
   const {t} = useTranslation()
-  const emailInputRef = useRef<TextInputProps & BaseInputRefProp>(null)
+  const emailInputRef = useRef<TextInput & BaseInputRefProp>(null)
 
   // When User Clicks Save Btn
   useEffect(() => {
@@ -75,7 +75,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
           editUserInfo(dispatch, email, 'email')
           helpers.goToSettingsScreen()
           helpers.popAlert(
-            'dropDownAlert.editEmail.editedSuccssesfully',
+            'dropDownAlert.editEmail.editedSuccessfully',
             'success',
           )
         } else {
