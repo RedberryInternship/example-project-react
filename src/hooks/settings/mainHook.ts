@@ -1,5 +1,4 @@
 import {useContext} from 'react'
-import {Sentry} from 'utils'
 /*
  * in this case I couldn't import App Context by means of absolute path
  */
@@ -20,7 +19,7 @@ type SettingsValuesType = {
 }
 
 const helpers = {
-  structurizeSettingsInfoObj: (): SettingsInfoType => {
+  structureSettingsInfoObj: (): SettingsInfoType => {
     const context: any = useContext(AppContext)
 
     const activeCardNumber = '********* 9281'
@@ -37,7 +36,7 @@ const helpers = {
     }
   },
   makeSettingsInfo: () => {
-    const info = helpers.structurizeSettingsInfoObj()
+    const info = helpers.structureSettingsInfoObj()
 
     const settingsInfo = [
       {

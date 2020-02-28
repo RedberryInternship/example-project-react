@@ -1,9 +1,11 @@
 import {useState} from 'react'
 import {Alert, Linking} from 'react-native'
-import {NavigationScreenProp} from 'react-navigation'
-import {Defaults, Const} from 'utils'
+import {Defaults, Const, Helpers} from 'utils'
+import {Navigation} from 'allTypes'
 
-export default (navigation: NavigationScreenProp<any, any>) => {
+const {Logger} = Helpers
+
+export default (navigation: Navigation) => {
   const [message, setMessage] = useState<string>('')
 
   const sendMessage = (): void => {
@@ -60,6 +62,7 @@ export default (navigation: NavigationScreenProp<any, any>) => {
         }
       }
     } catch (e) {
+      Logger(e)
       let msg = ''
       switch (errorMsgType) {
         case 'Address':

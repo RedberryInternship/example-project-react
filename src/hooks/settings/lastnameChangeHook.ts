@@ -1,10 +1,12 @@
 import {useState, useRef, useContext, useEffect} from 'react'
-import {Defaults, apiServices, Ajax} from 'utils'
+import {Defaults, apiServices, Ajax, Helpers} from 'utils'
 import {useTranslation} from 'react-i18next'
 import {AppContext} from '../../../App'
 import {editUserInfo} from 'hooks/actions/rootActions'
 import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 import {TextInputProps} from 'react-native'
+
+const {Logger} = Helpers
 
 export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const {t} = useTranslation()
@@ -12,7 +14,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const [lastname, setLastname] = useState<string>(
     navigation.getParam('value', ''),
   )
-  const lastnameInputRef = useRef<TextInputProps & BaseInputRefProp>(null)
+  const lastnameInputRef = useRef<TextInputProps & BaseInputRefProp>()
 
   // when clicked on save button, save hook released.
   useEffect(() => {
@@ -90,6 +92,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
           throw new Error('Something Went Wrong...')
         }
       } catch (err) {
+        Logger(err)
         helpers.popAlert('dropDownAlert.generalError')
       }
     },

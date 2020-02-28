@@ -21,18 +21,17 @@ const PhoneChangeView = ({
   return (
     <View style={styles.container}>
       <PhoneNumberInput
-        onSubmit={hook.onSubmit}
+        onSubmit={hook.phoneNumber.onSubmit}
         ref={hook.phoneInputRef}
-        _this={hook._this}
+        _this={hook.This}
         codeRef={hook.codeRef}
       />
 
       <ReceiveCode
-        onChangeText={hook.receiveCodeTextHandler}
-        onSubmit={hook.receiveCodeOnSubmit}
-        recieveCode={hook.recieveCode}
+        onChangeText={hook.receiveCode.textHandler}
+        onSubmit={hook.receiveCode.onSubmit}
+        receiveCode={hook.receiveCode.receiveCode}
         ref={hook.codeRef}
-        disableCodeInput={hook.recieveCodeButtonClicked}
       />
     </View>
   )
