@@ -78,6 +78,7 @@ export const MainDrawer = createDrawerNavigator(
     HomeTabNavigation,
   },
   {
+    initialRouteName: 'HomeTabNavigation',
     drawerPosition: 'right',
     drawerBackgroundColor: 'transparent',
     drawerType: 'front',
