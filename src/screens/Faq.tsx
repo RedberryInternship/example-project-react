@@ -31,7 +31,10 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         {
           <FetchedDataRenderer
             property={'Faq'}
-            onItemRender={(val: FAQResponseType, index): ReactElement => (
+            onItemRender={(
+              val: FAQResponseType,
+              index: number,
+            ): ReactElement => (
               <FaqListItem
                 key={index}
                 number={index + 1}
