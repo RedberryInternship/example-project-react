@@ -51,13 +51,15 @@ const ChargerWithCode = ({
         <TitleTopLeftContainer
           title={'charger.lastUsed'}
           direction={'column'}
-          data={['s']}
-          onRenderItem={(val: any): ReactElement => (
+          data={['oneRender']}
+          onRenderItem={(val: string): ReactElement => (
             <FetchedDataRenderer
               property={'Faq'}
-              onItemRender={(val: any): ReactElement => (
+              key={val}
+              onItemRender={(val: LastUsedCharger): ReactElement => (
                 <ChargerItem
                   key={val.id}
+                  // TODO
                   onPress={() => {}}
                   address={getLocaleText(val.location)}
                   code={val.code}
