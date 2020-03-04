@@ -16,20 +16,45 @@ Before you install the project you have to have Android Studio installed for And
 
 1) In order to install dependencies run the commands in the project root folder:
 
-```
-npm install
-```
-or
+	```
+	npm install
+	```
+	or
 
-```
-yarn install
-```
+	```
+	yarn install
+	```
 
 
-2) Then go to ios directory and run command:
 
-```
-pod install
-```
+2) Then go to ios directory and run the command:
+
+	```
+	pod install
+	```
 
 Then you should be good to go
+
+
+3) Running Emulators
+
+	*	Android:
+
+		```
+		npm run android 
+		```
+		or
+
+		```
+		yarn android 
+		```
+
+	* IOS:
+		```
+		npm run ios
+		```
+	  or
+
+		```
+		yarn ios
+		```
