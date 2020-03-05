@@ -10,7 +10,7 @@ import {AppContext} from '../../../App'
 import {editUserInfo} from 'hooks/actions/rootActions'
 import {ProfileFieldChange} from 'allTypes'
 
-type ThisType = {
+type This = {
   phone: string
   code: string
 }
@@ -27,7 +27,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const {dispatch} = useContext(AppContext)
   const phoneInputRef = useRef<TextInput>()
   const codeRef = useRef<ReceiveCodeType>()
-  const This = useRef<ThisType>({
+  const _this = useRef<This>({
     phone: navigation.getParam('value', ''),
     code: '',
   })
@@ -69,11 +69,11 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     textHandler: (text: string): void => {
       if (text.length > 4) {
         codeRef.current?.setNativeProps({
-          text: This.current.code,
+          text: _this.current.code,
         })
         return
       }
-      This.current.code = text.trim()
+      _this.current.code = text.trim()
     },
   }
 
@@ -91,14 +91,14 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     isPhoneEmpty: (): boolean => {
-      return This.current.phone.trim() === ''
+      return _this.current.phone.trim() === ''
     },
 
     isGeorgianPhoneNumberValid: (): boolean => {
-      if (This.current?.phone.length < 5) {
+      if (_this.current?.phone.length < 5) {
         helpers.popAlert('dropDownAlert.registration.fillPhoneNumber')
         return false
-      } else if (This.current?.phone.length - 4 !== 9) {
+      } else if (_this.current?.phone.length - 4 !== 9) {
         helpers.popAlert('dropDownAlert.auth.phoneNumberLength')
         return false
       } else {
@@ -106,14 +106,14 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       }
     },
     isPhoneNumberGeorgian: (): boolean => {
-      return This.current.phone.slice(0, 4) === '+995'
+      return _this.current.phone.slice(0, 4) === '+995'
     },
     isCodeValid: (): boolean => {
-      if (This.current.code.length === 0) {
+      if (_this.current.code.length === 0) {
         helpers.popAlert('dropDownAlert.forgotPassword.fillCode')
         codeRef.current?.focus()
         return false
-      } else if (This.current.code.length !== 4) {
+      } else if (_this.current.code.length !== 4) {
         helpers.popAlert('dropDownAlert.forgotPassword.smsCodeLength')
         codeRef.current?.focus()
         return false
@@ -129,7 +129,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
     tryRequestingSmsCode: async (): Promise<void> => {
       try {
-        const dataToSend = {phone_number: This.current.phone}
+        const dataToSend = {phone_number: _this.current.phone}
 
         const result = await Ajax.post(
           apiServices.post_send_sms_code,
@@ -153,8 +153,8 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     tryVerifyingSmsCodeWithUpdateUserPhone: async (): Promise<void> => {
       try {
         const dataToSend = {
-          phone_number: This.current.phone,
-          code: This.current.code,
+          phone_number: _this.current.phone,
+          code: _this.current.code,
         }
 
         const result = await Ajax.post(apiServices.post_verify_code, dataToSend)
@@ -188,7 +188,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     updateUserInfo: async (): Promise<void> => {
       try {
         const dataToSend = {
-          phone_number: This.current.phone,
+          phone_number: _this.current.phone,
         }
         const result = await Ajax.post(
           apiServices.post_update_user_info,
@@ -197,7 +197,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
         if (result.updated) {
           helpers.popAlert('dropDownAlert.editPhoneNumber.success', 'success')
-          editUserInfo(dispatch, This.current.phone, 'phone_number')
+          editUserInfo(dispatch, _this.current.phone, 'phone_number')
           navigation.goBack()
         } else {
           throw new Error()
@@ -214,6 +214,6 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     codeRef,
     phoneNumber,
     receiveCode,
-    This,
+    _this,
   }
 }

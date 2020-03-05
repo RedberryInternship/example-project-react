@@ -44,7 +44,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           onChangeText={hook.phoneNumber.textHandler}
           onSubmit={hook.phoneNumber.inputSubmit}
           ref={hook.phoneRef}
-          _this={hook.This}
+          _this={hook._this}
         />
 
         <BaseInput

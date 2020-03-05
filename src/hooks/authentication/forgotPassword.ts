@@ -24,7 +24,7 @@ export default (navigation: Navigation) => {
 
   const {t} = useTranslation()
 
-  const This = useRef<This>({
+  const _this = useRef<This>({
     code: '',
     phone: '',
   })
@@ -45,7 +45,7 @@ export default (navigation: Navigation) => {
     textHandler: (val: string): void => {
       if (val.length > 4) {
         codeRef.current?.setNativeProps({
-          text: This.current.code,
+          text: _this.current.code,
         })
         return
       }
@@ -53,14 +53,14 @@ export default (navigation: Navigation) => {
       codeRef.current?.setNativeProps({
         text: val,
       })
-      This.current.code = val
+      _this.current.code = val
     },
     receiveHandler: async (): Promise<void> => {
       if (!validation.validatePhoneNumber()) return
 
       try {
         await Ajax.post('/send-sms-code', {
-          phone_number: This.current.phone,
+          phone_number: _this.current.phone,
         })
 
         codeRef.current?.startCodeAnimation()
@@ -78,10 +78,10 @@ export default (navigation: Navigation) => {
   // validation
   const validation = {
     validateCode: (): boolean => {
-      if (This.current.code.length === 0) {
+      if (_this.current.code.length === 0) {
         helpers.popAlert('dropDownAlert.forgotPassword.fillCode', 'error')
         return false
-      } else if (This.current.code.length !== 4) {
+      } else if (_this.current.code.length !== 4) {
         helpers.popAlert('dropDownAlert.forgotPassword.smsCodeLength', 'error')
         return false
       } else {
@@ -95,14 +95,14 @@ export default (navigation: Navigation) => {
         : validation.validateOnForeignPhoneNumber()
     },
     isPhoneNumberGeorgian: (): boolean => {
-      return This.current.phone.slice(0, 4) === '+995' ? true : false
+      return _this.current.phone.slice(0, 4) === '+995' ? true : false
     },
     validateOnGeorgianPhoneCode: (): boolean => {
-      if (This.current.phone.length < 5) {
+      if (_this.current.phone.length < 5) {
         helpers.popAlert('dropDownAlert.registration.fillPhoneNumber', 'error')
         helpers.resetFields()
         return false
-      } else if (This.current.phone.length - 4 !== 9) {
+      } else if (_this.current.phone.length - 4 !== 9) {
         helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
         helpers.resetFields()
         return false
@@ -121,12 +121,12 @@ export default (navigation: Navigation) => {
     tryToVerifyCode: async (): Promise<void> => {
       try {
         await Ajax.post('/verify-code-for-password-recovery', {
-          phone_number: This.current.phone,
-          code: This.current.code,
+          phone_number: _this.current.phone,
+          code: _this.current.code,
         })
 
         navigation.navigate('SetNewPasswords', {
-          phone: This.current.phone,
+          phone: _this.current.phone,
         })
       } catch (e) {
         Logger(e)
@@ -162,8 +162,8 @@ export default (navigation: Navigation) => {
         text: '',
       })
 
-      This.current.phone = ''
-      This.current.code = ''
+      _this.current.phone = ''
+      _this.current.code = ''
 
       phoneRef.current?.focus()
     },
@@ -176,6 +176,6 @@ export default (navigation: Navigation) => {
     receiveCode,
     phoneRef,
     codeRef,
-    This,
+    _this,
   }
 }

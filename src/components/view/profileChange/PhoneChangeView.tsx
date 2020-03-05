@@ -23,7 +23,7 @@ const PhoneChangeView = ({
       <PhoneNumberInput
         onSubmit={hook.phoneNumber.onSubmit}
         ref={hook.phoneInputRef}
-        _this={hook.This}
+        _this={hook._this}
         codeRef={hook.codeRef}
       />
 

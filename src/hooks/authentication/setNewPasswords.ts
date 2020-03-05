@@ -7,7 +7,7 @@ import {Navigation} from 'allTypes'
 
 const {Logger} = Helpers
 
-type ThisType = {
+type This = {
   newPassword: string
   repeatPassword: string
 }
@@ -20,7 +20,7 @@ export default (navigation: Navigation) => {
   const newPasswordRef = useRef<TextInput>()
   const repeatPasswordRef = useRef<TextInput>()
 
-  const This = useRef<ThisType>({newPassword: '', repeatPassword: ''})
+  const _this = useRef<This>({newPassword: '', repeatPassword: ''})
   const {t} = useTranslation()
 
   const onClickSubmitButton = (): void => {
@@ -31,7 +31,7 @@ export default (navigation: Navigation) => {
 
   const newPassword = {
     textHandler: (val: string): void => {
-      This.current.newPassword = val
+      _this.current.newPassword = val
     },
     onSubmit: (): void => {
       validate.newPassword() && repeatPasswordRef.current?.focus()
@@ -39,7 +39,7 @@ export default (navigation: Navigation) => {
   }
   const repeatPassword = {
     textHandler: (val: string): void => {
-      This.current.repeatPassword = val
+      _this.current.repeatPassword = val
     },
     onSubmit: (): void => {
       validate.repeatPassword()
@@ -53,14 +53,14 @@ export default (navigation: Navigation) => {
       )
     },
     isNewPasswordFilled: (): boolean => {
-      if (This.current.newPassword.length === 0) {
+      if (_this.current.newPassword.length === 0) {
         helpers.popAlert('dropDownAlert.forgotPassword.newPasswordNotFilled')
         return false
       }
       return true
     },
     isNewPasswordMinLengthValid: (): boolean => {
-      if (This.current.newPassword.length < 8) {
+      if (_this.current.newPassword.length < 8) {
         helpers.popAlert(
           'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
         )
@@ -77,7 +77,7 @@ export default (navigation: Navigation) => {
       )
     },
     isRepeatPasswordFilled: (): boolean => {
-      if (This.current.repeatPassword.length === 0) {
+      if (_this.current.repeatPassword.length === 0) {
         repeatPasswordRef.current?.focus()
         helpers.popAlert(
           'dropDownAlert.forgotPassword.repeatNewPasswordNotFilled',
@@ -87,7 +87,7 @@ export default (navigation: Navigation) => {
       return true
     },
     isRepeatPasswordEqualToNewPassword: (): boolean => {
-      if (This.current.newPassword === This.current.repeatPassword) {
+      if (_this.current.newPassword === _this.current.repeatPassword) {
         return true
       } else {
         helpers.resetFields()
@@ -105,7 +105,7 @@ export default (navigation: Navigation) => {
       try {
         const result = await Ajax.post('/reset-password', {
           phone_number: navigation.state.params?.phone,
-          password: This.current.newPassword,
+          password: _this.current.newPassword,
         })
 
         if (result.json_status === 'Password Changed') {
@@ -132,13 +132,13 @@ export default (navigation: Navigation) => {
       newPasswordRef.current?.setNativeProps({
         text: '',
       })
-      This.current.newPassword = ''
+      _this.current.newPassword = ''
     },
     resetRepeatPassword: (): void => {
       repeatPasswordRef?.current?.setNativeProps({
         text: '',
       })
-      This.current.repeatPassword = ''
+      _this.current.repeatPassword = ''
     },
   }
 
@@ -148,6 +148,5 @@ export default (navigation: Navigation) => {
     repeatPasswordRef,
     newPassword,
     repeatPassword,
-    This,
   }
 }

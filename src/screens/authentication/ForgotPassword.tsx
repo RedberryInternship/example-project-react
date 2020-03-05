@@ -32,7 +32,7 @@ const ForgotPassword = ({
         <PhoneNumberInput
           onSubmit={hook.phoneNumber.inputSubmit}
           ref={hook.phoneRef}
-          _this={hook.This}
+          _this={hook._this}
           codeRef={hook.codeRef}
         />
         <ReceiveCode

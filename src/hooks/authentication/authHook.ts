@@ -39,7 +39,7 @@ const {Logger} = Helpers
 export default (navigation: Navigation, dispatch: any) => {
   const phoneRef = useRef<TextInput>()
   const passwordRef = useRef<TextInput>()
-  const This = useRef<ThisType>({password: '', phone: ''})
+  const _this = useRef<ThisType>({password: '', phone: ''})
   const {t} = useTranslation()
 
   const buttonClickHandler = (): void => {
@@ -50,7 +50,7 @@ export default (navigation: Navigation, dispatch: any) => {
 
   const phoneNumber = {
     textHandler: (val: string): void => {
-      This.current.phone = val
+      _this.current.phone = val
     },
     inputSubmit: (): boolean => {
       if (validate.isSelectedCountryCodeGeorgian()) {
@@ -72,7 +72,7 @@ export default (navigation: Navigation, dispatch: any) => {
 
   const password = {
     inputSubmit: (): boolean => {
-      if (This.current.password === '') {
+      if (_this.current.password === '') {
         helpers.popAlert('dropDownAlert.auth.passwordNotEmpty', 'error')
         return false
       } else {
@@ -80,7 +80,7 @@ export default (navigation: Navigation, dispatch: any) => {
       }
     },
     textHandler: (val: string): void => {
-      This.current.password = val
+      _this.current.password = val
     },
   }
 
@@ -88,8 +88,8 @@ export default (navigation: Navigation, dispatch: any) => {
     tryToFetchUserDataAndAttemptLogin: async (): Promise<void> => {
       try {
         const userData = await Ajax.post('/login', {
-          phone_number: This.current.phone,
-          password: This.current.password,
+          phone_number: _this.current.phone,
+          password: _this.current.password,
         })
 
         helpers.onSuccessLogin(userData)
@@ -120,8 +120,8 @@ export default (navigation: Navigation, dispatch: any) => {
       passwordRef.current?.setNativeProps({
         text: '',
       })
-      This.current.phone = ''
-      This.current.password = ''
+      _this.current.phone = ''
+      _this.current.password = ''
       phoneRef.current?.focus()
     },
   }
@@ -129,10 +129,10 @@ export default (navigation: Navigation, dispatch: any) => {
   // Validate
   const validate = {
     validateOnGeorgianPhoneCode: (): boolean => {
-      if (This.current.phone.length < 5) {
+      if (_this.current.phone.length < 5) {
         helpers.popAlert('dropDownAlert.registration.fillPhoneNumber', 'error')
         return false
-      } else if (This.current.phone.length - 4 !== 9) {
+      } else if (_this.current.phone.length - 4 !== 9) {
         helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
         return false
       } else {
@@ -141,7 +141,7 @@ export default (navigation: Navigation, dispatch: any) => {
     },
 
     isSelectedCountryCodeGeorgian: (): boolean => {
-      return This.current.phone.slice(0, 4) === '+995'
+      return _this.current.phone.slice(0, 4) === '+995'
     },
   }
 
@@ -151,6 +151,6 @@ export default (navigation: Navigation, dispatch: any) => {
     password,
     phoneRef,
     passwordRef,
-    This,
+    _this,
   }
 }
