@@ -117,7 +117,7 @@ export function useRoot() {
   }, [token, navigationState, locale])
 
   const onReady = (): void => {
-    // NavigationActions().navigate('MainDrawer')
+    NavigationActions().navigate('MainDrawer')
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate('ForgotPassword')
     // NavigationActions().navigate("Registration")

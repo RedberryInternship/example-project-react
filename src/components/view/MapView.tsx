@@ -7,18 +7,28 @@ import {mapStyles, mapStyle2, Colors} from 'utils'
 import {Charger} from 'allTypes'
 import {MapMarkerItem} from 'components'
 import {determineTimePeriod} from 'utils'
+import {
+  withNavigation,
+  NavigationParams,
+  NavigationState,
+  NavigationScreenProp,
+} from 'react-navigation'
 
 type MapViewProps = {
   showAll: boolean
   filteredChargersOnMap: Charger[]
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
 // eslint-disable-next-line react/display-name
 const _mapView = forwardRef(
-  ({showAll, filteredChargersOnMap}: MapViewProps, ref: Ref<MapView>) => {
+  (
+    {showAll, filteredChargersOnMap, navigation}: MapViewProps,
+    ref: Ref<MapView>,
+  ) => {
     const mapRef: RefObject<MapView> = useRef(null)
 
-    const hook = useMap(ref, mapRef)
+    const hook = useMap(ref, mapRef, navigation)
 
     return (
       <View style={styles.mapContainer}>
@@ -45,11 +55,12 @@ const _mapView = forwardRef(
               (showAll
                 ? hook.state?.AllChargers
                 : filteredChargersOnMap
-              )?.map((val: Charger) => (
+              )?.map((charger: Charger) => (
                 <MapMarkerItem
-                  key={val.id}
-                  lat={parseFloat(val.lat.toString())}
-                  lng={parseFloat(val.lng.toString())}
+                  key={charger.id}
+                  lat={parseFloat(charger.lat.toString())}
+                  lng={parseFloat(charger.lng.toString())}
+                  onPress={hook.onMarkerPress.bind(this, charger)}
                 />
               )),
 

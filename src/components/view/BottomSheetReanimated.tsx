@@ -14,7 +14,7 @@ import {TextInput} from 'react-native-gesture-handler'
 import {MainSearchItem, PopupFilter} from 'components'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
-import {Charger} from 'allTypes'
+import {Charger, ChargerDetail} from 'allTypes'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import Imgs from '../../../assets/images'
 
@@ -34,7 +34,7 @@ type BottomSheetReanimatedProps = {
   onFilterClick: (index: number) => void
   selectedFilters: number[]
   filteredChargers: Charger[]
-  onFilteredItemClick: (charger: Charger) => void
+  onFilteredItemClick: (charger: Charger | ChargerDetail) => void
   textHandler: (text: string) => void
   inputSubmit: () => void
 }
@@ -116,14 +116,34 @@ const BottomSheetReanimated = forwardRef(
             ))}
           </View>
 
-          {filteredChargers?.map((val: Charger) => (
-            <MainSearchItem
-              key={val.id}
-              text={getLocaleText(val.location)}
-              mainTitle={getLocaleText(val.name)}
-              onPress={onFilteredItemClick?.bind(BottomSheetReanimated, val)}
-            />
-          ))}
+          {filteredChargers?.map((chargerObj: Charger) => {
+            const view = []
+            view.push(
+              <MainSearchItem
+                key={chargerObj.id}
+                text={getLocaleText(chargerObj.location)}
+                mainTitle={getLocaleText(chargerObj.name)}
+                onPress={onFilteredItemClick?.bind(
+                  BottomSheetReanimated,
+                  chargerObj,
+                )}
+              />,
+            )
+            if (chargerObj.charger_group?.chargers?.length !== 0) {
+              chargerObj.charger_group?.chargers?.map(val => (
+                <MainSearchItem
+                  key={val.id}
+                  text={getLocaleText(val.location)}
+                  mainTitle={getLocaleText(val.name)}
+                  onPress={onFilteredItemClick?.bind(
+                    BottomSheetReanimated,
+                    val,
+                  )}
+                />
+              ))
+            }
+            return view
+          })}
           <KeyboardSpacer />
         </View>
       )

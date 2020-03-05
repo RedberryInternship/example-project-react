@@ -6,9 +6,9 @@ import {Colors} from 'utils'
 import Imgs from '../../../assets/images'
 
 type ChargerGroupPupupItemProp = {
-  code: string
+  code: string | number | null
   onPress: () => void | null
-  active: boolean
+  active: number
   text: string
 }
 
@@ -19,18 +19,18 @@ const ChargerGroupPopupItem = ({
   text,
 }: ChargerGroupPupupItemProp): ReactElement => {
   return (
-    <TouchableOpacity onPress={onPress} disabled={!active}>
+    <TouchableOpacity onPress={onPress} disabled={active === 1 ? false : true}>
       <View style={styles.container}>
         <Image
           style={styles.chargerPin}
-          source={active ? Imgs.close : Imgs.filterType}
+          source={active === 1 ? Imgs.close : Imgs.filterType}
         />
         <View style={styles.chargerTypeContainer}>
           <Text style={styles.chargerTypeText}>{text}</Text>
           <Text style={styles.chargerCodeText}>#{code}</Text>
         </View>
         <Image
-          style={[styles.goToDetailIcon, {opacity: active ? 1 : 0.2}]}
+          style={[styles.goToDetailIcon, {opacity: active === 1 ? 1 : 0.2}]}
           source={Imgs.back}
         />
       </View>

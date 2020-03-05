@@ -1,8 +1,13 @@
-import {useEffect, useState, useRef, useMemo, RefObject} from 'react'
-import {Keyboard, Animated, Easing, TextInput} from 'react-native'
-import {Const} from '../utils'
+import {useEffect, useState, useRef} from 'react'
+import {Keyboard, Animated, Easing, TextInput, Alert} from 'react-native'
+import {Const, Helpers, Ajax} from '../utils'
 import {useTranslation} from 'react-i18next'
-import {Charger, MapImperativeRefObject} from 'allTypes'
+import {
+  Charger,
+  MapImperativeRefObject,
+  ChargerFilters,
+  ChargersObject,
+} from 'allTypes'
 import {useSafeArea} from 'react-native-safe-area-context'
 
 const useHomeMainInputHook = (
@@ -13,6 +18,7 @@ const useHomeMainInputHook = (
   const InputRef = useRef<TextInput>(null)
   const [showSearchContent, setShowSearchContent] = useState<boolean>(false)
   const [inputText, setInputText] = useState<string>('')
+  const [filteredChargers, setFilteredChargers] = useState<Charger[]>([])
   const insets = useSafeArea()
 
   const _this: any = useRef({
@@ -22,7 +28,7 @@ const useHomeMainInputHook = (
   })
   const {t} = useTranslation()
 
-  const textHandler = (val: string) => {
+  const textHandler = (val: string): void => {
     setInputText(val.toLowerCase())
   }
 
@@ -40,22 +46,8 @@ const useHomeMainInputHook = (
     setShowSearchContent(false), Keyboard.dismiss()
   }
 
-  const filterChargers = useMemo(() => {
-    return allChargers?.filter((val: Charger) => {
-      // Todo Vobi: This kind of thing inside if statement is not readable i can't really understand what it does
-      // Todo Vobi: At leas store each loop value inside a constant and than compare them
-      if (
-        Object.entries(val.name).filter(val =>
-          val[1].toLowerCase().includes(inputText),
-        ).length === 0 &&
-        Object.entries(val.location).filter(val =>
-          val[1].toLowerCase().includes(inputText),
-        ).length === 0
-      )
-        return false
-
-      return true
-    })
+  useEffect(() => {
+    Helpers.GetFilteredCharger([], inputText, allChargers, setFilteredChargers)
   }, [inputText, allChargers])
 
   const animate = (): any => ({
@@ -93,7 +85,7 @@ const useHomeMainInputHook = (
     InputRef,
     closeClick,
     textHandler,
-    filterChargers,
+    filteredChargers,
     onSearchItemClickHandler,
   }
 }

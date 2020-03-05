@@ -12,7 +12,7 @@ import {useChargerWithCode} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import Imgs from '../../../../assets/images'
-import {ScreenPropsWithNavigation, LastUsedCharger} from 'allTypes'
+import {ScreenPropsWithNavigation, LastUsedCharger, Charger} from 'allTypes'
 
 const ChargerWithCode = ({
   navigation,
@@ -56,11 +56,10 @@ const ChargerWithCode = ({
             <FetchedDataRenderer
               property={'Faq'}
               key={val}
-              onItemRender={(val: LastUsedCharger): ReactElement => (
+              onItemRender={(val: Charger): ReactElement => (
                 <ChargerItem
                   key={val.id}
-                  // TODO
-                  onPress={() => {}}
+                  onPress={() => hook.navigateToChargerDetailScreen(val)}
                   address={getLocaleText(val.location)}
                   code={val.code}
                 />

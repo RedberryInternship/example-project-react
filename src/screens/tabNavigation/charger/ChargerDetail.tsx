@@ -22,7 +22,7 @@ const ChargerDetail = ({
   return (
     <View style={styles.container}>
       <BaseHeader
-        onPressLeft={() => {
+        onPressLeft={(): void => {
           if (Defaults.token !== '') {
             navigation.goBack()
           } else {
@@ -36,11 +36,12 @@ const ChargerDetail = ({
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={hook.chargerLocationDirectionHandler}
           showChargerLocationPress={hook.showChargerLocationHandler}
+          // TODO
           favouritePress={hook.onFavoritePress}
           code={hook.charger?.code}
           name={getLocaleText(hook.charger?.name)}
           location={getLocaleText(hook.charger?.location)}
-          distance={hook.getDistance}
+          distance={hook.distance}
         />
         <CurrentTariffs data={hook.charger?.charging_prices ?? []} />
         <TitleTopLeftContainer

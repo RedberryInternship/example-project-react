@@ -21,10 +21,11 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           <MapView
             ref={hook.mapRef}
             showAll={hook.showAll}
-            filteredChargersOnMap={hook.filteredChargersOnMap}
+            filteredChargersOnMap={hook.onMapFilteredChargers}
+            navigation={navigation}
           />
           <HomeComponentItems
-            allchargers={hook.context?.state.AllChargers}
+            allchargers={hook.context?.state.AllChargers ?? []}
             mapRef={hook.mapRef}
             selectedFiltersOnMap={hook.selectedFiltersOnMap}
             onFilterClickOnMap={hook.onFilterClickOnMap}
@@ -36,7 +37,7 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             onFilterClick={hook.onFilterClick}
             selectedFilters={hook.selectedFilters}
             onFilteredItemClick={hook.onFilteredItemClick}
-            filteredChargers={hook.filteredChargers}
+            filteredChargers={hook.bottomSheetChargers ?? []}
             textHandler={hook.searchInputTextChangeHandler}
             inputSubmit={hook.searchInputTextSubmit}
           />

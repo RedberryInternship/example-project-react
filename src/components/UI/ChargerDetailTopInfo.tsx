@@ -13,7 +13,7 @@ type ChargerDetailTopInfoProps = {
   code: string | number | undefined
   name: string
   location: string
-  distance: () => Promise<AxiosResponse<any>>
+  distance: number
 }
 
 const ChargerDetailTopInfo = ({
@@ -26,18 +26,6 @@ const ChargerDetailTopInfo = ({
   distance,
 }: ChargerDetailTopInfoProps): ReactElement => {
   const {t} = useTranslation()
-  const [_distance, setDistance] = useState('')
-
-  useEffect(() => {
-    distance().then(({data}: any) => {
-      data.rows &&
-        data.rows[0] &&
-        data.rows[0].elements &&
-        data.rows[0].elements[0] &&
-        setDistance(data.rows[0].elements[0].distance.value)
-    })
-  }, [])
-
   return (
     <View style={styles.container}>
       <View style={styles.nameAndfavIconContainer}>
@@ -77,7 +65,7 @@ const ChargerDetailTopInfo = ({
             style={styles.distanceTouchable}>
             <Image source={Imgs.cornerUpRight} style={styles.distanceIcon} />
             <Text style={styles.distanceText} numberOfLines={1}>
-              {_distance} {t('km')}
+              {distance} {t('km')}
             </Text>
           </TouchableOpacity>
         </View>

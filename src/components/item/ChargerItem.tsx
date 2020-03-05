@@ -7,7 +7,7 @@ import {BaseButton} from 'components'
 import Imgs from '../../../assets/images'
 
 type ChargerItemProps = {
-  code: string | undefined
+  code: string | number | undefined
   address: string | undefined
   onPress: () => void | undefined
 }
