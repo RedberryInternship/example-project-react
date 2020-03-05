@@ -6,7 +6,7 @@ import {Ajax, Helpers, Defaults} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {Navigation} from 'allTypes'
 
-type ThisType = {
+type This = {
   password: string
   phone: string
 }
@@ -39,7 +39,7 @@ const {Logger} = Helpers
 export default (navigation: Navigation, dispatch: any) => {
   const phoneRef = useRef<TextInput>()
   const passwordRef = useRef<TextInput>()
-  const _this = useRef<ThisType>({password: '', phone: ''})
+  const _this = useRef<This>({password: '', phone: ''})
   const {t} = useTranslation()
 
   const buttonClickHandler = (): void => {

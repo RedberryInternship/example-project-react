@@ -13,15 +13,15 @@ type This = {
 }
 
 export default (navigation: Navigation) => {
-  useEffect(() => {
-    setTimeout(() => newPasswordRef.current?.focus(), 500)
-  }, [])
-
   const newPasswordRef = useRef<TextInput>()
   const repeatPasswordRef = useRef<TextInput>()
 
   const _this = useRef<This>({newPassword: '', repeatPassword: ''})
   const {t} = useTranslation()
+
+  useEffect(() => {
+    setTimeout(() => newPasswordRef.current?.focus(), 500)
+  }, [])
 
   const onClickSubmitButton = (): void => {
     validate.newPassword() &&

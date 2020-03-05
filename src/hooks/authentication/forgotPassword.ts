@@ -16,9 +16,6 @@ type CodeRefType = {
 }
 
 export default (navigation: Navigation) => {
-  useEffect(() => {
-    setTimeout(() => phoneRef.current?.focus(), 500)
-  }, [])
   const phoneRef = useRef<TextInput>()
   const codeRef = useRef<TextInput & CodeRefType>()
 
@@ -28,6 +25,10 @@ export default (navigation: Navigation) => {
     code: '',
     phone: '',
   })
+
+  useEffect(() => {
+    setTimeout(() => phoneRef.current?.focus(), 500)
+  }, [])
 
   const onButtonClick = (): void => {
     validation.validatePhoneNumber() &&
