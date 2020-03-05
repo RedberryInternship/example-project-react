@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Defaults, Ajax} from 'utils'
 import asyncStorage from '@react-native-community/async-storage'
-import {Charger, Favorite} from 'allTypes'
+import {ChargersObject, Favorite} from 'allTypes'
 import i18n from 'i18next'
 
 import {apiServices, Helpers} from 'utils'
@@ -12,10 +12,6 @@ export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
 export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
 export const LOG_OUT = 'LOG_OUT'
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
-
-type ChargersObject = {
-  data: Charger[]
-}
 
 type FavoriteChargerObject = {
   user_favorite_chargers: Favorite[]
@@ -37,7 +33,7 @@ export const rootAction = (data: any, dispatch: any) => {
       })
       .catch(err => {
         Logger(err)
-        displayGeneralError()
+        Helpers.DisplayGeneralError()
       })
 
     getFavoriteChargers(dispatch)
@@ -73,7 +69,7 @@ export const getAllChargers = (dispatch: any): void => {
     .then(({data}: ChargersObject) => {
       dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
     })
-    .catch(() => displayGeneralError())
+    .catch(() => Helpers.DisplayGeneralError())
 }
 
 export const getFavoriteChargers = (dispatch: any): void => {
@@ -82,7 +78,7 @@ export const getFavoriteChargers = (dispatch: any): void => {
       dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
     })
     .catch(err => {
-      displayGeneralError()
+      Helpers.DisplayGeneralError()
       Logger(err)
     })
 }
@@ -97,7 +93,7 @@ export const addToFavorites = (payload: number, dispatch: any): void => {
       }
     })
     .catch(err => {
-      displayGeneralError()
+      Helpers.DisplayGeneralError()
       Logger(err)
     })
 }
@@ -112,7 +108,7 @@ export const deleteToFavorites = (payload: number, dispatch: any) => {
       }
     })
     .catch(err => {
-      displayGeneralError()
+      Helpers.DisplayGeneralError()
       Logger(err)
     })
 }
@@ -135,11 +131,4 @@ export const editUserInfo = (
       type: user_column_type,
     },
   })
-}
-
-const displayGeneralError = (): void => {
-  Defaults.dropdown?.alertWithType(
-    'error',
-    i18n.t('dropDownAlert.generalError'),
-  )
 }

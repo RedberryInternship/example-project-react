@@ -27,7 +27,7 @@ type Config = {
 
 type InitialState = {
   visible: boolean
-  config?: Config
+  config: Config
 }
 
 export interface CustomModalInterface {
@@ -122,7 +122,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         )
       case 4:
         return (
-          <MapPopUp onPress={this.closeModal} data={this.state.config.data} />
+          <MapPopUp close={this.closeModal} data={this.state.config.data} />
         )
       case 5:
         return (

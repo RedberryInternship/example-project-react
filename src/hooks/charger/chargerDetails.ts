@@ -14,7 +14,7 @@ import {
   NavigationParams,
   NavigationEventPayload,
 } from 'react-navigation'
-import {Ajax, Defaults, locationConfig} from 'utils'
+import {Ajax, Defaults, locationConfig, Helpers} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import Axios from 'axios'
@@ -24,26 +24,6 @@ import i18next from 'i18next'
 type _This = {
   charger: Charger | undefined
 }
-
-const lastUsedDummy = [
-  {
-    address: 'ადფასდფას ადფ  ად ასდფასდ ას დფ ასდფ ასდფ ასდფ ასდ ',
-    code: '23423',
-  },
-  {
-    address: 'ადფასდფას ადფ  ად ასდფასდ ას დფ ასდფ ასდფ ასდფ ასდ ',
-    code: '23423',
-  },
-  {
-    address: 'ადფასდფას ადფ  ად ასდფასდ ას დფ ასდფ ასდფ ასდფ ასდ ',
-    code: '23423',
-  },
-]
-const chargerTypesDummy = [
-  {type: 'ადფასდფას  ', power: '233'},
-  {type: 'ადფასდფას  ', power: '233'},
-  {type: 'ადფასდფას  ', power: '233'},
-]
 
 const services = [
   require('../../../assets/images/icons/arrow_left.png'),
@@ -56,6 +36,8 @@ export default (
   const context: AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
+  const [distance, setDistance] = useState('')
+
   const [charger, setCharger] = useState<Charger | undefined>(
     navigation.getParam('chargerDetails', undefined),
   )
@@ -64,21 +46,6 @@ export default (
   const passwordRef: React.RefObject<TextInput> = useRef(null)
 
   const {t, i18n} = useTranslation()
-
-  const lastUsed = (): any => {
-    //TODO: when we get service info
-    // context.state
-    // Ajax.get()
-
-    return lastUsedDummy
-  }
-
-  const chargerTypes = (): any => {
-    //TODO: no service
-    // Ajax.get()
-
-    return chargerTypesDummy
-  }
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
@@ -91,9 +58,9 @@ export default (
     const {params} = payload.state
 
     // navigation.setParams({chargerDetails: null})
-
     if (params?.chargerDetails !== undefined) {
-      setCharger(params?.chargerDetails)
+      setCharger(params.chargerDetails)
+      getDistance(params.chargerDetails?.lat, params.chargerDetails?.lng)
     }
   }
 
@@ -128,7 +95,6 @@ export default (
   }
 
   const onFavoritePress = (): void => {
-    // Todo Vobi: use async/await
     charger &&
       // eslint-disable-next-line @typescript-eslint/camelcase
       Ajax.post('/add-favorite', {charger_id: charger?.charger_id})
@@ -137,7 +103,7 @@ export default (
           Defaults.dropdown?.alertWithType('success', 'დაემატა წარმატებით')
         })
         .catch(() => {
-          Defaults.dropdown?.alertWithType('error', 'დაფიქსიდა შეცდომა')
+          Helpers.DisplayGeneralError()
         })
   }
 
@@ -145,16 +111,21 @@ export default (
     navigation.navigate('ChooseChargeMethod')
   }
 
-  const getDistance = (): Promise<any> => {
-    return Axios.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
-      locationIfNoGPS.lat,
-      locationIfNoGPS.lng,
-    )}
-      &destinations=${mergeCoords(
-        charger?.lat ?? locationIfNoGPS.lat,
-        charger?.lng ?? locationIfNoGPS.lng,
+  const getDistance = async (lat: number, lng: number): Promise<any> => {
+    try {
+      const result: any = await Axios.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
+        locationIfNoGPS.lat,
+        locationIfNoGPS.lng,
       )}
-      &mode=driving&units=metric&language=${i18n.language}&key=${MAP_API}`)
+        &destinations=${mergeCoords(
+          lat ?? locationIfNoGPS.lat,
+          lng ?? locationIfNoGPS.lng,
+        )}
+        &mode=driving&units=metric&language=${i18n.language}&key=${MAP_API}`)
+      setDistance(result?.data.rows?.[0].elements?.[0].distance.value)
+    } catch (error) {
+      Helpers.DisplayGeneralError()
+    }
   }
 
   return {
@@ -162,17 +133,15 @@ export default (
     SetLoading,
     passwordRef,
     t,
-    getDistance,
     onFavoritePress,
     showChargerLocationHandler,
     chargerLocationDirectionHandler,
     chargeWitchCode,
-    lastUsed,
-    chargerTypes,
     activeChargerType,
     setActiveChargerType,
     services,
     mainButtonClickHandler,
     charger,
+    distance,
   }
 }

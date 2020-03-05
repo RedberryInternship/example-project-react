@@ -66,8 +66,11 @@ export default (
         t('dropDownAlert.chargerNotExist'),
       )
     }
+    navigateToChargerDetailScreen(charger[0])
+  }
 
-    navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
+  const navigateToChargerDetailScreen = (charger: Charger): void => {
+    navigation.navigate('ChargerDetail', {chargerDetails: charger})
   }
 
   const lastUsed = async (): Promise<LastUsedCharger[]> => {
@@ -75,7 +78,7 @@ export default (
       const res: LastUsedChargerResponseObject = await Ajax.get(
         '/user-chargers',
       )
-      return res.chargers
+      return res.data
     } else {
       return []
     }
@@ -99,5 +102,6 @@ export default (
     activeChargerType,
     setActiveChargerType,
     lastUsedChargers,
+    navigateToChargerDetailScreen,
   }
 }

@@ -23,7 +23,19 @@ type LanguageType = {
   ru: string
 }
 
-export type Charger = {
+export interface Charger extends ChargerDetail {
+  charger_group_id: number | null
+  charger_group: ChargerGroup | null
+}
+
+type ChargerGroup = {
+  id: number
+  name: string
+  user_id: number
+  chargers: ChargerDetail[] | null
+}
+
+export type ChargerDetail = {
   id: number
   old_id: number
   name: LanguageType
@@ -303,23 +315,16 @@ export type ScreenPropsWithNavigation = {
 }
 
 type LastUsedChargerResponseObject = {
-  chargers: LastUsedCharger[]
+  data: Charger[]
 }
 
-type LastUsedCharger = {
-  id: number
-  old_id: number
-  name: LocaleStringObject
-  charger_id: null
-  code: string
-  description: null | string
-  user_id: null | string
-  location: LocaleStringObject
-  public: number
-  active: number
-  lat: string
-  lng: string
-  iban: string
-  charger_group_id: null | number
-  last_update: null | string
+export type ChargerFilters = {
+  text?: string
+  free?: boolean
+  type?: 'fast' | 'level2'
+  public?: boolean
+}
+
+export type ChargersObject = {
+  data: Charger[]
 }

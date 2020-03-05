@@ -42,5 +42,5 @@ i18n
 export default i18n
 
 export const getLocaleText = (stringObj: LocaleStringObject): string => {
-  return stringObj ? stringObj[Defaults.locale] : ''
+  return stringObj ? stringObj[Defaults.locale] ?? '' : ''
 }
