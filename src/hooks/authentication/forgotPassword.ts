@@ -1,7 +1,9 @@
-import {useState, useRef} from 'react'
-
+/* eslint-disable @typescript-eslint/camelcase */
+import {useRef, useEffect} from 'react'
+import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Ajax, Defaults, Helpers} from 'utils'
+import {Navigation} from 'allTypes'
 
 const {Logger} = Helpers
 type This = {
@@ -9,14 +11,13 @@ type This = {
   phone: string
 }
 
-export default (navigation: any) => {
-  const [receiveCodeButtonClicked, setReceiveCodeButtonClicked] = useState<
-    boolean
-  >(false)
-  const [startCodeAnimation, setStartCodeAnimation] = useState<any>(false)
-  const [disableCodeInput, setDisableCodeInput] = useState<boolean>(true)
-  const phoneRef: any = useRef(null)
-  const codeRef: any = useRef(null)
+type CodeRefType = {
+  startCodeAnimation: () => void
+}
+
+export default (navigation: Navigation) => {
+  const phoneRef = useRef<TextInput>()
+  const codeRef = useRef<TextInput & CodeRefType>()
 
   const {t} = useTranslation()
 
@@ -25,184 +26,157 @@ export default (navigation: any) => {
     phone: '',
   })
 
-  const onButtonClick = () => {
-    const isValidationResultSuccessful =
-      validation.validatePhoneNumber() && validation.validateCode()
+  useEffect(() => {
+    setTimeout(() => phoneRef.current?.focus(), 500)
+  }, [])
 
-    if (isValidationResultSuccessful) {
-      verifyCode()
-        .then(() => {
-          navigation.navigate('SetNewPasswords', {
-            phone: _this.current.phone,
-          })
-        })
-        .catch(e => {
-          switch (e.status) {
-            case 401:
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.registration.incorrectCode'),
-              )
-              return
-
-            case 409:
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.forgotPassword.userNotFound'),
-              )
-              return
-
-            case 440:
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.forgotPassword.smsCodeExpired'),
-              )
-              return
-          }
-        })
-    }
+  const onButtonClick = (): void => {
+    validation.validatePhoneNumber() &&
+      validation.validateCode() &&
+      helpers.tryToVerifyCode()
   }
 
-  const verifyCode = async () => {
-    const verifyCodeResults = await Ajax.post(
-      '/verify-code-for-password-recovery',
-      {
-        phone_number: _this.current.phone,
-        code: _this.current.code,
-      },
-    )
-
-    return verifyCodeResults
+  const phoneNumber = {
+    inputSubmit: (): void => {
+      validation.validatePhoneNumber()
+    },
   }
 
-  const codeReceiveHandler = () => {
-    Logger(_this.current.phone)
-    if (!validation.validatePhoneNumber(false)) return
+  const receiveCode = {
+    textHandler: (val: string): void => {
+      if (val.length > 4) {
+        codeRef.current?.setNativeProps({
+          text: _this.current.code,
+        })
+        return
+      }
 
-    Ajax.post('/send-sms-code', {
-      phone_number: _this.current.phone,
-    })
-      .then(() => {
-        codeRef.current.startCodeAnimation()
-        Defaults.dropdown?.alertWithType(
+      codeRef.current?.setNativeProps({
+        text: val,
+      })
+      _this.current.code = val
+    },
+    receiveHandler: async (): Promise<void> => {
+      if (!validation.validatePhoneNumber()) return
+
+      try {
+        await Ajax.post('/send-sms-code', {
+          phone_number: _this.current.phone,
+        })
+
+        codeRef.current?.startCodeAnimation()
+        helpers.popAlert(
+          'dropDownAlert.registration.codeSentSuccessfully',
           'success',
-          t('dropDownAlert.registration.codeSentSuccessfully'),
         )
-        setDisableCodeInput(false)
-      })
-      .catch(() => {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.generalError'),
-        )
-      })
-
-    setReceiveCodeButtonClicked(true)
-  }
-
-  const codeInputSubmit = () => {
-    codeReceiveHandler()
-  }
-
-  const phoneInputSubmit = () => {
-    validation.validatePhoneNumber()
-  }
-
-  const codeTextHandler = (val: string) => {
-    if (val.length > 4) {
-      codeRef.current.setNativeProps({
-        text: _this.current.code,
-      })
-      return
-    }
-
-    codeRef.current.setNativeProps({
-      text: val,
-    })
-    _this.current.code = val
+      } catch (e) {
+        Logger(e)
+        helpers.popAlert('dropDownAlert.generalError', 'error')
+      }
+    },
   }
 
   // validation
   const validation = {
     validateCode: (): boolean => {
       if (_this.current.code.length === 0) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.forgotPassword.fillCode'),
-        )
+        helpers.popAlert('dropDownAlert.forgotPassword.fillCode', 'error')
         return false
       } else if (_this.current.code.length !== 4) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.forgotPassword.smsCodeLength'),
-        )
+        helpers.popAlert('dropDownAlert.forgotPassword.smsCodeLength', 'error')
         return false
       } else {
         return true
       }
     },
 
-    validateOnGeorgianPhoneCode: () => {
-      if (_this.current!.phone.length < 5) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.registration.fillPhoneNumber'),
-        )
-      } else if (_this.current!.phone.length - 4 !== 9) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.auth.phoneNumberLength'),
-        )
+    validatePhoneNumber: (): boolean => {
+      return validation.isPhoneNumberGeorgian()
+        ? validation.validateOnGeorgianPhoneCode()
+        : validation.validateOnForeignPhoneNumber()
+    },
+    isPhoneNumberGeorgian: (): boolean => {
+      return _this.current.phone.slice(0, 4) === '+995' ? true : false
+    },
+    validateOnGeorgianPhoneCode: (): boolean => {
+      if (_this.current.phone.length < 5) {
+        helpers.popAlert('dropDownAlert.registration.fillPhoneNumber', 'error')
+        helpers.resetFields()
+        return false
+      } else if (_this.current.phone.length - 4 !== 9) {
+        helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
+        helpers.resetFields()
         return false
       } else {
+        codeRef.current?.focus()
         return true
       }
     },
+    validateOnForeignPhoneNumber: (): boolean => true,
+  }
 
-    validatePhoneNumber: (withGetSmsVerificationAlert = true): boolean => {
-      const isCountryCodeGeorgian =
-        _this.current.phone.slice(0, 4) === '+995' ? true : false
+  const helpers = {
+    popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
+      Defaults.dropdown?.alertWithType(type, t(text))
+    },
+    tryToVerifyCode: async (): Promise<void> => {
+      try {
+        await Ajax.post('/verify-code-for-password-recovery', {
+          phone_number: _this.current.phone,
+          code: _this.current.code,
+        })
 
-      if (isCountryCodeGeorgian) {
-        const isPhoneValidationSuccessful = validation.validateOnGeorgianPhoneCode()
-        if (isPhoneValidationSuccessful) {
-          if (
-            withGetSmsVerificationAlert &&
-            receiveCodeButtonClicked === false
-          ) {
-            Defaults.dropdown?.alertWithType(
+        navigation.navigate('SetNewPasswords', {
+          phone: _this.current.phone,
+        })
+      } catch (e) {
+        Logger(e)
+        switch (e.status) {
+          case 401:
+            helpers.popAlert(
+              'dropDownAlert.forgotPassword.userNotFound',
               'error',
-              t('dropDownAlert.forgotPassword.getVerificationCode'),
             )
-            phoneRef.current.blur()
-          } else {
-            codeRef.current.focus()
-          }
-          return true
-        } else {
-          phoneRef.current.focus()
-          return false
+            return
+
+          case 409:
+            helpers.popAlert(
+              'dropDownAlert.forgotPassword.userNotFound',
+              'error',
+            )
+            return
+
+          case 440:
+            helpers.popAlert(
+              'dropDownAlert.forgotPassword.smsCodeExpired',
+              'error',
+            )
+            return
         }
       }
+    },
+    resetFields: (): void => {
+      phoneRef.current?.setNativeProps({
+        text: '',
+      })
+      codeRef.current?.setNativeProps({
+        text: '',
+      })
 
-      codeRef.current.focus()
-      return true
+      _this.current.phone = ''
+      _this.current.code = ''
+
+      phoneRef.current?.focus()
     },
   }
 
   // return statement
   return {
-    phoneInputSubmit,
     onButtonClick,
-    disableCodeInput,
-    codeTextHandler,
-    codeInputSubmit,
-    _this,
+    phoneNumber,
+    receiveCode,
     phoneRef,
-    t,
-    codeReceiveHandler,
     codeRef,
-    startCodeAnimation,
-    setStartCodeAnimation,
+    _this,
   }
 }

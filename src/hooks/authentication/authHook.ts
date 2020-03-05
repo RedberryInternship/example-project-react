@@ -1,17 +1,19 @@
-/* eslint-disable no-unused-vars */
-import {useState, useRef, RefObject} from 'react'
+/* eslint-disable @typescript-eslint/camelcase */
+import {useRef} from 'react'
+import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {Defaults, Ajax} from 'utils'
-import {rootAction, saveToken} from 'hooks/actions/rootActions'
+import {Ajax, Helpers, Defaults} from 'utils'
+import {rootAction} from 'hooks/actions/rootActions'
+import {Navigation} from 'allTypes'
 
-type _This = {
+type This = {
   password: string
   phone: string
 }
 
 type User = {
   id: number
-  old_id: any
+  old_id: number | string
   role: number
   phone_number: string
   first_name: string
@@ -19,116 +21,119 @@ type User = {
   email: string
   active: number
   verified: number
-  email_verified_at: any
-  temp_password: any
+  email_verified_at: string
+  temp_password: string
   created_at: Date
   updated_at: Date
 }
 
-type userData = {
+type UserDataType = {
   access_token: string
   user: User
   token_type: string
   expires_in: number
 }
 
-type userErroredData = {
-  error: string
-  status: number
-}
+const {Logger} = Helpers
 
-export default (navigation: any, dispatch: any) => {
-  const [loading, SetLoading] = useState<boolean>(true)
-  const phoneRef: any = useRef(null)
-  const passwordRef: any = useRef(null)
-
+export default (navigation: Navigation, dispatch: any) => {
+  const phoneRef = useRef<TextInput>()
+  const passwordRef = useRef<TextInput>()
+  const _this = useRef<This>({password: '', phone: ''})
   const {t} = useTranslation()
-  const _this: RefObject<_This> = useRef({password: '', phone: ''})
 
-  const phoneTextHandler = (val: string) => (_this.current!.phone = val)
-
-  const passwordTextHandler = (val: string) => (_this.current!.password = val)
-
-  const buttonClickHandler = () => {
-    if (phoneInputSubmit() && passwordInputSubmit()) {
-      fetchUserData(_this.current!.phone, _this.current!.password)
-        .then((userData: userData) => {
-          OnSuccessLogin(userData)
-        })
-        .catch((userErroredData: userErroredData) => {
-          console.log(['[Exception] User Errored Data', userErroredData])
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.auth.userNotFound'),
-          )
-        })
-    }
+  const buttonClickHandler = (): void => {
+    phoneNumber.inputSubmit() &&
+      password.inputSubmit() &&
+      helpers.tryToFetchUserDataAndAttemptLogin()
   }
 
-  const phoneInputSubmit = () => {
-    if (validate.isSelectedCountryCodeGeorgian()) {
-      const isPhoneValidationSuccessful = validate.validateOnGeorgianPhoneCode()
+  const phoneNumber = {
+    textHandler: (val: string): void => {
+      _this.current.phone = val
+    },
+    inputSubmit: (): boolean => {
+      if (validate.isSelectedCountryCodeGeorgian()) {
+        const isPhoneValidationSuccessful = validate.validateOnGeorgianPhoneCode()
 
-      if (isPhoneValidationSuccessful) {
-        passwordRef.current.focus()
+        if (isPhoneValidationSuccessful) {
+          passwordRef?.current?.focus()
+          return true
+        }
+
+        phoneRef?.current?.focus()
+        return false
+      } else {
+        passwordRef?.current?.focus()
         return true
       }
-
-      phoneRef.current.focus()
-      return false
-    } else {
-      passwordRef.current.focus()
-      return true
-    }
+    },
   }
 
-  const passwordInputSubmit = () => {
-    if (_this.current!.password === '') {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.auth.passworNotEmpty'),
+  const password = {
+    inputSubmit: (): boolean => {
+      if (_this.current.password === '') {
+        helpers.popAlert('dropDownAlert.auth.passwordNotEmpty', 'error')
+        return false
+      } else {
+        return true
+      }
+    },
+    textHandler: (val: string): void => {
+      _this.current.password = val
+    },
+  }
+
+  const helpers = {
+    tryToFetchUserDataAndAttemptLogin: async (): Promise<void> => {
+      try {
+        const userData = await Ajax.post('/login', {
+          phone_number: _this.current.phone,
+          password: _this.current.password,
+        })
+
+        helpers.onSuccessLogin(userData)
+      } catch (e) {
+        Logger(e)
+        helpers.popAlert('dropDownAlert.auth.userNotFound', 'error')
+        helpers.resetFields()
+      }
+    },
+    onSuccessLogin: async (data: UserDataType): Promise<void> => {
+      rootAction(
+        {
+          token: data.access_token,
+          user: data.user,
+        },
+        dispatch,
       )
-      return false
-    } else {
-      return true
-    }
-  }
 
-  const OnSuccessLogin = async (data: any) => {
-    rootAction(
-      {
-        token: data.access_token,
-        user: data.user,
-      },
-      dispatch,
-    )
-
-    navigation.navigate('MainDrawer')
-  }
-
-  const fetchUserData = async (phone_number: string, password: string) => {
-    const user = await Ajax.post('/login', {
-      phone_number: phone_number,
-      password: password,
-    })
-
-    return user
+      navigation.navigate('MainDrawer')
+    },
+    popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
+      Defaults.dropdown?.alertWithType(type, t(text))
+    },
+    resetFields: (): void => {
+      phoneRef.current?.setNativeProps({
+        text: '',
+      })
+      passwordRef.current?.setNativeProps({
+        text: '',
+      })
+      _this.current.phone = ''
+      _this.current.password = ''
+      phoneRef.current?.focus()
+    },
   }
 
   // Validate
   const validate = {
-    validateOnGeorgianPhoneCode: () => {
-      if (_this.current!.phone.length < 5) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.registration.fillPhoneNumber'),
-        )
+    validateOnGeorgianPhoneCode: (): boolean => {
+      if (_this.current.phone.length < 5) {
+        helpers.popAlert('dropDownAlert.registration.fillPhoneNumber', 'error')
         return false
-      } else if (_this.current!.phone.length - 4 !== 9) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.auth.phoneNumberLength'),
-        )
+      } else if (_this.current.phone.length - 4 !== 9) {
+        helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
         return false
       } else {
         return true
@@ -136,21 +141,16 @@ export default (navigation: any, dispatch: any) => {
     },
 
     isSelectedCountryCodeGeorgian: (): boolean => {
-      return _this.current!.phone.slice(0, 4) === '+995'
+      return _this.current.phone.slice(0, 4) === '+995'
     },
   }
 
   return {
-    loading,
-    SetLoading,
-    phoneInputSubmit,
-    passwordTextHandler,
-    passwordInputSubmit,
-    _this,
+    buttonClickHandler,
+    phoneNumber,
+    password,
     phoneRef,
     passwordRef,
-    t,
-    buttonClickHandler,
-    phoneTextHandler,
+    _this,
   }
 }

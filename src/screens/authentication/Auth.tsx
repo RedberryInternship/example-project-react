@@ -6,6 +6,7 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
+import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 import {BaseHeader, BaseInput, BaseButton, PhoneNumberInput} from 'components'
 import {useAuthHook} from 'hooks'
@@ -20,8 +21,8 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {dispatch} = useContext(AppContext)
 
   const insets = useSafeArea()
-
   const hook = useAuthHook(navigation, dispatch)
+  const {t} = useTranslation()
 
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
@@ -40,16 +41,16 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         enableResetScrollToCoords={true}
         resetScrollToCoords={{x: 0, y: 0}}>
         <PhoneNumberInput
-          onChangeText={hook.phoneTextHandler}
-          onSubmit={hook.phoneInputSubmit}
+          onChangeText={hook.phoneNumber.textHandler}
+          onSubmit={hook.phoneNumber.inputSubmit}
           ref={hook.phoneRef}
           _this={hook._this}
         />
 
         <BaseInput
           image={Imgs.lock}
-          onChangeText={hook.passwordTextHandler}
-          onSubmit={hook.passwordInputSubmit}
+          onChangeText={hook.password.textHandler}
+          onSubmit={hook.password.inputSubmit}
           ref={hook.passwordRef}
           returnKeyType={'send'}
           secure={true}
@@ -60,7 +61,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
           hitSlop={styles.forgotPasswordTextContainer}>
           <Text style={styles.forgotPasswordText}>
-            {hook.t('authentication.forgotPassword')}
+            {t('authentication.forgotPassword')}
           </Text>
         </TouchableOpacity>
         <View style={styles.registrationView}>
@@ -69,7 +70,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             style={styles.registrationTextContainer}
             hitSlop={styles.registrationTextContainerHitSlop}>
             <Text style={styles.registrationText}>
-              {hook.t('authentication.newRegistration')}
+              {t('authentication.newRegistration')}
             </Text>
           </TouchableOpacity>
         </View>

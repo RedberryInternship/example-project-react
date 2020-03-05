@@ -1,16 +1,17 @@
 import {useState, useEffect, useRef, useContext} from 'react'
-import {TextInputProps} from 'react-native'
+import {TextInput} from 'react-native'
 import {AppContext} from '../../../App'
-import {Defaults, Ajax, apiServices} from '../../utils'
+import {Defaults, Ajax, apiServices, Helpers} from '../../utils'
 import {editUserInfo} from '../../hooks/actions/rootActions'
 import {useTranslation} from 'react-i18next'
 import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 
+const {Logger} = Helpers
 export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const [email, setEmail] = useState<string>(navigation.getParam('value'))
   const {dispatch} = useContext(AppContext)
   const {t} = useTranslation()
-  const emailInputRef = useRef<TextInputProps & BaseInputRefProp>(null)
+  const emailInputRef = useRef<TextInput & BaseInputRefProp>()
 
   // When User Clicks Save Btn
   useEffect(() => {
@@ -50,12 +51,12 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   // validation
   const validate = {
     isEmailEmpty: (): boolean => {
-      return email.trim() === ''
+      return email === ''
     },
 
     isEmailValid: (): boolean => {
       const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-      return emailRegex.test(email.trim())
+      return emailRegex.test(email)
     },
   }
 
@@ -75,13 +76,14 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
           editUserInfo(dispatch, email, 'email')
           helpers.goToSettingsScreen()
           helpers.popAlert(
-            'dropDownAlert.editEmail.editedSuccssesfully',
+            'dropDownAlert.editEmail.editedSuccessfully',
             'success',
           )
         } else {
           throw new Error('Something Went Wrong...')
         }
       } catch (err) {
+        Logger(err)
         helpers.popAlert('dropDownAlert.generalError')
         helpers.emptyEmailField()
       }

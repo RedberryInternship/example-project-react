@@ -30,17 +30,16 @@ const ForgotPassword = ({
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}>
         <PhoneNumberInput
-          onSubmit={hook.phoneInputSubmit}
+          onSubmit={hook.phoneNumber.inputSubmit}
           ref={hook.phoneRef}
           _this={hook._this}
           codeRef={hook.codeRef}
         />
         <ReceiveCode
           ref={hook.codeRef}
-          onChangeText={hook.codeTextHandler}
-          onSubmit={hook.codeReceiveHandler}
-          startCodeAnimation={hook.startCodeAnimation}
-          receiveCode={hook.codeReceiveHandler}
+          onChangeText={hook.receiveCode.textHandler}
+          onSubmit={hook.receiveCode.receiveHandler}
+          receiveCode={hook.receiveCode.receiveHandler}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView

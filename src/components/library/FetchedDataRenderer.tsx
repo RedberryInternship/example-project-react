@@ -23,7 +23,7 @@ const FetchedDataRenderer = ({
   updateAlways = false,
 }: FetchedDataRendererProp): ReactElement => {
   const {t} = useTranslation()
-  const [localState, setlLocalState] = useState(staticData[property])
+  const [localState, setLocalState] = useState(staticData[property])
 
   useEffect(() => {
     shouldFetch()
@@ -33,7 +33,7 @@ const FetchedDataRenderer = ({
     if (staticData[property] === undefined || updateAlways) {
       try {
         const dataList = await fetchData()
-        setlLocalState(dataList)
+        setLocalState(dataList)
         staticData[property] = dataList
       } catch (error) {
         Defaults.dropdown?.alertWithType(

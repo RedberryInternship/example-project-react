@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import {useEffect, useRef} from 'react'
 import {TextInput} from 'react-native'
 import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
@@ -5,7 +6,7 @@ import {useTranslation} from 'react-i18next'
 
 import {apiServices, Defaults, Ajax, Helpers} from '../../utils'
 
-type _This = {
+type ThisType = {
   currentPassword: string
   setNewPassword: string
   repeatNewPassword: string
@@ -20,7 +21,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   const {t} = useTranslation()
 
-  const _this = useRef<_This>({
+  const This = useRef<ThisType>({
     currentPassword: '',
     setNewPassword: '',
     repeatNewPassword: '',
@@ -46,9 +47,9 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   const currentPassword = {
     onChangeText: (text: string): void => {
-      _this.current.currentPassword = text.trim()
+      This.current.currentPassword = text.trim()
       currentPasswordRef.current?.setNativeProps({
-        text: _this.current.currentPassword,
+        text: This.current.currentPassword,
       })
     },
     onSubmit: (): void => {
@@ -58,9 +59,9 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   const setNewPassword = {
     onChangeText: (text: string): void => {
-      _this.current.setNewPassword = text.trim()
+      This.current.setNewPassword = text.trim()
       setNewPasswordRef.current?.setNativeProps({
-        text: _this.current.setNewPassword,
+        text: This.current.setNewPassword,
       })
     },
     onSubmit: (): void => {
@@ -75,9 +76,9 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
 
   const repeatNewPassword = {
     onChangeText: (text: string): void => {
-      _this.current.repeatNewPassword = text.trim()
+      This.current.repeatNewPassword = text.trim()
       repeatNewPasswordRef.current?.setNativeProps({
-        text: _this.current.repeatNewPassword,
+        text: This.current.repeatNewPassword,
       })
     },
     onSubmit: (): void => {
@@ -96,7 +97,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       )
     },
     isCurrentPasswordFilled: (): boolean => {
-      if (_this.current.currentPassword !== '') {
+      if (This.current.currentPassword !== '') {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.fillCurrentPassword')
@@ -105,7 +106,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       }
     },
     isCurrentPasswordLengthValid: (): boolean => {
-      if (_this.current.currentPassword.length > 7) {
+      if (This.current.currentPassword.length > 7) {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.minSize')
@@ -126,7 +127,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     isSetNewPasswordFilled: (): boolean => {
-      if (_this.current.setNewPassword !== '') {
+      if (This.current.setNewPassword !== '') {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.fillNewPassword')
@@ -137,7 +138,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     isSetNewPasswordLengthValid: (): boolean => {
-      if (_this.current.setNewPassword.length > 7) {
+      if (This.current.setNewPassword.length > 7) {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.minSize')
@@ -156,7 +157,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       )
     },
     isRepeatNewPasswordFilled: (): boolean => {
-      if (_this.current.repeatNewPassword !== '') {
+      if (This.current.repeatNewPassword !== '') {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.fillRepeatPassword')
@@ -165,7 +166,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       }
     },
     isRepeatNewPasswordLengthValid: (): boolean => {
-      if (_this.current.repeatNewPassword.length > 7) {
+      if (This.current.repeatNewPassword.length > 7) {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.minSize')
@@ -177,7 +178,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     isRepeatNewPasswordIdenticalToSetNewPassword: (): boolean => {
-      if (_this.current.setNewPassword === _this.current.repeatNewPassword) {
+      if (This.current.setNewPassword === This.current.repeatNewPassword) {
         return true
       } else {
         helpers.popAlert('dropDownAlert.editPassword.passwordsMismatch')
@@ -192,12 +193,9 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   const helpers = {
     trySendingSavePasswordRequest: async (): Promise<void> => {
       const dataToSend = {
-        // eslint-disable-next-line @typescript-eslint/camelcase
         phone_number: Defaults.userDetail?.phone_number,
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        old_password: _this.current.currentPassword,
-        // eslint-disable-next-line @typescript-eslint/camelcase
-        new_password: _this.current.repeatNewPassword,
+        old_password: This.current.currentPassword,
+        new_password: This.current.repeatNewPassword,
       }
 
       try {
@@ -212,13 +210,13 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
           throw new Error()
         }
       } catch (e) {
+        Logger(e)
         if (e.status === 401) {
           helpers.popAlert('dropDownAlert.editPassword.passwordNotValid')
         } else {
           helpers.popAlert('dropDownAlert.generalError')
         }
         helpers.resetFields()
-        Logger(e)
       }
     },
 
@@ -234,21 +232,21 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     emptyCurrentPassword: (): void => {
-      _this.current.currentPassword = ''
+      This.current.currentPassword = ''
       currentPasswordRef.current?.setNativeProps({
         text: '',
       })
     },
 
     emptySetNewPassword: (): void => {
-      _this.current.setNewPassword = ''
+      This.current.setNewPassword = ''
       setNewPasswordRef.current?.setNativeProps({
         text: '',
       })
     },
 
     emptyNewPassword: (): void => {
-      _this.current.repeatNewPassword = ''
+      This.current.repeatNewPassword = ''
       repeatNewPasswordRef.current?.setNativeProps({
         text: '',
       })
