@@ -43,11 +43,11 @@ const ProfileChange = ({
 
   switch (type) {
     case 'FirstnameChange':
-      editView = <FirstnameChangeView {...payload} {...additionalPayload} />
+      editView = <FirstnameChangeView {...payload} {...additionalPayload} /> // Vobi Todo: use uppercase install spell checker
       break
 
     case 'LastnameChange':
-      editView = <LastnameChangeView {...payload} {...additionalPayload} />
+      editView = <LastnameChangeView {...payload} {...additionalPayload} /> // Vobi Todo: use uppercase install spell checker
       break
 
     case 'CardChange':

@@ -37,7 +37,7 @@ const TransactionList = ({navigation}: any): ReactElement => {
         onPressLeft={navigation.navigate.bind(TransactionList, 'MainDrawer')}
       />
       <ScrollView style={styles.transactionsContainer}>
-        {orders !== null ? (
+        {orders !== null ? ( // Vobi Todo: Do not nest ternary operators
           orders.length > 0 ? (
             orders.map(
               (val: OrderResponse): ReactElement => {
