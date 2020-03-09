@@ -33,7 +33,7 @@ export default (
   const password: BaseInputRefObject = useRef(null)
   const confirmedPassword: BaseInputRefObject = useRef(null)
 
-  const _this: RefObject<any> = useRef({password: '', confirmedPassword: ''})
+  const _this: RefObject<any> = useRef({password: '', confirmedPassword: ''}) // Vobi Todo: we need to discuss what _this does
 
   const postData = () => {
     const {password: _password} = _this.current
@@ -46,13 +46,14 @@ export default (
       phone_number: phone,
       email,
       password: _password,
-    })
+    }) // Vobi Todo: use async await
       .then((data: RegisterSuccess) => {
         if (data.json_status === 'Registered') {
           onSuccessRegistration(data)
         }
       })
       .catch(error => {
+        // Vobi Todo: move this code inside helpers
         if (typeof error.data === 'string') {
           const data: RegisterError = JSON.parse(error.data)
 

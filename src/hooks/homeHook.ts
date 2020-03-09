@@ -137,7 +137,7 @@ const useHomeHook = (
 
   const onFilterClickOnMap = (index: number): void => {
     let newSelectedFilters: number[] = []
-    ++selectedFiltersOnMap[index]
+    ++selectedFiltersOnMap[index] // Vobi Todo: what is purpose of this
     newSelectedFilters = selectedFiltersOnMap.map(val =>
       val > 1 || val === 0 ? 0 : 1,
     )
@@ -151,7 +151,8 @@ const useHomeHook = (
       inputText,
       context.state?.AllChargers,
       setOnMapFilteredChargers,
-    )
+    ) // Vobi Todo: this is bad way to mutate state you should return value or
+    // Vobi Todo: use callbacks to call state change. when reading this code you cant really understand what it does
   }, [selectedFiltersOnMap, context.state.AllChargers])
 
   return {

@@ -39,3 +39,85 @@ export default () => {
     _navigator,
   }
 }
+
+
+// Vobi Todo: we have written our service this may be useful 
+
+// import { StackActions, NavigationActions, DrawerActions } from 'react-navigation'
+
+// let NavigatorRef
+
+// export function setNavigator(nav) {
+//   NavigatorRef = nav
+// }
+
+// // Drawer Actions
+// export function closeDrawer() {
+//   NavigatorRef.dispatch(DrawerActions.closeDrawer())
+// }
+
+// export function openDrawer() {
+//   NavigatorRef.dispatch(DrawerActions.openDrawer())
+// }
+
+// export function Navigate(routeName, params = {}) {
+//   const navigateAction = NavigationActions.navigate({
+//     routeName,
+//     params: {
+//       canGoBack: false,
+//       ...params,
+//     },
+//     action: NavigationActions.navigate({ routeName }),
+//   })
+
+//   NavigatorRef.dispatch(navigateAction)
+// }
+
+// export function Replace(routeName, params = {}) {
+//   NavigatorRef.dispatch(
+//     StackActions.reset({
+//       index: 0,
+//       actions: [NavigationActions.navigate({
+//         type: 'Navigation/NAVIGATE',
+//         routeName,
+//         params: {
+//           canGoBack: false,
+//           ...params,
+//         },
+//         immediate: true,
+//       })],
+//     }),
+//   )
+// }
+
+// // Navigation Actions
+// export function Push(routeName, params = {}) {
+//   NavigatorRef.dispatch(
+//     NavigationActions.navigate({
+//       type: 'Navigation/NAVIGATE',
+//       routeName,
+//       params: {
+//         canGoBack: true,
+//         ...params,
+//       },
+//     }),
+//   )
+// }
+
+// export function Pop() {
+//   NavigatorRef.dispatch(
+//     NavigationActions.back(),
+//   )
+// }
+
+
+// Vobi Todo: when using it
+
+// <AppContainer
+//   ref={(navigatorRef) => {
+//     setNavigator(navigatorRef)
+//   }}
+// />
+
+// import { Navigate } from 'navigation'
+// Navigate('login')

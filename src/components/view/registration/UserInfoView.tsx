@@ -19,7 +19,8 @@ const FilterTextItem = ({_this, hook}: any): ReactElement => {
   }
 
   const emailTextHandler = (text: string): void => {
-    _this.current.email = text
+    _this.current.email = text // Vobi todo: this is bad way to change value
+    // Vobi Todo: use state hook useState() and handle changes inside it
   }
   const emailInputSubmit = (): void => {
     hook.buttonClickHandler()
@@ -52,7 +53,7 @@ const FilterTextItem = ({_this, hook}: any): ReactElement => {
       <BaseInput
         image={Imgs.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
-        keyboardType={'email-address'}
+        keyboardType={'email-address'} // Vobi todo: have email, password types and toggle inside which to display
         onChangeText={emailTextHandler}
         onSubmit={emailInputSubmit}
         testID={'nameInput'}

@@ -5,6 +5,7 @@ import {PhoneNumberInput, ReceiveCode} from 'components'
 
 // eslint-disable-next-line react/display-name
 const FilterTextItem = React.memo(
+  // Vobi Todo: Component should be named same as file
   ({hook, startCodeAnimation}: any) => {
     const codeTextHandler = (text: string): void => {
       hook._this.current.code = text
@@ -14,7 +15,8 @@ const FilterTextItem = React.memo(
     }
 
     const phoneInputSubmitHandler = (): void => {
-      hook.phoneInputSubmit()
+      hook.phoneInputSubmit() // Vobi Todo: you should destructure immediately when using hook
+      // Vobi todo: hook.changeSomething is not reacts standard
     }
 
     return (

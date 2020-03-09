@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */ // Vobi Todo: Do not have unused vars
 import {
   SET_LOCATION_HANDLER,
   SET_FILTERED_CHARGERS,
