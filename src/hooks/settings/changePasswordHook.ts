@@ -71,7 +71,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
     onFocus: (): void => {
       validate.currentPassword()
-    },
+    }, // Vobi Todo: use react hook form and move validations into one folder
   }
 
   const repeatNewPassword = {
@@ -95,7 +95,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
         validate.isCurrentPasswordFilled() &&
         validate.isCurrentPasswordLengthValid()
       )
-    },
+    }, // Vobi Todo: React hook form will avoid you to write this code
     isCurrentPasswordFilled: (): boolean => {
       if (This.current.currentPassword !== '') {
         return true

@@ -141,6 +141,7 @@ const BottomSheetReanimated = forwardRef(
                   )}
                 />
               ))
+              // Vobi Todo: what does this code do
             }
             return view
           })}

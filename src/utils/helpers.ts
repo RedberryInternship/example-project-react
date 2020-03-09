@@ -48,7 +48,7 @@ const GetFilteredCharger = (
     )
       .then(({data}: ChargersObject) => {
         setFilteredChargers(data)
-      })
+      }) // Vobi Todo: use async await
       .catch(() => {
         DisplayGeneralError()
       })

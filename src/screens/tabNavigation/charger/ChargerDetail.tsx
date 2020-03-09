@@ -19,6 +19,12 @@ const ChargerDetail = ({
 }: ScreenPropsWithNavigation): ReactElement => {
   const hook = useChargerDetails(navigation)
 
+  //Vobi Todo:
+  // const handlePress = () => {
+  //   if (Defaults.token !== '') { navigation.goBack() }
+  //   else {  navigation.navigate('NotAuthorized')  }
+  // }
+
   return (
     <View style={styles.container}>
       <BaseHeader
@@ -28,11 +34,12 @@ const ChargerDetail = ({
           } else {
             navigation.navigate('NotAuthorized')
           }
-        }}
+        }} // Vobi todo: do not nest this complex things inside arrow functions 
       />
+      {/* Vobi todo: <BaseHeader onPressLeft={handlePress} /> */}
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContentContainer}>
+        contentContainerStyle={styles.scrollViewContentContainer}> {/* Vobi todo: when you are separating lines you should give > extra line so its understandable where it ends */}
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={hook.chargerLocationDirectionHandler}
           showChargerLocationPress={hook.showChargerLocationHandler}

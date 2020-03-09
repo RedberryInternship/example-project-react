@@ -6,7 +6,7 @@ import {useMap} from 'hooks'
 import {mapStyles, mapStyle2, Colors} from 'utils'
 import {Charger} from 'allTypes'
 import {MapMarkerItem} from 'components'
-import {determineTimePeriod} from 'utils'
+import {determineTimePeriod} from 'utils' // Vobi Todo: move this up in utils
 import {
   withNavigation,
   NavigationParams,
@@ -51,6 +51,7 @@ const _mapView = forwardRef(
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
           ref={mapRef}>
           {useMemo(
+            // Vobi todo: move this up as constant and render it like that no inline useMemo
             () =>
               (showAll
                 ? hook.state?.AllChargers
@@ -68,6 +69,7 @@ const _mapView = forwardRef(
           )}
           {useMemo(
             () => (
+              // Vobi todo: move this up as constant and render it like that
               <Polyline
                 key={1.4}
                 coordinates={hook.polyline}

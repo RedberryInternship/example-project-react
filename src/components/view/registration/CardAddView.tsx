@@ -3,6 +3,7 @@ import {View} from 'react-native'
 import {Const} from 'utils'
 
 const PasswordView = ({_this}: any) => {
+  // Vobi Todo: naming is important
   return (
     <View
       style={{
@@ -11,7 +12,7 @@ const PasswordView = ({_this}: any) => {
         flex: 1,
         backgroundColor: 'red',
       }}></View>
-  )
+  ) // Vobi Todo: stylesheet
 }
 
 export default PasswordView

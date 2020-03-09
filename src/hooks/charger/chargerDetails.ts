@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */ // Vobi Todo: do not have unused vars
 import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
@@ -104,7 +104,7 @@ export default (
         })
         .catch(() => {
           Helpers.DisplayGeneralError()
-        })
+        }) // Vobi Todo: use services for requests
   }
 
   const mainButtonClickHandler = (): void => {
@@ -130,7 +130,7 @@ export default (
 
   return {
     loading,
-    SetLoading,
+    SetLoading, // Function can not be uppercase
     passwordRef,
     t,
     onFavoritePress,
