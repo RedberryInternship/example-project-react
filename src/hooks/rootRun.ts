@@ -121,7 +121,7 @@ export function useRoot() {
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate('ForgotPassword')
     // NavigationActions().navigate("Registration")
-    NavigationActions().navigate('Settings')
+    // NavigationActions().navigate('Settings')
     // NavigationActions().navigate("ProfileChange");
     // NavigationActions().navigate("ChargerWithCode");
     // NavigationActions().navigate('ChargerDetail')

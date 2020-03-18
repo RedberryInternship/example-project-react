@@ -6,7 +6,10 @@ import LinearGradient from 'react-native-linear-gradient'
 import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import Imgs from '../../../../assets/images'
-import {ScreenPropsWithNavigation} from 'allTypes'
+import {
+  HomeNavigateModes,
+  ScreenPropsWithNavigation,
+} from '../../../../@types/allTypes.d'
 
 const ChargerDetail = ({
   navigation,
@@ -32,7 +35,9 @@ const ChargerDetail = ({
           imageStyle={styles.authBtnImg}
         />
         <TouchableOpacity
-          onPress={navigation.navigate.bind(ChargerDetail, '')}
+          onPress={navigation.navigate.bind(ChargerDetail, 'Home', {
+            mode: HomeNavigateModes.showAllChargers,
+          })}
           style={styles.allChargersTextWrapper}>
           <Text style={styles.allChargersText}>
             {t('charger.allChargerList')}
