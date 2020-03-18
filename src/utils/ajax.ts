@@ -102,4 +102,52 @@ class Ajax {
   }
 }
 
+
+//Vobi Todo: 
+// import axios from 'axios'
+
+// import config from 'config'
+
+// class Api {
+//     private readonly url: string
+
+//     constructor(path: string) {
+//       this.url = `${config.API_URL}${path}`
+//     }
+
+//     get(endpoint: string, params: any = {}) {
+//       const url = this.url + endpoint
+//       return axios.get(url, { params })
+//     }
+
+//     post(endpoint: string, body: any) {
+//       const url = this.url + endpoint
+//       return axios.post(url, body)
+//     }
+
+//     put(endpoint: string, body: any) {
+//       const url = this.url + endpoint
+//       return axios.put(url, body)
+//     }
+
+//     delete(endpoint: string, params: any) {
+//       const url = this.url + endpoint
+//       return axios.delete(url, params)
+//     }
+// }
+
+// export default Api
+
+// Vobi Todo:
+// and usage is simpler we will create an service for every module for example user
+// services/userApi.js
+// const api = new Api('user')
+
+// const createUser = (body) => api.post('/', body)
+// const getUser = () => api.get('/')
+
+// inside signUp for example we will import user api
+// and on submit we will do api.createUser(values)
+
+
 export default new Ajax()

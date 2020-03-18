@@ -84,7 +84,7 @@ export const getFavoriteChargers = (dispatch: any): void => {
 }
 
 export const addToFavorites = (payload: number, dispatch: any): void => {
-  Ajax.post('/add-favorite', {charger_id: payload})
+  Ajax.post('/add-favorite', {charger_id: payload}) // Vobi todo: services should handle this
     .then(({status}: AddFavoriteCharger) => {
       if (status) {
         getFavoriteChargers(dispatch)

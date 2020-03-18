@@ -29,6 +29,7 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     // it same as
     // let messages: string = "3"
     // console.log(messages ?? "ee")  // under the hood => messages !== null && messages !== void 0 ? messages : "ee"
+    // Vobi Todo: pretty useful it must be new one
 
     if (charger.length !== 0) {
       navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})

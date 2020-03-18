@@ -80,7 +80,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           />
         )
       },
-    )
+    ) // Vobi Todo: drawerListFields is same except authorization just use that check wether it should have badge
 
     drawerContent = (
       <View>

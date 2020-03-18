@@ -51,17 +51,23 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   // validation
   const validate = {
     isEmailEmpty: (): boolean => {
-      return email === ''
+      return email === '' // Vobi todo: this is bad way to validate user input 
     },
 
     isEmailValid: (): boolean => {
-      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-      return emailRegex.test(email)
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ // Vobi Todo: for example here if you want to use this function you wont be able to do it
+      return emailRegex.test(email) // Vobi Todo: move this kind of validations inside utils for example
+      // Vobi Todo: create file validationUtils.js
+      // Vobi Todo: declare function isEmail which will return a boolean depending on input
+      // Vobi Todo: and then you can reuse it wherever you want
+      // Vobi Todo: i would recommend react-hook-form for forms https://react-hook-form.com
+      // Vobi Todo: it has so many great features and good performance
     },
   }
 
   // helpers
-  const helpers = {
+  const helpers = { // Vobi Todo why are helpers declared here helpers are one of the biggest code in the project
+    // Vobi Todo: you should have global helper folder and move all code inside
     popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
       Defaults.dropdown?.alertWithType(type, t(text))
     },
@@ -70,7 +76,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
       try {
         const result = await Ajax.post(apiServices.post_update_user_info, {
           email: email,
-        })
+        }) // Vobi Todo: i think you are using Ajax wrong way i will write it inside Ajax file
 
         if (result.updated === true) {
           editUserInfo(dispatch, email, 'email')

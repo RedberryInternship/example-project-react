@@ -23,7 +23,7 @@ const CurrentTariffs = ({data}: CurrentTariffsProps): ReactElement => {
       {data.map((val: any, ind: number) => (
         <Row
           key={ind}
-          col1={val.min_kwt + ' ' + t('kwh') + t('from')}
+          col1={val.min_kwt + ' ' + t('kwh') + t('from')} // Vobi Todo: use backtick `${val.min_kwt} ${t('kwh)}${t('fom')}` it is more readable
           col2={val.max_kwt + ' ' + t('kwh') + t('till')}
           col3={val.price}
         />

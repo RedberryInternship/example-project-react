@@ -11,7 +11,7 @@ console.disableYellowBox = true
 
 if (__DEV__) {
 } else {
-  console.log = () => {}
+  console.log = () => {} // Vobi Todo: What is this
 }
 export const AppContext = createContext()
 
