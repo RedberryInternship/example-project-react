@@ -22,7 +22,7 @@ export default (navigation: any, dispatch: any) => {
   const flatListRef: any = useRef(null)
   const KeyboardAwareScrollViewRef: any = useRef(null)
 
-  const [loading, setLoading] = useState<Boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true)
   const [activePage, setActivePage] = useState<number>(0)
 
   const newPasswordRef: any = useRef(null)

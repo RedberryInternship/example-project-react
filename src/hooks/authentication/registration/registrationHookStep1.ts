@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/camelcase */
 import {useRef, RefObject} from 'react'
 import {TextInput, Alert} from 'react-native'
 import {Defaults} from 'utils'

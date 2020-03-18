@@ -14,8 +14,8 @@ import {useTranslation} from 'react-i18next'
 const CodeInputWidth = 128
 
 // eslint-disable-next-line react/display-name
-const receiveCode = React.forwardRef(
-  ({onChangeText, onSubmit, receiveCode, disableCodeInput}: any, ref: any) => {
+const receiveConfirmationCode = React.forwardRef(
+  ({onChangeText, receiveCode, disableCodeInput}: any, ref: any) => {
     const [animation] = useState(new Animated.Value(0))
     const [disabled, setDisabled] = useState(false)
     const [showText, setShowText] = useState(false)
@@ -39,8 +39,14 @@ const receiveCode = React.forwardRef(
 
     useImperativeHandle(ref, () => ({
       ...inputRef.current,
-      activateButton: (): void => animation.setValue(CodeInputWidth),
-      disableActivateButton: (): void => animation.setValue(0),
+      activateButton: (): void => {
+        animation.setValue(CodeInputWidth)
+        // setDisabled(false)
+      },
+      disableActivateButton: (): void => {
+        animation.setValue(0)
+        // setDisabled(true)
+      },
       startCodeAnimation: codeReceiveHandler,
     }))
 
@@ -53,6 +59,7 @@ const receiveCode = React.forwardRef(
           <TouchableOpacity
             activeOpacity={1}
             onPress={receiveCode}
+            disabled={disabled}
             style={styles.receiveCodeBtnTouchable}>
             <Animated.View style={[styles.codeReceive, {width: animation}]} />
             <MaskedView
@@ -73,7 +80,7 @@ const receiveCode = React.forwardRef(
           <TextInput
             style={styles.codeTextInput}
             onChangeText={onChangeText}
-            onSubmitEditing={onSubmit}
+            onSubmitEditing={receiveCode}
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
             ref={inputRef}
@@ -89,7 +96,7 @@ const receiveCode = React.forwardRef(
   },
 )
 
-export default receiveCode
+export default receiveConfirmationCode
 
 const styles = StyleSheet.create({
   container: {
