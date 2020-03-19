@@ -92,6 +92,7 @@ export default {
 
       editCard: 'Payment Method',
       addCard: 'Add Card',
+      mapColor: 'Map color',
     },
     popup: {
       legend: 'Legend',
@@ -123,6 +124,7 @@ export default {
       connectors: 'Connectors',
       additionalServices: 'Additional services',
       powerOfChargerType: 'power {{power}}kw/s',
+      code: 'code:#{{code}}',
     },
     notAuthorized: {
       notAuthorizedText: 'If u want to charge a car u have to register',

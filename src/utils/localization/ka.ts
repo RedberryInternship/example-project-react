@@ -86,6 +86,7 @@ export default {
       addCard: 'დაამატე ბარათი',
       editMail: 'ელ-ფოსტის შეცვლა',
       newMail: 'ახალი ელ-ფოსტა',
+      mapColor: 'რუკის ფერი',
     },
     popup: {
       legend: 'ლეგენდა',
@@ -118,6 +119,7 @@ export default {
       connectors: 'ქონექტორები',
       additionalServices: 'დამატებითი სერვისები',
       powerOfChargerType: 'სიმძლავრე {{power}}კვ/სთ',
+      code: 'კოდი:#{{code}}',
     },
     notAuthorized: {
       notAuthorizedText:

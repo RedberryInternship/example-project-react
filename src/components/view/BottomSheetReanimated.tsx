@@ -130,18 +130,19 @@ const BottomSheetReanimated = forwardRef(
               />,
             )
             if (chargerObj.charger_group?.chargers?.length !== 0) {
-              chargerObj.charger_group?.chargers?.map(val => (
-                <MainSearchItem
-                  key={val.id}
-                  text={getLocaleText(val.location)}
-                  mainTitle={getLocaleText(val.name)}
-                  onPress={onFilteredItemClick?.bind(
-                    BottomSheetReanimated,
-                    val,
-                  )}
-                />
-              ))
-              // Vobi Todo: what does this code do
+              chargerObj.charger_group?.chargers?.map(val =>
+                view.push(
+                  <MainSearchItem
+                    key={val.id}
+                    text={getLocaleText(val.location)}
+                    mainTitle={getLocaleText(val.name)}
+                    onPress={onFilteredItemClick?.bind(
+                      BottomSheetReanimated,
+                      val,
+                    )}
+                  />,
+                ),
+              )
             }
             return view
           })}

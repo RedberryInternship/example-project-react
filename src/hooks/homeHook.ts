@@ -51,9 +51,7 @@ const useHomeHook = (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
-    bottomSheetRef.current?.snapTo(0)
-    bottomSheetRef.current?.snapTo(0)
-
+    bottomSheetSnapTo()
     return (): void => {
       didFocus.remove()
     }
@@ -133,11 +131,10 @@ const useHomeHook = (
     setInputText(text)
   }
 
-  const searchInputTextSubmit = () => {} // Todo : need to be handled
-
   const onFilterClickOnMap = (index: number): void => {
     let newSelectedFilters: number[] = []
     ++selectedFiltersOnMap[index] // Vobi Todo: what is purpose of this
+    // Redberry: it is main part of the filter logic
     newSelectedFilters = selectedFiltersOnMap.map(val =>
       val > 1 || val === 0 ? 0 : 1,
     )
@@ -164,7 +161,6 @@ const useHomeHook = (
     onFilterClick,
     onFilteredItemClick,
     searchInputTextChangeHandler,
-    searchInputTextSubmit,
     context,
     showAll,
     setShowAll,

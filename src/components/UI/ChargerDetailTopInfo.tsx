@@ -1,9 +1,8 @@
-import React, {useEffect, useState, ReactElement} from 'react'
+import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Colors} from 'utils'
-import {AxiosResponse} from 'axios'
 import Imgs from '../../../assets/images'
 
 type ChargerDetailTopInfoProps = {
@@ -13,7 +12,7 @@ type ChargerDetailTopInfoProps = {
   code: string | number | undefined
   name: string
   location: string
-  distance: number
+  distance: string
 }
 
 const ChargerDetailTopInfo = ({
@@ -31,7 +30,9 @@ const ChargerDetailTopInfo = ({
       <View style={styles.nameAndfavIconContainer}>
         <View style={styles.nameAndCodeContainer}>
           <Text style={styles.nameText}>{name}</Text>
-          <Text style={styles.codeContainer}>კოდი:#{code}</Text>
+          <Text style={styles.codeContainer}>
+            {t('chargerDetail.code', {code})}
+          </Text>
         </View>
         <View>
           <TouchableOpacity
