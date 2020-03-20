@@ -58,6 +58,7 @@ export type ChargerDetail = {
   charger_types: ChargerChargerTypes[]
   charging_prices: ChargerChargingPrices[]
   fast_charging_prices: ChargerFastChargingPrices[]
+  favorite: boolean | null
 }
 
 type ChargerConnectorTypes = {

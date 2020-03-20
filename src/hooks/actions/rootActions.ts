@@ -83,19 +83,23 @@ export const getFavoriteChargers = (dispatch: any): void => {
     })
 }
 
-export const addToFavorites = (payload: number, dispatch: any): void => {
-  Ajax.post('/add-favorite', {charger_id: payload}) // Vobi todo: services should handle this
-    .then(({status}: AddFavoriteCharger) => {
-      if (status) {
-        getFavoriteChargers(dispatch)
-      } else {
-        throw new Error()
-      }
-    })
-    .catch(err => {
-      Helpers.DisplayGeneralError()
-      Logger(err)
-    })
+export const addToFavorites = (
+  payload: number | undefined,
+  dispatch: any,
+): void => {
+  payload !== undefined &&
+    Ajax.post('/add-favorite', {charger_id: payload})
+      .then(({status}: AddFavoriteCharger) => {
+        if (status) {
+          getFavoriteChargers(dispatch)
+        } else {
+          throw new Error()
+        }
+      })
+      .catch(err => {
+        Helpers.DisplayGeneralError()
+        Logger(err)
+      })
 }
 
 export const deleteToFavorites = (payload: number, dispatch: any) => {

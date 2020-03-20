@@ -8,21 +8,23 @@ import Imgs from '../../../assets/images'
 type ChargerDetailTopInfoProps = {
   chargerLocationDirectionPress: () => void
   showChargerLocationPress: () => void
-  favoritePress: () => void
+  favouritePress: () => void
   code: string | number | undefined
   name: string
   location: string
+  favorite: boolean | null | undefined
   distance: string
 }
 
 const ChargerDetailTopInfo = ({
   chargerLocationDirectionPress,
   showChargerLocationPress,
-  favoritePress,
+  favouritePress,
   code,
   name,
   location,
   distance,
+  favorite,
 }: ChargerDetailTopInfoProps): ReactElement => {
   const {t} = useTranslation()
   return (
@@ -36,9 +38,12 @@ const ChargerDetailTopInfo = ({
         </View>
         <View>
           <TouchableOpacity
-            onPress={favoritePress}
+            onPress={favouritePress}
             style={styles.favIconContainer}>
-            <Image source={Imgs.favorite} style={styles.favIcon} />
+            <Image
+              source={Imgs.favorite}
+              style={[styles.favIcon, {tintColor: favorite ? 'blue' : 'red'}]}
+            />
           </TouchableOpacity>
         </View>
       </View>

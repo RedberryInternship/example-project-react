@@ -18,7 +18,7 @@ import {Ajax, Defaults, locationConfig, Helpers} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import Axios from 'axios'
-import {getFavoriteChargers} from '../actions/rootActions'
+import {getFavoriteChargers, addToFavorites} from '../actions/rootActions'
 import i18next from 'i18next'
 
 type _This = {
@@ -34,7 +34,7 @@ export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const context: AppContextType = useContext(AppContext)
-  const [loading, SetLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
 
@@ -95,16 +95,7 @@ export default (
   }
 
   const onFavoritePress = (): void => {
-    charger &&
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      Ajax.post('/add-favorite', {charger_id: charger?.charger_id})
-        .then(() => {
-          getFavoriteChargers(context.dispatch)
-          Defaults.dropdown?.alertWithType('success', 'დაემატა წარმატებით')
-        })
-        .catch(() => {
-          Helpers.DisplayGeneralError()
-        }) // Vobi Todo: use services for requests
+    charger && addToFavorites(charger?.charger_id, context.dispatch())
   }
 
   const mainButtonClickHandler = (): void => {
@@ -130,7 +121,7 @@ export default (
 
   return {
     loading,
-    SetLoading, // Function can not be uppercase
+    setLoading,
     passwordRef,
     t,
     onFavoritePress,

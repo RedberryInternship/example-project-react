@@ -7,7 +7,7 @@ import {
   FetchedDataRenderer,
 } from 'components'
 import {Colors, Defaults} from 'utils'
-import {deleteToFavorites} from 'hooks/actions/rootActions'
+import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
 import {AppContext} from '../../../App'
 import {getLocaleText} from 'utils/localization/localization'
 import {AppContextType, Favorite, Charger} from 'allTypes'
@@ -25,11 +25,6 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const turonOnHandler = (id: number): void => {
     const charger =
       context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
-    // Vobi Todo: what is this operator ?? and why do we need to use it
-    // it same as
-    // let messages: string = "3"
-    // console.log(messages ?? "ee")  // under the hood => messages !== null && messages !== void 0 ? messages : "ee"
-    // Vobi Todo: pretty useful it must be new one
 
     if (charger.length !== 0) {
       navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
@@ -60,7 +55,10 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 )}
               />
             )}
-            fetchData={() => Promise.resolve(context.state.favoriteChargers)}
+            fetchData={() => {
+              getFavoriteChargers(context.dispatch)
+              return Promise.resolve(context.state.favoriteChargers)
+            }}
           />
         }
       </ScrollView>
