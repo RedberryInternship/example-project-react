@@ -5,6 +5,8 @@ import {ChargersObject, Favorite} from 'allTypes'
 import i18n from 'i18next'
 
 import {apiServices, Helpers} from 'utils'
+import i18next from 'i18next'
+import {Alert} from 'react-native'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
@@ -83,26 +85,47 @@ export const getFavoriteChargers = (dispatch: any): void => {
     })
 }
 
-export const addToFavorites = (payload: number, dispatch: any): void => {
-  Ajax.post('/add-favorite', {charger_id: payload}) // Vobi todo: services should handle this
-    .then(({status}: AddFavoriteCharger) => {
-      if (status) {
-        getFavoriteChargers(dispatch)
-      } else {
-        throw new Error()
-      }
-    })
-    .catch(err => {
-      Helpers.DisplayGeneralError()
-      Logger(err)
-    })
+export const addToFavorites = (
+  payload: number | undefined,
+  dispatch: any,
+  callback?: () => void,
+): void => {
+  payload !== undefined &&
+    Ajax.post('/add-favorite', {charger_id: payload})
+      .then(({status}: AddFavoriteCharger) => {
+        if (status) {
+          getFavoriteChargers(dispatch)
+          getAllChargers(dispatch)
+          Defaults.dropdown?.alertWithType(
+            'success',
+            i18next.t('dropDownAlert.successOnFavoriteAdd'),
+          )
+          callback && callback()
+        } else {
+          throw new Error()
+        }
+      })
+      .catch(err => {
+        Helpers.DisplayGeneralError()
+        Logger(err)
+      })
 }
 
-export const deleteToFavorites = (payload: number, dispatch: any) => {
+export const deleteToFavorites = (
+  payload: number,
+  dispatch: any,
+  callback?: () => void,
+): void => {
   Ajax.post('/remove-favorite', {charger_id: payload})
     .then(({status}: AddFavoriteCharger) => {
       if (status) {
         getFavoriteChargers(dispatch)
+        getAllChargers(dispatch)
+        Defaults.dropdown?.alertWithType(
+          'success',
+          i18next.t('dropDownAlert.successOnFavoriteRemove'),
+        )
+        callback && callback()
       } else {
         throw new Error()
       }

@@ -19,32 +19,26 @@ const ChargerDetail = ({
 }: ScreenPropsWithNavigation): ReactElement => {
   const hook = useChargerDetails(navigation)
 
-  //Vobi Todo:
-  // const handlePress = () => {
-  //   if (Defaults.token !== '') { navigation.goBack() }
-  //   else {  navigation.navigate('NotAuthorized')  }
-  // }
+  const headerLeftPress = (): void => {
+    if (Defaults.token !== '') {
+      navigation.goBack()
+    } else {
+      navigation.navigate('NotAuthorized')
+    }
+  }
 
   return (
     <View style={styles.container}>
-      <BaseHeader
-        onPressLeft={(): void => {
-          if (Defaults.token !== '') {
-            navigation.goBack()
-          } else {
-            navigation.navigate('NotAuthorized')
-          }
-        }} // Vobi todo: do not nest this complex things inside arrow functions 
-      />
-      {/* Vobi todo: <BaseHeader onPressLeft={handlePress} /> */}
+      <BaseHeader onPressLeft={headerLeftPress} />
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContentContainer}> {/* Vobi todo: when you are separating lines you should give > extra line so its understandable where it ends */}
+        contentContainerStyle={styles.scrollViewContentContainer}>
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={hook.chargerLocationDirectionHandler}
           showChargerLocationPress={hook.showChargerLocationHandler}
           // TODO
           favouritePress={hook.onFavoritePress}
+          favorite={hook.charger?.is_favorite}
           code={hook.charger?.code}
           name={getLocaleText(hook.charger?.name)}
           location={getLocaleText(hook.charger?.location)}

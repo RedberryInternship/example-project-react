@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-vars */ // Vobi Todo: do not have unused vars
 import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
@@ -18,8 +19,7 @@ import {Ajax, Defaults, locationConfig, Helpers} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import Axios from 'axios'
-import {getFavoriteChargers} from '../actions/rootActions'
-import i18next from 'i18next'
+import {deleteToFavorites, addToFavorites} from '../actions/rootActions'
 
 type _This = {
   charger: Charger | undefined
@@ -34,7 +34,7 @@ export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const context: AppContextType = useContext(AppContext)
-  const [loading, SetLoading] = useState<boolean>(true)
+  const [loading, setLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
 
@@ -95,16 +95,29 @@ export default (
   }
 
   const onFavoritePress = (): void => {
-    charger &&
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      Ajax.post('/add-favorite', {charger_id: charger?.charger_id})
-        .then(() => {
-          getFavoriteChargers(context.dispatch)
-          Defaults.dropdown?.alertWithType('success', 'დაემატა წარმატებით')
-        })
-        .catch(() => {
-          Helpers.DisplayGeneralError()
-        }) // Vobi Todo: use services for requests
+    if (!Defaults.token)
+      Defaults.dropdown?.alertWithType(
+        'error',
+        t('dropDownAlert.charging.needToLogIn'),
+      )
+
+    const newCharger = {
+      ...charger,
+      is_favorite: !charger?.is_favorite,
+    } as Charger
+
+    const updateCharger = (): void => {
+      navigation.setParams({chargerDetails: newCharger})
+      setCharger(newCharger)
+    }
+
+    if (charger?.is_favorite === false) {
+      addToFavorites(charger.id, context.dispatch, updateCharger)
+    } else if (charger?.is_favorite === true) {
+      deleteToFavorites(charger.id, context.dispatch, updateCharger)
+    } else {
+      Helpers.DisplayGeneralError()
+    }
   }
 
   const mainButtonClickHandler = (): void => {
@@ -130,7 +143,7 @@ export default (
 
   return {
     loading,
-    SetLoading, // Function can not be uppercase
+    setLoading,
     passwordRef,
     t,
     onFavoritePress,

@@ -40,8 +40,7 @@ export default () => {
   }
 }
 
-
-// Vobi Todo: we have written our service this may be useful 
+// Vobi Todo: we have written our service this may be useful
 
 // import { StackActions, NavigationActions, DrawerActions } from 'react-navigation'
 
@@ -109,7 +108,6 @@ export default () => {
 //     NavigationActions.back(),
 //   )
 // }
-
 
 // Vobi Todo: when using it
 

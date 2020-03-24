@@ -34,31 +34,35 @@ const MainInput = forwardRef(
       <>
         {hook.filteredChargers?.map((chargerObj: Charger) => {
           const view = []
-          view.push(
-            <MainSearchItem
-              key={chargerObj.id}
-              text={getLocaleText(chargerObj.name)}
-              mainTitle={getLocaleText(chargerObj.location)}
-              onPress={hook.onSearchItemClickHandler.bind(
-                MainInput,
-                chargerObj.lat,
-                chargerObj.lng,
-              )}
-            />,
-          )
+
           if (chargerObj.charger_group?.chargers?.length !== 0) {
-            chargerObj.charger_group?.chargers?.map(val => (
+            view.push(
               <MainSearchItem
-                key={val.id}
-                text={getLocaleText(val.name)}
-                mainTitle={getLocaleText(val.location)}
+                key={chargerObj.id}
+                text={getLocaleText(chargerObj.name)}
+                mainTitle={getLocaleText(chargerObj.location)}
                 onPress={hook.onSearchItemClickHandler.bind(
                   MainInput,
-                  val.lat,
-                  val.lng,
+                  chargerObj.lat,
+                  chargerObj.lng,
                 )}
-              />
-            ))
+              />,
+            )
+          } else {
+            chargerObj.charger_group?.chargers?.map(val =>
+              view.push(
+                <MainSearchItem
+                  key={val.id}
+                  text={getLocaleText(val.name)}
+                  mainTitle={getLocaleText(val.location)}
+                  onPress={hook.onSearchItemClickHandler.bind(
+                    MainInput,
+                    val.lat,
+                    val.lng,
+                  )}
+                />,
+              ),
+            )
           }
           return view
         })}

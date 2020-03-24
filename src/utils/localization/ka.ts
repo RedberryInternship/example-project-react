@@ -86,6 +86,7 @@ export default {
       addCard: 'დაამატე ბარათი',
       editMail: 'ელ-ფოსტის შეცვლა',
       newMail: 'ახალი ელ-ფოსტა',
+      mapColor: 'რუკის ფერი',
     },
     popup: {
       legend: 'ლეგენდა',
@@ -118,6 +119,7 @@ export default {
       connectors: 'ქონექტორები',
       additionalServices: 'დამატებითი სერვისები',
       powerOfChargerType: 'სიმძლავრე {{power}}კვ/სთ',
+      code: 'კოდი:#{{code}}',
     },
     notAuthorized: {
       notAuthorizedText:
@@ -177,6 +179,8 @@ export default {
       generalError: 'დაფიქსირდა შეცდომა',
       fillCode: 'გთხოვთ ჩაწროთ დამტენის კოდი',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
+      successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',
+      successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწროთ სახელი',
@@ -235,6 +239,7 @@ export default {
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
+        needToLogIn: 'საჭიროა რომ დალოგინდეთ',
       },
       home: {
         noRouteFound: 'გზა ვერ მოიძებნა',

@@ -116,32 +116,35 @@ const BottomSheetReanimated = forwardRef(
             ))}
           </View>
 
-          {filteredChargers?.map((chargerObj: Charger) => {
+          {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
-            view.push(
-              <MainSearchItem
-                key={chargerObj.id}
-                text={getLocaleText(chargerObj.location)}
-                mainTitle={getLocaleText(chargerObj.name)}
-                onPress={onFilteredItemClick?.bind(
-                  BottomSheetReanimated,
-                  chargerObj,
-                )}
-              />,
-            )
+
             if (chargerObj.charger_group?.chargers?.length !== 0) {
-              chargerObj.charger_group?.chargers?.map(val => (
+              view.push(
                 <MainSearchItem
-                  key={val.id}
-                  text={getLocaleText(val.location)}
-                  mainTitle={getLocaleText(val.name)}
+                  key={chargerObj.id + getLocaleText(chargerObj.name) + index}
+                  text={getLocaleText(chargerObj.location)}
+                  mainTitle={getLocaleText(chargerObj.name)}
                   onPress={onFilteredItemClick?.bind(
                     BottomSheetReanimated,
-                    val,
+                    chargerObj,
                   )}
-                />
-              ))
-              // Vobi Todo: what does this code do
+                />,
+              )
+            } else {
+              chargerObj.charger_group?.chargers?.map((val, index: number) =>
+                view.push(
+                  <MainSearchItem
+                    key={val.id + getLocaleText(val.name) + index}
+                    text={getLocaleText(val.location)}
+                    mainTitle={getLocaleText(val.name)}
+                    onPress={onFilteredItemClick?.bind(
+                      BottomSheetReanimated,
+                      val,
+                    )}
+                  />,
+                ),
+              )
             }
             return view
           })}

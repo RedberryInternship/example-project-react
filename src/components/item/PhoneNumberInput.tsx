@@ -72,11 +72,11 @@ const PhoneNumberInput = React.forwardRef(
     }
 
     const phoneTextHandler = (text: string): void => {
-      _this.current.phone = selectedCountryCode.value + text
-
       if (text !== '') {
         codeRef && codeRef.current && codeRef.current.activateButton()
+        _this.current.phone = selectedCountryCode.value + text
       } else {
+        _this.current.phone = ''
         codeRef && codeRef.current && codeRef.current.disableActivateButton()
       }
     }

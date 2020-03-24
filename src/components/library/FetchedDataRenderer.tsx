@@ -6,12 +6,14 @@ import {Colors, Defaults, Ajax} from 'utils'
 import Imgs from '../../../assets/images'
 import {useTranslation} from 'react-i18next'
 import {BaseText} from 'components'
+import {Charger, Favorite} from 'allTypes'
 
 type FetchedDataRendererProp = {
   property: string
   onItemRender: (val: any, index: number) => ReactElement
   fetchData: () => Promise<any>
   updateAlways?: boolean
+  data?: Favorite[] | null
 }
 
 const staticData: any = {}
@@ -21,13 +23,19 @@ const FetchedDataRenderer = ({
   onItemRender,
   fetchData,
   updateAlways = false,
+  data,
 }: FetchedDataRendererProp): ReactElement => {
   const {t} = useTranslation()
   const [localState, setLocalState] = useState(staticData[property])
 
   useEffect(() => {
-    shouldFetch()
+    if (data !== undefined) setLocalState(data ?? [])
+    else shouldFetch()
   }, [])
+
+  useEffect(() => {
+    setLocalState(data ?? [])
+  }, [data])
 
   const shouldFetch = async (): Promise<void> => {
     if (staticData[property] === undefined || updateAlways) {

@@ -64,7 +64,7 @@ const helpers = {
 
   makeValue: (key: number, SettingsInfo: Array<SettingsValuesType>): string => {
     if (!SettingsInfo) return ''
-    const field = SettingsInfo[key].value
+    const field = SettingsInfo[key]?.value
 
     if (helpers.isFieldEmail(key) && helpers.isFieldEmpty(field)) {
       return 'settings.notAdded'
@@ -74,7 +74,7 @@ const helpers = {
       return 'settings.notAdded'
     }
 
-    return field.toString()
+    return field?.toString()
   },
 
   isValueAdded: (
@@ -83,7 +83,7 @@ const helpers = {
   ): boolean => {
     if (!SettingsInfo) return false
 
-    const field = SettingsInfo[key].value
+    const field = SettingsInfo[key]?.value
 
     const emailFieldDetermination =
       helpers.isFieldEmail(key) && helpers.isFieldEmpty(field)

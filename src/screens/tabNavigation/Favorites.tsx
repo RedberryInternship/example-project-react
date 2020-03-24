@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react'
+import React, {useContext, ReactElement, useEffect} from 'react'
 import {ScrollView, View, StyleSheet, Text} from 'react-native'
 import {
   BaseHeader,
@@ -7,7 +7,7 @@ import {
   FetchedDataRenderer,
 } from 'components'
 import {Colors, Defaults} from 'utils'
-import {deleteToFavorites} from 'hooks/actions/rootActions'
+import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
 import {AppContext} from '../../../App'
 import {getLocaleText} from 'utils/localization/localization'
 import {AppContextType, Favorite, Charger} from 'allTypes'
@@ -18,6 +18,10 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const context: AppContextType = useContext(AppContext)
 
+  useEffect(() => {
+    getFavoriteChargers(context.dispatch)
+  }, [])
+
   const deleteFavoriteCharger = (chargerId: number): void => {
     deleteToFavorites(chargerId, context.dispatch)
   }
@@ -25,11 +29,6 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const turonOnHandler = (id: number): void => {
     const charger =
       context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
-    // Vobi Todo: what is this operator ?? and why do we need to use it
-    // it same as
-    // let messages: string = "3"
-    // console.log(messages ?? "ee")  // under the hood => messages !== null && messages !== void 0 ? messages : "ee"
-    // Vobi Todo: pretty useful it must be new one
 
     if (charger.length !== 0) {
       navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
@@ -54,13 +53,11 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 title={getLocaleText(val.name)}
                 address={getLocaleText(val.location)}
                 turnon={turonOnHandler.bind(Favorites, val.id)}
-                deleteItem={deleteFavoriteCharger.bind(
-                  Favorites,
-                  val.charger_id,
-                )}
+                deleteItem={deleteFavoriteCharger.bind(Favorites, val.id)}
               />
             )}
             fetchData={() => Promise.resolve(context.state.favoriteChargers)}
+            data={context.state.favoriteChargers}
           />
         }
       </ScrollView>

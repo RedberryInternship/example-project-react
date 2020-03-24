@@ -33,7 +33,6 @@ const Registration = ({
 
   const pages = [
     <PhoneNumberView
-      phoneInputSubmit={hook.regStep1.phoneInputSubmit}
       hook={hook.regStep1}
       key={1}
       activePage={hook.activePage}
@@ -95,7 +94,7 @@ const Registration = ({
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
         <BaseButton
           onPress={hook.registrationStepHandler}
-          text={'enter'}
+          text={'next'}
           image={Imgs.arrowRight}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}

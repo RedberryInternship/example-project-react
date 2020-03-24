@@ -99,6 +99,12 @@ export const SettingsListFields = [
     type: 'PasswordChange',
     editableComponentName: 'settings.editPassword',
   },
+  {
+    image: require('../../assets/images/icons/lock.png'),
+    name: 'settings.mapColor',
+    type: 'mapColorChange',
+    editableComponentName: 'settings.editPassword',
+  },
 ]
 
 export const ContactListFields = [

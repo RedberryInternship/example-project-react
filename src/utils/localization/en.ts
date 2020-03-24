@@ -92,6 +92,7 @@ export default {
 
       editCard: 'Payment Method',
       addCard: 'Add Card',
+      mapColor: 'Map color',
     },
     popup: {
       legend: 'Legend',
@@ -123,6 +124,7 @@ export default {
       connectors: 'Connectors',
       additionalServices: 'Additional services',
       powerOfChargerType: 'power {{power}}kw/s',
+      code: 'code:#{{code}}',
     },
     notAuthorized: {
       notAuthorizedText: 'If u want to charge a car u have to register',
@@ -181,6 +183,8 @@ export default {
       generalError: 'Error encountered',
       fillCode: 'Please, enter charger code',
       chargerNotExist: "this kind of charger don't exist",
+      successOnFavoriteAdd: 'Successfully added charger',
+      successOnFavoriteRemove: 'Charger deleted successfully',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',
@@ -240,6 +244,7 @@ export default {
       },
       charging: {
         areUSore: 'Are you sore u want to finish',
+        needToLogIn: 'You need to log in ',
       },
       home: {
         noRouteFound: 'No route found',

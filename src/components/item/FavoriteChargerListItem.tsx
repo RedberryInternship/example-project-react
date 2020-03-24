@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
   },
   customizedBaseButtonContainer: {
     flex: 0,
-    height: '100%',
     marginLeft: 8,
     justifyContent: 'center',
+    width: 120,
   },
   customizedBaseButton: {
     marginTop: 0,
@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
-    flexWrap: 'wrap',
   },
   addressImage: {
     width: 17,
@@ -106,6 +105,7 @@ const styles = StyleSheet.create({
     color: Colors.primaryGray,
     fontSize: 13,
     lineHeight: 16,
+    paddingRight: 30,
   },
   title: {
     color: Colors.primaryWhite,
