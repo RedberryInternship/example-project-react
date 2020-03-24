@@ -38,7 +38,7 @@ const ChargerDetail = ({
           showChargerLocationPress={hook.showChargerLocationHandler}
           // TODO
           favouritePress={hook.onFavoritePress}
-          favorite={hook.charger?.favorite}
+          favorite={hook.charger?.is_favorite}
           code={hook.charger?.code}
           name={getLocaleText(hook.charger?.name)}
           location={getLocaleText(hook.charger?.location)}

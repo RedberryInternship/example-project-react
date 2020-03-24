@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react'
+import React, {useContext, ReactElement, useEffect} from 'react'
 import {ScrollView, View, StyleSheet, Text} from 'react-native'
 import {
   BaseHeader,
@@ -17,6 +17,10 @@ import {ScreenPropsWithNavigation} from 'allTypes'
 const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const context: AppContextType = useContext(AppContext)
+
+  useEffect(() => {
+    getFavoriteChargers(context.dispatch)
+  }, [])
 
   const deleteFavoriteCharger = (chargerId: number): void => {
     deleteToFavorites(chargerId, context.dispatch)
@@ -49,16 +53,11 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 title={getLocaleText(val.name)}
                 address={getLocaleText(val.location)}
                 turnon={turonOnHandler.bind(Favorites, val.id)}
-                deleteItem={deleteFavoriteCharger.bind(
-                  Favorites,
-                  val.charger_id,
-                )}
+                deleteItem={deleteFavoriteCharger.bind(Favorites, val.id)}
               />
             )}
-            fetchData={() => {
-              getFavoriteChargers(context.dispatch)
-              return Promise.resolve(context.state.favoriteChargers)
-            }}
+            fetchData={() => Promise.resolve(context.state.favoriteChargers)}
+            data={context.state.favoriteChargers}
           />
         }
       </ScrollView>

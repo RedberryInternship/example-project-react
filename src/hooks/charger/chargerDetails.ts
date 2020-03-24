@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-vars */ // Vobi Todo: do not have unused vars
 import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
@@ -18,8 +19,7 @@ import {Ajax, Defaults, locationConfig, Helpers} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import Axios from 'axios'
-import {getFavoriteChargers, addToFavorites} from '../actions/rootActions'
-import i18next from 'i18next'
+import {deleteToFavorites, addToFavorites} from '../actions/rootActions'
 
 type _This = {
   charger: Charger | undefined
@@ -95,7 +95,29 @@ export default (
   }
 
   const onFavoritePress = (): void => {
-    charger && addToFavorites(charger?.charger_id, context.dispatch())
+    if (!Defaults.token)
+      Defaults.dropdown?.alertWithType(
+        'error',
+        t('dropDownAlert.charging.needToLogIn'),
+      )
+
+    const newCharger = {
+      ...charger,
+      is_favorite: !charger?.is_favorite,
+    } as Charger
+
+    const updateCharger = (): void => {
+      navigation.setParams({chargerDetails: newCharger})
+      setCharger(newCharger)
+    }
+
+    if (charger?.is_favorite === false) {
+      addToFavorites(charger.id, context.dispatch, updateCharger)
+    } else if (charger?.is_favorite === true) {
+      deleteToFavorites(charger.id, context.dispatch, updateCharger)
+    } else {
+      Helpers.DisplayGeneralError()
+    }
   }
 
   const mainButtonClickHandler = (): void => {

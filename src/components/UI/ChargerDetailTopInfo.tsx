@@ -41,8 +41,8 @@ const ChargerDetailTopInfo = ({
             onPress={favouritePress}
             style={styles.favIconContainer}>
             <Image
-              source={Imgs.favorite}
-              style={[styles.favIcon, {tintColor: favorite ? 'blue' : 'red'}]}
+              source={favorite ? Imgs.filledHart : Imgs.favorite}
+              style={[styles.favIcon]}
             />
           </TouchableOpacity>
         </View>

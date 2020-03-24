@@ -179,6 +179,8 @@ export default {
       generalError: 'დაფიქსირდა შეცდომა',
       fillCode: 'გთხოვთ ჩაწროთ დამტენის კოდი',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
+      successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',
+      successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწროთ სახელი',
@@ -237,6 +239,7 @@ export default {
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
+        needToLogIn: 'საჭიროა რომ დალოგინდეთ',
       },
       home: {
         noRouteFound: 'გზა ვერ მოიძებნა',

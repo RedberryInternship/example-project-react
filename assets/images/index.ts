@@ -37,6 +37,7 @@ export default {
   iconSearch: require('./icons/icon-search.png'),
   chargerWithGradient: require('./icons/charger_with_gradient.png'),
   menu: require('./icons/ic_menu.png'),
+  filledHart: require('./icons/filled_hart.png'),
 }
 
 export const Partners = {
