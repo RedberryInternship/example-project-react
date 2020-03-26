@@ -14,11 +14,13 @@ export default (setActivePage: any, t: any) => {
 
   const phoneInputSubmit = () => {
     const {phone} = _this.current
-    if (phone == '')
+    if (phone == '') {
+      codeRef.current && codeRef.current.setDisabledInput(true)
       return Defaults.dropdown?.alertWithType(
         'error',
         'please, Fill Phone number',
       )
+    }
 
     codeRef.current && codeRef.current.startCodeAnimation()
 
@@ -26,6 +28,8 @@ export default (setActivePage: any, t: any) => {
       .then(({json_status}: any) => {
         if (json_status == 'SMS Sent') {
           codeRef.current && codeRef.current.focus()
+          codeRef.current && codeRef.current.setDisabledInput(false)
+
           Defaults.dropdown?.alertWithType(
             'success',
             t('dropDownAlert.registration.codeSentSuccessfully'),
@@ -57,6 +61,7 @@ export default (setActivePage: any, t: any) => {
         }
       })
       .catch((error: any) => {
+        codeRef.current && codeRef.current.setDisabledInput(false)
         if (error.data.status === 401) {
           Defaults.dropdown?.alertWithType(
             'error',
@@ -80,8 +85,10 @@ export default (setActivePage: any, t: any) => {
     const {code, phone} = _this.current
 
     console.log(phone, code, 'phone')
+    codeRef.current && codeRef.current.setDisabledInput(true)
 
     if (phone == '') {
+      codeRef.current && codeRef.current.setDisabledInput(true)
       Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.registration.fillPhoneNumber'),
@@ -89,6 +96,8 @@ export default (setActivePage: any, t: any) => {
     } else if (code == '') {
       phoneInputSubmit()
     } else if (code.length != 4) {
+      codeRef.current && codeRef.current.setDisabledInput(false)
+      codeRef.current && codeRef.current.focus()
       Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.registration.codeLengthError'),

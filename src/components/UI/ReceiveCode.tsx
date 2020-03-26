@@ -18,6 +18,7 @@ const receiveConfirmationCode = React.forwardRef(
   ({onChangeText, receiveCode, disableCodeInput}: any, ref: any) => {
     const [animation] = useState(new Animated.Value(0))
     const [disabled, setDisabled] = useState(false)
+    const [disabledInput, setDisabledInput] = useState(true)
     const [showText, setShowText] = useState(false)
     const inputRef: any = useRef(null)
     const {t} = useTranslation()
@@ -48,6 +49,7 @@ const receiveConfirmationCode = React.forwardRef(
         // setDisabled(true)
       },
       startCodeAnimation: codeReceiveHandler,
+      setDisabledInput: setDisabledInput,
     }))
 
     return (
@@ -84,7 +86,7 @@ const receiveConfirmationCode = React.forwardRef(
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
             ref={inputRef}
-            pointerEvents={!disableCodeInput ? 'none' : 'auto'}
+            pointerEvents={disabledInput ? 'none' : 'auto'}
             keyboardType={'number-pad'}
           />
         </View>

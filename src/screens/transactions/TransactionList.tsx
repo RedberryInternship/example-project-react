@@ -2,34 +2,28 @@ import React, {ReactElement, useState, useEffect} from 'react'
 import {ScrollView, View, StyleSheet, SafeAreaView, Alert} from 'react-native'
 
 // components
-import {BaseHeader, TransactionListItem, BaseText} from 'components'
+import {
+  BaseHeader,
+  TransactionListItem,
+  BaseText,
+  FetchedDataRenderer,
+} from 'components'
 
 // utils
 import {Colors, Ajax, Defaults, getLocaleText} from 'utils'
 import i18next from 'i18next'
 import {OrderResponseObject, OrderResponse} from 'allTypes'
 
-let OrderStatic: OrderResponse[] | null = null
+const OrderStatic: OrderResponse[] | null = null
 
 const TransactionList = ({navigation}: any): ReactElement => {
   const [orders, setOrders] = useState<OrderResponse[] | null>(OrderStatic)
 
-  useEffect(() => {
-    getOrders()
-  }, [])
-
-  const getOrders = async (): Promise<void> => {
-    try {
-      const res: OrderResponseObject = await Ajax.get('/user-orders')
-      setOrders(res.orders)
-      OrderStatic = res.orders
-    } catch (error) {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        i18next.t('dropDownAlert.generalError'),
-      )
-    }
+  const getOrders = async (): Promise<any> => {
+    const res = await Ajax.get('/user-orders')
+    return res.data
   }
+
   return (
     <View style={styles.container}>
       <BaseHeader
@@ -37,35 +31,24 @@ const TransactionList = ({navigation}: any): ReactElement => {
         onPressLeft={navigation.navigate.bind(TransactionList, 'MainDrawer')}
       />
       <ScrollView style={styles.transactionsContainer}>
-        {orders !== null ? ( // Vobi Todo: Do not nest ternary operators
-          orders.length > 0 ? (
-            orders.map(
-              (val: OrderResponse): ReactElement => {
-                return (
-                  <TransactionListItem
-                    key={val.id}
-                    onPress={navigation.navigate.bind(
-                      TransactionList,
-                      'ShowTransaction',
-                      {order: val},
-                    )}
-                    title={getLocaleText(val.charger.name)}
-                    date={val.confirm_date}
-                    price={val.price}
-                  />
-                )
-              },
-            )
-          ) : (
-            <BaseText style={{margin: 32, alignSelf: 'center'}}>
-              {i18next.t('notFound')}
-            </BaseText>
-          )
-        ) : (
-          <BaseText style={{margin: 32, alignSelf: 'center'}}>
-            {i18next.t('loading')}
-          </BaseText>
-        )}
+        <FetchedDataRenderer
+          property={'Partners'}
+          onItemRender={(val: any, index): ReactElement => (
+            <TransactionListItem
+              key={val.id}
+              onPress={navigation.navigate.bind(
+                TransactionList,
+                'ShowTransaction',
+                {order: val},
+              )}
+              title={getLocaleText(val.charger.name)}
+              date={val.confirm_date}
+              price={val.price}
+            />
+          )}
+          updateAlways={true}
+          fetchData={getOrders}
+        />
       </ScrollView>
       <SafeAreaView />
     </View>

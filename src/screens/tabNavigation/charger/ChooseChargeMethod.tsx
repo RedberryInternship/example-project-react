@@ -12,7 +12,7 @@ const ChargerDetail = ({
   return (
     <View style={styles.container}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(ChargerDetail, 'MainDrawer')}
+        onPressLeft={() => navigation.goBack()}
         title={'chooseChargeMethod.choose'}
       />
       <View style={styles.innerContainer}>

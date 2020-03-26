@@ -4,12 +4,15 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'
 import Imgs from '../../../assets/images'
+import MarkerController from 'components/svg'
 
 type ChargerGroupPupupItemProp = {
   code: string | number | null
   onPress: () => void | null
   active: number
   text: string
+  publicCharger: number
+  connectorType: string
 }
 
 const ChargerGroupPopupItem = ({
@@ -17,13 +20,18 @@ const ChargerGroupPopupItem = ({
   onPress,
   active,
   text,
+  publicCharger,
+  connectorType,
 }: ChargerGroupPupupItemProp): ReactElement => {
   return (
     <TouchableOpacity onPress={onPress} disabled={active === 1 ? false : true}>
       <View style={styles.container}>
-        <Image
-          style={styles.chargerPin}
-          source={active === 1 ? Imgs.close : Imgs.filterType}
+        <MarkerController
+          active={active}
+          publicCharger={publicCharger}
+          connectorType={connectorType}
+          width={26}
+          height={32}
         />
         <View style={styles.chargerTypeContainer}>
           <Text style={styles.chargerTypeText}>{text}</Text>

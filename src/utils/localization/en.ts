@@ -196,6 +196,7 @@ export default {
         emailAlreadyToken: 'The email has already been taken',
         phoneAlreadyToken: 'The phone number has already been taken.',
         passwordNotEqual: 'Passwords not equal',
+        needsCardAddOrPleaseSkip: 'Needs card add, or skip',
       },
       editFirstname: {
         firstNameNotEmpty: 'Please, Fill The First Name Field',
@@ -245,6 +246,7 @@ export default {
       charging: {
         areUSore: 'Are you sore u want to finish',
         needToLogIn: 'You need to log in ',
+        noRouteFound: 'No route found',
       },
       home: {
         noRouteFound: 'No route found',

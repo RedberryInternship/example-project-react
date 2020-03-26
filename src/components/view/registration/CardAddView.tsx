@@ -1,9 +1,8 @@
-import React from 'react'
+import React, {ReactElement} from 'react'
 import {View} from 'react-native'
 import {Const} from 'utils'
 
-const PasswordView = ({_this}: any) => {
-  // Vobi Todo: naming is important
+const CardAddView = ({_this}: any): ReactElement => {
   return (
     <View
       style={{
@@ -15,4 +14,4 @@ const PasswordView = ({_this}: any) => {
   ) // Vobi Todo: stylesheet
 }
 
-export default PasswordView
+export default CardAddView

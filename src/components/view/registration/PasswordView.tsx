@@ -24,7 +24,6 @@ const PasswordView = ({_this, hook}: any): ReactElement => {
       <BaseInput
         image={Imgs.lock}
         imageStyle={{tintColor: Colors.primaryBlue}}
-        keyboardType={'email-address'}
         onChangeText={passwordTextHandler}
         onSubmit={passwordInputSubmit}
         secure={true}
@@ -36,7 +35,6 @@ const PasswordView = ({_this, hook}: any): ReactElement => {
       <BaseInput
         image={Imgs.lock}
         imageStyle={{tintColor: Colors.primaryBlue}}
-        keyboardType={'email-address'}
         onChangeText={repeatPasswordTextHandler}
         onSubmit={repeatPasswordInputSubmit}
         testID={'nameInput'}

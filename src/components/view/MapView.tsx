@@ -6,7 +6,7 @@ import {useMap} from 'hooks'
 import {mapStyles, mapStyle2, Colors} from 'utils'
 import {Charger} from 'allTypes'
 import {MapMarkerItem} from 'components'
-import {determineTimePeriod} from 'utils' // Vobi Todo: move this up in utils
+import {determineTimePeriod} from 'utils'
 import {
   withNavigation,
   NavigationParams,
@@ -62,6 +62,9 @@ const _mapView = forwardRef(
                   lat={parseFloat(charger.lat.toString())}
                   lng={parseFloat(charger.lng.toString())}
                   onPress={hook.onMarkerPress.bind(this, charger)}
+                  connectorType={charger.charger_types?.[0]?.name}
+                  publicCharger={charger.public}
+                  active={charger.active}
                 />
               )),
 

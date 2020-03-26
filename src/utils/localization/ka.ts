@@ -193,6 +193,7 @@ export default {
         phoneAlreadyToken: 'ეს ნომერი ბაზაში უკვე არსებობს',
         passwordNotEqual: 'პაროლები ერთმანეთს არ ემთხვევა',
         minPasswordTextLength: 'მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში',
+        needsCardAddOrPleaseSkip: 'საჭიროა ბარატის დამატება, ან გამოტოვეთ',
       },
       editFirstname: {
         firstNameNotEmpty: 'გთხოვთ, შეავსეთ სახელის ველი',
@@ -240,6 +241,7 @@ export default {
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
         needToLogIn: 'საჭიროა რომ დალოგინდეთ',
+        noRouteFound: 'გზა ვერ მოიძებნა',
       },
       home: {
         noRouteFound: 'გზა ვერ მოიძებნა',

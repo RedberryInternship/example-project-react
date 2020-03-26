@@ -1,16 +1,26 @@
 import React, {ReactElement} from 'react'
-import {View} from 'react-native'
+import {View, Alert} from 'react-native'
 import {Marker} from 'react-native-maps'
+import MarkerController from 'components/svg'
 
+import {
+  ChargerMarkerIconControllerType,
+  ChargerMarkerType,
+  ChargerMarkerStatus,
+} from '../../../@types/allTypes.d'
 type MapMarkerItemProps = {
   lat: number
   lng: number
   onPress: () => void
+  connectorType: string | undefined
+  publicCharger: number
+  active: number
 }
 const MapMarkerItem = ({
   lat,
   lng,
   onPress,
+  ...props
 }: MapMarkerItemProps): ReactElement => {
   return (
     <Marker
@@ -19,8 +29,7 @@ const MapMarkerItem = ({
       coordinate={{latitude: lat, longitude: lng}}
       onPress={onPress}
       anchor={{x: 0.5, y: 0.5}}>
-      {/*TODO: need to be changed with Image*/}
-      <View style={{width: 20, height: 20, backgroundColor: 'red'}}></View>
+      <MarkerController {...props} />
     </Marker>
   )
 }

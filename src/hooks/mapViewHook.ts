@@ -17,7 +17,7 @@ const useMap = (
   ref: Ref<MapView>,
   mapRef: RefObject<MapView>,
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-): any => {
+) => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
   const [polyline, setPolyline] = useState([])
   const location = useLocation({mapRef, setPolyline})
@@ -42,13 +42,9 @@ const useMap = (
       charger.charger_group?.chargers.length !== 0
     ) {
       const onChargerSelect = (index: number): void => {
-        if (index === -1) {
-          navigation.navigate('ChargerDetail', {chargerDetails: charger})
-        } else {
-          navigation.navigate('ChargerDetail', {
-            chargerDetails: charger.charger_group?.chargers?.[index],
-          })
-        }
+        navigation.navigate('ChargerDetail', {
+          chargerDetails: charger.charger_group?.chargers?.[index],
+        })
       }
 
       Defaults.modal.current?.customUpdate(true, {
@@ -56,7 +52,7 @@ const useMap = (
         data: {
           title: getLocaleText(charger.name),
           address: getLocaleText(charger.location),
-          chargers: charger,
+          chargers: charger.charger_group?.chargers ?? [],
           onChargerSelect: onChargerSelect,
         },
       })

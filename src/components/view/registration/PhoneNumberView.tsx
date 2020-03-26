@@ -22,7 +22,7 @@ const FilterTextItem = React.memo(
         <ReceiveCode
           ref={hook.codeRef}
           onChangeText={codeTextHandler}
-          receiveCode={hook.buttonClickHandler}
+          receiveCode={hook.phoneInputSubmit}
           startCodeAnimation={startCodeAnimation}
         />
       </View>

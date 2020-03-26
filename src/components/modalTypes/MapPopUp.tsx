@@ -14,7 +14,7 @@ type MapPopUpProps = {
 type Data = {
   title: string
   address: string
-  chargers: Charger
+  chargers: ChargerDetail[]
   onChargerSelect: (index: number) => void
 }
 const MapPopUp = ({
@@ -35,13 +35,7 @@ const MapPopUp = ({
         <Text style={styles.addressText}>{t(address)}</Text>
       </View>
       <View style={styles.groupChargerContainer}>
-        <ChargerGroupPopupItem
-          text={getLocaleText(chargers.name)}
-          onPress={(): void => onPressItem(-1)}
-          code={chargers.code}
-          active={chargers.active}
-        />
-        {chargers.charger_group?.chargers?.map(
+        {chargers?.map(
           (groupCharger: ChargerDetail, index: number): ReactElement => (
             <ChargerGroupPopupItem
               key={groupCharger.id}
@@ -49,6 +43,8 @@ const MapPopUp = ({
               onPress={(): void => onPressItem(index)}
               code={groupCharger.code}
               active={groupCharger.active}
+              publicCharger={groupCharger.public}
+              connectorType={groupCharger.charger_types?.[0]?.name}
             />
           ),
         )}

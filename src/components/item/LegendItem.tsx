@@ -1,18 +1,28 @@
 import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet, ImageSourcePropType} from 'react-native'
+import {Text, View, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
+import MarkerRenderer from 'components/svg/chargerMarker/MarkerRenderer'
 
+import {
+  ChargerMarkerType,
+  ChargerMarkerStatus,
+} from '../../../@types/allTypes.d'
 type LegendItemProps = {
   text: string
-  image: ImageSourcePropType
+  type: ChargerMarkerType
 }
-const LegendItem = ({text, image}: LegendItemProps): ReactElement => {
+const LegendItem = ({text, type}: LegendItemProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{t(text)}</Text>
-      <Image source={image} style={styles.image} />
+      <MarkerRenderer
+        type={type}
+        status={ChargerMarkerStatus.forLegend}
+        width={22}
+        height={26}
+      />
     </View>
   )
 }

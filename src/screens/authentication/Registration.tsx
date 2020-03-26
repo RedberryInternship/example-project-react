@@ -91,7 +91,7 @@ const Registration = ({
       <KeyboardAvoidingView
         behavior={'padding'}
         contentContainerStyle={styles.keyboardAvoidingView}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 16}>
         <BaseButton
           onPress={hook.registrationStepHandler}
           text={'next'}

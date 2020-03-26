@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-vars */
 // declare module 'react-native-hooks'
 import {
@@ -328,4 +329,37 @@ export type ChargerFilters = {
 
 export type ChargersObject = {
   data: Charger[]
+}
+
+export type ChargerMarkerIconControllerType = {
+  active: number
+  connectorType: string
+  publicCharger: number
+  width?: number
+  height?: number
+}
+export type ChargerMarkerIconRendererType = {
+  type: ChargerMarkerType
+  status: ChargerMarkerStatus
+  width?: number
+  height?: number
+}
+export type ChargerMarkerIcon = {
+  stroke: string
+  background: string
+  width?: number
+  height?: number
+}
+
+export enum ChargerMarkerType {
+  fast__public = 'fast__public',
+  fast__nonPublic = 'fast__nonPublic',
+  lvl2__public = 'lvl2__public',
+  lvl2__nonPublic = 'lvl2__nonPublic',
+}
+export enum ChargerMarkerStatus {
+  'busy',
+  'notWorking',
+  'free',
+  'forLegend',
 }

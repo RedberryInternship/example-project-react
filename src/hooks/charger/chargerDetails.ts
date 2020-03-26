@@ -96,7 +96,7 @@ export default (
 
   const onFavoritePress = (): void => {
     if (!Defaults.token)
-      Defaults.dropdown?.alertWithType(
+      return Defaults.dropdown?.alertWithType(
         'error',
         t('dropDownAlert.charging.needToLogIn'),
       )
@@ -135,7 +135,16 @@ export default (
           lng ?? locationIfNoGPS.lng,
         )}
         &mode=driving&units=metric&language=${i18n.language}&key=${MAP_API}`)
-      setDistance(result?.data.rows?.[0].elements?.[0].distance.value)
+
+      if (result?.data.rows?.[0].elements?.[0].status !== 'ZERO_RESULTS')
+        setDistance(result?.data.rows?.[0].elements?.[0].distance.value)
+      else {
+        setDistance('0')
+        Defaults.dropdown?.alertWithType(
+          'error',
+          t('dropDownAlert.charging.noRouteFound'),
+        )
+      }
     } catch (error) {
       Helpers.DisplayGeneralError()
     }

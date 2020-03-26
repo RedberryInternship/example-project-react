@@ -6,22 +6,24 @@ import {LegendItem, LegendColorItem} from 'components'
 import {useTranslation} from 'react-i18next'
 import Imgs from '../../../assets/images'
 
+import {ChargerMarkerType} from '../../../@types/allTypes.d'
+
 const legendTypes = [
   {
     text: 'popup.fastNonCommercial',
-    image: Imgs.delete,
+    type: ChargerMarkerType.fast__nonPublic,
   },
   {
     text: 'popup.fastCommercial',
-    image: Imgs.frame,
+    type: ChargerMarkerType.fast__public,
   },
   {
     text: 'popup.lvl2NonCommercial',
-    image: Imgs.frame,
+    type: ChargerMarkerType.lvl2__nonPublic,
   },
   {
     text: 'popup.lvl2Commercial',
-    image: Imgs.frame,
+    type: ChargerMarkerType.lvl2__public,
   },
 ]
 const legendColorTypes = [

@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     color: Colors.primaryGray,
     fontSize: 11,
     marginLeft: 8,
+    paddingRight: 30,
   },
   seeOnMapContainer: {
     flexDirection: 'row',

@@ -71,6 +71,8 @@ export default (navigation: any, dispatch: any) => {
       case 2:
         regStep3.password.current?.focus()
         break
+      case 3:
+        break
 
       default:
         break
@@ -93,16 +95,16 @@ export default (navigation: any, dispatch: any) => {
       })
   }
 
-  const addCardSkip = () => {
+  const addCardSkip = (): void => {
     navigation.navigate('MainDrawer')
   }
 
-  const registrationStepHandler = () => {
-    if (activePage === allPageLength - 1) {
-      Defaults.modal.current &&
-        Defaults.modal.current.customUpdate(true, {type: 2})
-      return
-    }
+  const registrationStepHandler = (): void => {
+    // if (activePage === allPageLength - 1) {
+    //   Defaults.modal.current &&
+    //     Defaults.modal.current.customUpdate(true, {type: 2})
+    //   return
+    // }
 
     // validate input and continue
     switch (activePage) {
@@ -116,6 +118,10 @@ export default (navigation: any, dispatch: any) => {
         regStep3.buttonClickHandler()
         break
       case 3:
+        Defaults.dropdown?.alertWithType(
+          'error',
+          t('dropDownAlert.registration.needsCardAddOrPleaseSkip'),
+        )
         regStep4.buttonClickHandler()
         break
 
