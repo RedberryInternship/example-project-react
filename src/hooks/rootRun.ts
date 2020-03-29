@@ -43,7 +43,7 @@ export function useRoot() {
     console.log('remounted', appReady, ' appReady')
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('transparent', true)
-      StatusBar.setTranslucent(false)
+      StatusBar.setTranslucent(true)
     }
   }, [])
 
