@@ -17,7 +17,6 @@ export function useRoot() {
 
   const [token, setToken] = useState<null | string>('')
   const [locale, setLocale] = useState<null | string>('')
-
   const {getItem, setItem} = useAsyncStorage('token')
   const {getItem: getUserDetail, setItem: setUserDetail} = useAsyncStorage(
     'userDetail',
@@ -42,7 +41,6 @@ export function useRoot() {
     readUserLocale()
     // onReady()
     console.log('remounted', appReady, ' appReady')
-    // Todo Vobi: remove all console.logs
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('transparent', true)
       StatusBar.setTranslucent(true)
@@ -66,10 +64,13 @@ export function useRoot() {
 
   const readUserToken = async (): Promise<void> => {
     const _token = await getItem()
+    console.log('====================================')
+    console.log(_token, '_token')
+    console.log('====================================')
     let user: string | null = ''
     if (_token) {
-      user = await getUserDetail()
-      user = user != null ? JSON.parse(user) : ''
+      const _user = await getUserDetail()
+      user = _user != null ? JSON.parse(_user) : ''
     }
 
     rootAction({token: _token ?? '', user}, dispatch)

@@ -1,8 +1,13 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet} from 'react-native'
+import React, {ReactElement, useRef, useContext, useEffect} from 'react'
+import {View, StyleSheet, Alert} from 'react-native'
 
 // components
-import {BaseHeader, SettingsListItem} from 'components'
+import {
+  BaseHeader,
+  SettingsListItem,
+  BasePickerSelect,
+  useBaseActionSheetPicker,
+} from 'components'
 
 // utils
 import {Colors, Const} from 'utils'
@@ -12,8 +17,13 @@ import {ScrollView} from 'react-native-gesture-handler'
 import {useSettings} from 'hooks'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
+import {useTranslation} from 'react-i18next'
+import {AppContext} from '../../../App'
+import {editUserInfo} from 'hooks/actions/rootActions'
 
 const Settings = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
+  const context: any = useContext(AppContext)
+  const {selectedItem, renderPicker} = useBaseActionSheetPicker()
   const {
     makeSettingsInfo,
     makeValue,
@@ -23,19 +33,37 @@ const Settings = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 
   const settingsInfo = makeSettingsInfo()
 
-  const SettingsListItems = Const.SettingsListFields.map((Item, key) => {
+  useEffect(() => {
+    if (selectedItem) {
+      editUserInfo(context.dispatch, selectedItem, 'mapMode')
+    }
+  }, [selectedItem])
+
+  const onPressHandler = (item, value): void => {
+    if (item.type === 'mapColorChange') {
+      renderPicker([
+        'settings.automatic',
+        'settings.mapColorLight',
+        'settings.mapColorDark',
+      ])
+    } else {
+      navigation.navigate.bind(Settings, 'ProfileChange', {
+        type: item.type,
+        name: item.editableComponentName,
+        value: value,
+      })
+    }
+  }
+
+  const SettingsListItems = Const.SettingsListFields.map((item, key) => {
     const value = makeValue(key, settingsInfo)
 
     return (
       <SettingsListItem
-        name={Item.name}
-        onPress={navigation.navigate.bind(Settings, 'ProfileChange', {
-          type: Item.type,
-          name: Item.editableComponentName,
-          value: value,
-        })}
-        key={Item.type}
-        image={Item.image}
+        name={item.name}
+        onPress={() => onPressHandler(item, value)}
+        key={item.type}
+        image={item.image}
         value={value}
         confirmed={isValueAdded(key, settingsInfo)}
         valueColor={determineColor(key, settingsInfo)}

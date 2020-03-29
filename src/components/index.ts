@@ -65,6 +65,7 @@ import BaseNativeTouchable from './baseUI/BaseNativeTouchable'
 import BasePickerSelect from './baseUI/BasePickerSelect'
 import BaseText from './baseUI/BaseText'
 import BaseCheckbox from './baseUI/BaseCheckbox'
+import useBaseActionSheetPicker from './library/useBaseActionSheetPicker'
 
 //UI
 import ReceiveCode from './UI/ReceiveCode'
@@ -152,4 +153,5 @@ export {
   FooterTabNavigation,
   LocationPermission,
   FetchedDataRenderer,
+  useBaseActionSheetPicker,
 }
