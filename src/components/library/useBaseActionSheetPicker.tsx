@@ -47,10 +47,6 @@ const useBaseActionSheetPicker = (): UseBaseActionSheetPicker => {
     )
 
     if (result.selectedItem) setSelectedItem(result.selectedItem.id)
-
-    console.log('====================================')
-    console.log(result, 'resultresult')
-    console.log('====================================')
   }
 
   return {

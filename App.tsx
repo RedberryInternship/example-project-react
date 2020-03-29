@@ -16,7 +16,6 @@ if (__DEV__) {
 export const AppContext = createContext()
 
 const App = () => {
-  const firebase = useFirebase()
   const hook = useRoot()
 
   return useMemo(
@@ -28,10 +27,10 @@ const App = () => {
             ref={ref => hook.setNavigationTopLevelElement(ref)}
             screenProps={{token: Defaults.token}}
             onNavigationStateChange={(_, state) => {
-              console.log('====================================')
-              console.log(state, 'navigation state')
-              console.log('====================================')
               Defaults.activeRoute = hook.getCurrentRoute(state)
+              console.log('====================================')
+              console.log(Defaults.activeRoute, 'Defaults.activeRout state')
+              console.log('====================================')
             }}
           />
         </AppContext.Provider>

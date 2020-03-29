@@ -43,7 +43,7 @@ export function useRoot() {
     console.log('remounted', appReady, ' appReady')
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('transparent', true)
-      StatusBar.setTranslucent(true)
+      StatusBar.setTranslucent(false)
     }
   }, [])
 
@@ -95,11 +95,7 @@ export function useRoot() {
   }
 
   const setNavigationTopLevelElement = (ref: any): void => {
-    console.log(
-      'settingNavigationTopLevelElement',
-      ref,
-      NavigationActions()._navigator,
-    )
+    console.log('settingNavigationTopLevelElement')
 
     if (ref == null) return
 
