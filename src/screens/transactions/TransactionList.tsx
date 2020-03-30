@@ -2,23 +2,12 @@ import React, {ReactElement, useState, useEffect} from 'react'
 import {ScrollView, View, StyleSheet, SafeAreaView, Alert} from 'react-native'
 
 // components
-import {
-  BaseHeader,
-  TransactionListItem,
-  BaseText,
-  FetchedDataRenderer,
-} from 'components'
+import {BaseHeader, TransactionListItem, FetchedDataRenderer} from 'components'
 
 // utils
 import {Colors, Ajax, Defaults, getLocaleText} from 'utils'
-import i18next from 'i18next'
-import {OrderResponseObject, OrderResponse} from 'allTypes'
-
-const OrderStatic: OrderResponse[] | null = null
 
 const TransactionList = ({navigation}: any): ReactElement => {
-  const [orders, setOrders] = useState<OrderResponse[] | null>(OrderStatic)
-
   const getOrders = async (): Promise<any> => {
     const res = await Ajax.get('/user-orders')
     return res.data

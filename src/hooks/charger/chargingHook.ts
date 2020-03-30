@@ -6,7 +6,7 @@ import {Alert} from 'react-native'
 
 export default (navigation: any) => {
   const [loading, SetLoading] = useState<boolean>(true)
-  const [activeTab, SetActiveTab] = useState<number>(0) // Vobi Todo: use setActiveTab instead of SetActiveTab
+  const [activeTab, setActiveTab] = useState<number>(0)
 
   const _this: React.RefObject<any> = useRef()
 
@@ -15,7 +15,7 @@ export default (navigation: any) => {
   const insets = useSafeArea()
 
   const changeActiveTab = (index: number) => {
-    SetActiveTab(index)
+    setActiveTab(index)
   }
 
   const onFinish = () => {
@@ -53,7 +53,7 @@ export default (navigation: any) => {
     _this,
     t,
     activeTab,
-    SetActiveTab,
+    setActiveTab,
     changeActiveTab,
     onFinish,
     navigation,

@@ -9,8 +9,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {
   BaseHeader,
   BaseButton,
-  FirstnameChangeView,
-  LastnameChangeView,
+  FirstNameChangeView,
+  LastNameChangeView,
   MailChangeView,
   PhoneChangeView,
   PasswordChangeView,
@@ -43,11 +43,11 @@ const ProfileChange = ({
 
   switch (type) {
     case 'FirstnameChange':
-      editView = <FirstnameChangeView {...payload} {...additionalPayload} /> // Vobi Todo: use uppercase install spell checker
+      editView = <FirstNameChangeView {...payload} {...additionalPayload} /> // Vobi Todo: use uppercase install spell checker
       break
 
     case 'LastnameChange':
-      editView = <LastnameChangeView {...payload} {...additionalPayload} /> // Vobi Todo: use uppercase install spell checker
+      editView = <LastNameChangeView {...payload} {...additionalPayload} /> // Vobi Todo: use uppercase install spell checker
       break
 
     case 'CardChange':

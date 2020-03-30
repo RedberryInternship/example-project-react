@@ -60,6 +60,7 @@ export function useRoot() {
       //show alert
     }
     // Todo Vobi: What is the purpose of this listener delete unused code
+    //TODO: finish network handling
   }, [currentAppState, networkState])
 
   const readUserToken = async (): Promise<void> => {
@@ -82,7 +83,7 @@ export function useRoot() {
     // Todo Vobi: javascript's variables shouldn't be named like this
     // Todo Vobi: It's an OOP syntax which tells developers that this method is private for class and should be called from outside
     // Todo Vobi: i don't understand why we implement this here
-
+    // Redberry: Okay but how to declare temporary variable which has has same purpose as global one
     if (_locale === null) {
       _locale = 'ka'
       setLocaleStorage('ka')

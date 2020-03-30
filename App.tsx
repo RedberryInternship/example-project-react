@@ -11,11 +11,13 @@ console.disableYellowBox = true
 
 if (__DEV__) {
 } else {
-  console.log = () => {} // Vobi Todo: What is this
+  // Vobi Todo: What is this
+  //Redberry : trick, I overide console.log on producion for not blocking js thread
+  console.log = () => {}
 }
 export const AppContext = createContext()
 
-const App = () => {
+const App = (): React.ReactElement => {
   const hook = useRoot()
 
   return useMemo(

@@ -11,8 +11,8 @@ import TitleTopLeftContainer from './view/TitleTopLeftContainer'
 import CountDown from './view/time/CountDown'
 import ChargingView from './view/ChargingView'
 
-import FirstnameChangeView from './view/profileChange/FirstnameChangeView'
-import LastnameChangeView from './view/profileChange/LastnameChangeView'
+import FirstNameChangeView from './view/profileChange/FirstNameChangeView'
+import LastNameChangeView from './view/profileChange/LastNameChangeView'
 import CardListView from './view/profileChange/CardListView'
 import MailChangeView from './view/profileChange/MailChangeView'
 import PhoneChangeView from './view/profileChange/PhoneChangeView'
@@ -114,8 +114,8 @@ export {
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
   SettingsListItem,
-  FirstnameChangeView,
-  LastnameChangeView,
+  FirstNameChangeView,
+  LastNameChangeView,
   CardListView,
   MailChangeView,
   PhoneChangeView,
