@@ -133,6 +133,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 121
         versionName "1.21"
+        multiDexEnabled true
+
     }
     splits {
         abi {

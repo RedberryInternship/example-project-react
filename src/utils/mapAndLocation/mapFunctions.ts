@@ -1,5 +1,6 @@
 import moment from 'moment'
 import SunCalc from 'suncalc'
+import {Defaults} from 'utils'
 type RegionFrom = {
   latitude: number
   longitude: number
@@ -33,9 +34,13 @@ export function regionFrom(
 }
 
 export function determineTimePeriod() {
-  const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
+  if (Defaults.userDetail?.mapMode === 'settings.mapColorDark') return false
+  else if (Defaults.userDetail?.mapMode === 'settings.automatic') return true
+  else {
+    const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
 
-  return moment(moment()).isBetween(times.sunrise, times.sunset)
+    return moment(moment()).isBetween(times.sunrise, times.sunset)
+  }
 }
 
 export const mergeCoords = (

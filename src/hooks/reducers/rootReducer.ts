@@ -25,7 +25,7 @@ function reducer(
       return {
         ...state,
         loading: false,
-        user: payload.user,
+        user: payload,
         authStatus: typeof payload.token === 'string' ? 'failed' : 'success',
       }
     case LOG_OUT:

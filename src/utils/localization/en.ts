@@ -15,6 +15,7 @@ export default {
     yes: 'Yes',
     no: 'No',
     loading: 'Loading ...',
+    cancel: 'Cancel',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',
@@ -92,7 +93,12 @@ export default {
 
       editCard: 'Payment Method',
       addCard: 'Add Card',
+
       mapColor: 'Map color',
+      automatic: 'Auto',
+      mapColorLight: 'Light',
+      mapColorDark: 'Dark',
+      chooseMapMode: 'Choose map mode',
     },
     popup: {
       legend: 'Legend',

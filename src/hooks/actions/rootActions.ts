@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Defaults, Ajax} from 'utils'
-import asyncStorage from '@react-native-community/async-storage'
+import AsyncStorage from '@react-native-community/async-storage'
 import {ChargersObject, Favorite} from 'allTypes'
 import i18n from 'i18next'
 
@@ -26,12 +26,15 @@ type AddFavoriteCharger = {
 const {Logger} = Helpers
 
 export const rootAction = (data: any, dispatch: any) => {
-  dispatch(saveToken(data))
+  saveToken(data)
 
   if (data.token !== '') {
     Ajax.get(apiServices.get_me)
       .then(user => {
-        saveToken({user, token: data.token})
+        console.log('====================================')
+        console.log(data, user, 'useruser')
+        console.log('====================================')
+        dispatch(saveToken({token: data.token, ...data.user, ...user}))
       })
       .catch(err => {
         Logger(err)
@@ -42,12 +45,12 @@ export const rootAction = (data: any, dispatch: any) => {
   }
 }
 
-export const saveToken = (payload: any) => {
-  asyncStorage.setItem('token', payload.token ?? '')
-  asyncStorage.setItem('userDetail', JSON.stringify(payload.user))
+const saveToken = (payload: any) => {
+  AsyncStorage.setItem('token', payload.token ?? '')
+  AsyncStorage.setItem('userDetail', JSON.stringify(payload))
 
   Defaults.token = payload.token
-  Defaults.userDetail = payload.user
+  Defaults.userDetail = payload
 
   return {
     type: SAVE_TOKEN,
@@ -56,8 +59,7 @@ export const saveToken = (payload: any) => {
 }
 
 export const logOut = () => {
-  asyncStorage.clear()
-
+  AsyncStorage.clear()
   Defaults.token = ''
   Defaults.userDetail = null
 
@@ -136,7 +138,12 @@ export const deleteToFavorites = (
     })
 }
 
-type UserColumnType = 'first_name' | 'last_name' | 'email' | 'phone_number'
+type UserColumnType =
+  | 'first_name'
+  | 'last_name'
+  | 'email'
+  | 'phone_number'
+  | 'mapMode'
 
 export const editUserInfo = (
   dispatch: any,
@@ -145,7 +152,10 @@ export const editUserInfo = (
 ): any => {
   if (Defaults.userDetail) Defaults.userDetail[user_column_type] = payload
 
-  asyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))
+  console.log('====================================')
+  console.log(Defaults.userDetail, 'Defaults.userDetailDefaults.userDetail')
+  console.log('====================================')
+  AsyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))
 
   return dispatch({
     type: EDIT_USER_INFO,

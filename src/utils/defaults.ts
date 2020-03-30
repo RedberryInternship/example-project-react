@@ -11,6 +11,7 @@ type userDetail = {
   email: string
   verified: number
   id: number
+  mapMode: string
 } | null
 
 class Defaults {

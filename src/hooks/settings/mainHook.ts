@@ -12,6 +12,7 @@ type SettingsInfoType = {
   phone: string
   cardExists: boolean | string
   password: string
+  mapMode: string
 }
 
 type SettingsValuesType = {
@@ -33,6 +34,9 @@ const helpers = {
       phone: isContextLoaded ? context.state.user.phone_number : '',
       cardExists: activeCardNumber || false,
       password: '*********',
+      mapMode: isContextLoaded
+        ? context.state.user.mapMode ?? 'settings.automatic'
+        : 'settings.automatic',
     }
   },
   makeSettingsInfo: () => {
@@ -56,6 +60,9 @@ const helpers = {
       },
       {
         value: info.password,
+      },
+      {
+        value: info.mapMode,
       },
     ]
 

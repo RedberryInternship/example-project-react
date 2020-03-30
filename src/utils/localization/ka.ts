@@ -15,6 +15,7 @@ export default {
     yes: 'დიახ',
     no: 'არა',
     loading: 'იტვირთება ...',
+    cancel: 'გამოსვლა',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -86,7 +87,12 @@ export default {
       addCard: 'დაამატე ბარათი',
       editMail: 'ელ-ფოსტის შეცვლა',
       newMail: 'ახალი ელ-ფოსტა',
+
       mapColor: 'რუკის ფერი',
+      automatic: 'ავტომატური',
+      mapColorLight: 'ნათელი',
+      mapColorDark: 'ბნელი',
+      chooseMapMode: 'აირჩეთ რუკის რეჟიმი',
     },
     popup: {
       legend: 'ლეგენდა',
