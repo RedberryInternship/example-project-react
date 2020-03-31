@@ -62,9 +62,11 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     this.setState({
       visible: false,
     })
-    InteractionManager.runAfterInteractions(() => {
-      this.state.config.onCloseClick && this.state.config.onCloseClick()
-    })
+    this.state.config.onCloseClick && this.state.config.onCloseClick()
+    // for performace option use bollow, but it has some drowbacks for example delay in navigation
+    // InteractionManager.runAfterInteractions(() => {
+    //   this.state.config.onCloseClick && this.state.config.onCloseClick()
+    // })
   }
 
   customUpdate = (visible: boolean, config?: Config): void => {

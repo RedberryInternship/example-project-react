@@ -29,6 +29,7 @@ const useHomeMainInputHook = (
   const {t} = useTranslation()
 
   const textHandler = (val: string): void => {
+    _this.current.text = val
     setInputText(val.toLowerCase())
   }
 
@@ -42,8 +43,13 @@ const useHomeMainInputHook = (
   }, [showSearchContent])
 
   const closeClick = (): void => {
-    if (_this.current.text !== '') return textHandler('')
-    setShowSearchContent(false), Keyboard.dismiss()
+    if (_this.current.text !== '') {
+      InputRef.current?.clear()
+      textHandler('')
+    } else {
+      setShowSearchContent(false)
+      Keyboard.dismiss()
+    }
   }
 
   useEffect(() => {

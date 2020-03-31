@@ -168,6 +168,7 @@ export default {
       facebookPage: 'ფეისბუქის გვერდი',
       webPage: 'ვებ-გვერდი',
       message: 'შეტყობინება',
+      send: 'გაგზავნა',
     },
     notifications: {
       notifications: 'შეტყობინებები',

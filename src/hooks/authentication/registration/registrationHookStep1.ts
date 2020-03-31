@@ -18,7 +18,7 @@ export default (setActivePage: any, t: any) => {
       codeRef.current && codeRef.current.setDisabledInput(true)
       return Defaults.dropdown?.alertWithType(
         'error',
-        'please, Fill Phone number',
+        t('dropDownAlert.registration.fillPhoneNumber'),
       )
     }
 

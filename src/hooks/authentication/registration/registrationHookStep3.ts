@@ -125,12 +125,12 @@ export default (
     if (_password != _confirmedPassword) {
       Defaults.dropdown?.alertWithType(
         'error',
-        'dropDownAlert.passwordNotEqual',
+        t('dropDownAlert.registration.passwordNotEqual'),
       )
     } else if (_password.length < 8) {
       Defaults.dropdown?.alertWithType(
         'error',
-        'dropDownAlert.minPasswordTextLength',
+        t('dropDownAlert.registration.minPasswordTextLength'),
       )
     } else postData()
   }

@@ -39,7 +39,6 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             onFilteredItemClick={hook.onFilteredItemClick}
             filteredChargers={hook.bottomSheetChargers ?? []}
             textHandler={hook.searchInputTextChangeHandler}
-            inputSubmit={hook.searchInputTextSubmit}
           />
         </View>
       </HomeContext.Provider>

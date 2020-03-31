@@ -172,6 +172,7 @@ export default {
       facebookPage: 'Facebook Page',
       webPage: 'Web Page',
       message: 'Message',
+      send: ' Send',
     },
     notifications: {
       notifications: 'Notifications',
