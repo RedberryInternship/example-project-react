@@ -6,7 +6,7 @@ import {Colors} from 'utils'
 enum Status {
   'finished',
   'started',
-  'threeMinuteLefted',
+  'threeMinuteLefted', // Vobi Todo: use spell checker
 }
 type CountDown = {
   duration: number
@@ -47,6 +47,12 @@ const CountDown = ({
         return
       }
       setTime(showDate())
+      // Vobi todo:
+      // setTime(showDate())
+      // if (duration <= 0) {
+      //   onChange && onChange(Status.finished)
+      //   clearInterval(timeInterval)
+      // }
     }, 1000)
 
     return (): void => {
@@ -54,6 +60,8 @@ const CountDown = ({
     }
   }, [])
 
+  // Vobi todo: in this cases you should consider using useMemo
+  // Vobi todo: this recreates object every second
   const textStyle = {
     fontSize: popup ? 17 : 22,
     color: popup ? Colors.primaryBackground : Colors.primaryWhite,

@@ -29,7 +29,7 @@ export function useRoot() {
   const [appReady, setAppReady] = useState(false)
   const [navigationState, setNavigationState] = useState(false)
 
-  const _this: any = useRef(null)
+  const _this: any = useRef(null) // Vobi Todo: remove this
 
   Defaults.modal = useRef(null)
 

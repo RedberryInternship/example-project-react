@@ -19,7 +19,8 @@ const FirstnameChangeView = ({
   setClicked,
 }: ProfileFieldChange): ReactElement => {
   const mainHook = useFirstnameChange({navigation, clicked, setClicked})
-
+  // Vobi todo: use destructure
+  // Vobi Todo: use spell checker
   return (
     <View style={styles.container}>
       <BaseInput

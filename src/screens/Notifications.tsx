@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
 })
 
+// Vobi Todo: move this as utils
 const notificationsList = [
   {
     title: 'სისტემური განახლება',

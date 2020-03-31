@@ -4,7 +4,7 @@ import {Colors} from 'utils'
 import {BaseHeader, BaseInput, BaseButton} from 'components'
 import {useSetNewPasswords} from 'hooks'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeArea} from 'react-native-safe-area-context' // Vobi Todo: Move package imports at top and separate them from your own
 import {ScreenPropsWithNavigation} from 'allTypes'
 
 import Imgs from '../../../assets/images'

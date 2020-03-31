@@ -19,7 +19,12 @@ const TitleTopLeftContainer = ({
   return (
     <View>
       {title !== '' && <Text style={styles.text}>{t(title ?? '')}</Text>}
-      <View style={{flexDirection: direction}}>
+      {/* Vobi Todo: can not we do it like that? */}
+      {/* {title && <Text style={styles.text}>{t(title)}</Text>} */}
+      <View
+        style={{flexDirection: direction}}
+        // Vobi Todo: do not nest ternirary operator
+      >
         {data !== null ? (
           data && data.length > 0 ? (
             data.map(onRenderItem)

@@ -6,6 +6,7 @@ import Imgs from '../../../assets/images'
 
 const CircleDiameter = Const.Width - 150
 
+// Vobi Todo: no any type
 const ChargingView = ({hook}: any): ReactElement => {
   return (
     <View style={{flex: 1}}>

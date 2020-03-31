@@ -20,7 +20,8 @@ const MailChangeView = ({
   setClicked,
 }: ProfileFieldChange): ReactElement => {
   const hook = useEmailChange({navigation, clicked, setClicked})
-
+  // Vobi todo: use destructure
+  // Vobi Todo: use spell checker
   return (
     <View style={styles.container}>
       <BaseInput

@@ -72,7 +72,8 @@ const useHomeMainInputHook = (
   })
 
   const onSearchItemClickHandler = (lat: string, lng: string): void => {
-    setShowSearchContent(false), Keyboard.dismiss()
+    setShowSearchContent(false)
+    Keyboard.dismiss()
     setShowAll(true)
     mapRef.current?.animateToCoords(parseFloat(lat), parseFloat(lng))
   }

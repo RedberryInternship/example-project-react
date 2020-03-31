@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet, Alert} from 'react-native'
+// Vobi Todo: remove unused imports
 import {Colors, getLocaleText} from '../../utils'
 import {ChargerGroupPopupItem} from 'components'
 import {useTranslation} from 'react-i18next'

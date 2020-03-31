@@ -15,6 +15,7 @@ export default (navigation: Navigation) => {
     ])
   }
 
+  // Vobi Todo: move this as util or helper
   const outgoingLinkMethods: {[key: string]: () => void} = {
     address: () => {
       const mapsInfo = Const.eSpaceLocationOnMapInfo
@@ -55,6 +56,7 @@ export default (navigation: Navigation) => {
       if (canOpenUrl) {
         Linking.openURL(url)
       } else {
+        // Vobi Todo: you just need if(backupUrl)
         if (typeof backupUrl === 'string') {
           Linking.openURL(backupUrl)
         } else {
@@ -64,6 +66,7 @@ export default (navigation: Navigation) => {
     } catch (e) {
       Logger(e)
       let msg = ''
+      // Vobi todo: move this as helper
       switch (errorMsgType) {
         case 'Address':
           msg = 'Something Went Wrong While Opening Map...'

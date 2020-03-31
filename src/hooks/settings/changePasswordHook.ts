@@ -25,7 +25,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     currentPassword: '',
     setNewPassword: '',
     repeatNewPassword: '',
-  })
+  }) // Vobi Todo: this must be state
 
   useEffect(() => {
     if (clicked === true) {

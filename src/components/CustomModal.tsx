@@ -48,6 +48,7 @@ const initialState: InitialState = {
   },
 }
 
+// Vobi todo: why is this class instead of functional component
 class CustomModal extends React.PureComponent implements CustomModalInterface {
   state = {...initialState}
   ref: any = React.createRef()
@@ -63,6 +64,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
       visible: false,
     })
     InteractionManager.runAfterInteractions(() => {
+      // Vobi todo: state should not have functions in it
       this.state.config.onCloseClick && this.state.config.onCloseClick()
     })
   }
@@ -89,6 +91,12 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         <View
           style={[
             styles.modalContentContainer,
+            // Vobi todo: const isConfig3 = this.state.config && this.state.config.type === 3
+            // Vobi todo: const isConfig4 = this.state.config && this.state.config.type === 4
+            // {
+            //   justifyContent: isConfig3 ? 'flex-start' : 'space-between',
+            //   height: isConfig4 ? 'auto' : Const.Height * 0.7
+            // }
             {
               justifyContent:
                 this.state.config && this.state.config.type === 3

@@ -45,7 +45,15 @@ const GetFilteredCharger = (
         Object.keys(params)
           .map(key => key + '=' + params[key])
           .join('&'),
-    )
+    ) // Vobi Todo: you are mapping twice here one by map and one by join you should avoid O(n2) algorithms
+      // try using this helper function
+      // const stringify = () => {
+      //   let result = ''
+      //   for (const key in obj) {
+      //     result += `${key}=${obj[key]}&`
+      //   }
+      //   return result.slice(0, -1)
+      // }
       .then(({data}: ChargersObject) => {
         setFilteredChargers(data)
       }) // Vobi Todo: use async await

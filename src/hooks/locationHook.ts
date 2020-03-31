@@ -67,7 +67,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     } else if (
       status.match(
         /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
-      )
+      ) // Vobi todo: this kind of checks should be inside utils or helpers and you should call it like is/Something/
     ) {
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)

@@ -16,6 +16,7 @@ const CodeInputWidth = 128
 // eslint-disable-next-line react/display-name
 const receiveConfirmationCode = React.forwardRef(
   ({onChangeText, receiveCode, disableCodeInput}: any, ref: any) => {
+    // Vobi todo: no any types
     const [animation] = useState(new Animated.Value(0))
     const [disabled, setDisabled] = useState(false)
     const [disabledInput, setDisabledInput] = useState(true)

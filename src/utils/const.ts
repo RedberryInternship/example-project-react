@@ -9,7 +9,7 @@ export const API: string =
 
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'
 export const MAP_URL = 'https://maps.googleapis.com/maps/api'
-
+// Vobi Todo: move this as config
 export const Width = Dimensions.get('window').width
 export const Height = Dimensions.get('window').height
 

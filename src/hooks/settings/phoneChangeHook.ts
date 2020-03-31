@@ -91,6 +91,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
 
     isPhoneEmpty: (): boolean => {
+      // Vobi todo: https://tppr.me/gpHSG this is why i said you should have one validation file separate this empty validations do same thing
       return _this.current.phone.trim() === ''
     },
 
@@ -166,6 +167,11 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
         }
       } catch (e) {
         Logger(e)
+        // Vobi Todo: this is also a helper
+        // Vobi Todo: in phoneChangeHelpers you should have one getError()
+        // Vobi Todo: const error = getError(e.status)
+        // Vobi Todo: popAlert(e.status)
+        // Vobi todo: this way only business logic is exposed in hook.
         switch (e.status) {
           case 401:
             helpers.popAlert('dropDownAlert.registration.incorrectCode')

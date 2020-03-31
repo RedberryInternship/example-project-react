@@ -6,9 +6,12 @@ import {BaseHeader, TransactionListItem, FetchedDataRenderer} from 'components'
 
 // utils
 import {Colors, Ajax, Defaults, getLocaleText} from 'utils'
-
+// Vobi Todo: remove unused imports
+// Vobi Todo: remove any
 const TransactionList = ({navigation}: any): ReactElement => {
   const getOrders = async (): Promise<any> => {
+    // Vobi Todo: move this as service
+    // Vobi Todo: no any types
     const res = await Ajax.get('/user-orders')
     return res.data
   }
