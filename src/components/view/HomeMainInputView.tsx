@@ -66,13 +66,13 @@ const MainInput = forwardRef(
           if (chargerObj.charger_group?.chargers?.length !== 0) {
             view.push(
               <MainSearchItem
-                key={val.id}
-                text={getLocaleText(val.name)}
-                mainTitle={getLocaleText(val.location)}
+                key={chargerObj.id}
+                text={getLocaleText(chargerObj.name)}
+                mainTitle={getLocaleText(chargerObj.location)}
                 onPress={hook.onSearchItemClickHandler.bind(
                   MainInput,
-                  val.lat,
-                  val.lng,
+                  chargerObj.lat,
+                  chargerObj.lng,
                 )}
               />,
             )
