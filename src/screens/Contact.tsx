@@ -95,7 +95,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         }>
         <BaseButton
           onPress={mainHook.sendMessage.bind(Contact)}
-          text="send"
+          text="contact.send"
           image={Imgs.arrowRight}
           style={styles.baseButton}
         />
