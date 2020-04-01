@@ -5,7 +5,7 @@ import {Defaults} from 'utils'
 import {Alert} from 'react-native'
 
 export default (navigation: any) => {
-  const [loading, SetLoading] = useState<boolean>(true)
+  const [loading, SetLoading] = useState<boolean>(true) // Vobi Todo: this is unused
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const _this: React.RefObject<any> = useRef()
@@ -16,7 +16,7 @@ export default (navigation: any) => {
 
   const changeActiveTab = (index: number) => {
     setActiveTab(index)
-  }
+  } // Vobi Todo: this does same as setActiveTab
 
   const onFinish = () => {
     Alert.alert(

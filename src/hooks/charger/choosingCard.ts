@@ -24,7 +24,7 @@ export default () => {
   })
   const _panel: React.RefObject<SlidingUpPanel> = useRef(null)
 
-  const enterPriceRef: React.RefObject<TextInput> = useRef(null)
+  const enterPriceRef: React.RefObject<TextInput> = useRef(null) // Vobi Todo: this must be state
 
   const {t} = useTranslation()
 

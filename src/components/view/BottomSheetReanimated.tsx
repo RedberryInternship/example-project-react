@@ -53,8 +53,10 @@ const BottomSheetReanimated = forwardRef(
       text: '',
       scrollPositionStatus: ScrollPositionStatus.top,
     })
+    // Vobi Todo: do not use ref's instead of state
+    // Vobi Todo: scrollPositionStatus: ScrollPositionStatus.top you shouldn't store constant in the state
     const InputRef = useRef<TextInput>(null)
-
+    // Vobi Todo: do not name variables like this
     const {t} = useTranslation()
 
     const insets = useSafeArea()
@@ -62,6 +64,7 @@ const BottomSheetReanimated = forwardRef(
     const closeClick = (): void => {
       if (_this.current.text !== '') {
         textHandler('')
+        // Vobi Todo: setText('')
         _this.current.text = ''
         InputRef.current?.clear()
       } else {
@@ -79,6 +82,7 @@ const BottomSheetReanimated = forwardRef(
       textHandler(text)
     }
 
+    // Vobi todo: this should be separate component
     const renderHeaderComponent = (): ReactElement => (
       <View style={styles.headerComponent}>
         <View style={styles.headerComponentWrapper} />
@@ -111,6 +115,8 @@ const BottomSheetReanimated = forwardRef(
         </View>
       </View>
     )
+
+    // Vobi todo: this should be separate component
     const renderContent = (): ReactElement => {
       return (
         <View style={styles.bodyContainer}>
@@ -121,10 +127,40 @@ const BottomSheetReanimated = forwardRef(
                 text={t(val)}
                 onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
                 active={Boolean(selectedFilters[index])}
+                // Vobi Todo: active={!!selectedFilters[index]}
               />
             ))}
           </View>
-
+          {/* // Vobi Todo: do the following */}
+          {/* {filteredChargers?.map((chargerObj: Charger, index: number) => {
+            const {chargers} = chargerObj.charger_group
+            // Vobi Todo: this should be separate component
+            if (chargers?.length !== 0) {
+              return (
+                <MainSearchItem
+                  key={chargerObj.id + getLocaleText(chargerObj.name) + index}
+                  text={getLocaleText(chargerObj.location)}
+                  mainTitle={getLocaleText(chargerObj.name)}
+                  onPress={onFilteredItemClick?.bind(
+                    BottomSheetReanimated,
+                    chargerObj,
+                  )}
+                />
+              )
+            } else {
+              return chargers?.map((val, index: number) => (
+                <MainSearchItem
+                  key={val.id + getLocaleText(val.name) + index}
+                  text={getLocaleText(val.location)}
+                  mainTitle={getLocaleText(val.name)}
+                  onPress={onFilteredItemClick?.bind(
+                    BottomSheetReanimated,
+                    val,
+                  )}
+                />
+              ))
+            }
+          })} */}
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
 
@@ -169,6 +205,7 @@ const BottomSheetReanimated = forwardRef(
           snapPoints={[55, screenHeight - insets.top - insets.bottom - 65 - 12]}
           renderContent={renderContent}
           renderHeader={renderHeaderComponent}
+          // Vobi Todo: onCloseEnd={Keyboard.dismiss}
           onCloseEnd={(): void => {
             Keyboard.dismiss()
           }}

@@ -27,11 +27,12 @@ const ChargerModalMainWrapper = ({
   const [view, setView] = useState<ReactElement[]>([])
 
   useEffect(() => {
-    subTypeHandler()
+    subTypeHandler() // Vobi Todo: remove useEffect
   }, [])
 
   const subTypeHandler = (): void => {
-    const _view = []
+    const _view = [] // Vobi todo: i can not understand what this view does
+    // Vobi todo: i think it must be object and its key should be self descriptive
     switch (subType) {
       case 1:
         _view[0] = (
@@ -99,7 +100,7 @@ const ChargerModalMainWrapper = ({
         break
     }
 
-    setView(_view)
+    setView(_view) // Vobi Todo: why do you need to update state you should render it once
   }
 
   return (

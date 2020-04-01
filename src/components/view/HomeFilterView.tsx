@@ -10,6 +10,7 @@ import {
 import {FilterTextItem} from 'components'
 import {Const, Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
+// Vobi todo: package imports up
 import {HomeContextType} from 'allTypes'
 import Imgs from '../../../assets/images'
 
@@ -45,6 +46,12 @@ const HomeFilter = ({
   const buttonImageStyle = showFilter
     ? {width: 23, height: 23}
     : {width: 18, height: 18}
+  // Vobi todo: use memoized value here
+  // Vobi Todo: const buttonImageStyle = useMemo(() =>
+  // showFilter
+  //   ? { width: 23, height: 23 }
+  //   : { width: 18, height: 18 }
+  // , [showFilter])
 
   return (
     <Animated.View style={[styles.container, {transform: [{translateX}]}]}>
@@ -78,6 +85,8 @@ const HomeFilter = ({
           <FilterTextItem
             text={t(val)}
             key={index}
+            // Vobi Todo: move this kind of checks in body of function
+            // Vobi Todo: const isActive = !!selectedFiltersOnMap[index]
             active={!!selectedFiltersOnMap[index]}
             onPress={onFilterClickOnMap.bind(HomeFilter, index)}
           />

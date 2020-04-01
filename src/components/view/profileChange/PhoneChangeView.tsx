@@ -17,7 +17,7 @@ const PhoneChangeView = ({
   setClicked,
 }: ProfileFieldChange): ReactElement => {
   const hook = usePhoneChange({navigation, clicked, setClicked})
-
+  // Vobi Todo: use destructure
   return (
     <View style={styles.container}>
       <PhoneNumberInput

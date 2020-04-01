@@ -8,6 +8,7 @@ const RegistrationPagination = ({
   activePage,
   paginationClickHandler,
 }: any): ReactElement => {
+  // Vobi todo: no any types
   return (
     <View style={styles.container}>
       {pagination.map((val, ind) => (

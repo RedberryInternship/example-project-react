@@ -23,7 +23,7 @@ import {
 import BottomSheet from 'reanimated-bottom-sheet'
 import {AppContext} from '../../App'
 import {Ajax, Helpers, apiServices, Defaults} from 'utils'
-
+// Vobi todo: remove unused imports
 type _This = {}
 
 const useHomeHook = (
@@ -138,6 +138,12 @@ const useHomeHook = (
     newSelectedFilters = selectedFiltersOnMap.map(val =>
       val > 1 || val === 0 ? 0 : 1,
     )
+    // Vobi Todo: i think its more understandable now and you have same logic https://tppr.me/o1DAj here move this as function and call it s
+    // const newSelectedFilters: number[] = selectedFilters.map((val, i) => {
+    //   if (i === index) val++
+    //   if (val > 1 || val === 0) return 0
+    //   return 1
+    // })
     setSelectedFiltersOnMap(newSelectedFilters)
     setShowAll(false)
   }

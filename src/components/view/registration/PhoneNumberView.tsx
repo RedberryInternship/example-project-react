@@ -7,7 +7,10 @@ import {PhoneNumberInput, ReceiveCode} from 'components'
 const FilterTextItem = React.memo(
   // Vobi Todo: Component should be named same as file
   ({hook, startCodeAnimation}: any) => {
+    // Vobi todo: no any values
+    // Vobi todo: do not pass hooks as parameter
     const codeTextHandler = (text: string): void => {
+      // Vobi todo: do not use _this
       hook._this.current.code = text
     }
 

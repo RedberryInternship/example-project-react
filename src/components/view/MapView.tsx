@@ -20,6 +20,7 @@ type MapViewProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
+// Vobi Todo: remove line below and fix naming
 // eslint-disable-next-line react/display-name
 const _mapView = forwardRef(
   (
@@ -33,6 +34,9 @@ const _mapView = forwardRef(
     return (
       <View style={styles.mapContainer}>
         <StatusBar
+          // Vobi Todo: const timePeriod = useMemo(() => determineTimePeriod(), [])
+          // barStyle={timePeriod ? 'dark-content' : 'light-content'}
+
           barStyle={determineTimePeriod() ? 'dark-content' : 'light-content'}
         />
         <MapView
@@ -48,10 +52,12 @@ const _mapView = forwardRef(
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
+          // Vobi Todo: same ehre
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
           ref={mapRef}>
           {useMemo(
             // Vobi todo: move this up as constant and render it like that no inline useMemo
+            // Vobi Todo: same issue
             () =>
               (showAll
                 ? hook.state?.AllChargers
@@ -73,6 +79,7 @@ const _mapView = forwardRef(
           {useMemo(
             () => (
               // Vobi todo: move this up as constant and render it like that
+              // Vobi Todo: same issue
               <Polyline
                 key={1.4}
                 coordinates={hook.polyline}

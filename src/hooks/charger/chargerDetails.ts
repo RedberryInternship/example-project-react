@@ -76,7 +76,7 @@ export default (
     if (
       Defaults.locationPermissionStatus?.match(
         /denied|restricted|notDetermined/,
-      )
+      ) // Vobi Todo: move this as helper
     ) {
       const status = await locationConfig.requestPermission()
       if (!status) {

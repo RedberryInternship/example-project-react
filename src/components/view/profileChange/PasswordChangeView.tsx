@@ -11,13 +11,14 @@ import {BaseInput} from '../..'
 
 import Imgs from '../../../../assets/images'
 
+// Vobi Todo: no any type
 const PasswordChangeView = ({
   navigation,
   clicked,
   setClicked,
 }: any): ReactElement => {
   const hook = usePasswordChange({navigation, clicked, setClicked})
-
+  // Vobi todo: use destructure
   return (
     <View style={styles.container}>
       <BaseInput

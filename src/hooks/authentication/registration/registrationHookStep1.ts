@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, RefObject} from 'react'
-import {TextInput, Alert} from 'react-native'
-import {Defaults} from 'utils'
-import {Ajax} from 'utils'
-import {BaseInputRefObject} from 'allTypes'
+import { useRef, RefObject } from 'react'
+import { TextInput, Alert } from 'react-native'
+import { Defaults } from 'utils'
+import { Ajax } from 'utils'
+import { BaseInputRefObject } from 'allTypes'
 
 export default (setActivePage: any, t: any) => {
   const flatListRef: any = useRef(null)
 
   const phoneRef: BaseInputRefObject = useRef(null)
   const codeRef: RefObject<TextInput | any> = useRef(null)
-  const _this: RefObject<any> = useRef({phone: '', code: ''})
+  const _this: RefObject<any> = useRef({ phone: '', code: '' }) // Vobi Todo: move this as state
 
   const phoneInputSubmit = () => {
-    const {phone} = _this.current
+    const { phone } = _this.current
     if (phone == '') {
       codeRef.current && codeRef.current.setDisabledInput(true)
       return Defaults.dropdown?.alertWithType(
@@ -24,8 +24,8 @@ export default (setActivePage: any, t: any) => {
 
     codeRef.current && codeRef.current.startCodeAnimation()
 
-    Ajax.post('/send-sms-code', {phone_number: phone})
-      .then(({json_status}: any) => {
+    Ajax.post('/send-sms-code', { phone_number: phone })
+      .then(({ json_status }: any) => {
         if (json_status == 'SMS Sent') {
           codeRef.current && codeRef.current.focus()
           codeRef.current && codeRef.current.setDisabledInput(false)
@@ -53,9 +53,9 @@ export default (setActivePage: any, t: any) => {
   }
 
   const verifyCode = () => {
-    const {code, phone} = _this.current
-    Ajax.post('/verify-code', {phone_number: phone, code})
-      .then(({status}: any) => {
+    const { code, phone } = _this.current
+    Ajax.post('/verify-code', { phone_number: phone, code })
+      .then(({ status }: any) => {
         if (status == 200) {
           setActivePage(1)
         }
@@ -82,7 +82,7 @@ export default (setActivePage: any, t: any) => {
   }
 
   const buttonClickHandler = () => {
-    const {code, phone} = _this.current
+    const { code, phone } = _this.current
 
     console.log(phone, code, 'phone')
     codeRef.current && codeRef.current.setDisabledInput(true)

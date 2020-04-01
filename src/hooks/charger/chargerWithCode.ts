@@ -33,9 +33,9 @@ export default (
     LastUsedCharger[] | null
   >(LastUsedChargersStatic)
 
-  const _this: React.RefObject<_This> = useRef({chargeWitchCode: ''})
+  const _this: React.RefObject<_This> = useRef({chargeWitchCode: ''}) // Vobi Todo: _this is not React's practice why do you need it
 
-  const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
+  const chargeWitchCode: React.RefObject<TextInput> = useRef(null) // Vobi Todo: move this as state
   const passwordRef: any = useRef(null)
 
   const {t} = useTranslation()
