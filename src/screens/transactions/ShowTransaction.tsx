@@ -49,7 +49,7 @@ const ShowTransactions = ({
         <View style={styles.headerContainer}>
           <Image
             // Vobi Todo: import image at top
-            source={require('../../../assets/images/icons/transaction.png')}
+            source={require('../../assets/images/icons/transaction.png')}
             style={styles.transactionIcon}
           />
           <Text style={styles.title}>{getLocaleText(order.charger.name)}</Text>

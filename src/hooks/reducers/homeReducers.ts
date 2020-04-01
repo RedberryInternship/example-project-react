@@ -7,7 +7,7 @@ import {Charger, HomeState, Action} from 'allTypes'
 
 export const initialState: HomeState = {
   PermissionStatus: null,
-  locationImageType: require('../../../assets/images/icons/location.png'),
+  locationImageType: require('../../assets/images/icons/location.png'),
   loading: false,
   LocationRequestFunc: () => {},
   filteredChargers: null,

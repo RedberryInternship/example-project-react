@@ -8,7 +8,7 @@ import {useLastnameChange} from 'hooks'
 import {BaseInput} from 'components'
 
 // images
-import Imgs from '../../../../assets/images'
+import images from '../../../assets/images'
 
 // types
 import {ProfileFieldChange} from 'allTypes'
@@ -24,7 +24,7 @@ const LastnameChangeView = ({
     <View style={styles.container}>
       <BaseInput
         title={'settings.newLastname'}
-        image={Imgs.blueUser}
+        image={images.blueUser}
         value={hook.lastname}
         onChangeText={hook.onChangeText}
         onSubmit={hook.onSubmitEditing}

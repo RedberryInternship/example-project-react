@@ -22,7 +22,7 @@ const LocationPermission = ({data}: LocationPermissionProps): ReactElement => {
       <Text style={styles.title}>{t(data.title)}</Text>
       <View style={styles.addressContainer}>
         <Image
-          source={require('../../../assets/images/icons/ic_map_pin.png')}
+          source={require('../../assets/images/icons/ic_map_pin.png')}
           style={styles.mapPinIcon}
         />
         <Text style={styles.addressText}>{t(data.address)}</Text>

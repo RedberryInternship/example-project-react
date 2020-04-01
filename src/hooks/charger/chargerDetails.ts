@@ -26,8 +26,8 @@ type _This = {
 }
 
 const services = [
-  require('../../../assets/images/icons/arrow_left.png'),
-  require('../../../assets/images/icons/arrow_left.png'),
+  require('../../assets/images/icons/arrow_left.png'),
+  require('../../assets/images/icons/arrow_left.png'),
 ]
 
 export default (
