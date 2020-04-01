@@ -96,10 +96,9 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         }>
         <BaseButton
           onPress={mainHook.sendMessage.bind(Contact)}
-          text="save"
-          image={Imgs.arrowLeft}
+          text="send"
+          image={Imgs.arrowRight}
           style={styles.baseButton}
-          isImageRight
         />
       </KeyboardAvoidingView>
     </View>
@@ -153,6 +152,6 @@ const styles = StyleSheet.create({
   },
   baseButton: {
     marginTop: 0,
-    marginBottom: 16,
+    marginBottom: 0,
   },
 })

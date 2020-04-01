@@ -43,6 +43,9 @@ export default (navigation: Navigation, dispatch: any) => {
   const {t} = useTranslation()
 
   const buttonClickHandler = (): void => {
+    console.log('====================================')
+    console.log(_this.current, '_this.current')
+    console.log('====================================')
     phoneNumber.inputSubmit() &&
       password.inputSubmit() &&
       helpers.tryToFetchUserDataAndAttemptLogin()
@@ -129,19 +132,39 @@ export default (navigation: Navigation, dispatch: any) => {
   // Validate
   const validate = {
     validateOnGeorgianPhoneCode: (): boolean => {
-      if (_this.current.phone.length < 5) {
-        helpers.popAlert('dropDownAlert.registration.fillPhoneNumber', 'error')
-        return false
-      } else if (_this.current.phone.length - 4 !== 9) {
-        helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
-        return false
+      if (_this.current.phone === '') {
+        if (_this.current.phone.length < 5) {
+          helpers.popAlert(
+            'dropDownAlert.registration.fillPhoneNumber',
+            'error',
+          )
+          return false
+        } else if (_this.current.phone.length !== 9) {
+          helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
+          return false
+        } else {
+          return true
+        }
       } else {
-        return true
+        if (_this.current.phone.length < 5) {
+          helpers.popAlert(
+            'dropDownAlert.registration.fillPhoneNumber',
+            'error',
+          )
+          return false
+        } else if (_this.current.phone.length - 4 !== 9) {
+          helpers.popAlert('dropDownAlert.auth.phoneNumberLength', 'error')
+          return false
+        } else {
+          return true
+        }
       }
     },
 
     isSelectedCountryCodeGeorgian: (): boolean => {
-      return _this.current.phone.slice(0, 4) === '+995'
+      return (
+        _this.current.phone.slice(0, 4) === '+995' || _this.current.phone === ''
+      )
     },
   }
 

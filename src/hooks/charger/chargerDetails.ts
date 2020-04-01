@@ -67,8 +67,8 @@ export default (
   const showChargerLocationHandler = (): void => {
     navigation.navigate('Home', {
       mode: HomeNavigateModes.chargerLocateOnMap,
-      lat: charger?.lat,
-      lng: charger?.lng,
+      lat: parseFloat(charger?.lat ?? '0'),
+      lng: parseFloat(charger?.lng ?? '0'),
     })
   }
 
@@ -89,8 +89,8 @@ export default (
     }
     navigation.navigate('Home', {
       mode: HomeNavigateModes.showRoutesToCharger,
-      lat: charger?.lat,
-      lng: charger?.lng,
+      lat: parseFloat(charger?.lat ?? '0'),
+      lng: parseFloat(charger?.lng ?? '0'),
     })
   }
 

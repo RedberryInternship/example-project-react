@@ -36,7 +36,6 @@ type BottomSheetReanimatedProps = {
   filteredChargers: Charger[]
   onFilteredItemClick: (charger: Charger | ChargerDetail) => void
   textHandler: (text: string) => void
-  inputSubmit: () => void
 }
 
 const BottomSheetReanimated = forwardRef(
@@ -47,7 +46,6 @@ const BottomSheetReanimated = forwardRef(
       filteredChargers,
       onFilteredItemClick,
       textHandler,
-      inputSubmit,
     }: BottomSheetReanimatedProps,
     ref: any,
   ) => {
@@ -64,13 +62,24 @@ const BottomSheetReanimated = forwardRef(
     const insets = useSafeArea()
 
     const closeClick = (): void => {
-      // Vobi Todo: setText('')
-      _this.current.text = ''
-      InputRef.current?.blur()
-      Keyboard.dismiss()
-      setTimeout(() => {
-        Keyboard.dismiss()
-      }, 400)
+      if (_this.current.text !== '') {
+        textHandler('')
+        // Vobi Todo: setText('')
+        _this.current.text = ''
+        InputRef.current?.clear()
+      } else {
+        InputRef.current?.blur()
+        // Keyboard.dismiss()
+        ref.current?.snapTo(0)
+        ref.current?.snapTo(0)
+        setTimeout(() => {
+          Keyboard.dismiss()
+        }, 400)
+      }
+    }
+    const onTextChange = (text: string): void => {
+      _this.current.text = text
+      textHandler(text)
     }
 
     // Vobi todo: this should be separate component
@@ -86,8 +95,8 @@ const BottomSheetReanimated = forwardRef(
             style={styles.textInput}
             placeholder={`${t('home.location')}/${t('home.organization')}`}
             keyboardType={'default'}
-            onChangeText={textHandler}
-            onSubmitEditing={inputSubmit}
+            onChangeText={onTextChange}
+            onSubmitEditing={() => {}}
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
             ref={InputRef}

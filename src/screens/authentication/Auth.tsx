@@ -5,6 +5,7 @@ import {
   Text,
   KeyboardAvoidingView,
   Platform,
+  StatusBar,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
@@ -78,7 +79,9 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <KeyboardAvoidingView
         behavior={'padding'}
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
+        keyboardVerticalOffset={
+          Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
+        }>
         <BaseButton
           onPress={hook.buttonClickHandler}
           text={'authentication.authentication'}
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
   keyboardAwareScrollView: {
     flex: 1,
     paddingHorizontal: 16,
-    marginVertical: 16,
+    paddingVertical: 16,
   },
   keyboardAwareScrollViewContentContainer: {
     justifyContent: 'flex-start',
@@ -138,6 +141,7 @@ const styles = StyleSheet.create({
   },
   baseButton: {
     marginTop: 0,
+    marginBottom: 0,
   },
 })
 
