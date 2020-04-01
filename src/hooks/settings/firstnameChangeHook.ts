@@ -66,6 +66,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   }
 
   // helpers
+  // Vobi Todo: move helpers inside helpers
   const helpers = {
     popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
       Defaults.dropdown?.alertWithType(type, t(text))
@@ -75,6 +76,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
     },
     sendFirstnameToSaveAndUpdateState: async (): Promise<void> => {
       try {
+        // Vobi todo: move this as service
         const result = await Ajax.post(apiServices.post_update_user_info, {
           // eslint-disable-next-line @typescript-eslint/camelcase
           first_name: firstname,

@@ -18,7 +18,7 @@ type SettingsInfoType = {
 type SettingsValuesType = {
   value: any
 }
-
+// Vobi todo: this is helper not a hook
 const helpers = {
   structureSettingsInfoObj: (): SettingsInfoType => {
     const context: any = useContext(AppContext)

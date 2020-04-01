@@ -31,6 +31,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t, i18n} = useTranslation()
   const insets = useSafeArea()
   const context: AppContextType = useContext(AppContext)
+  // Vobi todo: isAuth is helper function move it as authHelper
   const isUserAuthorized = !Defaults.token ? false : true
 
   let drawerListFields = null
@@ -66,6 +67,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       </>
     )
   } else {
+    // Vobi todo: user shouldn't have string type
     const firstName = context?.state?.user?.first_name
     const lastName = context?.state?.user?.last_name
 
@@ -81,7 +83,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         )
       },
     ) // Vobi Todo: drawerListFields is same except authorization just use that check wether it should have badge
-
+    // Vobi Todo: same
     drawerContent = (
       <View>
         <BaseUserAvatarWithLabel

@@ -35,7 +35,10 @@ const ShowTransactions = ({
 }: ShowTransactionsProps): ReactElement => {
   const {t} = useTranslation()
   const order: OrderResponse = navigation.getParam('order', [])
-
+  // Vobi Todo: destructure order
+  // Vobi Todo: order.charger.name order.confirm_date
+  // Vobi Todo: const { charger, confirm_date } = order
+  // Vobi Todo :charger.name confirm_date...
   return (
     <View style={styles.container}>
       <BaseHeader
@@ -45,6 +48,7 @@ const ShowTransactions = ({
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
           <Image
+            // Vobi Todo: import image at top
             source={require('../../../assets/images/icons/transaction.png')}
             style={styles.transactionIcon}
           />

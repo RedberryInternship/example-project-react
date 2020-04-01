@@ -1,16 +1,16 @@
-import {useEffect, useState, useRef, useContext, RefObject} from 'react'
-import {regionFrom, Defaults, Const, Ajax} from 'utils'
-import {locationConfig} from 'utils'
+import { useEffect, useState, useRef, useContext, RefObject } from 'react'
+import { regionFrom, Defaults, Const, Ajax } from 'utils'
+import { locationConfig } from 'utils'
 import polyline from '@mapbox/polyline'
 import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
-import {HomeContext} from 'screens/tabNavigation/Home'
-import {Coords, GoogleGetDirection} from 'allTypes'
+import { HomeContext } from 'screens/tabNavigation/Home'
+import { Coords, GoogleGetDirection } from 'allTypes'
 import i18next from 'i18next'
 import Axios from 'axios'
-import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
+import { mergeCoords } from 'utils/mapAndLocation/mapFunctions'
 import MapView from 'react-native-maps'
 
 type ThisRef = {
@@ -25,7 +25,7 @@ type useLocationProps = {
   mapRef: RefObject<MapView>
   setPolyline: (data: any) => void
 }
-const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
+const useLocation = ({ mapRef, setPolyline }: useLocationProps) => {
   const context: any = useContext(HomeContext)
 
   const [
@@ -43,8 +43,8 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
-    } catch (error) {}
+      RNLocation.getLatestLocation({ timeout: 60000 }).then(getLatestLocation)
+    } catch (error) { }
 
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
       subscribePermissionUpdate,
@@ -67,7 +67,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     } else if (
       status.match(
         /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
-      )
+      ) // Vobi todo: this kind of checks should be inside utils or helpers and you should call it like is/Something/
     ) {
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)
@@ -152,9 +152,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
           _this.current.location?.latitude ?? Const.locationIfNoGPS.lat,
           _this.current.location?.longitude ?? Const.locationIfNoGPS.lng,
         )}&destination=${mergeCoords(finishLat, finishLng)}&mode=driving&key=${
-          Const.MAP_API
+        Const.MAP_API
         }`,
-      )
+      ) // Vobi Todo: you should get this url from config
 
       if (res.data.status === 'ZERO_RESULTS') throw 'ZERO_RESULTS'
       if (res.data.status !== 'OK') throw 'ERROR'

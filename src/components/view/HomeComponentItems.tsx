@@ -44,7 +44,9 @@ const HomeComponentItems = ({
   return (
     <View
       style={[styles.container, {paddingTop: insets.top}]}
-      pointerEvents={'box-none'}>
+      pointerEvents={'box-none'}
+      // Vobi Todo: this is isAuth check
+    >
       {Defaults.token ? null : (
         <BaseButton
           image={Imgs.user}
@@ -56,6 +58,7 @@ const HomeComponentItems = ({
       <View style={styles.onMapRoundContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
+          // Vobi Todo: onPress={mapRef.current?.locate}
           onPress={(): void => {
             mapRef.current?.locate()
           }}
@@ -72,6 +75,7 @@ const HomeComponentItems = ({
       <View style={styles.modalContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
           style={styles.modalOnMapRound}
+          // Vobi Todo: onPress={Defaults.modal.current?.customUpdate(true, { type: 2, })}
           onPress={(): void => {
             Defaults.modal.current?.customUpdate(true, {
               type: 2,

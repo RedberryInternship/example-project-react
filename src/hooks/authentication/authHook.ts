@@ -39,7 +39,7 @@ const {Logger} = Helpers
 export default (navigation: Navigation, dispatch: any) => {
   const phoneRef = useRef<TextInput>()
   const passwordRef = useRef<TextInput>()
-  const _this = useRef<This>({password: '', phone: ''})
+  const _this = useRef<This>({password: '', phone: ''}) // Vobi todo: this must be state
   const {t} = useTranslation()
 
   const buttonClickHandler = (): void => {

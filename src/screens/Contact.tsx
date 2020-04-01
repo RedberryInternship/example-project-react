@@ -35,6 +35,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const insets = useSafeArea()
   const mainHook = useContact(navigation)
+  // Vobi Todo: Use hook destructure
 
   // Dummy Info Before we connect App to Back-End
   const contactInfos = [

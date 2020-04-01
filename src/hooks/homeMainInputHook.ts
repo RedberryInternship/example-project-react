@@ -1,14 +1,14 @@
-import {useEffect, useState, useRef} from 'react'
-import {Keyboard, Animated, Easing, TextInput, Alert} from 'react-native'
-import {Const, Helpers, Ajax} from '../utils'
-import {useTranslation} from 'react-i18next'
+import { useEffect, useState, useRef } from 'react'
+import { Keyboard, Animated, Easing, TextInput, Alert } from 'react-native'
+import { Const, Helpers, Ajax } from '../utils'
+import { useTranslation } from 'react-i18next'
 import {
   Charger,
   MapImperativeRefObject,
   ChargerFilters,
   ChargersObject,
 } from 'allTypes'
-import {useSafeArea} from 'react-native-safe-area-context'
+import { useSafeArea } from 'react-native-safe-area-context'
 
 const useHomeMainInputHook = (
   allChargers: Charger[],
@@ -26,7 +26,7 @@ const useHomeMainInputHook = (
     text: '',
     searchContentHeight: Const.Height - 65 - insets.top - insets.bottom - 180,
   })
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const textHandler = (val: string): void => {
     _this.current.text = val
@@ -53,6 +53,9 @@ const useHomeMainInputHook = (
   }
 
   useEffect(() => {
+    // Vobi Todo: const data = Helpers.GetFilteredCharger([], inputText, allChargers)
+    // Vobi Todo: setFilteredChargers(data)
+    // Vobi Todo: you shouldn't let helper mutate state
     Helpers.GetFilteredCharger([], inputText, allChargers, setFilteredChargers)
   }, [inputText, allChargers])
 
@@ -78,7 +81,8 @@ const useHomeMainInputHook = (
   })
 
   const onSearchItemClickHandler = (lat: string, lng: string): void => {
-    setShowSearchContent(false), Keyboard.dismiss()
+    setShowSearchContent(false)
+    Keyboard.dismiss()
     setShowAll(true)
     mapRef.current?.animateToCoords(parseFloat(lat), parseFloat(lng))
   }

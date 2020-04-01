@@ -3,6 +3,7 @@ import {View} from 'react-native'
 import {Const} from 'utils'
 
 const CardAddView = ({_this}: any): ReactElement => {
+  // Vobi Todo: remove _this
   return (
     <View
       style={{

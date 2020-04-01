@@ -1,4 +1,5 @@
 import React, {ReactElement, useEffect, useState} from 'react'
+// Vobi Todo: remove unused imports
 import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
 
 // components
@@ -11,9 +12,10 @@ type PartnersResponseType = {
   name: string
   image: string
 }
-
+// Vobi Todo: Do not use any
 const Partners = ({navigation}: any): ReactElement => {
   const getPartners = async (): Promise<void> => {
+    // Vobi Todo: move this as partnersService
     const res = await Ajax.get('/partners')
     return res.partners
   }

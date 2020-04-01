@@ -5,6 +5,8 @@ import {BaseInput} from 'components'
 import Imgs from '../../../../assets/images'
 
 const PasswordView = ({_this, hook}: any): ReactElement => {
+  // Vobi Todo: destructure hook from top and pass functions to component
+  // Vobi Todo: do not use _this use state in this case you need form library
   const passwordTextHandler = (text: string): void => {
     _this.current.password = text
   }

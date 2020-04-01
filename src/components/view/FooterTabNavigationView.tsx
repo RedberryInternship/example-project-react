@@ -6,7 +6,9 @@ import {TabNavigationButtons} from 'components'
 import {determineTimePeriod} from 'utils/mapAndLocation/mapFunctions'
 import Imgs from '../../../assets/images'
 
+// Vobi todo: no any
 const FooterTabNavigator = (props: any): ReactElement => {
+  // Vobi todo: use destructure { navigation }
   const currentRouteName =
     props.navigation.state.routes[props.navigation.state.index].key
   const insets = useSafeArea()
