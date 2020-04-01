@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet, InteractionManager} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet, InteractionManager } from 'react-native'
 import Modal from 'react-native-modal'
 
-import {Const} from 'utils'
+import { Const } from 'utils'
 
 import {
   RegistrationType1,
@@ -50,7 +50,7 @@ const initialState: InitialState = {
 
 // Vobi todo: why is this class instead of functional component
 class CustomModal extends React.PureComponent implements CustomModalInterface {
-  state = {...initialState}
+  state = { ...initialState }
   ref: any = React.createRef()
 
   showModal = (): void => {
@@ -91,8 +91,9 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         <View
           style={[
             styles.modalContentContainer,
-            // Vobi todo: const isConfig3 = this.state.config && this.state.config.type === 3
-            // Vobi todo: const isConfig4 = this.state.config && this.state.config.type === 4
+            // Vobi Todo: move this configs as constants what is 3 and 4
+            // Vobi todo: const isConfig3 = this.state.config?.type === 3
+            // Vobi todo: const isConfig4 = this.state.config?.type === 4
             // {
             //   justifyContent: isConfig3 ? 'flex-start' : 'space-between',
             //   height: isConfig4 ? 'auto' : Const.Height * 0.7

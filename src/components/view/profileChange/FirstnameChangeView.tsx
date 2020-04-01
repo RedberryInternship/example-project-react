@@ -1,27 +1,24 @@
-import React, { ReactElement } from 'react'
-import { View, StyleSheet } from 'react-native'
+import React, {ReactElement} from 'react'
+import {View, StyleSheet} from 'react-native'
 
 // components
-import { BaseInput } from 'components'
+import {BaseInput} from 'components'
 
 // hooks
-import { useFirstnameChange } from 'hooks'
+import {useFirstnameChange} from 'hooks'
 
 // assets
 import Imgs from '../../../../assets/images'
 
 // types
-import { ProfileFieldChange } from 'allTypes'
+import {ProfileFieldChange} from 'allTypes'
 
 const FirstnameChangeView = ({
   navigation,
   clicked,
   setClicked,
 }: ProfileFieldChange): ReactElement => {
-  const mainHook = useFirstnameChange({ navigation, clicked, setClicked })
-
-  // Vobi todo: use destructure
-  // Vobi Todo: use spell checker
+  const mainHook = useFirstnameChange({navigation, clicked, setClicked})
 
   return (
     <View style={styles.container}>
