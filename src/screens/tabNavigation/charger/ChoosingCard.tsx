@@ -21,7 +21,7 @@ import {useChoosingCard} from 'hooks'
 import LinearGradient from 'react-native-linear-gradient'
 import {SafeAreaView} from 'react-navigation'
 import {ScrollView} from 'react-native-gesture-handler'
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 import {ScreenPropsWithNavigation} from 'allTypes'
 
 enum Type {
@@ -67,7 +67,7 @@ const ChoosingCard = ({
             Type.untilShoutDown ? (
               <View style={styles.contentsView}>
                 <Image
-                  source={Imgs.checkCircle}
+                  source={images.checkCircle}
                   style={styles.contentsViewImage}
                 />
                 <Text>Here is the content inside panel</Text>
@@ -75,7 +75,7 @@ const ChoosingCard = ({
             ) : (
               <View style={styles.pricingView}>
                 <BaseInput
-                  image={Imgs.briefCase}
+                  image={images.briefCase}
                   keyboardType={'number-pad'}
                   onChangeText={hook.enterPriceHandler}
                   onSubmit={hook.enterPriceSubmit}
@@ -98,7 +98,7 @@ const ChoosingCard = ({
           <View style={styles.panelView}>
             <View>
               <Animated.Image
-                source={Imgs.chevronUp}
+                source={images.chevronUp}
                 style={[styles.slidingUpImage, slidingUpTransformation]}
               />
             </View>
@@ -126,7 +126,7 @@ const ChoosingCard = ({
             style={styles.turnOnBtn}
             text={'charger.turnOn'}
             imageStyle={{tintColor: 'white'}}
-            image={Imgs.charge}
+            image={images.charge}
           />
         </KeyboardAvoidingView>
       </View>

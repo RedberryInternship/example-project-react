@@ -11,7 +11,7 @@ import {
 import {useChargerDetails} from 'hooks'
 import {Colors, Defaults} from 'utils'
 import {getLocaleText} from 'utils/localization/localization'
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 import {ScreenPropsWithNavigation} from 'allTypes'
 
 const ChargerDetail = ({
@@ -75,7 +75,7 @@ const ChargerDetail = ({
         onPress={hook.mainButtonClickHandler}
         text={'charger.turnOn'}
         style={styles.baseButton}
-        image={Imgs.charge}
+        image={images.charge}
         imageStyle={styles.baseButtonImageStyle}
       />
     </View>

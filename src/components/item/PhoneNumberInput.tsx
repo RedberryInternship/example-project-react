@@ -17,7 +17,7 @@ import {
 } from 'allTypes'
 import {Item} from 'react-native-picker-select'
 import {BaseInput, BasePickerSelect} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const pickeritems: Item[] = []
 
@@ -124,7 +124,7 @@ const PhoneNumberInput = React.forwardRef(
       <View style={styles.container}>
         <View pointerEvents={'none'} style={styles.imageContainer}>
           <Animated.Image
-            source={Imgs.phone}
+            source={images.phone}
             style={[styles.image, {opacity: imageAnimatedOpacity}]}
             resizeMode="contain"
           />

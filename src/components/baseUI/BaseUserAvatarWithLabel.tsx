@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 
 import {Colors} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type AvatarWithLabel = {
   onPress: (event?: GestureResponderEvent) => void | undefined
@@ -26,12 +26,12 @@ const UserAvatarWithLabel = ({
   return (
     <View style={[styles.container]}>
       <View style={styles.imageContainer}>
-        <Image source={Imgs.greenUser} style={styles.image} />
+        <Image source={images.greenUser} style={styles.image} />
         <TouchableOpacity
           onPress={onPress}
           style={styles.editButton}
           hitSlop={{left: 10, top: 10, bottom: 10, right: 10}}>
-          <Image source={Imgs.bluePencil} style={styles.editButtonImage} />
+          <Image source={images.bluePencil} style={styles.editButtonImage} />
         </TouchableOpacity>
       </View>
 

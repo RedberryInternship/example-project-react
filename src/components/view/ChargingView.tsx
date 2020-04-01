@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 import {Const, Colors} from 'utils'
 import {Pulse, CountDown, BaseButton} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const CircleDiameter = Const.Width - 150
 
@@ -22,7 +22,7 @@ const ChargingView = ({hook}: any): ReactElement => {
         />
         <View style={styles.MainChargerCircle}>
           <Image
-            source={Imgs.chargerWithGradient}
+            source={images.chargerWithGradient}
             style={styles.chargerImage}
           />
           <CountDown duration={12000000} up={false} alarm={false} />

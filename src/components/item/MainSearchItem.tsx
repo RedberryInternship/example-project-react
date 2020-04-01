@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import {Colors} from '../../utils'
 import {BaseNativeTouchable} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type MainSearchItemProps = {
   mainTitle: string
@@ -23,7 +23,7 @@ const MainSearchItem = ({
 }: MainSearchItemProps): ReactElement => {
   const child = (
     <View style={styles.container}>
-      <Image source={Imgs.mapPin2} style={styles.image} />
+      <Image source={images.mapPin2} style={styles.image} />
       <View style={styles.textContainer}>
         <Text numberOfLines={1} style={styles.mainTitleText}>
           {mainTitle}

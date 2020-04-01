@@ -24,10 +24,7 @@ import {Colors, Const} from 'utils'
 // hooks
 import {useContact} from 'hooks'
 
-/*
- * Absolute Paths don't work with Importing from images' index.ts
- */
-import Imgs from '../../assets/images'
+import images from 'assets/images'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
@@ -79,7 +76,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 
         <View style={styles.messageContainer}>
           <Text style={styles.messageTitle}>{t('contact.message')}</Text>
-          <Image source={Imgs.mail} style={styles.messageIcon} />
+          <Image source={images.mail} style={styles.messageIcon} />
           <TextInput
             multiline
             style={styles.message}
@@ -97,7 +94,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         <BaseButton
           onPress={mainHook.sendMessage.bind(Contact)}
           text="contact.send"
-          image={Imgs.arrowRight}
+          image={images.arrowRight}
           style={styles.baseButton}
         />
       </KeyboardAvoidingView>

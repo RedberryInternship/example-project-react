@@ -11,7 +11,7 @@ import {
 import {useChargerWithCode} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
 import {TouchableOpacity} from 'react-native-gesture-handler'
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 import {ScreenPropsWithNavigation, LastUsedCharger, Charger} from 'allTypes'
 
 const ChargerWithCode = ({
@@ -24,7 +24,7 @@ const ChargerWithCode = ({
       <BaseHeader title={'charger.chargeWitchCode'} />
       <ScrollView style={styles.scrollView}>
         <BaseInput
-          image={Imgs.lock}
+          image={images.lock}
           keyboardType={'email-address'}
           onChangeText={hook.codeTextHandler}
           onSubmit={hook.codeInputSubmit}
@@ -37,7 +37,7 @@ const ChargerWithCode = ({
           text={'next'}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
-          image={Imgs.arrowRight}
+          image={images.arrowRight}
         />
 
         <TouchableOpacity

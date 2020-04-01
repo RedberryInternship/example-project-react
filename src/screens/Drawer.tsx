@@ -24,7 +24,7 @@ import {AppContext} from '../../App'
 import {logOut} from '../hooks/actions/rootActions'
 
 // assets
-import Imgs from '../../assets/images'
+import images from 'assets/images'
 import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
 const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
@@ -54,7 +54,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <>
         <View>
           <BaseButton
-            image={Imgs.user}
+            image={images.user}
             onPress={navigation.navigate.bind(Drawer, 'Auth')}
             text={'home.authorization'}
             style={styles.drawerAuthBtn}
@@ -120,7 +120,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 Alert.alert('asfas')
               }}
               text={'drawer.terms_and_conditions'}
-              image={Imgs.greenTick}
+              image={images.greenTick}
             />
           )}
           <View style={styles.localeAndLogoutWrapper}>

@@ -2,19 +2,19 @@ import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {Colors, GNOME} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const modalPopupChargerItemTypes = [
   {
-    image: Imgs.creditCard,
+    image: images.creditCard,
     text: 'popup.chargeOff',
   },
   {
-    image: Imgs.zap,
+    image: images.zap,
     text: 'charging.charge',
   },
   {
-    image: Imgs.cornerUpLeft,
+    image: images.cornerUpLeft,
     text: 'popup.returned',
   },
 ]

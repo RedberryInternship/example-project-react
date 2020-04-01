@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
 import {Colors} from 'utils'
 import {BaseCheckbox, BaseNativeTouchable} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type ChooseCardOnChargingProps = {
   lastDigits: string
@@ -17,7 +17,7 @@ const ChooseCardOnCharging = ({
   return (
     <BaseNativeTouchable onPress={onPress} borderless={false}>
       <View style={styles.container}>
-        <Image source={Imgs.creditCard} style={styles.cardImage} />
+        <Image source={images.creditCard} style={styles.cardImage} />
         <Text style={styles.cardLastDigitText}>XXXXXXXXXX {lastDigits}</Text>
         <BaseCheckbox active={active} />
       </View>

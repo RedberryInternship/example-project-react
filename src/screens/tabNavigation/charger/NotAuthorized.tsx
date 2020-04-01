@@ -5,7 +5,7 @@ import {Const, Colors} from 'utils'
 import LinearGradient from 'react-native-linear-gradient'
 import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 import {
   HomeNavigateModes,
   ScreenPropsWithNavigation,
@@ -22,7 +22,7 @@ const ChargerDetail = ({
         <LinearGradient
           colors={['#009AF033', '#1065E333']}
           style={styles.infoLinearGradient}>
-          <Image source={Imgs.alertCircle} style={styles.alertCircle} />
+          <Image source={images.alertCircle} style={styles.alertCircle} />
           <Text style={styles.infoText}>
             {t('notAuthorized.notAuthorizedText')}
           </Text>
@@ -31,7 +31,7 @@ const ChargerDetail = ({
           onPress={navigation.navigate.bind(ChargerDetail, 'Auth')}
           text={'home.authorization'}
           style={styles.authBtn}
-          image={Imgs.user}
+          image={images.user}
           imageStyle={styles.authBtnImg}
         />
         <TouchableOpacity

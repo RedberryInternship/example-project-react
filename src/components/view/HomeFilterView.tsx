@@ -12,7 +12,7 @@ import {Const, Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
 // Vobi todo: package imports up
 import {HomeContextType} from 'allTypes'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type HomeFilter = {
   context: HomeContextType
@@ -76,7 +76,7 @@ const HomeFilter = ({
             onPress={handleFilterButton}
             hitSlop={styles.buttonHitSlop}>
             <Image
-              source={showFilter ? Imgs.close : Imgs.filterType}
+              source={showFilter ? images.close : images.filterType}
               style={[buttonImageStyle, styles.buttonImage]}
             />
           </TouchableOpacity>

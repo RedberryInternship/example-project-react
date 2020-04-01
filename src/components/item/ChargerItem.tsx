@@ -4,7 +4,7 @@ import {Colors} from 'utils'
 import {BaseButton} from 'components'
 
 // images
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type ChargerItemProps = {
   code: string | number | undefined
@@ -22,7 +22,7 @@ const ChargerItem = ({
       <View style={styles.codeTextContainer}>
         <Text style={styles.codeText}>#{code}</Text>
         <View style={styles.addressContainer}>
-          <Image source={Imgs.mapPin} style={styles.addressImage} />
+          <Image source={images.mapPin} style={styles.addressImage} />
           <Text style={styles.addressText} numberOfLines={1}>
             {address}
           </Text>
@@ -33,7 +33,7 @@ const ChargerItem = ({
         text={'next'}
         style={styles.buttonStyle}
         imageStyle={{tintColor: Colors.primaryBlue}}
-        image={Imgs.arrowRight}
+        image={images.arrowRight}
         textStyle={{color: Colors.primaryBlue}}
       />
     </View>

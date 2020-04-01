@@ -16,7 +16,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {AppContext} from '../../../App'
 import {ScreenPropsWithNavigation} from 'allTypes'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {dispatch} = useContext(AppContext)
@@ -49,7 +49,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         />
 
         <BaseInput
-          image={Imgs.lock}
+          image={images.lock}
           onChangeText={hook.password.textHandler}
           onSubmit={hook.password.inputSubmit}
           ref={hook.passwordRef}
@@ -86,7 +86,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           onPress={hook.buttonClickHandler}
           text={'authentication.authentication'}
           style={styles.baseButton}
-          image={Imgs.alertCircle2}
+          image={images.alertCircle2}
         />
       </KeyboardAvoidingView>
     </View>

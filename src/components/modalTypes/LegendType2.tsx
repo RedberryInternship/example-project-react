@@ -4,7 +4,7 @@ import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import {Colors} from 'utils'
 import {LegendItem, LegendColorItem} from 'components'
 import {useTranslation} from 'react-i18next'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 import {ChargerMarkerType} from '../../../@types/allTypes.d'
 
@@ -54,7 +54,7 @@ const LegendType2 = ({onPress}: LegendType2Props): ReactElement => {
       </View>
       <View style={styles.closeButtonView}>
         <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
-          <Image source={Imgs.close} style={styles.closeButtonImage} />
+          <Image source={images.close} style={styles.closeButtonImage} />
         </TouchableOpacity>
       </View>
     </>

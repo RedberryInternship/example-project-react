@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet, Image} from 'react-native'
 
 import {Colors} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type Tariff = {
   title: string
@@ -12,7 +12,7 @@ type Tariff = {
 const tariffDetail = ({title, description}: Tariff): ReactElement => {
   return (
     <View style={styles.container}>
-      <Image source={Imgs.alertCircle} style={styles.image} />
+      <Image source={images.alertCircle} style={styles.image} />
       <Text style={styles.description}> {description} </Text>
       <Text style={styles.title}> {title} </Text>
     </View>

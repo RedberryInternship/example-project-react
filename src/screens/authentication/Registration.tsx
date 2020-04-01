@@ -21,7 +21,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {AppContext} from '../../../App'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {ScreenPropsWithNavigation} from 'allTypes'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const Registration = ({
   navigation,
@@ -95,7 +95,7 @@ const Registration = ({
         <BaseButton
           onPress={hook.registrationStepHandler}
           text={'next'}
-          image={Imgs.arrowRight}
+          image={images.arrowRight}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
         />

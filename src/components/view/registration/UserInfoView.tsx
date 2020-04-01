@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {View} from 'react-native'
 import {Colors, Const} from 'utils'
 import {BaseInput} from 'components'
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 
 const FilterTextItem = ({_this, hook}: any): ReactElement => {
   const nameTextHandler = (text: string): void => {
@@ -29,7 +29,7 @@ const FilterTextItem = ({_this, hook}: any): ReactElement => {
   return (
     <View style={{width: Const.Width, paddingHorizontal: 16}}>
       <BaseInput
-        image={Imgs.user}
+        image={images.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
         onChangeText={nameTextHandler}
         onSubmit={nameInputSubmit}
@@ -40,7 +40,7 @@ const FilterTextItem = ({_this, hook}: any): ReactElement => {
         ref={hook.name}
       />
       <BaseInput
-        image={Imgs.user}
+        image={images.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
         onChangeText={surNameTextHandler}
         onSubmit={surNameInputSubmit}
@@ -51,7 +51,7 @@ const FilterTextItem = ({_this, hook}: any): ReactElement => {
         ref={hook.surname}
       />
       <BaseInput
-        image={Imgs.user}
+        image={images.user}
         imageStyle={{tintColor: Colors.primaryBlue}}
         keyboardType={'email-address'} // Vobi todo: have email, password types and toggle inside which to display
         onChangeText={emailTextHandler}

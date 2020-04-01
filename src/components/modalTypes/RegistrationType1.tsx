@@ -2,7 +2,7 @@
 import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import {Colors} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type RegistrationType1Props = {
   onPress: () => void
@@ -12,7 +12,7 @@ const RegistrationType1 = ({onPress}: RegistrationType1Props): ReactElement => {
   return (
     <>
       <View style={styles.container}>
-        <Image source={Imgs.user} style={styles.useIcon} />
+        <Image source={images.user} style={styles.useIcon} />
         {/* TODO: Title Text */}
         <Text style={styles.titleText}>title</Text>
         {/* TODO: First Name & Last Name Text */}
@@ -26,7 +26,7 @@ const RegistrationType1 = ({onPress}: RegistrationType1Props): ReactElement => {
       </View>
       <View style={styles.closeContainer}>
         <TouchableOpacity style={styles.closeTouchable} onPress={onPress}>
-          <Image source={Imgs.close} style={styles.closeIcon} />
+          <Image source={images.close} style={styles.closeIcon} />
         </TouchableOpacity>
       </View>
     </>

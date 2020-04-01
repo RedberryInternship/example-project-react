@@ -7,7 +7,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useSafeArea} from 'react-native-safe-area-context' // Vobi Todo: Move package imports at top and separate them from your own
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const SetNewPasswords = ({
   navigation,
@@ -31,7 +31,7 @@ const SetNewPasswords = ({
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}>
         <BaseInput
-          image={Imgs.lock}
+          image={images.lock}
           onChangeText={hook.newPassword.textHandler}
           onSubmit={hook.newPassword.onSubmit}
           ref={hook.newPasswordRef}
@@ -40,7 +40,7 @@ const SetNewPasswords = ({
           title={'authentication.forgotPasswordPage.newPassword'}
         />
         <BaseInput
-          image={Imgs.lock}
+          image={images.lock}
           onChangeText={hook.repeatPassword.textHandler}
           onSubmit={hook.repeatPassword.onSubmit}
           ref={hook.repeatPasswordRef}
@@ -56,7 +56,7 @@ const SetNewPasswords = ({
         <BaseButton
           onPress={hook.onClickSubmitButton}
           text={'enter'}
-          image={Imgs.lock}
+          image={images.lock}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
         />

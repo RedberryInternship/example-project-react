@@ -6,7 +6,7 @@ import {Colors, getLocaleText} from '../../utils'
 import {ChargerGroupPopupItem} from 'components'
 import {useTranslation} from 'react-i18next'
 import {Charger, ChargerDetail} from 'allTypes'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type MapPopUpProps = {
   data: Data
@@ -32,7 +32,7 @@ const MapPopUp = ({
     <View style={styles.container}>
       <Text style={styles.title}>{t(title)}</Text>
       <View style={styles.addressContainer}>
-        <Image source={Imgs.mapPin} style={styles.mapPinIcon} />
+        <Image source={images.mapPin} style={styles.mapPinIcon} />
         <Text style={styles.addressText}>{t(address)}</Text>
       </View>
       <View style={styles.groupChargerContainer}>

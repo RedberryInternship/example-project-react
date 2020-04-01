@@ -3,7 +3,6 @@ import React, {ReactElement, useEffect, useState} from 'react'
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 import {Colors, Defaults, Ajax} from 'utils'
-import Imgs from '../../../assets/images'
 import {useTranslation} from 'react-i18next'
 import {BaseText} from 'components'
 import {Charger, Favorite} from 'allTypes'

@@ -17,7 +17,7 @@ import {HomeContext} from 'screens/tabNavigation/Home'
 import {View, StyleSheet} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type HomeComponentItemsProps = {
   navigation?: NavigationScreenProp<NavigationState, NavigationParams>
@@ -49,7 +49,7 @@ const HomeComponentItems = ({
     >
       {Defaults.token ? null : (
         <BaseButton
-          image={Imgs.user}
+          image={images.user}
           onPress={navigation.navigate.bind(HomeComponentItems, 'Auth')}
           text={'home.authorization'}
           style={styles.authorizeBtn}
@@ -81,7 +81,7 @@ const HomeComponentItems = ({
               type: 2,
             })
           }}
-          image={Imgs.alertCircle2}
+          image={images.alertCircle2}
         />
         <HomeFilterView
           context={context}

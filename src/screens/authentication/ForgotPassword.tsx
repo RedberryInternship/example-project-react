@@ -6,7 +6,7 @@ import {useForgotPassword} from 'hooks'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {ScreenPropsWithNavigation} from 'allTypes'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const ForgotPassword = ({
   navigation,
@@ -49,7 +49,7 @@ const ForgotPassword = ({
         <BaseButton
           onPress={hook.onButtonClick}
           text={'enter'}
-          image={Imgs.arrowRight}
+          image={images.arrowRight}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
         />

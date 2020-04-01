@@ -9,7 +9,7 @@ import {BaseInput} from 'components'
 import {useEmailChange} from 'hooks'
 
 // images
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 
 // types
 import {ProfileFieldChange} from 'allTypes'
@@ -26,7 +26,7 @@ const MailChangeView = ({
     <View style={styles.container}>
       <BaseInput
         title={'settings.newMail'}
-        image={Imgs.mail}
+        image={images.mail}
         value={hook.email}
         onChangeText={hook.onChangeText}
         onSubmit={hook.onSubmit}

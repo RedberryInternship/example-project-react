@@ -21,7 +21,7 @@ import {
 import {Colors} from 'utils'
 
 // assets
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
@@ -94,7 +94,7 @@ const ProfileChange = ({
         <BaseButton
           onPress={setSaveButtonClicked.bind(ProfileChange, true)}
           text="save"
-          image={Imgs.arrowLeft}
+          image={images.arrowLeft}
           isImageRight
         />
       </KeyboardAvoidingView>

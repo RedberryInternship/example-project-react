@@ -4,7 +4,7 @@ import {Defaults} from 'utils'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {TabNavigationButtons} from 'components'
 import {determineTimePeriod} from 'utils/mapAndLocation/mapFunctions'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 // Vobi todo: no any
 const FooterTabNavigator = (props: any): ReactElement => {
@@ -37,7 +37,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
           props.navigation.setParams({})
           navigate('Home')
         }}
-        image={Imgs.mapPin}
+        image={images.mapPin}
       />
       <TabNavigationButtons
         active={
@@ -48,18 +48,18 @@ const FooterTabNavigator = (props: any): ReactElement => {
           FooterTabNavigator,
           Defaults.token ? 'chargerStack' : 'NotAuthorized',
         )}
-        image={Imgs.charge}
+        image={images.charge}
       />
       {Defaults.token != null && Defaults.token != '' && (
         <TabNavigationButtons
           navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
-          image={Imgs.favorite}
+          image={images.favorite}
           active={currentRouteName === 'Favorites'}
         />
       )}
       <TabNavigationButtons
         navigate={navigate.bind(FooterTabNavigator, 'drawer')}
-        image={Imgs.menu}
+        image={images.menu}
         active={currentRouteName === 'drawer'}
       />
     </View>

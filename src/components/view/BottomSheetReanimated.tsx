@@ -16,7 +16,7 @@ import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Charger, ChargerDetail} from 'allTypes'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 const screenHeight = Dimensions.get('window').height
 
@@ -90,7 +90,7 @@ const BottomSheetReanimated = forwardRef(
           {t('home.allChargers').toUpperCase()}
         </Text>
         <View style={styles.textInputContainer}>
-          <Image source={Imgs.iconSearch} style={styles.searchIcon} />
+          <Image source={images.iconSearch} style={styles.searchIcon} />
           <TextInput
             style={styles.textInput}
             placeholder={`${t('home.location')}/${t('home.organization')}`}
@@ -110,7 +110,7 @@ const BottomSheetReanimated = forwardRef(
             onPress={closeClick}
             hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
             style={styles.closeTouchable}>
-            <Image source={Imgs.delete} style={styles.deleteIcon} />
+            <Image source={images.delete} style={styles.deleteIcon} />
           </TouchableWithoutFeedback>
         </View>
       </View>

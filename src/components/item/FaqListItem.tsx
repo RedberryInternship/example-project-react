@@ -4,7 +4,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native'
 // utils
 import {Const, Colors} from 'utils'
 
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type FaqListItemProps = {
   number: number
@@ -44,7 +44,7 @@ const FaqListItem = ({
                 styles.arrowImage,
                 {transform: [{rotateZ: rotationValue}]},
               ]}
-              source={Imgs.arrowUp}
+              source={images.arrowUp}
             />
           </View>
         </View>

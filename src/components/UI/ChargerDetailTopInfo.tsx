@@ -3,7 +3,7 @@ import {Text, View, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {Colors} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type ChargerDetailTopInfoProps = {
   chargerLocationDirectionPress: () => void
@@ -41,7 +41,7 @@ const ChargerDetailTopInfo = ({
             onPress={favouritePress}
             style={styles.favIconContainer}>
             <Image
-              source={favorite ? Imgs.filledHart : Imgs.favorite}
+              source={favorite ? images.filledHart : images.favorite}
               style={[styles.favIcon]}
             />
           </TouchableOpacity>
@@ -51,7 +51,7 @@ const ChargerDetailTopInfo = ({
       <View style={styles.locationAndDistanceContainer}>
         <View style={styles.locationAndMapPressContainer}>
           <View style={styles.locationContainer}>
-            <Image source={Imgs.mapPin} style={styles.locationIcon} />
+            <Image source={images.mapPin} style={styles.locationIcon} />
             <Text style={styles.locationText} numberOfLines={2}>
               {location}
             </Text>
@@ -62,14 +62,14 @@ const ChargerDetailTopInfo = ({
             <Text style={styles.seeOnMapText} numberOfLines={1}>
               {t('chargerDetail.seeOnMap')}
             </Text>
-            <Image source={Imgs.arrowRight} style={styles.arrowRightIcon} />
+            <Image source={images.arrowRight} style={styles.arrowRightIcon} />
           </TouchableOpacity>
         </View>
         <View style={styles.distanceContainer}>
           <TouchableOpacity
             onPress={chargerLocationDirectionPress}
             style={styles.distanceTouchable}>
-            <Image source={Imgs.cornerUpRight} style={styles.distanceIcon} />
+            <Image source={images.cornerUpRight} style={styles.distanceIcon} />
             <Text style={styles.distanceText} numberOfLines={1}>
               {distance} {t('km')}
             </Text>

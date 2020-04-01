@@ -3,7 +3,7 @@ import {View, Image, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
 // utils
 import {Colors} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type TransactionItemProps = {
   title: string
@@ -22,7 +22,7 @@ const TransactionListItem = ({
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.innerLeftContainer}>
-          <Image source={Imgs.transaction} style={styles.transactionIcon} />
+          <Image source={images.transaction} style={styles.transactionIcon} />
           <View style={styles.textContainer}>
             <Text style={styles.title}>{title}</Text>
             <Text style={styles.dateAndTime}>{date}</Text>

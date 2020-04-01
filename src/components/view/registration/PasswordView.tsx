@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Colors, Const} from 'utils'
 import {BaseInput} from 'components'
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 
 const PasswordView = ({_this, hook}: any): ReactElement => {
   // Vobi Todo: destructure hook from top and pass functions to component
@@ -24,7 +24,7 @@ const PasswordView = ({_this, hook}: any): ReactElement => {
   return (
     <View style={styles.container}>
       <BaseInput
-        image={Imgs.lock}
+        image={images.lock}
         imageStyle={{tintColor: Colors.primaryBlue}}
         onChangeText={passwordTextHandler}
         onSubmit={passwordInputSubmit}
@@ -35,7 +35,7 @@ const PasswordView = ({_this, hook}: any): ReactElement => {
         ref={hook.password}
       />
       <BaseInput
-        image={Imgs.lock}
+        image={images.lock}
         imageStyle={{tintColor: Colors.primaryBlue}}
         onChangeText={repeatPasswordTextHandler}
         onSubmit={repeatPasswordInputSubmit}

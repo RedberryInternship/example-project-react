@@ -6,7 +6,7 @@ import {BaseButton} from 'components'
 
 import {Colors} from 'utils'
 
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type FavoriteChargerItemProps = {
   title: string
@@ -26,12 +26,15 @@ const FavoriteChargerListItem = ({
       <View style={styles.innerLeftContainer}>
         <TouchableOpacity onPress={deleteItem}>
           <View style={styles.deleteButton}>
-            <Image style={styles.deleteButtonImage} source={Imgs.orangeTrash} />
+            <Image
+              style={styles.deleteButtonImage}
+              source={images.orangeTrash}
+            />
           </View>
         </TouchableOpacity>
         <Text style={styles.title}>{title}</Text>
         <View style={styles.addressContainer}>
-          <Image style={styles.addressImage} source={Imgs.mapPin} />
+          <Image style={styles.addressImage} source={images.mapPin} />
           <Text style={styles.addressTitle}>{address}</Text>
         </View>
       </View>
@@ -41,7 +44,7 @@ const FavoriteChargerListItem = ({
           text={'turnOn'}
           style={styles.customizedBaseButton}
           imageStyle={{tintColor: Colors.primaryBlue}}
-          image={Imgs.arrowRight}
+          image={images.arrowRight}
           textStyle={{color: Colors.primaryBlue}}
         />
       </View>

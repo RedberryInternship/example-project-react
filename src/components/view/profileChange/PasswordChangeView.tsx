@@ -9,7 +9,7 @@ import {usePasswordChange} from '../../../hooks'
 // components
 import {BaseInput} from '../..'
 
-import Imgs from '../../../../assets/images'
+import images from 'assets/images'
 
 // Vobi Todo: no any type
 const PasswordChangeView = ({
@@ -23,7 +23,7 @@ const PasswordChangeView = ({
     <View style={styles.container}>
       <BaseInput
         title={'settings.currentPassword'}
-        image={Imgs.lock}
+        image={images.lock}
         onChangeText={hook.currentPassword.onChangeText}
         onSubmit={hook.currentPassword.onSubmit}
         ref={hook.currentPasswordRef}
@@ -32,7 +32,7 @@ const PasswordChangeView = ({
 
       <BaseInput
         title={'settings.newPassword'}
-        image={Imgs.lock}
+        image={images.lock}
         onChangeText={hook.setNewPassword.onChangeText}
         onSubmit={hook.setNewPassword.onSubmit}
         ref={hook.setNewPasswordRef}
@@ -42,7 +42,7 @@ const PasswordChangeView = ({
 
       <BaseInput
         title={'settings.repeatPassword'}
-        image={Imgs.lock}
+        image={images.lock}
         onChangeText={hook.repeatNewPassword.onChangeText}
         onSubmit={hook.repeatNewPassword.onSubmit}
         onFocus={hook.repeatNewPassword.onFocus}

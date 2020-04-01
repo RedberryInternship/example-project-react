@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
 
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type SettingsListItemProps = {
   onPress: () => void
@@ -45,7 +45,7 @@ const SettingsListItem = ({
           <Text style={[styles.value, {color: valueColor}]}>
             {confirmed !== null ? t(value) : value}
           </Text>
-          <Image source={Imgs.chervonRight} style={styles.arrow} />
+          <Image source={images.chervonRight} style={styles.arrow} />
         </View>
       </View>
     </TouchableOpacity>
