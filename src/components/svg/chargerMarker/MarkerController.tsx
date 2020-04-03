@@ -1,9 +1,11 @@
 import React, {ReactElement} from 'react'
+
 import {
   ChargerMarkerIconControllerType,
   ChargerMarkerType,
   ChargerMarkerStatus,
 } from '../../../../@types/allTypes.d'
+
 import MarkerRenderer from './MarkerRenderer'
 
 const MarkerController = ({

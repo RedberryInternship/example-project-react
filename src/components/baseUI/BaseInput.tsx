@@ -5,9 +5,9 @@ import React, {
   RefObject,
   Ref,
 } from 'react'
-
 import {View, TextInput, Image, StyleSheet, TextInputProps} from 'react-native'
 import {useTranslation} from 'react-i18next'
+
 import {Colors} from 'utils'
 import {BaseInputProps, BaseInputRefProp} from 'allTypes'
 import {BaseText} from 'components'

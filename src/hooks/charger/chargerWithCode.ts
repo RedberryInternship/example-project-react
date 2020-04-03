@@ -2,6 +2,12 @@
 import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
+import {
+  NavigationState,
+  NavigationScreenProp,
+  NavigationParams,
+} from 'react-navigation'
+
 import {AppContext} from '../../../App'
 import {
   AppContextType,
@@ -10,11 +16,6 @@ import {
   LastUsedCharger,
   LastUsedChargerResponseObject,
 } from '../../../@types/allTypes.d'
-import {
-  NavigationState,
-  NavigationScreenProp,
-  NavigationParams,
-} from 'react-navigation'
 import {Defaults, Ajax} from 'utils'
 
 type _This = {
@@ -39,8 +40,6 @@ export default (
   const passwordRef: any = useRef(null)
 
   const {t} = useTranslation()
-
-  useEffect(() => {}, [])
 
   const codeTextHandler = (val: string) => {
     _this.current!.chargeWitchCode = val

@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
+
 import {Colors} from 'utils'
 import {BaseCheckbox, BaseNativeTouchable} from 'components'
 import images from 'assets/images'

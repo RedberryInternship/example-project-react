@@ -1,11 +1,11 @@
-import React, { useMemo, createContext } from 'react'
-import { StatusBar } from 'react-native'
-import { Navigation } from './src'
-import { CustomModal } from 'components'
+import React, {useMemo, createContext} from 'react'
+import {StatusBar} from 'react-native'
+import {Navigation} from './src'
+import {CustomModal} from 'components'
 import DropdownAlert from 'react-native-dropdownalert'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { Defaults, useFirebase } from 'utils'
-import { useRoot } from 'hooks'
+import {SafeAreaProvider} from 'react-native-safe-area-context'
+import {Defaults, useFirebase} from 'utils'
+import {useRoot} from 'hooks'
 
 console.disableYellowBox = true
 
@@ -44,7 +44,7 @@ if (__DEV__) {
   //   message,
   //   exception
   // }
-  console.log = () => { }
+  console.log = () => {}
 }
 export const AppContext = createContext()
 
@@ -55,10 +55,10 @@ const App = (): React.ReactElement => {
     () => (
       <SafeAreaProvider>
         <AppContext.Provider
-          value={{ state: hook.state, dispatch: hook.dispatch }}>
+          value={{state: hook.state, dispatch: hook.dispatch}}>
           <Navigation
             ref={ref => hook.setNavigationTopLevelElement(ref)}
-            screenProps={{ token: Defaults.token }}
+            screenProps={{token: Defaults.token}}
             onNavigationStateChange={(_, state) => {
               Defaults.activeRoute = hook.getCurrentRoute(state)
               console.log('====================================')
@@ -76,7 +76,7 @@ const App = (): React.ReactElement => {
           inactiveStatusBarStyle={hook.dropDownInactiveBarColor()}
           ref={ref => (Defaults.dropdown = ref)}
           testID={'dropdownAlert'}
-          titleStyle={{ fontSize: 14, color: 'white' }}
+          titleStyle={{fontSize: 14, color: 'white'}}
           imageStyle={{
             marginHorizontal: 8,
             alignSelf: 'center',

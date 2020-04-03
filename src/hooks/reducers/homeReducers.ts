@@ -1,13 +1,13 @@
-/* eslint-disable no-unused-vars */ // Vobi Todo: Do not have unused vars
 import {
   SET_LOCATION_HANDLER,
   SET_FILTERED_CHARGERS,
 } from '../actions/homeActions'
-import {Charger, HomeState, Action} from 'allTypes'
+import {HomeState, Action} from 'allTypes'
+import images from 'assets/images'
 
 export const initialState: HomeState = {
   PermissionStatus: null,
-  locationImageType: require('../../assets/images/icons/location.png'),
+  locationImageType: images.location,
   loading: false,
   LocationRequestFunc: () => {},
   filteredChargers: null,

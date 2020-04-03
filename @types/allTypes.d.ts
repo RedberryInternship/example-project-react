@@ -319,6 +319,7 @@ export type ScreenPropsWithNavigation = {
 type LastUsedChargerResponseObject = {
   data: Charger[]
 }
+export type LastUsedCharger = Charger
 
 export type ChargerFilters = {
   text?: string

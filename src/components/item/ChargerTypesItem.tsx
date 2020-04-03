@@ -1,7 +1,8 @@
 import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native'
-import {Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
+
+import {Colors} from 'utils'
 import {BaseCheckbox} from 'components'
 
 type ChargerTypesItemProps = {

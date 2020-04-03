@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
+
 import {Colors} from 'utils'
 
 type CurrentTariffsProps = {

@@ -1,11 +1,13 @@
 import React, {ReactElement} from 'react'
 import {Text, TextProps, StyleSheet} from 'react-native'
+
 import {Colors} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
   style: any
 }
+
 const BaseText = (props: BaseTextPropType): ReactElement => {
   const setFontFamily = (): string => {
     if ('fontFamily' in props.style) {

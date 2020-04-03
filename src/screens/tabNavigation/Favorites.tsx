@@ -1,18 +1,18 @@
 import React, {useContext, ReactElement, useEffect} from 'react'
-import {ScrollView, View, StyleSheet, Text} from 'react-native'
+import {ScrollView, View, StyleSheet} from 'react-native'
+import {useTranslation} from 'react-i18next'
+
+import {ScreenPropsWithNavigation, AppContextType, Charger} from 'allTypes'
+
 import {
   BaseHeader,
   FavoriteChargerListItem,
-  BaseText,
   FetchedDataRenderer,
 } from 'components'
 import {Colors, Defaults} from 'utils'
 import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
 import {AppContext} from '../../../App'
 import {getLocaleText} from 'utils/localization/localization'
-import {AppContextType, Favorite, Charger} from 'allTypes'
-import {useTranslation} from 'react-i18next'
-import {ScreenPropsWithNavigation} from 'allTypes'
 
 const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()

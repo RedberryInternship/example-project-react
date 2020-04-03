@@ -1,15 +1,10 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet} from 'react-native'
 
-// components
-import {PhoneNumberInput, ReceiveCode} from 'components'
-
-// hooks
-import {usePhoneChange} from 'hooks'
-
-// types
 import {ProfileFieldChange} from 'allTypes'
+
+import {PhoneNumberInput, ReceiveCode} from 'components'
+import {usePhoneChange} from 'hooks'
 
 const PhoneChangeView = ({
   navigation,

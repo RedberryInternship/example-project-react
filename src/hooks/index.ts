@@ -3,14 +3,6 @@ import useMap from './mapViewHook'
 import useLocation from './locationHook'
 import useHomeHook from './homeHook'
 import useHomeMainInputHook from './homeMainInputHook'
-import useContact from './contactHook'
-
-//authentication
-import useAuthHook from './authentication/authHook'
-import useForgotPassword from './authentication/forgotPassword'
-import useRegistrationHook from './authentication/registration/registrationHook'
-import useSetNewPasswords from './authentication/setNewPasswords'
-
 //charger
 import useChargerWithCode from './charger/chargerWithCode'
 import useChoosingCard from './charger/choosingCard'
@@ -34,10 +26,6 @@ export {
   useLocation,
   useHomeHook,
   useHomeMainInputHook,
-  useAuthHook,
-  useForgotPassword,
-  useRegistrationHook,
-  useSetNewPasswords,
   useChargerWithCode,
   useChoosingCard,
   rootReducer,
@@ -49,6 +37,5 @@ export {
   useEmailChange,
   usePhoneChange,
   usePasswordChange,
-  useContact,
   useSettings,
 }

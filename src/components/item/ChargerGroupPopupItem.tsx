@@ -1,5 +1,4 @@
 import React, {ReactElement} from 'react'
-
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'

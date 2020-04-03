@@ -1,9 +1,11 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
+import {useTranslation} from 'react-i18next'
+
+import {ScreenPropsWithNavigation} from 'allTypes'
+
 import {BaseHeader, BaseButton} from 'components'
 import {Const, Colors} from 'utils'
-import {useTranslation} from 'react-i18next'
-import {ScreenPropsWithNavigation} from 'allTypes'
 
 const ChargerDetail = ({
   navigation,

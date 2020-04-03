@@ -1,10 +1,11 @@
 import {useContext, Ref, useImperativeHandle, RefObject, useState} from 'react'
-import useLocation from './locationHook'
+import MapView from 'react-native-maps'
+
 import {AppContextType, Charger} from 'allTypes'
+
 import {getAllChargers} from 'hooks/actions/rootActions'
 import {AppContext} from '../../App'
-import MapView from 'react-native-maps'
-import {Alert} from 'react-native'
+import useLocation from './locationHook'
 
 import {
   NavigationParams,

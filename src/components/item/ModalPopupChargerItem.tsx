@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
+
 import {Colors, GNOME} from 'utils'
 import images from 'assets/images'
 

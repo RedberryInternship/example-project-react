@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
 import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
+
 import {Colors} from 'utils'
 import images from 'assets/images'
 

@@ -1,9 +1,8 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, Text, View, Image} from 'react-native'
+
 import {Colors} from 'utils'
 import {BaseButton} from 'components'
-
-// images
 import images from 'assets/images'
 
 type ChargerItemProps = {

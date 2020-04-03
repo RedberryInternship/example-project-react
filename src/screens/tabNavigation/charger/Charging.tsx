@@ -1,11 +1,13 @@
 import React, {useState, ReactElement} from 'react'
 import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native'
-import {BaseHeader, ChargingView} from 'components'
-import {Colors} from 'utils'
 import {TabView} from 'react-native-tab-view'
 import Animated from 'react-native-reanimated'
-import {useChargingHook} from 'hooks'
+
 import {ScreenPropsWithNavigation} from 'allTypes'
+
+import {useChargingHook} from 'hooks'
+import {Colors} from 'utils'
+import {BaseHeader, ChargingView} from 'components'
 
 const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const hook = useChargingHook(navigation)

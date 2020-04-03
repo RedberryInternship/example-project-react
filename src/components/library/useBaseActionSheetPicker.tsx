@@ -1,5 +1,4 @@
 import {useState} from 'react'
-
 import {Platform, ActionSheetIOS} from 'react-native'
 import DialogAndroid from 'react-native-dialogs'
 

@@ -1,8 +1,9 @@
 /* eslint-disable react/display-name */
 import React, {useState, useEffect, ReactElement} from 'react'
 import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
-import {Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
+
+import {Colors} from 'utils'
 import {PopUpCountDown, ModalPopupChargerItem} from 'components'
 import images from 'assets/images'
 

@@ -1,14 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
-import { Keyboard, Animated, Easing, TextInput, Alert } from 'react-native'
-import { Const, Helpers, Ajax } from '../utils'
-import { useTranslation } from 'react-i18next'
-import {
-  Charger,
-  MapImperativeRefObject,
-  ChargerFilters,
-  ChargersObject,
-} from 'allTypes'
-import { useSafeArea } from 'react-native-safe-area-context'
+import {useEffect, useState, useRef} from 'react'
+import {Keyboard, Animated, Easing, TextInput} from 'react-native'
+import {useSafeArea} from 'react-native-safe-area-context'
+import {useTranslation} from 'react-i18next'
+
+import {Charger, MapImperativeRefObject} from 'allTypes'
+
+import {Const, Helpers} from 'utils'
 
 const useHomeMainInputHook = (
   allChargers: Charger[],
@@ -26,7 +23,7 @@ const useHomeMainInputHook = (
     text: '',
     searchContentHeight: Const.Height - 65 - insets.top - insets.bottom - 180,
   })
-  const { t } = useTranslation()
+  const {t} = useTranslation()
 
   const textHandler = (val: string): void => {
     _this.current.text = val

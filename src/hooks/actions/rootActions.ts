@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Defaults, Ajax} from 'utils'
+import {Defaults} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
-import {ChargersObject, Favorite} from 'allTypes'
-import i18n from 'i18next'
+import {Favorite} from 'allTypes'
 
-import {apiServices, Helpers} from 'utils'
-import i18next from 'i18next'
-import {Alert} from 'react-native'
+import {Helpers} from 'utils'
+import services from 'services'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
@@ -25,27 +23,21 @@ type AddFavoriteCharger = {
 
 const {Logger} = Helpers
 
-export const rootAction = (data: any, dispatch: any) => {
+export const rootAction = async (data: any, dispatch: any): Promise<void> => {
   saveToken(data)
 
   if (data.token !== '') {
-    Ajax.get(apiServices.get_me)
-      .then(user => {
-        console.log('====================================')
-        console.log(data, user, 'useruser')
-        console.log('====================================')
-        dispatch(saveToken({token: data.token, ...data.user, ...user}))
-      })
-      .catch(err => {
-        Logger(err)
-        Helpers.DisplayGeneralError()
-      })
-
+    try {
+      const result = await services.getUserData()
+      dispatch(saveToken({token: data.token, ...data.user, ...result}))
+    } catch (error) {
+      Helpers.DisplayDropdownWithError()
+    }
     getFavoriteChargers(dispatch)
   }
 }
 
-const saveToken = (payload: any) => {
+const saveToken = (payload: any): Record<string, string> => {
   AsyncStorage.setItem('token', payload.token ?? '')
   AsyncStorage.setItem('userDetail', JSON.stringify(payload))
 
@@ -68,74 +60,70 @@ export const logOut = () => {
   }
 }
 
-export const getAllChargers = (dispatch: any): void => {
-  Ajax.get('/chargers')
-    .then(({data}: ChargersObject) => {
-      dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
-    })
-    .catch(() => Helpers.DisplayGeneralError())
+export const getAllChargers = async (dispatch: any): Promise<void> => {
+  try {
+    const {data} = await services.getAllChargers()
+    dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
+  } catch (error) {
+    Helpers.DisplayDropdownWithError()
+  }
 }
 
-export const getFavoriteChargers = (dispatch: any): void => {
-  Ajax.get('/user-favorites')
-    .then(({user_favorite_chargers}: FavoriteChargerObject) => {
-      dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
-    })
-    .catch(err => {
-      Helpers.DisplayGeneralError()
-      Logger(err)
-    })
+export const getFavoriteChargers = async (dispatch: any): Promise<void> => {
+  try {
+    const {user_favorite_chargers} = await services.getUserFavoriteChargers()
+
+    dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
+  } catch (error) {
+    Helpers.DisplayDropdownWithError()
+  }
 }
 
-export const addToFavorites = (
+export const addToFavorites = async (
   payload: number | undefined,
   dispatch: any,
   callback?: () => void,
-): void => {
-  payload !== undefined &&
-    Ajax.post('/add-favorite', {charger_id: payload})
-      .then(({status}: AddFavoriteCharger) => {
-        if (status) {
-          getFavoriteChargers(dispatch)
-          getAllChargers(dispatch)
-          Defaults.dropdown?.alertWithType(
-            'success',
-            i18next.t('dropDownAlert.successOnFavoriteAdd'),
-          )
-          callback && callback()
-        } else {
-          throw new Error()
-        }
-      })
-      .catch(err => {
-        Helpers.DisplayGeneralError()
-        Logger(err)
-      })
-}
-
-export const deleteToFavorites = (
-  payload: number,
-  dispatch: any,
-  callback?: () => void,
-): void => {
-  Ajax.post('/remove-favorite', {charger_id: payload})
-    .then(({status}: AddFavoriteCharger) => {
+): Promise<void> => {
+  if (payload !== undefined) {
+    try {
+      const {status} = await services.addUserFavoriteCharger(payload)
       if (status) {
         getFavoriteChargers(dispatch)
         getAllChargers(dispatch)
-        Defaults.dropdown?.alertWithType(
-          'success',
-          i18next.t('dropDownAlert.successOnFavoriteRemove'),
-        )
+        Helpers.DisplayDropdownWithSuccess('dropDownAlert.successOnFavoriteAdd')
+
         callback && callback()
       } else {
         throw new Error()
       }
-    })
-    .catch(err => {
-      Helpers.DisplayGeneralError()
-      Logger(err)
-    })
+    } catch (error) {
+      Helpers.DisplayDropdownWithError()
+    }
+  }
+}
+
+export const deleteToFavorites = async (
+  payload: number,
+  dispatch: any,
+  callback?: () => void,
+): Promise<void> => {
+  try {
+    const {status} = await services.removeUserFavoriteCharger(payload)
+    if (status) {
+      getFavoriteChargers(dispatch)
+      getAllChargers(dispatch)
+
+      Helpers.DisplayDropdownWithSuccess(
+        'dropDownAlert.successOnFavoriteRemove',
+      )
+
+      callback && callback()
+    } else {
+      throw new Error()
+    }
+  } catch (error) {
+    Helpers.DisplayDropdownWithError()
+  }
 }
 
 type UserColumnType =
@@ -152,9 +140,6 @@ export const editUserInfo = (
 ): any => {
   if (Defaults.userDetail) Defaults.userDetail[user_column_type] = payload
 
-  console.log('====================================')
-  console.log(Defaults.userDetail, 'Defaults.userDetailDefaults.userDetail')
-  console.log('====================================')
   AsyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))
 
   return dispatch({

@@ -1,18 +1,15 @@
 import React, {ReactElement, useEffect, useState} from 'react'
-
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
-
-import {Colors, Defaults, Ajax} from 'utils'
 import {useTranslation} from 'react-i18next'
+
+import {Defaults} from 'utils'
 import {BaseText} from 'components'
-import {Charger, Favorite} from 'allTypes'
 
 type FetchedDataRendererProp = {
   property: string
   onItemRender: (val: any, index: number) => ReactElement
   fetchData: () => Promise<any>
   updateAlways?: boolean
-  data?: Favorite[] | null
+  data?: any
 }
 
 const staticData: any = {}
@@ -71,38 +68,3 @@ const FetchedDataRenderer = ({
 }
 
 export default FetchedDataRenderer
-
-const styles = StyleSheet.create({
-  container: {
-    height: 66,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderTopColor: Colors.primaryBackground.concat('33'),
-    borderTopWidth: 1,
-  },
-  chargerPin: {
-    width: 26,
-    height: 32,
-    resizeMode: 'contain',
-  },
-  chargerTypeContainer: {
-    flex: 1,
-    alignItems: 'flex-start',
-    paddingHorizontal: 8,
-    justifyContent: 'center',
-  },
-  chargerTypeText: {
-    color: '#436880',
-    marginBottom: 4,
-    fontSize: 13,
-  },
-  chargerCodeText: {
-    color: '#111314',
-    fontSize: 11,
-  },
-  goToDetailIcon: {
-    width: 12,
-    height: 21,
-  },
-})

@@ -1,11 +1,12 @@
 import React, {createContext, useReducer, useMemo, ReactElement} from 'react'
 import {StyleSheet, View} from 'react-native'
 
+import {ScreenPropsWithNavigation} from 'allTypes'
+
 import {MapView, HomeComponentItems, BottomSheetReanimated} from 'components'
 import {Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
 import {useHomeHook} from 'hooks'
-import {ScreenPropsWithNavigation} from 'allTypes'
 
 export const HomeContext = createContext({})
 

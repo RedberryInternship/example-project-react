@@ -188,6 +188,7 @@ export default {
     },
     dropDownAlert: {
       generalError: 'Error encountered',
+      generalSuccess: 'Order completed successfully',
       fillCode: 'Please, enter charger code',
       chargerNotExist: "this kind of charger don't exist",
       successOnFavoriteAdd: 'Successfully added charger',

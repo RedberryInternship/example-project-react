@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Svg, {G, Path, Defs, ClipPath} from 'react-native-svg'
-import {ChargerMarkerIcon} from '../../../../@types/allTypes'
-import {Alert} from 'react-native'
+
+import {ChargerMarkerIcon} from 'allTypes'
 
 function FastNonPublic({
   background,

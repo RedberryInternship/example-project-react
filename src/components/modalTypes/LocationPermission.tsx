@@ -1,10 +1,12 @@
 /* eslint-disable react/display-name */
 import React, {ReactElement} from 'react'
 import {Text, View, Image, StyleSheet, Alert} from 'react-native'
-import {Colors} from '../../utils'
-import {ChargerGroupPopupItem} from 'components'
 import {useTranslation} from 'react-i18next'
+
+import {Colors} from 'utils'
+import {ChargerGroupPopupItem} from 'components'
 import {Charger} from 'allTypes'
+import images from 'assets/images'
 
 type LocationPermissionProps = {
   onPress?: (index: number) => void
@@ -21,10 +23,7 @@ const LocationPermission = ({data}: LocationPermissionProps): ReactElement => {
     <View style={styles.container}>
       <Text style={styles.title}>{t(data.title)}</Text>
       <View style={styles.addressContainer}>
-        <Image
-          source={require('../../assets/images/icons/ic_map_pin.png')}
-          style={styles.mapPinIcon}
-        />
+        <Image source={images.mapPin} style={styles.mapPinIcon} />
         <Text style={styles.addressText}>{t(data.address)}</Text>
       </View>
       <View style={styles.groupChargerContainer}>

@@ -1,17 +1,11 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet} from 'react-native'
 
-import {useLastnameChange} from 'hooks'
-
-// components
-import {BaseInput} from 'components'
-
-// images
-import images from '../../../assets/images'
-
-// types
 import {ProfileFieldChange} from 'allTypes'
+
+import {useLastnameChange} from 'hooks'
+import {BaseInput} from 'components'
+import images from '../../../assets/images'
 
 const LastnameChangeView = ({
   navigation,

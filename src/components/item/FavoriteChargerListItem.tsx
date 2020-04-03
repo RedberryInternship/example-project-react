@@ -1,11 +1,8 @@
 import React, {ReactElement} from 'react'
-
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 
 import {BaseButton} from 'components'
-
 import {Colors} from 'utils'
-
 import images from 'assets/images'
 
 type FavoriteChargerItemProps = {

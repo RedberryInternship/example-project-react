@@ -1,12 +1,13 @@
 import {useEffect, useState, useRef, useReducer} from 'react'
+import {StatusBar, Platform} from 'react-native'
 import {useAppState} from 'react-native-hooks'
 import {useNetInfo} from '@react-native-community/netinfo'
 import {useAsyncStorage} from '@react-native-community/async-storage'
-import {Defaults, NavigationActions, determineTimePeriod} from 'utils'
 import {useTranslation} from 'react-i18next'
+
 import rootReducer, {initialState} from './reducers/rootReducer'
 import {rootAction} from './actions/rootActions'
-import {StatusBar, Platform} from 'react-native'
+import {Defaults, NavigationActions, determineTimePeriod} from 'utils'
 
 export function useRoot() {
   const [state, dispatch] = useReducer(rootReducer, initialState)

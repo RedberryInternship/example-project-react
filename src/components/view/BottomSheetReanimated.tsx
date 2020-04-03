@@ -9,13 +9,15 @@ import {
   Keyboard,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {Const, Colors, getLocaleText} from 'utils'
 import {TextInput} from 'react-native-gesture-handler'
-import {MainSearchItem, PopupFilter} from 'components'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
-import {Charger, ChargerDetail} from 'allTypes'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+
+import {Charger, ChargerDetail} from 'allTypes'
+
+import {MainSearchItem, PopupFilter} from 'components'
+import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
 
 const screenHeight = Dimensions.get('window').height
@@ -205,10 +207,7 @@ const BottomSheetReanimated = forwardRef(
           snapPoints={[55, screenHeight - insets.top - insets.bottom - 65 - 12]}
           renderContent={renderContent}
           renderHeader={renderHeaderComponent}
-          // Vobi Todo: onCloseEnd={Keyboard.dismiss}
-          onCloseEnd={(): void => {
-            Keyboard.dismiss()
-          }}
+          onCloseEnd={Keyboard.dismiss}
         />
       </View>
     )

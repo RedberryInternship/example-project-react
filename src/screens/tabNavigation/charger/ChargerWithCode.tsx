@@ -1,5 +1,9 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, ScrollView, View, Text} from 'react-native'
+import {TouchableOpacity} from 'react-native-gesture-handler'
+
+import {ScreenPropsWithNavigation, Charger} from 'allTypes'
+
 import {
   BaseInput,
   BaseHeader,
@@ -10,9 +14,7 @@ import {
 } from 'components'
 import {useChargerWithCode} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
-import {TouchableOpacity} from 'react-native-gesture-handler'
 import images from 'assets/images'
-import {ScreenPropsWithNavigation, LastUsedCharger, Charger} from 'allTypes'
 
 const ChargerWithCode = ({
   navigation,

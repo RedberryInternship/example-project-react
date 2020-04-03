@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
+
 import {Const, Colors} from 'utils'
 import {Pulse, CountDown, BaseButton} from 'components'
 import images from 'assets/images'

@@ -3,10 +3,6 @@ import MapView from './view/MapView'
 import HomeComponentItems from './view/HomeComponentItems'
 import HomeFilterView from './view/HomeFilterView'
 import HomeMainInputView from './view/HomeMainInputView'
-import PhoneNumberView from './view/registration/PhoneNumberView'
-import UserInfoView from './view/registration/UserInfoView'
-import PasswordView from './view/registration/PasswordView'
-import CardAddView from './view/registration/CardAddView'
 import TitleTopLeftContainer from './view/TitleTopLeftContainer'
 import CountDown from './view/time/CountDown'
 import ChargingView from './view/ChargingView'
@@ -38,7 +34,6 @@ import PhoneNumberInput from './item/PhoneNumberInput'
 import LegendItem from './item/LegendItem'
 import LegendColorItem from './item/LegendColorItem'
 import PopupFilter from './item/PopupFilter'
-import DrawerTextFieldItem from './item/DrawerTextFieldItem'
 import SettingsListItem from './item/SettingsListItem'
 import CardListItem from './item/CardListItem'
 import ChargerItem from './item/ChargerItem'
@@ -46,10 +41,7 @@ import ChargerTypesItem from './item/ChargerTypesItem'
 import ModalPopupChargerItem from './item/ModalPopupChargerItem'
 import ChooseCardOnCharging from './item/ChooseCardOnCharging'
 import FavoriteChargerListItem from './item/FavoriteChargerListItem'
-import FaqListItem from './item/FaqListItem'
 import TariffListItem from './item/TariffListItem'
-import ContactListItem from './item/ContactListItem'
-import NotificationListItem from './item/NotificationsListItem'
 import TransactionListItem from './item/TransactionListItem'
 import MapMarkerItem from './item/MapMarkerItem'
 import ChargerGroupPopupItem from './item/ChargerGroupPopupItem'
@@ -58,8 +50,6 @@ import ChargerGroupPopupItem from './item/ChargerGroupPopupItem'
 import BaseInput from './baseUI/BaseInput'
 import BaseHeader from './baseUI/BaseHeader'
 import BaseButton from './baseUI/BaseButton'
-import BaseUserAvatarWithLabel from './baseUI/BaseUserAvatarWithLabel'
-import BaseLocaleButton from './baseUI/BaseLocaleButton'
 import BaseAddCardButton from './baseUI/BaseAddCardButton'
 import BaseNativeTouchable from './baseUI/BaseNativeTouchable'
 import BasePickerSelect from './baseUI/BasePickerSelect'
@@ -99,10 +89,6 @@ export {
   PhoneNumberInput,
   ReceiveCode,
   RegistrationPagination,
-  PhoneNumberView,
-  UserInfoView,
-  PasswordView,
-  CardAddView,
   CustomModal,
   HomeMainSearchInput,
   RegistrationType1,
@@ -110,9 +96,6 @@ export {
   LegendType2,
   LegendColorItem,
   PopupFilter,
-  DrawerTextFieldItem,
-  BaseUserAvatarWithLabel,
-  BaseLocaleButton,
   SettingsListItem,
   FirstNameChangeView,
   LastNameChangeView,
@@ -131,12 +114,9 @@ export {
   CountDown,
   ChargerModalMainWrapper,
   PopUpCountDown,
-  FaqListItem,
   ModalPopupChargerItem,
   ChooseCardOnCharging,
   FavoriteChargerListItem,
-  ContactListItem,
-  NotificationListItem,
   TariffDetail,
   TariffListItem,
   TransactionListItem,

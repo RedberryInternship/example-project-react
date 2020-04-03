@@ -1,9 +1,7 @@
 import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
-
 import {useTranslation} from 'react-i18next'
 
-// utils
 import {Colors} from 'utils'
 
 type TariffItemProps = {

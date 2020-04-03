@@ -1,5 +1,4 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet, Image} from 'react-native'
 
 import images from 'assets/images'

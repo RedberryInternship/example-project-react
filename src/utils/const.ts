@@ -1,6 +1,7 @@
 import {Dimensions, Platform} from 'react-native'
 import {ifIphoneX} from 'react-native-iphone-x-helper'
 import {env} from '../../env'
+import images from 'assets/images'
 
 export const API: string =
   env === 'local'
@@ -22,22 +23,22 @@ export const NotchHeight = Platform.OS === 'ios' ? ifIphoneX(36, 16) : 16
 
 export const DrawerFieldsBeforeAuthorization = [
   {
-    image: require('../assets/images/icons/book-open.png'),
+    image: images.bookOpen,
     text: 'drawer.tariff',
     route: 'Tariffs',
   },
   {
-    image: require('../assets/images/icons/phone.png'),
+    image: images.phone,
     text: 'drawer.contact',
     route: 'Contact',
   },
   {
-    image: require('../assets/images/icons/message-square.png'),
+    image: images.messageSquare,
     text: 'drawer.faq',
     route: 'Faq',
   },
   {
-    image: require('../assets/images/icons/Frame.png'),
+    image: images.frame,
     text: 'drawer.partners',
     route: 'Partners',
   },
@@ -45,18 +46,18 @@ export const DrawerFieldsBeforeAuthorization = [
 
 export const DrawerFieldsAfterAuthorization = [
   {
-    image: require('../assets/images/icons/settings.png'),
+    image: images.settings,
     text: 'drawer.settings',
     route: 'Settings',
   },
   ...DrawerFieldsBeforeAuthorization,
   {
-    image: require('../assets/images/icons/credit-card.png'),
+    image: images.creditCard,
     text: 'drawer.transactions',
     route: 'TransactionList',
   },
   {
-    image: require('../assets/images/icons/mail.png'),
+    image: images.mail,
     text: 'drawer.notifications',
     route: 'Notifications',
   },
@@ -64,43 +65,43 @@ export const DrawerFieldsAfterAuthorization = [
 
 export const SettingsListFields = [
   {
-    image: require('../assets/images/icons/blue-user.png'),
+    image: images.blueUser,
     name: 'settings.firstname',
     type: 'FirstnameChange',
     editableComponentName: 'settings.editFirstname',
   },
   {
-    image: require('../assets/images/icons/blue-user.png'),
+    image: images.blueUser,
     name: 'settings.lastname',
     type: 'LastnameChange',
     editableComponentName: 'settings.editLastname',
   },
   {
-    image: require('../assets/images/icons/mail.png'),
+    image: images.mail,
     name: 'settings.mail',
     type: 'MailChange',
     editableComponentName: 'settings.editMail',
   },
   {
-    image: require('../assets/images/icons/phone.png'),
+    image: images.phone,
     name: 'settings.phone',
     type: 'PhoneChange',
     editableComponentName: 'settings.editPhoneNumber',
   },
   {
-    image: require('../assets/images/icons/credit-card.png'),
+    image: images.creditCard,
     name: 'settings.cards',
     type: 'CardChange',
     editableComponentName: 'settings.editCard',
   },
   {
-    image: require('../assets/images/icons/lock.png'),
+    image: images.lock,
     name: 'settings.password',
     type: 'PasswordChange',
     editableComponentName: 'settings.editPassword',
   },
   {
-    image: require('../assets/images/icons/lock.png'),
+    image: images.lock,
     name: 'settings.mapColor',
     type: 'mapColorChange',
     editableComponentName: 'settings.editPassword',
@@ -109,27 +110,27 @@ export const SettingsListFields = [
 
 export const ContactListFields = [
   {
-    image: require('../assets/images/icons/map-pin.png'),
+    image: images.mapPin2,
     name: 'contact.address',
     type: 'address',
   },
   {
-    image: require('../assets/images/icons/phone.png'),
+    image: images.phone,
     name: 'contact.phone',
     type: 'phone',
   },
   {
-    image: require('../assets/images/icons/mail.png'),
+    image: images.mail,
     name: 'contact.eMail',
     type: 'eMail',
   },
   {
-    image: require('../assets/images/icons/facebook.png'),
+    image: images.facebook,
     name: 'contact.facebookPage',
     type: 'facebookPage',
   },
   {
-    image: require('../assets/images/icons/internet.png'),
+    image: images.internet,
     name: 'contact.webPage',
     type: 'webPage',
   },

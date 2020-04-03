@@ -7,24 +7,24 @@ import Charging from './tabNavigation/charger/Charging'
 import ChoosingCard from './tabNavigation/charger/ChoosingCard'
 
 import Plashka from './Plashka'
-import Drawer from './Drawer'
-import Auth from './authentication/Auth'
-import ForgotPassword from './authentication/ForgotPassword'
-import Registration from './authentication/Registration'
-import SetNewPasswords from './authentication/SetNewPasswords'
-import Settings from './drawerMenuOptions/Settings'
-import ProfileChange from './drawerMenuOptions/ProfileChange'
+import {Drawer} from './drawer/drawer'
+import {Auth} from './authentication/auth'
+import {ForgotPassword} from './authentication/forgotPassword'
+import {Registration} from './authentication/registration'
+import {SetNewPasswords} from './authentication/setNewPasswords'
+import Settings from './drawer/setting/Settings'
+import ProfileChange from './drawer/setting/ProfileChange'
 
 import Favorites from './tabNavigation/Favorites'
-import Faq from './Faq'
-import Tariffs from './Tariffs'
-import Contact from './Contact'
-import Notifications from './Notifications'
+import {Faq} from './drawer/faq'
+import Tariffs from './drawer/Tariffs'
+import {Contact} from './drawer/contact'
+import {Notifications} from './drawer/notification'
 
-import TransactionList from './transactions/TransactionList'
-import ShowTransaction from './transactions/ShowTransaction'
+import TransactionList from './drawer/transactions/TransactionList'
+import ShowTransaction from './drawer/transactions/ShowTransaction'
 
-import Partners from './Partners'
+import Partners from './drawer/Partners'
 
 export {
   Home,

@@ -1,10 +1,12 @@
 import {useState, useRef, useContext, useEffect} from 'react'
-import {Defaults, apiServices, Ajax, Helpers} from 'utils'
+import {TextInputProps} from 'react-native'
 import {useTranslation} from 'react-i18next'
+
+import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
+
+import {Defaults, apiServices, Ajax, Helpers} from 'utils'
 import {AppContext} from '../../../App'
 import {editUserInfo} from 'hooks/actions/rootActions'
-import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
-import {TextInputProps} from 'react-native'
 
 const {Logger} = Helpers
 

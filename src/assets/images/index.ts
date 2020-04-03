@@ -38,6 +38,12 @@ export default {
   chargerWithGradient: require('./icons/charger_with_gradient.png'),
   menu: require('./icons/ic_menu.png'),
   filledHart: require('./icons/filled_hart.png'),
+  location: require('./icons/location.png'),
+  bookOpen: require('./icons/book-open.png'),
+  messageSquare: require('./icons/message-square.png'),
+  settings: require('./icons/settings.png'),
+  facebook: require('./icons/facebook.png'),
+  internet: require('./icons/internet.png'),
 }
 
 export const Partners = {

@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native'
-import {Colors} from 'utils'
 import MaskedView from '@react-native-community/masked-view'
+
 import {useTranslation} from 'react-i18next'
+import {Colors} from 'utils'
 
 const CodeInputWidth = 128
 

@@ -6,7 +6,6 @@ import {
 } from 'react-navigation'
 import {View, StyleSheet} from 'react-native'
 
-// components
 import {CardListItem, BaseAddCardButton} from 'components'
 
 type CardListViewProps = {

@@ -184,6 +184,7 @@ export default {
     },
     dropDownAlert: {
       generalError: 'დაფიქსირდა შეცდომა',
+      generalSuccess: 'მოთხოვნა წარმატებით დამუშავდა',
       fillCode: 'გთხოვთ ჩაწროთ დამტენის კოდი',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
       successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',

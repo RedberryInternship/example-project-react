@@ -1,11 +1,11 @@
 import {useState, useRef} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
-import {Defaults} from 'utils'
 import {Alert} from 'react-native'
 
+import {Defaults} from 'utils'
+
 export default (navigation: any) => {
-  const [loading, SetLoading] = useState<boolean>(true) // Vobi Todo: this is unused
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const _this: React.RefObject<any> = useRef()
@@ -44,7 +44,7 @@ export default (navigation: any) => {
         bottomDescription: 'popup.finishedChargingOfAutomobile',
         price: 22,
       },
-      onCloseClick: () => navigation.navigate('MainDrawer'),
+      onCloseClick: () => navigation.navigate('Home'),
     })
   }
 

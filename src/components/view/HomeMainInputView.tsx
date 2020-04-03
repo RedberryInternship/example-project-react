@@ -5,11 +5,13 @@ import React, {
   ReactElement,
 } from 'react'
 import {StyleSheet, Animated, View, TouchableOpacity, Alert} from 'react-native'
+import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
+
+import {Charger, MapImperativeRefObject, ChargerMarkerStatus} from 'allTypes'
+
+import {MainSearchItem, HomeMainSearchInput} from 'components'
 import {useHomeMainInputHook} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
-import {MainSearchItem, HomeMainSearchInput} from 'components'
-import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
-import {Charger, MapImperativeRefObject, ChargerMarkerStatus} from 'allTypes'
 
 type MainInput = {
   allChargers: Charger[]

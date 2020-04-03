@@ -1,12 +1,13 @@
 /* eslint-disable react/display-name */
 import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
-import {Colors} from 'utils'
-import {LegendItem, LegendColorItem} from 'components'
 import {useTranslation} from 'react-i18next'
-import images from 'assets/images'
 
 import {ChargerMarkerType} from '../../../@types/allTypes.d'
+
+import {Colors} from 'utils'
+import {LegendItem, LegendColorItem} from 'components'
+import images from 'assets/images'
 
 const legendTypes = [
   {

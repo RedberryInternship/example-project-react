@@ -1,19 +1,18 @@
-import MapView, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps'
-
 import React, {useMemo, RefObject, forwardRef, Ref, useRef} from 'react'
 import {StyleSheet, View, StatusBar} from 'react-native'
-import {useMap} from 'hooks'
-import {mapStyles, mapStyle2, Colors} from 'utils'
-import {Charger} from 'allTypes'
-import {MapMarkerItem} from 'components'
-import {determineTimePeriod} from 'utils'
+import Map, {PROVIDER_GOOGLE, Polyline} from 'react-native-maps'
 import {
-  withNavigation,
   NavigationParams,
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
 
+import {Charger} from 'allTypes'
+
+import {useMap} from 'hooks'
+import {mapStyles, mapStyle2, Colors} from 'utils'
+import {MapMarkerItem} from 'components'
+import {determineTimePeriod} from 'utils'
 type MapViewProps = {
   showAll: boolean
   filteredChargersOnMap: Charger[]
@@ -21,25 +20,59 @@ type MapViewProps = {
 }
 
 // Vobi Todo: remove line below and fix naming
+// Redberry: if I remove line bellow it shows me an errror and I don't know why
 // eslint-disable-next-line react/display-name
-const _mapView = forwardRef(
+const MapView = forwardRef(
   (
     {showAll, filteredChargersOnMap, navigation}: MapViewProps,
-    ref: Ref<MapView>,
+    ref: Ref<Map>,
   ) => {
-    const mapRef: RefObject<MapView> = useRef(null)
+    const mapRef: RefObject<Map> = useRef(null)
 
     const hook = useMap(ref, mapRef, navigation)
 
+    const statusBarStyle = useMemo(
+      () => (determineTimePeriod() ? 'dark-content' : 'light-content'),
+      [],
+    )
+
+    const pins = useMemo(
+      () =>
+        (showAll
+          ? hook.state?.AllChargers
+          : filteredChargersOnMap
+        )?.map((charger: Charger) => (
+          <MapMarkerItem
+            key={charger.id}
+            lat={parseFloat(charger.lat.toString())}
+            lng={parseFloat(charger.lng.toString())}
+            onPress={hook.onMarkerPress.bind(this, charger)}
+            connectorType={charger.charger_types?.[0]?.name}
+            publicCharger={charger.public}
+            active={charger.active}
+          />
+        )),
+
+      [hook.state?.AllChargers, showAll, filteredChargersOnMap],
+    )
+
+    const polyline = useMemo(
+      () => (
+        <Polyline
+          key={1.4}
+          coordinates={hook.polyline}
+          strokeWidth={4}
+          strokeColor={Colors.faqBlue}
+        />
+      ),
+      [hook.polyline],
+    )
     return (
       <View style={styles.mapContainer}>
         <StatusBar
-          // Vobi Todo: const timePeriod = useMemo(() => determineTimePeriod(), [])
-          // barStyle={timePeriod ? 'dark-content' : 'light-content'}
-
-          barStyle={determineTimePeriod() ? 'dark-content' : 'light-content'}
+          barStyle={statusBarStyle ? 'dark-content' : 'light-content'}
         />
-        <MapView
+        <Map
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           initialRegion={{
@@ -52,50 +85,17 @@ const _mapView = forwardRef(
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
-          // Vobi Todo: same ehre
-          customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
+          customMapStyle={statusBarStyle ? mapStyle2 : mapStyles}
           ref={mapRef}>
-          {useMemo(
-            // Vobi todo: move this up as constant and render it like that no inline useMemo
-            // Vobi Todo: same issue
-            () =>
-              (showAll
-                ? hook.state?.AllChargers
-                : filteredChargersOnMap
-              )?.map((charger: Charger) => (
-                <MapMarkerItem
-                  key={charger.id}
-                  lat={parseFloat(charger.lat.toString())}
-                  lng={parseFloat(charger.lng.toString())}
-                  onPress={hook.onMarkerPress.bind(this, charger)}
-                  connectorType={charger.charger_types?.[0]?.name}
-                  publicCharger={charger.public}
-                  active={charger.active}
-                />
-              )),
-
-            [hook.state?.AllChargers, showAll, filteredChargersOnMap],
-          )}
-          {useMemo(
-            () => (
-              // Vobi todo: move this up as constant and render it like that
-              // Vobi Todo: same issue
-              <Polyline
-                key={1.4}
-                coordinates={hook.polyline}
-                strokeWidth={4}
-                strokeColor={Colors.faqBlue}
-              />
-            ),
-            [hook.polyline],
-          )}
-        </MapView>
+          {pins}
+          {polyline}
+        </Map>
       </View>
     )
   },
 )
 
-export default _mapView
+export default MapView
 
 const styles = StyleSheet.create({
   container: {

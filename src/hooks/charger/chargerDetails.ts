@@ -3,6 +3,8 @@
 import {useState, useRef, useContext, useEffect} from 'react'
 import {Alert, TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
+import Axios from 'axios'
+
 import {AppContext} from '../../../App'
 import {
   AppContextType,
@@ -15,20 +17,17 @@ import {
   NavigationParams,
   NavigationEventPayload,
 } from 'react-navigation'
-import {Ajax, Defaults, locationConfig, Helpers} from 'utils'
+import {Defaults, locationConfig, Helpers} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
-import Axios from 'axios'
 import {deleteToFavorites, addToFavorites} from '../actions/rootActions'
+import images from 'assets/images'
 
 type _This = {
   charger: Charger | undefined
 }
 
-const services = [
-  require('../../assets/images/icons/arrow_left.png'),
-  require('../../assets/images/icons/arrow_left.png'),
-]
+const services = [images.arrowLeft, images.arrowLeft]
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -116,7 +115,7 @@ export default (
     } else if (charger?.is_favorite === true) {
       deleteToFavorites(charger.id, context.dispatch, updateCharger)
     } else {
-      Helpers.DisplayGeneralError()
+      Helpers.DisplayDropdownWithError()
     }
   }
 
@@ -146,7 +145,7 @@ export default (
         )
       }
     } catch (error) {
-      Helpers.DisplayGeneralError()
+      Helpers.DisplayDropdownWithError()
     }
   }
 

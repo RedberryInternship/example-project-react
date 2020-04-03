@@ -8,16 +8,18 @@ import {
   TextInputProps,
   StyleProp,
 } from 'react-native'
-import {Ajax, Defaults} from 'utils'
 import {useTranslation} from 'react-i18next'
+import {Item} from 'react-native-picker-select'
+
 import {
   PhoneCountryCodesData,
   PhoneCountryCode,
   BaseInputRefProp,
 } from 'allTypes'
-import {Item} from 'react-native-picker-select'
+
 import {BaseInput, BasePickerSelect} from 'components'
 import images from 'assets/images'
+import {Ajax, Defaults} from 'utils'
 
 const pickeritems: Item[] = []
 

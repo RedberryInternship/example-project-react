@@ -1,11 +1,11 @@
 /* eslint-disable react/display-name */
 import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet, Alert} from 'react-native'
-// Vobi Todo: remove unused imports
+import {Text, View, Image, StyleSheet} from 'react-native'
+import {useTranslation} from 'react-i18next'
+
 import {Colors, getLocaleText} from '../../utils'
 import {ChargerGroupPopupItem} from 'components'
-import {useTranslation} from 'react-i18next'
-import {Charger, ChargerDetail} from 'allTypes'
+import {ChargerDetail} from 'allTypes'
 import images from 'assets/images'
 
 type MapPopUpProps = {

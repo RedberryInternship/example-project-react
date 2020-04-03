@@ -7,11 +7,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native'
-
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
-
 import images from 'assets/images'
 
 type SettingsListItemProps = {

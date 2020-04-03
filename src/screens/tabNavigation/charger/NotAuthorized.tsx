@@ -1,15 +1,17 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, View, Text, Image} from 'react-native'
-import {BaseHeader, BaseButton} from 'components'
-import {Const, Colors} from 'utils'
 import LinearGradient from 'react-native-linear-gradient'
 import {useTranslation} from 'react-i18next'
 import {TouchableOpacity} from 'react-native-gesture-handler'
-import images from 'assets/images'
+
 import {
   HomeNavigateModes,
   ScreenPropsWithNavigation,
 } from '../../../../@types/allTypes.d'
+
+import images from 'assets/images'
+import {Const, Colors} from 'utils'
+import {BaseHeader, BaseButton} from 'components'
 
 const ChargerDetail = ({
   navigation,

@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, Text, TouchableOpacity} from 'react-native'
+
 import {Colors} from 'utils'
 
 type FilterTextItemProps = {

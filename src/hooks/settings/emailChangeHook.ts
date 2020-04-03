@@ -1,9 +1,10 @@
 import {useState, useEffect, useRef, useContext} from 'react'
 import {TextInput} from 'react-native'
-import {AppContext} from '../../../App'
-import {Defaults, Ajax, apiServices, Helpers} from '../../utils'
-import {editUserInfo} from '../../hooks/actions/rootActions'
 import {useTranslation} from 'react-i18next'
+
+import {AppContext} from '../../../App'
+import {Defaults, Ajax, apiServices, Helpers} from 'utils'
+import {editUserInfo} from '../../hooks/actions/rootActions'
 import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 
 const {Logger} = Helpers
@@ -51,7 +52,7 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   // validation
   const validate = {
     isEmailEmpty: (): boolean => {
-      return email === '' // Vobi todo: this is bad way to validate user input 
+      return email === '' // Vobi todo: this is bad way to validate user input
     },
 
     isEmailValid: (): boolean => {
@@ -66,7 +67,8 @@ export default ({navigation, clicked, setClicked}: ProfileFieldChange) => {
   }
 
   // helpers
-  const helpers = { // Vobi Todo why are helpers declared here helpers are one of the biggest code in the project
+  const helpers = {
+    // Vobi Todo why are helpers declared here helpers are one of the biggest code in the project
     // Vobi Todo: you should have global helper folder and move all code inside
     popAlert: (text: string, type: 'success' | 'error' = 'error'): void => {
       Defaults.dropdown?.alertWithType(type, t(text))

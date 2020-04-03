@@ -35,7 +35,8 @@ export function regionFrom(
 
 export function determineTimePeriod() {
   if (Defaults.userDetail?.mapMode === 'settings.mapColorDark') return false
-  else if (Defaults.userDetail?.mapMode === 'settings.automatic') return true
+  else if (Defaults.userDetail?.mapMode === 'settings.mapColorLight')
+    return true
   else {
     const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
 

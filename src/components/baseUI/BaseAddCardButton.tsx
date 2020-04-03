@@ -1,8 +1,7 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet, TouchableOpacity} from 'react-native'
-
 import {useTranslation} from 'react-i18next'
+
 import {Colors} from 'utils'
 import {BaseText} from 'components'
 

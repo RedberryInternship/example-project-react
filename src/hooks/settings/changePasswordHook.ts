@@ -4,7 +4,7 @@ import {TextInput} from 'react-native'
 import {ProfileFieldChange, BaseInputRefProp} from 'allTypes'
 import {useTranslation} from 'react-i18next'
 
-import {apiServices, Defaults, Ajax, Helpers} from '../../utils'
+import {apiServices, Defaults, Ajax, Helpers} from 'utils'
 
 type ThisType = {
   currentPassword: string

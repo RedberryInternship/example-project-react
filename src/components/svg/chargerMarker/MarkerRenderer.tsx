@@ -1,14 +1,15 @@
 import React, {ReactElement} from 'react'
+
 import {
   ChargerMarkerIconRendererType,
   ChargerMarkerType,
   ChargerMarkerStatus,
 } from '../../../../@types/allTypes.d'
+
 import FastPublic from './FastPublic'
 import FastNonPublic from './FastNonPublic'
 import Lvl2Public from './Lvl2Public'
 import Lvl2NonPublic from './Lvl2NonPublic'
-import {Alert} from 'react-native'
 
 const MarkerRenderer = ({
   type,
@@ -61,7 +62,6 @@ const MarkerRenderer = ({
         view = <Lvl2NonPublic {...determiteColor(status)} />
         break
       default:
-        Alert.alert('sd')
         break
     }
     return view

@@ -58,15 +58,30 @@ const GetFilteredCharger = (
         setFilteredChargers(data)
       }) // Vobi Todo: use async await
       .catch(() => {
-        DisplayGeneralError()
+        DisplayDropdownWithError()
       })
   } else setFilteredChargers(allChargers ?? [])
 }
 
-const DisplayGeneralError = (): void => {
+const DisplayDropdownWithError = (
+  title: string | undefined = undefined,
+  text: string | undefined = undefined,
+): void => {
   Defaults.dropdown?.alertWithType(
     'error',
-    i18next.t('dropDownAlert.generalError'),
+    i18next.t(title ?? 'dropDownAlert.generalError'),
+    (!!text && i18next.t(text)) ?? null,
+  )
+}
+
+const DisplayDropdownWithSuccess = (
+  title: string | undefined = undefined,
+  text: string | undefined = undefined,
+): void => {
+  Defaults.dropdown?.alertWithType(
+    'success',
+    i18next.t(title ?? 'dropDownAlert.generalSuccess'),
+    (!!text && i18next.t(text)) ?? null,
   )
 }
 
@@ -74,5 +89,6 @@ export default {
   Logger,
   ConvertToChargerFilterParam,
   GetFilteredCharger,
-  DisplayGeneralError,
+  DisplayDropdownWithSuccess,
+  DisplayDropdownWithError,
 }

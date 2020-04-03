@@ -8,6 +8,13 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native'
+import SlidingUpPanel from 'rn-sliding-up-panel'
+import LinearGradient from 'react-native-linear-gradient'
+import {SafeAreaView} from 'react-navigation'
+import {ScrollView} from 'react-native-gesture-handler'
+
+import {ScreenPropsWithNavigation} from 'allTypes'
+
 import {
   BaseHeader,
   BaseButton,
@@ -15,14 +22,9 @@ import {
   ChooseCardOnCharging,
   BaseInput,
 } from 'components'
-import {Const, Colors} from 'utils'
-import SlidingUpPanel from 'rn-sliding-up-panel'
-import {useChoosingCard} from 'hooks'
-import LinearGradient from 'react-native-linear-gradient'
-import {SafeAreaView} from 'react-navigation'
-import {ScrollView} from 'react-native-gesture-handler'
 import images from 'assets/images'
-import {ScreenPropsWithNavigation} from 'allTypes'
+import {Const, Colors} from 'utils'
+import {useChoosingCard} from 'hooks'
 
 enum Type {
   'viaPrice',

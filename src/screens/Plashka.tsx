@@ -1,13 +1,9 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
+import {Colors} from 'utils'
 
 const App = () => {
-  return (
-    <View style={styles.container}>
-      <Text>plashka</Text>
-      {/* Vobi Todo: What is this */}
-    </View>
-  )
+  return <View style={styles.container}></View>
 }
 
 const styles = StyleSheet.create({
@@ -15,7 +11,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: Colors.primaryBackground,
   },
 })
 

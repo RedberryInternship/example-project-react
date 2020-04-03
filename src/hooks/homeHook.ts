@@ -1,30 +1,20 @@
-import {
-  useState,
-  useEffect,
-  useRef,
-  RefObject,
-  useContext,
-  useMemo,
-} from 'react'
+import {useState, useEffect, useRef, RefObject, useContext} from 'react'
 import {
   NavigationParams,
   NavigationScreenProp,
   NavigationState,
   NavigationEventPayload,
 } from 'react-navigation'
+import BottomSheet from 'reanimated-bottom-sheet'
+
 import {
   HomeNavigateModes,
   AppContextType,
   Charger,
   MapImperativeRefObject,
-  ChargerFilters,
-  ChargersObject,
 } from '../../@types/allTypes.d'
-import BottomSheet from 'reanimated-bottom-sheet'
 import {AppContext} from '../../App'
-import {Ajax, Helpers, apiServices, Defaults} from 'utils'
-// Vobi todo: remove unused imports
-type _This = {}
+import {Helpers} from 'utils'
 
 const useHomeHook = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,

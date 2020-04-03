@@ -1,17 +1,18 @@
-import { useEffect, useState, useRef, useContext, RefObject } from 'react'
-import { regionFrom, Defaults, Const, Ajax } from 'utils'
-import { locationConfig } from 'utils'
+import {useEffect, useState, useRef, useContext, RefObject} from 'react'
+import MapView from 'react-native-maps'
 import polyline from '@mapbox/polyline'
 import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
-import { HomeContext } from 'screens/tabNavigation/Home'
-import { Coords, GoogleGetDirection } from 'allTypes'
 import i18next from 'i18next'
 import Axios from 'axios'
-import { mergeCoords } from 'utils/mapAndLocation/mapFunctions'
-import MapView from 'react-native-maps'
+
+import {Coords, GoogleGetDirection} from 'allTypes'
+
+import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
+import {regionFrom, Defaults, Const, Ajax, locationConfig} from 'utils'
+import {HomeContext} from 'screens/tabNavigation/Home'
 
 type ThisRef = {
   interval: number
@@ -25,7 +26,7 @@ type useLocationProps = {
   mapRef: RefObject<MapView>
   setPolyline: (data: any) => void
 }
-const useLocation = ({ mapRef, setPolyline }: useLocationProps) => {
+const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   const context: any = useContext(HomeContext)
 
   const [
@@ -43,8 +44,8 @@ const useLocation = ({ mapRef, setPolyline }: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      RNLocation.getLatestLocation({ timeout: 60000 }).then(getLatestLocation)
-    } catch (error) { }
+      RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
+    } catch (error) {}
 
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
       subscribePermissionUpdate,
@@ -152,7 +153,7 @@ const useLocation = ({ mapRef, setPolyline }: useLocationProps) => {
           _this.current.location?.latitude ?? Const.locationIfNoGPS.lat,
           _this.current.location?.longitude ?? Const.locationIfNoGPS.lng,
         )}&destination=${mergeCoords(finishLat, finishLng)}&mode=driving&key=${
-        Const.MAP_API
+          Const.MAP_API
         }`,
       ) // Vobi Todo: you should get this url from config
 

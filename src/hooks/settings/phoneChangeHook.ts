@@ -3,12 +3,11 @@ import {useRef, useEffect, useContext} from 'react'
 import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-// utils
-import {Defaults, Ajax, apiServices, Helpers} from 'utils'
+import {ProfileFieldChange} from 'allTypes'
 
 import {AppContext} from '../../../App'
 import {editUserInfo} from 'hooks/actions/rootActions'
-import {ProfileFieldChange} from 'allTypes'
+import {Defaults, Ajax, apiServices, Helpers} from 'utils'
 
 type This = {
   phone: string

@@ -1,14 +1,8 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet} from 'react-native'
 
-// hooks
-
-import {usePasswordChange} from '../../../hooks'
-
-// components
-import {BaseInput} from '../..'
-
+import {usePasswordChange} from 'hooks'
+import {BaseInput} from 'components'
 import images from 'assets/images'
 
 // Vobi Todo: no any type

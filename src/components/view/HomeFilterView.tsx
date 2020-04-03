@@ -8,10 +8,11 @@ import {
   Easing,
 } from 'react-native'
 import {FilterTextItem} from 'components'
-import {Const, Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
-// Vobi todo: package imports up
+
 import {HomeContextType} from 'allTypes'
+
+import {Const, Colors} from 'utils'
 import images from 'assets/images'
 
 type HomeFilter = {

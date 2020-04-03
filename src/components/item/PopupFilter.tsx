@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, Text, Platform, TouchableOpacity, View} from 'react-native'
+
 import {Colors} from 'utils'
 import {BaseNativeTouchable} from 'components'
 

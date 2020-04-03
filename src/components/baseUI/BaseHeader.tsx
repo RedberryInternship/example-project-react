@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
+
 import {Colors} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
 import images from 'assets/images'

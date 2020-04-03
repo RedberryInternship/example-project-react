@@ -5,6 +5,10 @@ import {
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
+import {View, StyleSheet} from 'react-native'
+import {useSafeArea} from 'react-native-safe-area-context'
+import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
+
 import {
   OnMapRoundButton,
   HomeFilterView,
@@ -14,13 +18,10 @@ import {
 } from 'components'
 import {Defaults} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/Home'
-import {View, StyleSheet} from 'react-native'
-import {useSafeArea} from 'react-native-safe-area-context'
-import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 import images from 'assets/images'
 
 type HomeComponentItemsProps = {
-  navigation?: NavigationScreenProp<NavigationState, NavigationParams>
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>
   allchargers: Charger[]
   mapRef: MapImperativeRefObject
   selectedFiltersOnMap: number[]
@@ -44,9 +45,7 @@ const HomeComponentItems = ({
   return (
     <View
       style={[styles.container, {paddingTop: insets.top}]}
-      pointerEvents={'box-none'}
-      // Vobi Todo: this is isAuth check
-    >
+      pointerEvents={'box-none'}>
       {Defaults.token ? null : (
         <BaseButton
           image={images.user}
@@ -75,7 +74,6 @@ const HomeComponentItems = ({
       <View style={styles.modalContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
           style={styles.modalOnMapRound}
-          // Vobi Todo: onPress={Defaults.modal.current?.customUpdate(true, { type: 2, })}
           onPress={(): void => {
             Defaults.modal.current?.customUpdate(true, {
               type: 2,
