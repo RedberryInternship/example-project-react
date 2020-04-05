@@ -4,12 +4,12 @@ import {View, Text, StyleSheet, Image} from 'react-native'
 import {Colors} from 'utils'
 import images from 'assets/images'
 
-type Tariff = {
+type TariffProps = {
   title: string
   description: string
 }
 
-const tariffDetail = ({title, description}: Tariff): ReactElement => {
+const TariffDetail = ({title, description}: TariffProps): ReactElement => {
   return (
     <View style={styles.container}>
       <Image source={images.alertCircle} style={styles.image} />
@@ -19,7 +19,7 @@ const tariffDetail = ({title, description}: Tariff): ReactElement => {
   )
 }
 
-export default tariffDetail
+export default TariffDetail
 
 const styles = StyleSheet.create({
   container: {

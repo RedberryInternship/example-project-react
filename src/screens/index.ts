@@ -17,14 +17,14 @@ import ProfileChange from './drawer/setting/ProfileChange'
 
 import Favorites from './tabNavigation/Favorites'
 import {Faq} from './drawer/faq'
-import Tariffs from './drawer/Tariffs'
+import {Tariffs} from './drawer/tariffs'
 import {Contact} from './drawer/contact'
 import {Notifications} from './drawer/notification'
 
-import TransactionList from './drawer/transactions/TransactionList'
-import ShowTransaction from './drawer/transactions/ShowTransaction'
+import {TransactionList} from './drawer/transactions/transactionList'
+import {ShowTransaction} from './drawer/transactions/showTransaction'
 
-import Partners from './drawer/Partners'
+import {Partners} from './drawer/partners'
 
 export {
   Home,

@@ -41,8 +41,6 @@ import ChargerTypesItem from './item/ChargerTypesItem'
 import ModalPopupChargerItem from './item/ModalPopupChargerItem'
 import ChooseCardOnCharging from './item/ChooseCardOnCharging'
 import FavoriteChargerListItem from './item/FavoriteChargerListItem'
-import TariffListItem from './item/TariffListItem'
-import TransactionListItem from './item/TransactionListItem'
 import MapMarkerItem from './item/MapMarkerItem'
 import ChargerGroupPopupItem from './item/ChargerGroupPopupItem'
 
@@ -64,7 +62,6 @@ import HomeMainSearchInput from './UI/HomeMainSearchInput'
 import ChargerDetailTopInfo from './UI/ChargerDetailTopInfo'
 import CurrentTariffs from './UI/CurrentTariffs'
 import PopUpCountDown from './UI/PopUpCountDown'
-import TariffDetail from './UI/TariffDetail'
 
 // modalTypes
 import RegistrationType1 from './modalTypes/RegistrationType1'
@@ -117,10 +114,6 @@ export {
   ModalPopupChargerItem,
   ChooseCardOnCharging,
   FavoriteChargerListItem,
-  TariffDetail,
-  TariffListItem,
-  TransactionListItem,
-  MapMarkerItem,
   ChargingView,
   BasePickerSelect,
   MultiChargingTopModal,

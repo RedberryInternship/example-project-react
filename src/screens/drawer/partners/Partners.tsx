@@ -3,6 +3,7 @@ import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
 
 import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, Ajax, Const} from 'utils'
+import PartnerItem from './components/PartnerItem'
 
 type PartnersResponseType = {
   name: string
@@ -26,13 +27,7 @@ const Partners = ({navigation}: any): ReactElement => {
         <FetchedDataRenderer
           property={'Partners'}
           onItemRender={(val: PartnersResponseType, index): ReactElement => (
-            <View key={index} style={styles.partnerImageContainer}>
-              <Image
-                source={{uri: val.image}}
-                style={{width: 80, height: 40}}
-                resizeMode={'contain'}
-              />
-            </View>
+            <PartnerItem key={index} image={val.image} />
           )}
           fetchData={getPartners}
           updateAlways={true}

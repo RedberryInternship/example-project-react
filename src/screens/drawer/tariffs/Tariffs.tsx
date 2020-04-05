@@ -2,12 +2,14 @@ import React, {ReactElement} from 'react'
 import {View, StyleSheet, Text} from 'react-native'
 
 // components
-import {BaseHeader, TariffDetail, TariffListItem} from 'components'
+import {BaseHeader} from 'components'
 
 // utils
-import {Colors} from '../../utils'
+import {Colors} from 'utils'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
+import TariffListItem from './components/TariffListItem'
+import TariffDetail from './components/TariffDetail'
 
 const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const tariffList = tariffsInfo.map(el => {

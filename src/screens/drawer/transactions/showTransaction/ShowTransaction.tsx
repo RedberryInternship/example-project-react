@@ -1,4 +1,4 @@
-import React, {useEffect, ReactElement} from 'react'
+import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native'
 import {useTranslation} from 'react-i18next'
 

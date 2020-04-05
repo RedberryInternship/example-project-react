@@ -1,8 +1,9 @@
 import React, {ReactElement} from 'react'
 import {ScrollView, View, StyleSheet, SafeAreaView} from 'react-native'
 
-import {BaseHeader, TransactionListItem, FetchedDataRenderer} from 'components'
+import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, Ajax, getLocaleText} from 'utils'
+import TransactionListItem from './components/TransactionListItem'
 // Vobi Todo: remove any
 const TransactionList = ({navigation}: any): ReactElement => {
   const getOrders = async (): Promise<any> => {
