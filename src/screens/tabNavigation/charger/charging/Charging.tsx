@@ -5,12 +5,13 @@ import Animated from 'react-native-reanimated'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {useChargingHook} from 'hooks'
 import {Colors} from 'utils'
-import {BaseHeader, ChargingView} from 'components'
+import {BaseHeader} from 'components'
+import useCharging from './useCharging'
+import {ChargingView} from './components'
 
 const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const hook = useChargingHook(navigation)
+  const hook = useCharging(navigation)
 
   const [routes] = useState(navigation.getParam('tabsArray', ['']))
 

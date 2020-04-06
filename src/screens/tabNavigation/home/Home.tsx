@@ -3,17 +3,17 @@ import {StyleSheet, View} from 'react-native'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {MapView, HomeComponentItems, BottomSheetReanimated} from 'components'
 import {Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
-import {useHomeHook} from 'hooks'
+import {useHome} from './hooks'
+import {MapView, HomeMainComponent, BottomSheetReanimated} from './components'
 
 export const HomeContext = createContext({})
 
 const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const hook = useHomeHook(navigation)
+  const hook = useHome(navigation)
 
   return useMemo(
     () => (
@@ -25,7 +25,7 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             filteredChargersOnMap={hook.onMapFilteredChargers}
             navigation={navigation}
           />
-          <HomeComponentItems
+          <HomeMainComponent
             allchargers={hook.context?.state.AllChargers ?? []}
             mapRef={hook.mapRef}
             selectedFiltersOnMap={hook.selectedFiltersOnMap}

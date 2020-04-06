@@ -4,15 +4,12 @@ import {useTranslation} from 'react-i18next'
 
 import {ScreenPropsWithNavigation, AppContextType, Charger} from 'allTypes'
 
-import {
-  BaseHeader,
-  FavoriteChargerListItem,
-  FetchedDataRenderer,
-} from 'components'
+import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, Defaults} from 'utils'
 import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
-import {AppContext} from '../../../App'
+import {AppContext} from '../../../../App'
 import {getLocaleText} from 'utils/localization/localization'
+import {FavoriteChargerListItem} from './components'
 
 const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()

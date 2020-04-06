@@ -8,13 +8,13 @@ import {
   BaseInput,
   BaseHeader,
   BaseButton,
-  ChargerItem,
   TitleTopLeftContainer,
   FetchedDataRenderer,
 } from 'components'
-import {useChargerWithCode} from 'hooks'
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
+import {ChargerItem} from './components'
+import useChargerWithCode from './useChargerWithCode'
 
 const ChargerWithCode = ({
   navigation,

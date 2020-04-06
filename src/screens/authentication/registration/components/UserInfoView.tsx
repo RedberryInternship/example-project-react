@@ -5,7 +5,7 @@ import {Colors, Const} from 'utils'
 import {BaseInput} from 'components'
 import images from 'assets/images'
 
-const FilterTextItem = ({_this, hook}: any): ReactElement => {
+const UserInfoView = ({_this, hook}: any): ReactElement => {
   const nameTextHandler = (text: string): void => {
     _this.current.name = text
   }
@@ -66,4 +66,4 @@ const FilterTextItem = ({_this, hook}: any): ReactElement => {
   )
 }
 
-export default FilterTextItem
+export default UserInfoView

@@ -17,15 +17,14 @@ import {ScreenPropsWithNavigation} from 'allTypes'
 
 import {BaseHeader, BaseButton} from 'components'
 import {Colors, Const} from 'utils'
-import {useContact} from 'hooks'
 import images from 'assets/images'
 import ContactListItem from './components/ContactListItem'
+import useContact from './useContact'
 
 const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const insets = useSafeArea()
-  const mainHook = useContact(navigation)
-  // Vobi Todo: Use hook destructure
+  const {outgoingLinkMethods, setMessage, sendMessage} = useContact(navigation)
 
   // Dummy Info Before we connect App to Back-End
   const contactInfos = [
@@ -43,7 +42,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         image={el.image}
         name={el.name}
         value={contactInfos[key]}
-        onPress={mainHook.outgoingLinkMethods[el.type]}
+        onPress={outgoingLinkMethods[el.type]}
       />
     )
   })
@@ -73,7 +72,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           <TextInput
             multiline
             style={styles.message}
-            onChangeText={mainHook.setMessage}
+            onChangeText={setMessage}
             numberOfLines={4}
           />
         </View>
@@ -85,7 +84,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
         }>
         <BaseButton
-          onPress={mainHook.sendMessage.bind(Contact)}
+          onPress={sendMessage.bind(Contact)}
           text="contact.send"
           image={images.arrowRight}
           style={styles.baseButton}

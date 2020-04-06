@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native'
 
-import {Colors} from '../../utils'
+import {Colors} from 'utils'
 import {BaseNativeTouchable} from 'components'
 import images from 'assets/images'
 

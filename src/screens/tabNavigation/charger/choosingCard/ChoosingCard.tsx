@@ -19,12 +19,12 @@ import {
   BaseHeader,
   BaseButton,
   TitleTopLeftContainer,
-  ChooseCardOnCharging,
   BaseInput,
 } from 'components'
 import images from 'assets/images'
 import {Const, Colors} from 'utils'
-import {useChoosingCard} from 'hooks'
+import useChoosingCard from './useChoosingCard'
+import {ChooseCardOnCharging} from './components'
 
 enum Type {
   'viaPrice',

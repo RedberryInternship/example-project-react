@@ -6,11 +6,13 @@ import {
   KeyboardAvoidingView,
   Platform,
   StatusBar,
+  Alert,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {useSafeArea} from 'react-native-safe-area-context'
+import {useForm, Controller} from 'react-hook-form'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
@@ -22,6 +24,7 @@ import useAuthHook from './useAuthHook'
 
 const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {dispatch} = useContext(AppContext)
+  const {control, register, setValue, handleSubmit, errors} = useForm()
 
   const insets = useSafeArea()
   const hook = useAuthHook(navigation, dispatch)
@@ -43,6 +46,16 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
         resetScrollToCoords={{x: 0, y: 0}}>
+        {/* <Controller
+          as={PhoneNumberInput}
+          control={control}
+          name="phone"
+          onChange={args => args[0].nativeEvent.text}
+          rules={{required: true}}
+          defaultValue=""
+          onSubmit={hook.phoneNumber.inputSubmit}
+          _this={hook._this}
+        /> */}
         <PhoneNumberInput
           onChangeText={hook.phoneNumber.textHandler}
           onSubmit={hook.phoneNumber.inputSubmit}

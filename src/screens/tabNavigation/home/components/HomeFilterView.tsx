@@ -7,15 +7,15 @@ import {
   Animated,
   Easing,
 } from 'react-native'
-import {FilterTextItem} from 'components'
 import {useTranslation} from 'react-i18next'
 
 import {HomeContextType} from 'allTypes'
 
 import {Const, Colors} from 'utils'
 import images from 'assets/images'
+import {FilterTextItem} from '../components'
 
-type HomeFilter = {
+type HomeFilterProps = {
   context: HomeContextType
   selectedFiltersOnMap: number[]
   onFilterClickOnMap: (index: number) => void
@@ -26,7 +26,7 @@ const translate = Const.Width - 98
 const HomeFilter = ({
   selectedFiltersOnMap,
   onFilterClickOnMap,
-}: HomeFilter): ReactElement => {
+}: HomeFilterProps): ReactElement => {
   const [showFilter, setShowFilter] = useState(false)
   const {t} = useTranslation()
 

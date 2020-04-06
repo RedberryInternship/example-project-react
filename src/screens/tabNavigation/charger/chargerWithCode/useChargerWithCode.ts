@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import {useState, useRef, useContext, useEffect} from 'react'
-import {Alert, TextInput} from 'react-native'
+import {useState, useRef, useContext} from 'react'
+import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {
   NavigationState,
@@ -8,14 +8,14 @@ import {
   NavigationParams,
 } from 'react-navigation'
 
-import {AppContext} from '../../../App'
+import {AppContext} from '../../../../../App'
 import {
   AppContextType,
   Charger,
   HomeNavigateModes,
   LastUsedCharger,
   LastUsedChargerResponseObject,
-} from '../../../@types/allTypes.d'
+} from '../../../../../@types/allTypes.d'
 import {Defaults, Ajax} from 'utils'
 
 type _This = {

@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/camelcase */
-/* eslint-disable no-unused-vars */ // Vobi Todo: do not have unused vars
 import {useState, useRef, useContext, useEffect} from 'react'
-import {Alert, TextInput} from 'react-native'
+import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
 import Axios from 'axios'
 
-import {AppContext} from '../../../App'
+import {AppContext} from '../../../../../App'
 import {
   AppContextType,
   Charger,
   HomeNavigateModes,
-} from '../../../@types/allTypes.d'
+} from '../../../../../@types/allTypes.d'
 import {
   NavigationState,
   NavigationScreenProp,
@@ -20,7 +19,10 @@ import {
 import {Defaults, locationConfig, Helpers} from 'utils'
 import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
-import {deleteToFavorites, addToFavorites} from '../actions/rootActions'
+import {
+  deleteToFavorites,
+  addToFavorites,
+} from '../../../../hooks/actions/rootActions'
 import images from 'assets/images'
 
 type _This = {

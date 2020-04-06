@@ -7,11 +7,12 @@ import React, {
 import {StyleSheet, Animated, View, TouchableOpacity, Alert} from 'react-native'
 import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
 
-import {Charger, MapImperativeRefObject, ChargerMarkerStatus} from 'allTypes'
+import {Charger, MapImperativeRefObject} from 'allTypes'
 
-import {MainSearchItem, HomeMainSearchInput} from 'components'
-import {useHomeMainInputHook} from 'hooks'
+import {HomeMainSearchInput} from 'components'
+import {useHomeMainSearch} from '../hooks'
 import {Const, Colors, getLocaleText} from 'utils'
+import {MainSearchItem} from '../components'
 
 type MainInput = {
   allChargers: Charger[]
@@ -19,17 +20,17 @@ type MainInput = {
   setShowAll: (boolean: boolean) => void
 }
 // eslint-disable-next-line react/display-name
-const MainInput = forwardRef(
+const HomeMainSearchView = forwardRef(
   ({allChargers, mapRef, setShowAll}: MainInput, ref: any): ReactElement => {
-    const hook = useHomeMainInputHook(allChargers, mapRef, setShowAll)
+    const hook = useHomeMainSearch(allChargers, mapRef, setShowAll)
     // Vobi Todo: destructure hook
     const InputSubmit = (): void => {
       Alert.alert(JSON.stringify(hook._this.current))
     }
 
     useImperativeHandle(ref, () => ({
-      close: hook.closeClick.bind(MainInput),
-      show: hook.setShowSearchContent.bind(MainInput, true),
+      close: hook.closeClick.bind(HomeMainSearchView),
+      show: hook.setShowSearchContent.bind(HomeMainSearchView, true),
     }))
     // Vobi Todo: move this as separate component or view
     // Vobi Todo: inside component
@@ -72,7 +73,7 @@ const MainInput = forwardRef(
                 text={getLocaleText(chargerObj.name)}
                 mainTitle={getLocaleText(chargerObj.location)}
                 onPress={hook.onSearchItemClickHandler.bind(
-                  MainInput,
+                  HomeMainSearchView,
                   chargerObj.lat,
                   chargerObj.lng,
                 )}
@@ -86,7 +87,7 @@ const MainInput = forwardRef(
                   text={getLocaleText(val.name)}
                   mainTitle={getLocaleText(val.location)}
                   onPress={hook.onSearchItemClickHandler.bind(
-                    MainInput,
+                    HomeMainSearchView,
                     val.lat,
                     val.lng,
                   )}
@@ -110,7 +111,7 @@ const MainInput = forwardRef(
             <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
               <HomeMainSearchInput
                 setShowSearchContent={hook.setShowSearchContent.bind(
-                  MainInput,
+                  HomeMainSearchView,
                   !hook.showSearchContent,
                 )}
                 showSearchContent={hook.showSearchContent}
@@ -160,7 +161,7 @@ const MainInput = forwardRef(
   },
 )
 
-export default MainInput
+export default HomeMainSearchView
 
 const styles = StyleSheet.create({
   container: {

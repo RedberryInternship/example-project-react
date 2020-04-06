@@ -44,6 +44,7 @@ const PhoneNumberInput = React.forwardRef(
       style,
       errorText,
       codeRef,
+      ...props
     }: PhoneNumberInputProps,
     ref: Ref<TextInputProps & BaseInputRefProp>,
   ) => {
@@ -57,6 +58,10 @@ const PhoneNumberInput = React.forwardRef(
     useEffect(() => {
       fetchPhoneCountryCodes()
     }, [])
+
+    console.log('====================================')
+    console.log(props, 'propsprops')
+    console.log('====================================')
 
     const _onChange = (show = true): void => {
       show ? onFocus && onFocus() : onBlur && onBlur()
@@ -145,6 +150,7 @@ const PhoneNumberInput = React.forwardRef(
           title={'authentication.number'}
           returnKeyType={'send'}
           errorText={errorText}
+          {...props}
         />
         <Animated.View
           style={[styles.modalSelectorContainer, {opacity: animation}]}>

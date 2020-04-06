@@ -7,7 +7,7 @@ import {Charger, MapImperativeRefObject} from 'allTypes'
 
 import {Const, Helpers} from 'utils'
 
-const useHomeMainInputHook = (
+const useHomeMainSearch = (
   allChargers: Charger[],
   mapRef: MapImperativeRefObject,
   setShowAll: (boolean: boolean) => void,
@@ -97,4 +97,4 @@ const useHomeMainInputHook = (
   }
 }
 
-export default useHomeMainInputHook
+export default useHomeMainSearch

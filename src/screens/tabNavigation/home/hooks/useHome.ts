@@ -12,11 +12,11 @@ import {
   AppContextType,
   Charger,
   MapImperativeRefObject,
-} from '../../@types/allTypes.d'
-import {AppContext} from '../../App'
+} from '../../../../../@types/allTypes.d'
+import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
 
-const useHomeHook = (
+const useHome = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const context: AppContextType = useContext(AppContext)
@@ -168,4 +168,4 @@ const useHomeHook = (
     bottomSheetChargers,
   }
 }
-export default useHomeHook
+export default useHome

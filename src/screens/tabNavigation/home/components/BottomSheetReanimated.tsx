@@ -16,9 +16,9 @@ import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 import {Charger, ChargerDetail} from 'allTypes'
 
-import {MainSearchItem, PopupFilter} from 'components'
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
+import {BottomSheetFilterItem, MainSearchItem} from '../components'
 
 const screenHeight = Dimensions.get('window').height
 
@@ -124,7 +124,7 @@ const BottomSheetReanimated = forwardRef(
         <View style={styles.bodyContainer}>
           <View style={styles.filterContainer}>
             {Const.FilterTypes.map((val: string, index: number) => (
-              <PopupFilter
+              <BottomSheetFilterItem
                 key={index}
                 text={t(val)}
                 onPress={onFilterClick?.bind(BottomSheetReanimated, index)}

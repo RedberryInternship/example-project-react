@@ -3,18 +3,16 @@ import {StyleSheet, ScrollView, View, Image} from 'react-native'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {
-  BaseHeader,
-  ChargerDetailTopInfo,
-  CurrentTariffs,
-  TitleTopLeftContainer,
-  ChargerTypesItem,
-  BaseButton,
-} from 'components'
-import {useChargerDetails} from 'hooks'
+import {BaseHeader, TitleTopLeftContainer, BaseButton} from 'components'
 import {Colors, Defaults} from 'utils'
 import {getLocaleText} from 'utils/localization/localization'
 import images from 'assets/images'
+import {
+  CurrentTariffs,
+  ChargerDetailTopInfo,
+  ChargerTypesItem,
+} from './components'
+import useChargerDetails from './useChargerDetails'
 
 const ChargerDetail = ({
   navigation,

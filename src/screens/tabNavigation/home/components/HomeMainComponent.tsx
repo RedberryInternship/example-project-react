@@ -9,19 +9,18 @@ import {View, StyleSheet} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 
-import {
-  OnMapRoundButton,
-  HomeFilterView,
-  BaseButton,
-  HomeMainInputView,
-  MultiChargingTopModal,
-} from 'components'
+import {BaseButton, MultiChargingTopModal} from 'components'
 import {Defaults} from 'utils'
-import {HomeContext} from 'screens/tabNavigation/Home'
+import {HomeContext} from '../Home'
 import images from 'assets/images'
+import {
+  HomeMainSearchView,
+  HomeFilterView,
+  OnMapRoundButton,
+} from '../components'
 
-type HomeComponentItemsProps = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
+type HomeMainComponentProps = {
+  navigation?: NavigationScreenProp<NavigationState, NavigationParams>
   allchargers: Charger[]
   mapRef: MapImperativeRefObject
   selectedFiltersOnMap: number[]
@@ -29,7 +28,8 @@ type HomeComponentItemsProps = {
   setShowAll: (bool: boolean) => void
   mainInputRef: any
 }
-const HomeComponentItems = ({
+
+const HomeMainComponent = ({
   navigation,
   allchargers,
   mapRef,
@@ -37,7 +37,7 @@ const HomeComponentItems = ({
   onFilterClickOnMap,
   setShowAll,
   mainInputRef,
-}: HomeComponentItemsProps): ReactElement => {
+}: HomeMainComponentProps): ReactElement => {
   const insets = useSafeArea()
 
   const context: HomeContextType = useContext(HomeContext)
@@ -49,7 +49,7 @@ const HomeComponentItems = ({
       {Defaults.token ? null : (
         <BaseButton
           image={images.user}
-          onPress={navigation.navigate.bind(HomeComponentItems, 'Auth')}
+          onPress={navigation.navigate.bind(HomeMainComponent, 'Auth')}
           text={'home.authorization'}
           style={styles.authorizeBtn}
         />
@@ -64,7 +64,7 @@ const HomeComponentItems = ({
           image={context.state.locationImageType}
           imageStyle={styles.onMapRoundImage}
         />
-        <HomeMainInputView
+        <HomeMainSearchView
           allChargers={allchargers}
           mapRef={mapRef}
           setShowAll={setShowAll}
@@ -93,7 +93,7 @@ const HomeComponentItems = ({
   )
 }
 
-export default withNavigation(HomeComponentItems)
+export default withNavigation(HomeMainComponent)
 
 const styles = StyleSheet.create({
   container: {

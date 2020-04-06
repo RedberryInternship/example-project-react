@@ -9,10 +9,11 @@ import {
 
 import {Charger} from 'allTypes'
 
-import {useMap} from 'hooks'
 import {mapStyles, mapStyle2, Colors} from 'utils'
 import {MapMarkerItem} from 'components'
 import {determineTimePeriod} from 'utils'
+import {useMapView} from '../hooks'
+
 type MapViewProps = {
   showAll: boolean
   filteredChargersOnMap: Charger[]
@@ -29,7 +30,7 @@ const MapView = forwardRef(
   ) => {
     const mapRef: RefObject<Map> = useRef(null)
 
-    const hook = useMap(ref, mapRef, navigation)
+    const hook = useMapView(ref, mapRef, navigation)
 
     const statusBarStyle = useMemo(
       () => (determineTimePeriod() ? 'dark-content' : 'light-content'),

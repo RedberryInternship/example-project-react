@@ -4,8 +4,8 @@ import MapView from 'react-native-maps'
 import {AppContextType, Charger} from 'allTypes'
 
 import {getAllChargers} from 'hooks/actions/rootActions'
-import {AppContext} from '../../App'
-import useLocation from './locationHook'
+import {AppContext} from '../../../../../App'
+import useLocation from './useLocation'
 
 import {
   NavigationParams,
@@ -14,7 +14,7 @@ import {
 } from 'react-navigation'
 import {Defaults, getLocaleText} from 'utils'
 
-const useMap = (
+const useMapView = (
   ref: Ref<MapView>,
   mapRef: RefObject<MapView>,
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -72,4 +72,4 @@ const useMap = (
   }
 }
 
-export default useMap
+export default useMapView

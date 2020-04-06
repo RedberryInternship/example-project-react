@@ -4,17 +4,17 @@ import {StyleSheet, Text, Platform, TouchableOpacity, View} from 'react-native'
 import {Colors} from 'utils'
 import {BaseNativeTouchable} from 'components'
 
-type PopupFilterProps = {
+type BottomSheetFilterItemProps = {
   text: string
   onPress: () => void
   active: boolean
 }
 
-const PopupFilter = ({
+const BottomSheetFilterItem = ({
   text,
   onPress,
   active,
-}: PopupFilterProps): ReactElement => {
+}: BottomSheetFilterItemProps): ReactElement => {
   const child = (
     <View
       style={[
@@ -40,7 +40,7 @@ const PopupFilter = ({
   )
 }
 
-export default PopupFilter
+export default BottomSheetFilterItem
 
 const styles = StyleSheet.create({
   container: {

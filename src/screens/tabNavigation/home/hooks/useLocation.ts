@@ -12,7 +12,7 @@ import {Coords, GoogleGetDirection} from 'allTypes'
 
 import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import {regionFrom, Defaults, Const, Ajax, locationConfig} from 'utils'
-import {HomeContext} from 'screens/tabNavigation/Home'
+import {HomeContext} from 'screens/tabNavigation/home/Home'
 
 type ThisRef = {
   interval: number
