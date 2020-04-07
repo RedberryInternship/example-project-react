@@ -70,7 +70,7 @@ const DisplayDropdownWithError = (
   Defaults.dropdown?.alertWithType(
     'error',
     i18next.t(title ?? 'dropDownAlert.generalError'),
-    (!!text && i18next.t(text)) ?? null,
+    i18next.t(text ?? ''),
   )
 }
 

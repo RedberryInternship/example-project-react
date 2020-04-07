@@ -123,7 +123,6 @@ export interface BaseInputProps extends TextInputProps {
   paddingLeft?: number
   required?: boolean
   secure?: boolean
-  onSubmit: () => void
   imageStyle?: ImageStyle
 }
 
