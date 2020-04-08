@@ -16,7 +16,7 @@ const CodeInputWidth = 128
 
 // eslint-disable-next-line react/display-name
 const receiveConfirmationCode = React.forwardRef(
-  ({onChangeText, receiveCode, disableCodeInput}: any, ref: any) => {
+  ({receiveCode, ...props}: any, ref: any) => {
     // Vobi todo: no any types
     const [animation] = useState(new Animated.Value(0))
     const [disabled, setDisabled] = useState(false)
@@ -49,6 +49,7 @@ const receiveConfirmationCode = React.forwardRef(
       disableActivateButton: (): void => {
         animation.setValue(0)
         // setDisabled(true)
+        setDisabledInput(true)
       },
       startCodeAnimation: codeReceiveHandler,
       setDisabledInput: setDisabledInput,
@@ -64,7 +65,8 @@ const receiveConfirmationCode = React.forwardRef(
             activeOpacity={1}
             onPress={receiveCode}
             disabled={disabled}
-            style={styles.receiveCodeBtnTouchable}>
+            style={styles.receiveCodeBtnTouchable}
+          >
             <Animated.View style={[styles.codeReceive, {width: animation}]} />
             <MaskedView
               style={styles.maskedView}
@@ -74,7 +76,8 @@ const receiveConfirmationCode = React.forwardRef(
                     {t('authentication.forgotPasswordPage.receiveCode')}
                   </Animated.Text>
                 </View>
-              }>
+              }
+            >
               <Animated.View
                 style={[styles.receiveCodeAnimatedView1, {width: animation}]}
               />
@@ -83,13 +86,13 @@ const receiveConfirmationCode = React.forwardRef(
           </TouchableOpacity>
           <TextInput
             style={styles.codeTextInput}
-            onChangeText={onChangeText}
             onSubmitEditing={receiveCode}
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
             ref={inputRef}
             pointerEvents={disabledInput ? 'none' : 'auto'}
             keyboardType={'number-pad'}
+            {...props}
           />
         </View>
         <Animated.Text style={styles.codeValidityText}>

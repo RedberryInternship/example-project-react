@@ -250,6 +250,7 @@ export default {
         newPasswordIncorrectLength:
           'New password should contain at least 8 symbols',
         passwordChangedSuccessfully: 'Password changed successfully',
+        passwordsNotFilled: 'Please, fill  passwords fields',
       },
       charging: {
         areUSore: 'Are you sore u want to finish',

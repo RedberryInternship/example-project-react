@@ -32,6 +32,7 @@ module.exports = {
       'error',
       {functions: false, variables: false},
     ],
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
   settings: {
     react: {

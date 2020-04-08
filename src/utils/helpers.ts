@@ -43,7 +43,7 @@ const GetFilteredCharger = (
     Ajax.get(
       '/chargers/?' +
         Object.keys(params)
-          .map(key => key + '=' + params[key])
+          .map((key) => key + '=' + params[key])
           .join('&'),
     ) // Vobi Todo: you are mapping twice here one by map and one by join you should avoid O(n2) algorithms
       // try using this helper function
@@ -81,7 +81,7 @@ const DisplayDropdownWithSuccess = (
   Defaults.dropdown?.alertWithType(
     'success',
     i18next.t(title ?? 'dropDownAlert.generalSuccess'),
-    (!!text && i18next.t(text)) ?? null,
+    i18next.t(text ?? ''),
   )
 }
 

@@ -11,7 +11,7 @@ import {Drawer} from './drawer/drawer'
 import {Auth} from './authentication/auth'
 import {ForgotPassword} from './authentication/forgotPassword'
 import {Registration} from './authentication/registration'
-import {SetNewPasswords} from './authentication/setNewPasswords'
+import {SetNewPasswords} from './authentication/forgotPassword/setNewPasswords'
 import Settings from './drawer/setting/Settings'
 import ProfileChange from './drawer/setting/ProfileChange'
 

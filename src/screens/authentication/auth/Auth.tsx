@@ -6,7 +6,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   StatusBar,
-  Alert,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
@@ -51,9 +50,10 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
-        resetScrollToCoords={{x: 0, y: 0}}>
+        resetScrollToCoords={{x: 0, y: 0}}
+      >
         <PhoneNumberInput
-          onChangeText={text => setValue('phone', text, true)}
+          onChangeText={(text) => setValue('phone', text, true)}
           ref={phoneRef}
           value={watch('phone')}
           // errorText={errors.phone}
@@ -63,7 +63,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           name="password"
           rules={{required: true}}
           control={control}
-          onChange={args => args[0].nativeEvent.text}
+          onChange={(args) => args[0].nativeEvent.text}
           title={'authentication.password'}
           image={images.lock}
           returnKeyType={'send'}
@@ -72,7 +72,8 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         />
         <TouchableOpacity
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
-          hitSlop={styles.forgotPasswordTextContainer}>
+          hitSlop={styles.forgotPasswordTextContainer}
+        >
           <Text style={styles.forgotPasswordText}>
             {t('authentication.forgotPassword')}
           </Text>
@@ -81,7 +82,8 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           <TouchableOpacity
             onPress={navigation.navigate.bind(Auth, 'Registration')}
             style={styles.registrationTextContainer}
-            hitSlop={styles.registrationTextContainerHitSlop}>
+            hitSlop={styles.registrationTextContainerHitSlop}
+          >
             <Text style={styles.registrationText}>
               {t('authentication.newRegistration')}
             </Text>
@@ -93,7 +95,8 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={
           Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
-        }>
+        }
+      >
         <BaseButton
           onPress={handleSubmit(buttonClickHandler)}
           text={'authentication.authentication'}

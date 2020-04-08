@@ -6,14 +6,22 @@ import {useSafeArea} from 'react-native-safe-area-context'
 import {ScreenPropsWithNavigation} from 'allTypes'
 
 import {BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode} from 'components'
-import {useForgotPassword} from 'hooks'
 import {Colors} from 'utils'
 import images from 'assets/images'
+import useForgotPassword from './useForgotPassword'
 
 const ForgotPassword = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const hook = useForgotPassword(navigation)
+  const {
+    phoneRef,
+    setValue,
+    handleSubmit,
+    onButtonClick,
+    watch,
+    receiveCodeHandler,
+    codeRef,
+  } = useForgotPassword(navigation)
   const insets = useSafeArea()
 
   return (
@@ -30,26 +38,27 @@ const ForgotPassword = ({
         enableAutomaticScroll={true}
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
-        automaticallyAdjustContentInsets={false}>
+        automaticallyAdjustContentInsets={false}
+      >
         <PhoneNumberInput
-          onSubmit={hook.phoneNumber.inputSubmit}
-          ref={hook.phoneRef}
-          _this={hook._this}
-          codeRef={hook.codeRef}
+          onChangeText={(text: string) => setValue('phone', text, true)}
+          ref={phoneRef}
+          value={watch('phone')}
         />
         <ReceiveCode
-          ref={hook.codeRef}
-          onChangeText={hook.receiveCode.textHandler}
-          onSubmit={hook.receiveCode.receiveHandler}
-          receiveCode={hook.receiveCode.receiveHandler}
+          ref={codeRef}
+          onChangeText={(text: string) => setValue('code', text, true)}
+          onSubmit={handleSubmit(onButtonClick)}
+          receiveCode={receiveCodeHandler}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
         behavior={'padding'}
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}>
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}
+      >
         <BaseButton
-          onPress={hook.onButtonClick}
+          onPress={handleSubmit(onButtonClick)}
           text={'enter'}
           image={images.arrowRight}
           style={styles.baseButton}

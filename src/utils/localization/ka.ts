@@ -245,6 +245,7 @@ export default {
         repeatNewPasswordNotFilled: 'გთხოვთ, გაიმეორეთ პაროლი',
         newPasswordIncorrectLength: 'პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
         passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
+        passwordsNotFilled: 'გთხოვთ, შეავსოთ პაროლის ველები',
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',

@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {useRef, useEffect} from 'react'
 import {TextInput} from 'react-native'
-import {useTranslation} from 'react-i18next'
 import {useForm} from 'react-hook-form'
 
 import {Helpers, InputValidationHelpers} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {Navigation} from 'allTypes'
 import services from 'services'
-
-type This = {
-  password: string
-  phone: string
-}
 
 type User = {
   id: number
@@ -42,13 +36,8 @@ type InputValues = {
   password: string
 }
 
-const {Logger} = Helpers
-
 export default (navigation: Navigation, dispatch: any) => {
   const phoneRef = useRef<TextInput>()
-  const passwordRef = useRef<TextInput>()
-  const _this = useRef<This>({password: '', phone: ''}) // Vobi todo: this must be state
-  const {t} = useTranslation()
 
   const {
     control,
@@ -105,8 +94,6 @@ export default (navigation: Navigation, dispatch: any) => {
   return {
     buttonClickHandler,
     phoneRef,
-    passwordRef,
-    _this,
     control,
     setValue,
     register,
