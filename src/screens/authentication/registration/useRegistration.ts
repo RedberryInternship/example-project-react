@@ -1,7 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import {useEffect, useState, useRef, RefObject} from 'react'
-import {Animated} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import {useEffect, useState, useRef, RefObject, useContext} from 'react'
 
 import {Defaults} from 'utils'
 
@@ -10,77 +8,49 @@ import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
+import {AppContext} from '../../../../App'
+
 type _This = {
-  codeReceiveAnimation: Animated.Value
   userRegistrationState: number
 }
 
-const CodeInputWidth = 128
+let userRegistrationState = 0
 
-export default (navigation: any, dispatch: any) => {
+export default (navigation: any) => {
   const flatListRef: any = useRef(null)
   const KeyboardAwareScrollViewRef: any = useRef(null)
-
-  const [loading, setLoading] = useState<boolean>(true)
-  const [activePage, setActivePage] = useState<number>(0)
 
   const newPasswordRef: any = useRef(null)
   const repeatPasswordRef: any = useRef(null)
 
-  const {t} = useTranslation()
+  const {dispatch} = useContext(AppContext)
 
-  const _this: RefObject<_This> = useRef({
-    userRegistrationState: 0,
-    codeReceiveAnimation: new Animated.Value(CodeInputWidth),
-  })
+  const [activePage, setActivePage] = useState<number>(0)
 
-  const regStep1 = useRegistrationHookStep1(setActivePage, t)
-  const regStep2 = useRegistrationHookStep2(setActivePage, t)
+  const regStep1 = useRegistrationHookStep1(setActivePage)
+  const regStep2 = useRegistrationHookStep2(setActivePage)
   const regStep3 = useRegistrationHookStep3(
     setActivePage,
-    t,
-    regStep1,
-    regStep2,
+    regStep1.getValues,
+    regStep2.getValues,
     dispatch,
   )
-  const regStep4 = useRegistrationHookStep4(setActivePage, t)
+  //TODO
+  const regStep4 = useRegistrationHookStep4(setActivePage)
 
   useEffect(() => {
-    _this.current!.userRegistrationState = Math.max(
-      activePage,
-      _this.current!.userRegistrationState,
-    )
+    userRegistrationState = Math.max(activePage, userRegistrationState)
     KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
     setTimeout(() => paginationClickHandler(activePage), 250)
 
-    console.log(
-      activePage,
-      regStep3.password.current,
-      regStep1.phoneRef.current,
-      'activePage',
-    )
-
-    switch (activePage) {
-      case 0:
-        regStep1.phoneRef.current?.focus()
-        break
-      case 1:
-        regStep2.name.current?.focus()
-        break
-      case 2:
-        regStep3.password.current?.focus()
-        break
-      case 3:
-        break
-
-      default:
-        break
-    }
+    console.log(activePage, regStep1, regStep2, regStep3, 'activePage')
   }, [activePage])
 
   const paginationClickHandler = (index: number) => {
-    if (index > _this.current!.userRegistrationState) return
+    if (index > userRegistrationState) return
+    // if(index > activePage){
 
+    // }
     flatListRef.current.scrollToIndex({index, animated: true})
     setActivePage(index)
   }
@@ -98,45 +68,17 @@ export default (navigation: any, dispatch: any) => {
     navigation.navigate('MainDrawer')
   }
 
-  const registrationStepHandler = (): void => {
-    // if (activePage === allPageLength - 1) {
-    //   Defaults.modal.current &&
-    //     Defaults.modal.current.customUpdate(true, {type: 2})
-    //   return
-    // }
-
-    // validate input and continue
-    switch (activePage) {
-      case 0:
-        regStep1.buttonClickHandler()
-        break
-      case 1:
-        regStep2.buttonClickHandler()
-        break
-      case 2:
-        regStep3.buttonClickHandler()
-        break
-      case 3:
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.registration.needsCardAddOrPleaseSkip'),
-        )
-        regStep4.buttonClickHandler()
-        break
-
-      default:
-        break
-    }
-  }
+  const registrationStepHandler: (() => Promise<void>)[] = [
+    regStep1.handleSubmit(regStep1.buttonClickHandler),
+    regStep2.handleSubmit(regStep2.buttonClickHandler),
+    regStep3.handleSubmit(regStep3.buttonClickHandler),
+    // regStep4.handleSubmit(regStep4.buttonClickHandler)
+  ]
 
   return {
-    loading,
-    setLoading,
-    _this,
     flatListRef,
     paginationClickHandler,
     KeyboardAwareScrollViewRef,
-    t,
     newPasswordRef,
     repeatPasswordRef,
     activePage,

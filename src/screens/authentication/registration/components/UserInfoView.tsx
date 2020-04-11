@@ -1,69 +1,71 @@
 import React, {ReactElement} from 'react'
 import {View} from 'react-native'
+import {Controller} from 'react-hook-form'
 
-import {Colors, Const} from 'utils'
+import {Colors, Const, InputValidationHelpers} from 'utils'
 import {BaseInput} from 'components'
 import images from 'assets/images'
 
-const UserInfoView = ({_this, hook}: any): ReactElement => {
-  const nameTextHandler = (text: string): void => {
-    _this.current.name = text
-  }
-  const nameInputSubmit = (): void => {
-    // hook.current.code = text
-  }
-  const surNameTextHandler = (text: string): void => {
-    _this.current.surname = text
-  }
-  const surNameInputSubmit = (): void => {
-    // TODO
-  }
-
-  const emailTextHandler = (text: string): void => {
-    _this.current.email = text // Vobi todo: this is bad way to change value
-    // Vobi Todo: use state hook useState() and handle changes inside it
-  }
-  const emailInputSubmit = (): void => {
-    hook.buttonClickHandler()
-  }
-
-  return (
-    <View style={{width: Const.Width, paddingHorizontal: 16}}>
-      <BaseInput
-        image={images.user}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        onChangeText={nameTextHandler}
-        onSubmit={nameInputSubmit}
-        testID={'nameInput'}
-        title={'authentication.registration.name'}
-        required={true}
-        returnKeyType={'next'}
-        ref={hook.name}
-      />
-      <BaseInput
-        image={images.user}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        onChangeText={surNameTextHandler}
-        onSubmit={surNameInputSubmit}
-        testID={'nameInput'}
-        title={'authentication.registration.surname'}
-        required={true}
-        returnKeyType={'next'}
-        ref={hook.surname}
-      />
-      <BaseInput
-        image={images.user}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        keyboardType={'email-address'} // Vobi todo: have email, password types and toggle inside which to display
-        onChangeText={emailTextHandler}
-        onSubmit={emailInputSubmit}
-        testID={'nameInput'}
-        title={'authentication.registration.email'}
-        returnKeyType={'go'}
-        ref={hook.email}
-      />
-    </View>
-  )
+type UserInfoViewProps = {
+  hook: Record<string, any>
+  activePage: number
 }
+// eslint-disable-next-line react/display-name
+const UserInfoView = React.memo(
+  ({hook}: UserInfoViewProps): ReactElement => {
+    const {control, errors} = hook
+    return (
+      <View style={{width: Const.Width, paddingHorizontal: 16}}>
+        <Controller
+          as={BaseInput}
+          name="name"
+          rules={{required: true}}
+          control={control}
+          onChange={(args) => args[0].nativeEvent.text}
+          image={images.user}
+          imageStyle={{tintColor: Colors.primaryBlue}}
+          returnKeyType={'next'}
+          testID={'nameInput'}
+          title={'authentication.registration.name'}
+          required={true}
+          errorText={errors?.name ? 'dropDownAlert.registration.fillName' : ''}
+        />
+        <Controller
+          as={BaseInput}
+          name="surname"
+          rules={{required: true}}
+          control={control}
+          onChange={(args) => args[0].nativeEvent.text}
+          image={images.user}
+          imageStyle={{tintColor: Colors.primaryBlue}}
+          returnKeyType={'next'}
+          title={'authentication.registration.surname'}
+          errorText={
+            errors?.surname ? 'dropDownAlert.registration.fillSurname' : ''
+          }
+          required={true}
+        />
+
+        <Controller
+          as={BaseInput}
+          name="email"
+          rules={{
+            validate: InputValidationHelpers.emailValidation,
+          }}
+          control={control}
+          onChange={(args) => args[0].nativeEvent.text}
+          image={images.user}
+          imageStyle={{tintColor: Colors.primaryBlue}}
+          returnKeyType={'go'}
+          title={'authentication.registration.email'}
+          keyboardType={'email-address'}
+          errorText={errors?.email ? errors?.email.message : ''}
+        />
+      </View>
+    )
+  },
+  ({activePage}, {activePage: nextActivePage}) =>
+    activePage !== 1 && nextActivePage !== 1,
+)
 
 export default UserInfoView

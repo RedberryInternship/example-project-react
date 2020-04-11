@@ -22,15 +22,14 @@ import {Helpers, Colors} from 'utils'
 import services from 'services'
 
 type PhoneNumberInputProps = {
-  _this: any
   onSubmit: () => void
-  onBlur: () => void
-  onFocus: () => void
+  onBlur?: () => void
+  onFocus?: () => void
   onChangeText: (text: string) => void
-  style: StyleProp<TextInputProps>
-  errorText: string
-  codeRef: any
-  value: string
+  style?: StyleProp<TextInputProps>
+  errorText?: string
+  codeRef?: any
+  value?: string
 }
 
 const pickeritems: Item[] = []
@@ -165,7 +164,8 @@ const PhoneNumberInput = React.forwardRef(
           {...props}
         />
         <Animated.View
-          style={[styles.modalSelectorContainer, {opacity: animation}]}>
+          style={[styles.modalSelectorContainer, {opacity: animation}]}
+        >
           <View style={styles.touchableStyle}>
             <BasePickerSelect
               onDone={onPickerDone}

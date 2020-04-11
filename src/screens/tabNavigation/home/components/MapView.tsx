@@ -30,48 +30,48 @@ const MapView = forwardRef(
   ) => {
     const mapRef: RefObject<Map> = useRef(null)
 
-    const hook = useMapView(ref, mapRef, navigation)
-
-    const statusBarStyle = useMemo(
-      () => (determineTimePeriod() ? 'dark-content' : 'light-content'),
-      [],
+    const {state, onMarkerPress, polyline, mapReady} = useMapView(
+      ref,
+      mapRef,
+      navigation,
     )
 
     const pins = useMemo(
       () =>
         (showAll
-          ? hook.state?.AllChargers
+          ? state?.AllChargers
           : filteredChargersOnMap
         )?.map((charger: Charger) => (
           <MapMarkerItem
             key={charger.id}
             lat={parseFloat(charger.lat.toString())}
             lng={parseFloat(charger.lng.toString())}
-            onPress={hook.onMarkerPress.bind(this, charger)}
+            onPress={() => onMarkerPress(charger)}
             connectorType={charger.charger_types?.[0]?.name}
             publicCharger={charger.public}
             active={charger.active}
           />
         )),
 
-      [hook.state?.AllChargers, showAll, filteredChargersOnMap],
+      [state?.AllChargers, showAll, filteredChargersOnMap],
     )
 
-    const polyline = useMemo(
+    const polylineRoute = useMemo(
       () => (
         <Polyline
           key={1.4}
-          coordinates={hook.polyline}
+          coordinates={polyline}
           strokeWidth={4}
           strokeColor={Colors.faqBlue}
         />
       ),
-      [hook.polyline],
+      [polyline],
     )
+
     return (
       <View style={styles.mapContainer}>
         <StatusBar
-          barStyle={statusBarStyle ? 'dark-content' : 'light-content'}
+          barStyle={determineTimePeriod ? 'dark-content' : 'light-content'}
         />
         <Map
           provider={PROVIDER_GOOGLE}
@@ -82,14 +82,15 @@ const MapView = forwardRef(
             latitudeDelta: 0.015,
             longitudeDelta: 0.0121,
           }}
-          onMapReady={hook.mapReady}
+          onMapReady={mapReady}
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
-          customMapStyle={statusBarStyle ? mapStyle2 : mapStyles}
-          ref={mapRef}>
+          customMapStyle={determineTimePeriod ? mapStyle2 : mapStyles}
+          ref={mapRef}
+        >
           {pins}
-          {polyline}
+          {polylineRoute}
         </Map>
       </View>
     )

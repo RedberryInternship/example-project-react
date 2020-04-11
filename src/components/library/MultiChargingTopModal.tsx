@@ -105,12 +105,14 @@ const MultiChargingTopModal = (): ReactElement => {
     <PanGestureHandler
       onGestureEvent={_onGestureEvent}
       // onGestureEvent={(ev)=>console.log(ev.nativeEvent)}
-      onHandlerStateChange={_onGestureEvent}>
+      onHandlerStateChange={_onGestureEvent}
+    >
       <Animated.View
         style={[
           styles.mainPanResponderStyle,
           {height: 100 + insets.top, transform: [{translateY: _translateY}]},
-        ]}></Animated.View>
+        ]}
+      ></Animated.View>
     </PanGestureHandler>
   )
 }

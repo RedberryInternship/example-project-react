@@ -363,3 +363,10 @@ export enum ChargerMarkerStatus {
   'free',
   'forLegend',
 }
+
+export type CodeRefType = {
+  startCodeAnimation: () => void
+  activateButton: () => void
+  disableActivateButton: () => void
+  setDisabledInput: (bool: boolean) => void
+}

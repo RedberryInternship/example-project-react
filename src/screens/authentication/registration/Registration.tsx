@@ -11,55 +11,50 @@ import {useSafeArea} from 'react-native-safe-area-context'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {useRegistrationHook} from 'hooks'
 import images from 'assets/images'
-import {AppContext} from '../../../../App'
 import {Colors} from 'utils'
 import {BaseHeader, BaseButton, RegistrationPagination} from 'components'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'
 import PasswordView from './components/PasswordView'
 import CardAddView from './components/CardAddView'
+import useRegistration from './useRegistration'
 
 const Registration = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const {dispatch} = useContext(AppContext)
   const insets = useSafeArea()
 
-  const hook = useRegistrationHook(navigation, dispatch)
+  const {
+    flatListRef,
+    paginationClickHandler,
+    KeyboardAwareScrollViewRef,
+    activePage,
+    headerRightClick,
+    registrationStepHandler,
+    regStep1,
+    regStep2,
+    regStep3,
+  } = useRegistration(navigation)
 
   const pages = [
-    <PhoneNumberView
-      hook={hook.regStep1}
-      key={1}
-      activePage={hook.activePage}
-    />,
-    <UserInfoView
-      _this={hook.regStep2._this}
-      hook={hook.regStep2}
-      key={2}
-      activePage={hook.activePage}
-    />,
-    <PasswordView
-      _this={hook.regStep3._this}
-      hook={hook.regStep3}
-      key={3}
-      activePage={hook.activePage}
-    />,
-    <CardAddView _this={hook._this} key={4} activePage={hook.activePage} />,
+    <PhoneNumberView hook={regStep1} key={1} activePage={activePage} />,
+    <UserInfoView hook={regStep2} key={2} activePage={activePage} />,
+    <PasswordView hook={regStep3} key={3} activePage={activePage} />,
+    <CardAddView key={4} activePage={activePage} />,
   ]
+
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(Registration, 'Auth')}
         title={'authentication.registration.registration'}
         titleRight={'authentication.registration.skip'}
-        onPressRight={hook.activePage === 3 ? hook.headerRightClick : undefined}
+        onPressRight={activePage === 3 ? headerRightClick : undefined}
       />
       <RegistrationPagination
-        paginationClickHandler={hook.paginationClickHandler}
-        activePage={hook.activePage}
+        paginationClickHandler={paginationClickHandler}
+        activePage={activePage}
       />
       <KeyboardAwareScrollView
         style={styles.keyboardAwareScrollView}
@@ -72,14 +67,15 @@ const Registration = ({
         enableResetScrollToCoords={true}
         resetScrollToCoords={{x: 0, y: 0}}
         extraHeight={Platform.select({ios: -500, android: 0})}
-        ref={hook.KeyboardAwareScrollViewRef}>
+        ref={KeyboardAwareScrollViewRef}
+      >
         <FlatList
           pagingEnabled={true}
           style={styles.flatList}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContentContainer}
-          ref={hook.flatListRef}
+          ref={flatListRef}
           keyboardShouldPersistTaps={'handled'}
           scrollEnabled={false}
           data={pages}
@@ -89,14 +85,17 @@ const Registration = ({
       <KeyboardAvoidingView
         behavior={'padding'}
         contentContainerStyle={styles.keyboardAvoidingView}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 16}>
-        <BaseButton
-          onPress={hook.registrationStepHandler}
-          text={'next'}
-          image={images.arrowRight}
-          style={styles.baseButton}
-          imageStyle={styles.baseButtonImageStyle}
-        />
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 16}
+      >
+        {activePage < 3 && (
+          <BaseButton
+            onPress={registrationStepHandler[activePage]}
+            text={'next'}
+            image={images.arrowRight}
+            style={styles.baseButton}
+            imageStyle={styles.baseButtonImageStyle}
+          />
+        )}
       </KeyboardAvoidingView>
     </View>
   )

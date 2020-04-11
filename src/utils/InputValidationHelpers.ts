@@ -31,8 +31,18 @@ const passwordConfirmValidation = (
     value === password || 'dropDownAlert.registration.passwordNotEqual',
 })
 
+const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w+)+$/
+
+const emailValidation = {
+  ifNotEmpty: (value: string | undefined) =>
+    !value ||
+    emailRegex.test(value ?? '') ||
+    'dropDownAlert.registration.incorrectEmail',
+}
+
 export default {
   phoneNumberValidation,
   codeVerification,
   passwordConfirmValidation,
+  emailValidation,
 }

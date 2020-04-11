@@ -34,7 +34,7 @@ export default class SwipeGesture extends React.PureComponent {
       },
 
       onPanResponderMove: (evt, gestureState) => {
-        let panY = gestureState.dy
+        const panY = gestureState.dy
 
         this.animatedValue.setValue(
           this.popupStatus === PopupStatus[1]
@@ -54,8 +54,8 @@ export default class SwipeGesture extends React.PureComponent {
       },
 
       onPanResponderRelease: (evt, gestureState) => {
-        let x = gestureState.dx
-        let y = gestureState.dy
+        const x = gestureState.dx
+        const y = gestureState.dy
 
         console.log('====================================')
         console.log(JSON.stringify(gestureState), 'onPanResponderRelease')
@@ -113,7 +113,7 @@ export default class SwipeGesture extends React.PureComponent {
       },
       onMoveShouldSetPanResponder: (e, gestureState) => {
         const {dx, dy} = gestureState
-        let touchThreshold = 0
+        const touchThreshold = 0
         return Math.abs(dx) > touchThreshold || Math.abs(dy) > touchThreshold
       },
 
@@ -126,7 +126,7 @@ export default class SwipeGesture extends React.PureComponent {
     })
   }
 
-  toggle = func => {
+  toggle = (func) => {
     Animated.timing(this.animatedValue, {
       toValue: this.popupStatus === PopupStatus[1] ? this.distance : 0,
       duration: 200,
@@ -155,7 +155,8 @@ export default class SwipeGesture extends React.PureComponent {
         style={[
           styles.mainPanResponderStyle,
           {height, transform: [{translateY}]},
-        ]}>
+        ]}
+      >
         <View style={styles.mainContainer}>
           <View
             ref={this.sliderRef}

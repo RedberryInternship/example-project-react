@@ -11,7 +11,8 @@ const CardAddView = (): ReactElement => {
         paddingHorizontal: 16,
         flex: 1,
         backgroundColor: 'red',
-      }}></View>
+      }}
+    ></View>
   ) // Vobi Todo: stylesheet
 }
 

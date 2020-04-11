@@ -22,11 +22,11 @@ const useBaseActionSheetPicker = (): UseBaseActionSheetPicker => {
   const renderIOSActionSheet = (options: PickerOptions): void => {
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: [t('cancel'), ...options.map(val => t(val))],
+        options: [t('cancel'), ...options.map((val) => t(val))],
         cancelButtonIndex: 0,
         title: t('settings.chooseMapMode'),
       },
-      buttonIndex => {
+      (buttonIndex) => {
         if (buttonIndex === 0) {
           // cancel action
         } else {
@@ -41,7 +41,7 @@ const useBaseActionSheetPicker = (): UseBaseActionSheetPicker => {
       t('settings.chooseMapMode'),
       null,
       {
-        items: [...options.map(val => ({label: t(val), id: val}))],
+        items: [...options.map((val) => ({label: t(val), id: val}))],
       },
     )
 

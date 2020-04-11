@@ -1,54 +1,59 @@
 import React, {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
+import {Controller} from 'react-hook-form'
 
-import {Colors, Const} from 'utils'
+import {Colors, Const, InputValidationHelpers} from 'utils'
 import {BaseInput} from 'components'
 import images from 'assets/images'
 
-const PasswordView = ({_this, hook}: any): ReactElement => {
-  // Vobi Todo: destructure hook from top and pass functions to component
-  // Vobi Todo: do not use _this use state in this case you need form library
-  const passwordTextHandler = (text: string): void => {
-    _this.current.password = text
-  }
-  const passwordInputSubmit = (): void => {
-    hook.confirmedPassword.current.focus()
-  }
-
-  const repeatPasswordTextHandler = (text: string): void => {
-    _this.current.confirmedPassword = text
-  }
-  const repeatPasswordInputSubmit = (): void => {
-    hook.buttonClickHandler()
-  }
-
-  return (
-    <View style={styles.container}>
-      <BaseInput
-        image={images.lock}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        onChangeText={passwordTextHandler}
-        onSubmit={passwordInputSubmit}
-        secure={true}
-        testID={'nameInput'}
-        title={'authentication.registration.password'}
-        returnKeyType={'next'}
-        ref={hook.password}
-      />
-      <BaseInput
-        image={images.lock}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        onChangeText={repeatPasswordTextHandler}
-        onSubmit={repeatPasswordInputSubmit}
-        testID={'nameInput'}
-        secure={true}
-        title={'authentication.registration.repeatPassword'}
-        returnKeyType={'send'}
-        ref={hook.confirmedPassword}
-      />
-    </View>
-  )
+type PasswordViewProps = {
+  hook: Record<string, any>
+  activePage: number
 }
+// eslint-disable-next-line react/display-name
+const PasswordView = React.memo(
+  ({hook: {control, watch}}: PasswordViewProps): ReactElement => {
+    return (
+      <View style={styles.container}>
+        <Controller
+          as={BaseInput}
+          name="password"
+          rules={{
+            validate: InputValidationHelpers.passwordConfirmValidation(
+              watch('repeatPassword'),
+            ),
+          }}
+          control={control}
+          onChange={(args) => args[0].nativeEvent.text}
+          image={images.lock}
+          imageStyle={{tintColor: Colors.primaryBlue}}
+          testID={'passwordInput'}
+          secure={true}
+          title={'authentication.registration.password'}
+        />
+        <Controller
+          as={BaseInput}
+          name="repeatPassword"
+          rules={{
+            validate: InputValidationHelpers.passwordConfirmValidation(
+              watch('password'),
+            ),
+          }}
+          control={control}
+          onChange={(args) => args[0].nativeEvent.text}
+          image={images.lock}
+          imageStyle={{tintColor: Colors.primaryBlue}}
+          returnKeyType={'send'}
+          testID={'RepeatpasswordInput'}
+          secure={true}
+          title={'authentication.registration.repeatPassword'}
+        />
+      </View>
+    )
+  },
+  ({activePage}, {activePage: nextActivePage}) =>
+    nextActivePage != 2 && activePage != 2,
+)
 
 export default PasswordView
 

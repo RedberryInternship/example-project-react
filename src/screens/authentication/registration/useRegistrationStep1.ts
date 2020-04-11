@@ -1,117 +1,135 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, RefObject} from 'react'
-import {TextInput, Alert} from 'react-native'
-import {Defaults} from 'utils'
-import {Ajax} from 'utils'
-import {BaseInputRefObject} from 'allTypes'
+import {useRef, RefObject, useEffect} from 'react'
+import {TextInput} from 'react-native'
+import {useForm} from 'react-hook-form'
 
-export default (setActivePage: any, t: any) => {
-  const flatListRef: any = useRef(null)
+import {Helpers, InputValidationHelpers} from 'utils'
+import {CodeRefType} from 'allTypes'
+import services from 'services'
 
-  const phoneRef: BaseInputRefObject = useRef(null)
-  const codeRef: RefObject<TextInput | any> = useRef(null)
-  const _this: RefObject<any> = useRef({phone: '', code: ''}) // Vobi Todo: move this as state
+type InputValues = {
+  phone: string
+  code: string
+}
+export default (setActivePage: (index: number) => void) => {
+  const phoneRef = useRef<TextInput>()
+  const codeRef = useRef<TextInput & CodeRefType>()
 
-  const phoneInputSubmit = () => {
-    const {phone} = _this.current
-    if (phone == '') {
-      codeRef.current && codeRef.current.setDisabledInput(true)
-      return Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.registration.fillPhoneNumber'),
+  const {
+    setValue,
+    getValues,
+    register,
+    handleSubmit,
+    errors,
+    watch,
+    reset,
+    triggerValidation,
+  } = useForm({
+    validateCriteriaMode: 'all',
+    submitFocusError: true,
+  })
+
+  const phone: string = watch('phone')
+
+  useEffect(() => {
+    register(
+      {name: 'phone'},
+      {validate: InputValidationHelpers.phoneNumberValidation},
+    )
+    register(
+      {name: 'code'},
+      {validate: InputValidationHelpers.codeVerification},
+    )
+    setTimeout(() => phoneRef.current?.focus(), 500)
+  }, [])
+
+  useEffect(() => {
+    if (Object.keys(errors).length)
+      Helpers.DisplayDropdownWithError(
+        errors[Object.keys(errors)?.[0]]?.message,
       )
+  }, [errors])
+
+  useEffect(() => {
+    /**
+     * redberry: the worst way to handle change, but no other way
+     * why not async? because useEffect callback can't be async function
+     * and this is little function and so let left this way
+     */
+    triggerValidation('phone').then((status: boolean) =>
+      status
+        ? codeRef.current?.activateButton()
+        : codeRef.current?.disableActivateButton(),
+    )
+  }, [phone])
+
+  const receiveCodeHandler = async (): Promise<void> => {
+    if (!(await triggerValidation('phone')))
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.registration.fillPhoneNumber',
+      )
+    try {
+      const {phone} = getValues()
+      await services.sendSMSCode(phone)
+
+      codeRef.current?.startCodeAnimation()
+      codeRef.current?.focus()
+      codeRef.current?.setDisabledInput(false)
+
+      Helpers.DisplayDropdownWithSuccess(
+        'dropDownAlert.registration.codeSentSuccessfully',
+      )
+    } catch (e) {
+      Helpers.Logger(e)
+      Helpers.DisplayDropdownWithError()
     }
-
-    codeRef.current && codeRef.current.startCodeAnimation()
-
-    Ajax.post('/send-sms-code', {phone_number: phone})
-      .then(({json_status}: any) => {
-        if (json_status == 'SMS Sent') {
-          codeRef.current && codeRef.current.focus()
-          codeRef.current && codeRef.current.setDisabledInput(false)
-
-          Defaults.dropdown?.alertWithType(
-            'success',
-            t('dropDownAlert.registration.codeSentSuccessfully'),
-          )
-        }
-      })
-      .catch((error: any) => {
-        if (error) {
-          /* TODO */
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.generalError'),
-          )
-        } else {
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.generalError'),
-          )
-        }
-      })
   }
 
-  const verifyCode = () => {
-    const {code, phone} = _this.current
-    Ajax.post('/verify-code', {phone_number: phone, code})
-      .then(({status}: any) => {
-        if (status == 200) {
-          setActivePage(1)
-        }
-      })
-      .catch((error: any) => {
-        codeRef.current && codeRef.current.setDisabledInput(false)
-        if (error.data.status === 401) {
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.registration.incorrectCode'),
-          )
-        } else if (error.data.status === 409) {
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.registration.phoneAlreadyToken'),
-          )
-        } else {
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.generalError'),
-          )
-        }
-      })
-  }
+  const buttonClickHandler = async ({
+    phone,
+    code,
+  }: InputValues): Promise<void> => {
+    try {
+      const {status} = await services.verifyCodeOnRegistration(phone, code)
+      if (status == 200) {
+        setActivePage(1)
+      }
+    } catch (error) {
+      Helpers.Logger(error)
+      if (error.data.status === 401) {
+        Helpers.DisplayDropdownWithError(
+          'dropDownAlert.registration.incorrectCode',
+        )
+      } else if (error.data.status === 409) {
+        Helpers.DisplayDropdownWithError(
+          'dropDownAlert.registration.phoneAlreadyToken',
+        )
+      } else {
+        Helpers.DisplayDropdownWithError()
+      }
 
-  const buttonClickHandler = () => {
-    const {code, phone} = _this.current
-
-    console.log(phone, code, 'phone')
-    codeRef.current && codeRef.current.setDisabledInput(true)
-
-    if (phone == '') {
-      codeRef.current && codeRef.current.setDisabledInput(true)
-      Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.registration.fillPhoneNumber'),
-      )
-    } else if (code == '') {
-      phoneInputSubmit()
-    } else if (code.length != 4) {
-      codeRef.current && codeRef.current.setDisabledInput(false)
-      codeRef.current && codeRef.current.focus()
-      Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.registration.codeLengthError'),
-      )
-    } else return verifyCode()
+      // phoneRef.current?.setNativeProps({
+      //   text: '',
+      // })
+      // codeRef.current?.setNativeProps({
+      //   text: '',
+      // })
+      // reset()
+    }
   }
 
   return {
-    phoneInputSubmit,
-    flatListRef,
     phoneRef,
     codeRef,
     buttonClickHandler,
-    verifyCode,
-    _this,
+    setValue,
+    getValues,
+    register,
+    handleSubmit,
+    errors,
+    watch,
+    reset,
+    triggerValidation,
+    receiveCodeHandler,
   }
 }

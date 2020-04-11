@@ -17,7 +17,15 @@ export const forgotPasswordRecovery = (
 ): Promise<any> =>
   ajax.post('/verify-code-for-password-recovery', {phone_number, code})
 
+export const verifyCodeOnRegistration = (
+  phone_number: string,
+  code: string,
+): Promise<any> => ajax.post('/verify-code', {phone_number, code})
+
 export const resetPassword = (
   phone_number: string,
   password: string,
 ): Promise<any> => ajax.post('/reset-password', {phone_number, password})
+
+export const register = (data: Record<string, string | number>): Promise<any> =>
+  ajax.post('/register', {...data})

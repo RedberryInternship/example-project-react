@@ -3,16 +3,9 @@ import {useRef, useEffect} from 'react'
 import {TextInput} from 'react-native'
 
 import {Helpers, InputValidationHelpers} from 'utils'
-import {Navigation} from 'allTypes'
+import {Navigation, CodeRefType} from 'allTypes'
 import {useForm} from 'react-hook-form'
 import services from 'services'
-
-type CodeRefType = {
-  startCodeAnimation: () => void
-  activateButton: () => void
-  disableActivateButton: () => void
-  setDisabledInput: (bool: boolean) => void
-}
 
 type InputValues = {
   phone: string
@@ -123,13 +116,13 @@ export default (navigation: Navigation) => {
           Helpers.DisplayDropdownWithError()
           break
       }
-      phoneRef.current?.setNativeProps({
-        text: '',
-      })
-      codeRef.current?.setNativeProps({
-        text: '',
-      })
-      reset()
+      // phoneRef.current?.setNativeProps({
+      //   text: '',
+      // })
+      // codeRef.current?.setNativeProps({
+      //   text: '',
+      // })
+      // reset()
     }
   }
 

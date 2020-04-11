@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-vars */
-import {useRef, RefObject} from 'react'
+import {useRef, RefObject, useEffect} from 'react'
 
-import {Defaults, Ajax} from 'utils'
+import {Defaults, Ajax, Helpers} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {BaseInputRefObject} from 'allTypes'
+import {useForm} from 'react-hook-form'
+import {Alert} from 'react-native'
+import services from 'services'
 
 type RegisterSuccess = {
   json_status: string
@@ -23,90 +26,79 @@ type RegisterError = {
   phone_number: Array<string>
 }
 
+type InputValueTypes = {
+  password: string
+  repeatPassword: string
+}
+
 export default (
-  setActivePage: any,
-  t: any,
-  regStep1: any,
-  regStep2: any,
-  dispatch: any,
+  setActivePage: (index: number) => void,
+  getValues1: () => Record<string, string>,
+  getValues2: () => Record<string, string>,
+  dispatch: (arg0: Function) => void,
 ) => {
   const password: BaseInputRefObject = useRef(null)
   const confirmedPassword: BaseInputRefObject = useRef(null)
 
-  const _this: RefObject<any> = useRef({password: '', confirmedPassword: ''}) // Vobi Todo: we need to discuss what _this does
+  const {control, handleSubmit, errors, watch, reset} = useForm({
+    validateCriteriaMode: 'all',
+    submitFocusError: true,
+  })
 
-  const postData = () => {
-    const {password: _password} = _this.current
-    const {phone} = regStep1._this.current
-    const {name, surname, email} = regStep2._this.current
+  useEffect(() => {
+    if (Object.keys(errors).length)
+      Helpers.DisplayDropdownWithError(
+        errors[Object.keys(errors)?.[0]]?.message,
+      )
+  }, [errors])
 
-    Ajax.post('/register', {
-      first_name: name,
-      last_name: surname,
-      phone_number: phone,
-      email,
-      password: _password,
-    }) // Vobi Todo: use async await
-      .then((data: RegisterSuccess) => {
-        if (data.json_status === 'Registered') {
-          onSuccessRegistration(data)
-        }
+  const buttonClickHandler = async ({
+    password,
+  }: InputValueTypes): Promise<void> => {
+    const {phone: phone_number} = getValues1()
+    const {name: first_name, surname: last_name, email} = getValues2()
+
+    try {
+      const data = await services.register({
+        first_name,
+        last_name,
+        phone_number,
+        email,
+        password,
       })
-      .catch(error => {
-        // Vobi Todo: move this code inside helpers
-        if (typeof error.data === 'string') {
-          const data: RegisterError = JSON.parse(error.data)
 
-          if (Object.prototype.hasOwnProperty.call(data, 'email')) {
-            if (data.email[0] == 'The email has already been taken.') {
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.registration.emailAlreadyToken'),
-              )
+      if (data.json_status === 'Registered') onSuccessRegistration(data)
+    } catch (error) {
+      if (typeof error.data === 'string') {
+        const data: RegisterError = JSON.parse(error.data)
 
-              regStep2.email.current.errorText(
-                'dropDownAlert.registration.emailAlreadyToken',
-              )
-              setActivePage(1)
-            } else {
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.generalError'),
-              )
-            }
-          } else if (
-            Object.prototype.hasOwnProperty.call(data, 'phone_number')
-          ) {
-            if (
-              data.phone_number[0] == 'The phone number has already been taken.'
-            ) {
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.registration.phoneAlreadyToken'),
-              )
-              regStep1.phone.current.errorText(
-                'dropDownAlert.registration.emailAlreadyToken',
-              )
-              setActivePage(0)
-            } else {
-              Defaults.dropdown?.alertWithType(
-                'error',
-                t('dropDownAlert.generalError'),
-              )
-            }
-          } else {
-            Defaults.dropdown?.alertWithType(
-              'error',
-              t('dropDownAlert.generalError'),
+        if (Object.prototype.hasOwnProperty.call(data, 'email')) {
+          if (data.email[0] == 'The email has already been taken.') {
+            Helpers.DisplayDropdownWithError(
+              'dropDownAlert.registration.emailAlreadyToken',
             )
+            setActivePage(1)
+          } else {
+            Helpers.DisplayDropdownWithError()
+          }
+        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {
+          if (
+            data.phone_number[0] == 'The phone number has already been taken.'
+          ) {
+            Helpers.DisplayDropdownWithError(
+              'dropDownAlert.registration.emailAlreadyToken',
+            )
+            setActivePage(0)
+          } else {
+            Helpers.DisplayDropdownWithError()
           }
         } else {
-          Defaults.dropdown?.alertWithType(
-            'error',
-            t('dropDownAlert.generalError'),
-          )
+          Helpers.DisplayDropdownWithError()
         }
-      })
+      } else {
+        Helpers.DisplayDropdownWithError()
+      }
+    }
   }
 
   const onSuccessRegistration = async (data: any) => {
@@ -114,31 +106,14 @@ export default (
     setActivePage(3)
   }
 
-  const buttonClickHandler = () => {
-    const {
-      password: _password,
-      confirmedPassword: _confirmedPassword,
-    } = _this.current
-
-    console.log(_password, _confirmedPassword, 'password, confirmedPassword,')
-
-    if (_password != _confirmedPassword) {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.registration.passwordNotEqual'),
-      )
-    } else if (_password.length < 8) {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.registration.minPasswordTextLength'),
-      )
-    } else postData()
-  }
-
   return {
     buttonClickHandler,
-    _this,
     password,
     confirmedPassword,
+    control,
+    handleSubmit,
+    errors,
+    watch,
+    reset,
   }
 }
