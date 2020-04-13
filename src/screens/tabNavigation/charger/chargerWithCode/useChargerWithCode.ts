@@ -16,7 +16,8 @@ import {
   LastUsedCharger,
   LastUsedChargerResponseObject,
 } from '../../../../../@types/allTypes.d'
-import {Defaults, Ajax} from 'utils'
+import {Defaults} from 'utils'
+import services from 'services'
 
 type _This = {
   chargeWitchCode: string
@@ -74,9 +75,7 @@ export default (
 
   const lastUsed = async (): Promise<LastUsedCharger[]> => {
     if (Defaults.token !== '') {
-      const res: LastUsedChargerResponseObject = await Ajax.get(
-        '/user-chargers',
-      )
+      const res: LastUsedChargerResponseObject = await services.getUserChargers()
       return res.data
     } else {
       return []

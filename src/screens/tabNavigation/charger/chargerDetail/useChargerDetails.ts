@@ -2,7 +2,6 @@
 import {useState, useRef, useContext, useEffect} from 'react'
 import {TextInput} from 'react-native'
 import {useTranslation} from 'react-i18next'
-import Axios from 'axios'
 
 import {AppContext} from '../../../../../App'
 import {
@@ -17,19 +16,18 @@ import {
   NavigationEventPayload,
 } from 'react-navigation'
 import {Defaults, locationConfig, Helpers} from 'utils'
-import {MAP_API, MAP_URL, locationIfNoGPS} from 'utils/const'
-import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import {
   deleteToFavorites,
   addToFavorites,
 } from '../../../../hooks/actions/rootActions'
 import images from 'assets/images'
+import services from 'services'
+import {
+  isPermissionDeniedRegex,
+  getCoordsAnyway,
+} from 'utils/mapAndLocation/mapFunctions'
 
-type _This = {
-  charger: Charger | undefined
-}
-
-const services = [images.arrowLeft, images.arrowLeft]
+const dummyServices = [images.arrowLeft, images.arrowLeft]
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -46,7 +44,7 @@ export default (
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
   const passwordRef: React.RefObject<TextInput> = useRef(null)
 
-  const {t, i18n} = useTranslation()
+  const {t} = useTranslation()
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
@@ -75,18 +73,11 @@ export default (
 
   const chargerLocationDirectionHandler = async (): Promise<void> => {
     if (
-      Defaults.locationPermissionStatus?.match(
-        /denied|restricted|notDetermined/,
-      ) // Vobi Todo: move this as helper
+      Defaults.locationPermissionStatus &&
+      isPermissionDeniedRegex(Defaults.locationPermissionStatus)
     ) {
       const status = await locationConfig.requestPermission()
-      if (!status) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.generalError'),
-        )
-        return
-      }
+      if (!status) return Helpers.DisplayDropdownWithError()
     }
     navigation.navigate('Home', {
       mode: HomeNavigateModes.showRoutesToCharger,
@@ -97,9 +88,8 @@ export default (
 
   const onFavoritePress = (): void => {
     if (!Defaults.token)
-      return Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.charging.needToLogIn'),
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.charging.needToLogIn',
       )
 
     const newCharger = {
@@ -127,30 +117,36 @@ export default (
 
   const getDistance = async (lat: number, lng: number): Promise<any> => {
     try {
-      const result: any = await Axios.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
-        locationIfNoGPS.lat,
-        locationIfNoGPS.lng,
-      )}
-        &destinations=${mergeCoords(
-          lat ?? locationIfNoGPS.lat,
-          lng ?? locationIfNoGPS.lng,
-        )}
-        &mode=driving&units=metric&language=${i18n.language}&key=${MAP_API}`)
-
+      const coords = await getCoordsAnyway()
+      const result = await services.getDistance(
+        coords.lat,
+        coords.lng,
+        lat,
+        lng,
+      )
       if (result?.data.rows?.[0].elements?.[0].status !== 'ZERO_RESULTS')
-        setDistance(result?.data.rows?.[0].elements?.[0].distance.value)
+        setDistance(
+          (
+            result?.data.rows?.[0].elements?.[0].distance.value / 100
+          ).toString(),
+        )
       else {
         setDistance('0')
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.charging.noRouteFound'),
-        )
+        Helpers.DisplayDropdownWithError('dropDownAlert.charging.noRouteFound')
       }
     } catch (error) {
       Helpers.DisplayDropdownWithError()
     }
   }
-
+  const headerLeftPress = (): void => {
+    if (charger?.from === 'home') {
+      navigation.navigate('Home')
+    } else if (Defaults.token !== '') {
+      navigation.goBack()
+    } else {
+      navigation.navigate('NotAuthorized')
+    }
+  }
   return {
     loading,
     setLoading,
@@ -162,9 +158,10 @@ export default (
     chargeWitchCode,
     activeChargerType,
     setActiveChargerType,
-    services,
+    dummyServices,
     mainButtonClickHandler,
     charger,
     distance,
+    headerLeftPress,
   }
 }

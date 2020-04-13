@@ -2,14 +2,13 @@ import React, {ReactElement} from 'react'
 import {ScrollView, View, StyleSheet, SafeAreaView} from 'react-native'
 
 import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Ajax, getLocaleText} from 'utils'
+import {Colors, getLocaleText} from 'utils'
 import TransactionListItem from './components/TransactionListItem'
-// Vobi Todo: remove any
+import services from 'services'
+
 const TransactionList = ({navigation}: any): ReactElement => {
   const getOrders = async (): Promise<any> => {
-    // Vobi Todo: move this as service
-    // Vobi Todo: no any types
-    const res = await Ajax.get('/user-orders')
+    const res = await services.getUserOrders()
     return res.data
   }
 
@@ -22,7 +21,7 @@ const TransactionList = ({navigation}: any): ReactElement => {
       <ScrollView style={styles.transactionsContainer}>
         <FetchedDataRenderer
           property={'Partners'}
-          onItemRender={(val: any, index): ReactElement => (
+          onItemRender={(val: any): ReactElement => (
             <TransactionListItem
               key={val.id}
               onPress={navigation.navigate.bind(

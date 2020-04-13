@@ -22,15 +22,26 @@ type MainInput = {
 // eslint-disable-next-line react/display-name
 const HomeMainSearchView = forwardRef(
   ({allChargers, mapRef, setShowAll}: MainInput, ref: any): ReactElement => {
-    const hook = useHomeMainSearch(allChargers, mapRef, setShowAll)
+    const {
+      _this,
+      closeClick,
+      setShowSearchContent,
+      filteredChargers,
+      onSearchItemClickHandler,
+      showSearchContent,
+      animate,
+      textHandler,
+      t,
+      inputRef,
+    } = useHomeMainSearch(allChargers, mapRef, setShowAll)
     // Vobi Todo: destructure hook
     const InputSubmit = (): void => {
-      Alert.alert(JSON.stringify(hook._this.current))
+      Alert.alert(JSON.stringify(_this.current))
     }
 
     useImperativeHandle(ref, () => ({
-      close: hook.closeClick.bind(HomeMainSearchView),
-      show: hook.setShowSearchContent.bind(HomeMainSearchView, true),
+      close: closeClick.bind(HomeMainSearchView),
+      show: setShowSearchContent.bind(HomeMainSearchView, true),
     }))
     // Vobi Todo: move this as separate component or view
     // Vobi Todo: inside component
@@ -40,7 +51,7 @@ const HomeMainSearchView = forwardRef(
     //       key={chargerObj.id}
     //       text={getLocaleText(chargerObj.name)}
     //       mainTitle={getLocaleText(chargerObj.location)}
-    //       onPress={hook.onSearchItemClickHandler.bind(
+    //       onPress={onSearchItemClickHandler.bind(
     //         MainInput,
     //         chargerObj.lat,
     //         chargerObj.lng,
@@ -54,7 +65,7 @@ const HomeMainSearchView = forwardRef(
     //     key={val.id}
     //     text={getLocaleText(val.name)}
     //     mainTitle={getLocaleText(val.location)}
-    //     onPress={hook.onSearchItemClickHandler.bind(
+    //     onPress={onSearchItemClickHandler.bind(
     //       MainInput,
     //       val.lat,
     //       val.lng,
@@ -63,7 +74,7 @@ const HomeMainSearchView = forwardRef(
     // ))
     const searchedItems = (): ReactElement => (
       <>
-        {hook.filteredChargers?.map((chargerObj: Charger) => {
+        {filteredChargers?.map((chargerObj: Charger) => {
           const view = []
 
           if (chargerObj.charger_group?.chargers?.length !== 0) {
@@ -72,7 +83,7 @@ const HomeMainSearchView = forwardRef(
                 key={chargerObj.id}
                 text={getLocaleText(chargerObj.name)}
                 mainTitle={getLocaleText(chargerObj.location)}
-                onPress={hook.onSearchItemClickHandler.bind(
+                onPress={onSearchItemClickHandler.bind(
                   HomeMainSearchView,
                   chargerObj.lat,
                   chargerObj.lng,
@@ -80,13 +91,13 @@ const HomeMainSearchView = forwardRef(
               />,
             )
           } else {
-            chargerObj.charger_group?.chargers?.map(val =>
+            chargerObj.charger_group?.chargers?.map((val) =>
               view.push(
                 <MainSearchItem
                   key={val.id}
                   text={getLocaleText(val.name)}
                   mainTitle={getLocaleText(val.location)}
-                  onPress={hook.onSearchItemClickHandler.bind(
+                  onPress={onSearchItemClickHandler.bind(
                     HomeMainSearchView,
                     val.lat,
                     val.lng,
@@ -105,38 +116,37 @@ const HomeMainSearchView = forwardRef(
       () => (
         <TouchableOpacity
           activeOpacity={1}
-          onPress={hook.closeClick}
-          style={styles.container}>
+          onPress={closeClick}
+          style={styles.container}
+        >
           <>
-            <Animated.View style={[styles.inputStyleContainer, hook.animate()]}>
+            <Animated.View style={[styles.inputStyleContainer, animate()]}>
               <HomeMainSearchInput
-                setShowSearchContent={hook.setShowSearchContent.bind(
+                setShowSearchContent={setShowSearchContent.bind(
                   HomeMainSearchView,
-                  !hook.showSearchContent,
+                  !showSearchContent,
                 )}
-                showSearchContent={hook.showSearchContent}
-                // Vobi todo: const { t } = useTranslation()
-                placeholder={`${hook.t('home.location')}/${hook.t(
-                  'home.organization',
-                )}`}
-                textHandler={hook.textHandler}
+                showSearchContent={showSearchContent}
+                placeholder={`${t('home.location')}/${t('home.organization')}`}
+                textHandler={textHandler}
                 InputSubmit={InputSubmit}
-                closeClick={hook.closeClick}
-                ref={hook.InputRef}
-                // Vobi Todo: InputRef variables shouldn't start with upper case
+                closeClick={closeClick}
+                ref={inputRef}
               />
             </Animated.View>
             <Animated.View
               style={[
                 styles.searchContent,
-                {height: hook._this.current.animatedSearchContentHeight},
-              ]}>
+                {height: _this.current.animatedSearchContentHeight},
+              ]}
+            >
               <View
                 style={{
-                  display: hook.showSearchContent ? 'flex' : 'none',
+                  display: showSearchContent ? 'flex' : 'none',
                   flex: 1,
                   marginBottom: 16,
-                }}>
+                }}
+              >
                 <KeyboardAwareFlatList
                   style={{flex: 1}}
                   contentContainerStyle={{}}
@@ -156,7 +166,7 @@ const HomeMainSearchView = forwardRef(
           </>
         </TouchableOpacity>
       ),
-      [allChargers, setShowAll, hook],
+      [allChargers, setShowAll, showSearchContent],
     )
   },
 )

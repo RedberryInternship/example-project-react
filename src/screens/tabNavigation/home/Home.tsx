@@ -13,38 +13,50 @@ export const HomeContext = createContext({})
 const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  const hook = useHome(navigation)
+  const {
+    mapRef,
+    showAll,
+    onMapFilteredChargers,
+    context,
+    selectedFiltersOnMap,
+    onFilterClickOnMap,
+    setShowAll,
+    mainInputRef,
+    bottomSheetRef,
+    onFilterClick,
+    selectedFilters,
+    onFilteredItemClick,
+    bottomSheetChargers,
+    searchInputTextChangeHandler,
+  } = useHome(navigation)
 
-  return useMemo(
-    () => (
-      <HomeContext.Provider value={{state, dispatch}}>
-        <View style={styles.mainContainer}>
-          <MapView
-            ref={hook.mapRef}
-            showAll={hook.showAll}
-            filteredChargersOnMap={hook.onMapFilteredChargers}
-            navigation={navigation}
-          />
-          <HomeMainComponent
-            allchargers={hook.context?.state.AllChargers ?? []}
-            mapRef={hook.mapRef}
-            selectedFiltersOnMap={hook.selectedFiltersOnMap}
-            onFilterClickOnMap={hook.onFilterClickOnMap}
-            setShowAll={hook.setShowAll}
-            mainInputRef={hook.mainInputRef}
-          />
-          <BottomSheetReanimated
-            ref={hook.bottomSheetRef}
-            onFilterClick={hook.onFilterClick}
-            selectedFilters={hook.selectedFilters}
-            onFilteredItemClick={hook.onFilteredItemClick}
-            filteredChargers={hook.bottomSheetChargers ?? []}
-            textHandler={hook.searchInputTextChangeHandler}
-          />
-        </View>
-      </HomeContext.Provider>
-    ),
-    [hook],
+  return (
+    <HomeContext.Provider value={{state, dispatch}}>
+      <View style={styles.mainContainer}>
+        <MapView
+          ref={mapRef}
+          showAll={showAll}
+          filteredChargersOnMap={onMapFilteredChargers}
+          navigation={navigation}
+        />
+        <HomeMainComponent
+          allchargers={context?.state.AllChargers ?? []}
+          mapRef={mapRef}
+          selectedFiltersOnMap={selectedFiltersOnMap}
+          onFilterClickOnMap={onFilterClickOnMap}
+          setShowAll={setShowAll}
+          mainInputRef={mainInputRef}
+        />
+        <BottomSheetReanimated
+          ref={bottomSheetRef}
+          onFilterClick={onFilterClick}
+          selectedFilters={selectedFilters}
+          onFilteredItemClick={onFilteredItemClick}
+          filteredChargers={bottomSheetChargers ?? []}
+          textHandler={searchInputTextChangeHandler}
+        />
+      </View>
+    </HomeContext.Provider>
   )
 }
 

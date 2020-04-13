@@ -17,44 +17,48 @@ import useChargerDetails from './useChargerDetails'
 const ChargerDetail = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const hook = useChargerDetails(navigation)
-
-  const headerLeftPress = (): void => {
-    if (Defaults.token !== '') {
-      navigation.goBack()
-    } else {
-      navigation.navigate('NotAuthorized')
-    }
-  }
+  const {
+    headerLeftPress,
+    chargerLocationDirectionHandler,
+    onFavoritePress,
+    showChargerLocationHandler,
+    charger,
+    distance,
+    activeChargerType,
+    setActiveChargerType,
+    dummyServices,
+    mainButtonClickHandler,
+  } = useChargerDetails(navigation)
 
   return (
     <View style={styles.container}>
       <BaseHeader onPressLeft={headerLeftPress} />
       <ScrollView
         style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContentContainer}>
+        contentContainerStyle={styles.scrollViewContentContainer}
+      >
         <ChargerDetailTopInfo
-          chargerLocationDirectionPress={hook.chargerLocationDirectionHandler}
-          showChargerLocationPress={hook.showChargerLocationHandler}
+          chargerLocationDirectionPress={chargerLocationDirectionHandler}
+          showChargerLocationPress={showChargerLocationHandler}
           // TODO
-          favouritePress={hook.onFavoritePress}
-          favorite={hook.charger?.is_favorite}
-          code={hook.charger?.code}
-          name={getLocaleText(hook.charger?.name)}
-          location={getLocaleText(hook.charger?.location)}
-          distance={hook.distance}
+          favouritePress={onFavoritePress}
+          favorite={charger?.is_favorite}
+          code={charger?.code}
+          name={getLocaleText(charger?.name)}
+          location={getLocaleText(charger?.location)}
+          distance={distance}
         />
-        <CurrentTariffs data={hook.charger?.charging_prices ?? []} />
+        <CurrentTariffs data={charger?.charging_prices ?? []} />
         <TitleTopLeftContainer
           direction={'column'}
           title={'chargerDetail.connectors'}
-          data={hook.charger?.connector_types ?? []}
+          data={charger?.connector_types ?? []}
           onRenderItem={(val, index): ReactElement => (
             <ChargerTypesItem
               key={index}
               index={index + 1}
-              active={hook.activeChargerType === index}
-              onPress={hook.setActiveChargerType.bind(ChargerDetail, index)}
+              active={activeChargerType === index}
+              onPress={setActiveChargerType.bind(ChargerDetail, index)}
               type={val.name}
               power={'34'}
             />
@@ -63,7 +67,7 @@ const ChargerDetail = ({
         <TitleTopLeftContainer
           direction={'row'}
           title={'chargerDetail.additionalServices'}
-          data={hook.services}
+          data={dummyServices}
           onRenderItem={(val, index): ReactElement => (
             <View key={index} style={styles.serviceContainer}>
               <Image source={val} style={styles.serviceImage} />
@@ -72,7 +76,7 @@ const ChargerDetail = ({
         />
       </ScrollView>
       <BaseButton
-        onPress={hook.mainButtonClickHandler}
+        onPress={mainButtonClickHandler}
         text={'charger.turnOn'}
         style={styles.baseButton}
         image={images.charge}

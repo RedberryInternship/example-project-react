@@ -50,10 +50,9 @@ const useHomeMainSearch = (
   }
 
   useEffect(() => {
-    // Vobi Todo: const data = Helpers.GetFilteredCharger([], inputText, allChargers)
-    // Vobi Todo: setFilteredChargers(data)
-    // Vobi Todo: you shouldn't let helper mutate state
-    Helpers.GetFilteredCharger([], inputText, allChargers, setFilteredChargers)
+    Helpers.GetFilteredCharger([], inputText).then((data) => {
+      setFilteredChargers(data ?? allChargers ?? [])
+    })
   }, [inputText, allChargers])
 
   const animate = (): any => ({

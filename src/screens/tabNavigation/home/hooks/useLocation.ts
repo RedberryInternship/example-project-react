@@ -5,14 +5,16 @@ import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
-import i18next from 'i18next'
-import Axios from 'axios'
 
-import {Coords, GoogleGetDirection} from 'allTypes'
+import {Coords} from 'allTypes'
 
-import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
-import {regionFrom, Defaults, Const, Ajax, locationConfig} from 'utils'
+import {
+  getCoordsAnyway,
+  isPermissionGrantedRegex,
+} from 'utils/mapAndLocation/mapFunctions'
+import {regionFrom, Defaults, locationConfig, Helpers} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/home/Home'
+import services from 'services'
 
 type ThisRef = {
   interval: number
@@ -28,7 +30,6 @@ type useLocationProps = {
 }
 const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   const context: any = useContext(HomeContext)
-
   const [
     permissionStatus,
     setPermissionStatus,
@@ -61,15 +62,10 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     status: LocationPermissionStatus,
   ): void => {
     setPermissionStatus(status)
-    _this.current.permissionStatus = status
     Defaults.locationPermissionStatus = status
     if (status.match(/notDetermined/)) {
       requestPermission()
-    } else if (
-      status.match(
-        /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
-      ) // Vobi todo: this kind of checks should be inside utils or helpers and you should call it like is/Something/
-    ) {
+    } else if (isPermissionGrantedRegex(status)) {
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)
     }
@@ -86,40 +82,21 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
     Defaults.locationPermissionStatus = status
     if (!status.match(/denied|restricted|notDetermined/)) {
       navigateToLocation()
-    } else if (status.match(/notDetermined/)) {
+    } else {
       // requestPermission()
     }
   }
 
-  const navigateToLocation = async (
-    _location: Coords = null,
-  ): Promise<void> => {
-    if (_location) navigateByRef(_location.lat, _location.lng)
-    else if (_this.current.location != null) {
-      navigateByRef(
-        _this.current.location.latitude,
-        _this.current.location.longitude,
-      )
-    } else {
+  const navigateToLocation = async (location: Coords = null): Promise<void> => {
+    if (location) navigateByRef(location.lat, location.lng)
+    else {
       try {
-        const permission = await locationConfig.requestPermission()
-        if (!permission) {
-          getLocationViaIP()
-          return
-        }
-        const latestLocation: Location | null = await RNLocation.getLatestLocation(
-          {
-            timeout: 6000,
-          },
-        )
-        if (latestLocation != null) {
-          navigateByRef(latestLocation.latitude, latestLocation.longitude)
-        }
+        await locationConfig.requestPermission()
+        const coords = await getCoordsAnyway()
+
+        navigateByRef(coords.lat, coords.lng)
       } catch (error) {
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18next.t('dropDownAlert.generalError'),
-        )
+        Helpers.DisplayDropdownWithError()
       }
     }
   }
@@ -147,20 +124,20 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
       setPolyline([])
       return
     }
+
+    const coords = await getCoordsAnyway()
     try {
-      const res = await Axios.get<GoogleGetDirection>(
-        `https://maps.googleapis.com/maps/api/directions/json?origin=${mergeCoords(
-          _this.current.location?.latitude ?? Const.locationIfNoGPS.lat,
-          _this.current.location?.longitude ?? Const.locationIfNoGPS.lng,
-        )}&destination=${mergeCoords(finishLat, finishLng)}&mode=driving&key=${
-          Const.MAP_API
-        }`,
-      ) // Vobi Todo: you should get this url from config
+      const res = await services.getDirection(
+        coords.lat,
+        coords.lng,
+        finishLat,
+        finishLng,
+      )
 
       if (res.data.status === 'ZERO_RESULTS') throw 'ZERO_RESULTS'
       if (res.data.status !== 'OK') throw 'ERROR'
       const array = polyline.decode(res.data.routes[0].overview_polyline.points)
-      const coordsBetween = array.map(point => {
+      const coordsBetween = array.map((point) => {
         return {
           latitude: point[0],
           longitude: point[1],
@@ -178,33 +155,9 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
         animated: true,
       })
     } catch (error) {
-      if (error === 'ERROR')
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18next.t('dropDownAlert.generalError'),
-        )
+      if (error === 'ERROR') Helpers.DisplayDropdownWithError()
       else if (error === 'ZERO_RESULTS')
-        Defaults.dropdown?.alertWithType(
-          'error',
-          i18next.t('dropDownAlert.home.noRouteFound'),
-        )
-    }
-  }
-
-  const getLocationViaIP = async (): Promise<string | undefined> => {
-    try {
-      const res = await Ajax.get('/geo-ip')
-      navigateByRef(
-        res?.Latitude ?? Const.locationIfNoGPS.lat,
-        res?.Longitude ?? Const.locationIfNoGPS.lng,
-        10000,
-      )
-    } catch (error) {
-      Defaults.dropdown?.alertWithType(
-        'error',
-        i18next.t('dropDownAlert.generalError'),
-      )
-      return
+        Helpers.DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
     }
   }
 

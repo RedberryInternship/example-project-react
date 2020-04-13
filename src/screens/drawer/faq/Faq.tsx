@@ -4,8 +4,9 @@ import {View, StyleSheet, ScrollView} from 'react-native'
 import {LocaleStringObject, ScreenPropsWithNavigation} from 'allTypes'
 
 import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Ajax, getLocaleText} from 'utils'
+import {Colors, getLocaleText} from 'utils'
 import FaqListItem from './components/FaqListItem'
+import services from 'services'
 
 type FAQResponseType = {
   question: LocaleStringObject
@@ -16,7 +17,7 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const [activeFaq, setActiveFaq] = useState<number>(1)
 
   const getFAQ = async (): Promise<any> => {
-    const res = await Ajax.get('/faq')
+    const res = await services.getFAQ()
     return res.faq
   }
 

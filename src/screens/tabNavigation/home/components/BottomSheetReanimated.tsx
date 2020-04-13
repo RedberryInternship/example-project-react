@@ -22,14 +22,8 @@ import {BottomSheetFilterItem, MainSearchItem} from '../components'
 
 const screenHeight = Dimensions.get('window').height
 
-enum ScrollPositionStatus {
-  top,
-  onScroll,
-}
-
 type _This = {
   text: string
-  scrollPositionStatus: ScrollPositionStatus
 }
 
 type BottomSheetReanimatedProps = {
@@ -53,12 +47,9 @@ const BottomSheetReanimated = forwardRef(
   ) => {
     const _this = useRef<_This>({
       text: '',
-      scrollPositionStatus: ScrollPositionStatus.top,
     })
     // Vobi Todo: do not use ref's instead of state
-    // Vobi Todo: scrollPositionStatus: ScrollPositionStatus.top you shouldn't store constant in the state
-    const InputRef = useRef<TextInput>(null)
-    // Vobi Todo: do not name variables like this
+    const inputRef = useRef<TextInput>(null)
     const {t} = useTranslation()
 
     const insets = useSafeArea()
@@ -68,9 +59,9 @@ const BottomSheetReanimated = forwardRef(
         textHandler('')
         // Vobi Todo: setText('')
         _this.current.text = ''
-        InputRef.current?.clear()
+        inputRef.current?.clear()
       } else {
-        InputRef.current?.blur()
+        inputRef.current?.blur()
         // Keyboard.dismiss()
         ref.current?.snapTo(0)
         ref.current?.snapTo(0)
@@ -84,7 +75,6 @@ const BottomSheetReanimated = forwardRef(
       textHandler(text)
     }
 
-    // Vobi todo: this should be separate component
     const renderHeaderComponent = (): ReactElement => (
       <View style={styles.headerComponent}>
         <View style={styles.headerComponentWrapper} />
@@ -101,7 +91,7 @@ const BottomSheetReanimated = forwardRef(
             onSubmitEditing={() => {}}
             placeholderTextColor={Colors.primaryWhite}
             allowFontScaling={false}
-            ref={InputRef}
+            ref={inputRef}
             autoCorrect={false}
             editable={true}
             autoCapitalize={'none'}
@@ -111,14 +101,14 @@ const BottomSheetReanimated = forwardRef(
           <TouchableWithoutFeedback
             onPress={closeClick}
             hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
-            style={styles.closeTouchable}>
+            style={styles.closeTouchable}
+          >
             <Image source={images.delete} style={styles.deleteIcon} />
           </TouchableWithoutFeedback>
         </View>
       </View>
     )
 
-    // Vobi todo: this should be separate component
     const renderContent = (): ReactElement => {
       return (
         <View style={styles.bodyContainer}>
@@ -128,44 +118,12 @@ const BottomSheetReanimated = forwardRef(
                 key={index}
                 text={t(val)}
                 onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
-                active={Boolean(selectedFilters[index])}
-                // Vobi Todo: active={!!selectedFilters[index]}
+                active={!!selectedFilters[index]}
               />
             ))}
           </View>
-          {/* // Vobi Todo: do the following */}
-          {/* {filteredChargers?.map((chargerObj: Charger, index: number) => {
-            const {chargers} = chargerObj.charger_group
-            // Vobi Todo: this should be separate component
-            if (chargers?.length !== 0) {
-              return (
-                <MainSearchItem
-                  key={chargerObj.id + getLocaleText(chargerObj.name) + index}
-                  text={getLocaleText(chargerObj.location)}
-                  mainTitle={getLocaleText(chargerObj.name)}
-                  onPress={onFilteredItemClick?.bind(
-                    BottomSheetReanimated,
-                    chargerObj,
-                  )}
-                />
-              )
-            } else {
-              return chargers?.map((val, index: number) => (
-                <MainSearchItem
-                  key={val.id + getLocaleText(val.name) + index}
-                  text={getLocaleText(val.location)}
-                  mainTitle={getLocaleText(val.name)}
-                  onPress={onFilteredItemClick?.bind(
-                    BottomSheetReanimated,
-                    val,
-                  )}
-                />
-              ))
-            }
-          })} */}
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
-
             if (chargerObj.charger_group?.chargers?.length !== 0) {
               view.push(
                 <MainSearchItem

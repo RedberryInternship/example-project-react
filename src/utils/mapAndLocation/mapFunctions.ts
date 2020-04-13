@@ -1,6 +1,13 @@
 import moment from 'moment'
 import SunCalc from 'suncalc'
-import {Defaults} from 'utils'
+import RNLocation, {
+  Location,
+  LocationPermissionStatus,
+} from 'react-native-location'
+
+import {Defaults, Const, Helpers} from 'utils'
+import services from 'services'
+
 type RegionFrom = {
   latitude: number
   longitude: number
@@ -50,3 +57,45 @@ export const mergeCoords = (
 ): string => {
   return lat + ',' + lng
 }
+
+type getCoordsAnywayType = {
+  lat: number
+  lng: number
+}
+
+export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
+  try {
+    const location: Location | null = await RNLocation.getLatestLocation({
+      timeout: 30000,
+    })
+    if (location !== null)
+      return {lat: location.latitude, lng: location.longitude}
+    // else {
+    //   Helpers.DisplayDropdownWithError()
+    // }
+  } catch (error) {
+    Helpers.DisplayDropdownWithError()
+    console.log('====================================')
+    console.log("can't get location by gps")
+    console.log('====================================')
+  }
+
+  try {
+    const {Latitude, Longitude} = await services.getCoordsByIP()
+    return {lat: Latitude, lng: Longitude}
+  } catch (error) {
+    Helpers.DisplayDropdownWithError()
+    console.log('====================================')
+    console.log("can't get location by ip")
+    console.log('====================================')
+  }
+
+  return Const.locationIfNoGPS
+}
+
+export const isPermissionGrantedRegex = (status: LocationPermissionStatus) =>
+  status.match(
+    /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
+  )
+export const isPermissionDeniedRegex = (status: LocationPermissionStatus) =>
+  status.match(/denied|restricted|notDetermined/)

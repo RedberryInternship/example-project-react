@@ -1,7 +1,8 @@
-import {Sentry, Defaults, Ajax} from 'utils'
+import {Sentry, Defaults} from 'utils'
 import {Exception} from '@sentry/react-native'
 import {ChargerFilters, Charger, ChargersObject} from 'allTypes'
 import i18next from 'i18next'
+import services from 'services'
 
 const Logger = (err: Exception | string | number): void => {
   if (__DEV__) {
@@ -29,38 +30,25 @@ const ConvertToChargerFilterParam = (
   return param
 }
 
-const GetFilteredCharger = (
+const GetFilteredCharger = async (
   filterChargerTypes: number[] = [],
   filterInput = '',
-  allChargers: Charger[] | null,
-  setFilteredChargers: (chargers: Charger[]) => void,
-): void => {
+): Promise<Charger[] | null> => {
   const params: ChargerFilters = ConvertToChargerFilterParam(
     filterChargerTypes,
     filterInput,
   )
   if (Object.entries(params).length !== 0) {
-    Ajax.get(
-      '/chargers/?' +
-        Object.keys(params)
-          .map((key) => key + '=' + params[key])
-          .join('&'),
-    ) // Vobi Todo: you are mapping twice here one by map and one by join you should avoid O(n2) algorithms
-      // try using this helper function
-      // const stringify = () => {
-      //   let result = ''
-      //   for (const key in obj) {
-      //     result += `${key}=${obj[key]}&`
-      //   }
-      //   return result.slice(0, -1)
-      // }
-      .then(({data}: ChargersObject) => {
-        setFilteredChargers(data)
-      }) // Vobi Todo: use async await
-      .catch(() => {
-        DisplayDropdownWithError()
-      })
-  } else setFilteredChargers(allChargers ?? [])
+    try {
+      const {data}: ChargersObject = await services.getAllChargersFiltered(
+        params,
+      )
+      return data
+    } catch (error) {
+      DisplayDropdownWithError()
+    }
+  }
+  return null
 }
 
 const DisplayDropdownWithError = (
