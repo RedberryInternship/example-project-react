@@ -35,6 +35,7 @@ const useHome = (
 
   const [inputText, setInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
+
   const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
   const mapRef: MapImperativeRefObject = useRef(null)
   const mainInputRef: any = useRef(null)
@@ -98,23 +99,22 @@ const useHome = (
   const onFilterClick = (index: number): void => {
     let newSelectedFilters: number[] = []
     ++selectedFilters[index]
-    newSelectedFilters = selectedFilters.map(val =>
+    newSelectedFilters = selectedFilters.map((val) =>
       val > 1 || val === 0 ? 0 : 1,
     )
     setSelectedFilters(newSelectedFilters)
   }
 
   useEffect(() => {
-    Helpers.GetFilteredCharger(
-      selectedFilters,
-      inputText,
-      context.state?.AllChargers,
-      setBottomSheetChargers,
-    )
+    Helpers.GetFilteredCharger(selectedFilters, inputText).then((data) => {
+      setBottomSheetChargers(data ?? context.state?.AllChargers ?? [])
+    })
   }, [selectedFilters, inputText, context.state.AllChargers])
 
   const onFilteredItemClick = (charger: Charger): void => {
-    navigation.navigate('ChargerDetail', {chargerDetails: charger})
+    navigation.navigate('ChargerDetail', {
+      chargerDetails: {...charger, from: 'home'},
+    })
   }
 
   const searchInputTextChangeHandler = (text: string): void => {
@@ -123,9 +123,8 @@ const useHome = (
 
   const onFilterClickOnMap = (index: number): void => {
     let newSelectedFilters: number[] = []
-    ++selectedFiltersOnMap[index] // Vobi Todo: what is purpose of this
-    // Redberry: it is main part of the filter logic
-    newSelectedFilters = selectedFiltersOnMap.map(val =>
+    ++selectedFiltersOnMap[index]
+    newSelectedFilters = selectedFiltersOnMap.map((val) =>
       val > 1 || val === 0 ? 0 : 1,
     )
     // Vobi Todo: i think its more understandable now and you have same logic https://tppr.me/o1DAj here move this as function and call it s
@@ -134,18 +133,15 @@ const useHome = (
     //   if (val > 1 || val === 0) return 0
     //   return 1
     // })
+    // redberry: what? it is beautiful
     setSelectedFiltersOnMap(newSelectedFilters)
     setShowAll(false)
   }
 
   useEffect(() => {
-    Helpers.GetFilteredCharger(
-      selectedFiltersOnMap,
-      inputText,
-      context.state?.AllChargers,
-      setOnMapFilteredChargers,
-    ) // Vobi Todo: this is bad way to mutate state you should return value or
-    // Vobi Todo: use callbacks to call state change. when reading this code you cant really understand what it does
+    Helpers.GetFilteredCharger(selectedFiltersOnMap, inputText).then((data) => {
+      setOnMapFilteredChargers(data ?? context.state?.AllChargers ?? [])
+    })
   }, [selectedFiltersOnMap, context.state.AllChargers])
 
   return {

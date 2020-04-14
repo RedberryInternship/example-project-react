@@ -11,7 +11,7 @@ import useCharging from './useCharging'
 import {ChargingView} from './components'
 
 const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const hook = useCharging(navigation)
+  const {changeActiveTab, activeTab, ...hook} = useCharging(navigation)
 
   const [routes] = useState(navigation.getParam('tabsArray', ['']))
 
@@ -96,8 +96,9 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                     props.navigationState.routes.length - 1 !== i ? 1 : 0,
                   backgroundColor,
                 },
-              ]}>
-              <TouchableOpacity onPress={() => hook.changeActiveTab(i)}>
+              ]}
+            >
+              <TouchableOpacity onPress={() => changeActiveTab(i)}>
                 <Animated.Text style={{color}}>{route.title}</Animated.Text>
               </TouchableOpacity>
             </Animated.View>
@@ -117,9 +118,9 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         <ChargingView hook={hook} />
       ) : (
         <TabView
-          navigationState={{index: hook.activeTab, routes}}
+          navigationState={{index: activeTab, routes}}
           renderScene={renderScene}
-          onIndexChange={hook.changeActiveTab}
+          onIndexChange={changeActiveTab}
           lazy={true}
           renderTabBar={renderTabBar}
           initialLayout={Dimensions.get('window')}

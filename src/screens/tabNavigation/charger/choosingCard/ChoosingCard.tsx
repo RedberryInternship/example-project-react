@@ -63,7 +63,8 @@ const ChoosingCard = ({
           colors={['#009AF022', '#1065E322']}
           start={{x: 0, y: 1}}
           end={{x: 1, y: 0}}
-          style={styles.gradinetContainer}>
+          style={styles.gradinetContainer}
+        >
           <ScrollView bounces={false}>
             {navigation.getParam('type', Type.untilShoutDown) ==
             Type.untilShoutDown ? (
@@ -96,7 +97,8 @@ const ChoosingCard = ({
           friction={0.5}
           animatedValue={hook._this.current?.animatedArrow}
           minimumDistanceThreshold={20}
-          backdropOpacity={0.3}>
+          backdropOpacity={0.3}
+        >
           <View style={styles.panelView}>
             <View>
               <Animated.Image
@@ -122,7 +124,8 @@ const ChoosingCard = ({
         <SafeAreaView style={styles.safeAreaView} />
         <KeyboardAvoidingView
           behavior={'padding'}
-          style={styles.keyboardAvoidingView}>
+          style={styles.keyboardAvoidingView}
+        >
           <BaseButton
             onPress={navigation.navigate.bind(ChoosingCard, 'Charging')}
             style={styles.turnOnBtn}

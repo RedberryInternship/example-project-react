@@ -37,7 +37,8 @@ const ChargingView = ({hook}: any): ReactElement => {
       <View style={styles.chargeAnotherCarContainer}>
         <TouchableOpacity
           onPress={hook.navigation.navigate.bind(ChargingView, 'MainDrawer')}
-          style={styles.chargeAnotherCarTouchable}>
+          style={styles.chargeAnotherCarTouchable}
+        >
           <Text style={styles.chargeAnotherCarText}>
             {hook.t('charging.chargeAnotherCar')}
           </Text>

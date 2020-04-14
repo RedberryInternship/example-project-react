@@ -20,9 +20,11 @@ const BottomSheetFilterItem = ({
       style={[
         styles.container,
         {backgroundColor: active ? '#008AEE' : 'white'},
-      ]}>
+      ]}
+    >
       <Text
-        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}>
+        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}
+      >
         {text}
       </Text>
     </View>

@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-vars */
-import {useRef, RefObject, useEffect} from 'react'
+import {useRef, useEffect} from 'react'
 
-import {Defaults, Ajax, Helpers} from 'utils'
+import {Helpers} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {BaseInputRefObject} from 'allTypes'
 import {useForm} from 'react-hook-form'
-import {Alert} from 'react-native'
 import services from 'services'
 
 type RegisterSuccess = {

@@ -23,7 +23,8 @@ const ChargerDetail = ({
       <View style={styles.innerContainer}>
         <LinearGradient
           colors={['#009AF033', '#1065E333']}
-          style={styles.infoLinearGradient}>
+          style={styles.infoLinearGradient}
+        >
           <Image source={images.alertCircle} style={styles.alertCircle} />
           <Text style={styles.infoText}>
             {t('notAuthorized.notAuthorizedText')}
@@ -40,7 +41,8 @@ const ChargerDetail = ({
           onPress={navigation.navigate.bind(ChargerDetail, 'Home', {
             mode: HomeNavigateModes.showAllChargers,
           })}
-          style={styles.allChargersTextWrapper}>
+          style={styles.allChargersTextWrapper}
+        >
           <Text style={styles.allChargersText}>
             {t('charger.allChargerList')}
           </Text>

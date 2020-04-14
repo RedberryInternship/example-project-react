@@ -2,8 +2,9 @@ import React, {ReactElement} from 'react'
 import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
 
 import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Ajax, Const} from 'utils'
+import {Colors, Const} from 'utils'
 import PartnerItem from './components/PartnerItem'
+import services from 'services'
 
 type PartnersResponseType = {
   name: string
@@ -13,7 +14,7 @@ type PartnersResponseType = {
 const Partners = ({navigation}: any): ReactElement => {
   const getPartners = async (): Promise<void> => {
     // Vobi Todo: move this as partnersService
-    const res = await Ajax.get('/partners')
+    const res = await services.getPartners()
     return res.partners
   }
 

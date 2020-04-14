@@ -19,7 +19,15 @@ import useChargerWithCode from './useChargerWithCode'
 const ChargerWithCode = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const hook = useChargerWithCode(navigation)
+  const {
+    codeTextHandler,
+    chargeWitchCode,
+    codeInputSubmit,
+    allChargerHandler,
+    t,
+    navigateToChargerDetailScreen,
+    lastUsed,
+  } = useChargerWithCode(navigation)
 
   return (
     <View style={styles.container}>
@@ -28,14 +36,14 @@ const ChargerWithCode = ({
         <BaseInput
           image={images.lock}
           keyboardType={'email-address'}
-          onChangeText={hook.codeTextHandler}
-          onSubmit={hook.codeInputSubmit}
-          ref={hook.chargeWitchCode}
+          onChangeText={codeTextHandler}
+          onSubmit={codeInputSubmit}
+          ref={chargeWitchCode}
           testID={'codeSumit'}
           title={'charger.enterCode'}
         />
         <BaseButton
-          onPress={hook.codeInputSubmit}
+          onPress={codeInputSubmit}
           text={'next'}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
@@ -43,10 +51,11 @@ const ChargerWithCode = ({
         />
 
         <TouchableOpacity
-          onPress={hook.allChargerHandler}
-          style={styles.allChargersWrapper}>
+          onPress={allChargerHandler}
+          style={styles.allChargersWrapper}
+        >
           <Text style={styles.allChargersText}>
-            {hook.t('charger.allChargerList')}
+            {t('charger.allChargerList')}
           </Text>
         </TouchableOpacity>
         <View style={{height: 32}} />
@@ -61,12 +70,12 @@ const ChargerWithCode = ({
               onItemRender={(val: Charger): ReactElement => (
                 <ChargerItem
                   key={val.id}
-                  onPress={() => hook.navigateToChargerDetailScreen(val)}
+                  onPress={() => navigateToChargerDetailScreen(val)}
                   address={getLocaleText(val.location)}
                   code={val.code}
                 />
               )}
-              fetchData={hook.lastUsed}
+              fetchData={lastUsed}
               updateAlways={true}
             />
           )}
