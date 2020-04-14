@@ -1,12 +1,12 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeArea} from 'react-native-safe-area-context'
+import React, { ReactElement } from 'react'
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeArea } from 'react-native-safe-area-context'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { ScreenPropsWithNavigation } from 'allTypes'
 
-import {BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode} from 'components'
-import {Colors} from 'utils'
+import { BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode } from 'components'
+import { Colors } from 'utils'
 import images from 'assets/images'
 import useForgotPassword from './useForgotPassword'
 
@@ -25,7 +25,7 @@ const ForgotPassword = ({
   const insets = useSafeArea()
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(ForgotPassword, 'Auth')}
         title={'authentication.forgotPasswordPage.recoverPassword'}
@@ -43,7 +43,7 @@ const ForgotPassword = ({
         <PhoneNumberInput
           onChangeText={(text: string) => setValue('phone', text, true)}
           ref={phoneRef}
-          value={watch('phone')}
+          value={watch('phone')} // Vobi Todo: why is this controlled
         />
         <ReceiveCode
           ref={codeRef}

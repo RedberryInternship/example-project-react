@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,11 +7,11 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {useSafeArea} from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
+import { useSafeArea } from 'react-native-safe-area-context'
 
-import {Colors} from 'utils'
-import {BaseNativeTouchable, BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseNativeTouchable, BaseText } from 'components'
 import images from 'assets/images'
 
 type HeaderProps = {
@@ -27,7 +27,7 @@ const BaseHeader = ({
   onPressRight,
   titleRight,
 }: HeaderProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const insets = useSafeArea()
 
   const renderLeft = (): ReactElement | undefined => {
@@ -45,14 +45,30 @@ const BaseHeader = ({
                 </BaseText>
               </>
             ) : (
-              <>
-                <Image source={images.iosBack} style={styles.imageStyle} />
-              </>
-            )}
+                <>
+                  <Image source={images.iosBack} style={styles.imageStyle} />
+                </>
+              )}
           </BaseNativeTouchable>
         </View>
       )
     )
+    // Vobi Todo: return (
+    // Vobi Todo:   onPressLeft && (
+    // Vobi Todo:     <View style={styles.renderLeftContainer}>
+    // Vobi Todo:       <BaseNativeTouchable
+    // Vobi Todo:         onPress={onPressLeft}
+    // Vobi Todo:         style={styles.renderLeftTouchable}>
+    // Vobi Todo:         <Image source={images.iosBack} style={styles.imageStyle} />
+    // Vobi Todo:         {Platform.OS === 'ios' && (
+    // Vobi Todo:             <BaseText style={styles.renderLeftBaseText}>
+    // Vobi Todo:               {t('back')}
+    // Vobi Todo:             </BaseText>
+    // Vobi Todo:         )}
+    // Vobi Todo:       </BaseNativeTouchable>
+    // Vobi Todo:     </View>
+    // Vobi Todo:   )
+    // Vobi Todo: )
   }
 
   const renderMiddle = (): ReactElement | undefined => {
@@ -61,8 +77,8 @@ const BaseHeader = ({
         <Text style={styles.renderMiddleText}>{t(title)}</Text>
       </View>
     ) : (
-      undefined
-    )
+        undefined
+      )
   }
 
   const renderRight = (): ReactElement | undefined => {
@@ -72,7 +88,7 @@ const BaseHeader = ({
           <TouchableOpacity
             onPress={onPressRight}
             style={styles.renderRightTouchable}
-            hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
+            hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}>
             <Text style={styles.renderRightText}>{t(titleRight ?? '')}</Text>
             <Image source={images.iosBack} style={styles.rightImageStyle} />
           </TouchableOpacity>
@@ -81,7 +97,7 @@ const BaseHeader = ({
     )
   }
   return (
-    <View style={[styles.mainContainer, {paddingTop: insets.top}]}>
+    <View style={[styles.mainContainer, { paddingTop: insets.top }]}>
       <View style={[styles.container]}>
         {renderMiddle()}
         {renderLeft()}
@@ -118,7 +134,7 @@ const styles = StyleSheet.create({
     height: 15,
     marginHorizontal: 8,
     resizeMode: 'contain',
-    transform: [{rotateY: '180deg'}],
+    transform: [{ rotateY: '180deg' }],
     tintColor: '#FF9500',
   },
   renderLeftContainer: {

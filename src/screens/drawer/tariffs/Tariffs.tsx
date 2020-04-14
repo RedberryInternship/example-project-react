@@ -1,20 +1,21 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet, Text} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet, Text } from 'react-native'
 
 // components
-import {BaseHeader} from 'components'
+import { BaseHeader } from 'components'
 
 // utils
-import {Colors} from 'utils'
+import { Colors } from 'utils'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { ScreenPropsWithNavigation } from 'allTypes'
 import TariffListItem from './components/TariffListItem'
 import TariffDetail from './components/TariffDetail'
 
-const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
+const Tarrifs = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const tariffList = tariffsInfo.map(el => {
     return <TariffListItem key={el.company} {...el} />
   })
+  // Vobi Todo: cont tariffList = useMemo(() => tariffsInfo.map(el => <TariffListItem key={el.company} {...el} />), [])
 
   return (
     <View style={styles.container}>
