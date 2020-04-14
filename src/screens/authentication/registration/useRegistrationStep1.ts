@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, RefObject, useEffect} from 'react'
-import {TextInput} from 'react-native'
-import {useForm} from 'react-hook-form'
+import { useRef, RefObject, useEffect } from 'react'
+import { TextInput } from 'react-native'
+import { useForm } from 'react-hook-form'
 
-import {Helpers, InputValidationHelpers} from 'utils'
-import {CodeRefType} from 'allTypes'
+import { Helpers, InputValidationHelpers } from 'utils' // Vobi Todo: only components and classes starts with upper case
+import { CodeRefType } from 'allTypes'
 import services from 'services'
 
 type InputValues = {
@@ -33,12 +33,12 @@ export default (setActivePage: (index: number) => void) => {
 
   useEffect(() => {
     register(
-      {name: 'phone'},
-      {validate: InputValidationHelpers.phoneNumberValidation},
+      { name: 'phone' },
+      { validate: InputValidationHelpers.phoneNumberValidation },
     )
     register(
-      {name: 'code'},
-      {validate: InputValidationHelpers.codeVerification},
+      { name: 'code' },
+      { validate: InputValidationHelpers.codeVerification },
     )
     setTimeout(() => phoneRef.current?.focus(), 500)
   }, [])
@@ -69,7 +69,7 @@ export default (setActivePage: (index: number) => void) => {
         'dropDownAlert.registration.fillPhoneNumber',
       )
     try {
-      const {phone} = getValues()
+      const { phone } = getValues()
       await services.sendSMSCode(phone)
 
       codeRef.current?.startCodeAnimation()
@@ -90,7 +90,7 @@ export default (setActivePage: (index: number) => void) => {
     code,
   }: InputValues): Promise<void> => {
     try {
-      const {status} = await services.verifyCodeOnRegistration(phone, code)
+      const { status } = await services.verifyCodeOnRegistration(phone, code)
       if (status == 200) {
         setActivePage(1)
       }

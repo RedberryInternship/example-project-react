@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react'
+import React, { useContext, ReactElement } from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -7,16 +7,16 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native'
-import {useSafeArea} from 'react-native-safe-area-context'
-import {useTranslation} from 'react-i18next'
+import { useSafeArea } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
 
-import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
+import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
 
-import {BaseButton} from 'components'
+import { BaseButton } from 'components'
 
-import {Const, Colors, Defaults} from 'utils'
-import {AppContext} from '../../../../App'
-import {logOut} from '../../../hooks/actions/rootActions'
+import { Const, Colors, Defaults } from 'utils'
+import { AppContext } from '../../../../App'
+import { logOut } from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
 import {
   DrawerTextFieldItem,
@@ -24,8 +24,8 @@ import {
   BaseLocaleButton,
 } from './components'
 
-const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {t, i18n} = useTranslation()
+const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { t, i18n } = useTranslation()
   const insets = useSafeArea()
   const context: AppContextType = useContext(AppContext)
   // Vobi todo: isAuth is helper function move it as authHelper
@@ -60,7 +60,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           {drawerListFields}
         </View>
 
-        <View style={{justifyContent: 'flex-end'}}></View>
+        <View style={{ justifyContent: 'flex-end' }}></View>
       </>
     )
   } else {
@@ -103,7 +103,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     <View
       style={[
         styles.safeAreaViewContainer,
-        {paddingTop: insets.top, paddingBottom: insets.bottom},
+        { paddingTop: insets.top, paddingBottom: insets.bottom },
       ]}>
       <ScrollView
         bounces={false}

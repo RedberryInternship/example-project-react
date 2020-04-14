@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, useEffect} from 'react'
-import {TextInput} from 'react-native'
+import { useRef, useEffect, useCallback } from 'react'
+import { TextInput } from 'react-native'
 
-import {Helpers, InputValidationHelpers} from 'utils'
-import {Navigation, CodeRefType} from 'allTypes'
-import {useForm} from 'react-hook-form'
+import { Helpers, InputValidationHelpers } from 'utils'
+import { Navigation, CodeRefType } from 'allTypes'
+import { useForm } from 'react-hook-form'
 import services from 'services'
 
 type InputValues = {
@@ -12,6 +12,7 @@ type InputValues = {
   code: string
 }
 
+// Vobi Todo: Why is not this hook inside hooks
 export default (navigation: Navigation) => {
   const phoneRef = useRef<TextInput>()
   const codeRef = useRef<TextInput & CodeRefType>()
@@ -34,12 +35,12 @@ export default (navigation: Navigation) => {
 
   useEffect(() => {
     register(
-      {name: 'phone'},
-      {validate: InputValidationHelpers.phoneNumberValidation},
+      { name: 'phone' },
+      { validate: InputValidationHelpers.phoneNumberValidation },
     )
     register(
-      {name: 'code'},
-      {validate: InputValidationHelpers.codeVerification},
+      { name: 'code' },
+      { validate: InputValidationHelpers.codeVerification },
     )
     setTimeout(() => phoneRef.current?.focus(), 500)
   }, [])
@@ -51,17 +52,15 @@ export default (navigation: Navigation) => {
       )
   }, [errors])
 
+  const validatePhone = useCallback(async () => {
+    const isValid = await triggerValidation('phone')
+
+    if (isValid) codeRef.current?.activateButton()
+    else codeRef.current?.disableActivateButton()
+  }, [triggerValidation])
+
   useEffect(() => {
-    /**
-     * redberry: the worst way to handle change, but no other way
-     * why not async? because useEffect callback can't be async function
-     * and this is little function and so let left this way
-     */
-    triggerValidation('phone').then((status: boolean) =>
-      status
-        ? codeRef.current?.activateButton()
-        : codeRef.current?.disableActivateButton(),
-    )
+    validatePhone()
   }, [phone])
 
   const receiveCodeHandler = async (): Promise<void> => {
@@ -70,7 +69,7 @@ export default (navigation: Navigation) => {
         'dropDownAlert.registration.fillPhoneNumber',
       )
     try {
-      const {phone} = getValues()
+      const { phone } = getValues()
       await services.sendSMSCode(phone)
 
       codeRef.current?.startCodeAnimation()
@@ -86,7 +85,7 @@ export default (navigation: Navigation) => {
     }
   }
 
-  const onButtonClick = async ({phone, code}: InputValues): Promise<void> => {
+  const onButtonClick = async ({ phone, code }: InputValues): Promise<void> => {
     try {
       await services.forgotPasswordRecovery(phone, code)
 
