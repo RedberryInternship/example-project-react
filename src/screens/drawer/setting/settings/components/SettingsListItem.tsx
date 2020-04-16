@@ -11,14 +11,16 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
 import images from 'assets/images'
+import {UserSettingEnum} from '../../../../../../@types//allTypes.d'
 
 type SettingsListItemProps = {
   onPress: () => void
   image: ImageSourcePropType
   name: string
   value: string
-  confirmed?: string | boolean | null
-  valueColor: string
+  type: UserSettingEnum
+  onEmptyText?: string
+  color?: string
 }
 
 const SettingsListItem = ({
@@ -26,8 +28,8 @@ const SettingsListItem = ({
   image,
   name,
   value,
-  confirmed,
-  valueColor = Colors.primaryWhite,
+  onEmptyText,
+  color,
 }: SettingsListItemProps): ReactElement => {
   const {t} = useTranslation()
 
@@ -40,8 +42,10 @@ const SettingsListItem = ({
         </View>
 
         <View style={styles.valueAndArrow}>
-          <Text style={[styles.value, {color: valueColor}]}>
-            {confirmed !== null ? t(value) : value}
+          <Text
+            style={[styles.value, {color: value ? Colors.primaryWhite : color}]}
+          >
+            {value ? t(value.toString()) : t(onEmptyText ?? '')}
           </Text>
           <Image source={images.chervonRight} style={styles.arrow} />
         </View>

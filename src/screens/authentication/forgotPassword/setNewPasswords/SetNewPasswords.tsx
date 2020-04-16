@@ -2,21 +2,24 @@ import React, {ReactElement} from 'react'
 import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useSafeArea} from 'react-native-safe-area-context'
-import {Controller} from 'react-hook-form'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {BaseHeader, BaseInput, BaseButton} from 'components'
-import {Colors, InputValidationHelpers} from 'utils'
+import {BaseHeader, BaseButton, PasswordConfirmationView} from 'components'
+import {Colors} from 'utils'
 import useSetNewPassword from './useSetNewPassword'
 import images from 'assets/images'
 
 const SetNewPasswords = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const {control, onClickSubmitButton, handleSubmit, watch} = useSetNewPassword(
-    navigation,
-  )
+  const {
+    control,
+    onClickSubmitButton,
+    handleSubmit,
+    watch,
+    errors,
+  } = useSetNewPassword(navigation)
 
   const insets = useSafeArea()
 
@@ -36,36 +39,10 @@ const SetNewPasswords = ({
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
       >
-        <Controller
-          as={BaseInput}
-          name="password"
-          rules={{
-            validate: InputValidationHelpers.passwordConfirmValidation(
-              watch('repeatPassword'),
-            ),
-          }}
+        <PasswordConfirmationView
+          errors={errors}
+          watch={watch}
           control={control}
-          onChange={(args) => args[0].nativeEvent.text}
-          image={images.lock}
-          testID={'passwordInput'}
-          secure={true}
-          title={'authentication.forgotPasswordPage.newPassword'}
-        />
-        <Controller
-          as={BaseInput}
-          name="repeatPassword"
-          rules={{
-            validate: InputValidationHelpers.passwordConfirmValidation(
-              watch('password'),
-            ),
-          }}
-          control={control}
-          onChange={(args) => args[0].nativeEvent.text}
-          image={images.lock}
-          returnKeyType={'send'}
-          testID={'RepeatpasswordInput'}
-          secure={true}
-          title={'authentication.forgotPasswordPage.repeatPassword'}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView

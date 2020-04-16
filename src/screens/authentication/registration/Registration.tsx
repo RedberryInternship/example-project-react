@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react'
+import React, {ReactElement} from 'react'
 import {
   StyleSheet,
   View,

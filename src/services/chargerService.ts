@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import ajax from './ajax'
-import {ChargerFilters} from 'allTypes'
+import {ChargerFilters, GetAllChargerResponseType} from 'allTypes'
 
-export const getAllChargers = (): Promise<any> => ajax.get('/chargers')
+export const getAllChargers = (): Promise<GetAllChargerResponseType> =>
+  ajax.get('/chargers')
 
-export const getAllChargersFiltered = (params: ChargerFilters): Promise<any> =>
+export const getAllChargersFiltered = (
+  params: ChargerFilters,
+): Promise<GetAllChargerResponseType> =>
   ajax.get(
     '/chargers' +
       Object.keys(params)

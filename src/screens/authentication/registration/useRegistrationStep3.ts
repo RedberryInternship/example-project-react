@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-/* eslint-disable no-unused-vars */
 import {useRef, useEffect} from 'react'
 
 import {Helpers} from 'utils'
@@ -8,18 +7,6 @@ import {BaseInputRefObject} from 'allTypes'
 import {useForm} from 'react-hook-form'
 import services from 'services'
 
-type RegisterSuccess = {
-  json_status: string
-  user: {
-    first_name: string
-    last_name: string
-    phone_number: string
-    email: string
-    verified: number
-    id: number
-  }
-  token: string
-}
 type RegisterError = {
   email: Array<string>
   phone_number: Array<string>
@@ -36,9 +23,6 @@ export default (
   getValues2: () => Record<string, string>,
   dispatch: (arg0: Function) => void,
 ) => {
-  const password: BaseInputRefObject = useRef(null)
-  const confirmedPassword: BaseInputRefObject = useRef(null)
-
   const {control, handleSubmit, errors, watch, reset} = useForm({
     validateCriteriaMode: 'all',
     submitFocusError: true,
@@ -107,8 +91,6 @@ export default (
 
   return {
     buttonClickHandler,
-    password,
-    confirmedPassword,
     control,
     handleSubmit,
     errors,

@@ -1,6 +1,12 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import {Sentry, Defaults} from 'utils'
 import {Exception} from '@sentry/react-native'
-import {ChargerFilters, Charger, ChargersObject} from 'allTypes'
+import {
+  ChargerFilters,
+  Charger,
+  ChargersObject,
+  UserSettingEnum,
+} from '../../@types/allTypes.d'
 import i18next from 'i18next'
 import services from 'services'
 
@@ -73,10 +79,53 @@ const DisplayDropdownWithSuccess = (
   )
 }
 
+const isAuthenticated = (): boolean => !!Defaults.token
+
+type UserColumnType =
+  | 'first_name'
+  | 'last_name'
+  | 'email'
+  | 'phone_number'
+  | 'mapMode'
+
+const getUserSendDataAndType = (
+  data: Record<string, string>,
+  type: UserSettingEnum,
+) => {
+  let objectKey: UserColumnType = 'first_name'
+  const sendData: any = {}
+  switch (type) {
+    case UserSettingEnum.firstName:
+      objectKey = 'first_name'
+      break
+    case UserSettingEnum.lastName:
+      objectKey = 'last_name'
+      break
+
+    case UserSettingEnum.activeCard:
+      break
+
+    case UserSettingEnum.email:
+      break
+
+    case UserSettingEnum.phone:
+      break
+    case UserSettingEnum.password:
+      break
+  }
+  sendData[objectKey] = data[type]
+
+  return {
+    sendData,
+    objectKey,
+  }
+}
 export default {
   Logger,
   ConvertToChargerFilterParam,
   GetFilteredCharger,
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
+  isAuthenticated,
+  getUserSendDataAndType,
 }

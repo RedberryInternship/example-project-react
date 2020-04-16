@@ -24,6 +24,11 @@ type LanguageType = {
   ru: string
 }
 
+export type GetAllChargerResponseType = {
+  data: Charger[]
+  current_hour: string
+}
+
 export interface Charger extends ChargerDetail {
   charger_group_id: number | null
   charger_group: ChargerGroup | null
@@ -100,7 +105,7 @@ type ChargerFastChargingPrices = {
 }
 
 export type AppState = {
-  user: string | null
+  user: UserMeResponseType
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
@@ -304,9 +309,11 @@ type OrderUserCard = {
   masked_pan: string
 }
 export type ProfileFieldChange = {
-  navigation: Navigation
-  clicked: boolean
-  setClicked: (status: boolean) => void
+  value: string | undefined
+  inputName: string | undefined
+  errors: any
+  control: any
+  type: UserSettingEnum
 }
 
 export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
@@ -369,4 +376,139 @@ export type CodeRefType = {
   activateButton: () => void
   disableActivateButton: () => void
   setDisabledInput: (bool: boolean) => void
+}
+
+export type UserMeResponseType = {
+  id: number
+  old_id: number
+  role_id: number
+  phone_number: string
+  first_name: string
+  last_name: string
+  email: string | null
+  active: number
+  verified: number
+  email_verified_at: string | null
+  temp_password: string | null
+  created_at: string
+  updated_at: string
+  user_cards: any[]
+  user_cars: any[]
+  car_models: any[]
+}
+
+export type UserFavoriteChargersResponseType = {
+  user_favorite_chargers: Favorite[]
+}
+
+export type RequestStandardResponseType = {
+  status: 200
+}
+
+export type EditPasswordResponseType = {
+  status_code: 200
+}
+
+export type FAQResponseType = {
+  faq: FAQ[]
+}
+
+export type UserInfoUpdateResponseType = {
+  updated: boolean
+}
+
+export type FAQ = {
+  id: number
+  question: LocaleStringObject
+  answer: LocaleStringObject
+}
+
+export type PartnersResponseType = {
+  partners: Partner[]
+}
+
+export type Partner = {
+  id: number
+  name: string
+  image: string | null
+}
+
+export type UserOrderResponseType = {
+  data: Charger[]
+}
+
+export type UserLastChargersResponseType = {
+  data: Charger[]
+  current_hour: string
+}
+
+export type getCoordsByIPResponseType = {
+  Latitude: number
+  Longitude: number
+}
+
+export type CountryPhoneCodesResponseType = {
+  data: CountryPhoneCode[]
+}
+
+export type CountryPhoneCode = {
+  id: number
+  country_code: string
+  phone_code: number
+}
+
+export type SendSMSCodeResponseType = {
+  json_status: string
+}
+
+export type LoginResponseType = {
+  access_token: string
+  user: UserMeResponseType
+  token_type: 'bearer'
+  expires_in: 5184000
+}
+
+export type VerifyCodeResponseType = {
+  json_status: string
+  status: number
+  phone_number: string
+}
+
+export type PasswordChangedResponseType = {
+  json_status: string
+}
+
+export type RegisterResponseType = {
+  json_status: string
+  user: UserMeResponseType
+  token: string
+}
+
+export enum UserSettingEnum {
+  firstName = 'first_name',
+  lastName = 'last_name',
+  email = 'email',
+  phone = 'phone_number',
+  activeCard = 'activeCard',
+  password = 'password',
+  mapMode = 'mapMode',
+}
+
+type UserSettingsInfoType = {
+  first_name: string
+  last_name: string
+  email: string
+  phone_number: string
+  activeCard: string
+  password: string
+  mapMode: string
+}
+
+export type SettingsListFieldType = {
+  image: ImageSourcePropType
+  name: string
+  type: UserSettingEnum
+  editableComponentName: string
+  onEmptyText?: string
+  color?: string
 }

@@ -2,13 +2,13 @@
 import TitleTopLeftContainer from './view/TitleTopLeftContainer'
 import CountDown from './view/time/CountDown'
 
-import FirstNameChangeView from './view/profileChange/FirstNameChangeViews'
-import LastNameChangeView from './view/profileChange/LastNameChangeViews'
+import SingleInputView from './view/profileChange/SingleInputView'
 import CardListView from './view/profileChange/CardListView'
-import MailChangeView from './view/profileChange/MailChangeView'
 import PhoneChangeView from './view/profileChange/PhoneChangeView'
 import PasswordChangeView from './view/profileChange/PasswordChangeView'
 import FooterTabNavigation from './view/FooterTabNavigationView'
+import PhoneVerificationView from './view/PhoneVerificationView'
+import PasswordConfirmationView from './view/PasswordConfirmationView'
 
 // ./
 import CustomModal from './CustomModal'
@@ -24,7 +24,6 @@ import TabNavigationButtons from './item/TabNavigationButtonsItem'
 import PhoneNumberInput from './item/PhoneNumberInput'
 import LegendItem from './item/LegendItem'
 import LegendColorItem from './item/LegendColorItem'
-import SettingsListItem from './item/SettingsListItem'
 import CardListItem from './item/CardListItem'
 import ModalPopupChargerItem from './item/ModalPopupChargerItem'
 import MapMarkerItem from './item/MapMarkerItem'
@@ -69,11 +68,7 @@ export {
   LegendItem,
   LegendType2,
   LegendColorItem,
-  SettingsListItem,
-  FirstNameChangeView,
-  LastNameChangeView,
   CardListView,
-  MailChangeView,
   PhoneChangeView,
   PasswordChangeView,
   CardListItem,
@@ -96,4 +91,7 @@ export {
   FetchedDataRenderer,
   useBaseActionSheetPicker,
   MapMarkerItem,
+  SingleInputView,
+  PhoneVerificationView,
+  PasswordConfirmationView,
 }

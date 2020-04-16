@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement } from 'react'
+import React, {useContext, ReactElement} from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -7,16 +7,16 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native'
-import { useSafeArea } from 'react-native-safe-area-context'
-import { useTranslation } from 'react-i18next'
+import {useSafeArea} from 'react-native-safe-area-context'
+import {useTranslation} from 'react-i18next'
 
-import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
+import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
-import { BaseButton } from 'components'
+import {BaseButton} from 'components'
 
-import { Const, Colors, Defaults } from 'utils'
-import { AppContext } from '../../../../App'
-import { logOut } from '../../../hooks/actions/rootActions'
+import {Const, Colors, Defaults, Helpers} from 'utils'
+import {AppContext} from '../../../../App'
+import {logOut} from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
 import {
   DrawerTextFieldItem,
@@ -24,29 +24,18 @@ import {
   BaseLocaleButton,
 } from './components'
 
-const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
-  const { t, i18n } = useTranslation()
+const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
+  const {t, i18n} = useTranslation()
   const insets = useSafeArea()
   const context: AppContextType = useContext(AppContext)
-  // Vobi todo: isAuth is helper function move it as authHelper
-  const isUserAuthorized = !Defaults.token ? false : true
 
-  let drawerListFields = null
   let drawerContent = null
 
-  if (!isUserAuthorized) {
-    drawerListFields = Const.DrawerFieldsBeforeAuthorization.map(
-      (field, ind) => {
-        return (
-          <DrawerTextFieldItem
-            key={ind}
-            onPress={navigation.navigate.bind(Drawer, field.route)}
-            {...field}
-          />
-        )
-      },
-    )
+  const toggleLanguage = (): void => {
+    i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')
+  }
 
+  if (!Helpers.isAuthenticated()) {
     drawerContent = (
       <>
         <View>
@@ -57,30 +46,23 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
             style={styles.drawerAuthBtn}
           />
 
-          {drawerListFields}
+          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => {
+            return (
+              <DrawerTextFieldItem
+                key={ind}
+                onPress={navigation.navigate.bind(Drawer, field.route)}
+                {...field}
+              />
+            )
+          })}
         </View>
 
-        <View style={{ justifyContent: 'flex-end' }}></View>
+        <View style={{justifyContent: 'flex-end'}}></View>
       </>
     )
   } else {
-    // Vobi todo: user shouldn't have string type
     const firstName = context?.state?.user?.first_name
     const lastName = context?.state?.user?.last_name
-
-    drawerListFields = Const.DrawerFieldsAfterAuthorization.map(
-      (field, key) => {
-        return (
-          <DrawerTextFieldItem
-            key={key}
-            onPress={navigation.navigate.bind(Drawer, field.route)}
-            badge={field.route === 'notifications' ? 1 : 0}
-            {...field}
-          />
-        )
-      },
-    ) // Vobi Todo: drawerListFields is same except authorization just use that check wether it should have badge
-    // Vobi Todo: same
     drawerContent = (
       <View>
         <BaseUserAvatarWithLabel
@@ -90,28 +72,35 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           firstName={firstName}
           lastName={lastName}
         />
-        {drawerListFields}
+        {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
+          return (
+            <DrawerTextFieldItem
+              key={key}
+              onPress={navigation.navigate.bind(Drawer, field.route)}
+              badge={field.route === 'notifications' ? 1 : 0}
+              {...field}
+            />
+          )
+        })}
       </View>
     )
-  }
-
-  const toggleLanguage = (): void => {
-    i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')
   }
 
   return (
     <View
       style={[
         styles.safeAreaViewContainer,
-        { paddingTop: insets.top, paddingBottom: insets.bottom },
-      ]}>
+        {paddingTop: insets.top, paddingBottom: insets.bottom},
+      ]}
+    >
       <ScrollView
         bounces={false}
         style={styles.scrollViewStyle}
-        contentContainerStyle={styles.scrollViewContentContainerStyle}>
+        contentContainerStyle={styles.scrollViewContentContainerStyle}
+      >
         {drawerContent}
         <View>
-          {!isUserAuthorized && (
+          {!Helpers.isAuthenticated() && (
             <DrawerTextFieldItem
               onPress={(): void => {
                 Alert.alert('asfas')
@@ -126,11 +115,12 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
               style={styles.localeButton}
             />
-            {isUserAuthorized && (
+            {Helpers.isAuthenticated() && (
               <TouchableOpacity
                 onPress={(): void => {
                   context.dispatch(logOut())
-                }}>
+                }}
+              >
                 <Text style={styles.logOut}>{t('drawer.logOut')}</Text>
               </TouchableOpacity>
             )}

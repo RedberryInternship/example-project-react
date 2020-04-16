@@ -1,1 +1,2 @@
-export {default as ForgotPassword} from './ForgotPassword'
+export * from './forgotPassword'
+export * from './setNewPasswords'

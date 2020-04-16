@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useEffect} from 'react'
 
 import {Helpers} from 'utils'
 import {Navigation} from 'allTypes'
@@ -16,13 +15,6 @@ export default (navigation: Navigation) => {
     validateCriteriaMode: 'all',
     submitFocusError: true,
   })
-
-  useEffect(() => {
-    if (Object.keys(errors).length)
-      Helpers.DisplayDropdownWithError(
-        errors[Object.keys(errors)?.[0]]?.message,
-      )
-  }, [errors])
 
   const onClickSubmitButton = async ({
     password,
@@ -53,5 +45,6 @@ export default (navigation: Navigation) => {
     onClickSubmitButton,
     handleSubmit,
     watch,
+    errors,
   }
 }

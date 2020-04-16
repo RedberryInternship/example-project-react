@@ -2,6 +2,8 @@ import {Dimensions, Platform} from 'react-native'
 import {ifIphoneX} from 'react-native-iphone-x-helper'
 import {env} from '../../env'
 import images from 'assets/images'
+import {UserSettingEnum, SettingsListFieldType} from '../../@types/allTypes.d'
+import Colors from './colors'
 
 export const API: string =
   env === 'local'
@@ -63,47 +65,53 @@ export const DrawerFieldsAfterAuthorization = [
   },
 ]
 
-export const SettingsListFields = [
+export const SettingsListFields: SettingsListFieldType[] = [
   {
     image: images.blueUser,
     name: 'settings.firstname',
-    type: 'FirstnameChange',
+    type: UserSettingEnum.firstName,
     editableComponentName: 'settings.editFirstname',
   },
   {
     image: images.blueUser,
     name: 'settings.lastname',
-    type: 'LastnameChange',
+    type: UserSettingEnum.lastName,
     editableComponentName: 'settings.editLastname',
   },
   {
     image: images.mail,
     name: 'settings.mail',
-    type: 'MailChange',
+    type: UserSettingEnum.email,
     editableComponentName: 'settings.editMail',
+    onEmptyText: 'settings.notAdded',
+    color: Colors.primaryGray,
   },
   {
     image: images.phone,
     name: 'settings.phone',
-    type: 'PhoneChange',
+    type: UserSettingEnum.phone,
     editableComponentName: 'settings.editPhoneNumber',
   },
   {
     image: images.creditCard,
     name: 'settings.cards',
-    type: 'CardChange',
+    type: UserSettingEnum.activeCard,
     editableComponentName: 'settings.editCard',
+    color: Colors.primaryGray,
+    onEmptyText: 'settings.notAdded',
   },
   {
     image: images.lock,
     name: 'settings.password',
-    type: 'PasswordChange',
+    type: UserSettingEnum.password,
     editableComponentName: 'settings.editPassword',
+    color: Colors.primaryGreen,
+    onEmptyText: 'settings.confirmed',
   },
   {
     image: images.lock,
     name: 'settings.mapColor',
-    type: 'mapColorChange',
+    type: UserSettingEnum.mapMode,
     editableComponentName: 'settings.editPassword',
   },
 ]

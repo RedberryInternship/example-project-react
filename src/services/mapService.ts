@@ -4,6 +4,7 @@ import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
 import i18next from 'i18next'
 import axios from 'axios'
 import ajax from './ajax'
+import {getCoordsByIPResponseType} from 'allTypes'
 export const getDistance = (
   originLat: number,
   originLng: number,
@@ -36,4 +37,5 @@ export const getDirection = (
     )}&mode=driving&key=${MAP_API}`,
   )
 
-export const getCoordsByIP = (): Promise<any> => ajax.get('/geo-ip')
+export const getCoordsByIP = (): Promise<getCoordsByIPResponseType> =>
+  ajax.get('/geo-ip')

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Defaults} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
-import {Favorite} from 'allTypes'
+import {UserSettingEnum} from '../../../@types/allTypes.d'
 
 import {Helpers} from 'utils'
 import services from 'services'
@@ -12,14 +12,6 @@ export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
 export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
 export const LOG_OUT = 'LOG_OUT'
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
-
-type FavoriteChargerObject = {
-  user_favorite_chargers: Favorite[]
-}
-
-type AddFavoriteCharger = {
-  status: boolean
-}
 
 const {Logger} = Helpers
 
@@ -136,9 +128,9 @@ type UserColumnType =
 export const editUserInfo = (
   dispatch: any,
   payload: any,
-  user_column_type: UserColumnType,
+  type: UserSettingEnum,
 ): any => {
-  if (Defaults.userDetail) Defaults.userDetail[user_column_type] = payload
+  if (Defaults.userDetail) Defaults.userDetail[type] = payload
 
   AsyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))
 
@@ -146,7 +138,7 @@ export const editUserInfo = (
     type: EDIT_USER_INFO,
     payload: {
       data: payload,
-      type: user_column_type,
+      type: type,
     },
   })
 }

@@ -1,33 +1,37 @@
 import React, {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
 
-import {ProfileFieldChange} from 'allTypes'
+import {PhoneVerificationView} from 'components'
+import {usePhoneVerification} from 'hooks'
 
-import {PhoneNumberInput, ReceiveCode} from 'components'
-import {usePhoneChange} from 'hooks'
+type PhoneChangeViewProps = {
+  setValue: (name: string, value: string, validate: boolean) => void
+  getValues: () => Record<string, any>
+  register: (name: any, options: any) => void
+  errors: Record<string, any>
+  watch: (name: string) => string
+  triggerValidation: (name: string) => Promise<boolean>
+}
 
 const PhoneChangeView = ({
-  navigation,
-  clicked,
-  setClicked,
-}: ProfileFieldChange): ReactElement => {
-  const hook = usePhoneChange({navigation, clicked, setClicked})
-  // Vobi Todo: use destructure
+  setValue,
+  watch,
+  triggerValidation,
+  getValues,
+  register,
+  errors,
+}: PhoneChangeViewProps): ReactElement => {
+  const hook = usePhoneVerification({
+    getValues,
+    register,
+    errors,
+    watch,
+    triggerValidation,
+  })
+
   return (
     <View style={styles.container}>
-      <PhoneNumberInput
-        onSubmit={hook.phoneNumber.onSubmit}
-        ref={hook.phoneInputRef}
-        _this={hook._this}
-        codeRef={hook.codeRef}
-      />
-
-      <ReceiveCode
-        onChangeText={hook.receiveCode.textHandler}
-        onSubmit={hook.receiveCode.onSubmit}
-        receiveCode={hook.receiveCode.receiveCode}
-        ref={hook.codeRef}
-      />
+      <PhoneVerificationView {...hook} setValue={setValue} watch={watch} />
     </View>
   )
 }

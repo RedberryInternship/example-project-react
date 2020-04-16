@@ -1,4 +1,4 @@
-import { Validate } from 'react-hook-form'
+import {Validate} from 'react-hook-form'
 
 const phoneNumberValidation = {
   ifGeorgian: (value: string | undefined): boolean | string => {
@@ -13,7 +13,7 @@ const phoneNumberValidation = {
 const codeVerification = {
   ifEmpty: (value: string | undefined): boolean | string =>
     !!value || 'dropDownAlert.forgotPassword.fillCode',
-  ifCorrectLength: (value: string | undefined): boolean | string =>// Vobi Todo: whole point of separating this as functions is to reuse it every time you need length for example this way you only have this specific to sms code
+  ifCorrectLength: (value: string | undefined): boolean | string =>
     /^(\d{4,4})$/.test(value ?? '') ||
     'dropDownAlert.forgotPassword.smsCodeLength',
 }

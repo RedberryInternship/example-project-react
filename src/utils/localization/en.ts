@@ -193,6 +193,7 @@ export default {
       chargerNotExist: "this kind of charger don't exist",
       successOnFavoriteAdd: 'Successfully added charger',
       successOnFavoriteRemove: 'Charger deleted successfully',
+      informationUpdatedSuccessfully: 'Information updated successfully',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',

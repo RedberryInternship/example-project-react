@@ -189,6 +189,7 @@ export default {
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
       successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
+      informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწროთ სახელი',

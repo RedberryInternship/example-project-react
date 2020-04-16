@@ -10,11 +10,7 @@ import {
 } from 'react-native'
 import {Item} from 'react-native-picker-select'
 
-import {
-  PhoneCountryCodesData,
-  PhoneCountryCode,
-  BaseInputRefProp,
-} from 'allTypes'
+import {PhoneCountryCode, BaseInputRefProp} from 'allTypes'
 
 import {BaseInput, BasePickerSelect} from 'components'
 import images from 'assets/images'
@@ -93,9 +89,7 @@ const PhoneNumberInput = React.forwardRef(
     const fetchPhoneCountryCodes = async (): Promise<void> => {
       if (pickeritemsState.length === 0) {
         try {
-          const {
-            data,
-          }: PhoneCountryCodesData = await services.getPhoneCountryCodes()
+          const {data} = await services.getPhoneCountryCodes()
 
           data.forEach((val: PhoneCountryCode) => {
             if (val.phone_code)

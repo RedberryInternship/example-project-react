@@ -1,31 +1,23 @@
-import React, { ReactElement } from 'react'
-import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useSafeArea } from 'react-native-safe-area-context'
+import React, {ReactElement} from 'react'
+import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {useSafeArea} from 'react-native-safe-area-context'
 
-import { ScreenPropsWithNavigation } from 'allTypes'
+import {ScreenPropsWithNavigation} from 'allTypes'
 
-import { BaseHeader, BaseButton, PhoneNumberInput, ReceiveCode } from 'components'
-import { Colors } from 'utils'
+import {BaseHeader, BaseButton, PhoneVerificationView} from 'components'
+import {Colors} from 'utils'
 import images from 'assets/images'
 import useForgotPassword from './useForgotPassword'
 
 const ForgotPassword = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const {
-    phoneRef,
-    setValue,
-    handleSubmit,
-    onButtonClick,
-    watch,
-    receiveCodeHandler,
-    codeRef,
-  } = useForgotPassword(navigation)
+  const {handleSubmit, onButtonClick, ...hook} = useForgotPassword(navigation)
   const insets = useSafeArea()
 
   return (
-    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
+    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(ForgotPassword, 'Auth')}
         title={'authentication.forgotPasswordPage.recoverPassword'}
@@ -40,17 +32,7 @@ const ForgotPassword = ({
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
       >
-        <PhoneNumberInput
-          onChangeText={(text: string) => setValue('phone', text, true)}
-          ref={phoneRef}
-          value={watch('phone')} // Vobi Todo: why is this controlled
-        />
-        <ReceiveCode
-          ref={codeRef}
-          onChangeText={(text: string) => setValue('code', text, true)}
-          onSubmit={handleSubmit(onButtonClick)}
-          receiveCode={receiveCodeHandler}
-        />
+        <PhoneVerificationView {...hook} />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
         behavior={'padding'}
