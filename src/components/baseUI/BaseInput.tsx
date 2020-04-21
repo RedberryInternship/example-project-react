@@ -5,68 +5,60 @@ import React, {
   RefObject,
   Ref,
 } from 'react'
-
 import {View, TextInput, Image, StyleSheet, TextInputProps} from 'react-native'
 import {useTranslation} from 'react-i18next'
+
 import {Colors} from 'utils'
-import {BaseInputProps, BaseInputRefProp} from 'allTypes'
+import {BaseInputProps} from 'allTypes'
 import {BaseText} from 'components'
 
 // eslint-disable-next-line react/display-name
 const BaseInput = React.forwardRef(
-  (props: BaseInputProps, ref: Ref<TextInputProps & BaseInputRefProp>) => {
+  (
+    {
+      title,
+      image,
+      imageStyle,
+      style,
+      secure,
+      errorText,
+      paddingLeft,
+      required,
+      ...props
+    }: BaseInputProps,
+    ref: Ref<TextInputProps>,
+  ) => {
     const {t} = useTranslation()
-    const inputRef: RefObject<TextInput> = useRef(null)
-
-    const [errorText, setErrorText] = useState('')
-
-    useImperativeHandle(ref, () => ({
-      ...inputRef.current,
-      errorText: setErrorText,
-    }))
-
-    const _onChangeText = (text: string): void => {
-      props.onChangeText && props.onChangeText(text)
-      setErrorText('')
-    }
-
     return (
       <View style={styles.container}>
-        <BaseText style={styles.title}>{t(props.title)}</BaseText>
+        <BaseText style={styles.title}>{t(title)}</BaseText>
         <View style={styles.innerContainer}>
-          {props.image && (
+          {image && (
             <Image
-              source={props.image}
-              style={[styles.inputImage, {...props.imageStyle}]}
+              source={image}
+              style={[styles.inputImage, {...imageStyle}]}
               resizeMode="contain"
             />
           )}
           <TextInput
-            {...props}
-            placeholder={props.placeholder}
-            keyboardType={props.keyboardType ? props.keyboardType : 'default'}
-            onChangeText={_onChangeText}
-            onSubmitEditing={props.onSubmit}
-            onFocus={props.onFocus}
             placeholderTextColor={Colors.primaryWhite}
+            {...props}
             allowFontScaling={false}
-            ref={inputRef}
-            secureTextEntry={props.secure || false}
+            ref={ref}
+            secureTextEntry={secure || false}
             autoCorrect={false}
             editable={true}
             autoCapitalize={'none'}
-            returnKeyType={props.returnKeyType}
-            testID={props.testID}
             style={[
               styles.Input,
-              props.style,
+              style,
               {
-                paddingLeft: props.image ? 50 : props.paddingLeft || 20,
+                paddingLeft: image ? 50 : paddingLeft || 20,
                 borderColor: errorText ? '#FF3B3B' : 'transparent',
               },
             ]}
           />
-          {props.required && <BaseText style={styles.baseText}>*</BaseText>}
+          {required && <BaseText style={styles.baseText}>*</BaseText>}
         </View>
         <BaseText style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>
           {errorText ? t(errorText) : ' '}

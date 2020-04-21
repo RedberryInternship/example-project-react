@@ -1,6 +1,7 @@
 import React, {useState, useEffect, ReactElement} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import moment from 'moment'
+
 import {Colors} from 'utils'
 
 enum Status {
@@ -32,6 +33,7 @@ const CountDown = ({
       .format(`${alarm ? '' : 'HH : '}mm : ss`)
       .toString()
   }
+
   useEffect(() => {
     setTime(showDate())
 
@@ -40,19 +42,13 @@ const CountDown = ({
         .duration(duration + (up ? Interval : -Interval), 'milliseconds')
         .asMilliseconds()
 
+      setTime(showDate())
+
       if (duration <= 0) {
-        setTime(showDate())
         onChange && onChange(Status.finished)
         clearInterval(timeInterval)
         return
       }
-      setTime(showDate())
-      // Vobi todo:
-      // setTime(showDate())
-      // if (duration <= 0) {
-      //   onChange && onChange(Status.finished)
-      //   clearInterval(timeInterval)
-      // }
     }, 1000)
 
     return (): void => {

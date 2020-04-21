@@ -8,40 +8,42 @@ import {
   TextInputProps,
   StyleProp,
 } from 'react-native'
-import {Ajax, Defaults} from 'utils'
-import {useTranslation} from 'react-i18next'
-import {
-  PhoneCountryCodesData,
-  PhoneCountryCode,
-  BaseInputRefProp,
-} from 'allTypes'
 import {Item} from 'react-native-picker-select'
+
+import {PhoneCountryCode, BaseInputRefProp} from 'allTypes'
+
 import {BaseInput, BasePickerSelect} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
+import {Helpers, Colors} from 'utils'
+import services from 'services'
+
+type PhoneNumberInputProps = {
+  onSubmit: () => void
+  onBlur?: () => void
+  onFocus?: () => void
+  onChangeText: (text: string) => void
+  style?: StyleProp<TextInputProps>
+  errorText?: string
+  codeRef?: any
+  value?: string
+}
 
 const pickeritems: Item[] = []
 
 const placeholder = {label: '+995', value: '+995'}
-type PhoneNumberInputProps = {
-  _this: any
-  onSubmit: () => void
-  onBlur: () => void
-  onFocus: () => void
-  style: StyleProp<TextInputProps>
-  errorText: string
-  codeRef: any
-}
+
 // eslint-disable-next-line react/display-name
 const PhoneNumberInput = React.forwardRef(
   (
     {
-      _this,
       onSubmit,
       onBlur,
       onFocus,
       style,
-      errorText,
       codeRef,
+      onChangeText,
+      value,
+      ...props
     }: PhoneNumberInputProps,
     ref: Ref<TextInputProps & BaseInputRefProp>,
   ) => {
@@ -50,7 +52,6 @@ const PhoneNumberInput = React.forwardRef(
     const [showSelector, setShowSelector] = useState(false)
     const [selectedCountryCode, setSelectedCountryCode] = useState(placeholder)
     const [pickeritemsState, setPickeritemsState] = useState(pickeritems)
-    const {t} = useTranslation()
 
     useEffect(() => {
       fetchPhoneCountryCodes()
@@ -58,8 +59,7 @@ const PhoneNumberInput = React.forwardRef(
 
     const _onChange = (show = true): void => {
       show ? onFocus && onFocus() : onBlur && onBlur()
-
-      if (_this.current && _this.current.phone !== '' && !show) {
+      if (value !== '' && !show) {
         return
       }
 
@@ -74,34 +74,31 @@ const PhoneNumberInput = React.forwardRef(
     const phoneTextHandler = (text: string): void => {
       if (text !== '') {
         codeRef && codeRef.current && codeRef.current.activateButton()
-        _this.current.phone = selectedCountryCode.value + text
+        onChangeText(selectedCountryCode.value + text)
       } else {
-        _this.current.phone = ''
+        onChangeText('')
         codeRef && codeRef.current && codeRef.current.disableActivateButton()
       }
     }
 
     const _onSubmit = (): void => {
-      _this.current.phone = selectedCountryCode.value + _this.current.phone
+      // onChangeText(selectedCountryCode.value + value)
       onSubmit()
     }
 
-    const fetchPhoneCountryCodes = (): void => {
+    const fetchPhoneCountryCodes = async (): Promise<void> => {
       if (pickeritemsState.length === 0) {
-        Ajax.get('/phone-codes')
-          .then(({data}: PhoneCountryCodesData) => {
-            data.forEach((val: PhoneCountryCode) => {
-              if (val.phone_code)
-                pickeritems.push({value: val.phone_code, label: val.phone_code})
-            })
-            setPickeritemsState(pickeritems)
+        try {
+          const {data} = await services.getPhoneCountryCodes()
+
+          data.forEach((val: PhoneCountryCode) => {
+            if (val.phone_code)
+              pickeritems.push({value: val.phone_code, label: val.phone_code})
           })
-          .catch(error => {
-            Defaults.dropdown?.alertWithType(
-              'success',
-              t('dropDownAlert.registration.codeSentSuccessfully'),
-            )
-          })
+          setPickeritemsState(pickeritems)
+        } catch (error) {
+          Helpers.DisplayDropdownWithError()
+        }
       }
     }
 
@@ -110,8 +107,18 @@ const PhoneNumberInput = React.forwardRef(
     }
 
     const onPickerChange = (val: string): void => {
+      console.log(value, 'value')
+
+      if (
+        value?.slice(0, selectedCountryCode.value.length) ===
+        selectedCountryCode.value
+      )
+        value = value.replace(selectedCountryCode.value, '')
+
+      console.log(value, 'value2')
+
+      onChangeText(val + (value ?? ''))
       setSelectedCountryCode({label: val, value: val})
-      // phoneTextHandler.bind(phoneNumberInput,'')
       if (Platform.OS == 'android') ref.current.focus()
     }
 
@@ -120,32 +127,39 @@ const PhoneNumberInput = React.forwardRef(
       outputRange: [1, 0],
     })
 
+    const inputPlaceholder: string =
+      selectedCountryCode.value === '+995' ? '5 XX XX XX' : ''
+
     return (
       <View style={styles.container}>
         <View pointerEvents={'none'} style={styles.imageContainer}>
           <Animated.Image
-            source={Imgs.phone}
+            source={images.phone}
             style={[styles.image, {opacity: imageAnimatedOpacity}]}
             resizeMode="contain"
           />
         </View>
 
         <BaseInput
-          paddingLeft={showSelector ? 64 : undefined}
+          // paddingLeft={showSelector ? 64 : undefined}
+          paddingLeft={64}
           style={style}
           keyboardType={'phone-pad'}
           onChangeText={phoneTextHandler}
-          onSubmit={_onSubmit}
+          onSubmitEditing={_onSubmit}
           onFocus={(): void => _onChange()}
           onBlur={(): void => _onChange(false)}
           ref={ref}
           testID={'loginPhone'}
           title={'authentication.number'}
           returnKeyType={'send'}
-          errorText={errorText}
+          placeholder={inputPlaceholder}
+          placeholderTextColor={Colors.primaryGray}
+          {...props}
         />
         <Animated.View
-          style={[styles.modalSelectorContainer, {opacity: animation}]}>
+          style={[styles.modalSelectorContainer, {opacity: animation}]}
+        >
           <View style={styles.touchableStyle}>
             <BasePickerSelect
               onDone={onPickerDone}

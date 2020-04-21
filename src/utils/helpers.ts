@@ -1,7 +1,14 @@
-import {Sentry, Defaults, Ajax} from 'utils'
+/* eslint-disable @typescript-eslint/camelcase */
+import {Sentry, Defaults} from 'utils'
 import {Exception} from '@sentry/react-native'
-import {ChargerFilters, Charger, ChargersObject} from 'allTypes'
+import {
+  ChargerFilters,
+  Charger,
+  ChargersObject,
+  UserSettingEnum,
+} from '../../@types/allTypes.d'
 import i18next from 'i18next'
+import services from 'services'
 
 const Logger = (err: Exception | string | number): void => {
   if (__DEV__) {
@@ -29,50 +36,96 @@ const ConvertToChargerFilterParam = (
   return param
 }
 
-const GetFilteredCharger = (
+const GetFilteredCharger = async (
   filterChargerTypes: number[] = [],
   filterInput = '',
-  allChargers: Charger[] | null,
-  setFilteredChargers: (chargers: Charger[]) => void,
-): void => {
+): Promise<Charger[] | null> => {
   const params: ChargerFilters = ConvertToChargerFilterParam(
     filterChargerTypes,
     filterInput,
   )
   if (Object.entries(params).length !== 0) {
-    Ajax.get(
-      '/chargers/?' +
-        Object.keys(params)
-          .map(key => key + '=' + params[key])
-          .join('&'),
-    ) // Vobi Todo: you are mapping twice here one by map and one by join you should avoid O(n2) algorithms
-      // try using this helper function
-      // const stringify = () => {
-      //   let result = ''
-      //   for (const key in obj) {
-      //     result += `${key}=${obj[key]}&`
-      //   }
-      //   return result.slice(0, -1)
-      // }
-      .then(({data}: ChargersObject) => {
-        setFilteredChargers(data)
-      }) // Vobi Todo: use async await
-      .catch(() => {
-        DisplayGeneralError()
-      })
-  } else setFilteredChargers(allChargers ?? [])
+    try {
+      const {data}: ChargersObject = await services.getAllChargersFiltered(
+        params,
+      )
+      return data
+    } catch (error) {
+      DisplayDropdownWithError()
+    }
+  }
+  return null
 }
 
-const DisplayGeneralError = (): void => {
+const DisplayDropdownWithError = (
+  title: string | undefined = undefined,
+  text: string | undefined = undefined,
+): void => {
   Defaults.dropdown?.alertWithType(
     'error',
-    i18next.t('dropDownAlert.generalError'),
+    i18next.t(title ?? 'dropDownAlert.generalError'),
+    i18next.t(text ?? ''),
   )
 }
 
+const DisplayDropdownWithSuccess = (
+  title: string | undefined = undefined,
+  text: string | undefined = undefined,
+): void => {
+  Defaults.dropdown?.alertWithType(
+    'success',
+    i18next.t(title ?? 'dropDownAlert.generalSuccess'),
+    i18next.t(text ?? ''),
+  )
+}
+
+const isAuthenticated = (): boolean => !!Defaults.token
+
+type UserColumnType =
+  | 'first_name'
+  | 'last_name'
+  | 'email'
+  | 'phone_number'
+  | 'mapMode'
+
+const getUserSendDataAndType = (
+  data: Record<string, string>,
+  type: UserSettingEnum,
+) => {
+  let objectKey: UserColumnType = 'first_name'
+  const sendData: any = {}
+  switch (type) {
+    case UserSettingEnum.firstName:
+      objectKey = 'first_name'
+      break
+    case UserSettingEnum.lastName:
+      objectKey = 'last_name'
+      break
+
+    case UserSettingEnum.activeCard:
+      break
+
+    case UserSettingEnum.email:
+      break
+
+    case UserSettingEnum.phone:
+      break
+    case UserSettingEnum.password:
+      break
+  }
+  sendData[objectKey] = data[type]
+
+  return {
+    sendData,
+    objectKey,
+  }
+}
 export default {
   Logger,
   ConvertToChargerFilterParam,
   GetFilteredCharger,
-  DisplayGeneralError,
+  DisplayDropdownWithSuccess,
+  DisplayDropdownWithError,
+  isAuthenticated,
+  getUserSendDataAndType,
 }

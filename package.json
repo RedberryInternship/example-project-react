@@ -24,6 +24,7 @@
     "i18next": "^19.0.1",
     "moment": "^2.24.0",
     "react": "16.9.0",
+    "react-hook-form": "^5.3.1",
     "react-i18next": "^11.2.5",
     "react-native": "0.61.5",
     "react-native-android-location-enabler": "^1.2.0",
@@ -99,7 +100,7 @@
   },
   "rnpm": {
     "assets": [
-      "./assets/fonts/"
+      "./src/assets/fonts/"
     ]
   }
 }

@@ -1,8 +1,7 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet, Image} from 'react-native'
 
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type BaseCheckboxProp = {
   active: boolean
@@ -12,7 +11,7 @@ const BaseCheckbox = ({active}: BaseCheckboxProp): ReactElement => {
   return (
     <View style={styles.checkboxImageContainer}>
       <Image
-        source={active ? Imgs.greenCheckmark : Imgs.circle}
+        source={active ? images.greenCheckmark : images.circle}
         style={styles.checkBoxImage}
       />
     </View>

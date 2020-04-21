@@ -1,9 +1,8 @@
 import React, {ReactElement} from 'react'
-
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 import MarkerController from 'components/svg'
 
 type ChargerGroupPupupItemProp = {
@@ -39,7 +38,7 @@ const ChargerGroupPopupItem = ({
         </View>
         <Image
           style={[styles.goToDetailIcon, {opacity: active === 1 ? 1 : 0.2}]}
-          source={Imgs.back}
+          source={images.back}
         />
       </View>
     </TouchableOpacity>

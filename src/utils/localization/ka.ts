@@ -184,10 +184,12 @@ export default {
     },
     dropDownAlert: {
       generalError: 'დაფიქსირდა შეცდომა',
+      generalSuccess: 'მოთხოვნა წარმატებით დამუშავდა',
       fillCode: 'გთხოვთ ჩაწროთ დამტენის კოდი',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
       successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
+      informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწროთ სახელი',
@@ -244,6 +246,7 @@ export default {
         repeatNewPasswordNotFilled: 'გთხოვთ, გაიმეორეთ პაროლი',
         newPasswordIncorrectLength: 'პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
         passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
+        passwordsNotFilled: 'გთხოვთ, შეავსოთ პაროლის ველები',
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',

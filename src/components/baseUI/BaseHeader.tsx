@@ -9,9 +9,10 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
+
 import {Colors} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type HeaderProps = {
   onPressLeft?: () => void
@@ -35,18 +36,11 @@ const BaseHeader = ({
         <View style={styles.renderLeftContainer}>
           <BaseNativeTouchable
             onPress={onPressLeft}
-            style={styles.renderLeftTouchable}>
-            {Platform.OS === 'ios' ? (
-              <>
-                <Image source={Imgs.iosBack} style={styles.imageStyle} />
-                <BaseText style={styles.renderLeftBaseText}>
-                  {t('back')}
-                </BaseText>
-              </>
-            ) : (
-              <>
-                <Image source={Imgs.iosBack} style={styles.imageStyle} />
-              </>
+            style={styles.renderLeftTouchable}
+          >
+            <Image source={images.iosBack} style={styles.imageStyle} />
+            {Platform.OS === 'ios' && (
+              <BaseText style={styles.renderLeftBaseText}>{t('back')}</BaseText>
             )}
           </BaseNativeTouchable>
         </View>
@@ -71,9 +65,10 @@ const BaseHeader = ({
           <TouchableOpacity
             onPress={onPressRight}
             style={styles.renderRightTouchable}
-            hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
-            <Text style={styles.renderRightText}>{t(titleRight)}</Text>
-            <Image source={Imgs.iosBack} style={styles.rightImageStyle} />
+            hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+          >
+            <Text style={styles.renderRightText}>{t(titleRight ?? '')}</Text>
+            <Image source={images.iosBack} style={styles.rightImageStyle} />
           </TouchableOpacity>
         </View>
       )

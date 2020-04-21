@@ -1,12 +1,13 @@
 import {useEffect, useState, useRef, useReducer} from 'react'
+import {StatusBar, Platform, Alert} from 'react-native'
 import {useAppState} from 'react-native-hooks'
 import {useNetInfo} from '@react-native-community/netinfo'
 import {useAsyncStorage} from '@react-native-community/async-storage'
-import {Defaults, NavigationActions, determineTimePeriod} from 'utils'
 import {useTranslation} from 'react-i18next'
+
 import rootReducer, {initialState} from './reducers/rootReducer'
 import {rootAction} from './actions/rootActions'
-import {StatusBar, Platform} from 'react-native'
+import {Defaults, NavigationActions, determineTimePeriod} from 'utils'
 
 export function useRoot() {
   const [state, dispatch] = useReducer(rootReducer, initialState)
@@ -28,8 +29,6 @@ export function useRoot() {
 
   const [appReady, setAppReady] = useState(false)
   const [navigationState, setNavigationState] = useState(false)
-
-  const _this: any = useRef(null) // Vobi Todo: remove this
 
   Defaults.modal = useRef(null)
 
@@ -59,7 +58,6 @@ export function useRoot() {
     } else if (!networkState.isConnected) {
       //show alert
     }
-    // Todo Vobi: What is the purpose of this listener delete unused code
     //TODO: finish network handling
   }, [currentAppState, networkState])
 
@@ -158,7 +156,7 @@ export function useRoot() {
 
   const dropDownInactiveBarColor = (): string => {
     if (Defaults.activeRoute !== 'Home') {
-      return 'light-content'
+      return 'dark-content'
     } else {
       return determineTimePeriod() ? 'dark-content' : 'light-content'
     }
@@ -171,7 +169,6 @@ export function useRoot() {
     appReady,
     locale,
     t,
-    _this,
     state,
     dispatch,
     getCurrentRoute,

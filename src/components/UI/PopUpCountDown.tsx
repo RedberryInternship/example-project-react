@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, View} from 'react-native'
+
 import {CountDown} from 'components'
 
 const PopUpCountDown = ({warningLevel, up}: any): ReactElement => {

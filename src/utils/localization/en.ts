@@ -188,10 +188,12 @@ export default {
     },
     dropDownAlert: {
       generalError: 'Error encountered',
+      generalSuccess: 'Order completed successfully',
       fillCode: 'Please, enter charger code',
       chargerNotExist: "this kind of charger don't exist",
       successOnFavoriteAdd: 'Successfully added charger',
       successOnFavoriteRemove: 'Charger deleted successfully',
+      informationUpdatedSuccessfully: 'Information updated successfully',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',
@@ -249,6 +251,7 @@ export default {
         newPasswordIncorrectLength:
           'New password should contain at least 8 symbols',
         passwordChangedSuccessfully: 'Password changed successfully',
+        passwordsNotFilled: 'Please, fill  passwords fields',
       },
       charging: {
         areUSore: 'Are you sore u want to finish',

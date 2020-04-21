@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Svg, {G, Path, Defs, ClipPath} from 'react-native-svg'
+
 import {ChargerMarkerIcon} from 'allTypes'
 
 function Lvl2Public({

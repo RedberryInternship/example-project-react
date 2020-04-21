@@ -5,8 +5,7 @@ import {
   GET_FAVORITE_CHARGERS,
   EDIT_USER_INFO,
 } from '../actions/rootActions'
-// eslint-disable-next-line no-unused-vars
-import {Charger, AppState, Action} from 'allTypes'
+import {AppState, Action} from 'allTypes'
 
 export const initialState: AppState = {
   user: null,

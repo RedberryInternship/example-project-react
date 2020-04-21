@@ -79,11 +79,11 @@ export default class Pulse extends Component {
     clearInterval(this.timer)
   }
 
-  createPulse = pKey => {
+  createPulse = (pKey) => {
     if (this.mounted) {
-      let pulses = this.state.pulses
+      const pulses = this.state.pulses
 
-      let pulse = {
+      const pulse = {
         pulseKey: pulses.length + 1,
         diameter: this.props.initialDiameter,
         opacity: 1,
@@ -99,14 +99,14 @@ export default class Pulse extends Component {
   updatePulse = () => {
     if (this.mounted) {
       const pulses = this.state.pulses.map((p, i) => {
-        let maxDiameter = this.state.maxDiameter
-        let newDiameter =
+        const maxDiameter = this.state.maxDiameter
+        const newDiameter =
           p.diameter > maxDiameter ? this.props.initialDiameter : p.diameter + 1
-        let centerOffset = (maxDiameter - newDiameter) / 2
-        let opacity = Math.abs(
+        const centerOffset = (maxDiameter - newDiameter) / 2
+        const opacity = Math.abs(
           (this.state.maxDiameter - newDiameter) / this.state.distance,
         )
-        let pulse = {
+        const pulse = {
           pulseKey: i + 1,
           diameter: newDiameter,
           opacity: opacity,
@@ -137,7 +137,7 @@ export default class Pulse extends Component {
       <View style={containerStyle}>
         {started && (
           <View style={pulseWrapperStyle}>
-            {pulses.map(pulse => (
+            {pulses.map((pulse) => (
               <View
                 key={pulse.pulseKey}
                 style={[

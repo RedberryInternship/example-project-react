@@ -12,9 +12,10 @@ import {
   View,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {Const, Colors} from 'utils'
 import LinearGradient from 'react-native-linear-gradient'
+
 import {BaseNativeTouchable} from 'components'
+import {Const, Colors} from 'utils'
 
 type Button = {
   onPress: () => void

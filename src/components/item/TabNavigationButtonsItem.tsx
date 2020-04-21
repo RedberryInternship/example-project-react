@@ -11,6 +11,7 @@ type TabNavigationButtonsItemProps = {
   image: ImageSourcePropType
   active: boolean
 }
+
 const TabNavigationButtonsItem = ({
   navigate,
   image,

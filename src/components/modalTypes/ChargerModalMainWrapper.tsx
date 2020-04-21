@@ -1,10 +1,11 @@
 /* eslint-disable react/display-name */
 import React, {useState, useEffect, ReactElement} from 'react'
 import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
-import {Colors} from 'utils'
 import {useTranslation} from 'react-i18next'
+
+import {Colors} from 'utils'
 import {PopUpCountDown, ModalPopupChargerItem} from 'components'
-import Imgs from '../../../assets/images'
+import images from 'assets/images'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
@@ -106,10 +107,10 @@ const ChargerModalMainWrapper = ({
   return (
     <>
       <TouchableOpacity style={styles.touchableStyle} onPress={onPress}>
-        <Image source={Imgs.close} style={styles.closeIcon} />
+        <Image source={images.close} style={styles.closeIcon} />
       </TouchableOpacity>
       <View style={{flex: 0, marginHorizontal: 16}}>
-        <Image source={Imgs.checkCircle} style={styles.checkMarkIcon} />
+        <Image source={images.checkCircle} style={styles.checkMarkIcon} />
         <Text style={styles.mainTitleStyle}>{t(title)}</Text>
         <Text style={styles.mainDescriptionStyle}>{t(description)}</Text>
       </View>

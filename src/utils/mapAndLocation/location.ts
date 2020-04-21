@@ -1,12 +1,18 @@
 import RNLocation from 'react-native-location'
-import {Platform, PermissionsAndroid} from 'react-native'
+import {Platform, PermissionsAndroid, Alert} from 'react-native'
 import Geolocation from 'react-native-geolocation-service'
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler'
 
 const requestPermission = async (): Promise<boolean> => {
   if (Platform.OS == 'ios') {
-    Geolocation.requestAuthorization()
-    return true
+    // Geolocation.requestAuthorization()
+    const res = await RNLocation.requestPermission({
+      ios: 'always',
+      android: {
+        detail: 'coarse',
+      },
+    })
+    return res
   } else {
     try {
       const granted = await PermissionsAndroid.request(
@@ -41,7 +47,7 @@ const requestPermission = async (): Promise<boolean> => {
   }
 }
 
-const configure = RNLocation.configure.bind(this, {
+RNLocation.configure({
   distanceFilter: 50, // Meters
   desiredAccuracy: {
     ios: 'best',
@@ -62,6 +68,5 @@ const configure = RNLocation.configure.bind(this, {
 })
 
 export default {
-  configure,
   requestPermission,
 }

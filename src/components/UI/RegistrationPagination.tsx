@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
+
 import {Colors} from 'utils'
 
 const pagination = [1, 2, 3, 4]

@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react'
-import { View, StyleSheet, InteractionManager } from 'react-native'
+import React, {ReactElement} from 'react'
+import {View, StyleSheet, InteractionManager} from 'react-native'
 import Modal from 'react-native-modal'
 
-import { Const } from 'utils'
+import {Const} from 'utils'
 
 import {
   RegistrationType1,
@@ -50,7 +50,7 @@ const initialState: InitialState = {
 
 // Vobi todo: why is this class instead of functional component
 class CustomModal extends React.PureComponent implements CustomModalInterface {
-  state = { ...initialState }
+  state = {...initialState}
   ref: any = React.createRef()
 
   showModal = (): void => {
@@ -63,9 +63,10 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     this.setState({
       visible: false,
     })
-     // Vobi todo: state should not have functions in it
+    // Vobi todo: state should not have functions in it
     this.state.config.onCloseClick && this.state.config.onCloseClick()
-    // for performace option use bollow, but it has some drowbacks for example delay in navigation
+
+    // for performace option should use bollow, but it has some drowbacks for example delay in navigation
     // InteractionManager.runAfterInteractions(() => {
     //   this.state.config.onCloseClick && this.state.config.onCloseClick()
     // })

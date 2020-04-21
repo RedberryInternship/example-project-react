@@ -1,53 +1,39 @@
 import React, {ReactElement} from 'react'
-
 import {View, StyleSheet} from 'react-native'
 
-// hooks
+import {BaseInput, PasswordConfirmationView} from 'components'
+import images from 'assets/images'
+import {Controller} from 'react-hook-form'
 
-import {usePasswordChange} from '../../../hooks'
+type PasswordChangeViewProps = {
+  errors: Record<string, any>
+  watch: (name: string) => string
+  control: any
+}
 
-// components
-import {BaseInput} from '../..'
-
-import Imgs from '../../../../assets/images'
-
-// Vobi Todo: no any type
 const PasswordChangeView = ({
-  navigation,
-  clicked,
-  setClicked,
-}: any): ReactElement => {
-  const hook = usePasswordChange({navigation, clicked, setClicked})
-  // Vobi todo: use destructure
+  errors,
+  watch,
+  control,
+}: PasswordChangeViewProps): ReactElement => {
   return (
     <View style={styles.container}>
-      <BaseInput
+      <Controller
+        as={BaseInput}
+        name="currentPassword"
+        rules={{
+          minLength: {value: 8, message: 'dropDownAlert.editPassword.minSize'},
+        }}
+        control={control}
+        onChange={(args) => args[0].nativeEvent.text}
+        image={images.lock}
+        secure={true}
         title={'settings.currentPassword'}
-        image={Imgs.lock}
-        onChangeText={hook.currentPassword.onChangeText}
-        onSubmit={hook.currentPassword.onSubmit}
-        ref={hook.currentPasswordRef}
-        secure
       />
-
-      <BaseInput
-        title={'settings.newPassword'}
-        image={Imgs.lock}
-        onChangeText={hook.setNewPassword.onChangeText}
-        onSubmit={hook.setNewPassword.onSubmit}
-        ref={hook.setNewPasswordRef}
-        onFocus={hook.setNewPassword.onFocus}
-        secure
-      />
-
-      <BaseInput
-        title={'settings.repeatPassword'}
-        image={Imgs.lock}
-        onChangeText={hook.repeatNewPassword.onChangeText}
-        onSubmit={hook.repeatNewPassword.onSubmit}
-        onFocus={hook.repeatNewPassword.onFocus}
-        ref={hook.repeatNewPasswordRef}
-        secure
+      <PasswordConfirmationView
+        errors={errors}
+        watch={watch}
+        control={control}
       />
     </View>
   )

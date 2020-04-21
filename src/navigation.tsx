@@ -31,7 +31,6 @@ import {
   Partners,
   SetNewPasswords,
 } from 'screens'
-import {Defaults} from 'utils'
 
 const chargerStack = createStackNavigator(
   {

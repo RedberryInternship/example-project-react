@@ -14,6 +14,7 @@ import apiServices from './services'
 import useFirebase from './firebase'
 import Sentry from './sentry'
 import Helpers from './helpers'
+import InputValidationHelpers from './InputValidationHelpers'
 
 export {
   Defaults,
@@ -34,4 +35,5 @@ export {
   useFirebase,
   Sentry,
   Helpers,
+  InputValidationHelpers,
 }
