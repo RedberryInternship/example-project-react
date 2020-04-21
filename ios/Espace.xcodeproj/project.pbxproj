@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* EspaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EspaceTests.m */; };
+		124B033FFEC866003DB0EAF8 /* libPods-Espace-EspaceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4AAEA94DF51480D01074EE8 /* libPods-Espace-EspaceTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -17,7 +18,6 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* EspaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EspaceTests.m */; };
 		4319851581954EC8B69D1AF5 /* libPods-Espace-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */; };
-		484F158468821A89F402DAE8 /* libPods-EspaceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */; };
 		84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84502BB623FFBF800078412A /* GoogleService-Info.plist */; };
 		84DAB4D323D5E83500E1FE34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DAB4D223D5E83500E1FE34 /* MapKit.framework */; };
 		9530F6D57536E0355B3BF7F6 /* libPods-Espace-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */; };
@@ -57,12 +57,14 @@
 		2D02E47B1E0B4A5D006451C7 /* Espace-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Espace-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Espace-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Espace-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E18FDEC2286E603287B8A93 /* Pods-Espace-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Espace-tvOSTests/Pods-Espace-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-EspaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		46526A7514593E60669C619E /* Pods-Espace-EspaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-EspaceTests.debug.xcconfig"; path = "Target Support Files/Pods-Espace-EspaceTests/Pods-Espace-EspaceTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4C2FD3B5E65ECB628AA12358 /* Pods-Espace-EspaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-EspaceTests.release.xcconfig"; path = "Target Support Files/Pods-Espace-EspaceTests/Pods-Espace-EspaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		5354A6DD9C6039E2C4880068 /* Pods-Espace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.release.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.release.xcconfig"; sourceTree = "<group>"; };
 		84502BB623FFBF800078412A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84DAB4D123D5E81200E1FE34 /* Espace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Espace.entitlements; path = Espace/Espace.entitlements; sourceTree = "<group>"; };
 		84DAB4D223D5E83500E1FE34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		89DB7ECE93323D79230D9C72 /* Pods-Espace.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.debug.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.debug.xcconfig"; sourceTree = "<group>"; };
+		A4AAEA94DF51480D01074EE8 /* libPods-Espace-EspaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace-EspaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACA5DA59682128F94B7082F0 /* Pods-EspaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspaceTests.debug.xcconfig"; path = "Target Support Files/Pods-EspaceTests/Pods-EspaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ADD18A46FBC78FDC239AB043 /* Pods-EspaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspaceTests.release.xcconfig"; path = "Target Support Files/Pods-EspaceTests/Pods-EspaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				484F158468821A89F402DAE8 /* libPods-EspaceTests.a in Frameworks */,
+				124B033FFEC866003DB0EAF8 /* libPods-Espace-EspaceTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,7 +155,7 @@
 				E7E2309ADA54E62386D41D0B /* libPods-Espace.a */,
 				F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */,
 				C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */,
-				45753BE35EBCE26F959A8F24 /* libPods-EspaceTests.a */,
+				A4AAEA94DF51480D01074EE8 /* libPods-Espace-EspaceTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -210,6 +212,8 @@
 				2E18FDEC2286E603287B8A93 /* Pods-Espace-tvOSTests.release.xcconfig */,
 				ACA5DA59682128F94B7082F0 /* Pods-EspaceTests.debug.xcconfig */,
 				ADD18A46FBC78FDC239AB043 /* Pods-EspaceTests.release.xcconfig */,
+				46526A7514593E60669C619E /* Pods-Espace-EspaceTests.debug.xcconfig */,
+				4C2FD3B5E65ECB628AA12358 /* Pods-Espace-EspaceTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -225,6 +229,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
+				5A2A0BAB54A4F51D159C148E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -410,7 +415,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-EspaceTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Espace-EspaceTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -452,6 +457,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		5A2A0BAB54A4F51D159C148E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Espace-EspaceTests/Pods-Espace-EspaceTests-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Espace-EspaceTests/Pods-Espace-EspaceTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		7792EEAF64C27DED15D0A61C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -620,7 +643,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACA5DA59682128F94B7082F0 /* Pods-EspaceTests.debug.xcconfig */;
+			baseConfigurationReference = 46526A7514593E60669C619E /* Pods-Espace-EspaceTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -643,7 +666,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADD18A46FBC78FDC239AB043 /* Pods-EspaceTests.release.xcconfig */;
+			baseConfigurationReference = 4C2FD3B5E65ECB628AA12358 /* Pods-Espace-EspaceTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
