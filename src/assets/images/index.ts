@@ -44,6 +44,9 @@ export default {
   settings: require('./icons/settings.png'),
   facebook: require('./icons/facebook.png'),
   internet: require('./icons/internet.png'),
+  'Combo 2': require('./icons/fastCharger.png'),
+  'Type 2': require('./icons/type2Charger.png'),
+  CHadeMO: require('./icons/chademoCharger.png'),
 }
 
 export const Partners = {

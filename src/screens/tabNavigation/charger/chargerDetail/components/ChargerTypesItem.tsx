@@ -1,20 +1,19 @@
 import React, {ReactElement} from 'react'
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native'
+import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
 import {BaseCheckbox} from 'components'
+import images from 'assets/images'
 
 type ChargerTypesItemProps = {
-  index: number
-  type: string
+  type: 'Combo 2' | 'Type 2' | 'CHadeMO'
   power: string
   active: boolean
   onPress: () => void
 }
 
 const ChargerTypesItem = ({
-  index,
   type,
   power,
   active,
@@ -26,7 +25,7 @@ const ChargerTypesItem = ({
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.indexTextContainer}>
-          <Text style={styles.indexText}>{index}</Text>
+          <Image source={images[type]} style={styles.connetctorsIcon} />
         </View>
         <View style={styles.powerAndTypeTextContainer}>
           <Text style={styles.typeText}>{type}</Text>
@@ -78,5 +77,9 @@ const styles = StyleSheet.create({
   powerText: {
     fontSize: 11,
     color: Colors.primaryGray,
+  },
+  connetctorsIcon: {
+    height: 20,
+    resizeMode: 'contain',
   },
 })

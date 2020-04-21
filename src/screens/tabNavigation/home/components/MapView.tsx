@@ -47,9 +47,10 @@ const MapView = forwardRef(
             lat={parseFloat(charger.lat.toString())}
             lng={parseFloat(charger.lng.toString())}
             onPress={() => onMarkerPress(charger)}
-            connectorType={charger.charger_types?.[0]?.name}
+            connectorType={charger.connector_types?.[0]?.name}
             publicCharger={charger.public}
             active={charger.active}
+            free={charger.is_free}
           />
         )),
 

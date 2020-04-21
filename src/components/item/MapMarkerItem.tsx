@@ -7,9 +7,10 @@ type MapMarkerItemProps = {
   lat: number
   lng: number
   onPress: () => void
-  connectorType: string | undefined
+  connectorType: 'Combo 2' | 'Type 2' | 'CHadeMO'
   publicCharger: number
   active: number
+  free: boolean
 }
 const MapMarkerItem = ({
   lat,
@@ -23,7 +24,8 @@ const MapMarkerItem = ({
       collapsable={true}
       coordinate={{latitude: lat, longitude: lng}}
       onPress={onPress}
-      anchor={{x: 0.5, y: 0.5}}>
+      anchor={{x: 0.5, y: 0.5}}
+    >
       <MarkerController {...props} />
     </Marker>
   )

@@ -40,7 +40,6 @@ const ChargerDetail = ({
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={chargerLocationDirectionHandler}
           showChargerLocationPress={showChargerLocationHandler}
-          // TODO
           favouritePress={onFavoritePress}
           favorite={charger?.is_favorite}
           code={charger?.code}
@@ -48,7 +47,13 @@ const ChargerDetail = ({
           location={getLocaleText(charger?.location)}
           distance={distance}
         />
-        <CurrentTariffs data={charger?.charging_prices ?? []} />
+        <CurrentTariffs
+          data={
+            charger?.connector_types[activeChargerType]?.name === 'Type 2'
+              ? charger?.charging_prices ?? []
+              : charger?.fast_charging_prices ?? []
+          }
+        />
         <TitleTopLeftContainer
           direction={'column'}
           title={'chargerDetail.connectors'}
@@ -56,7 +61,6 @@ const ChargerDetail = ({
           onRenderItem={(val, index): ReactElement => (
             <ChargerTypesItem
               key={index}
-              index={index + 1}
               active={activeChargerType === index}
               onPress={setActiveChargerType.bind(ChargerDetail, index)}
               type={val.name}

@@ -10,6 +10,7 @@ import FastPublic from './FastPublic'
 import FastNonPublic from './FastNonPublic'
 import Lvl2Public from './Lvl2Public'
 import Lvl2NonPublic from './Lvl2NonPublic'
+import {Text} from 'react-native-svg'
 
 const MarkerRenderer = ({
   type,
@@ -46,25 +47,18 @@ const MarkerRenderer = ({
   }
 
   const determiteType = (type: ChargerMarkerType): ReactElement => {
-    let view = undefined
-
     switch (type) {
       case ChargerMarkerType.fast__public:
-        view = <FastPublic {...determiteColor(status)} />
-        break
+        return <FastPublic {...determiteColor(status)} />
       case ChargerMarkerType.fast__nonPublic:
-        view = <FastNonPublic {...determiteColor(status)} />
-        break
+        return <FastNonPublic {...determiteColor(status)} />
       case ChargerMarkerType.lvl2__public:
-        view = <Lvl2Public {...determiteColor(status)} />
-        break
+        return <Lvl2Public {...determiteColor(status)} />
       case ChargerMarkerType.lvl2__nonPublic:
-        view = <Lvl2NonPublic {...determiteColor(status)} />
-        break
+        return <Lvl2NonPublic {...determiteColor(status)} />
       default:
-        break
+        return <Text>asasdasdasdasdas</Text>
     }
-    return view
   }
 
   return determiteType(type)

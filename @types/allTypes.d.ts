@@ -65,12 +65,13 @@ export type ChargerDetail = {
   charging_prices: ChargerChargingPrices[]
   fast_charging_prices: ChargerFastChargingPrices[]
   is_favorite: boolean | null
+  is_free: boolean
 }
 
 type ChargerConnectorTypes = {
   id: number
   old_id: number
-  name: string
+  name: 'Combo 2' | 'Type 2' | 'CHadeMO'
   created_at: string
   updated_at: string
 }
@@ -340,8 +341,9 @@ export type ChargersObject = {
 
 export type ChargerMarkerIconControllerType = {
   active: number
-  connectorType: string
+  connectorType: 'Combo 2' | 'Type 2' | 'CHadeMO'
   publicCharger: number
+  free: boolean
   width?: number
   height?: number
 }

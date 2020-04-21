@@ -12,20 +12,22 @@ const MarkerController = ({
   active,
   connectorType,
   publicCharger,
+  free,
   width,
   height,
 }: ChargerMarkerIconControllerType): ReactElement => {
   const getStatus = () => {
     if (active === 0) return ChargerMarkerStatus.notWorking
-    else return ChargerMarkerStatus.free
-    //TODO: need on going charging status handling, which doeasn't exist
+    else if (free === true) return ChargerMarkerStatus.free
+    else return ChargerMarkerStatus.busy
+    //TODO: need on going charging status handling, which doeasn't exist //maybe finished, nned to be checked
   }
 
   const getType = () => {
     let _connectorType = 'lvl2'
     let _publicCharger = 'public'
 
-    if (connectorType === 'Fast') _connectorType = 'fast'
+    if (connectorType !== 'Type 2') _connectorType = 'fast'
 
     if (publicCharger === 0) _publicCharger = 'nonPublic'
 
