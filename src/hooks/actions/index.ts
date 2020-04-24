@@ -1,9 +1,10 @@
-import {saveToken, SAVE_TOKEN} from './rootActions'
+import {SAVE_TOKEN} from './rootActions'
 import {SET_LOCATION_HANDLER, setLocationHandler} from './homeActions'
+import * as chargerActions from './chargerActions'
 
 export default {
-  saveToken,
   SAVE_TOKEN,
   SET_LOCATION_HANDLER,
   setLocationHandler,
+  chargerActions,
 }

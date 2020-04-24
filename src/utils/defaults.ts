@@ -20,7 +20,7 @@ class Defaults {
   _token: null | string = ''
   _activeRoute!: string
   _locale: 'en' | 'ka' | 'ru' = 'ka'
-  _location: null | Record<string, any> = null
+  _location: null | {lng: number; lat: number} = null
   _locationPermission: LocationPermissionStatus = 'notDetermined'
   _modal: any = null
   _bottomSheet: any = null

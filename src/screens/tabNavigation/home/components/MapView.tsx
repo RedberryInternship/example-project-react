@@ -71,9 +71,6 @@ const MapView = forwardRef(
 
     return (
       <View style={styles.mapContainer}>
-        <StatusBar
-          barStyle={determineTimePeriod ? 'dark-content' : 'light-content'}
-        />
         <Map
           provider={PROVIDER_GOOGLE}
           style={styles.map}
@@ -87,7 +84,7 @@ const MapView = forwardRef(
           showsUserLocation
           showsPointsOfInterest
           showsTraffic
-          customMapStyle={determineTimePeriod ? mapStyle2 : mapStyles}
+          customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
           ref={mapRef}
         >
           {pins}

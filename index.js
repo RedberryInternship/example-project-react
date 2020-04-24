@@ -15,6 +15,6 @@ import './src/utils/mapAndLocation/location'
 
 import {enableScreens} from 'react-native-screens'
 
-enableScreens()
+enableScreens(true)
 
 AppRegistry.registerComponent(appName, () => App)

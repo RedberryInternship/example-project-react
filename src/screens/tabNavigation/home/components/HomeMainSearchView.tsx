@@ -34,7 +34,6 @@ const HomeMainSearchView = forwardRef(
       t,
       inputRef,
     } = useHomeMainSearch(allChargers, mapRef, setShowAll)
-    // Vobi Todo: destructure hook
     const InputSubmit = (): void => {
       Alert.alert(JSON.stringify(_this.current))
     }
@@ -43,35 +42,7 @@ const HomeMainSearchView = forwardRef(
       close: closeClick.bind(HomeMainSearchView),
       show: setShowSearchContent.bind(HomeMainSearchView, true),
     }))
-    // Vobi Todo: move this as separate component or view
-    // Vobi Todo: inside component
-    // if(chargers.length !== 0) {
-    //   return (
-    //     <MainSearchItem
-    //       key={chargerObj.id}
-    //       text={getLocaleText(chargerObj.name)}
-    //       mainTitle={getLocaleText(chargerObj.location)}
-    //       onPress={onSearchItemClickHandler.bind(
-    //         MainInput,
-    //         chargerObj.lat,
-    //         chargerObj.lng,
-    //       )}
-    //     />
-    //   )
-    // }
 
-    // return chargers.map(val => (
-    //   <MainSearchItem
-    //     key={val.id}
-    //     text={getLocaleText(val.name)}
-    //     mainTitle={getLocaleText(val.location)}
-    //     onPress={onSearchItemClickHandler.bind(
-    //       MainInput,
-    //       val.lat,
-    //       val.lng,
-    //     )}
-    //   />
-    // ))
     const searchedItems = (): ReactElement => (
       <>
         {filteredChargers?.map((chargerObj: Charger) => {

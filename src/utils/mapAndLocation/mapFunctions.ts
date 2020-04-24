@@ -46,7 +46,6 @@ export function determineTimePeriod() {
     return true
   else {
     const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
-
     return moment(moment()).isBetween(times.sunrise, times.sunset)
   }
 }
@@ -62,6 +61,7 @@ type getCoordsAnywayType = {
   lat: number
   lng: number
 }
+let IPCoords: any = null
 
 export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
   try {
@@ -81,8 +81,13 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
   }
 
   try {
-    const {Latitude, Longitude} = await services.getCoordsByIP()
-    return {lat: Latitude, lng: Longitude}
+    if (IPCoords === null) {
+      const {Latitude, Longitude} = await services.getCoordsByIP()
+
+      IPCoords = {lat: Latitude, lng: Longitude}
+    }
+
+    return IPCoords
   } catch (error) {
     Helpers.DisplayDropdownWithError()
     console.log('====================================')

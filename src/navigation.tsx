@@ -37,7 +37,6 @@ const chargerStack = createStackNavigator(
     ChargerWithCode,
     ChargerDetail,
     ChooseChargeMethod,
-    Charging,
     ChoosingCard,
     NotAuthorized,
   },
@@ -54,9 +53,9 @@ const HomeTabNavigation = createBottomTabNavigator(
     Home,
     chargerStack,
     Favorites,
+    Charging,
   },
   {
-    // eslint-disable-next-line react/display-name
     tabBarComponent: FooterTabNavigation,
     initialRouteName: 'Home',
     tabBarOptions: {

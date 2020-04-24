@@ -48,11 +48,7 @@ const ChargerDetail = ({
           distance={distance}
         />
         <CurrentTariffs
-          data={
-            charger?.connector_types[activeChargerType]?.name === 'Type 2'
-              ? charger?.charging_prices ?? []
-              : charger?.fast_charging_prices ?? []
-          }
+          connector={charger?.connector_types[activeChargerType]}
         />
         <TitleTopLeftContainer
           direction={'column'}

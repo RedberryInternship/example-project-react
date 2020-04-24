@@ -31,7 +31,7 @@ const FetchedDataRenderer = ({
   }, [])
 
   useEffect(() => {
-    setLocalState(data ?? [])
+    if (data) setLocalState(data ?? [])
   }, [data])
 
   const shouldFetch = async (): Promise<void> => {

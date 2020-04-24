@@ -9,10 +9,12 @@ type InputValues = {
 }
 
 export default (setActivePage: any) => {
-  const {control, handleSubmit, getValues, errors} = useForm({
-    validateCriteriaMode: 'all',
-    submitFocusError: true,
-  })
+  const {control, handleSubmit, getValues, errors, triggerValidation} = useForm(
+    {
+      validateCriteriaMode: 'all',
+      submitFocusError: true,
+    },
+  )
 
   const buttonClickHandler = async ({
     name,
@@ -28,5 +30,6 @@ export default (setActivePage: any) => {
     control,
     getValues,
     errors,
+    triggerValidation,
   }
 }

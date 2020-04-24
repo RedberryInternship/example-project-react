@@ -12,8 +12,7 @@ export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
 export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
 export const LOG_OUT = 'LOG_OUT'
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
-
-const {Logger} = Helpers
+export const GET_USER_STATE = 'GET_USER_STATE'
 
 export const rootAction = async (data: any, dispatch: any): Promise<void> => {
   saveToken(data)
@@ -26,6 +25,14 @@ export const rootAction = async (data: any, dispatch: any): Promise<void> => {
       Helpers.DisplayDropdownWithError()
     }
     getFavoriteChargers(dispatch)
+
+    try {
+      // get user-state and dispatch action
+      // const result = await services.getUserState()
+      // dispatch(getUserState(result))
+    } catch (error) {
+      Helpers.DisplayDropdownWithError()
+    }
   }
 }
 
@@ -42,6 +49,13 @@ const saveToken = (payload: any): Record<string, string> => {
   }
 }
 
+const getUserState = (payload: Record<string, any>) => {
+  return {
+    type: GET_USER_STATE,
+    payload,
+  }
+}
+
 export const logOut = () => {
   AsyncStorage.clear()
   Defaults.token = ''
@@ -54,7 +68,7 @@ export const logOut = () => {
 
 export const getAllChargers = async (dispatch: any): Promise<void> => {
   try {
-    const {data} = await services.getAllChargers()
+    const {data} = await services.getAllChargersFiltered()
     dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
   } catch (error) {
     Helpers.DisplayDropdownWithError()
@@ -117,13 +131,6 @@ export const deleteToFavorites = async (
     Helpers.DisplayDropdownWithError()
   }
 }
-
-type UserColumnType =
-  | 'first_name'
-  | 'last_name'
-  | 'email'
-  | 'phone_number'
-  | 'mapMode'
 
 export const editUserInfo = (
   dispatch: any,

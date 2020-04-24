@@ -285,8 +285,6 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
   - React-jsinspector (0.61.5)
-  - react-native-geolocation (1.4.2):
-    - React
   - react-native-google-maps (0.26.1):
     - Google-Maps-iOS-Utils (= 2.1.0)
     - GoogleMaps (= 3.2.0)
@@ -295,7 +293,7 @@ PODS:
     - React
   - react-native-maps (0.26.1):
     - React
-  - react-native-netinfo (5.6.2):
+  - react-native-netinfo (5.8.0):
     - React
   - react-native-safe-area-context (0.7.3):
     - React
@@ -334,11 +332,11 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - RNCAsyncStorage (1.8.1):
+  - RNCAsyncStorage (1.9.0):
     - React
-  - RNCMaskedView (0.1.7):
+  - RNCMaskedView (0.1.9):
     - React
-  - RNDeviceInfo (5.5.3):
+  - RNDeviceInfo (5.5.5):
     - React
   - RNFirebase (5.6.0):
     - Firebase/Core
@@ -353,14 +351,14 @@ PODS:
     - React
   - RNLocalize (1.3.4):
     - React
-  - RNReanimated (1.7.1):
+  - RNReanimated (1.8.0):
     - React
-  - RNScreens (2.4.0):
+  - RNScreens (2.5.0):
     - React
   - RNSentry (1.3.5):
     - React
     - Sentry (~> 4.4.0)
-  - RNSVG (12.0.3):
+  - RNSVG (12.1.0):
     - React
   - Sentry (4.4.3):
     - Sentry/Core (= 4.4.3)
@@ -389,7 +387,6 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-location (from `../node_modules/react-native-location`)
   - react-native-maps (from `../node_modules/react-native-maps`)
@@ -472,8 +469,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-geolocation:
-    :path: "../node_modules/@react-native-community/geolocation"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-location:
@@ -562,11 +557,10 @@ SPEC CHECKSUMS:
   React-jsi: cb2cd74d7ccf4cffb071a46833613edc79cdf8f7
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
-  react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
   react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
-  react-native-netinfo: 73303369946c2487c600418961bfdc87748b832f
+  react-native-netinfo: b9650ab1b8b4362b3c455b1274e4bc48223cc957
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
@@ -578,19 +572,19 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  RNCAsyncStorage: e0dd7c8a36543b4ef84969acd9f8aceba3a92dc2
-  RNCMaskedView: 76c40a1d41c3e2535df09246a2b5487f04de0814
-  RNDeviceInfo: 310c1f43d418d950a193c7650de2f9559c906048
+  RNCAsyncStorage: 453cd7c335ec9ba3b877e27d02238956b76f3268
+  RNCMaskedView: 71fc32d971f03b7f03d6ab6b86b730c4ee64f5b6
+  RNDeviceInfo: d2ca97023bb1c2a49cd7adb3f956e14c048ea028
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNLocalize: 215c419a17d7585eb7a63c748ebfd042e0cb2c3d
-  RNReanimated: 4e102df74a9674fa943e05f97f3362b6e44d0b48
-  RNScreens: b5c0e1b2b04512919e78bd3898e144a157ce2363
+  RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
+  RNScreens: ac02d0e4529f08ced69f5580d416f968a6ec3a1d
   RNSentry: 8a47c89b65502d8d5b464dfb3aa5a13038e5bb08
-  RNSVG: 7e16ddfc6e00d5aa69c9eb83e699bcce5dcb85d4
+  RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 7ea227156b0fa7fe16b73af0dd29162da7576667
+PODFILE CHECKSUM: b5d19e6856f6c505292e7c2b2f76e040632ad992
 
 COCOAPODS: 1.9.1

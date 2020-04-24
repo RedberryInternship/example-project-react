@@ -14,6 +14,7 @@ export default {
     till: '-till',
     yes: 'Yes',
     no: 'No',
+    minute: 'mins',
     loading: 'Loading ...',
     cancel: 'Cancel',
     authentication: {
@@ -187,9 +188,11 @@ export default {
       cardNumber: 'Card Number',
     },
     dropDownAlert: {
+      error: 'Error',
       generalError: 'Error encountered',
       generalSuccess: 'Order completed successfully',
       fillCode: 'Please, enter charger code',
+      fillAmount: 'Please, enter price amount',
       chargerNotExist: "this kind of charger don't exist",
       successOnFavoriteAdd: 'Successfully added charger',
       successOnFavoriteRemove: 'Charger deleted successfully',

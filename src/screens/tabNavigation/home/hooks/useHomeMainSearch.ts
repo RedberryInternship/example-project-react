@@ -18,12 +18,13 @@ const useHomeMainSearch = (
   const [filteredChargers, setFilteredChargers] = useState<Charger[]>([])
   const insets = useSafeArea()
 
+  const {t} = useTranslation()
+
   const _this: any = useRef({
     animatedSearchContentHeight: new Animated.Value(0),
     text: '',
     searchContentHeight: Const.Height - 65 - insets.top - insets.bottom - 180,
   })
-  const {t} = useTranslation()
 
   const textHandler = (val: string): void => {
     _this.current.text = val

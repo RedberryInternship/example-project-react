@@ -56,7 +56,8 @@ const FaqListItem = ({
               marginTop: paddingMarginValue,
               borderTopWidth: onOrOff,
             },
-          ]}>
+          ]}
+        >
           <Animated.Text style={[styles.answerText, {opacity: opacity}]}>
             {answer}
           </Animated.Text>

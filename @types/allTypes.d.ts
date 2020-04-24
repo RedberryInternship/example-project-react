@@ -60,20 +60,25 @@ export type ChargerDetail = {
   created_at: string
   updated_at: string
   tags: string[]
-  connector_types: ChargerConnectorTypes[]
+  connector_types: ChargerConnectorType[]
   charger_types: ChargerChargerTypes[]
-  charging_prices: ChargerChargingPrices[]
-  fast_charging_prices: ChargerFastChargingPrices[]
   is_favorite: boolean | null
   is_free: boolean
 }
 
-type ChargerConnectorTypes = {
+type ChargerConnectorType = {
   id: number
   old_id: number
   name: 'Combo 2' | 'Type 2' | 'CHadeMO'
+  pivot: ChargerConnectorTypePivot
   created_at: string
   updated_at: string
+  charging_prices?: ChargerChargingPrices[]
+  fast_charging_prices?: ChargerFastChargingPrices[]
+}
+
+type ChargerConnectorTypePivot = {
+  id: number
 }
 type ChargerChargerTypes = {
   id: number
@@ -85,32 +90,27 @@ type ChargerChargerTypes = {
 type ChargerChargingPrices = {
   id: number
   charger_id: number
-  min_kwt: number
-  max_kwt: number
-  start_time: number
-  end_time: number
-  price: number
-  created_at: string
-  updated_at: string
+  min_kwt: string
+  max_kwt: string
+  start_time: string
+  end_time: string
+  price: string
 }
 type ChargerFastChargingPrices = {
   id: number
-  charger_id: number
-  min_kwt: number
-  max_kwt: number
-  start_time: number
-  end_time: number
-  price: number
-  created_at: string
-  updated_at: string
+  start_minutes: string
+  end_minutes: string
+  price: string
+  charger_connector_type_id: number
 }
 
 export type AppState = {
-  user: UserMeResponseType
+  user: UserMeResponseType | null
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
   favoriteChargers: Favorite[] | null
+  userState: any //TODO:don't know object structure
 }
 export type Action = {
   type: string

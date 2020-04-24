@@ -21,7 +21,7 @@ const useMapView = (
 ) => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
   const [polyline, setPolyline] = useState([])
-  const location = useLocation({mapRef, setPolyline})
+  const location = useLocation({mapRef, setPolyline, dispatch})
 
   const mapReady = (): void => {
     location.navigateToLocation()

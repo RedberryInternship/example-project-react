@@ -23,7 +23,14 @@ export default (
   getValues2: () => Record<string, string>,
   dispatch: (arg0: Function) => void,
 ) => {
-  const {control, handleSubmit, errors, watch, reset} = useForm({
+  const {
+    control,
+    handleSubmit,
+    errors,
+    watch,
+    reset,
+    triggerValidation,
+  } = useForm({
     validateCriteriaMode: 'all',
     submitFocusError: true,
   })
@@ -96,5 +103,6 @@ export default (
     errors,
     watch,
     reset,
+    triggerValidation,
   }
 }
