@@ -2,46 +2,24 @@ import React, {ReactElement} from 'react'
 
 import {
   ChargerMarkerIconControllerType,
-  ChargerMarkerType,
-  ChargerMarkerStatus,
+  ChargerMarkerColor,
 } from '../../../../@types/allTypes.d'
 
-import MarkerRenderer from './MarkerRenderer'
+import RootPin from './RootPin'
 
 const MarkerController = ({
   active,
-  connectorType,
-  publicCharger,
   free,
-  width,
-  height,
+  ...props
 }: ChargerMarkerIconControllerType): ReactElement => {
   const getStatus = () => {
-    if (active === 0) return ChargerMarkerStatus.notWorking
-    else if (free === true) return ChargerMarkerStatus.free
-    else return ChargerMarkerStatus.busy
+    if (!active) return ChargerMarkerColor.notWorking
+    else if (free) return ChargerMarkerColor.free
+    else return ChargerMarkerColor.busy
     //TODO: need on going charging status handling, which doeasn't exist //maybe finished, nned to be checked
   }
 
-  const getType = () => {
-    let _connectorType = 'lvl2'
-    let _publicCharger = 'public'
-
-    if (connectorType !== 'Type 2') _connectorType = 'fast'
-
-    if (publicCharger === 0) _publicCharger = 'nonPublic'
-
-    return ChargerMarkerType[`${_connectorType}__${_publicCharger}`]
-  }
-
-  return (
-    <MarkerRenderer
-      type={getType()}
-      status={getStatus()}
-      width={width}
-      height={height}
-    />
-  )
+  return <RootPin {...props} pinColorType={getStatus()} />
 }
 
 export default MarkerController

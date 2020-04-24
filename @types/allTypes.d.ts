@@ -340,9 +340,10 @@ export type ChargersObject = {
 }
 
 export type ChargerMarkerIconControllerType = {
-  active: number
-  connectorType: 'Combo 2' | 'Type 2' | 'CHadeMO'
-  publicCharger: number
+  active: boolean
+  groupChargerCount: number
+  privateCharger: boolean
+  fastCharger: boolean
   free: boolean
   width?: number
   height?: number
@@ -354,10 +355,12 @@ export type ChargerMarkerIconRendererType = {
   height?: number
 }
 export type ChargerMarkerIcon = {
-  stroke: string
-  background: string
   width?: number
   height?: number
+  groupChargerCount?: number
+  pinColorType: ChargerMarkerColor
+  privateCharger?: boolean
+  fastCharger?: boolean
 }
 
 export enum ChargerMarkerType {
@@ -366,11 +369,12 @@ export enum ChargerMarkerType {
   lvl2__public = 'lvl2__public',
   lvl2__nonPublic = 'lvl2__nonPublic',
 }
-export enum ChargerMarkerStatus {
+
+export enum ChargerMarkerColor {
+  'group',
+  'free',
   'busy',
   'notWorking',
-  'free',
-  'forLegend',
 }
 
 export type CodeRefType = {
