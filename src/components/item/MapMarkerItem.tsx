@@ -6,10 +6,11 @@ import MarkerController from 'components/svg'
 type MapMarkerItemProps = {
   lat: number
   lng: number
+  groupChargerCount: number
   onPress: () => void
-  connectorType: 'Combo 2' | 'Type 2' | 'CHadeMO'
-  publicCharger: number
-  active: number
+  fastCharger: boolean
+  privateCharger: boolean
+  active: boolean
   free: boolean
 }
 const MapMarkerItem = ({

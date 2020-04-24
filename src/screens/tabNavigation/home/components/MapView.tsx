@@ -20,8 +20,6 @@ type MapViewProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 
-// Vobi Todo: remove line below and fix naming
-// Redberry: if I remove line bellow it shows me an errror and I don't know why
 // eslint-disable-next-line react/display-name
 const MapView = forwardRef(
   (
@@ -47,10 +45,11 @@ const MapView = forwardRef(
             lat={parseFloat(charger.lat.toString())}
             lng={parseFloat(charger.lng.toString())}
             onPress={() => onMarkerPress(charger)}
-            connectorType={charger.connector_types?.[0]?.name}
-            publicCharger={charger.public}
-            active={charger.active}
+            fastCharger={charger.connector_types?.[0]?.name !== 'Type 2'}
+            privateCharger={!charger.public}
+            active={!!charger.active}
             free={charger.is_free}
+            groupChargerCount={charger.charger_group?.chargers?.length ?? 0}
           />
         )),
 
