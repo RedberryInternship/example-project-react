@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 
 import {ChargerMarkerColor} from '../../../@types/allTypes.d'
 import RootPin from 'components/svg/chargerMarker/RootPin'
+import {Colors} from 'utils'
 type LegendItemProps = {
   text: string
   privateCharger?: boolean
@@ -30,18 +31,16 @@ export default LegendItem
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 32,
+    marginHorizontal: 16,
+    paddingHorizontal: 16,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginVertical: 8,
+    paddingVertical: 8,
+    borderTopColor: Colors.primaryBackground.concat('22'),
+    borderTopWidth: 1,
   },
   text: {
     color: '#436880',
     fontSize: 13,
-  },
-  image: {
-    width: 23,
-    height: 23,
-    resizeMode: 'contain',
   },
 })

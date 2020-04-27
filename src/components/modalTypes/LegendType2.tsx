@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
   gapView: {
     marginHorizontal: 16,
     marginVertical: 24,
+    marginTop: 0,
   },
   gapInnerView: {
     borderBottomWidth: 1,
@@ -92,6 +93,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginRight: 32,
     flexWrap: 'wrap',
+    borderRadius: 25,
   },
   closeButtonView: {
     alignItems: 'stretch',
