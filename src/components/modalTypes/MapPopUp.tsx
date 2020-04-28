@@ -43,9 +43,10 @@ const MapPopUp = ({
               text={getLocaleText(groupCharger.name)}
               onPress={(): void => onPressItem(index)}
               code={groupCharger.code}
-              active={groupCharger.active}
-              publicCharger={groupCharger.public}
-              connectorType={groupCharger.charger_types?.[0]?.name}
+              active={!!groupCharger.active}
+              fastCharger={groupCharger.connector_types?.[0]?.name !== 'Type 2'}
+              privateCharger={!groupCharger.public}
+              free={groupCharger.is_free}
             />
           ),
         )}

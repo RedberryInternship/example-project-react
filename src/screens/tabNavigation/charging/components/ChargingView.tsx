@@ -8,7 +8,7 @@ import images from 'assets/images'
 const CircleDiameter = Const.Width - 150
 
 // Vobi Todo: no any type
-const ChargingView = ({hook}: any): ReactElement => {
+const ChargingView = ({hook: {t, navigation, onFinish}}: any): ReactElement => {
   return (
     <View style={{flex: 1}}>
       <View style={styles.MainChargerCircleContainer}>
@@ -31,20 +31,20 @@ const ChargingView = ({hook}: any): ReactElement => {
       </View>
       <View style={styles.pricingView}>
         <Text style={styles.currentlyChargedPrice}>5.30 / </Text>
-        <Text style={styles.finalPrice}>20 {hook.t('gel')}</Text>
+        <Text style={styles.finalPrice}>20 {t('gel')}</Text>
       </View>
 
       <View style={styles.chargeAnotherCarContainer}>
         <TouchableOpacity
-          onPress={hook.navigation.navigate.bind(ChargingView, 'MainDrawer')}
+          onPress={navigation.navigate.bind(ChargingView, 'MainDrawer')}
           style={styles.chargeAnotherCarTouchable}
         >
           <Text style={styles.chargeAnotherCarText}>
-            {hook.t('charging.chargeAnotherCar')}
+            {t('charging.chargeAnotherCar')}
           </Text>
         </TouchableOpacity>
         <BaseButton
-          onPress={hook.onFinish}
+          onPress={onFinish}
           text={'charging.finish'}
           style={styles.finishBtn}
         />

@@ -63,13 +63,12 @@ function RootPin({
         <G clipPath="url(#prefix__clip0)">
           <Path
             d="M50.594 15.324v.168l.155.063c1.188.488 2.001 1.559 2.008 2.782v7.364c0 1.215-.811 2.286-2 2.774a3.826 3.826 0 01-1.424.275H38.674c-.508 0-.995-.1-1.424-.275-1.195-.488-2-1.552-2-2.774v-7.364c0-1.224.805-2.294 2-2.781l.156-.064v-2.334c0-3.237 2.929-5.908 6.594-5.908 3.665 0 6.594 2.671 6.594 5.908v2.166zm-6.72 3.59h0c-.89.052-1.646.713-1.701 1.564a1.5 1.5 0 00.21.896c.067.121.1.231.1.335v1.286c0 .796.71 1.39 1.517 1.39.817 0 1.517-.602 1.517-1.39v-1.28c0-.112.03-.228.097-.336l.001-.003c.14-.236.22-.506.22-.793 0-.991-.92-1.73-1.96-1.67zm-4.62-3.883v.25H48.746v-2.123c0-2.395-2.16-4.295-4.746-4.295-2.594 0-4.746 1.907-4.746 4.295v1.873z"
-            fill="url(#prefix__paint0_linear)"
+            fill="url(#prefix__paint1_linear)"
             stroke="#0E1116"
             strokeWidth={0.8}
           />
         </G>
       )}
-
       {fastCharger && (
         <G>
           <Path
@@ -100,6 +99,18 @@ function RootPin({
             offset={0.979}
             stopColor={pinColorTypes[pinColorType].stopColor}
           />
+        </LinearGradient>
+
+        <LinearGradient
+          id="prefix__paint1_linear"
+          x1={0.271}
+          y1={22}
+          x2={17.466}
+          y2={22}
+          gradientUnits="userSpaceOnUse"
+        >
+          <Stop stopColor="#009AF0" />
+          <Stop offset={1} stopColor="#008AEE" />
         </LinearGradient>
         <ClipPath id="prefix__clip0">
           <Path fill="#fff" d="M35 7h18v22H35z" />

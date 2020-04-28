@@ -36,7 +36,7 @@ const useHomeMainSearch = (
       toValue: showSearchContent ? _this.current.searchContentHeight : 0,
       duration: 350,
       easing: Easing.out(Easing.ease),
-      // useNativeDriver : true,
+      useNativeDriver: false,
     }).start(() => (showSearchContent ? InputRef.current?.focus() : 0))
   }, [showSearchContent])
 

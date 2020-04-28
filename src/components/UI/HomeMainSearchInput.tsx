@@ -31,7 +31,8 @@ const HomeMainSearchInput = React.forwardRef(
           setShowSearchContent(!showSearchContent)
         }}
         style={[styles.inputStyle]}
-        activeOpacity={1}>
+        activeOpacity={1}
+      >
         <Image source={images.iconSearch} style={styles.searchImage} />
         <View pointerEvents={showSearchContent ? 'auto' : 'none'}>
           <TextInput
@@ -54,7 +55,8 @@ const HomeMainSearchInput = React.forwardRef(
         <TouchableWithoutFeedback
           onPress={closeClick}
           style={styles.deleteTouchable}
-          hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}>
+          hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+        >
           <Image source={images.delete} style={styles.deleteImage} />
         </TouchableWithoutFeedback>
       </TouchableOpacity>

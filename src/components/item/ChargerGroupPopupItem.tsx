@@ -8,10 +8,11 @@ import MarkerController from 'components/svg'
 type ChargerGroupPupupItemProp = {
   code: string | number | null
   onPress: () => void | null
-  active: number
+  active: boolean
   text: string
-  publicCharger: number
-  connectorType: string
+  fastCharger: boolean
+  privateCharger: boolean
+  free: boolean
 }
 
 const ChargerGroupPopupItem = ({
@@ -19,25 +20,18 @@ const ChargerGroupPopupItem = ({
   onPress,
   active,
   text,
-  publicCharger,
-  connectorType,
+  ...props
 }: ChargerGroupPupupItemProp): ReactElement => {
   return (
-    <TouchableOpacity onPress={onPress} disabled={active === 1 ? false : true}>
+    <TouchableOpacity onPress={onPress} disabled={active ? false : true}>
       <View style={styles.container}>
-        <MarkerController
-          active={active}
-          publicCharger={publicCharger}
-          connectorType={connectorType}
-          width={26}
-          height={32}
-        />
+        <MarkerController active={active} width={26} height={32} {...props} />
         <View style={styles.chargerTypeContainer}>
           <Text style={styles.chargerTypeText}>{text}</Text>
           <Text style={styles.chargerCodeText}>#{code}</Text>
         </View>
         <Image
-          style={[styles.goToDetailIcon, {opacity: active === 1 ? 1 : 0.2}]}
+          style={[styles.goToDetailIcon, {opacity: active ? 1 : 0.2}]}
           source={images.back}
         />
       </View>
