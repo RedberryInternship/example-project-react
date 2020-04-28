@@ -59,7 +59,11 @@ export default (navigation: Navigation, dispatch: any) => {
   }, [])
 
   useEffect(() => {
-    if (errors.phone) Helpers.DisplayDropdownWithError(errors.phone.message)
+    if (errors.phone)
+      Helpers.DisplayDropdownWithError(
+        'dropDownAlert.error',
+        errors.phone.message,
+      )
     else if (errors.password)
       Helpers.DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
   }, [errors])

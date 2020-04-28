@@ -12,6 +12,7 @@ import {
   AppContextType,
   Charger,
   MapImperativeRefObject,
+  ChargerDetail,
 } from '../../../../../@types/allTypes.d'
 import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
@@ -111,7 +112,7 @@ const useHome = (
     })
   }, [selectedFilters, inputText, context.state.AllChargers])
 
-  const onFilteredItemClick = (charger: Charger): void => {
+  const onFilteredItemClick = (charger: ChargerDetail): void => {
     navigation.navigate('ChargerDetail', {
       chargerDetails: {...charger, from: 'home'},
     })

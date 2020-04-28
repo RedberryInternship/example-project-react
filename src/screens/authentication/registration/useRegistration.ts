@@ -9,6 +9,7 @@ import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
 import {AppContext} from '../../../../App'
+import {Alert} from 'react-native'
 
 type _This = {
   userRegistrationState: number
@@ -46,13 +47,29 @@ export default (navigation: any) => {
     console.log(activePage, regStep1, regStep2, regStep3, 'activePage')
   }, [activePage])
 
-  const paginationClickHandler = (index: number) => {
+  const paginationClickHandler = async (index: number) => {
     if (index > userRegistrationState) return
-    // if(index > activePage){
+    else if (userRegistrationState === activePage) {
+      //do nothing
+    } else if (!(await validateAccordingActivePage())) return
 
-    // }
     flatListRef.current.scrollToIndex({index, animated: true})
     setActivePage(index)
+  }
+
+  const validateAccordingActivePage = async () => {
+    switch (activePage) {
+      case 0:
+        return await regStep1.triggerValidation()
+      case 1:
+        return await regStep2.triggerValidation()
+      case 2:
+        return await regStep3.triggerValidation()
+      case 3:
+        return true //TODO: no card service
+      default:
+        return false
+    }
   }
 
   const headerRightClick = () => {

@@ -1,5 +1,7 @@
 import React, {ReactElement} from 'react'
-import {View, StyleSheet, SafeAreaView, Image} from 'react-native'
+import {View, StyleSheet, SafeAreaView, Image, ScrollView} from 'react-native'
+
+import {Partner, Navigation} from 'allTypes'
 
 import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, Const} from 'utils'
@@ -11,11 +13,10 @@ type PartnersResponseType = {
   image: string
 }
 // Vobi Todo: Do not use any
-const Partners = ({navigation}: any): ReactElement => {
-  const getPartners = async (): Promise<void> => {
-    // Vobi Todo: move this as partnersService
-    const res = await services.getPartners()
-    return res.partners
+const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
+  const getPartners = async (): Promise<Partner[]> => {
+    const {partners} = await services.getPartners()
+    return partners
   }
 
   return (
@@ -24,7 +25,7 @@ const Partners = ({navigation}: any): ReactElement => {
         title={'partners.partnerOrganizations'}
         onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
-      <View style={styles.partnersInnerContainer}>
+      <ScrollView style={styles.partnersInnerContainer}>
         <FetchedDataRenderer
           property={'Partners'}
           onItemRender={(val: PartnersResponseType, index): ReactElement => (
@@ -33,7 +34,7 @@ const Partners = ({navigation}: any): ReactElement => {
           fetchData={getPartners}
           updateAlways={true}
         />
-      </View>
+      </ScrollView>
       <SafeAreaView />
     </View>
   )
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginBottom: 16,
     borderRadius: 10,
-    padding: 32,
+    padding: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 32,
-    width: (Const.Width - 32) / 3,
+    width: (Const.Width - 64) / 3,
     height: 80,
   },
 })

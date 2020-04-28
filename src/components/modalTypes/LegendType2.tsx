@@ -3,7 +3,7 @@ import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {ChargerMarkerType} from '../../../@types/allTypes.d'
+import {ChargerMarkerColor} from '../../../@types/allTypes.d'
 
 import {Colors} from 'utils'
 import {LegendItem, LegendColorItem} from 'components'
@@ -12,19 +12,19 @@ import images from 'assets/images'
 const legendTypes = [
   {
     text: 'popup.fastNonCommercial',
-    type: ChargerMarkerType.fast__nonPublic,
+    privateCharger: true,
+    fastCharger: true,
   },
   {
     text: 'popup.fastCommercial',
-    type: ChargerMarkerType.fast__public,
+    fastCharger: true,
   },
   {
     text: 'popup.lvl2NonCommercial',
-    type: ChargerMarkerType.lvl2__nonPublic,
   },
   {
     text: 'popup.lvl2Commercial',
-    type: ChargerMarkerType.lvl2__public,
+    privateCharger: true,
   },
 ]
 const legendColorTypes = [

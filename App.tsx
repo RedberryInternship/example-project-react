@@ -31,7 +31,7 @@ const App = (): React.ReactElement => {
         <AppContext.Provider value={{state, dispatch}}>
           <Navigation
             ref={(ref) => setNavigationTopLevelElement(ref)}
-            screenProps={{token: Defaults.token}}
+            screenProps={{token: Defaults.token, userState: state.userState}}
             onNavigationStateChange={(_, state) => {
               Defaults.activeRoute = getCurrentRoute(state)
               console.log('====================================')
@@ -46,7 +46,9 @@ const App = (): React.ReactElement => {
           translucent={true}
           useNativeDriver={true}
           inactiveStatusBarBackgroundColor={'transparent'}
-          inactiveStatusBarStyle={dropDownInactiveBarColor()}
+          onClose={() =>
+            StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
+          }
           ref={(ref) => (Defaults.dropdown = ref)}
           testID={'dropdownAlert'}
           titleStyle={{fontSize: 14, color: 'white'}}

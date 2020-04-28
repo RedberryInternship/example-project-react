@@ -25,26 +25,40 @@ import images from 'assets/images'
 import {Const, Colors} from 'utils'
 import useChoosingCard from './useChoosingCard'
 import {ChooseCardOnCharging} from './components'
+import {Controller} from 'react-hook-form'
 
 enum Type {
-  'viaPrice',
-  'untilShoutDown',
+  byPrice = 'BY-AMOUNT',
+  untilShoutDown = 'FULL-CHARGE',
 }
 
 const draggableRange = {
-  bottom: Platform.select({ios: 160, android: 200}),
+  bottom: Platform.select({ios: 160, android: 200}) ?? 200,
   top: 400,
 }
 
 const ChoosingCard = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const hook = useChoosingCard()
+  const {
+    control,
+    defCard,
+    activeCardIndex,
+    animatedArrow,
+    slideUpPanelRef,
+    setActiveCard,
+    handleSubmit,
+    submitHandler,
+    errors,
+    t,
+  } = useChoosingCard(navigation)
+
+  console.log(navigation, 'navigationnavigation')
 
   const slidingUpTransformation = {
     transform: [
       {
-        rotateX: hook._this.current?.animatedArrow.interpolate({
+        rotateX: animatedArrow.interpolate({
           inputRange: [draggableRange.bottom, draggableRange.top],
           outputRange: ['0deg', '180deg'],
         }),
@@ -73,29 +87,31 @@ const ChoosingCard = ({
                   source={images.checkCircle}
                   style={styles.contentsViewImage}
                 />
-                <Text>Here is the content inside panel</Text>
+                <Text>{t('Here is the content inside panel')}</Text>
               </View>
             ) : (
               <View style={styles.pricingView}>
-                <BaseInput
-                  image={images.briefCase}
-                  keyboardType={'number-pad'}
-                  onChangeText={hook.enterPriceHandler}
-                  onSubmit={hook.enterPriceSubmit}
-                  ref={hook.enterPriceRef}
-                  secure={false}
+                <Controller
+                  as={BaseInput}
+                  name="amount"
+                  rules={{required: true}}
+                  control={control}
+                  onChange={(args) => args[0].nativeEvent.text}
                   title={'chooseCard.enterPrice'}
+                  image={images.briefCase}
+                  returnKeyType={'send'}
+                  errorText={errors.amount ? 'dropDownAlert.fillAmount' : ''}
                 />
               </View>
             )}
           </ScrollView>
         </LinearGradient>
         <SlidingUpPanel
-          ref={hook._panel}
+          ref={slideUpPanelRef}
           draggableRange={{...draggableRange}}
           snappingPoints={[draggableRange.top]}
           friction={0.5}
-          animatedValue={hook._this.current?.animatedArrow}
+          animatedValue={animatedArrow}
           minimumDistanceThreshold={20}
           backdropOpacity={0.3}
         >
@@ -109,13 +125,13 @@ const ChoosingCard = ({
             <TitleTopLeftContainer
               direction={'column'}
               title={''}
-              data={hook.defCard}
+              data={defCard}
               onRenderItem={(val, index) => (
                 <ChooseCardOnCharging
                   key={index}
-                  active={hook.activeCardIndex === index}
-                  onPress={hook.setActiveCard.bind(ChoosingCard, index)}
-                  {...val}
+                  active={activeCardIndex === index}
+                  onPress={setActiveCard.bind(ChoosingCard, index)}
+                  lastDigits={val.lastDigits}
                 />
               )}
             />
@@ -127,7 +143,7 @@ const ChoosingCard = ({
           style={styles.keyboardAvoidingView}
         >
           <BaseButton
-            onPress={navigation.navigate.bind(ChoosingCard, 'Charging')}
+            onPress={handleSubmit(submitHandler)}
             style={styles.turnOnBtn}
             text={'charger.turnOn'}
             imageStyle={{tintColor: 'white'}}

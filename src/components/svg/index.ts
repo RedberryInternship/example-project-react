@@ -1,1 +1,1 @@
-export {default} from './chargerMarker'
+export {default} from './chargerMarker/MarkerController'

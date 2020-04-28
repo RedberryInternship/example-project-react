@@ -112,7 +112,9 @@ export default (
   }
 
   const mainButtonClickHandler = (): void => {
-    navigation.navigate('ChooseChargeMethod')
+    navigation.navigate('ChooseChargeMethod', {
+      connectorTypeId: charger?.connector_types[activeChargerType]?.pivot.id,
+    })
   }
 
   const getDistance = async (lat: number, lng: number): Promise<any> => {

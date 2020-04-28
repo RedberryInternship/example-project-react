@@ -45,6 +45,7 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               />
             )}
             fetchData={getFAQ}
+            updateAlways={true}
           />
         }
       </ScrollView>

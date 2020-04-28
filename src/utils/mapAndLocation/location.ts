@@ -1,6 +1,5 @@
 import RNLocation from 'react-native-location'
-import {Platform, PermissionsAndroid, Alert} from 'react-native'
-import Geolocation from 'react-native-geolocation-service'
+import {Platform, PermissionsAndroid} from 'react-native'
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler'
 
 const requestPermission = async (): Promise<boolean> => {

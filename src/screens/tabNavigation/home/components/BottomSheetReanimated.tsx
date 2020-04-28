@@ -30,7 +30,7 @@ type BottomSheetReanimatedProps = {
   onFilterClick: (index: number) => void
   selectedFilters: number[]
   filteredChargers: Charger[]
-  onFilteredItemClick: (charger: Charger | ChargerDetail) => void
+  onFilteredItemClick: (charger: ChargerDetail) => void
   textHandler: (text: string) => void
 }
 

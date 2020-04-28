@@ -1,14 +1,18 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, {ReactElement} from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
+import {ChargerConnectorType} from 'allTypes'
 
 type CurrentTariffsProps = {
-  data: any
+  connector: ChargerConnectorType
 }
 
-const CurrentTariffs = ({data}: CurrentTariffsProps): ReactElement => {
+const CurrentTariffs = ({
+  connector: {charging_prices, fast_charging_prices},
+}: CurrentTariffsProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
@@ -21,11 +25,19 @@ const CurrentTariffs = ({data}: CurrentTariffsProps): ReactElement => {
           {t('chargerDetail.currentPrices')}
         </Text>
       </View>
-      {data.map((val: any, ind: number) => (
+      {charging_prices?.map((val, ind: number) => (
         <Row
           key={ind}
-          col1={val.min_kwt + ' ' + t('kwh') + t('from')} // Vobi Todo: use backtick `${val.min_kwt} ${t('kwh)}${t('fom')}` it is more readable
-          col2={val.max_kwt + ' ' + t('kwh') + t('till')}
+          col1={`${val.min_kwt} ${t('kwh')} ${t('from')}`}
+          col2={`${val.max_kwt} ${t('kwh')} ${t('till')}`}
+          col3={val.price}
+        />
+      ))}
+      {fast_charging_prices?.map((val, ind: number) => (
+        <Row
+          key={ind}
+          col1={`${val.start_minutes} ${t('minute')} ${t('from')}`}
+          col2={`${val.end_minutes} ${t('minute')} ${t('till')}`}
           col3={val.price}
         />
       ))}

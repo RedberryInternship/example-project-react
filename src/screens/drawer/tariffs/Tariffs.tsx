@@ -10,6 +10,7 @@ import {Colors} from 'utils'
 import {ScreenPropsWithNavigation} from 'allTypes'
 import TariffListItem from './components/TariffListItem'
 import TariffDetail from './components/TariffDetail'
+import {ScrollView} from 'react-native-gesture-handler'
 
 const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   return (
@@ -18,17 +19,19 @@ const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         title={'tariffs.tariffs'}
         onPressLeft={navigation.navigate.bind(Tarrifs, 'MainDrawer')}
       />
-      <TariffDetail
-        title="30 წუთი - 2ლ"
-        description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
-      />
-      <Text style={styles.note}>
-        ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
-      </Text>
-      {/* TODO: need to connect to backend */}
-      {tariffsInfo.map((el) => (
-        <TariffListItem key={el.company} {...el} />
-      ))}
+      <ScrollView>
+        <TariffDetail
+          title="30 წუთი - 2ლ"
+          description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
+        />
+        <Text style={styles.note}>
+          ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
+        </Text>
+        {/* TODO: need to connect to backend */}
+        {tariffsInfo.map((el) => (
+          <TariffListItem key={el.company} {...el} />
+        ))}
+      </ScrollView>
     </View>
   )
 }

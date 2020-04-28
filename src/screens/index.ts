@@ -3,7 +3,7 @@ import {ChargerWithCode} from './tabNavigation/charger/chargerWithCode'
 import {ChargerDetail} from './tabNavigation/charger/chargerDetail'
 import NotAuthorized from './tabNavigation/charger/NotAuthorized'
 import {ChooseChargeMethod} from './tabNavigation/charger/chooseChargeMethod'
-import {Charging} from './tabNavigation/charger/charging'
+import {Charging} from './tabNavigation/charging'
 import {ChoosingCard} from './tabNavigation/charger/choosingCard'
 
 import Plashka from './Plashka'

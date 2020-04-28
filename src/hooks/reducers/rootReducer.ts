@@ -4,6 +4,7 @@ import {
   LOG_OUT,
   GET_FAVORITE_CHARGERS,
   EDIT_USER_INFO,
+  GET_USER_STATE,
 } from '../actions/rootActions'
 import {AppState, Action} from 'allTypes'
 
@@ -13,6 +14,7 @@ export const initialState: AppState = {
   authStatus: null,
   AllChargers: null,
   favoriteChargers: null,
+  userState: null,
 }
 
 function reducer(
@@ -54,6 +56,11 @@ function reducer(
           ...state.user,
           [payload.type]: payload.data,
         },
+      }
+    case GET_USER_STATE:
+      return {
+        ...state,
+        userState: payload,
       }
 
     default:

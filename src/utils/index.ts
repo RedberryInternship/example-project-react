@@ -10,7 +10,6 @@ import locationConfig from './mapAndLocation/location'
 import {regionFrom, determineTimePeriod} from './mapAndLocation/mapFunctions'
 import mapStyles from './mapAndLocation/mapStyle'
 import mapStyle2 from './mapAndLocation/mapStyle2'
-import apiServices from './services'
 import useFirebase from './firebase'
 import Sentry from './sentry'
 import Helpers from './helpers'
@@ -31,7 +30,6 @@ export {
   mapStyles,
   mapStyle2,
   determineTimePeriod,
-  apiServices,
   useFirebase,
   Sentry,
   Helpers,

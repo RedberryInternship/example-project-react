@@ -48,3 +48,5 @@ export const getUserOrders = (): Promise<UserOrderResponseType> =>
 
 export const getUserChargers = (): Promise<UserLastChargersResponseType> =>
   ajax.get('/user-chargers')
+
+export const getUserState = (): Promise<any> => ajax.get('/user-state')

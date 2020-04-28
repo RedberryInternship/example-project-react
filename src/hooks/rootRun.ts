@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef, useReducer} from 'react'
-import {StatusBar, Platform, Alert} from 'react-native'
-import {useAppState} from 'react-native-hooks'
+import {StatusBar, Platform, Alert, StatusBarStyle} from 'react-native'
 import {useNetInfo} from '@react-native-community/netinfo'
+import {useAppState} from '@react-native-community/hooks'
 import {useAsyncStorage} from '@react-native-community/async-storage'
 import {useTranslation} from 'react-i18next'
 
@@ -81,7 +81,7 @@ export function useRoot() {
     // Todo Vobi: javascript's variables shouldn't be named like this
     // Todo Vobi: It's an OOP syntax which tells developers that this method is private for class and should be called from outside
     // Todo Vobi: i don't understand why we implement this here
-    // Redberry: Okay but how to declare temporary variable which has has same purpose as global one
+    // Redberry: Okay but how to declare temporary variable which has has same purpose as global one?
     if (_locale === null) {
       _locale = 'ka'
       setLocaleStorage('ka')
@@ -98,7 +98,7 @@ export function useRoot() {
 
     if (ref == null) return
 
-    NavigationActions().setTopLevelNavigator(ref)
+    NavigationActions.setTopLevelNavigator(ref)
     setNavigationState(true)
     // if(__DEV__) userStatusHandler() // for development
   }
@@ -113,7 +113,7 @@ export function useRoot() {
   }, [token, navigationState, locale])
 
   const onReady = (): void => {
-    NavigationActions().navigate('MainDrawer')
+    NavigationActions.navigate('MainDrawer')
     // NavigationActions().navigate('Auth')
     // NavigationActions().navigate('ForgotPassword')
     // NavigationActions().navigate("Registration")
@@ -154,9 +154,9 @@ export function useRoot() {
       ? getCurrentRoute(state.routes[state.index])
       : state.routeName
 
-  const dropDownInactiveBarColor = (): string => {
+  const dropDownInactiveBarColor = (): StatusBarStyle => {
     if (Defaults.activeRoute !== 'Home') {
-      return 'dark-content'
+      return 'light-content'
     } else {
       return determineTimePeriod() ? 'dark-content' : 'light-content'
     }

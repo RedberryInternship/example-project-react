@@ -50,7 +50,7 @@ const HomeMainComponent = ({
       {Defaults.token ? null : (
         <BaseButton
           image={images.user}
-          onPress={navigation.navigate.bind(HomeMainComponent, 'Auth')}
+          onPress={navigation?.navigate.bind(HomeMainComponent, 'Auth')}
           text={'home.authorization'}
           style={styles.authorizeBtn}
         />
@@ -58,7 +58,6 @@ const HomeMainComponent = ({
       <View style={styles.onMapRoundContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
-          // Vobi Todo: onPress={mapRef.current?.locate}
           onPress={(): void => {
             mapRef.current?.locate()
           }}

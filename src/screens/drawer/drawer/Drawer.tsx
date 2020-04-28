@@ -14,7 +14,7 @@ import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
 import {BaseButton} from 'components'
 
-import {Const, Colors, Defaults, Helpers} from 'utils'
+import {Const, Colors, Helpers} from 'utils'
 import {AppContext} from '../../../../App'
 import {logOut} from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
@@ -23,16 +23,19 @@ import {
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
 } from './components'
+import {useAsyncStorage} from '@react-native-community/async-storage'
 
 const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t, i18n} = useTranslation()
   const insets = useSafeArea()
   const context: AppContextType = useContext(AppContext)
-
+  const {setItem: setLocaleStorage} = useAsyncStorage('locale')
   let drawerContent = null
 
   const toggleLanguage = (): void => {
-    i18n.changeLanguage(i18n.language === 'ka' ? 'en' : 'ka')
+    const locale: 'en' | 'ka' | 'ru' = i18n.language === 'ka' ? 'en' : 'ka'
+    setLocaleStorage(locale)
+    i18n.changeLanguage(locale)
   }
 
   if (!Helpers.isAuthenticated()) {

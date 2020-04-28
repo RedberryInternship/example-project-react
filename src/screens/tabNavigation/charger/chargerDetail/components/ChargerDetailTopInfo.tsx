@@ -40,7 +40,8 @@ const ChargerDetailTopInfo = ({
         <View>
           <TouchableOpacity
             onPress={favouritePress}
-            style={styles.favIconContainer}>
+            style={styles.favIconContainer}
+          >
             <Image
               source={favorite ? images.filledHart : images.favorite}
               style={[styles.favIcon]}
@@ -59,7 +60,8 @@ const ChargerDetailTopInfo = ({
           </View>
           <TouchableOpacity
             onPress={showChargerLocationPress}
-            style={styles.seeOnMapContainer}>
+            style={styles.seeOnMapContainer}
+          >
             <Text style={styles.seeOnMapText} numberOfLines={1}>
               {t('chargerDetail.seeOnMap')}
             </Text>
@@ -69,7 +71,8 @@ const ChargerDetailTopInfo = ({
         <View style={styles.distanceContainer}>
           <TouchableOpacity
             onPress={chargerLocationDirectionPress}
-            style={styles.distanceTouchable}>
+            style={styles.distanceTouchable}
+          >
             <Image source={images.cornerUpRight} style={styles.distanceIcon} />
             <Text style={styles.distanceText} numberOfLines={1}>
               {distance} {t('km')}

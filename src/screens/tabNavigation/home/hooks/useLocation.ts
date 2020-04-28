@@ -15,6 +15,7 @@ import {
 import {regionFrom, Defaults, locationConfig, Helpers} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/home/Home'
 import services from 'services'
+import {getAllChargers} from 'hooks/actions/rootActions'
 
 type ThisRef = {
   interval: number
@@ -27,8 +28,9 @@ const ZOOM_LEVEL = 400
 type useLocationProps = {
   mapRef: RefObject<MapView>
   setPolyline: (data: any) => void
+  dispatch: (data: any) => void
 }
-const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
+const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   const context: any = useContext(HomeContext)
   const [
     permissionStatus,
@@ -45,7 +47,7 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      RNLocation.getLatestLocation({timeout: 60000}).then(getLatestLocation)
+      RNLocation.getLatestLocation({timeout: 6000}).then(getLatestLocation)
     } catch (error) {}
 
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
@@ -73,6 +75,11 @@ const useLocation = ({mapRef, setPolyline}: useLocationProps) => {
 
   const getLatestLocation = (_location: Location | null): void => {
     _this.current.location = _location // for testing on emulator comment out
+    Defaults.location = {
+      lat: _location?.latitude ?? 0,
+      lng: _location?.longitude ?? 0,
+    }
+    getAllChargers(dispatch)
     _location && navigateByRef(_location.latitude, _location.longitude)
   }
 

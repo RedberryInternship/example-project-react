@@ -7,6 +7,11 @@ import {ScreenPropsWithNavigation} from 'allTypes'
 import {BaseHeader, BaseButton} from 'components'
 import {Const, Colors} from 'utils'
 
+enum Type {
+  byPrice = 'BY-AMOUNT',
+  untilShoutDown = 'FULL-CHARGE',
+}
+
 const ChargerDetail = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
@@ -25,16 +30,23 @@ const ChargerDetail = ({
         <View>
           <BaseButton
             onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
-              type: 1,
+              type: Type.untilShoutDown,
+              connectorTypeId: navigation.getParam(
+                'connectorTypeId',
+                undefined,
+              ),
             })}
             text={'chooseChargeMethod.untilTurnOff'}
             style={styles.untilTurnOffBtn}
           />
           <Text style={styles.orText}>{t('chooseChargeMethod.or')}</Text>
-
           <BaseButton
             onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
-              type: 0,
+              type: Type.byPrice,
+              connectorTypeId: navigation.getParam(
+                'connectorTypeId',
+                undefined,
+              ),
             })}
             text={'chooseChargeMethod.withEnteringPrice'}
             style={styles.withEnteringPriceBtn}
