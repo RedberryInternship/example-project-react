@@ -45,7 +45,8 @@ const HomeMainComponent = ({
   return (
     <View
       style={[styles.container, {paddingTop: insets.top}]}
-      pointerEvents={'box-none'}>
+      pointerEvents={'box-none'}
+    >
       {Defaults.token ? null : (
         <BaseButton
           image={images.user}

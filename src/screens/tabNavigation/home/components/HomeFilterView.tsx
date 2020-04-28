@@ -1,4 +1,4 @@
-import React, {useState, useEffect, ReactElement} from 'react'
+import React, {useState, useEffect, ReactElement, useMemo} from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -41,18 +41,14 @@ const HomeFilter = ({
       toValue: showFilter ? 0 : translate,
       duration: 300,
       easing: Easing.out(Easing.ease),
+      useNativeDriver: false,
     }).start()
   }, [showFilter])
 
-  const buttonImageStyle = showFilter
-    ? {width: 23, height: 23}
-    : {width: 18, height: 18}
-  // Vobi todo: use memoized value here
-  // Vobi Todo: const buttonImageStyle = useMemo(() =>
-  // showFilter
-  //   ? { width: 23, height: 23 }
-  //   : { width: 18, height: 18 }
-  // , [showFilter])
+  const buttonImageStyle = useMemo(
+    () => (showFilter ? {width: 23, height: 23} : {width: 18, height: 18}),
+    [showFilter],
+  )
 
   return (
     <Animated.View style={[styles.container, {transform: [{translateX}]}]}>
@@ -62,7 +58,8 @@ const HomeFilter = ({
         horizontal
         pointerEvents={'box-none'}
         showsHorizontalScrollIndicator={false}
-        scrollEnabled={showFilter}>
+        scrollEnabled={showFilter}
+      >
         <Animated.View
           style={[
             styles.buttonContainer,
@@ -72,10 +69,12 @@ const HomeFilter = ({
                 outputRange: [Colors.primaryYellow, '#009AF0'],
               }),
             },
-          ]}>
+          ]}
+        >
           <TouchableOpacity
             onPress={handleFilterButton}
-            hitSlop={styles.buttonHitSlop}>
+            hitSlop={styles.buttonHitSlop}
+          >
             <Image
               source={showFilter ? images.close : images.filterType}
               style={[buttonImageStyle, styles.buttonImage]}
@@ -86,8 +85,6 @@ const HomeFilter = ({
           <FilterTextItem
             text={t(val)}
             key={index}
-            // Vobi Todo: move this kind of checks in body of function
-            // Vobi Todo: const isActive = !!selectedFiltersOnMap[index]
             active={!!selectedFiltersOnMap[index]}
             onPress={onFilterClickOnMap.bind(HomeFilter, index)}
           />

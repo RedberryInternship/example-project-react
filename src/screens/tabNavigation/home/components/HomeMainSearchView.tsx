@@ -73,7 +73,7 @@ const HomeMainSearchView = forwardRef(
     //   />
     // ))
     const searchedItems = (): ReactElement => (
-      <>
+      <React.Fragment key={1}>
         {filteredChargers?.map((chargerObj: Charger) => {
           const view = []
 
@@ -94,7 +94,7 @@ const HomeMainSearchView = forwardRef(
             chargerObj.charger_group?.chargers?.map((val) =>
               view.push(
                 <MainSearchItem
-                  key={val.id}
+                  key={val.id + 'inside'}
                   text={getLocaleText(val.name)}
                   mainTitle={getLocaleText(val.location)}
                   onPress={onSearchItemClickHandler.bind(
@@ -108,11 +108,10 @@ const HomeMainSearchView = forwardRef(
           }
           return view
         })}
-      </>
+      </React.Fragment>
     )
 
     return useMemo(
-      // Vobi Todo: move this as components and wrap inside React.memo()
       () => (
         <TouchableOpacity
           activeOpacity={1}
