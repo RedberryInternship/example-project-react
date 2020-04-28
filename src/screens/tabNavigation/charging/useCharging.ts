@@ -1,11 +1,15 @@
-import {useState, useRef} from 'react'
+import {useState, useRef, useContext} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Alert} from 'react-native'
 
-import {Defaults} from 'utils'
+import {finishCharging} from 'hooks/actions/chargerActions'
+import {AppContext} from '../../../../App'
+import {AppContextType} from 'allTypes'
 
 export default (navigation: any) => {
+  const {state, dispatch}: AppContextType = useContext(AppContext)
+
   const [activeTab, setActiveTab] = useState<number>(0)
 
   const _this: React.RefObject<any> = useRef()
@@ -26,26 +30,18 @@ export default (navigation: any) => {
         {text: t('no'), onPress: () => console.log('Ask me later pressed')},
         {
           text: t('yes'),
-          onPress: showModal,
+          onPress: () =>
+            finishCharging(
+              {
+                connectorTypeId: 2, //TODO: get connectorTypeId from charging state
+              },
+              dispatch,
+            ),
           style: 'cancel',
         },
       ],
       {cancelable: true},
     )
-  }
-
-  const showModal = () => {
-    return Defaults.modal.current?.customUpdate(true, {
-      type: 3,
-      subType: 1,
-      data: {
-        title: 'popup.thankYou',
-        description: 'popup.automobileChargingFinished',
-        bottomDescription: 'popup.finishedChargingOfAutomobile',
-        price: 22,
-      },
-      onCloseClick: () => navigation.navigate('Home'),
-    })
   }
 
   return {

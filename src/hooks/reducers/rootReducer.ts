@@ -7,6 +7,14 @@ import {
   GET_USER_STATE,
 } from '../actions/rootActions'
 import {AppState, Action} from 'allTypes'
+import {
+  CHARGING_STARTED_SUCCESS,
+  CHARGING_STARTED_FAILURE,
+  CHARGING_FINISHED_SUCCESS,
+  CHARGING_FINISHED_FAILURE,
+  CHARGING_STATE_SUCCESS,
+  CHARGING_STATE_FAILURE,
+} from 'hooks/actions/chargerActions'
 
 export const initialState: AppState = {
   user: null,
@@ -15,6 +23,12 @@ export const initialState: AppState = {
   AllChargers: null,
   favoriteChargers: null,
   userState: null,
+  chargingStarted: null,
+  chargingStartedError: null,
+  chargingFinished: null,
+  chargingFinishedError: null,
+  chargingState: null,
+  chargingStateError: null,
 }
 
 function reducer(
@@ -61,6 +75,36 @@ function reducer(
       return {
         ...state,
         userState: payload,
+      }
+    case CHARGING_STARTED_SUCCESS:
+      return {
+        ...state,
+        chargingStarted: payload,
+      }
+    case CHARGING_STARTED_FAILURE:
+      return {
+        ...state,
+        chargingStartedError: payload,
+      }
+    case CHARGING_FINISHED_SUCCESS:
+      return {
+        ...state,
+        chargingFinished: payload,
+      }
+    case CHARGING_FINISHED_FAILURE:
+      return {
+        ...state,
+        chargingFinishedError: payload,
+      }
+    case CHARGING_STATE_SUCCESS:
+      return {
+        ...state,
+        chargingState: payload,
+      }
+    case CHARGING_STATE_FAILURE:
+      return {
+        ...state,
+        chargingStateError: payload,
       }
 
     default:

@@ -29,6 +29,24 @@ export type GetAllChargerResponseType = {
   current_hour: string
 }
 
+export type StartChargingResponseType = {
+  status_code: number
+  status: string
+  message: LocaleStringObject
+}
+
+export type FinishChargingResponseType = {
+  status_code: number
+  status: string
+  message: LocaleStringObject
+}
+
+export type StandardErrorResponseType = {
+  status_code: number
+  status: string
+  message: LocaleStringObject
+}
+
 export interface Charger extends ChargerDetail {
   charger_group_id: number | null
   charger_group: ChargerGroup | null
@@ -110,7 +128,13 @@ export type AppState = {
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
   favoriteChargers: Favorite[] | null
-  userState: any //TODO:don't know object structure
+  userState: any //TODO: don't know object structure
+  chargingStarted: any //TODO: don't know object structure
+  chargingStartedError: any //TODO: don't know object structure
+  chargingFinished: any //TODO: don't know object structure
+  chargingFinishedError: any //TODO: don't know object structure
+  chargingState: any //TODO: don't know object structure
+  chargingStateError: any //TODO: don't know object structure
 }
 export type Action = {
   type: string
@@ -341,7 +365,7 @@ export type ChargersObject = {
 
 export type ChargerMarkerIconControllerType = {
   active: boolean
-  groupChargerCount: number
+  groupChargerCount?: number
   privateCharger: boolean
   fastCharger: boolean
   free: boolean
