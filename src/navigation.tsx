@@ -30,6 +30,7 @@ import {
   ShowTransaction,
   Partners,
   SetNewPasswords,
+  ChooseAvatar,
 } from 'screens'
 
 const chargerStack = createStackNavigator(
@@ -137,6 +138,7 @@ const AppNavigator = createSwitchNavigator(
     Partners,
     transactionStack,
     Notifications,
+    ChooseAvatar,
   },
   {
     initialRouteName: 'Plashka',

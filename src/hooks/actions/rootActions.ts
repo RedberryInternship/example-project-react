@@ -135,7 +135,7 @@ export const deleteToFavorites = async (
 export const editUserInfo = (
   dispatch: any,
   payload: any,
-  type: UserSettingEnum,
+  type: UserSettingEnum | 'avatar',
 ): any => {
   if (Defaults.userDetail) Defaults.userDetail[type] = payload
 

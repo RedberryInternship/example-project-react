@@ -57,6 +57,7 @@ export default {
       transactions: 'ტრანზაქციები',
       notifications: 'შეტყობინებები',
       logOut: 'გამოსვლა',
+      changeAvatar: 'ავატარის შეცვლა',
     },
     settings: {
       settings: 'პარამეტრები',
@@ -70,6 +71,7 @@ export default {
       confirmed: 'დადასტურებული',
       notconfirmed: 'არ არის დადასტურებული',
       notAdded: 'არ არის დამატებული',
+      add: 'დამატება',
 
       editFirstname: 'სახელის შეცვლა',
       newFirstname: 'ახალი სახელი',
@@ -94,6 +96,10 @@ export default {
       mapColorLight: 'ნათელი',
       mapColorDark: 'ბნელი',
       chooseMapMode: 'აირჩეთ რუკის რეჟიმი',
+
+      addCar: 'მანქანის დამატება',
+      manufacturer: 'მწარმოებელი',
+      model: 'მოდელი',
     },
     popup: {
       legend: 'ლეგენდა',
@@ -193,6 +199,7 @@ export default {
       successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
+      avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი',

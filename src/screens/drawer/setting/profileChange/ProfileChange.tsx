@@ -13,6 +13,7 @@ import {
   PhoneChangeView,
   PasswordChangeView,
   CardListView,
+  AddCar,
   SingleInputView,
 } from 'components'
 import {Colors, Helpers} from 'utils'
@@ -69,6 +70,11 @@ const ProfileChange = ({
         return <PhoneChangeView {...form} />
       case UserSettingEnum.password:
         return <PasswordChangeView {...form} />
+      case UserSettingEnum.addCar:
+        return <AddCar {...form} />
+      default:
+        Helpers.DisplayDropdownWithError('რანაირად?')
+        return <></>
     }
   }, [form.errors])
 

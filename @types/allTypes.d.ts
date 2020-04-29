@@ -425,6 +425,7 @@ export type UserMeResponseType = {
   user_cards: any[]
   user_cars: any[]
   car_models: any[]
+  avatar: number //TODO:needs correct key
 }
 
 export type UserFavoriteChargersResponseType = {
@@ -522,6 +523,7 @@ export enum UserSettingEnum {
   activeCard = 'activeCard',
   password = 'password',
   mapMode = 'mapMode',
+  addCar = 'user_cars',
 }
 
 type UserSettingsInfoType = {
@@ -532,6 +534,7 @@ type UserSettingsInfoType = {
   activeCard: string
   password: string
   mapMode: string
+  user_cars: string
 }
 
 export type SettingsListFieldType = {

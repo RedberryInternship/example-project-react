@@ -58,6 +58,7 @@ export default {
       transactions: 'Transactions',
       notifications: 'Notifications',
       logOut: 'Log out',
+      changeAvatar: 'Change avatar',
     },
 
     settings: {
@@ -71,8 +72,8 @@ export default {
 
       confirmed: 'Confirmed',
       notconfirmed: 'Not Confirmed',
-
       notAdded: 'Has Not Added',
+      add: 'Add',
 
       editFirstname: 'Edit First Name',
       newFirstname: 'New First Name',
@@ -100,6 +101,10 @@ export default {
       mapColorLight: 'Light',
       mapColorDark: 'Dark',
       chooseMapMode: 'Choose map mode',
+
+      addCar: 'Add car',
+      manufacturer: 'Manufacturer',
+      model: 'Model',
     },
     popup: {
       legend: 'Legend',
@@ -197,6 +202,7 @@ export default {
       successOnFavoriteAdd: 'Successfully added charger',
       successOnFavoriteRemove: 'Charger deleted successfully',
       informationUpdatedSuccessfully: 'Information updated successfully',
+      avatarUpdatedSuccessfully: 'Avatar updated successfully',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',

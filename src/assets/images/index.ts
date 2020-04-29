@@ -47,6 +47,8 @@ export default {
   'Combo 2': require('./icons/fastCharger.png'),
   'Type 2': require('./icons/type2Charger.png'),
   CHadeMO: require('./icons/chademoCharger.png'),
+  checkmark: require('./icons/checkmark.png'),
+  addCarInput: require('./icons/addCarInput.png'),
 }
 
 export const Partners = {
@@ -57,3 +59,12 @@ export const Partners = {
   wissol: require('./icons/partners/wissol.png'),
   bog: require('./icons/partners/bog.png'),
 }
+
+export const Avatars = [
+  require('./avatars/avatar1.png'),
+  require('./avatars/avatar2.png'),
+  require('./avatars/avatar3.png'),
+  require('./avatars/avatar4.png'),
+  require('./avatars/avatar5.png'),
+  require('./avatars/avatar6.png'),
+]

@@ -19,6 +19,7 @@ import {Faq} from './drawer/faq'
 import {Tariffs} from './drawer/tariffs'
 import {Contact} from './drawer/contact'
 import {Notifications} from './drawer/notification'
+import {ChooseAvatar} from './drawer/chooseAvatar'
 
 import {TransactionList} from './drawer/transactions/transactionList'
 import {ShowTransaction} from './drawer/transactions/showTransaction'
@@ -49,4 +50,5 @@ export {
   TransactionList,
   ShowTransaction,
   Partners,
+  ChooseAvatar,
 }

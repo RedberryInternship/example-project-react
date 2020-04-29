@@ -9,27 +9,33 @@ import {
 } from 'react-native'
 
 import {Colors} from 'utils'
-import images from 'assets/images'
+import images, {Avatars} from 'assets/images'
 
 type AvatarWithLabel = {
   onPress: (event?: GestureResponderEvent) => void | undefined
   firstName: string
   lastName: string
+  avatar: number | undefined
 }
 
 const UserAvatarWithLabel = ({
   onPress,
   firstName,
   lastName,
+  avatar,
 }: AvatarWithLabel): ReactElement => {
   return (
     <View style={[styles.container]}>
       <View style={styles.imageContainer}>
-        <Image source={images.greenUser} style={styles.image} />
+        <Image
+          source={avatar ? Avatars[avatar] : images.greenUser}
+          style={styles.image}
+        />
         <TouchableOpacity
           onPress={onPress}
           style={styles.editButton}
-          hitSlop={{left: 10, top: 10, bottom: 10, right: 10}}>
+          hitSlop={{left: 15, top: 15, bottom: 15, right: 15}}
+        >
           <Image source={images.bluePencil} style={styles.editButtonImage} />
         </TouchableOpacity>
       </View>
@@ -65,6 +71,8 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     margin: 10,
+    tintColor: '#4CD964',
+    resizeMode: 'contain',
   },
 
   editButton: {

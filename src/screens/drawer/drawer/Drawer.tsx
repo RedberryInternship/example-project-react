@@ -70,10 +70,11 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <View>
         <BaseUserAvatarWithLabel
           onPress={(): void => {
-            Alert.alert('change icon')
+            navigation.navigate('ChooseAvatar')
           }}
-          firstName={firstName}
-          lastName={lastName}
+          avatar={context?.state.user?.avatar}
+          firstName={firstName ?? ''}
+          lastName={lastName ?? ''}
         />
         {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
           return (

@@ -83,7 +83,7 @@ export const SettingsListFields: SettingsListFieldType[] = [
     name: 'settings.mail',
     type: UserSettingEnum.email,
     editableComponentName: 'settings.editMail',
-    onEmptyText: 'settings.notAdded',
+    onEmptyText: 'settings.add',
     color: Colors.primaryGray,
   },
   {
@@ -98,21 +98,27 @@ export const SettingsListFields: SettingsListFieldType[] = [
     type: UserSettingEnum.activeCard,
     editableComponentName: 'settings.editCard',
     color: Colors.primaryGray,
-    onEmptyText: 'settings.notAdded',
+    onEmptyText: 'settings.add',
   },
   {
     image: images.lock,
     name: 'settings.password',
     type: UserSettingEnum.password,
     editableComponentName: 'settings.editPassword',
-    color: Colors.primaryGreen,
-    onEmptyText: 'settings.confirmed',
+    color: Colors.primaryGray,
+    onEmptyText: '*********',
   },
   {
     image: images.lock,
     name: 'settings.mapColor',
     type: UserSettingEnum.mapMode,
     editableComponentName: 'settings.editPassword',
+  },
+  {
+    image: images.lock,
+    name: 'settings.addCar',
+    type: UserSettingEnum.addCar,
+    editableComponentName: 'settings.addCar',
   },
 ]
 
