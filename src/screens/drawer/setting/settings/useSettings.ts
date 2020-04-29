@@ -47,6 +47,7 @@ export default (navigation: Navigation) => {
         password: '',
         activeCard: '', // TODO: need real data
         mapMode: mapMode ?? 'settings.automatic',
+        user_cars: '',
       })
     } else setUserData(null)
   }

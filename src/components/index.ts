@@ -3,6 +3,7 @@ import TitleTopLeftContainer from './view/TitleTopLeftContainer'
 import CountDown from './view/time/CountDown'
 
 import SingleInputView from './view/profileChange/SingleInputView'
+import AddCar from './view/profileChange/AddCar'
 import CardListView from './view/profileChange/CardListView'
 import PhoneChangeView from './view/profileChange/PhoneChangeView'
 import PasswordChangeView from './view/profileChange/PasswordChangeView'
@@ -94,4 +95,5 @@ export {
   SingleInputView,
   PhoneVerificationView,
   PasswordConfirmationView,
+  AddCar,
 }
