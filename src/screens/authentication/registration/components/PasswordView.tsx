@@ -13,9 +13,6 @@ type PasswordViewProps = {
 // eslint-disable-next-line react/display-name
 const PasswordView = React.memo(
   ({hook: {control, watch}}: PasswordViewProps): ReactElement => {
-    // console.log(watch('password'), watch('repeatPassword'), 'watch(asd)')
-    // const repeatPassword = watch('repeatPassword')
-    // const password = watch('password')
     return (
       <View style={styles.container}>
         <Controller

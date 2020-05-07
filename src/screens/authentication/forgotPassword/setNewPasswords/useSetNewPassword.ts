@@ -20,6 +20,7 @@ export default (navigation: Navigation) => {
     password,
     repeatPassword,
   }: InputValueTypes): Promise<void> => {
+    //TODO: need outside component validation
     if (!repeatPassword && !password)
       return Helpers.DisplayDropdownWithError(
         'dropDownAlert.forgotPassword.passwordsNotFilled',
