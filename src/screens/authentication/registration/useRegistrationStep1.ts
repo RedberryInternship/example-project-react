@@ -37,13 +37,11 @@ export default (setActivePage: (index: number) => void) => {
     code,
   }: InputValues): Promise<void> => {
     try {
-      const {status} = await services.verifyCodeOnRegistration(phone, code)
-      if (status == 200) {
-        setActivePage(1)
-      }
+      await services.verifyCodeOnRegistration(phone, code)
+      setActivePage(1)
     } catch (error) {
       Helpers.Logger(error)
-      if (error.data.status === 401) {
+      if (error.data?.error?.verified === false) {
         Helpers.DisplayDropdownWithError(
           'dropDownAlert.registration.incorrectCode',
         )

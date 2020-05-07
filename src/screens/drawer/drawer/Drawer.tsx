@@ -14,7 +14,7 @@ import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
 import {BaseButton} from 'components'
 
-import {Const, Colors, Helpers} from 'utils'
+import {Const, Colors, Helpers, Defaults} from 'utils'
 import {AppContext} from '../../../../App'
 import {logOut} from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
@@ -107,7 +107,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           {!Helpers.isAuthenticated() && (
             <DrawerTextFieldItem
               onPress={(): void => {
-                Alert.alert('asfas')
+                Defaults.modal.current?.customUpdate(true, {type: 6})
               }}
               text={'drawer.terms_and_conditions'}
               image={images.greenTick}

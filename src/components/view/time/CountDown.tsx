@@ -1,4 +1,10 @@
-import React, {useState, useEffect, ReactElement} from 'react'
+import React, {
+  useState,
+  useEffect,
+  ReactElement,
+  useCallback,
+  useRef,
+} from 'react'
 import {StyleSheet, Text, View} from 'react-native'
 import moment from 'moment'
 
@@ -9,55 +15,60 @@ enum Status {
   'started',
   'threeMinuteLefted', // Vobi Todo: use spell checker
 }
-type CountDown = {
-  duration: number
-  up: boolean
+type CountDownProps = {
+  startTime?: string
   alarm: boolean
   popup?: boolean
   onChange?: (status: Status) => void
+  up?: boolean
+  duration?: number
 }
 const Interval = 1000
 
 const CountDown = ({
-  duration,
-  up,
+  startTime,
   alarm,
   onChange,
   popup,
-}: CountDown): ReactElement => {
-  const [time, setTime] = useState(``)
-
-  const showDate = (): string => {
-    return moment(duration)
-      .utcOffset(0)
-      .format(`${alarm ? '' : 'HH : '}mm : ss`)
-      .toString()
-  }
+  up,
+  duration,
+}: CountDownProps): ReactElement => {
+  const [time, setTime] = useState('')
+  const ref: any = useRef(null)
 
   useEffect(() => {
-    setTime(showDate())
-
-    const timeInterval = setInterval(() => {
-      duration = moment
-        .duration(duration + (up ? Interval : -Interval), 'milliseconds')
-        .asMilliseconds()
-
-      setTime(showDate())
-
-      if (duration <= 0) {
-        onChange && onChange(Status.finished)
-        clearInterval(timeInterval)
-        return
-      }
-    }, 1000)
+    ref.current = setInterval(up ? countUp.bind(CountDown) : countDown, 1000)
 
     return (): void => {
-      clearInterval(timeInterval)
+      clearInterval(ref.current)
     }
-  }, [])
+  }, [startTime])
 
-  // Vobi todo: in this cases you should consider using useMemo
-  // Vobi todo: this recreates object every second
+  const countUp = () => {
+    if (!startTime)
+      return setTime((prevState) => (prevState === '...' ? '..' : '...'))
+    const diff = moment(moment()).subtract(moment(startTime).unix())
+    console.log(startTime, time, 'fstartTime')
+
+    // console.log(diff.hour(), diff.seconds(), diff.minute(), 'diff.seconds')
+
+    const hour = diff.hour() ? pad(diff.hour()) + ':' : ''
+    setTime(`${hour}${pad(diff.minute())}:${pad(diff.seconds())}`)
+  }
+
+  const countDown = () => {
+    duration && setTime(`${pad(parseInt(duration / 60))}:${pad(duration % 60)}`)
+  }
+
+  const pad = (val: number) => {
+    const valString = val + ''
+    if (valString.length < 2) {
+      return '0' + valString
+    } else {
+      return valString
+    }
+  }
+
   const textStyle = {
     fontSize: popup ? 17 : 22,
     color: popup ? Colors.primaryBackground : Colors.primaryWhite,
@@ -76,6 +87,6 @@ const styles = StyleSheet.create({
   container: {},
   text: {
     lineHeight: 36,
-    letterSpacing: -0.41,
+    letterSpacing: 0.41,
   },
 })

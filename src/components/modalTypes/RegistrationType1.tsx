@@ -2,7 +2,7 @@
 import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 
-import {Colors} from 'utils'
+import {Colors, Defaults} from 'utils'
 import images from 'assets/images'
 
 type RegistrationType1Props = {
@@ -14,15 +14,14 @@ const RegistrationType1 = ({onPress}: RegistrationType1Props): ReactElement => {
     <>
       <View style={styles.container}>
         <Image source={images.user} style={styles.useIcon} />
-        {/* TODO: Title Text */}
-        <Text style={styles.titleText}>title</Text>
-        {/* TODO: First Name & Last Name Text */}
-        <Text style={styles.nameSurnameText}>First Name and Last Name</Text>
+        <Text style={styles.titleText}>მოგესალმებით</Text>
+        <Text style={styles.nameSurnameText}>
+          {Defaults.userDetail?.first_name} {Defaults.userDetail?.last_name}
+        </Text>
       </View>
       <View style={styles.descriptionContainer}>
         <Text style={styles.descriptionText}>
-          {/* TODO: Description Text */}
-          Description
+          თქვენ წარმატებკით დარეგისტრირდით, შეგიძლიათ დატენოთ მანაქანა
         </Text>
       </View>
       <View style={styles.closeContainer}>
@@ -45,11 +44,14 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginVertical: 8,
     tintColor: Colors.primaryBlue,
+    marginTop: 80,
   },
   titleText: {
     fontSize: 17,
     lineHeight: 22,
     color: Colors.primaryDark,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
   },
   nameSurnameText: {
     fontSize: 13,
@@ -58,14 +60,17 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   descriptionContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    flex: 1,
   },
   descriptionText: {
     fontSize: 13,
     lineHeight: 22,
     color: '#436880',
-    marginVertical: 8,
+    marginVertical: 24,
     paddingHorizontal: 32,
+    textAlign: 'center',
   },
   closeContainer: {
     alignItems: 'center',

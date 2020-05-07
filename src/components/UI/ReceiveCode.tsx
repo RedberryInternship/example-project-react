@@ -26,6 +26,9 @@ const receiveConfirmationCode = React.forwardRef(
     const {t} = useTranslation()
 
     const codeReceiveHandler = (): void => {
+      console.log('====================================')
+      console.log(inputRef, 'inputRef')
+      console.log('====================================')
       if (disabled) return
       setDisabled(true)
       animation.setValue(0)
@@ -35,13 +38,15 @@ const receiveConfirmationCode = React.forwardRef(
       Animated.timing(animation, {
         toValue: CodeInputWidth,
         duration: 2000,
+        useNativeDriver: false,
       }).start(() => {
         setDisabled(false)
       })
     }
 
     useImperativeHandle(ref, () => ({
-      ...inputRef.current,
+      // ...inputRef.current,
+      focus: inputRef.current.focus,
       activateButton: (): void => {
         animation.setValue(CodeInputWidth)
         // setDisabled(false)

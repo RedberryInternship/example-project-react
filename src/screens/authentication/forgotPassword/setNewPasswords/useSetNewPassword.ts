@@ -18,21 +18,28 @@ export default (navigation: Navigation) => {
 
   const onClickSubmitButton = async ({
     password,
+    repeatPassword,
   }: InputValueTypes): Promise<void> => {
-    try {
-      const {json_status} = await services.resetPassword(
-        navigation.state.params?.phone,
-        password,
+    if (!repeatPassword && !password)
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.forgotPassword.passwordsNotFilled',
       )
+    else if (password && password.length < 8) {
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
+      )
+    } else if (password !== repeatPassword) {
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.registration.passwordNotEqual',
+      )
+    }
+    try {
+      await services.resetPassword(navigation.state.params?.phone, password)
 
-      if (json_status === 'Password Changed') {
-        Helpers.DisplayDropdownWithSuccess(
-          'dropDownAlert.forgotPassword.passwordChangedSuccessfully',
-        )
-        navigation.navigate('Auth')
-      } else {
-        throw new Error()
-      }
+      Helpers.DisplayDropdownWithSuccess(
+        'dropDownAlert.forgotPassword.passwordChangedSuccessfully',
+      )
+      navigation.navigate('Auth')
     } catch (err) {
       Helpers.Logger(err)
       Helpers.DisplayDropdownWithError()

@@ -32,10 +32,11 @@ const HomeMainSearchView = forwardRef(
       animate,
       textHandler,
       t,
-      inputRef,
+      InputRef,
+      inputText,
     } = useHomeMainSearch(allChargers, mapRef, setShowAll)
     const InputSubmit = (): void => {
-      Alert.alert(JSON.stringify(_this.current))
+      // Alert.alert(JSON.stringify(_this.current))
     }
 
     useImperativeHandle(ref, () => ({
@@ -92,16 +93,12 @@ const HomeMainSearchView = forwardRef(
           <>
             <Animated.View style={[styles.inputStyleContainer, animate()]}>
               <HomeMainSearchInput
-                setShowSearchContent={setShowSearchContent.bind(
-                  HomeMainSearchView,
-                  !showSearchContent,
-                )}
                 showSearchContent={showSearchContent}
                 placeholder={`${t('home.location')}/${t('home.organization')}`}
                 textHandler={textHandler}
                 InputSubmit={InputSubmit}
                 closeClick={closeClick}
-                ref={inputRef}
+                ref={InputRef}
               />
             </Animated.View>
             <Animated.View
@@ -136,7 +133,14 @@ const HomeMainSearchView = forwardRef(
           </>
         </TouchableOpacity>
       ),
-      [allChargers, setShowAll, showSearchContent],
+      [
+        allChargers,
+        setShowAll,
+        filteredChargers,
+        showSearchContent,
+        inputText,
+        t,
+      ],
     )
   },
 )

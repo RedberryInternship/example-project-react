@@ -137,11 +137,14 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     justifyContent: 'center',
+    paddingHorizontal: Platform.OS === 'ios' ? 84 : 32,
     alignItems: 'center',
   },
   renderMiddleText: {
     color: Colors.primaryWhite,
+    flexWrap: 'wrap',
     fontSize: 17,
+    textAlign: 'center',
   },
   renderRightConatainer: {
     justifyContent: 'center',

@@ -8,9 +8,12 @@ const requestPermission = async (): Promise<boolean> => {
     const res = await RNLocation.requestPermission({
       ios: 'always',
       android: {
-        detail: 'coarse',
+        detail: 'fine',
       },
     })
+    console.log('====================================')
+    console.log(res, 'res')
+    console.log('====================================')
     return res
   } else {
     try {
@@ -47,7 +50,7 @@ const requestPermission = async (): Promise<boolean> => {
 }
 
 RNLocation.configure({
-  distanceFilter: 50, // Meters
+  distanceFilter: undefined, // Meters
   desiredAccuracy: {
     ios: 'best',
     android: 'balancedPowerAccuracy',
@@ -65,6 +68,16 @@ RNLocation.configure({
   pausesLocationUpdatesAutomatically: false,
   showsBackgroundLocationIndicator: true,
 })
+// .then((val) => {
+//   console.log('====================================')
+//   console.log(val, 'configure')
+//   console.log('====================================')
+// })
+// .catch((val) => {
+//   console.log('====================================')
+//   console.log(val, 'configure catch')
+//   console.log('====================================')
+// })
 
 export default {
   requestPermission,

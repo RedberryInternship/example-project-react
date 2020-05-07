@@ -24,6 +24,7 @@ const PhoneVerificationView = ({
         onChangeText={(text: string) => setValue('phone', text, true)}
         ref={phoneRef}
         value={watch('phone')}
+        onSubmit={() => {}}
       />
       <ReceiveCode
         ref={codeRef}

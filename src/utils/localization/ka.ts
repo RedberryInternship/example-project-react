@@ -17,6 +17,7 @@ export default {
     minute: 'წთ',
     loading: 'იტვირთება ...',
     cancel: 'გამოსვლა',
+    pleaseFillInput: 'გთხოვთ შეავსოთ ველი',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -45,6 +46,7 @@ export default {
       allChargers: 'ყველა დამტენი',
       authorization: 'ავტორიზაცია',
       location: 'ლოკაცია',
+      locationRequestTextOnDenied: 'სიზუსტისთვის საჭიროა ჩართოთ ლოკაცია',
       organization: 'ორგანიზაცია',
     },
     drawer: {
@@ -176,6 +178,7 @@ export default {
       webPage: 'ვებ-გვერდი',
       message: 'შეტყობინება',
       send: 'გაგზავნა',
+      yourFeedbackReceived: 'თქვენი შეტყობინება მიღებულია',
     },
     notifications: {
       notifications: 'შეტყობინებები',
@@ -204,7 +207,7 @@ export default {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი',
         fillSurname: 'გთხოვთ ჩაწეროთ გვარი',
-        incorrectEmail: 'იმეილი არა არის სწორი',
+        incorrectEmail: 'იმეილი არ არის სწორი',
         codeSentSuccessfully: 'კოდი გამოიგზავნა წარმატებით',
         codeLengthError: 'sms კოდი 4 ციფრისგან უნდა შედგებოდეს',
         incorrectCode: 'კოდი არ არის სწორი',

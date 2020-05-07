@@ -5,7 +5,9 @@ import {
   GetAllChargerResponseType,
   StartChargingResponseType,
   FinishChargingResponseType,
-} from 'allTypes'
+  ChargingTypes,
+  ChargingState,
+} from '../../@types/allTypes.d'
 import {Defaults} from 'utils'
 
 export const getAllChargersFiltered = (
@@ -20,20 +22,23 @@ export const getAllChargersFiltered = (
 
 export const startCharging = (
   charger_connector_type_id: number,
-  charging_type: 'FULL-CHARGE | BY-AMOUNT',
+  charging_type: ChargingTypes,
+  user_card_id: number,
   price?: number,
 ): Promise<StartChargingResponseType> =>
   ajax.post('/charging/start', {
     charger_connector_type_id,
     charging_type,
     price,
+    user_card_id,
   })
 
 export const finishCharging = (
-  charger_connector_type_id: number,
+  order_id: number,
 ): Promise<FinishChargingResponseType> =>
-  ajax.post('/charging/start', {
-    charger_connector_type_id,
+  ajax.post('/charging/stop', {
+    order_id,
   })
 
-export const chargingState = (): Promise<any> => ajax.get('/charging/state')
+export const chargingState = (): Promise<ChargingState[]> =>
+  ajax.get('/active-orders')

@@ -27,7 +27,7 @@ export const initialState: AppState = {
   chargingStartedError: null,
   chargingFinished: null,
   chargingFinishedError: null,
-  chargingState: null,
+  chargingState: [],
   chargingStateError: null,
 }
 
@@ -71,15 +71,10 @@ function reducer(
           [payload.type]: payload.data,
         },
       }
-    case GET_USER_STATE:
-      return {
-        ...state,
-        userState: payload,
-      }
     case CHARGING_STARTED_SUCCESS:
       return {
         ...state,
-        chargingStarted: payload,
+        ...payload,
       }
     case CHARGING_STARTED_FAILURE:
       return {

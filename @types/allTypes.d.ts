@@ -30,21 +30,55 @@ export type GetAllChargerResponseType = {
 }
 
 export type StartChargingResponseType = {
-  status_code: number
-  status: string
-  message: LocaleStringObject
+  already_paid: number
+  charger_connector_type_id: number
+  charger_id: number
+  charging_status: ChargingStatus
+  connector_type_id: number
+  consumed_money: number
+  refund_money: number
+  user_card_id: string
+}
+export enum ChargingStatus {
+  INITIATED = 'INITIATED',
+  CHARGING = 'CHARGING',
+  CHARGED = 'CHARGED',
+  FINISHED = 'FINISHED',
+  ON_FINE = 'ON_FINE',
+  ON_HOLD = 'ON_HOLD',
 }
 
 export type FinishChargingResponseType = {
-  status_code: number
-  status: string
   message: LocaleStringObject
+  order_id: number
+  already_paid: number
+  consumed_money: number
+  refund_money: number
+  charger_type: LVL2
+  start_charging_time: string
+  charging_type: ChargingTypes
+  charging_status: ChargingStatus
+  charger_connector_type_id: number
+  charger_id: number
+  charger_code: string
+  connector_type_id: number
+  user_card_id: number
 }
 
 export type StandardErrorResponseType = {
   status_code: number
   status: string
   message: LocaleStringObject
+}
+
+export enum ChargingTypes {
+  fullCharge = 'FULL_CHARGE',
+  byAmount = 'BY_AMOUNT',
+}
+
+export enum ChargerTypes {
+  LVL2 = 'LVL2',
+  FAST = 'FAST',
 }
 
 export interface Charger extends ChargerDetail {
@@ -133,9 +167,23 @@ export type AppState = {
   chargingStartedError: any //TODO: don't know object structure
   chargingFinished: any //TODO: don't know object structure
   chargingFinishedError: any //TODO: don't know object structure
-  chargingState: any //TODO: don't know object structure
+  chargingState: ChargingState[]
   chargingStateError: any //TODO: don't know object structure
 }
+
+export type ChargingState = {
+  already_paid: number
+  consumed_money: number
+  refund_money: number
+  charging_status: ChargingStatus
+  charger_connector_type_id: number
+  charger_id: number
+  connector_type_id: number
+  user_card_id: number
+  order_id: number
+  start_charging_time: string
+}
+
 export type Action = {
   type: string
   payload: any
@@ -422,10 +470,25 @@ export type UserMeResponseType = {
   temp_password: string | null
   created_at: string
   updated_at: string
-  user_cards: any[]
+  user_cards: UserCard[]
   user_cars: any[]
   car_models: any[]
   avatar: number //TODO:needs correct key
+}
+
+export type UserCard = {
+  active: number
+  card_holder: string
+  created_at: string
+  default: number
+  id: number
+  masked_pan: string
+  old_id: null
+  order_index: number
+  transaction_id: string
+  updated_at: string
+  user_id: number
+  user_old_id: null | number
 }
 
 export type UserFavoriteChargersResponseType = {

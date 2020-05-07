@@ -63,9 +63,9 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         contentContainerStyle={styles.keyboardScrollViewContentContainer}
         overScrollMode={'always'}
         extraHeight={Platform.select({ios: 500, android: 75})}
-        resetScrollToCoords={{x: 0, y: 0}}>
+        resetScrollToCoords={{x: 0, y: 0}}
+      >
         <View style={styles.contactItemsContainer}>{listItems}</View>
-
         <View style={styles.messageContainer}>
           <Text style={styles.messageTitle}>{t('contact.message')}</Text>
           <Image source={images.mail} style={styles.messageIcon} />
@@ -82,9 +82,10 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         behavior="padding"
         keyboardVerticalOffset={
           Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
-        }>
+        }
+      >
         <BaseButton
-          onPress={sendMessage.bind(Contact)}
+          onPress={sendMessage}
           text="contact.send"
           image={images.arrowRight}
           style={styles.baseButton}

@@ -1,4 +1,4 @@
-import React, {useState, ReactElement} from 'react'
+import React, {ReactElement} from 'react'
 import {StyleSheet, View, Dimensions, TouchableOpacity} from 'react-native'
 import {TabView} from 'react-native-tab-view'
 import Animated from 'react-native-reanimated'
@@ -11,12 +11,14 @@ import useCharging from './useCharging'
 import {ChargingView} from './components'
 
 const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {changeActiveTab, activeTab, ...hook} = useCharging(navigation)
+  const {changeActiveTab, activeTab, chargingState, ...hook} = useCharging(
+    navigation,
+  )
 
-  const [routes] = useState(navigation.getParam('tabsArray', ['']))
+  const renderScene = (props: any): ReactElement => {
+    console.log(props, 'props')
 
-  const renderScene = ({route}: any): ReactElement => {
-    return <ChargingView hook={hook} routeKey={route.key} />
+    return <ChargingView hook={hook} chargingState={props.route} />
   }
 
   const renderTabBar = (props: any) => {
@@ -99,7 +101,9 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               ]}
             >
               <TouchableOpacity onPress={() => changeActiveTab(i)}>
-                <Animated.Text style={{color}}>{route.title}</Animated.Text>
+                <Animated.Text style={{color}}>
+                  დამტენი {route.charger_code}
+                </Animated.Text>
               </TouchableOpacity>
             </Animated.View>
           )
@@ -114,18 +118,25 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         onPressLeft={navigation.navigate.bind(Charging, 'ChargerWithCode')}
         title={'charging.charge'}
       />
-      {routes.length === 1 ? (
-        <ChargingView hook={hook} />
-      ) : (
+      {chargingState.length === 1 ? (
+        <ChargingView
+          hook={hook}
+          chargingState={chargingState[0]}
+          singleCharger={true}
+        />
+      ) : chargingState.length !== 0 && chargingState ? (
         <TabView
-          navigationState={{index: activeTab, routes}}
+          navigationState={{
+            index: activeTab,
+            routes: chargingState as any,
+          }}
           renderScene={renderScene}
           onIndexChange={changeActiveTab}
           lazy={true}
           renderTabBar={renderTabBar}
           initialLayout={Dimensions.get('window')}
         />
-      )}
+      ) : null}
     </View>
   )
 }

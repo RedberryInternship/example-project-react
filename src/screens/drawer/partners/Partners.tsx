@@ -1,5 +1,12 @@
 import React, {ReactElement} from 'react'
-import {View, StyleSheet, SafeAreaView, Image, ScrollView} from 'react-native'
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  ScrollView,
+  Text,
+} from 'react-native'
 
 import {Partner, Navigation} from 'allTypes'
 
@@ -25,7 +32,10 @@ const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
         title={'partners.partnerOrganizations'}
         onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
-      <ScrollView style={styles.partnersInnerContainer}>
+      <ScrollView
+        style={styles.partnersInnerContainer}
+        contentContainerStyle={styles.contentContainerStyle}
+      >
         <FetchedDataRenderer
           property={'Partners'}
           onItemRender={(val: PartnersResponseType, index): ReactElement => (
@@ -55,14 +65,11 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 10,
     padding: 16,
+  },
+  contentContainerStyle: {
+    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-  },
-  partnerImageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 32,
-    width: (Const.Width - 64) / 3,
-    height: 80,
+    flexGrow: 1,
   },
 })

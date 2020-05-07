@@ -4,9 +4,17 @@ import RNLocation, {
   Location,
   LocationPermissionStatus,
 } from 'react-native-location'
+import {
+  check,
+  checkMultiple,
+  PERMISSIONS,
+  RESULTS,
+  request,
+} from 'react-native-permissions'
 
 import {Defaults, Const, Helpers} from 'utils'
 import services from 'services'
+import {Alert} from 'react-native'
 
 type RegionFrom = {
   latitude: number
@@ -64,15 +72,53 @@ type getCoordsAnywayType = {
 let IPCoords: any = null
 
 export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
+  // checkMultiple([
+  //   PERMISSIONS.IOS.LOCATION_ALWAYS,
+  //   PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
+  // ])
+  //   .then((result) => {
+  //     console.log('====================================')
+  //     console.log(result, 'checkMultiple result')
+  //     console.log('====================================')
+  //     request(PERMISSIONS.IOS.LOCATION_ALWAYS)
+  //       .then((result) => {
+  //         console.log('====================================')
+  //         console.log(result, 'LOCATION_ALWAYS result')
+  //         console.log('====================================')
+  //       })
+  //       .catch((error) => {
+  //         Alert.alert('LOCATION_ALWAYS')
+  //       })
+  //     request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
+  //       .then((result) => {
+  //         console.log('====================================')
+  //         console.log(result, 'LOCATION_WHEN_IN_USE result')
+  //         console.log('====================================')
+  //       })
+  //       .catch((error) => {
+  //         Alert.alert('LOCATION_WHEN_IN_USE')
+  //       })
+  //   })
+  //   .catch((error) => {
+  //     Alert.alert('main')
+  //   })
+
+  // RNLocation.getLatestLocation({
+  //   timeout: 6000,
+  // }).then((val) => {
+  //   console.log('====================================')
+  //   console.log(val, 'valval')
+  //   console.log('====================================')
+  // })
   try {
     const location: Location | null = await RNLocation.getLatestLocation({
-      timeout: 30000,
+      timeout: 6000,
     })
     if (location !== null)
       return {lat: location.latitude, lng: location.longitude}
-    // else {
-    //   Helpers.DisplayDropdownWithError()
-    // }
+    else {
+      Helpers.DisplayDropdownWithError('ver moiZebna')
+    }
   } catch (error) {
     Helpers.DisplayDropdownWithError()
     console.log('====================================')

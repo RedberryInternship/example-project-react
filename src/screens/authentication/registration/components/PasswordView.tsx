@@ -13,16 +13,19 @@ type PasswordViewProps = {
 // eslint-disable-next-line react/display-name
 const PasswordView = React.memo(
   ({hook: {control, watch}}: PasswordViewProps): ReactElement => {
+    // console.log(watch('password'), watch('repeatPassword'), 'watch(asd)')
+    // const repeatPassword = watch('repeatPassword')
+    // const password = watch('password')
     return (
       <View style={styles.container}>
         <Controller
           as={BaseInput}
           name="password"
-          rules={{
-            validate: InputValidationHelpers.passwordConfirmValidation(
-              watch('repeatPassword'),
-            ),
-          }}
+          // rules={{
+          //   validate: InputValidationHelpers.passwordConfirmValidation(
+          //     repeatPassword,
+          //   ),
+          // }}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
           image={images.lock}
@@ -34,11 +37,11 @@ const PasswordView = React.memo(
         <Controller
           as={BaseInput}
           name="repeatPassword"
-          rules={{
-            validate: InputValidationHelpers.passwordConfirmValidation(
-              watch('password'),
-            ),
-          }}
+          // rules={{
+          //   validate: InputValidationHelpers.passwordConfirmValidation(
+          //     password,
+          //   ),
+          // }}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
           image={images.lock}

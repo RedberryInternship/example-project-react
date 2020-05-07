@@ -53,6 +53,7 @@ import LegendType2 from './modalTypes/LegendType2'
 import ChargerModalMainWrapper from './modalTypes/ChargerModalMainWrapper'
 import MapPopUp from './modalTypes/MapPopUp'
 import LocationPermission from './modalTypes/LocationPermission'
+import PrivacyPolicy from './modalTypes/PrivacyPolicy'
 
 export {
   CustomSlideUpModal,
@@ -96,4 +97,5 @@ export {
   PhoneVerificationView,
   PasswordConfirmationView,
   AddCar,
+  PrivacyPolicy,
 }

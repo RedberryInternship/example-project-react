@@ -7,14 +7,11 @@ import {Colors} from 'utils'
 import {ChargerConnectorType} from 'allTypes'
 
 type CurrentTariffsProps = {
-  connector: ChargerConnectorType
+  connector?: ChargerConnectorType
 }
 
-const CurrentTariffs = ({
-  connector: {charging_prices, fast_charging_prices},
-}: CurrentTariffsProps): ReactElement => {
+const CurrentTariffs = ({connector}: CurrentTariffsProps): ReactElement => {
   const {t} = useTranslation()
-
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
@@ -25,7 +22,7 @@ const CurrentTariffs = ({
           {t('chargerDetail.currentPrices')}
         </Text>
       </View>
-      {charging_prices?.map((val, ind: number) => (
+      {connector?.charging_prices?.map((val, ind: number) => (
         <Row
           key={ind}
           col1={`${val.min_kwt} ${t('kwh')} ${t('from')}`}
@@ -33,7 +30,7 @@ const CurrentTariffs = ({
           col3={val.price}
         />
       ))}
-      {fast_charging_prices?.map((val, ind: number) => (
+      {connector?.fast_charging_prices?.map((val, ind: number) => (
         <Row
           key={ind}
           col1={`${val.start_minutes} ${t('minute')} ${t('from')}`}

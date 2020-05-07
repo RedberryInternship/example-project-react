@@ -68,6 +68,7 @@ const PhoneNumberInput = React.forwardRef(
       Animated.timing(animation, {
         toValue: show ? 1 : 0,
         duration: 500,
+        useNativeDriver: false,
       }).start()
     }
 
@@ -128,7 +129,7 @@ const PhoneNumberInput = React.forwardRef(
     })
 
     const inputPlaceholder: string =
-      selectedCountryCode.value === '+995' ? '5 XX XX XX' : ''
+      selectedCountryCode.value === '+995' ? '5XX XX XX XX' : ''
 
     return (
       <View style={styles.container}>

@@ -9,12 +9,14 @@ const PopUpCountDown = ({warningLevel, up}: any): ReactElement => {
       style={[
         styles.mainContainer,
         warningLevel === 1 ? styles.warningLevel1ForMainContainer : {},
-      ]}>
+      ]}
+    >
       <View
         style={[
           styles.innerContainer,
           warningLevel === 1 ? styles.warningLevel1ForInnerContainer : {},
-        ]}>
+        ]}
+      >
         <CountDown duration={120000} up={up} alarm={true} popup={true} />
       </View>
     </View>

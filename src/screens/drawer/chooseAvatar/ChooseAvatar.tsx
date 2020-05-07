@@ -26,7 +26,9 @@ const ChooseAvatar = ({
             <AvatarItem
               key={index}
               image={image}
-              active={activeAvatar ? index === activeAvatar : false}
+              active={
+                activeAvatar !== undefined ? index === activeAvatar : false
+              }
               onPress={onAvatarPress.bind(ChooseAvatar, index)}
             />
           ))}
