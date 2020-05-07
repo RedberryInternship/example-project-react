@@ -49,6 +49,7 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   }
 
   const updateUserPassword = async (form: Record<string, string>) => {
+    //TODO: need outside component validation
     if (!form.repeatPassword && !form.password)
       return Helpers.DisplayDropdownWithError(
         'dropDownAlert.forgotPassword.passwordsNotFilled',
