@@ -49,6 +49,19 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   }
 
   const updateUserPassword = async (form: Record<string, string>) => {
+    if (!form.repeatPassword && !form.password)
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.forgotPassword.passwordsNotFilled',
+      )
+    else if (form.password && form.password.length < 8) {
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
+      )
+    } else if (form.password !== form.repeatPassword) {
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.registration.passwordNotEqual',
+      )
+    }
     try {
       const result = await services.editPassword(
         Defaults.userDetail?.phone_number ?? '',

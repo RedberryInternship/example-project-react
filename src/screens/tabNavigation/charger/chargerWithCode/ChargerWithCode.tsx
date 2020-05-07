@@ -65,7 +65,7 @@ const ChargerWithCode = ({
           data={['oneRender']}
           onRenderItem={(val: string): ReactElement => (
             <FetchedDataRenderer
-              property={'Faq'}
+              property={'lastUsedCharger'}
               key={val}
               onItemRender={(val: Charger): ReactElement => (
                 <ChargerItem

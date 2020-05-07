@@ -17,6 +17,7 @@ export default {
     minute: 'mins',
     loading: 'Loading ...',
     cancel: 'Cancel',
+    pleaseFillInput: 'Please fill input',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',
@@ -45,6 +46,7 @@ export default {
       allChargers: 'All chargers',
       authorization: 'Authorization',
       location: 'location',
+      locationRequestTextOnDenied: 'Please enable location',
       organization: 'Organization',
     },
 
@@ -179,6 +181,7 @@ export default {
       webPage: 'Web Page',
       message: 'Message',
       send: ' Send',
+      yourFeedbackReceived: 'Your feedback received',
     },
     notifications: {
       notifications: 'Notifications',

@@ -10,7 +10,9 @@ import {
   ChargerModalMainWrapper,
   MapPopUp,
   LocationPermission,
+  PrivacyPolicy,
 } from 'components'
+import {ChargingStatus} from '../../@types/allTypes.d'
 
 type Data = {
   title?: string
@@ -21,7 +23,7 @@ type Data = {
 type Config = {
   type: number
   onCloseClick?: () => void
-  subType?: number
+  subType?: ChargingStatus
   data?: Data | any
 }
 
@@ -90,7 +92,9 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         useNativeDriver={true}
         onBackdropPress={this.closeModal}
         onBackButtonPress={this.closeModal}
-        hideModalContentWhileAnimating={true}>
+        hideModalContentWhileAnimating={true}
+        propagateSwipe={true}
+      >
         <View
           style={[
             styles.modalContentContainer,
@@ -111,7 +115,8 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
                   ? 'auto'
                   : Const.Height * 0.7,
             },
-          ]}>
+          ]}
+        >
           {this.renderView()}
         </View>
       </Modal>
@@ -143,6 +148,8 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
             data={this.state.config.data}
           />
         )
+      case 6:
+        return <PrivacyPolicy onPress={this.closeModal} />
       default: {
         return <></>
       }

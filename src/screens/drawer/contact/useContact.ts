@@ -3,20 +3,27 @@ import {Alert, Linking} from 'react-native'
 
 import {Defaults, Const, Helpers} from 'utils'
 import {Navigation} from 'allTypes'
+import services from 'services'
 
 const {Logger} = Helpers
 
 export default (navigation: Navigation) => {
   const [message, setMessage] = useState<string>('')
 
-  const sendMessage = (): void => {
-    // TODO: Send Message Functionality
-    Alert.alert('', message, [
-      {text: 'Got It!s', onPress: (): boolean => navigation.goBack()},
-    ])
+  const sendMessage = async (): Promise<void> => {
+    if (!message) {
+      Helpers.DisplayDropdownWithError('pleaseFillInput')
+      return
+    }
+    try {
+      await services.sendFeedback(message)
+
+      Helpers.DisplayDropdownWithSuccess('contact.yourFeedbackReceived')
+    } catch (error) {
+      Helpers.DisplayDropdownWithError()
+    }
   }
 
-  // Vobi Todo: move this as util or helper
   const outgoingLinkMethods: {[key: string]: () => void} = {
     address: () => {
       const mapsInfo = Const.eSpaceLocationOnMapInfo

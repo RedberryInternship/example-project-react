@@ -13,7 +13,11 @@ import LinearGradient from 'react-native-linear-gradient'
 import {SafeAreaView} from 'react-navigation'
 import {ScrollView} from 'react-native-gesture-handler'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import {
+  ScreenPropsWithNavigation,
+  UserCard,
+  ChargingTypes,
+} from '../../../../../@types/allTypes.d'
 
 import {
   BaseHeader,
@@ -27,11 +31,6 @@ import useChoosingCard from './useChoosingCard'
 import {ChooseCardOnCharging} from './components'
 import {Controller} from 'react-hook-form'
 
-enum Type {
-  byPrice = 'BY-AMOUNT',
-  untilShoutDown = 'FULL-CHARGE',
-}
-
 const draggableRange = {
   bottom: Platform.select({ios: 160, android: 200}) ?? 200,
   top: 400,
@@ -42,8 +41,7 @@ const ChoosingCard = ({
 }: ScreenPropsWithNavigation): ReactElement => {
   const {
     control,
-    defCard,
-    activeCardIndex,
+    cards,
     animatedArrow,
     slideUpPanelRef,
     setActiveCard,
@@ -80,8 +78,8 @@ const ChoosingCard = ({
           style={styles.gradinetContainer}
         >
           <ScrollView bounces={false}>
-            {navigation.getParam('type', Type.untilShoutDown) ==
-            Type.untilShoutDown ? (
+            {navigation.getParam('type', ChargingTypes.fullCharge) ==
+            ChargingTypes.fullCharge ? (
               <View style={styles.contentsView}>
                 <Image
                   source={images.checkCircle}
@@ -125,13 +123,13 @@ const ChoosingCard = ({
             <TitleTopLeftContainer
               direction={'column'}
               title={''}
-              data={defCard}
-              onRenderItem={(val, index) => (
+              data={cards}
+              onRenderItem={(val: UserCard, index) => (
                 <ChooseCardOnCharging
                   key={index}
-                  active={activeCardIndex === index}
+                  active={index === 0}
                   onPress={setActiveCard.bind(ChoosingCard, index)}
-                  lastDigits={val.lastDigits}
+                  lastDigits={val.masked_pan}
                 />
               )}
             />

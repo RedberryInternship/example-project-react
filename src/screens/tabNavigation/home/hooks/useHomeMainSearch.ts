@@ -1,5 +1,5 @@
 import {useEffect, useState, useRef} from 'react'
-import {Keyboard, Animated, Easing, TextInput} from 'react-native'
+import {Keyboard, Animated, Easing, TextInput, Alert} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {useTranslation} from 'react-i18next'
 
@@ -11,7 +11,7 @@ const useHomeMainSearch = (
   allChargers: Charger[],
   mapRef: MapImperativeRefObject,
   setShowAll: (boolean: boolean) => void,
-): any => {
+) => {
   const InputRef = useRef<TextInput>(null)
   const [showSearchContent, setShowSearchContent] = useState<boolean>(false)
   const [inputText, setInputText] = useState<string>('')
@@ -27,7 +27,6 @@ const useHomeMainSearch = (
   })
 
   const textHandler = (val: string): void => {
-    _this.current.text = val
     setInputText(val.toLowerCase())
   }
 
@@ -41,11 +40,11 @@ const useHomeMainSearch = (
   }, [showSearchContent])
 
   const closeClick = (): void => {
-    if (_this.current.text !== '') {
+    if (inputText !== '') {
       InputRef.current?.clear()
       textHandler('')
     } else {
-      setShowSearchContent(false)
+      setShowSearchContent(!showSearchContent)
       Keyboard.dismiss()
     }
   }
@@ -93,6 +92,7 @@ const useHomeMainSearch = (
     closeClick,
     textHandler,
     filteredChargers,
+    inputText,
     onSearchItemClickHandler,
   }
 }

@@ -45,6 +45,8 @@ const FetchedDataRenderer = ({
           'error',
           t('dropDownAlert.generalError'),
         )
+        staticData[property] = []
+        setLocalState([])
       }
     }
   }

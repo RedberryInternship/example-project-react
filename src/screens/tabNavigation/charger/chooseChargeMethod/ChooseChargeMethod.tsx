@@ -2,15 +2,13 @@ import React, {ReactElement} from 'react'
 import {StyleSheet, View, Text} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import {
+  ScreenPropsWithNavigation,
+  ChargingTypes,
+} from '../../../../../@types/allTypes.d'
 
 import {BaseHeader, BaseButton} from 'components'
 import {Const, Colors} from 'utils'
-
-enum Type {
-  byPrice = 'BY-AMOUNT',
-  untilShoutDown = 'FULL-CHARGE',
-}
 
 const ChargerDetail = ({
   navigation,
@@ -30,7 +28,7 @@ const ChargerDetail = ({
         <View>
           <BaseButton
             onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
-              type: Type.untilShoutDown,
+              type: ChargingTypes.fullCharge,
               connectorTypeId: navigation.getParam(
                 'connectorTypeId',
                 undefined,
@@ -42,7 +40,7 @@ const ChargerDetail = ({
           <Text style={styles.orText}>{t('chooseChargeMethod.or')}</Text>
           <BaseButton
             onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
-              type: Type.byPrice,
+              type: ChargingTypes.byAmount,
               connectorTypeId: navigation.getParam(
                 'connectorTypeId',
                 undefined,

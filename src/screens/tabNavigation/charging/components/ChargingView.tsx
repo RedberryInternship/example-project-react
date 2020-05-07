@@ -1,14 +1,33 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, {ReactElement} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 
 import {Const, Colors} from 'utils'
 import {Pulse, CountDown, BaseButton} from 'components'
 import images from 'assets/images'
+import {
+  NavigationScreenProp,
+  NavigationParams,
+  NavigationState,
+} from 'react-navigation'
+import {ChargingState} from 'allTypes'
 
 const CircleDiameter = Const.Width - 150
 
-// Vobi Todo: no any type
-const ChargingView = ({hook: {t, navigation, onFinish}}: any): ReactElement => {
+type ChargingViewProps = {
+  hook: {
+    t: any
+    navigation: NavigationScreenProp<NavigationState, NavigationParams>
+    onFinish: (charger_connector_type_id: number) => void
+  }
+  chargingState: ChargingState
+  singleCharger?: boolean
+}
+const ChargingView = ({
+  hook: {t, navigation, onFinish},
+  chargingState: {consumed_money, already_paid, order_id, start_charging_time},
+  singleCharger,
+}: ChargingViewProps): ReactElement => {
   return (
     <View style={{flex: 1}}>
       <View style={styles.MainChargerCircleContainer}>
@@ -26,25 +45,29 @@ const ChargingView = ({hook: {t, navigation, onFinish}}: any): ReactElement => {
             source={images.chargerWithGradient}
             style={styles.chargerImage}
           />
-          <CountDown duration={12000000} up={false} alarm={false} />
+          <CountDown startTime={start_charging_time} alarm={false} up={true} />
         </View>
       </View>
       <View style={styles.pricingView}>
-        <Text style={styles.currentlyChargedPrice}>5.30 / </Text>
-        <Text style={styles.finalPrice}>20 {t('gel')}</Text>
+        <Text style={styles.currentlyChargedPrice}>{consumed_money} / </Text>
+        <Text style={styles.finalPrice}>
+          {already_paid} {t('gel')}
+        </Text>
       </View>
-
       <View style={styles.chargeAnotherCarContainer}>
-        <TouchableOpacity
-          onPress={navigation.navigate.bind(ChargingView, 'MainDrawer')}
-          style={styles.chargeAnotherCarTouchable}
-        >
-          <Text style={styles.chargeAnotherCarText}>
-            {t('charging.chargeAnotherCar')}
-          </Text>
-        </TouchableOpacity>
+        {singleCharger && (
+          <TouchableOpacity
+            onPress={navigation.navigate.bind(ChargingView, 'Home')}
+            style={styles.chargeAnotherCarTouchable}
+          >
+            <Text style={styles.chargeAnotherCarText}>
+              {t('charging.chargeAnotherCar')}
+            </Text>
+          </TouchableOpacity>
+        )}
+
         <BaseButton
-          onPress={onFinish}
+          onPress={() => onFinish(order_id)}
           text={'charging.finish'}
           style={styles.finishBtn}
         />

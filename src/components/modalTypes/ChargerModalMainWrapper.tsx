@@ -6,10 +6,11 @@ import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 import {PopUpCountDown, ModalPopupChargerItem} from 'components'
 import images from 'assets/images'
+import {ChargingStatus} from '../../../@types/allTypes.d'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
-  subType: number | undefined
+  subType: ChargingStatus
   data: Data
 }
 
@@ -32,10 +33,9 @@ const ChargerModalMainWrapper = ({
   }, [])
 
   const subTypeHandler = (): void => {
-    const _view = [] // Vobi todo: i can not understand what this view does
-    // Vobi todo: i think it must be object and its key should be self descriptive
+    const _view = []
     switch (subType) {
-      case 1:
+      case 'FINISHED':
         _view[0] = (
           <Text style={styles.bottomContentDescriptionType2}>
             {t(bottomDescription)}
@@ -58,7 +58,7 @@ const ChargerModalMainWrapper = ({
             <Text style={styles.bottomContentDescription}>
               {t(bottomDescription)}
             </Text>
-            <PopUpCountDown up={true} warningLevel={1} />
+            <PopUpCountDown up={false} warningLevel={1} />
           </>
         )
 
@@ -82,7 +82,8 @@ const ChargerModalMainWrapper = ({
             <TouchableOpacity
               //TODO: no action known yet
               onPress={(): void => {}}
-              style={styles.subtype2Touchable}>
+              style={styles.subtype2Touchable}
+            >
               <Text style={{color: Colors.primaryGreen}}>
                 {t('charger.allChargerList')}
               </Text>
@@ -101,7 +102,7 @@ const ChargerModalMainWrapper = ({
         break
     }
 
-    setView(_view) // Vobi Todo: why do you need to update state you should render it once
+    setView(_view)
   }
 
   return (

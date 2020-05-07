@@ -31,17 +31,23 @@ const App = (): React.ReactElement => {
         <AppContext.Provider value={{state, dispatch}}>
           <Navigation
             ref={(ref) => setNavigationTopLevelElement(ref)}
-            screenProps={{token: Defaults.token, userState: state.userState}}
+            screenProps={{
+              token: Defaults.token,
+              chargingState: state.chargingState,
+            }}
             onNavigationStateChange={(_, state) => {
               Defaults.activeRoute = getCurrentRoute(state)
+              StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
               console.log('====================================')
-              console.log(Defaults.activeRoute, 'Defaults.activeRout state')
+              console.log(
+                Defaults.activeRoute,
+                state,
+                'Defaults.activeRout state',
+              )
               console.log('====================================')
             }}
           />
         </AppContext.Provider>
-
-        <StatusBar barStyle="light-content" />
         <DropdownAlert
           translucent={true}
           useNativeDriver={true}
@@ -57,6 +63,7 @@ const App = (): React.ReactElement => {
             alignSelf: 'center',
             resizeMode: 'contain',
           }}
+          titleNumOfLines={2}
         />
         <CustomModal ref={Defaults.modal} />
       </SafeAreaProvider>

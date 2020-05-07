@@ -10,12 +10,12 @@ import {
 
 import {Colors, Const} from 'utils'
 import images from 'assets/images'
+import {BaseNativeTouchable} from 'components'
 
 // eslint-disable-next-line react/display-name
 const HomeMainSearchInput = React.forwardRef(
   (
     {
-      setShowSearchContent,
       showSearchContent,
       placeholder,
       textHandler,
@@ -26,15 +26,12 @@ const HomeMainSearchInput = React.forwardRef(
     ref: any,
   ) => {
     return (
-      <TouchableOpacity
-        onPress={(): void => {
-          setShowSearchContent(!showSearchContent)
-        }}
-        style={[styles.inputStyle]}
-        activeOpacity={1}
-      >
+      <View style={[styles.inputStyle]}>
         <Image source={images.iconSearch} style={styles.searchImage} />
-        <View pointerEvents={showSearchContent ? 'auto' : 'none'}>
+        <View
+          pointerEvents={showSearchContent ? 'auto' : 'none'}
+          style={{flex: 1}}
+        >
           <TextInput
             style={styles.searchTextInput}
             placeholder={placeholder}
@@ -52,14 +49,14 @@ const HomeMainSearchInput = React.forwardRef(
             testID={'mainInput'}
           />
         </View>
-        <TouchableWithoutFeedback
+        <TouchableOpacity
           onPress={closeClick}
           style={styles.deleteTouchable}
           hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
         >
           <Image source={images.delete} style={styles.deleteImage} />
-        </TouchableWithoutFeedback>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     )
   },
 )
@@ -88,19 +85,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   inputStyle: {
-    alignItems: 'stretch',
-    justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     flex: 1,
     height: 36,
-  },
-  searchContent: {
-    width: Const.Width - 48,
-    backgroundColor: Colors.primaryBackground,
-    marginHorizontal: 24,
-    borderBottomRightRadius: 4,
-    borderBottomLeftRadius: 4,
     position: 'relative',
-    alignContent: 'stretch',
+    flexDirection: 'row',
   },
   searchImage: {
     width: 16,
@@ -113,15 +103,18 @@ const styles = StyleSheet.create({
     paddingLeft: 40,
     marginRight: 32,
     color: Colors.primaryWhite,
+    flex: 1,
+    width: '100%',
   },
   deleteImage: {
     width: 16,
     height: 16,
     resizeMode: 'contain',
-    position: 'absolute',
-    right: 12,
   },
   deleteTouchable: {
     zIndex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingRight: 12,
   },
 })

@@ -3,6 +3,7 @@ import {CustomModalInterface} from '../components/CustomModal'
 import {RefObject} from 'react'
 import BottomSheetBehavior from 'reanimated-bottom-sheet'
 import {LocationPermissionStatus} from 'react-native-location'
+import {UserMeResponseType} from 'allTypes'
 
 type userDetail = {
   first_name: string
@@ -24,7 +25,7 @@ class Defaults {
   _locationPermission: LocationPermissionStatus = 'notDetermined'
   _modal: any = null
   _bottomSheet: any = null
-  _userDetail: userDetail = null
+  _userDetail: UserMeResponseType | null = null
 
   set dropdown(dropdown) {
     this._dropdown = dropdown
@@ -43,7 +44,7 @@ class Defaults {
   set userDetail(token) {
     this._userDetail = token
   }
-  get userDetail(): userDetail {
+  get userDetail(): UserMeResponseType | null {
     return this._userDetail
   }
   set token(token) {

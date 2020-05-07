@@ -67,7 +67,7 @@ const useHome = (
         mapRef.current.showRoute(params?.lat, params?.lng, false)
     }
 
-    mainInputRef.current?.close() //close main input always
+    // mainInputRef.current?.close() //close main input always
     if (params !== undefined) {
       setTimeout(() => {
         switch (params?.mode) {

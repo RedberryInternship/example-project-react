@@ -36,6 +36,7 @@ const Settings = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       />
       <ScrollView style={{flex: 1}}>
         <View style={styles.listItemsContainer}>{SettingsListItems}</View>
+        <View></View>
       </ScrollView>
     </View>
   )

@@ -27,11 +27,11 @@ const PasswordConfirmationView = ({
       <Controller
         as={BaseInput}
         name="password"
-        rules={{
-          validate: InputValidationHelpers.passwordConfirmValidation(
-            watch('repeatPassword'),
-          ),
-        }}
+        // rules={{
+        //   validate: InputValidationHelpers.passwordConfirmValidation(
+        //     watch('repeatPassword'),
+        //   ),
+        // }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
@@ -43,11 +43,11 @@ const PasswordConfirmationView = ({
       <Controller
         as={BaseInput}
         name="repeatPassword"
-        rules={{
-          validate: InputValidationHelpers.passwordConfirmValidation(
-            watch('password'),
-          ),
-        }}
+        // rules={{
+        //   validate: InputValidationHelpers.passwordConfirmValidation(
+        //     watch('password'),
+        //   ),
+        // }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}

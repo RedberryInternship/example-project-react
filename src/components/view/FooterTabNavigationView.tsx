@@ -52,23 +52,21 @@ const FooterTabNavigator = (props: any): ReactElement => {
         )}
         image={images.charge}
       />
-      {!props.screenProps.userState &&
-      Defaults.token != null &&
-      Defaults.token != '' && ( // TODO: need other state comparision, from screenProps -> userState
-          <Animatable.View
-            animation={zoomOut}
-            iterationCount={'infinite'}
-            duration={1500}
-            useNativeDriver={true}
-            easing={'ease-in-out-cubic'}
-          >
-            <TabNavigationButtons
-              navigate={navigate.bind(FooterTabNavigator, 'Charging')}
-              image={images.charge}
-              active={currentRouteName === 'Charging'}
-            />
-          </Animatable.View>
-        )}
+      {props.screenProps.chargingState.length > 0 && !!Defaults.token && (
+        <Animatable.View
+          animation={zoomOut}
+          iterationCount={'infinite'}
+          duration={1500}
+          useNativeDriver={true}
+          easing={'ease-in-out-cubic'}
+        >
+          <TabNavigationButtons
+            navigate={navigate.bind(FooterTabNavigator, 'Charging')}
+            image={images.charge}
+            active={currentRouteName === 'Charging'}
+          />
+        </Animatable.View>
+      )}
 
       {Defaults.token != null && Defaults.token != '' && (
         <TabNavigationButtons

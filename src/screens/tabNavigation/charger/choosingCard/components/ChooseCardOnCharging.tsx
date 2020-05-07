@@ -19,7 +19,7 @@ const ChooseCardOnCharging = ({
     <BaseNativeTouchable onPress={onPress} borderless={false}>
       <View style={styles.container}>
         <Image source={images.creditCard} style={styles.cardImage} />
-        <Text style={styles.cardLastDigitText}>XXXXXXXXXX {lastDigits}</Text>
+        <Text style={styles.cardLastDigitText}>{lastDigits}</Text>
         <BaseCheckbox active={active} />
       </View>
     </BaseNativeTouchable>
@@ -45,5 +45,6 @@ const styles = StyleSheet.create({
   cardLastDigitText: {
     fontSize: 13,
     color: Colors.primaryWhite,
+    textTransform: 'uppercase',
   },
 })

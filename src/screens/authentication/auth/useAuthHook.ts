@@ -39,15 +39,7 @@ type InputValues = {
 export default (navigation: Navigation, dispatch: any) => {
   const phoneRef = useRef<TextInput>()
 
-  const {
-    control,
-    setValue,
-    register,
-    handleSubmit,
-    errors,
-    watch,
-    reset,
-  } = useForm({
+  const {control, setValue, register, handleSubmit, errors, watch} = useForm({
     validateCriteriaMode: 'all',
   })
 
@@ -86,11 +78,10 @@ export default (navigation: Navigation, dispatch: any) => {
       )
       navigation.navigate('Home')
     } catch (error) {
+      if (error?.data?.error === 'User Not Found') {
+        Helpers.DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
+      }
       Helpers.DisplayDropdownWithError()
-      reset()
-      phoneRef.current?.setNativeProps({
-        text: '',
-      })
       phoneRef.current?.focus()
     }
   }

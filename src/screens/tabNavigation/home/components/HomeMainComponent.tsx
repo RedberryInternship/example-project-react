@@ -5,7 +5,7 @@ import {
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, Alert} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 
@@ -18,6 +18,7 @@ import {
   HomeFilterView,
   OnMapRoundButton,
 } from '../components'
+import {useTranslation} from 'react-i18next'
 
 type HomeMainComponentProps = {
   navigation?: NavigationScreenProp<NavigationState, NavigationParams>
@@ -39,6 +40,7 @@ const HomeMainComponent = ({
   mainInputRef,
 }: HomeMainComponentProps): ReactElement => {
   const insets = useSafeArea()
+  const {t} = useTranslation()
 
   const context: HomeContextType = useContext(HomeContext)
 
@@ -59,7 +61,30 @@ const HomeMainComponent = ({
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
           onPress={(): void => {
-            mapRef.current?.locate()
+            if (
+              !Defaults.locationPermissionStatus.match(
+                /denied|restricted|notDetermined/,
+              )
+            ) {
+              mapRef.current?.locate()
+            } else {
+              Alert.alert(
+                t('home.location'),
+                t('home.locationRequestTextOnDenied'),
+                [
+                  {
+                    text: 'yes',
+                    onPress: (val) => {},
+                    style: 'default',
+                  },
+                  {
+                    text: 'no',
+                    onPress: (val) => {},
+                    style: 'destructive',
+                  },
+                ],
+              )
+            }
           }}
           image={context.state.locationImageType}
           imageStyle={styles.onMapRoundImage}

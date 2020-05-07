@@ -50,3 +50,6 @@ export const getUserChargers = (): Promise<UserLastChargersResponseType> =>
   ajax.get('/user-chargers')
 
 export const getUserState = (): Promise<any> => ajax.get('/user-state')
+
+export const sendFeedback = (message: string): Promise<any> =>
+  ajax.post('/contact-message', {message})

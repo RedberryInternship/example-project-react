@@ -21,9 +21,15 @@ const codeVerification = {
 const passwordConfirmValidation = (
   password: string | undefined,
 ): Record<string, Validate> => ({
-  ifEmpty: (value: string | undefined): boolean | string =>
-    (!!value && !!password) ||
-    'dropDownAlert.forgotPassword.passwordsNotFilled',
+  ifEmpty: (value: string | undefined): boolean | string => {
+    console.log('====================================')
+    console.log(value, password, 'passwordpassword')
+    console.log('====================================')
+    return (
+      (!!value && !!password) ||
+      'dropDownAlert.forgotPassword.passwordsNotFilled'
+    )
+  },
   ifMinLength: (value: string | undefined): boolean | string =>
     (value && value.length >= 8) ||
     'dropDownAlert.forgotPassword.newPasswordIncorrectLength',

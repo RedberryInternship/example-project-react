@@ -16,10 +16,11 @@ export default {
       }),
     )
   },
-  back: function back(routeName: string, params = {}): void {
+  back: function(routeName: string, params = {}): void {
     _navigator.dispatch(NavigationActions.back({}))
   },
-  reset: function reset(stackKey = 'root', routeName = '', params = {}): void {
+
+  reset: function(stackKey = 'root', routeName = '', params = {}): void {
     _navigator.dispatch(
       StackActions.reset({
         index: 0,

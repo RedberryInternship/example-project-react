@@ -78,10 +78,6 @@ export function useRoot() {
 
   const readUserLocale = async (): Promise<void> => {
     let _locale: 'en' | 'ka' | 'ru' | null = await getLocaleStorage()
-    // Todo Vobi: javascript's variables shouldn't be named like this
-    // Todo Vobi: It's an OOP syntax which tells developers that this method is private for class and should be called from outside
-    // Todo Vobi: i don't understand why we implement this here
-    // Redberry: Okay but how to declare temporary variable which has has same purpose as global one?
     if (_locale === null) {
       _locale = 'ka'
       setLocaleStorage('ka')

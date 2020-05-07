@@ -47,6 +47,11 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
+      // RNLocation.subscribeToLocationUpdates((val) => {
+      //   console.log('====================================')
+      //   console.log(val, 'subscribeToLocationUpdates')
+      //   console.log('====================================')
+      // })
       RNLocation.getLatestLocation({timeout: 6000}).then(getLatestLocation)
     } catch (error) {}
 

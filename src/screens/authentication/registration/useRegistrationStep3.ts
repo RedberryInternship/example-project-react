@@ -32,7 +32,6 @@ export default (
     triggerValidation,
   } = useForm({
     validateCriteriaMode: 'all',
-    submitFocusError: true,
   })
 
   useEffect(() => {
@@ -44,7 +43,22 @@ export default (
 
   const buttonClickHandler = async ({
     password,
+    repeatPassword,
   }: InputValueTypes): Promise<void> => {
+    if (!repeatPassword && !password)
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.forgotPassword.passwordsNotFilled',
+      )
+    else if (password && password.length < 8) {
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
+      )
+    } else if (password !== repeatPassword) {
+      return Helpers.DisplayDropdownWithError(
+        'dropDownAlert.registration.passwordNotEqual',
+      )
+    }
+
     const {phone: phone_number} = getValues1()
     const {name: first_name, surname: last_name, email} = getValues2()
 
@@ -56,8 +70,7 @@ export default (
         email,
         password,
       })
-
-      if (data.json_status === 'Registered') onSuccessRegistration(data)
+      onSuccessRegistration(data)
     } catch (error) {
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)

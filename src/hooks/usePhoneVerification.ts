@@ -30,6 +30,7 @@ export default ({
       {name: 'phone'},
       {validate: InputValidationHelpers.phoneNumberValidation},
     )
+
     register(
       {name: 'code'},
       {validate: InputValidationHelpers.codeVerification},

@@ -23,17 +23,12 @@ type _This = {
   chargeWitchCode: string
 }
 
-const LastUsedChargersStatic: LastUsedCharger[] | null = null
-
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const context: AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
-  const [lastUsedChargers, setLastUsedChargers] = useState<
-    LastUsedCharger[] | null
-  >(LastUsedChargersStatic)
 
   const _this: React.RefObject<_This> = useRef({chargeWitchCode: ''}) // Vobi Todo: _this is not React's practice why do you need it
 
@@ -76,6 +71,7 @@ export default (
   const lastUsed = async (): Promise<LastUsedCharger[]> => {
     if (Defaults.token !== '') {
       const res: LastUsedChargerResponseObject = await services.getUserChargers()
+      //charger_connector_type
       return res.data
     } else {
       return []
@@ -99,7 +95,6 @@ export default (
     allChargerHandler,
     activeChargerType,
     setActiveChargerType,
-    lastUsedChargers,
     navigateToChargerDetailScreen,
   }
 }

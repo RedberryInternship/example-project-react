@@ -5,6 +5,7 @@ import {UserSettingEnum} from '../../../@types/allTypes.d'
 
 import {Helpers} from 'utils'
 import services from 'services'
+import {chargingState} from './chargerActions'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
@@ -12,7 +13,6 @@ export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
 export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
 export const LOG_OUT = 'LOG_OUT'
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
-export const GET_USER_STATE = 'GET_USER_STATE'
 
 export const rootAction = async (data: any, dispatch: any): Promise<void> => {
   saveToken(data)
@@ -26,13 +26,7 @@ export const rootAction = async (data: any, dispatch: any): Promise<void> => {
     }
     getFavoriteChargers(dispatch)
 
-    try {
-      // get user-state and dispatch action
-      // const result = await services.getUserState()
-      // dispatch(getUserState(result))
-    } catch (error) {
-      Helpers.DisplayDropdownWithError()
-    }
+    chargingState(dispatch)
   }
 }
 
@@ -45,13 +39,6 @@ const saveToken = (payload: any): Record<string, string> => {
 
   return {
     type: SAVE_TOKEN,
-    payload,
-  }
-}
-
-const getUserState = (payload: Record<string, any>) => {
-  return {
-    type: GET_USER_STATE,
     payload,
   }
 }

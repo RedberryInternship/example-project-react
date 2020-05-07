@@ -1,14 +1,20 @@
-import {useState, useRef, useContext} from 'react'
+import {useState, useRef, useContext, useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Alert} from 'react-native'
 
-import {finishCharging} from 'hooks/actions/chargerActions'
+import {
+  finishCharging,
+  chargingState as chargingStateAction,
+} from 'hooks/actions/chargerActions'
 import {AppContext} from '../../../../App'
 import {AppContextType} from 'allTypes'
 
 export default (navigation: any) => {
-  const {state, dispatch}: AppContextType = useContext(AppContext)
+  const {
+    state: {chargingState},
+    dispatch,
+  }: AppContextType = useContext(AppContext)
 
   const [activeTab, setActiveTab] = useState<number>(0)
 
@@ -18,11 +24,21 @@ export default (navigation: any) => {
 
   const insets = useSafeArea()
 
+  useEffect(() => {
+    const timeInterval = setInterval(() => {
+      chargingStateAction(dispatch)
+    }, 100000)
+
+    return (): void => {
+      clearInterval(timeInterval)
+    }
+  }, [])
+
   const changeActiveTab = (index: number) => {
     setActiveTab(index)
-  } // Vobi Todo: this does same as setActiveTab
+  }
 
-  const onFinish = () => {
+  const onFinish = (orderId: number) => {
     Alert.alert(
       t('dropDownAlert.charging.areUSore'),
       '',
@@ -33,7 +49,7 @@ export default (navigation: any) => {
           onPress: () =>
             finishCharging(
               {
-                connectorTypeId: 2, //TODO: get connectorTypeId from charging state
+                orderId,
               },
               dispatch,
             ),
@@ -48,6 +64,7 @@ export default (navigation: any) => {
     insets,
     _this,
     t,
+    chargingState,
     activeTab,
     setActiveTab,
     changeActiveTab,

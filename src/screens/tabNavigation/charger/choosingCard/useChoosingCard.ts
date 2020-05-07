@@ -4,20 +4,15 @@ import {useTranslation} from 'react-i18next'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import {useForm} from 'react-hook-form'
 
-import {Navigation} from 'allTypes'
+import {Navigation, AppContextType, UserCard} from 'allTypes'
 import {startCharging} from 'hooks/actions/chargerActions'
 import {AppContext} from '../../../../../App'
 
-const defCard = [
-  {lastDigits: '23232'},
-  {lastDigits: '23234'},
-  {lastDigits: '2567'},
-]
 const animatedArrow = new Animated.Value(0)
 
 export default (navigation: Navigation) => {
-  const {dispatch} = useContext(AppContext)
-  const [activeCardIndex, setActiveCardIndex] = useState<number>(0)
+  const {dispatch, state}: AppContextType = useContext(AppContext)
+  const [cards, setCards] = useState<UserCard[]>(state.user?.user_cards ?? [])
   const {control, handleSubmit, errors} = useForm()
 
   const slideUpPanelRef: React.RefObject<SlidingUpPanel> = useRef(null)
@@ -25,7 +20,9 @@ export default (navigation: Navigation) => {
   const {t} = useTranslation()
 
   const setActiveCard = (index: number) => {
-    setActiveCardIndex(index)
+    const activeCard = cards?.[index]
+    cards?.splice(index, 1)
+    setCards([activeCard, ...(cards ?? [])])
   }
   const submitHandler = async ({amount}: {amount: number}) => {
     startCharging(
@@ -33,6 +30,7 @@ export default (navigation: Navigation) => {
         type: navigation.getParam('type'),
         connectorTypeId: navigation.getParam('connectorTypeId'),
         amount,
+        userCardId: cards?.[0].id,
       },
       dispatch,
     )
@@ -40,14 +38,13 @@ export default (navigation: Navigation) => {
 
   return {
     t,
-    activeCardIndex,
     setActiveCard,
     slideUpPanelRef,
-    defCard,
     animatedArrow,
     control,
     handleSubmit,
     submitHandler,
     errors,
+    cards,
   }
 }

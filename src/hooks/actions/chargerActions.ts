@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Defaults, NavigationActions, getLocaleText} from 'utils'
-import AsyncStorage from '@react-native-community/async-storage'
-import {
-  UserSettingEnum,
-  StandardErrorResponseType,
-} from '../../../@types/allTypes.d'
+import {ChargingTypes, ChargingStatus} from '../../../@types/allTypes.d'
 
 import {Helpers} from 'utils'
 import services from 'services'
@@ -19,30 +15,45 @@ export const CHARGING_STATE_SUCCESS = 'CHARGING_STATE_SUCCESS'
 export const CHARGING_STATE_FAILURE = 'CHARGING_STATE_FAILURE'
 
 type StartChargingArg = {
-  type: 'FULL-CHARGE | BY-AMOUNT'
+  type: ChargingTypes
   connectorTypeId: number
   amount?: number
+  userCardId: number | undefined
 }
 export const startCharging = async (
-  {type, connectorTypeId, amount}: StartChargingArg,
+  {type, connectorTypeId, amount, userCardId}: StartChargingArg,
   dispatch: any,
 ) => {
   try {
-    const result = await services.startCharging(connectorTypeId, type, amount)
+    const startResult = await services.startCharging(
+      connectorTypeId,
+      type,
+      userCardId ?? 0,
+      amount,
+    )
 
-    Helpers.DisplayDropdownWithSuccess(getLocaleText(result.message))
-    dispatch(startChargingAction(result))
+    const chargingStateResult = await services.chargingState()
 
-    NavigationActions.navigate('Charging')
+    Helpers.DisplayDropdownWithSuccess()
+
+    dispatch(
+      startChargingAction({
+        chargingStarted: startResult,
+        chargingState: chargingStateResult,
+      }),
+    )
 
     NavigationActions.reset(
       'chargerStack',
-      Defaults.token ? 'chargerStack' : 'NotAuthorized',
+      Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
     )
+
+    NavigationActions.navigate('Charging')
   } catch (error) {
-    if (error.message)
-      Helpers.DisplayDropdownWithError('', getLocaleText(error.message))
+    if (error.data.message)
+      Helpers.DisplayDropdownWithError('', getLocaleText(error.data.message))
     else Helpers.DisplayDropdownWithError()
+    // const chargingStateResult = await services.chargingState() //temporary
   }
 }
 
@@ -52,30 +63,25 @@ const startChargingAction = (payload: any, success = true) => ({
 })
 
 export const finishCharging = async (
-  {connectorTypeId}: {connectorTypeId: number},
+  {orderId}: {orderId: number},
   dispatch: any,
 ) => {
   try {
-    const result = await services.finishCharging(connectorTypeId)
+    const {already_paid, charging_status} = await services.finishCharging(
+      orderId,
+    )
 
-    const onModalClose = () => {
-      // TODO: check user charger state, then if user has no active charging navigate
-      // TODO: to Home, else update charging screen according active charger count
-      // NavigationActions.navigate('Home')
-      dispatch(finishChargingAction(result))
-    }
-    if (result.status_code === 200)
-      Defaults.modal.current?.customUpdate(true, {
-        type: 3,
-        subType: 1,
-        data: {
-          title: 'popup.thankYou',
-          description: 'popup.automobileChargingFinished',
-          bottomDescription: 'popup.finishedChargingOfAutomobile',
-          price: 22,
-        },
-        onCloseClick: onModalClose,
-      })
+    Defaults.modal.current?.customUpdate(true, {
+      type: 3,
+      subType: charging_status,
+      data: {
+        title: 'popup.thankYou',
+        description: 'popup.automobileChargingFinished',
+        bottomDescription: 'popup.finishedChargingOfAutomobile',
+        price: already_paid,
+      },
+      onCloseClick: () => onModalClose(dispatch),
+    })
   } catch (error) {
     if (error.message)
       Helpers.DisplayDropdownWithError('', getLocaleText(error.message))
@@ -93,6 +99,35 @@ export const chargingState = async (dispatch: any) => {
   try {
     const result = await services.chargingState()
 
+    // for (const {already_paid, charging_status} of result) {
+    //   if (
+    //     charging_status !== ChargingStatus.INITIATED &&
+    //     charging_status !== ChargingStatus.CHARGING
+    //   ) {
+    //     const options = {
+    //       type: 3,
+    //       subType: charging_status,
+    //       data: {
+    //         title: 'popup.thankYou',
+    //         description: 'popup.automobileChargingFinished',
+    //         bottomDescription: 'popup.finishedChargingOfAutomobile',
+    //         price: already_paid,
+    //       },
+    //       onCloseClick: onModalClose,
+    //     }
+    //     switch (charging_status) {
+    //       case ChargingStatus.CHARGED:
+    //         //construct data accordingly
+    //         break
+    //       case ChargingStatus.FINISHED:
+    //         break
+
+    //       default:
+    //         break
+    //     }
+    //   }
+    // }
+
     dispatch(chargingStateAction(result))
   } catch (error) {
     dispatch(chargingStateAction(error, false))
@@ -104,3 +139,9 @@ const chargingStateAction = (payload: any, success = true) => ({
   type: success ? CHARGING_STATE_SUCCESS : CHARGING_STATE_FAILURE,
   payload,
 })
+
+const onModalClose = (dispatch) => {
+  NavigationActions.navigate('Home')
+
+  chargingState(dispatch)
+}

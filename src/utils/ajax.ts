@@ -2,7 +2,7 @@ import axios from 'axios'
 import {API} from './const'
 import {Platform} from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import {Defaults} from 'utils'
+import {Defaults, Helpers} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
 
 type Method = 'get' | 'post'
@@ -37,16 +37,23 @@ class Ajax {
         const url = API + uri
         this.logRequest(method, url, headers, data)
         axios({method, url, headers, data})
-          .then(response => {
+          .then((response) => {
             this.logResponse(method, url, headers, response.data)
             resolve(response.data)
           })
-          .catch(error => {
+          .catch((error) => {
             if (error.response && error.response.status === 401) {
               AsyncStorage.clear()
+              Helpers.DisplayDropdownWithError()
+            } else if (error.response && error.response.status === 400) {
+              Helpers.DisplayDropdownWithError()
+            } else if (error.response && error.response.status === 404) {
+              Helpers.DisplayDropdownWithError()
+            } else if (error.response && error.response.status === 422) {
+              Helpers.DisplayDropdownWithError('validation error')
             }
             // Defaults.dropdown && Defaults.dropdown?.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
-            else this.logResponse(method, url, headers, error.response)
+            this.logResponse(method, url, headers, error.response)
             reject(error.response)
           })
       },
@@ -102,8 +109,7 @@ class Ajax {
   }
 }
 
-
-//Vobi Todo: 
+//Vobi Todo:
 // import axios from 'axios'
 
 // import config from 'config'
@@ -148,6 +154,5 @@ class Ajax {
 
 // inside signUp for example we will import user api
 // and on submit we will do api.createUser(values)
-
 
 export default new Ajax()

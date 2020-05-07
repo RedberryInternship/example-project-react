@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {useState, useRef, useContext, useEffect} from 'react'
-import {TextInput} from 'react-native'
+import {TextInput, Alert} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {AppContext} from '../../../../../App'
@@ -112,6 +112,10 @@ export default (
   }
 
   const mainButtonClickHandler = (): void => {
+    if (!Defaults.token) return Alert.alert('საჭიროა ავტორიზაცია')
+    if (Defaults.userDetail?.user_cards.length === 0) {
+      return Alert.alert('please add card first')
+    }
     navigation.navigate('ChooseChargeMethod', {
       connectorTypeId: charger?.connector_types[activeChargerType]?.pivot.id,
     })
