@@ -58,7 +58,7 @@ const FaqListItem = ({
             },
           ]}
         >
-          <Animated.Text style={[styles.answerText, {opacity: opacity}]}>
+          <Animated.Text style={[styles.answerText, {opacity}]}>
             {answer}
           </Animated.Text>
         </Animated.View>

@@ -68,7 +68,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
         </Animatable.View>
       )}
 
-      {Defaults.token != null && Defaults.token != '' && (
+      {Defaults.token != null && Defaults.token != '' && ( // Vobi Todo: !Defaults.token will do same
         <TabNavigationButtons
           navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
           image={images.favorite}

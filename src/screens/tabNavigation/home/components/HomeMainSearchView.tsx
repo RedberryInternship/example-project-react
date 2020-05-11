@@ -83,7 +83,7 @@ const HomeMainSearchView = forwardRef(
       </React.Fragment>
     )
 
-    return useMemo(
+    return useMemo( // Vobi Todo: you can wrap this in React.memo(HomeMainSearchView) and it will activate shallow equality algorithm
       () => (
         <TouchableOpacity
           activeOpacity={1}

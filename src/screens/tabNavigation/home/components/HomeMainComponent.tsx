@@ -61,7 +61,7 @@ const HomeMainComponent = ({
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
           onPress={(): void => {
-            if (
+            if ( // Vobi Todo: this must be declared as function and validation in validationHelpers
               !Defaults.locationPermissionStatus.match(
                 /denied|restricted|notDetermined/,
               )

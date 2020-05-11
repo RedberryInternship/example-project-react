@@ -51,6 +51,11 @@ const FetchedDataRenderer = ({
     }
   }
 
+  // Vobi Todo: rewrite like this
+  // if (!localState) return <BaseText style={styles.text}>{t('loading')}</BaseText>
+  // if (!(localState?.length)) return <BaseText style={styles.text}>{t('notFound')}</BaseText>
+  // return localState.map(onItemRender)
+
   return (
     <>
       {localState !== undefined ? (

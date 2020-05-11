@@ -74,7 +74,13 @@ export default (navigation: Navigation) => {
     } catch (e) {
       Logger(e)
       let msg = ''
-      // Vobi todo: move this as helper
+      // Vobi todo: move this as util
+      // Vobi Todo: you can do something like this 
+      // Vobi Todo: errors = {
+      // Facebook: 'Something Went Wrong While Opening FaceBook...',
+      // Address: 'Something Went Wrong While Opening Map...',
+      // }
+      // and here const msg = errors[errorMsgType]
       switch (errorMsgType) {
         case 'Address':
           msg = 'Something Went Wrong While Opening Map...'

@@ -8,7 +8,7 @@ import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
-import {AppContext} from '../../../../App'
+import {AppContext} from '../../../../App' // Vobi Todo: absolute import context
 import {Alert} from 'react-native'
 
 type _This = {

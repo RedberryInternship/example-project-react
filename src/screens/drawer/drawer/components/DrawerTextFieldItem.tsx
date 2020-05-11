@@ -46,7 +46,7 @@ const DrawerTextFieldItem = ({
         <Text style={styles.textField}>{t(text)}</Text>
       </View>
       <View style={styles.textFieldBadge}>
-        {badge !== undefined && badge > 0 && (
+        {badge !== undefined && badge > 0 && ( // Vobi Todo: badge > 0 wont do the same?
           <View style={styles.badgeConatainer}>
             <Text style={styles.badgeCounter}>{badge}</Text>
           </View>
