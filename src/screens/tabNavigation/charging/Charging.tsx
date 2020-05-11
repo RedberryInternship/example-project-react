@@ -16,9 +16,13 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   )
 
   const renderScene = (props: any): ReactElement => {
-    console.log(props, 'props')
-
-    return <ChargingView hook={hook} chargingState={props.route} />
+    return (
+      <ChargingView
+        hook={hook}
+        chargingState={props.route}
+        key={props.route.start_charging_time}
+      />
+    )
   }
 
   const renderTabBar = (props: any) => {
@@ -27,7 +31,7 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     )
 
     return (
-      <Animated.View style={styles.tabBar}>
+      <Animated.View style={styles.tabBar} key={2}>
         {props.navigationState.routes.map((route: any, i: number) => {
           const color = Animated.color(
             Animated.round(
@@ -128,7 +132,7 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         <TabView
           navigationState={{
             index: activeTab,
-            routes: chargingState as any,
+            routes: (chargingState ?? []) as any,
           }}
           renderScene={renderScene}
           onIndexChange={changeActiveTab}

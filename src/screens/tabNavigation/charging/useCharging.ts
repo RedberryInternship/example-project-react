@@ -1,4 +1,4 @@
-import {useState, useRef, useContext, useEffect} from 'react'
+import {useState, useContext, useEffect} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Alert} from 'react-native'
@@ -18,8 +18,6 @@ export default (navigation: any) => {
 
   const [activeTab, setActiveTab] = useState<number>(0)
 
-  const _this: React.RefObject<any> = useRef()
-
   const {t} = useTranslation()
 
   const insets = useSafeArea()
@@ -27,7 +25,7 @@ export default (navigation: any) => {
   useEffect(() => {
     const timeInterval = setInterval(() => {
       chargingStateAction(dispatch)
-    }, 100000)
+    }, 30000)
 
     return (): void => {
       clearInterval(timeInterval)
@@ -62,7 +60,6 @@ export default (navigation: any) => {
 
   return {
     insets,
-    _this,
     t,
     chargingState,
     activeTab,

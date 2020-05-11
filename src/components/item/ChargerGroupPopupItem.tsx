@@ -27,7 +27,9 @@ const ChargerGroupPopupItem = ({
       <View style={styles.container}>
         <MarkerController active={active} width={26} height={32} {...props} />
         <View style={styles.chargerTypeContainer}>
-          <Text style={styles.chargerTypeText}>{text}</Text>
+          <Text style={styles.chargerTypeText} numberOfLines={2}>
+            {text}
+          </Text>
           <Text style={styles.chargerCodeText}>#{code}</Text>
         </View>
         <Image

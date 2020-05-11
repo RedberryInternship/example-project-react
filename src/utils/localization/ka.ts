@@ -135,6 +135,8 @@ export default {
       additionalServices: 'დამატებითი სერვისები',
       powerOfChargerType: 'სიმძლავრე {{power}}კვ/სთ',
       code: 'კოდი:#{{code}}',
+      pleaseAddCardFirst: 'საჭიროა რომ დაამატოთ ბარათი',
+      maxAllowedCarCharing: 'მაქსიმუმ შესაძლებელია მხოლოდ 2 მანქანის დატენვა',
     },
     notAuthorized: {
       notAuthorizedText:
@@ -155,6 +157,7 @@ export default {
     chooseCard: {
       chooseCard: 'ბარათის არჩევა',
       enterPrice: 'მიუთითეთ თანხა',
+      chargingUntilPlugOff: 'დატენვა გამოერტებამდე',
     },
     favourites: {
       favourites: 'ფავორიტები',
@@ -263,7 +266,7 @@ export default {
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
-        needToLogIn: 'საჭიროა რომ დალოგინდეთ',
+        needToLogIn: 'საჭიროა რომ გაიაროთ ავტორიზაცია',
         noRouteFound: 'გზა ვერ მოიძებნა',
       },
       home: {

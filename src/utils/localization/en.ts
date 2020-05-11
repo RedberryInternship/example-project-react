@@ -139,6 +139,8 @@ export default {
       additionalServices: 'Additional services',
       powerOfChargerType: 'power {{power}}kw/s',
       code: 'code:#{{code}}',
+      pleaseAddCardFirst: 'Please add card first',
+      maxAllowedCarCharing: 'Max allowed only two car',
     },
     notAuthorized: {
       notAuthorizedText: 'If u want to charge a car u have to register',
@@ -158,6 +160,7 @@ export default {
     chooseCard: {
       chooseCard: 'Choose card',
       enterPrice: 'Enter price',
+      chargingUntilPlugOff: 'Charging until plug off',
     },
     favourites: {
       favourites: 'Favourites',

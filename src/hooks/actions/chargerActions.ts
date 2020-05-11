@@ -127,6 +127,9 @@ export const chargingState = async (dispatch: any) => {
     //     }
     //   }
     // }
+    if (Defaults.activeRoute === 'Charging' && result.length === 0) {
+      NavigationActions.navigate('Home')
+    }
 
     dispatch(chargingStateAction(result))
   } catch (error) {

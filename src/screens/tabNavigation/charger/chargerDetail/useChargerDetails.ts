@@ -14,8 +14,9 @@ import {
   NavigationScreenProp,
   NavigationParams,
   NavigationEventPayload,
+  StackActions,
 } from 'react-navigation'
-import {Defaults, locationConfig, Helpers} from 'utils'
+import {Defaults, locationConfig, Helpers, NavigationActions} from 'utils'
 import {
   deleteToFavorites,
   addToFavorites,
@@ -32,14 +33,14 @@ const dummyServices = [images.arrowLeft, images.arrowLeft]
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
-  const context: AppContextType = useContext(AppContext)
+  const {state, dispatch}: AppContextType = useContext(AppContext)
   const [loading, setLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
 
-  const [charger, setCharger] = useState<Charger | undefined>(
-    navigation.getParam('chargerDetails', undefined),
-  )
+  const [charger, setCharger] = useState<
+    (Charger & {from?: string}) | undefined
+  >(navigation.getParam('chargerDetails', undefined))
 
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
   const passwordRef: React.RefObject<TextInput> = useRef(null)
@@ -53,13 +54,18 @@ export default (
     }
   }, [])
 
+  useEffect(() => {
+    getDistance(charger?.lat ?? '0', charger?.lng ?? '0')
+  }, [charger])
+
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
-
+    console.log('====================================')
+    console.log(params, 'chargerDetailScreen')
+    console.log('====================================')
     // navigation.setParams({chargerDetails: null})
     if (params?.chargerDetails !== undefined) {
       setCharger(params.chargerDetails)
-      getDistance(params.chargerDetails?.lat, params.chargerDetails?.lng)
     }
   }
 
@@ -103,25 +109,35 @@ export default (
     }
 
     if (charger?.is_favorite === false) {
-      addToFavorites(charger.id, context.dispatch, updateCharger)
+      addToFavorites(charger.id, dispatch, updateCharger)
     } else if (charger?.is_favorite === true) {
-      deleteToFavorites(charger.id, context.dispatch, updateCharger)
+      deleteToFavorites(charger.id, dispatch, updateCharger)
     } else {
       Helpers.DisplayDropdownWithError()
     }
   }
 
   const mainButtonClickHandler = (): void => {
-    if (!Defaults.token) return Alert.alert('საჭიროა ავტორიზაცია')
-    if (Defaults.userDetail?.user_cards.length === 0) {
-      return Alert.alert('please add card first')
+    if (!Defaults.token)
+      return Helpers.DisplayDropdownWithError(
+        t('dropDownAlert.charging.needToLogIn'),
+      )
+    else if (Defaults.userDetail?.user_cards.length === 0) {
+      return Helpers.DisplayDropdownWithError(
+        t('chargerDetail.pleaseAddCardFirst'),
+      )
+    } else if (state.chargingState.length > 1) {
+      return Helpers.DisplayDropdownWithError(
+        t('chargerDetail.maxAllowedCarCharing'),
+      )
     }
+
     navigation.navigate('ChooseChargeMethod', {
       connectorTypeId: charger?.connector_types[activeChargerType]?.pivot.id,
     })
   }
 
-  const getDistance = async (lat: number, lng: number): Promise<any> => {
+  const getDistance = async (lat: string, lng: string): Promise<any> => {
     try {
       const coords = await getCoordsAnyway()
       const result = await services.getDistance(
@@ -131,11 +147,7 @@ export default (
         lng,
       )
       if (result?.data.rows?.[0].elements?.[0].status !== 'ZERO_RESULTS')
-        setDistance(
-          (
-            result?.data.rows?.[0].elements?.[0].distance.value / 100
-          ).toString(),
-        )
+        setDistance(result?.data.rows?.[0].elements?.[0].distance.text)
       else {
         setDistance('0')
         Helpers.DisplayDropdownWithError('dropDownAlert.charging.noRouteFound')
@@ -146,6 +158,10 @@ export default (
   }
   const headerLeftPress = (): void => {
     if (charger?.from === 'home') {
+      NavigationActions.reset(
+        'chargerStack',
+        Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
+      )
       navigation.navigate('Home')
     } else if (Defaults.token !== '') {
       navigation.goBack()

@@ -8,8 +8,8 @@ import {getCoordsByIPResponseType} from 'allTypes'
 export const getDistance = (
   originLat: number,
   originLng: number,
-  destinationLat: number,
-  destinationLng: number,
+  destinationLat: string,
+  destinationLng: string,
 ): Promise<any> =>
   axios.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
     originLat ?? locationIfNoGPS.lat,

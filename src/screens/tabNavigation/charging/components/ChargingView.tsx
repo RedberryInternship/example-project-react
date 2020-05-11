@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useMemo} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 
 import {Const, Colors} from 'utils'
@@ -11,8 +11,6 @@ import {
   NavigationState,
 } from 'react-navigation'
 import {ChargingState} from 'allTypes'
-
-const CircleDiameter = Const.Width - 150
 
 type ChargingViewProps = {
   hook: {
@@ -28,19 +26,34 @@ const ChargingView = ({
   chargingState: {consumed_money, already_paid, order_id, start_charging_time},
   singleCharger,
 }: ChargingViewProps): ReactElement => {
+  const CircleDiameter = useMemo(
+    () => Const.Width - 150 - (singleCharger ? 0 : 50),
+    [singleCharger],
+  )
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.MainChargerCircleContainer}>
         <Pulse
           color="transparent"
           numPulses={3}
-          diameter={Const.Width - 40}
+          diameter={Const.Width - 40 - (singleCharger ? 0 : 50)}
           initialDiameter={CircleDiameter}
           speed={20}
           duration={1200}
           pulseStyle={styles.pulseStyle}
         />
-        <View style={styles.MainChargerCircle}>
+        <View
+          style={[
+            styles.MainChargerCircle,
+            {
+              width: CircleDiameter,
+              height: CircleDiameter,
+              minHeight: CircleDiameter,
+              borderRadius: CircleDiameter / 2,
+            },
+          ]}
+        >
           <Image
             source={images.chargerWithGradient}
             style={styles.chargerImage}
@@ -103,10 +116,7 @@ const styles = StyleSheet.create({
   MainChargerCircle: {
     position: 'absolute',
     alignSelf: 'center',
-    width: CircleDiameter,
-    height: CircleDiameter,
-    minHeight: CircleDiameter,
-    borderRadius: CircleDiameter / 2,
+
     backgroundColor: Colors.primaryBackground,
     borderWidth: 4,
     borderColor: '#18a0fb',
