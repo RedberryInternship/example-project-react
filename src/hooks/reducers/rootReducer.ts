@@ -4,7 +4,6 @@ import {
   LOG_OUT,
   GET_FAVORITE_CHARGERS,
   EDIT_USER_INFO,
-  GET_USER_STATE,
 } from '../actions/rootActions'
 import {AppState, Action} from 'allTypes'
 import {
@@ -16,7 +15,7 @@ import {
   CHARGING_STATE_FAILURE,
 } from 'hooks/actions/chargerActions'
 
-export const initialState: AppState = {
+const initialStateSchema: AppState = {
   user: null,
   loading: false,
   authStatus: null,
@@ -30,6 +29,7 @@ export const initialState: AppState = {
   chargingState: [],
   chargingStateError: null,
 }
+export const initialState: AppState = {...initialStateSchema}
 
 function reducer(
   state: AppState = initialState,
@@ -45,10 +45,8 @@ function reducer(
       }
     case LOG_OUT:
       return {
-        ...state,
-        loading: false,
-        user: null,
-        authStatus: 'failed',
+        ...initialStateSchema,
+        AllChargers: state.AllChargers,
       }
     case GET_ALL_CHARGER_SUCCESS:
       return {

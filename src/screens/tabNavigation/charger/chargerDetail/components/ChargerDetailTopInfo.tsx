@@ -75,7 +75,8 @@ const ChargerDetailTopInfo = ({
           >
             <Image source={images.cornerUpRight} style={styles.distanceIcon} />
             <Text style={styles.distanceText} numberOfLines={1}>
-              {distance} {t('km')}
+              {distance}
+              {/* {t('km')} */}
             </Text>
           </TouchableOpacity>
         </View>

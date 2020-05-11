@@ -37,23 +37,29 @@ const CountDown = ({
   const ref: any = useRef(null)
 
   useEffect(() => {
-    ref.current = setInterval(up ? countUp.bind(CountDown) : countDown, 1000)
+    ref.current = setTimeout(up ? countUp.bind(CountDown) : countDown, 1000)
 
     return (): void => {
-      clearInterval(ref.current)
+      clearTimeout(ref.current)
     }
-  }, [startTime])
+  }, [startTime, time])
 
   const countUp = () => {
     if (!startTime)
-      return setTime((prevState) => (prevState === '...' ? '..' : '...'))
-    const diff = moment(moment()).subtract(moment(startTime).unix())
-    console.log(startTime, time, 'fstartTime')
+      return setTime((prevState) =>
+        prevState.length !== 3 ? prevState + '.' : '.',
+      )
+    const diff = moment.duration(moment().valueOf() - parseInt(startTime))
 
-    // console.log(diff.hour(), diff.seconds(), diff.minute(), 'diff.seconds')
+    console.log(moment().valueOf(), diff, startTime, 'diff.seconds')
 
-    const hour = diff.hour() ? pad(diff.hour()) + ':' : ''
-    setTime(`${hour}${pad(diff.minute())}:${pad(diff.seconds())}`)
+    const hour = diff.hours() ? pad(diff.hours()) + ':' : ''
+    const countdownString = `${hour}${pad(diff.minutes())}:${pad(
+      diff.seconds(),
+    )}`
+    // console.log(startTime, countdownString, diff, time, 'fstartTime')
+
+    setTime(countdownString)
   }
 
   const countDown = () => {

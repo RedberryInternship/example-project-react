@@ -3,11 +3,12 @@ import React, {
   useImperativeHandle,
   useMemo,
   ReactElement,
+  useCallback,
 } from 'react'
 import {StyleSheet, Animated, View, TouchableOpacity, Alert} from 'react-native'
 import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
 
-import {Charger, MapImperativeRefObject} from 'allTypes'
+import {Charger, MapImperativeRefObject, ChargerDetail} from 'allTypes'
 
 import {HomeMainSearchInput} from 'components'
 import {useHomeMainSearch} from '../hooks'
@@ -44,44 +45,45 @@ const HomeMainSearchView = forwardRef(
       show: setShowSearchContent.bind(HomeMainSearchView, true),
     }))
 
-    const searchedItems = (): ReactElement => (
-      <React.Fragment key={1}>
-        {filteredChargers?.map((chargerObj: Charger) => {
-          const view = []
+    const searchedItems = ({
+      item: chargerObj,
+    }: {
+      item: Charger
+    }): ReactElement => {
+      const view = []
 
-          if (chargerObj.charger_group?.chargers?.length !== 0) {
-            view.push(
-              <MainSearchItem
-                key={chargerObj.id}
-                text={getLocaleText(chargerObj.name)}
-                mainTitle={getLocaleText(chargerObj.location)}
-                onPress={onSearchItemClickHandler.bind(
-                  HomeMainSearchView,
-                  chargerObj.lat,
-                  chargerObj.lng,
-                )}
-              />,
-            )
-          } else {
-            chargerObj.charger_group?.chargers?.map((val) =>
-              view.push(
-                <MainSearchItem
-                  key={val.id + 'inside'}
-                  text={getLocaleText(val.name)}
-                  mainTitle={getLocaleText(val.location)}
-                  onPress={onSearchItemClickHandler.bind(
-                    HomeMainSearchView,
-                    val.lat,
-                    val.lng,
-                  )}
-                />,
-              ),
-            )
-          }
-          return view
-        })}
-      </React.Fragment>
-    )
+      if (chargerObj?.charger_group?.chargers?.length !== 0) {
+        view.push(
+          <MainSearchItem
+            key={chargerObj.id}
+            text={getLocaleText(chargerObj.name)}
+            mainTitle={getLocaleText(chargerObj.location)}
+            onPress={onSearchItemClickHandler.bind(
+              HomeMainSearchView,
+              chargerObj.lat,
+              chargerObj.lng,
+            )}
+          />,
+        )
+      } else {
+        chargerObj?.charger_group?.chargers?.map((val) =>
+          view.push(
+            <MainSearchItem
+              key={val.id + 'inside'}
+              text={getLocaleText(val.name)}
+              mainTitle={getLocaleText(val.location)}
+              onPress={onSearchItemClickHandler.bind(
+                HomeMainSearchView,
+                val.lat,
+                val.lng,
+              )}
+            />,
+          ),
+        )
+      }
+
+      return <React.Fragment>{view}</React.Fragment>
+    }
 
     return useMemo(
       () => (
@@ -125,8 +127,11 @@ const HomeMainSearchView = forwardRef(
                   enableResetScrollToCoords={true}
                   resetScrollToCoords={{x: 0, y: 0}}
                   viewIsInsideTabBar={true}
-                  data={[1]}
+                  data={filteredChargers}
                   renderItem={searchedItems}
+                  keyExtractor={(item: Charger) => item.id + ''}
+                  initialNumToRender={6}
+                  extraData={filteredChargers}
                 />
               </View>
             </Animated.View>

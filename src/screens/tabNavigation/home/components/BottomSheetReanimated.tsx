@@ -1,4 +1,4 @@
-import React, {useRef, forwardRef, ReactElement} from 'react'
+import React, {useRef, forwardRef, ReactElement, useCallback} from 'react'
 import {
   StyleSheet,
   View,
@@ -19,8 +19,6 @@ import {Charger, ChargerDetail} from 'allTypes'
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
 import {BottomSheetFilterItem, MainSearchItem} from '../components'
-
-const screenHeight = Dimensions.get('window').height
 
 type _This = {
   text: string
@@ -75,38 +73,41 @@ const BottomSheetReanimated = forwardRef(
       textHandler(text)
     }
 
-    const renderHeaderComponent = (): ReactElement => (
-      <View style={styles.headerComponent}>
-        <View style={styles.headerComponentWrapper} />
-        <Text style={styles.headerComponentText}>
-          {t('home.allChargers').toUpperCase()}
-        </Text>
-        <View style={styles.textInputContainer}>
-          <Image source={images.iconSearch} style={styles.searchIcon} />
-          <TextInput
-            style={styles.textInput}
-            placeholder={`${t('home.location')}/${t('home.organization')}`}
-            keyboardType={'default'}
-            onChangeText={onTextChange}
-            onSubmitEditing={() => {}}
-            placeholderTextColor={Colors.primaryWhite}
-            allowFontScaling={false}
-            ref={inputRef}
-            autoCorrect={false}
-            editable={true}
-            autoCapitalize={'none'}
-            returnKeyType={'go'}
-            testID={'mainInput'}
-          />
-          <TouchableWithoutFeedback
-            onPress={closeClick}
-            hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
-            style={styles.closeTouchable}
-          >
-            <Image source={images.delete} style={styles.deleteIcon} />
-          </TouchableWithoutFeedback>
+    const renderHeaderComponent = useCallback(
+      (): ReactElement => (
+        <View style={styles.headerComponent}>
+          <View style={styles.headerComponentWrapper} />
+          <Text style={styles.headerComponentText}>
+            {t('home.allChargers').toUpperCase()}
+          </Text>
+          <View style={styles.textInputContainer}>
+            <Image source={images.iconSearch} style={styles.searchIcon} />
+            <TextInput
+              style={styles.textInput}
+              placeholder={`${t('home.location')}/${t('home.organization')}`}
+              keyboardType={'default'}
+              onChangeText={onTextChange}
+              onSubmitEditing={() => {}}
+              placeholderTextColor={Colors.primaryWhite}
+              allowFontScaling={false}
+              ref={inputRef}
+              autoCorrect={false}
+              editable={true}
+              autoCapitalize={'none'}
+              returnKeyType={'go'}
+              testID={'mainInput'}
+            />
+            <TouchableWithoutFeedback
+              onPress={closeClick}
+              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+              style={styles.closeTouchable}
+            >
+              <Image source={images.delete} style={styles.deleteIcon} />
+            </TouchableWithoutFeedback>
+          </View>
         </View>
-      </View>
+      ),
+      [t],
     )
 
     const renderContent = (): ReactElement => {
@@ -162,7 +163,7 @@ const BottomSheetReanimated = forwardRef(
       <View style={styles.container} pointerEvents={'box-none'}>
         <BottomSheet
           ref={ref}
-          snapPoints={[55, screenHeight - insets.top - insets.bottom - 65 - 12]}
+          snapPoints={[55, Const.Height - insets.top - insets.bottom - 65 - 12]}
           renderContent={renderContent}
           renderHeader={renderHeaderComponent}
           onCloseEnd={Keyboard.dismiss}

@@ -85,7 +85,7 @@ const ChoosingCard = ({
                   source={images.checkCircle}
                   style={styles.contentsViewImage}
                 />
-                <Text>{t('Here is the content inside panel')}</Text>
+                <Text>{t('chooseCard.chargingUntilPlugOff')}</Text>
               </View>
             ) : (
               <View style={styles.pricingView}>

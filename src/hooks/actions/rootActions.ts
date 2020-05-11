@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Defaults} from 'utils'
+import {Defaults, NavigationActions} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
 import {UserSettingEnum} from '../../../@types/allTypes.d'
 
@@ -47,7 +47,7 @@ export const logOut = () => {
   AsyncStorage.clear()
   Defaults.token = ''
   Defaults.userDetail = null
-
+  NavigationActions.navigate('Home')
   return {
     type: LOG_OUT,
   }

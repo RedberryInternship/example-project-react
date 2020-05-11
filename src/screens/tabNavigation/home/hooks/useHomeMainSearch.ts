@@ -23,7 +23,8 @@ const useHomeMainSearch = (
   const _this: any = useRef({
     animatedSearchContentHeight: new Animated.Value(0),
     text: '',
-    searchContentHeight: Const.Height - 65 - insets.top - insets.bottom - 180,
+    searchContentHeight:
+      Const.Height * 0.95 - 65 - insets.top - insets.bottom - 180,
   })
 
   const textHandler = (val: string): void => {
