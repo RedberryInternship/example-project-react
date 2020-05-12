@@ -44,7 +44,7 @@ export const startCharging = async (
     )
 
     NavigationActions.reset(
-      'chargerStack',
+      'ChargerStack',
       Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
     )
 

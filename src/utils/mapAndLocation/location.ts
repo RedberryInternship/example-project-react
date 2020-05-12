@@ -11,9 +11,6 @@ const requestPermission = async (): Promise<boolean> => {
         detail: 'fine',
       },
     })
-    console.log('====================================')
-    console.log(res, 'res')
-    console.log('====================================')
     return res
   } else {
     try {

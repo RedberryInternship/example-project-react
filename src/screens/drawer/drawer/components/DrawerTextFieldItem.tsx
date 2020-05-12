@@ -45,13 +45,13 @@ const DrawerTextFieldItem = ({
         <Image style={[styles.image, imageStyle]} source={image} />
         <Text style={styles.textField}>{t(text)}</Text>
       </View>
-      <View style={styles.textFieldBadge}>
-        {badge !== undefined && badge > 0 && (
+      {badge !== undefined && badge > 0 && (
+        <View style={styles.textFieldBadge}>
           <View style={styles.badgeConatainer}>
             <Text style={styles.badgeCounter}>{badge}</Text>
           </View>
-        )}
-      </View>
+        </View>
+      )}
     </TouchableOpacity>
   )
 }
@@ -61,8 +61,8 @@ export default DrawerTextFieldItem
 const styles = StyleSheet.create({
   textFieldContainer: {
     flex: 0,
-    width: '90%',
-    marginLeft: '5%',
+    width: '100%',
+    paddingLeft: 16,
     borderBottomWidth: 1,
     borderBottomColor: Colors.primaryDark,
     flexDirection: 'row',
@@ -72,12 +72,14 @@ const styles = StyleSheet.create({
   },
   textField: {
     color: Colors.primaryGreyishWhite,
-    marginLeft: 24,
+    marginLeft: 16,
+    flex: 1,
+    fontSize: 14,
   },
   image: {
     width: 24,
     height: 24,
-    marginLeft: 24,
+    marginLeft: 0,
     resizeMode: 'contain',
   },
   badgeConatainer: {
@@ -93,11 +95,12 @@ const styles = StyleSheet.create({
     color: Colors.primaryGreyishWhite,
   },
   drawerImageContainer: {
-    flex: 6,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   textFieldBadge: {
-    flex: 1,
+    flex: 0,
+    marginRight: 8,
   },
 })

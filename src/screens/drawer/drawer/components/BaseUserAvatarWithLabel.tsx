@@ -10,6 +10,7 @@ import {
 
 import {Colors} from 'utils'
 import images, {Avatars} from 'assets/images'
+import {useSafeArea} from 'react-native-safe-area-context'
 
 type AvatarWithLabel = {
   onPress: (event?: GestureResponderEvent) => void | undefined
@@ -24,8 +25,15 @@ const UserAvatarWithLabel = ({
   lastName,
   avatar,
 }: AvatarWithLabel): ReactElement => {
+  const insets = useSafeArea()
+
   return (
-    <View style={[styles.container]}>
+    <View
+      style={[
+        styles.container,
+        {paddingTop: insets.top, height: 140 + insets.top},
+      ]}
+    >
       <View style={styles.imageContainer}>
         <Image
           source={avatar ? Avatars[avatar] : images.greenUser}
@@ -53,7 +61,8 @@ export default UserAvatarWithLabel
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 150,
+    height: 140,
+    borderTopLeftRadius: 24,
     backgroundColor: Colors.primaryDark,
     alignItems: 'center',
     flexDirection: 'row',
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(76, 217, 100, .2)',
     borderRadius: 50,
     position: 'relative',
-    marginLeft: '10%',
+    marginLeft: 16,
   },
   image: {
     width: 44,
@@ -84,7 +93,7 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     borderColor: Colors.primaryBlue,
     borderWidth: 1,
-    right: 8,
+    right: 4,
     top: -4,
     alignItems: 'center',
     justifyContent: 'center',
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
   },
 
   usernameWrapper: {
-    marginLeft: 24,
+    marginLeft: 16,
   },
   username: {
     color: Colors.primaryWhite,

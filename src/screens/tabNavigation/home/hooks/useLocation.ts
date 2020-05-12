@@ -47,11 +47,6 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      // RNLocation.subscribeToLocationUpdates((val) => {
-      //   console.log('====================================')
-      //   console.log(val, 'subscribeToLocationUpdates')
-      //   console.log('====================================')
-      // })
       RNLocation.getLatestLocation({timeout: 6000}).then(getLatestLocation)
     } catch (error) {}
 
@@ -93,7 +88,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     _this.current.permissionStatus = status
     Defaults.locationPermissionStatus = status
     if (!status.match(/denied|restricted|notDetermined/)) {
-      navigateToLocation()
+      // navigateToLocation()
     } else {
       // requestPermission()
     }
@@ -103,7 +98,9 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     if (location) navigateByRef(location.lat, location.lng)
     else {
       try {
-        await locationConfig.requestPermission()
+        if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus))
+          await locationConfig.requestPermission()
+
         const coords = await getCoordsAnyway()
 
         navigateByRef(coords.lat, coords.lng)

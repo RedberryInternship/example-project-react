@@ -41,7 +41,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   if (!Helpers.isAuthenticated()) {
     drawerContent = (
       <>
-        <View>
+        <View style={{paddingTop: insets.top, borderTopLeftRadius: 24}}>
           <BaseButton
             image={images.user}
             onPress={navigation.navigate.bind(Drawer, 'Auth')}
@@ -64,18 +64,8 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       </>
     )
   } else {
-    const firstName = context?.state?.user?.first_name
-    const lastName = context?.state?.user?.last_name
     drawerContent = (
       <View>
-        <BaseUserAvatarWithLabel
-          onPress={(): void => {
-            navigation.navigate('ChooseAvatar')
-          }}
-          avatar={context?.state.user?.avatar}
-          firstName={firstName ?? ''}
-          lastName={lastName ?? ''}
-        />
         {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
           return (
             <DrawerTextFieldItem
@@ -92,13 +82,21 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 
   return (
     <View
-      style={[
-        styles.safeAreaViewContainer,
-        {paddingTop: insets.top, paddingBottom: insets.bottom},
-      ]}
+      style={[styles.safeAreaViewContainer, {paddingBottom: insets.bottom}]}
     >
+      {Helpers.isAuthenticated() && (
+        <BaseUserAvatarWithLabel
+          onPress={(): void => {
+            navigation.navigate('ChooseAvatar')
+          }}
+          avatar={context?.state.user?.avatar}
+          firstName={context?.state?.user?.first_name ?? ''}
+          lastName={context?.state?.user?.last_name ?? ''}
+        />
+      )}
       <ScrollView
         bounces={false}
+        showsVerticalScrollIndicator={false}
         style={styles.scrollViewStyle}
         contentContainerStyle={styles.scrollViewContentContainerStyle}
       >
@@ -111,6 +109,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               }}
               text={'drawer.terms_and_conditions'}
               image={images.greenTick}
+              badge={3}
             />
           )}
           <View style={styles.localeAndLogoutWrapper}>
@@ -144,20 +143,19 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     backgroundColor: Colors.primaryBackground,
   },
-  scrollViewStyle: {
-    flex: 0,
-  },
+  scrollViewStyle: {},
   scrollViewContentContainerStyle: {
     flex: 0,
     flexGrow: 1,
     justifyContent: 'space-between',
+    marginHorizontal: 16,
   },
   container: {
     flex: 1,
     backgroundColor: Colors.primaryBackground,
   },
   drawerAuthBtn: {
-    width: Const.Width - 120,
+    width: '90%',
     marginTop: 10,
     marginBottom: 60,
   },
@@ -166,14 +164,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 16,
+    paddingHorizontal: 0,
   },
   localeButton: {
-    marginLeft: 24,
     marginTop: 20,
     marginBottom: 20,
   },
   logOut: {
-    marginRight: 24,
     color: 'white',
   },
 })
