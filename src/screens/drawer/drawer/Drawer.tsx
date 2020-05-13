@@ -107,7 +107,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               onPress={(): void => {
                 Defaults.modal.current?.customUpdate(true, {type: 6})
               }}
-              text={'drawer.terms_and_conditions'}
+              text={'drawer.termsAndConditions'}
               image={images.greenTick}
               badge={3}
             />

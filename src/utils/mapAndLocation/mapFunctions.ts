@@ -110,20 +110,22 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
   //   console.log(val, 'valval')
   //   console.log('====================================')
   // })
-  try {
-    const location: Location | null = await RNLocation.getLatestLocation({
-      timeout: 6000,
-    })
-    if (location !== null)
-      return {lat: location.latitude, lng: location.longitude}
-    else {
-      Helpers.DisplayDropdownWithError('ver moiZebna')
+  if (isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
+    try {
+      const location: Location | null = await RNLocation.getLatestLocation({
+        timeout: 6000,
+      })
+      if (location !== null)
+        return {lat: location.latitude, lng: location.longitude}
+      // else {
+      //   Helpers.DisplayDropdownWithError('ver moiZebna')
+      // }
+    } catch (error) {
+      Helpers.DisplayDropdownWithError()
+      console.log('====================================')
+      console.log("can't get location by gps")
+      console.log('====================================')
     }
-  } catch (error) {
-    Helpers.DisplayDropdownWithError()
-    console.log('====================================')
-    console.log("can't get location by gps")
-    console.log('====================================')
   }
 
   try {

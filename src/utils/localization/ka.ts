@@ -18,6 +18,9 @@ export default {
     loading: 'იტვირთება ...',
     cancel: 'გამოსვლა',
     pleaseFillInput: 'გთხოვთ შეავსოთ ველი',
+    needLocation: 'საჭიროა წვდომა ლოკაციაზე',
+    locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
+    navigateToSettings: 'პარამეტრებში გადასვლა',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -54,7 +57,7 @@ export default {
       contact: 'კონტაქტი',
       faq: 'ხდკ',
       partners: 'პარტნიორები',
-      terms_and_conditions: 'წესები და პირობები',
+      termsAndConditions: 'წესები და პირობები',
       settings: 'პარამეტრები',
       transactions: 'ტრანზაქციები',
       notifications: 'შეტყობინებები',

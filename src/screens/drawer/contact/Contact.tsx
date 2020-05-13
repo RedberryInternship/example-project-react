@@ -48,7 +48,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   })
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, {paddingBottom: insets.bottom}]}>
       <BaseHeader
         title={'contact.contact'}
         onPressLeft={navigation.navigate.bind(Contact, 'MainDrawer')}
@@ -65,32 +65,29 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         extraHeight={Platform.select({ios: 500, android: 75})}
         resetScrollToCoords={{x: 0, y: 0}}
       >
-        <View style={styles.contactItemsContainer}>{listItems}</View>
-        <View style={styles.messageContainer}>
-          <Text style={styles.messageTitle}>{t('contact.message')}</Text>
-          <Image source={images.mail} style={styles.messageIcon} />
-          <TextInput
-            multiline
-            style={styles.message}
-            onChangeText={setMessage}
-            numberOfLines={4}
-          />
+        <View>
+          <View style={styles.contactItemsContainer}>{listItems}</View>
+          <View style={styles.messageContainer}>
+            <Text style={styles.messageTitle}>{t('contact.message')}</Text>
+            <Image source={images.mail} style={styles.messageIcon} />
+            <TextInput
+              multiline
+              style={styles.message}
+              onChangeText={setMessage}
+              numberOfLines={4}
+            />
+          </View>
         </View>
-      </KeyboardAwareScrollView>
 
-      <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={
-          Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
-        }
-      >
         <BaseButton
           onPress={sendMessage}
           text="contact.send"
           image={images.arrowRight}
           style={styles.baseButton}
         />
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
+
+      <KeyboardAvoidingView behavior="padding"></KeyboardAvoidingView>
     </View>
   )
 }
@@ -104,6 +101,8 @@ const styles = StyleSheet.create({
   },
   keyboardScrollViewContentContainer: {
     flex: 0,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   contactItemsContainer: {
     backgroundColor: Colors.secondaryGray,
@@ -144,6 +143,6 @@ const styles = StyleSheet.create({
   },
   baseButton: {
     marginTop: 0,
-    marginBottom: 0,
+    marginBottom: 16,
   },
 })

@@ -118,6 +118,7 @@ const transactionStack = createStackNavigator(
 const MainStack = createStackNavigator(
   {
     MainDrawer,
+    authenticationStack,
     drawerMenuOptionsStack,
     Faq,
     Contact,
@@ -139,7 +140,6 @@ const AppNavigator = createSwitchNavigator(
   {
     Plashka,
     MainStack,
-    authenticationStack,
   },
   {
     initialRouteName: 'Plashka',

@@ -16,6 +16,8 @@ import {regionFrom, Defaults, locationConfig, Helpers} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/home/Home'
 import services from 'services'
 import {getAllChargers} from 'hooks/actions/rootActions'
+import {Alert, Platform} from 'react-native'
+import {useTranslation} from 'react-i18next'
 
 type ThisRef = {
   interval: number
@@ -36,7 +38,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     permissionStatus,
     setPermissionStatus,
   ] = useState<LocationPermissionStatus | null>(null)
-
+  const {t} = useTranslation()
   const _this = useRef<ThisRef>({
     interval: 0,
     location: null,
@@ -68,6 +70,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     if (status.match(/notDetermined/)) {
       requestPermission()
     } else if (isPermissionGrantedRegex(status)) {
+      navigateToLocation()
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)
     }
@@ -98,9 +101,6 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     if (location) navigateByRef(location.lat, location.lng)
     else {
       try {
-        if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus))
-          await locationConfig.requestPermission()
-
         const coords = await getCoordsAnyway()
 
         navigateByRef(coords.lat, coords.lng)

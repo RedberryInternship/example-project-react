@@ -10,7 +10,7 @@ import {useSafeArea} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 
 import {BaseButton, MultiChargingTopModal} from 'components'
-import {Defaults} from 'utils'
+import {Defaults, Helpers} from 'utils'
 import {HomeContext} from '../Home'
 import images from 'assets/images'
 import {
@@ -68,22 +68,7 @@ const HomeMainComponent = ({
             ) {
               mapRef.current?.locate()
             } else {
-              Alert.alert(
-                t('home.location'),
-                t('home.locationRequestTextOnDenied'),
-                [
-                  {
-                    text: 'yes',
-                    onPress: (val) => {},
-                    style: 'default',
-                  },
-                  {
-                    text: 'no',
-                    onPress: (val) => {},
-                    style: 'destructive',
-                  },
-                ],
-              )
+              Helpers.getAndRequestLocation()
             }
           }}
           image={context.state.locationImageType}

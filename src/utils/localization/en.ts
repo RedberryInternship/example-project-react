@@ -18,6 +18,9 @@ export default {
     loading: 'Loading ...',
     cancel: 'Cancel',
     pleaseFillInput: 'Please fill input',
+    needLocation: 'Need access to location service',
+    locationIsDenied: 'Access on location is denied',
+    navigateToSettings: 'Navigate to settings',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',
@@ -55,7 +58,7 @@ export default {
       contact: 'Contact',
       faq: 'FAQ',
       partners: 'Partners',
-      terms_and_conditions: 'Terms and Conditions',
+      termsAndConditions: 'Terms and Conditions',
       settings: 'Settings',
       transactions: 'Transactions',
       notifications: 'Notifications',

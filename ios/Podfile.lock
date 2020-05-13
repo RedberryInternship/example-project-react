@@ -172,9 +172,9 @@ PODS:
   - OpenSSL-Universal (1.0.2.19):
     - OpenSSL-Universal/Static (= 1.0.2.19)
   - OpenSSL-Universal/Static (1.0.2.19)
-  - Permission-LocationAlways (2.1.3):
+  - Permission-LocationAlways (2.1.4):
     - RNPermissions
-  - Permission-LocationWhenInUse (2.1.3):
+  - Permission-LocationWhenInUse (2.1.4):
     - RNPermissions
   - Protobuf (3.11.4)
   - RCTRequired (0.62.2)
@@ -348,7 +348,7 @@ PODS:
     - React
   - react-native-maps (0.27.1):
     - React
-  - react-native-netinfo (5.8.0):
+  - react-native-netinfo (5.8.1):
     - React
   - react-native-safe-area-context (0.7.3):
     - React
@@ -411,11 +411,11 @@ PODS:
     - React-cxxreact (= 0.62.2)
     - React-jsi (= 0.62.2)
     - ReactCommon/callinvoker (= 0.62.2)
-  - RNCAsyncStorage (1.9.0):
+  - RNCAsyncStorage (1.10.0):
     - React
   - RNCMaskedView (0.1.10):
     - React
-  - RNDeviceInfo (5.5.6):
+  - RNDeviceInfo (5.5.7):
     - React
   - RNFirebase (5.6.0):
     - Firebase/Core
@@ -430,13 +430,13 @@ PODS:
     - React
   - RNLocalize (1.4.0):
     - React
-  - RNPermissions (2.1.3):
+  - RNPermissions (2.1.4):
     - React
   - RNReanimated (1.8.0):
     - React
   - RNScreens (2.7.0):
     - React
-  - RNSentry (1.3.7):
+  - RNSentry (1.3.8):
     - React
     - Sentry (~> 4.4.0)
   - RNSVG (12.1.0):
@@ -679,8 +679,8 @@ SPEC CHECKSUMS:
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   OpenSSL-Universal: 8b48cc0d10c1b2923617dfe5c178aa9ed2689355
-  Permission-LocationAlways: 4c98224af7815d666913ba75f7cd723952fbc4a4
-  Permission-LocationWhenInUse: bb552f0e7ba0fce1514fe7708f6210bf1aec0b83
+  Permission-LocationAlways: 48085521ad224052f5b25c3fdc6d0e996d162428
+  Permission-LocationWhenInUse: 7449010ca36a26dbe6b10e69e9d6ebcab0222c42
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   RCTRequired: cec6a34b3ac8a9915c37e7e4ad3aa74726ce4035
   RCTTypeSafety: 93006131180074cffa227a1075802c89a49dd4ce
@@ -694,7 +694,7 @@ SPEC CHECKSUMS:
   react-native-google-maps: 0a989abda71059db2caa98b9dacca7a8f38a47d0
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
-  react-native-netinfo: b9650ab1b8b4362b3c455b1274e4bc48223cc957
+  react-native-netinfo: 73d0d151215683d128908796063e344030ef20fa
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   React-RCTActionSheet: f41ea8a811aac770e0cc6e0ad6b270c644ea8b7c
   React-RCTAnimation: 49ab98b1c1ff4445148b72a3d61554138565bad0
@@ -706,16 +706,16 @@ SPEC CHECKSUMS:
   React-RCTText: fae545b10cfdb3d247c36c56f61a94cfd6dba41d
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
-  RNCAsyncStorage: 453cd7c335ec9ba3b877e27d02238956b76f3268
+  RNCAsyncStorage: 6d99641f8e6f15d169d695d8ef184bf187903f11
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNDeviceInfo: 722dc13c269b9dbf305aa4b790d36731602e99b7
+  RNDeviceInfo: e2102056bde3ad5d137fd029d8d431510a00486a
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
   RNLocalize: b6df30cc25ae736d37874f9bce13351db2f56796
-  RNPermissions: 6772df08e03565f718f7e140d9fccae441b8ca8b
+  RNPermissions: 3635b407c15f2fe591bd2101c8f20aa0912caba8
   RNReanimated: 955cf4068714003d2f1a6e2bae3fb1118f359aff
   RNScreens: cf198f915f8a2bf163de94ca9f5bfc8d326c3706
-  RNSentry: 370623102247ebea20191b5fb549ecc7a275b324
+  RNSentry: 05cc998036c027785e466c896211b5c75b3e0ffd
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   Sentry: 14bdd673870e8cf64932b149fad5bbbf39a9b390
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
