@@ -116,6 +116,14 @@ export type ChargerDetail = {
   charger_types: ChargerChargerTypes[]
   is_favorite: boolean | null
   is_free: boolean
+  business_services?: BusinessService[]
+}
+
+type BusinessService = {
+  id: number
+  title: LanguageType
+  description: LanguageType
+  image_path: string
 }
 
 type ChargerConnectorType = {

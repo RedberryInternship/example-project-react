@@ -101,6 +101,10 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     if (location) navigateByRef(location.lat, location.lng)
     else {
       try {
+        if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
+          const status = await locationConfig.requestPermission()
+          if (!status) return
+        }
         const coords = await getCoordsAnyway()
 
         navigateByRef(coords.lat, coords.lng)

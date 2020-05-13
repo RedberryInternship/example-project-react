@@ -1,9 +1,14 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, ScrollView, View, Image} from 'react-native'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import {ScreenPropsWithNavigation, BusinessService} from 'allTypes'
 
-import {BaseHeader, TitleTopLeftContainer, BaseButton} from 'components'
+import {
+  BaseHeader,
+  TitleTopLeftContainer,
+  BaseButton,
+  FetchedDataRenderer,
+} from 'components'
 import {Colors, Defaults} from 'utils'
 import {getLocaleText} from 'utils/localization/localization'
 import images from 'assets/images'
@@ -13,6 +18,7 @@ import {
   ChargerTypesItem,
 } from './components'
 import useChargerDetails from './useChargerDetails'
+import BusinessServiceItem from './components/BusinessServiceItem'
 
 const ChargerDetail = ({
   navigation,
@@ -26,8 +32,8 @@ const ChargerDetail = ({
     distance,
     activeChargerType,
     setActiveChargerType,
-    dummyServices,
     mainButtonClickHandler,
+    onBusinessServiceClick,
   } = useChargerDetails(navigation)
 
   return (
@@ -65,13 +71,15 @@ const ChargerDetail = ({
           )}
         />
         <TitleTopLeftContainer
-          direction={'row'}
           title={'chargerDetail.additionalServices'}
-          data={dummyServices}
-          onRenderItem={(val, index): ReactElement => (
-            <View key={index} style={styles.serviceContainer}>
-              <Image source={val} style={styles.serviceImage} />
-            </View>
+          direction={'row'}
+          data={charger?.business_services}
+          onRenderItem={(val: BusinessService): ReactElement => (
+            <BusinessServiceItem
+              key={val.id}
+              onPress={() => onBusinessServiceClick(val.title, val.description)}
+              image={val.image_path}
+            />
           )}
         />
       </ScrollView>
@@ -98,21 +106,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContentContainer: {
     paddingBottom: 32,
-  },
-  serviceContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: '#4CD96433',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 8,
-  },
-  serviceImage: {
-    width: 28,
-    height: 28,
-    resizeMode: 'contain',
-    tintColor: Colors.primaryGreen,
   },
   baseButton: {
     marginTop: 0,
