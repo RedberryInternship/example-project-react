@@ -25,7 +25,7 @@ export default (navigation: any) => {
   useEffect(() => {
     const timeInterval = setInterval(() => {
       chargingStateAction(dispatch)
-    }, 30000)
+    }, 30000) // time interval for per request
 
     return (): void => {
       clearInterval(timeInterval)

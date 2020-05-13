@@ -10,6 +10,7 @@ import {
   Image,
   ViewStyle,
   View,
+  ActivityIndicator,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import LinearGradient from 'react-native-linear-gradient'
@@ -25,6 +26,7 @@ type Button = {
   style?: StyleProp<ViewStyle>
   imageStyle?: ImageStyle
   isImageRight?: boolean
+  loading?: boolean
 }
 
 const BaseButton = ({
@@ -35,6 +37,7 @@ const BaseButton = ({
   textStyle,
   text,
   isImageRight,
+  loading,
 }: Button): ReactElement => {
   const {t} = useTranslation()
 
@@ -54,17 +57,28 @@ const BaseButton = ({
       }
       start={{x: 0, y: 1}}
       end={{x: 1, y: 0}}
-      style={[styles.style, style]}>
+      style={[styles.style, style]}
+    >
       <View style={{flex: 1, backgroundColor: '#ffffff00'}}>
         <BaseNativeTouchable
           onPress={onPress}
           borderless={false}
-          style={[styles.touchableStyle]}>
-          <>
-            {isImageRight ? btnImage : null}
-            <Text style={[styles.textStyle, textStyle]}>{t(text)}</Text>
-            {!isImageRight ? btnImage : null}
-          </>
+          style={[styles.touchableStyle]}
+          enabled={!loading}
+        >
+          {loading ? (
+            <ActivityIndicator
+              color={'green'}
+              size="large"
+              // style={{backgroundColor: 'blue'}}
+            />
+          ) : (
+            <>
+              {isImageRight ? btnImage : null}
+              <Text style={[styles.textStyle, textStyle]}>{t(text)}</Text>
+              {!isImageRight ? btnImage : null}
+            </>
+          )}
         </BaseNativeTouchable>
       </View>
     </LinearGradient>

@@ -33,7 +33,7 @@ import {
   ChooseAvatar,
 } from 'screens'
 
-const chargerStack = createStackNavigator(
+const ChargerStack = createStackNavigator(
   {
     ChargerWithCode,
     ChargerDetail,
@@ -52,23 +52,13 @@ const chargerStack = createStackNavigator(
 const HomeTabNavigation = createBottomTabNavigator(
   {
     Home,
-    chargerStack,
+    ChargerStack,
     Favorites,
     Charging,
   },
   {
     tabBarComponent: FooterTabNavigation,
     initialRouteName: 'Home',
-    tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-      tabStyle: {
-        height: 60,
-      },
-      style: {
-        backgroundColor: '#111314',
-      },
-    },
   },
 )
 
@@ -125,13 +115,11 @@ const transactionStack = createStackNavigator(
   },
 )
 
-const AppNavigator = createSwitchNavigator(
+const MainStack = createStackNavigator(
   {
-    Plashka,
-    authenticationStack,
     MainDrawer,
+    authenticationStack,
     drawerMenuOptionsStack,
-    chargerStack,
     Faq,
     Contact,
     Tariffs,
@@ -139,6 +127,19 @@ const AppNavigator = createSwitchNavigator(
     transactionStack,
     Notifications,
     ChooseAvatar,
+  },
+  {
+    initialRouteName: 'MainDrawer',
+    defaultNavigationOptions: {
+      headerShown: false,
+    },
+  },
+)
+
+const AppNavigator = createSwitchNavigator(
+  {
+    Plashka,
+    MainStack,
   },
   {
     initialRouteName: 'Plashka',

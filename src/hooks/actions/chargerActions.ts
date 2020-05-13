@@ -23,6 +23,7 @@ type StartChargingArg = {
 export const startCharging = async (
   {type, connectorTypeId, amount, userCardId}: StartChargingArg,
   dispatch: any,
+  setLoading: (bool: boolean) => void,
 ) => {
   try {
     const startResult = await services.startCharging(
@@ -42,14 +43,16 @@ export const startCharging = async (
         chargingState: chargingStateResult,
       }),
     )
+    setLoading(false)
 
     NavigationActions.reset(
-      'chargerStack',
+      'ChargerStack',
       Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
     )
 
     NavigationActions.navigate('Charging')
   } catch (error) {
+    setLoading(false)
     if (error.data.message)
       Helpers.DisplayDropdownWithError('', getLocaleText(error.data.message))
     else Helpers.DisplayDropdownWithError()

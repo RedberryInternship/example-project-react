@@ -5,7 +5,7 @@ import * as Animatable from 'react-native-animatable'
 
 import {TabNavigationButtons} from 'components'
 import {determineTimePeriod} from 'utils/mapAndLocation/mapFunctions'
-import {Defaults} from 'utils'
+import {Defaults, Helpers} from 'utils'
 import images from 'assets/images'
 
 const FooterTabNavigator = (props: any): ReactElement => {
@@ -43,21 +43,22 @@ const FooterTabNavigator = (props: any): ReactElement => {
       />
       <TabNavigationButtons
         active={
-          currentRouteName === 'chargerStack' ||
+          currentRouteName === 'ChargerStack' ||
           currentRouteName === 'NotAuthorized'
         }
         navigate={navigate.bind(
           FooterTabNavigator,
-          Defaults.token ? 'chargerStack' : 'NotAuthorized',
+          Defaults.token ? 'ChargerStack' : 'NotAuthorized',
         )}
         image={images.charge}
       />
-      {props.screenProps.chargingState.length > 0 && !!Defaults.token && (
+      {props.screenProps.chargingState.length > 0 && Helpers.isAuthenticated() && (
         <Animatable.View
           animation={zoomOut}
           iterationCount={'infinite'}
           duration={1500}
           useNativeDriver={true}
+          delay={2000}
           easing={'ease-in-out-cubic'}
         >
           <TabNavigationButtons
@@ -68,7 +69,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
         </Animatable.View>
       )}
 
-      {Defaults.token != null && Defaults.token != '' && (
+      {Helpers.isAuthenticated() && (
         <TabNavigationButtons
           navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
           image={images.favorite}

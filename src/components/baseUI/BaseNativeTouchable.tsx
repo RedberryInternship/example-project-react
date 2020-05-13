@@ -3,6 +3,7 @@ import {
   BorderlessButton,
   BorderlessButtonProperties,
 } from 'react-native-gesture-handler'
+import {Colors} from 'utils'
 
 interface BaseNativeTouchableProps extends BorderlessButtonProperties {
   children: Element
@@ -13,9 +14,10 @@ const BaseNativeTouchable = (props: BaseNativeTouchableProps): ReactElement => {
     <BorderlessButton
       hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
       activeOpacity={0.8}
-      rippleColor={'green'}
+      rippleColor={Colors.primaryBackground}
       borderless={true}
-      {...props}>
+      {...props}
+    >
       {props.children}
     </BorderlessButton>
   )

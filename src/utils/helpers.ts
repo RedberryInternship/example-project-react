@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Sentry, Defaults} from 'utils'
+import {Sentry, Defaults, locationConfig} from 'utils'
 import {Exception} from '@sentry/react-native'
 import {
   ChargerFilters,
@@ -9,6 +9,8 @@ import {
 } from '../../@types/allTypes.d'
 import i18next from 'i18next'
 import services from 'services'
+import {Alert, Linking, Platform} from 'react-native'
+import {isPermissionGrantedRegex} from './mapAndLocation/mapFunctions'
 
 const Logger = (err: Exception | string | number): void => {
   if (__DEV__) {
@@ -120,6 +122,45 @@ const getUserSendDataAndType = (
     objectKey,
   }
 }
+
+const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
+  Alert.alert(
+    i18next.t('needLocation'),
+    i18next.t('locationIsDenied'),
+    [
+      {
+        text: i18next.t('navigateToSettings'),
+        onPress: () => {
+          cb?.(true)
+          Linking.openURL('app-settings:')
+        },
+      },
+      {
+        text: i18next.t('no'),
+        onPress: () => {
+          cb?.(false)
+        },
+        style: 'destructive',
+      },
+    ],
+    {cancelable: true},
+  )
+}
+
+const getAndRequestLocation = async (): Promise<boolean> => {
+  if (
+    !isPermissionGrantedRegex(Defaults.locationPermissionStatus) &&
+    Platform.OS === 'ios'
+  ) {
+    onLocationAccessDenied()
+    return true
+  } else if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
+    const status = await locationConfig.requestPermission()
+
+    if (!status) return false
+  }
+  return true
+}
 export default {
   Logger,
   ConvertToChargerFilterParam,
@@ -128,4 +169,6 @@ export default {
   DisplayDropdownWithError,
   isAuthenticated,
   getUserSendDataAndType,
+  onLocationAccessDenied,
+  getAndRequestLocation,
 }

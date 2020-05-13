@@ -2,7 +2,7 @@ import React, {useRef, forwardRef, ReactElement, useCallback} from 'react'
 import {
   StyleSheet,
   View,
-  Dimensions,
+  useWindowDimensions,
   Text,
   Image,
   TouchableWithoutFeedback,
@@ -49,6 +49,7 @@ const BottomSheetReanimated = forwardRef(
     // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
     const {t} = useTranslation()
+    const height = useWindowDimensions().height
 
     const insets = useSafeArea()
 
@@ -163,7 +164,7 @@ const BottomSheetReanimated = forwardRef(
       <View style={styles.container} pointerEvents={'box-none'}>
         <BottomSheet
           ref={ref}
-          snapPoints={[55, Const.Height - insets.top - insets.bottom - 65 - 12]}
+          snapPoints={[55, height - insets.top - insets.bottom - 65 - 12]}
           renderContent={renderContent}
           renderHeader={renderHeaderComponent}
           onCloseEnd={Keyboard.dismiss}

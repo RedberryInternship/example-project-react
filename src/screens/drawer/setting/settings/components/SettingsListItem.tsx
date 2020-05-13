@@ -44,6 +44,7 @@ const SettingsListItem = ({
         <View style={styles.valueAndArrow}>
           <Text
             style={[styles.value, {color: value ? Colors.primaryWhite : color}]}
+            numberOfLines={1}
           >
             {value ? t(value.toString()) : t(onEmptyText ?? '')}
           </Text>
@@ -69,12 +70,15 @@ const styles = StyleSheet.create({
   imageAndName: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: 24,
+    marginLeft: 16,
   },
   valueAndArrow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 24,
+    marginRight: 16,
+    paddingLeft: 16,
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   arrow: {
     width: 15,
@@ -83,7 +87,7 @@ const styles = StyleSheet.create({
   image: {
     width: 24,
     height: 24,
-    marginRight: 24,
+    marginRight: 12,
     resizeMode: 'contain',
   },
   name: {

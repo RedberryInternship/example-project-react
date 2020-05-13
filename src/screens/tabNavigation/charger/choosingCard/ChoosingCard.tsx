@@ -49,6 +49,7 @@ const ChoosingCard = ({
     submitHandler,
     errors,
     t,
+    loading,
   } = useChoosingCard(navigation)
 
   console.log(navigation, 'navigationnavigation')
@@ -146,6 +147,7 @@ const ChoosingCard = ({
             text={'charger.turnOn'}
             imageStyle={{tintColor: 'white'}}
             image={images.charge}
+            loading={loading}
           />
         </KeyboardAvoidingView>
       </View>
