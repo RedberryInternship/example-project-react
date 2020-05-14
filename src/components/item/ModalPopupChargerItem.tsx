@@ -21,7 +21,7 @@ const modalPopupChargerItemTypes = [
 ]
 type ModalPopupChargerItemProps = {
   type: number
-  val: string
+  val: number
 }
 
 const ModalPopupChargerItem = ({
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginVertical: 12,
+    marginVertical: 8,
     maxWidth: '100%',
     flexWrap: 'wrap',
   },
@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     marginLeft: 12,
     marginRight: 4,
     fontFamily: GNOME.HELV_EX,
-    fontVariant: ['tabular-nums'],
   },
   popUpItemPriceText: {
     fontSize: 13,

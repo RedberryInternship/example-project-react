@@ -45,6 +45,7 @@ export enum ChargingStatus {
   CHARGED = 'CHARGED',
   FINISHED = 'FINISHED',
   ON_FINE = 'ON_FINE',
+  USED_UP = 'USED_UP',
   ON_HOLD = 'ON_HOLD',
 }
 
@@ -54,7 +55,7 @@ export type FinishChargingResponseType = {
   already_paid: number
   consumed_money: number
   refund_money: number
-  charger_type: LVL2
+  charger_type: ChargerTypes
   start_charging_time: string
   charging_type: ChargingTypes
   charging_status: ChargingStatus
@@ -187,9 +188,13 @@ export type ChargingState = {
   charger_connector_type_id: number
   charger_id: number
   connector_type_id: number
+  charging_type: ChargingTypes
   user_card_id: number
   order_id: number
   start_charging_time: string
+  penalty_start_time: string
+  penalty_fee: number
+  charger_type: ChargerTypes
 }
 
 export type Action = {
@@ -202,6 +207,10 @@ export type AppContextType = {
   dispatch: any
 }
 
+export enum ChargingFinishedPopupEnum {
+  LVL2FullCharge,
+  FinishedCharging,
+}
 export interface BaseInputProps extends TextInputProps {
   title: string
   errorText?: string | null

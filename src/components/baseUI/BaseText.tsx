@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react'
 import {Text, TextProps, StyleSheet} from 'react-native'
 
-import {Colors} from 'utils'
+import {Colors, GNOME} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
@@ -14,7 +14,7 @@ const BaseText = (props: BaseTextPropType): ReactElement => {
       return props.style?.fontFamily
     }
 
-    return 'HelveticaNeueLTStd-Ex'
+    return GNOME.HELV_EX
   }
 
   const fontFamily = setFontFamily()

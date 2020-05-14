@@ -123,6 +123,8 @@ export default {
       returned: 'დაგიბრუნდათ',
       continueCharging: 'დატენვის გაგრძელება',
       finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატევა დასრულდა',
+      warningTextBeforeFine:
+        'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',

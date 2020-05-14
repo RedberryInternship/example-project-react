@@ -6,11 +6,15 @@ import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 import {PopUpCountDown, ModalPopupChargerItem} from 'components'
 import images from 'assets/images'
-import {ChargingStatus} from '../../../@types/allTypes.d'
+import {
+  ChargingStatus,
+  ChargingFinishedPopupEnum,
+} from '../../../@types/allTypes.d'
+import {BeforeFineLVL2FullCharge} from './chargingFinishedPopupTypes'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
-  subType: ChargingStatus
+  subType?: ChargingFinishedPopupEnum
   data: Data
 }
 
@@ -18,91 +22,76 @@ type Data = {
   title: string
   description: string
   bottomDescription: string
+  price: number
+  time: string
+  consumedMoney: number
+  refundMoney: number
+  onFine: boolean
 }
 
 const ChargerModalMainWrapper = ({
   onPress,
   subType,
-  data: {title, description, bottomDescription},
+  data: {title, description, ...data},
 }: ChargerModalMainWrapperProps): ReactElement => {
   const {t} = useTranslation()
-  const [view, setView] = useState<ReactElement[]>([])
 
-  useEffect(() => {
-    subTypeHandler() // Vobi Todo: remove useEffect
-  }, [])
-
-  const subTypeHandler = (): void => {
-    const _view = []
+  const subTypeHandler = (): ReactElement => {
     switch (subType) {
-      case 'FINISHED':
-        _view[0] = (
-          <Text style={styles.bottomContentDescriptionType2}>
-            {t(bottomDescription)}
-          </Text>
-        )
-        _view[1] = (
-          <View style={{marginVertical: 32}}>
-            <Text style={styles.bottomContentDescriptionType2}>
-              {t('ანგარიშიდან ჩამოგეჭრათ')}
-            </Text>
-            <Text style={styles.boldNumberBig}>
-              {23} {t('gel')}
-            </Text>
-          </View>
-        )
-        break
-      case 2:
-        _view[0] = (
-          <>
-            <Text style={styles.bottomContentDescription}>
-              {t(bottomDescription)}
-            </Text>
-            <PopUpCountDown up={false} warningLevel={1} />
-          </>
-        )
+      case ChargingFinishedPopupEnum.LVL2FullCharge:
+        return <BeforeFineLVL2FullCharge {...data} />
 
-        _view[1] = (
-          <View style={{marginVertical: 12}}>
-            {[
-              {val: 3, type: 0},
-              {val: 3, type: 1},
-              {val: 33, type: 2},
-            ].map((val, ind) => (
-              //TODO: not stable data options from back
-              <ModalPopupChargerItem key={ind} {...val} />
-            ))}
-          </View>
-        )
-        break
-      case 3:
-        _view[2] = (
-          <>
-            <View style={styles.lineView} />
-            <TouchableOpacity
-              //TODO: no action known yet
-              onPress={(): void => {}}
-              style={styles.subtype2Touchable}
-            >
-              <Text style={{color: Colors.primaryGreen}}>
-                {t('charger.allChargerList')}
-              </Text>
-            </TouchableOpacity>
-          </>
-        )
+      // case ChargingFinishedPopupEnum.FinishedCharging: // TODO
+      //   _view[0] = (
+      //     <>
+      //       <Text style={styles.bottomContentDescription}>
+      //         {/* {t(bottomDescription)} */}
+      //       </Text>
+      //       <PopUpCountDown up={false} warningLevel={1} />
+      //     </>
+      //   )
 
-        break
+      //   _view[1] = (
+      //     <View style={{marginVertical: 12}}>
+      //       <ModalPopupChargerItem key={ind} {...val} />
+
+      //       {[
+      //         {val: 3, type: 0},
+      //         {val: 3, type: 1},
+      //         {val: 33, type: 2},
+      //       ].map((val, ind) => (
+      //         //TODO: not stable data options from back
+      //         <ModalPopupChargerItem key={ind} {...val} />
+      //       ))}
+      //     </View>
+      //   )
+      //   break
+      // case 3:
+      //   _view[2] = (
+      //     <>
+      //       <View style={styles.lineView} />
+      //       <TouchableOpacity
+      //         //TODO: no action known yet
+      //         onPress={(): void => {}}
+      //         style={styles.subtype2Touchable}
+      //       >
+      //         <Text style={{color: Colors.primaryGreen}}>
+      //           {t('charger.allChargerList')}
+      //         </Text>
+      //       </TouchableOpacity>
+      //     </>
+      //   )
+
+      //   break
       default:
-        _view[0] = (
+        return (
           <Text style={styles.bottomContentDescriptionType2}>
-            {t(bottomDescription)}
+            {t('bottomDescription')}
           </Text>
         )
 
         break
     }
-
-    setView(_view)
   }
 
   return (
@@ -115,12 +104,7 @@ const ChargerModalMainWrapper = ({
         <Text style={styles.mainTitleStyle}>{t(title)}</Text>
         <Text style={styles.mainDescriptionStyle}>{t(description)}</Text>
       </View>
-      <View style={styles.bottomContentContainer}>
-        {view[0]}
-        <View style={styles.lineView} />
-        {view[1]}
-        {view[2]}
-      </View>
+      <View style={styles.bottomContentContainer}>{subTypeHandler()}</View>
     </>
   )
 }
@@ -190,13 +174,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontWeight: 'bold',
   },
-  lineView: {
-    backgroundColor: Colors.primaryBackground,
-    opacity: 0.1,
-    height: 1,
-    width: '100%',
-    justifyContent: 'center',
-  },
+
   subtype2Touchable: {
     marginVertical: 16,
     alignItems: 'center',

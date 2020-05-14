@@ -37,7 +37,9 @@ const CountDown = ({
   const ref: any = useRef(null)
 
   useEffect(() => {
-    ref.current = setTimeout(up ? countUp.bind(CountDown) : countDown, 1000)
+    if (ref.current) clearTimeout(ref.current)
+
+    ref.current = setTimeout(countUp.bind(CountDown), 1000)
 
     return (): void => {
       clearTimeout(ref.current)
@@ -49,7 +51,9 @@ const CountDown = ({
       return setTime((prevState) =>
         prevState.length !== 3 ? prevState + '.' : '.',
       )
-    const diff = moment.duration(moment().valueOf() - parseInt(startTime))
+    const diff = moment.duration(
+      Math.abs(moment().valueOf() - parseInt(startTime)),
+    )
 
     console.log(moment().valueOf(), diff, startTime, 'diff.seconds')
 
@@ -62,9 +66,7 @@ const CountDown = ({
     setTime(countdownString)
   }
 
-  const countDown = () => {
-    duration && setTime(`${pad(parseInt(duration / 60))}:${pad(duration % 60)}`)
-  }
+  const countDown = () => {}
 
   const pad = (val: number) => {
     const valString = val + ''

@@ -102,34 +102,9 @@ export const chargingState = async (dispatch: any) => {
   try {
     const result = await services.chargingState()
 
-    // for (const {already_paid, charging_status} of result) {
-    //   if (
-    //     charging_status !== ChargingStatus.INITIATED &&
-    //     charging_status !== ChargingStatus.CHARGING
-    //   ) {
-    //     const options = {
-    //       type: 3,
-    //       subType: charging_status,
-    //       data: {
-    //         title: 'popup.thankYou',
-    //         description: 'popup.automobileChargingFinished',
-    //         bottomDescription: 'popup.finishedChargingOfAutomobile',
-    //         price: already_paid,
-    //       },
-    //       onCloseClick: onModalClose,
-    //     }
-    //     switch (charging_status) {
-    //       case ChargingStatus.CHARGED:
-    //         //construct data accordingly
-    //         break
-    //       case ChargingStatus.FINISHED:
-    //         break
-
-    //       default:
-    //         break
-    //     }
-    //   }
-    // }
+    for (const state of result) {
+      Helpers.configureChargingFinishPopup(state, dispatch)
+    }
     if (Defaults.activeRoute === 'Charging' && result.length === 0) {
       NavigationActions.navigate('Home')
     }

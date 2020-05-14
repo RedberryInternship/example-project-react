@@ -127,6 +127,8 @@ export default {
       returned: 'Returned',
       continueCharging: 'Continue charging',
       finishedChargingOfAutomobile: 'Finished charging of automobile',
+      warningTextBeforeFine:
+        'If you do not plug off the charger you will be fined',
     },
     charger: {
       chargeWitchCode: 'Charge witch code',
