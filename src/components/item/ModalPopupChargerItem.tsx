@@ -4,6 +4,7 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors, GNOME} from 'utils'
 import images from 'assets/images'
+import {BaseText} from 'components'
 
 const modalPopupChargerItemTypes = [
   {
@@ -40,12 +41,12 @@ const ModalPopupChargerItem = ({
         source={modalPopupChargerItemTypes[type].image}
         style={styles.popUpItemImg}
       />
-      <Text style={styles.popUpItemText}>
+      <BaseText style={styles.popUpItemText}>
         {t(modalPopupChargerItemTypes[type].text)}
-      </Text>
-      <Text style={[styles.popUpItemPriceText, popupItemPriceColorStyle]}>
+      </BaseText>
+      <BaseText style={[styles.popUpItemPriceText, popupItemPriceColorStyle]}>
         {val} {t('gel')}
-      </Text>
+      </BaseText>
     </View>
   )
 }
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 12,
     marginRight: 4,
-    fontFamily: GNOME.HELV_EX,
+    // fontFamily: GNOME.HELV_EX,
   },
   popUpItemPriceText: {
     fontSize: 13,
@@ -79,5 +80,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     textAlign: 'center',
     lineHeight: 18,
+    // fontFamily: GNOME.HELV_EX,
   },
 })

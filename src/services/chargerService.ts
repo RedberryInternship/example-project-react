@@ -4,7 +4,6 @@ import {
   ChargerFilters,
   GetAllChargerResponseType,
   StartChargingResponseType,
-  FinishChargingResponseType,
   ChargingTypes,
   ChargingState,
 } from '../../@types/allTypes.d'
@@ -33,9 +32,7 @@ export const startCharging = (
     user_card_id,
   })
 
-export const finishCharging = (
-  order_id: number,
-): Promise<FinishChargingResponseType> =>
+export const finishCharging = (order_id: number): Promise<ChargingState> =>
   ajax.post('/charging/stop', {
     order_id,
   })

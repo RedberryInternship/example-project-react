@@ -3,7 +3,12 @@ import {useRef, useEffect} from 'react'
 import {TextInput} from 'react-native'
 import {useForm} from 'react-hook-form'
 
-import {Helpers, InputValidationHelpers} from 'utils'
+import {
+  Helpers,
+  InputValidationHelpers,
+  NavigationActions,
+  Defaults,
+} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {Navigation} from 'allTypes'
 import services from 'services'
@@ -75,6 +80,10 @@ export default (navigation: Navigation, dispatch: any) => {
           user: user,
         },
         dispatch,
+      )
+      NavigationActions.reset(
+        'ChargerStack',
+        Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
       )
       navigation.navigate('Home')
     } catch (error) {

@@ -167,7 +167,7 @@ const getAndRequestLocation = async (): Promise<boolean> => {
 }
 
 const onModalClose = (dispatch: any) => {
-  NavigationActions.navigate('Home')
+  // NavigationActions.navigate('Home')
   chargingState(dispatch)
 }
 
@@ -179,15 +179,15 @@ const configureChargingFinishPopup = (
     charger_type,
     refund_money,
     consumed_money,
+    charging_type,
   }: ChargingState,
   dispatch: any,
 ) => {
   if (
     charging_status !== ChargingStatus.INITIATED &&
-    charging_status !== ChargingStatus.CHARGING &&
-    charger_type === 'LVL2'
+    charging_status !== ChargingStatus.CHARGING
   ) {
-    const options: any = {
+    let options: any = {
       type: 3,
       subType: ChargingFinishedPopupEnum.LVL2FullCharge,
       data: {
@@ -205,23 +205,60 @@ const configureChargingFinishPopup = (
       case ChargingStatus.CHARGED:
         //TODO: On every case there should be if statement that checks if charging type is full or by amount
         // for now left this and default is full charge
-        options.data.bottomDescription = 'popup.warningTextBeforeFine'
-        options.data.onFine = false
-        //construct data accordingly
-        options.subType = ChargingFinishedPopupEnum.LVL2FullCharge
+        options = {
+          ...options,
+          subType: ChargingFinishedPopupEnum.LVL2FullCharge,
+          onfinish: chargingState.bind(this, dispatch),
+          data: {
+            ...options.data,
+            bottomDescription: 'popup.warningTextBeforeFine',
+            onFine: false,
+          },
+        }
         break
       case ChargingStatus.ON_FINE:
-        options.data.bottomDescription = 'popup.warningTextBeforeFine'
-        options.data.onFine = true
-        options.subType = ChargingFinishedPopupEnum.LVL2FullCharge
-
-        return
+        options = {
+          ...options,
+          subType: ChargingFinishedPopupEnum.LVL2FullCharge,
+          data: {
+            ...options.data,
+            bottomDescription: 'popup.yourChargingOnFineStarted',
+            onFine: true,
+          },
+        }
+        break
+      case ChargingStatus.USED_UP:
+        options = {
+          ...options,
+          subType:
+            charger_type === 'LVL2'
+              ? ChargingFinishedPopupEnum.LVL2FullCharge
+              : ChargingFinishedPopupEnum.UsedUpFastProps,
+          data: {
+            ...options.data,
+            bottomDescription: 'popup.yourChargingOnFineStarted',
+            chargerTypeFAST: charger_type === 'LVL2',
+          },
+        }
+        break
+      case ChargingStatus.FINISHED:
+        options = {
+          ...options,
+          subType: ChargingFinishedPopupEnum.FinishedCharging,
+          data: {
+            ...options.data,
+            chargerTypeFAST: charger_type === 'LVL2',
+          },
+        }
         break
 
       default:
         break
     }
-    Defaults.modal.current?.customUpdate(true, options)
+    setTimeout(() => {
+      // NavigationActions.navigate('Charging')
+      Defaults.modal.current?.customUpdate(true, options)
+    }, 500)
   }
 }
 export default {

@@ -1,16 +1,27 @@
 /* eslint-disable react/display-name */
 import React, {useState, useEffect, ReactElement} from 'react'
-import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Alert,
+} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
-import {PopUpCountDown, ModalPopupChargerItem} from 'components'
+import {PopUpCountDown, BaseText} from 'components'
 import images from 'assets/images'
 import {
   ChargingStatus,
   ChargingFinishedPopupEnum,
 } from '../../../@types/allTypes.d'
-import {BeforeFineLVL2FullCharge} from './chargingFinishedPopupTypes'
+import {
+  BeforeFineLVL2FullCharge,
+  UsedUpFast,
+  Finished,
+} from './chargingFinishedPopupTypes'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
@@ -27,6 +38,8 @@ type Data = {
   consumedMoney: number
   refundMoney: number
   onFine: boolean
+  onFinish: () => void
+  chargerTypeFAST: boolean
 }
 
 const ChargerModalMainWrapper = ({
@@ -40,6 +53,10 @@ const ChargerModalMainWrapper = ({
     switch (subType) {
       case ChargingFinishedPopupEnum.LVL2FullCharge:
         return <BeforeFineLVL2FullCharge {...data} />
+      case ChargingFinishedPopupEnum.UsedUpFastProps:
+        return <UsedUpFast {...data} />
+      case ChargingFinishedPopupEnum.FinishedCharging:
+        return <Finished {...data} />
 
       // case ChargingFinishedPopupEnum.FinishedCharging: // TODO
       //   _view[0] = (
@@ -101,8 +118,10 @@ const ChargerModalMainWrapper = ({
       </TouchableOpacity>
       <View style={{flex: 0, marginHorizontal: 16}}>
         <Image source={images.checkCircle} style={styles.checkMarkIcon} />
-        <Text style={styles.mainTitleStyle}>{t(title)}</Text>
-        <Text style={styles.mainDescriptionStyle}>{t(description)}</Text>
+        <BaseText style={styles.mainTitleStyle}>{t(title)}</BaseText>
+        <BaseText style={styles.mainDescriptionStyle}>
+          {t(description)}
+        </BaseText>
       </View>
       <View style={styles.bottomContentContainer}>{subTypeHandler()}</View>
     </>

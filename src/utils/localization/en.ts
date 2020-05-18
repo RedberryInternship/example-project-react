@@ -21,6 +21,7 @@ export default {
     needLocation: 'Need access to location service',
     locationIsDenied: 'Access on location is denied',
     navigateToSettings: 'Navigate to settings',
+    charger: 'Charger',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',
@@ -129,6 +130,7 @@ export default {
       finishedChargingOfAutomobile: 'Finished charging of automobile',
       warningTextBeforeFine:
         'If you do not plug off the charger you will be fined',
+      yourChargingOnFineStarted: 'Your charging on fine started',
     },
     charger: {
       chargeWitchCode: 'Charge witch code',

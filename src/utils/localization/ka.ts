@@ -21,6 +21,7 @@ export default {
     needLocation: 'საჭიროა წვდომა ლოკაციაზე',
     locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
     navigateToSettings: 'პარამეტრებში გადასვლა',
+    charger: 'დამტენი',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -125,6 +126,7 @@ export default {
       finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატევა დასრულდა',
       warningTextBeforeFine:
         'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
+      yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო გავიდა',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',

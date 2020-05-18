@@ -1,28 +1,23 @@
 import React, {ReactElement} from 'react'
-import {Text, View, StyleSheet} from 'react-native'
+import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {PopUpCountDown, ModalPopupChargerItem, BaseText} from 'components'
+import {ModalPopupChargerItem, BaseText} from 'components'
 import {Colors} from 'utils'
-type BeforeFineLVL2FullChargeProps = {
-  time: string
+type FinishedProps = {
   bottomDescription: string
-  fastCharger?: boolean
   price: number
   consumedMoney: number
   refundMoney: number
-  onFine: boolean
-  onFinish: () => void
+  chargerTypeFAST: boolean
 }
-const BeforeFineLVL2FullCharge = ({
-  time,
+const Finished = ({
   bottomDescription,
   price,
   consumedMoney,
   refundMoney,
-  onFine,
-  onFinish,
-}: BeforeFineLVL2FullChargeProps): ReactElement => {
+  chargerTypeFAST,
+}: FinishedProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
@@ -30,13 +25,6 @@ const BeforeFineLVL2FullCharge = ({
       <BaseText style={styles.bottomContentDescriptionType2}>
         {t(bottomDescription)}
       </BaseText>
-      <PopUpCountDown
-        startTime={time}
-        up={onFine}
-        alarm={!onFine}
-        onFinish={onFinish}
-        warningLevel={onFine ? 2 : 1}
-      />
       <View style={styles.lineView} />
       <View style={{marginVertical: 12}}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
@@ -46,12 +34,25 @@ const BeforeFineLVL2FullCharge = ({
         {refundMoney !== null && (
           <ModalPopupChargerItem val={refundMoney} type={0} />
         )}
+        <View style={styles.lineView} />
+        {chargerTypeFAST && (
+          <TouchableOpacity
+            onPress={(): void => {
+              Alert.alert('not yet')
+            }}
+            style={styles.subtype2Touchable}
+          >
+            <Text style={{color: Colors.primaryGreen}}>
+              {t('charger.allChargerList')}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </>
   )
 }
 
-export default BeforeFineLVL2FullCharge
+export default Finished
 
 const styles = StyleSheet.create({
   bottomContentDescriptionType2: {
@@ -70,5 +71,9 @@ const styles = StyleSheet.create({
     height: 1,
     width: '100%',
     justifyContent: 'center',
+  },
+  subtype2Touchable: {
+    marginVertical: 16,
+    alignItems: 'center',
   },
 })

@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 
 import {CountDown} from 'components'
 
-const PopUpCountDown = ({warningLevel, up, startTime}: any): ReactElement => {
+const PopUpCountDown = ({warningLevel, ...props}: any): ReactElement => {
   return (
     <View
       style={[
@@ -17,7 +17,7 @@ const PopUpCountDown = ({warningLevel, up, startTime}: any): ReactElement => {
           warningLevel === 1 ? styles.warningLevel1ForInnerContainer : {},
         ]}
       >
-        <CountDown startTime={startTime} up={up} alarm={true} popup={true} />
+        <CountDown {...props} popup={true} />
       </View>
     </View>
   )

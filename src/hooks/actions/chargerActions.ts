@@ -70,21 +70,9 @@ export const finishCharging = async (
   dispatch: any,
 ) => {
   try {
-    const {already_paid, charging_status} = await services.finishCharging(
-      orderId,
-    )
+    const result = await services.finishCharging(orderId)
 
-    Defaults.modal.current?.customUpdate(true, {
-      type: 3,
-      subType: charging_status,
-      data: {
-        title: 'popup.thankYou',
-        description: 'popup.automobileChargingFinished',
-        bottomDescription: 'popup.finishedChargingOfAutomobile',
-        price: already_paid,
-      },
-      onCloseClick: () => onModalClose(dispatch),
-    })
+    Helpers.configureChargingFinishPopup(result, dispatch)
   } catch (error) {
     if (error.message)
       Helpers.DisplayDropdownWithError('', getLocaleText(error.message))
@@ -108,6 +96,12 @@ export const chargingState = async (dispatch: any) => {
     if (Defaults.activeRoute === 'Charging' && result.length === 0) {
       NavigationActions.navigate('Home')
     }
+    if (
+      result.length === 0 &&
+      Defaults.modal.current?.state.config.type === 3
+    ) {
+      Defaults.modal.current?.customUpdate(false)
+    }
 
     dispatch(chargingStateAction(result))
   } catch (error) {
@@ -120,9 +114,3 @@ const chargingStateAction = (payload: any, success = true) => ({
   type: success ? CHARGING_STATE_SUCCESS : CHARGING_STATE_FAILURE,
   payload,
 })
-
-const onModalClose = (dispatch) => {
-  NavigationActions.navigate('Home')
-
-  chargingState(dispatch)
-}

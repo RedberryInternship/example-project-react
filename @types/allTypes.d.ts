@@ -49,23 +49,6 @@ export enum ChargingStatus {
   ON_HOLD = 'ON_HOLD',
 }
 
-export type FinishChargingResponseType = {
-  message: LocaleStringObject
-  order_id: number
-  already_paid: number
-  consumed_money: number
-  refund_money: number
-  charger_type: ChargerTypes
-  start_charging_time: string
-  charging_type: ChargingTypes
-  charging_status: ChargingStatus
-  charger_connector_type_id: number
-  charger_id: number
-  charger_code: string
-  connector_type_id: number
-  user_card_id: number
-}
-
 export type StandardErrorResponseType = {
   status_code: number
   status: string
@@ -209,6 +192,7 @@ export type AppContextType = {
 
 export enum ChargingFinishedPopupEnum {
   LVL2FullCharge,
+  UsedUpFastProps,
   FinishedCharging,
 }
 export interface BaseInputProps extends TextInputProps {
