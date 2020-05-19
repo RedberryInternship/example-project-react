@@ -29,7 +29,6 @@ const ConvertToChargerFilterParam = (
   filterInput = '',
 ): object => {
   const param: ChargerFilters = {}
-
   if (filterChargerTypes[0] && !filterChargerTypes[1]) param.free = true
   if (filterChargerTypes[1] && !filterChargerTypes[0]) param.free = false
 
@@ -39,6 +38,10 @@ const ConvertToChargerFilterParam = (
   if (filterChargerTypes[4] && !filterChargerTypes[5]) param.public = true
   if (filterChargerTypes[5] && !filterChargerTypes[4]) param.public = false
   if (filterInput !== '') param.text = filterInput
+
+  console.log('====================================')
+  console.log(filterChargerTypes, param, 'filterChargerTypes')
+  console.log('====================================')
   return param
 }
 

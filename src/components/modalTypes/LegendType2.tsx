@@ -3,8 +3,6 @@ import React, {ReactElement} from 'react'
 import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {ChargerMarkerColor} from '../../../@types/allTypes.d'
-
 import {Colors} from 'utils'
 import {LegendItem, LegendColorItem} from 'components'
 import images from 'assets/images'
@@ -16,15 +14,15 @@ const legendTypes = [
     fastCharger: true,
   },
   {
+    text: 'popup.lvl2NonCommercial',
+    privateCharger: true,
+  },
+  {
     text: 'popup.fastCommercial',
     fastCharger: true,
   },
   {
-    text: 'popup.lvl2NonCommercial',
-  },
-  {
     text: 'popup.lvl2Commercial',
-    privateCharger: true,
   },
 ]
 const legendColorTypes = [

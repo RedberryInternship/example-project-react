@@ -39,7 +39,6 @@ const ChargerStack = createStackNavigator(
     ChargerDetail,
     ChooseChargeMethod,
     ChoosingCard,
-    NotAuthorized,
   },
   {
     defaultNavigationOptions: {
@@ -55,6 +54,7 @@ const HomeTabNavigation = createBottomTabNavigator(
     ChargerStack,
     Favorites,
     Charging,
+    NotAuthorized,
   },
   {
     tabBarComponent: FooterTabNavigation,

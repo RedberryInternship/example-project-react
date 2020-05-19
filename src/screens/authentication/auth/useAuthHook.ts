@@ -12,6 +12,10 @@ import {
 import {rootAction} from 'hooks/actions/rootActions'
 import {Navigation} from 'allTypes'
 import services from 'services'
+import {
+  StackActions,
+  NavigationActions as NavigationActionss,
+} from 'react-navigation'
 
 type User = {
   id: number
@@ -80,10 +84,6 @@ export default (navigation: Navigation, dispatch: any) => {
           user: user,
         },
         dispatch,
-      )
-      NavigationActions.reset(
-        'ChargerStack',
-        Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
       )
       navigation.navigate('Home')
     } catch (error) {

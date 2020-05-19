@@ -19,7 +19,7 @@ const CurrentTariffs = ({connector}: CurrentTariffsProps): ReactElement => {
           {t('chargerDetail.currentPrices')}
         </Text>
         <Text style={styles.currentPrice2Text}>
-          {t('chargerDetail.currentPrices')}
+          {t('chargerDetail.minutesPrice')}
         </Text>
       </View>
       {connector?.charging_prices?.map((val, ind: number) => (

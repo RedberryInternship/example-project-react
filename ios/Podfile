@@ -100,8 +100,6 @@ target 'Espace' do
     inherit! :complete
     # Pods for testing
   end
-  pod 'Firebase/Messaging', '~> 6.13.0'
-  pod 'Firebase/Core', '~> 6.13.0'
   
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path

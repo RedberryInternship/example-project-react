@@ -76,7 +76,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     this.setState({
       ...initialState,
       visible,
-      config,
+      config: config ?? initialState.config,
     })
   }
 

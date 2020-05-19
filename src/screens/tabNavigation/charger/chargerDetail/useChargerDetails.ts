@@ -163,10 +163,7 @@ export default (
   }
   const headerLeftPress = (): void => {
     if (charger?.from === 'home') {
-      NavigationActions.reset(
-        'ChargerStack',
-        Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
-      )
+      NavigationActions.reset('ChargerStack', 'ChargerWithCode')
       navigation.navigate('Home')
     } else if (Defaults.token !== '') {
       navigation.goBack()

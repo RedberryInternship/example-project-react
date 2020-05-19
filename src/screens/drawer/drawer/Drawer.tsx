@@ -109,13 +109,12 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               }}
               text={'drawer.termsAndConditions'}
               image={images.greenTick}
-              badge={3}
             />
           )}
           <View style={styles.localeAndLogoutWrapper}>
             <BaseLocaleButton
               onPress={toggleLanguage}
-              text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
+              text={i18n.language === 'ka' ? 'Eng' : 'Ge'}
               style={styles.localeButton}
             />
             {Helpers.isAuthenticated() && (

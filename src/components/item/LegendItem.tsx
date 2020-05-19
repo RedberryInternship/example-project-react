@@ -19,7 +19,7 @@ const LegendItem = ({text, ...props}: LegendItemProps): ReactElement => {
       <RootPin
         pinColorType={ChargerMarkerColor.group}
         width={30}
-        height={35}
+        height={38}
         {...props}
       />
     </View>
