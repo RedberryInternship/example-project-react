@@ -14,6 +14,7 @@ import {HomeMainSearchInput} from 'components'
 import {useHomeMainSearch} from '../hooks'
 import {Const, Colors, getLocaleText} from 'utils'
 import {MainSearchItem} from '../components'
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 
 type MainInput = {
   allChargers: Charger[]
@@ -87,56 +88,72 @@ const HomeMainSearchView = forwardRef(
 
     return useMemo(
       () => (
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={closeClick}
-          style={styles.container}
-        >
-          <>
-            <Animated.View style={[styles.inputStyleContainer, animate()]}>
-              <HomeMainSearchInput
-                showSearchContent={showSearchContent}
-                placeholder={`${t('home.location')}/${t('home.organization')}`}
-                textHandler={textHandler}
-                InputSubmit={InputSubmit}
-                closeClick={closeClick}
-                ref={InputRef}
-              />
-            </Animated.View>
-            <Animated.View
-              style={[
-                styles.searchContent,
-                {height: _this.current.animatedSearchContentHeight},
-              ]}
-            >
-              <View
-                style={{
-                  display: showSearchContent ? 'flex' : 'none',
-                  flex: 1,
-                  marginBottom: 16,
-                }}
-              >
-                <KeyboardAwareFlatList
-                  style={{flex: 1}}
-                  contentContainerStyle={{}}
-                  keyboardShouldPersistTaps={'handled'}
-                  enableOnAndroid={true}
-                  enableAutomaticScroll={true}
-                  extraScrollHeight={0}
-                  showsVerticalScrollIndicator={false}
-                  enableResetScrollToCoords={true}
-                  resetScrollToCoords={{x: 0, y: 0}}
-                  viewIsInsideTabBar={true}
-                  data={filteredChargers}
-                  renderItem={searchedItems}
-                  keyExtractor={(item: Charger) => item.id + ''}
-                  initialNumToRender={6}
-                  extraData={filteredChargers}
+        <>
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={closeClick}
+            style={styles.container}
+          >
+            <>
+              <Animated.View style={[styles.inputStyleContainer, animate()]}>
+                <HomeMainSearchInput
+                  showSearchContent={showSearchContent}
+                  placeholder={`${t('home.location')}/${t(
+                    'home.organization',
+                  )}`}
+                  textHandler={textHandler}
+                  InputSubmit={InputSubmit}
+                  closeClick={closeClick}
+                  ref={InputRef}
                 />
-              </View>
-            </Animated.View>
-          </>
-        </TouchableOpacity>
+              </Animated.View>
+              <Animated.View
+                style={[
+                  styles.searchContent,
+                  {height: _this.current.animatedSearchContentHeight},
+                ]}
+              >
+                <View
+                  style={{
+                    display: showSearchContent ? 'flex' : 'none',
+                    flex: 1,
+                    marginBottom: 16,
+                  }}
+                >
+                  <KeyboardAwareFlatList
+                    style={{flex: 1}}
+                    contentContainerStyle={{}}
+                    keyboardShouldPersistTaps={'handled'}
+                    enableOnAndroid={true}
+                    enableAutomaticScroll={true}
+                    extraScrollHeight={0}
+                    showsVerticalScrollIndicator={false}
+                    enableResetScrollToCoords={true}
+                    resetScrollToCoords={{x: 0, y: 0}}
+                    viewIsInsideTabBar={true}
+                    data={filteredChargers}
+                    renderItem={searchedItems}
+                    keyExtractor={(item: Charger) => item.id + ''}
+                    initialNumToRender={6}
+                    extraData={filteredChargers}
+                  />
+                </View>
+              </Animated.View>
+            </>
+          </TouchableOpacity>
+          <TouchableWithoutFeedback
+            style={{
+              width: Const.Width,
+              height: Const.Height,
+              backgroundColor: 'red',
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              zIndex: 10000,
+              elevation: 100,
+            }}
+          />
+        </>
       ),
       [
         allChargers,

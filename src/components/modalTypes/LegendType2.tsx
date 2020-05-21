@@ -6,6 +6,7 @@ import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 import {LegendItem, LegendColorItem} from 'components'
 import images from 'assets/images'
+import BaseText from 'components/baseUI/BaseText'
 
 const legendTypes = [
   {
@@ -26,9 +27,9 @@ const legendTypes = [
   },
 ]
 const legendColorTypes = [
-  {text: 'popup.busy', color: '#FF9500'},
+  {text: 'popup.busy', color: '#FFDA00'},
   {text: 'popup.notWorking', color: '#FF3B3B'},
-  {text: 'popup.free', color: '#3FD560'},
+  {text: 'popup.free', color: '#33D74B'},
 ]
 type LegendType2Props = {
   onPress: () => void
@@ -38,7 +39,7 @@ const LegendType2 = ({onPress}: LegendType2Props): ReactElement => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.legendText}>{t('popup.legend')}</Text>
+        <BaseText style={styles.legendText}>{t('popup.legend')}</BaseText>
         {legendTypes &&
           legendTypes.map((val, ind) => <LegendItem key={ind} {...val} />)}
         <View style={styles.gapView}>

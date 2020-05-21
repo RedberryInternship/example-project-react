@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next'
 
 import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
-import {BaseButton} from 'components'
+import {BaseButton, BaseText} from 'components'
 
 import {Const, Colors, Helpers, Defaults} from 'utils'
 import {AppContext} from '../../../../App'
@@ -123,7 +123,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                   context.dispatch(logOut())
                 }}
               >
-                <Text style={styles.logOut}>{t('drawer.logOut')}</Text>
+                <BaseText style={styles.logOut}>{t('drawer.logOut')}</BaseText>
               </TouchableOpacity>
             )}
           </View>

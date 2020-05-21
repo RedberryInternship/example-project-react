@@ -4,6 +4,7 @@ import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
 
 import {Colors, Defaults} from 'utils'
 import images from 'assets/images'
+import BaseText from 'components/baseUI/BaseText'
 
 type RegistrationType1Props = {
   onPress: () => void
@@ -14,15 +15,15 @@ const RegistrationType1 = ({onPress}: RegistrationType1Props): ReactElement => {
     <>
       <View style={styles.container}>
         <Image source={images.user} style={styles.useIcon} />
-        <Text style={styles.titleText}>მოგესალმებით</Text>
-        <Text style={styles.nameSurnameText}>
+        <BaseText style={styles.titleText}>მოგესალმებით</BaseText>
+        <BaseText style={styles.nameSurnameText}>
           {Defaults.userDetail?.first_name} {Defaults.userDetail?.last_name}
-        </Text>
+        </BaseText>
       </View>
       <View style={styles.descriptionContainer}>
-        <Text style={styles.descriptionText}>
+        <BaseText style={styles.descriptionText}>
           თქვენ წარმატებკით დარეგისტრირდით, შეგიძლიათ დატენოთ მანაქანა
-        </Text>
+        </BaseText>
       </View>
       <View style={styles.closeContainer}>
         <TouchableOpacity style={styles.closeTouchable} onPress={onPress}>

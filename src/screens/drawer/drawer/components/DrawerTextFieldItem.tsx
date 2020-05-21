@@ -14,6 +14,7 @@ import {
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
+import {BaseText} from 'components'
 
 // declare text field type
 type DrawerTextFieldItemProps = {
@@ -43,12 +44,12 @@ const DrawerTextFieldItem = ({
     >
       <View style={styles.drawerImageContainer}>
         <Image style={[styles.image, imageStyle]} source={image} />
-        <Text style={styles.textField}>{t(text)}</Text>
+        <BaseText style={styles.textField}>{t(text)}</BaseText>
       </View>
       {badge !== undefined && badge > 0 && (
         <View style={styles.textFieldBadge}>
           <View style={styles.badgeConatainer}>
-            <Text style={styles.badgeCounter}>{badge}</Text>
+            <BaseText style={styles.badgeCounter}>{badge}</BaseText>
           </View>
         </View>
       )}

@@ -166,7 +166,7 @@ export default {
     chooseCard: {
       chooseCard: 'ბარათის არჩევა',
       enterPrice: 'გთხოვთ მიუთითეთ თანხის ოდენობა',
-      chargingUntilPlugOff: 'დატენვა გამოერტებამდე',
+      chargingUntilPlugOff: 'დატენვა გამოერთებამდე',
     },
     favourites: {
       favourites: 'ფავორიტები',
@@ -232,7 +232,7 @@ export default {
       },
       editFirstname: {
         firstNameNotEmpty: 'გთხოვთ, შეავსეთ სახელის ველი',
-        minSize: 'სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
+        minSize: ' ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
         firstNameChangeSuccess: 'სახელი წარმატებით შეიცვალა!',
       },
       editLastname: {

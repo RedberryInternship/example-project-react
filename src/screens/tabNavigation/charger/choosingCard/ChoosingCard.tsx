@@ -24,6 +24,7 @@ import {
   BaseButton,
   TitleTopLeftContainer,
   BaseInput,
+  BaseText,
 } from 'components'
 import images from 'assets/images'
 import {Const, Colors} from 'utils'
@@ -86,7 +87,7 @@ const ChoosingCard = ({
                   source={images.checkCircle}
                   style={styles.contentsViewImage}
                 />
-                <Text>{t('chooseCard.chargingUntilPlugOff')}</Text>
+                <BaseText>{t('chooseCard.chargingUntilPlugOff')}</BaseText>
               </View>
             ) : (
               <View style={styles.pricingView}>

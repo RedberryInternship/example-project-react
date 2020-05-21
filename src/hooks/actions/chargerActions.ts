@@ -71,8 +71,8 @@ export const finishCharging = async (
 
     Helpers.configureChargingFinishPopup(result, dispatch)
   } catch (error) {
-    if (error.message)
-      Helpers.DisplayDropdownWithError('', getLocaleText(error.message))
+    if (error.data?.message)
+      Helpers.DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
     else Helpers.DisplayDropdownWithError()
     dispatch(finishChargingAction(error, false))
   }

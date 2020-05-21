@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native'
 import {Colors} from 'utils'
 import images from 'assets/images'
 import MarkerController from 'components/svg'
+import BaseText from 'components/baseUI/BaseText'
 
 type ChargerGroupPupupItemProp = {
   code: string | number | null
@@ -27,10 +28,10 @@ const ChargerGroupPopupItem = ({
       <View style={styles.container}>
         <MarkerController active={active} width={26} height={32} {...props} />
         <View style={styles.chargerTypeContainer}>
-          <Text style={styles.chargerTypeText} numberOfLines={2}>
+          <BaseText style={styles.chargerTypeText} numberOfLines={2}>
             {text}
-          </Text>
-          <Text style={styles.chargerCodeText}>#{code}</Text>
+          </BaseText>
+          <BaseText style={styles.chargerCodeText}>#{code}</BaseText>
         </View>
         <Image
           style={[styles.goToDetailIcon, {opacity: active ? 1 : 0.2}]}

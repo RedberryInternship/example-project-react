@@ -21,8 +21,6 @@ export const locationIfNoGPS = {
   lng: 44.801419,
 }
 
-export const NotchHeight = Platform.OS === 'ios' ? ifIphoneX(36, 16) : 16
-
 export const DrawerFieldsBeforeAuthorization = [
   {
     image: images.bookOpen,

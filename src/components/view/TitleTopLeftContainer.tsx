@@ -19,7 +19,9 @@ const TitleTopLeftContainer = ({
   const {t} = useTranslation()
   return (
     <View>
-      {title !== '' && <Text style={styles.text}>{t(title ?? '')}</Text>}
+      {title !== '' && (
+        <BaseText style={styles.text}>{t(title ?? '')}</BaseText>
+      )}
 
       {data !== null ? (
         data && data.length > 0 ? (

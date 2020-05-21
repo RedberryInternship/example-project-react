@@ -19,6 +19,7 @@ import {Charger, ChargerDetail} from 'allTypes'
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
 import {BottomSheetFilterItem, MainSearchItem} from '../components'
+import {BaseText} from 'components'
 
 type _This = {
   text: string
@@ -78,9 +79,9 @@ const BottomSheetReanimated = forwardRef(
       (): ReactElement => (
         <View style={styles.headerComponent}>
           <View style={styles.headerComponentWrapper} />
-          <Text style={styles.headerComponentText}>
+          <BaseText style={styles.headerComponentText}>
             {t('home.allChargers').toUpperCase()}
-          </Text>
+          </BaseText>
           <View style={styles.textInputContainer}>
             <Image source={images.iconSearch} style={styles.searchIcon} />
             <TextInput

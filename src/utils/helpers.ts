@@ -139,7 +139,7 @@ const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
         text: i18next.t('navigateToSettings'),
         onPress: () => {
           cb?.(true)
-          Linking.openURL('app-settings:')
+          Linking.openURL('app-settings:path=LOCATION')
         },
       },
       {

@@ -29,9 +29,9 @@ const UsedUpFast = ({
           }}
           style={styles.subtype2Touchable}
         >
-          <Text style={{color: Colors.primaryGreen}}>
+          <BaseText style={{color: Colors.primaryGreen}}>
             {t('charger.allChargerList')}
-          </Text>
+          </BaseText>
         </TouchableOpacity>
       </View>
     </>

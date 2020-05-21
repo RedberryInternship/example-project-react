@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {StyleSheet, Text, Platform, TouchableOpacity, View} from 'react-native'
 
 import {Colors} from 'utils'
-import {BaseNativeTouchable} from 'components'
+import {BaseNativeTouchable, BaseText} from 'components'
 
 type BottomSheetFilterItemProps = {
   text: string
@@ -22,11 +22,11 @@ const BottomSheetFilterItem = ({
         {backgroundColor: active ? '#008AEE' : 'white'},
       ]}
     >
-      <Text
+      <BaseText
         style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}
       >
         {text}
-      </Text>
+      </BaseText>
     </View>
   )
   return (

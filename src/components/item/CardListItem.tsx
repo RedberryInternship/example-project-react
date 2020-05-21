@@ -33,7 +33,8 @@ const CardListItem = ({
           <BaseText
             style={{
               color: selected ? Colors.primaryWhite : Colors.primaryGray,
-            }}>
+            }}
+          >
             {code.slice(12, 16)}
           </BaseText>
         </View>

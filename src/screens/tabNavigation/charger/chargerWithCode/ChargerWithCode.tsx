@@ -10,6 +10,7 @@ import {
   BaseButton,
   TitleTopLeftContainer,
   FetchedDataRenderer,
+  BaseText,
 } from 'components'
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
@@ -54,9 +55,9 @@ const ChargerWithCode = ({
           onPress={allChargerHandler}
           style={styles.allChargersWrapper}
         >
-          <Text style={styles.allChargersText}>
+          <BaseText style={styles.allChargersText}>
             {t('charger.allChargerList')}
-          </Text>
+          </BaseText>
         </TouchableOpacity>
         <View style={{height: 32}} />
         <TitleTopLeftContainer

@@ -9,6 +9,7 @@ import {StyleSheet, Text, View} from 'react-native'
 import moment from 'moment'
 
 import {Colors} from 'utils'
+import BaseText from 'components/baseUI/BaseText'
 
 enum Status {
   'finished',
@@ -57,7 +58,7 @@ const CountDown = ({
       return
     }
 
-    console.log(moment().valueOf(), momentDiff, startTime, 'diff.seconds')
+    // console.log(moment().valueOf(), momentDiff, startTime, 'diff.seconds')
 
     const hour = momentDiff.hours() ? pad(momentDiff.hours()) + ':' : ''
     const countdownString = `${hour}${pad(momentDiff.minutes())}:${pad(
@@ -86,7 +87,7 @@ const CountDown = ({
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, textStyle]}>{time}</Text>
+      <BaseText style={[styles.text, textStyle]}>{time}</BaseText>
     </View>
   )
 }

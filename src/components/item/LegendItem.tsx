@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next'
 import {ChargerMarkerColor} from '../../../@types/allTypes.d'
 import RootPin from 'components/svg/chargerMarker/RootPin'
 import {Colors} from 'utils'
+import BaseText from 'components/baseUI/BaseText'
 type LegendItemProps = {
   text: string
   privateCharger?: boolean
@@ -15,7 +16,7 @@ const LegendItem = ({text, ...props}: LegendItemProps): ReactElement => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{t(text)}</Text>
+      <BaseText style={styles.text}>{t(text)}</BaseText>
       <RootPin
         pinColorType={ChargerMarkerColor.group}
         width={30}

@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react'
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
 
-import {BaseButton} from 'components'
+import {BaseButton, BaseText} from 'components'
 import {Colors} from 'utils'
 import images from 'assets/images'
 
@@ -29,10 +29,10 @@ const FavoriteChargerListItem = ({
             />
           </View>
         </TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
+        <BaseText style={styles.title}>{title}</BaseText>
         <View style={styles.addressContainer}>
           <Image style={styles.addressImage} source={images.mapPin} />
-          <Text style={styles.addressTitle}>{address}</Text>
+          <BaseText style={styles.addressTitle}>{address}</BaseText>
         </View>
       </View>
       <View style={styles.customizedBaseButtonContainer}>

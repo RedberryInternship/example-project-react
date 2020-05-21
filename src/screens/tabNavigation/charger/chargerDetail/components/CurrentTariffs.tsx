@@ -5,6 +5,7 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
 import {ChargerConnectorType} from 'allTypes'
+import {BaseText} from 'components'
 
 type CurrentTariffsProps = {
   connector?: ChargerConnectorType
@@ -15,12 +16,12 @@ const CurrentTariffs = ({connector}: CurrentTariffsProps): ReactElement => {
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
-        <Text style={styles.currentPriceText}>
+        <BaseText style={styles.currentPriceText}>
           {t('chargerDetail.currentPrices')}
-        </Text>
-        <Text style={styles.currentPrice2Text}>
+        </BaseText>
+        <BaseText style={styles.currentPrice2Text}>
           {t('chargerDetail.minutesPrice')}
-        </Text>
+        </BaseText>
       </View>
       {connector?.charging_prices?.map((val, ind: number) => (
         <Row
@@ -52,9 +53,9 @@ type RowProps = {
 const Row = ({col1, col2, col3}: RowProps): ReactElement => {
   return (
     <View style={styles.rowContainer}>
-      <Text style={styles.rowCol1}>{col1}</Text>
-      <Text style={styles.rowCol2}>{col2}</Text>
-      <Text style={styles.rowCol3}>{col3}</Text>
+      <BaseText style={styles.rowCol1}>{col1}</BaseText>
+      <BaseText style={styles.rowCol2}>{col2}</BaseText>
+      <BaseText style={styles.rowCol3}>{col3}</BaseText>
     </View>
   )
 }

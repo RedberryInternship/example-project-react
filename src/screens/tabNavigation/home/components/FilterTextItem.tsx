@@ -2,6 +2,7 @@ import React, {ReactElement} from 'react'
 import {StyleSheet, Text, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'
+import {BaseText} from 'components'
 
 type FilterTextItemProps = {
   text: string
@@ -19,11 +20,13 @@ const FilterTextItem = ({
         styles.container,
         {backgroundColor: active ? '#008AEE' : 'white'},
       ]}
-      onPress={onPress}>
-      <Text
-        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}>
+      onPress={onPress}
+    >
+      <BaseText
+        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}
+      >
         {text}
-      </Text>
+      </BaseText>
     </TouchableOpacity>
   )
 }

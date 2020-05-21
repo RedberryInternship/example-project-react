@@ -3,7 +3,7 @@ import React, {ReactElement, useMemo} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 
 import {Const, Colors} from 'utils'
-import {Pulse, CountDown, BaseButton} from 'components'
+import {Pulse, CountDown, BaseButton, BaseText} from 'components'
 import images from 'assets/images'
 import {
   NavigationScreenProp,
@@ -62,10 +62,12 @@ const ChargingView = ({
         </View>
       </View>
       <View style={styles.pricingView}>
-        <Text style={styles.currentlyChargedPrice}>{consumed_money} / </Text>
-        <Text style={styles.finalPrice}>
+        <BaseText style={styles.currentlyChargedPrice}>
+          {consumed_money} /{' '}
+        </BaseText>
+        <BaseText style={styles.finalPrice}>
           {already_paid} {t('gel')}
-        </Text>
+        </BaseText>
       </View>
       <View style={styles.chargeAnotherCarContainer}>
         {singleCharger && (
@@ -73,9 +75,9 @@ const ChargingView = ({
             onPress={navigation.navigate.bind(ChargingView, 'Home')}
             style={styles.chargeAnotherCarTouchable}
           >
-            <Text style={styles.chargeAnotherCarText}>
+            <BaseText style={styles.chargeAnotherCarText}>
               {t('charging.chargeAnotherCar')}
-            </Text>
+            </BaseText>
           </TouchableOpacity>
         )}
 

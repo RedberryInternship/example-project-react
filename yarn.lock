@@ -1257,6 +1257,14 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
+"@types/react-native-autocomplete-input@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-native-autocomplete-input/-/react-native-autocomplete-input-4.0.1.tgz#6a1556ab6658b5b52fe197da2b964f60363d2e99"
+  integrity sha512-um2iICwQezPIT9oTZYrK44tjuHcqDZGrY2dKuLEEYPmN+o8v/xoWV6XJTiJbAxXbIYjNO7zkrpfDmaDno09KVw==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native-keyboard-spacer@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@types/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.4.1.tgz#2bc5bf42df1c99ddd99bd5be0f0815df3f28e938"
@@ -1269,6 +1277,13 @@
   version "0.62.8"
   resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.62.8.tgz#224602561f75b838ed6e3b5ea37093bb84cffd74"
   integrity sha512-YEf0tH3xYJpQB12Vvzoy7cqPY3mvbbulTnG3G7ToKOuJuqigAN3K9NNAaxNAAm1zCj+UtObhzcaJtPRwX1z6Fw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-native@^0.62.2":
+  version "0.62.10"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.62.10.tgz#82c481df21db4e7460755dc3fc7091e333a1d2bd"
+  integrity sha512-QR4PGrzZ3IvRIHlScyIPuv2GV8tD/BMICZz514KGvn3KHbh0mLphHHemtHZC1o8u4xM5LxwVpMpMYHQ+ncSfag==
   dependencies:
     "@types/react" "*"
 
@@ -5937,6 +5952,10 @@ react-native-animatable@1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
+"react-native-autocomplete-input@https://github.com/beqramo/react-native-autocomplete-input":
+  version "4.2.0-rc.2"
+  resolved "https://github.com/beqramo/react-native-autocomplete-input#2208b695544747f662c105fb844e49221c026bd8"
+
 react-native-backdrop@^1.0.16:
   version "1.0.16"
   resolved "https://registry.yarnpkg.com/react-native-backdrop/-/react-native-backdrop-1.0.16.tgz#043336f7a954e4decee6e6223592306621e321c2"
@@ -6043,6 +6062,14 @@ react-native-picker-select@^7.0.0:
   integrity sha512-SO7b7wHfeM07oVTsLhBlT/VDvMXg2aP0Xy5CA+kL7+oV2Bq6nfKTVjpB2+HLVhFik9i/tlq5ROuGdUrfPhl3rg==
   dependencies:
     lodash.isequal "^4.5.0"
+
+react-native-platform-specific-hook-selector@^1.0.41:
+  version "1.0.41"
+  resolved "https://registry.yarnpkg.com/react-native-platform-specific-hook-selector/-/react-native-platform-specific-hook-selector-1.0.41.tgz#a11fe3c20a5f676ec56a828527c0685e462b2279"
+  integrity sha512-X0KkNY3B56hXhY42v28gIpSf8wGxm1GJSSaou9S/loyW5mYx8iFE2fK9Bsy8VeNgbCvrCcsInFxwG28xJDY2HQ==
+  dependencies:
+    "@types/react-native" "^0.62.2"
+    react-native-dialogs "^1.1.0"
 
 react-native-reanimated@^1.8.0:
   version "1.8.0"

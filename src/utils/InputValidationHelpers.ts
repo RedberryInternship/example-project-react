@@ -46,9 +46,12 @@ const emailValidation = {
     'dropDownAlert.registration.incorrectEmail',
 }
 
+const inputString = {required: true, pattern: /^[a-zA-Z]+$/}
+
 export default {
   phoneNumberValidation,
   codeVerification,
   passwordConfirmValidation,
   emailValidation,
+  inputString,
 }

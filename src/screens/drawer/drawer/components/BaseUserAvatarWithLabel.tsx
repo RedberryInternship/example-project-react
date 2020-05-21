@@ -11,6 +11,7 @@ import {
 import {Colors} from 'utils'
 import images, {Avatars} from 'assets/images'
 import {useSafeArea} from 'react-native-safe-area-context'
+import {BaseText} from 'components'
 
 type AvatarWithLabel = {
   onPress: (event?: GestureResponderEvent) => void | undefined
@@ -49,8 +50,8 @@ const UserAvatarWithLabel = ({
       </View>
 
       <View style={styles.usernameWrapper}>
-        <Text style={styles.username}>{firstName}</Text>
-        <Text style={styles.username}>{lastName}</Text>
+        <BaseText style={styles.username}>{firstName}</BaseText>
+        <BaseText style={styles.username}>{lastName}</BaseText>
       </View>
     </View>
   )

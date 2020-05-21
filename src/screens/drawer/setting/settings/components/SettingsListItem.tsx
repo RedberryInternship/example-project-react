@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
 import images from 'assets/images'
 import {UserSettingEnum} from '../../../../../../@types//allTypes.d'
+import {BaseText} from 'components'
 
 type SettingsListItemProps = {
   onPress: () => void
@@ -38,16 +39,16 @@ const SettingsListItem = ({
       <View style={styles.container}>
         <View style={styles.imageAndName}>
           <Image source={image} style={styles.image} />
-          <Text style={styles.name}>{t(name)}</Text>
+          <BaseText style={styles.name}>{t(name)}</BaseText>
         </View>
 
         <View style={styles.valueAndArrow}>
-          <Text
+          <BaseText
             style={[styles.value, {color: value ? Colors.primaryWhite : color}]}
             numberOfLines={1}
           >
             {value ? t(value.toString()) : t(onEmptyText ?? '')}
-          </Text>
+          </BaseText>
           <Image source={images.chervonRight} style={styles.arrow} />
         </View>
       </View>

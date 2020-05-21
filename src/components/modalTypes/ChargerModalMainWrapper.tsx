@@ -61,9 +61,9 @@ const ChargerModalMainWrapper = ({
       // case ChargingFinishedPopupEnum.FinishedCharging: // TODO
       //   _view[0] = (
       //     <>
-      //       <Text style={styles.bottomContentDescription}>
+      //       <BaseText style={styles.bottomContentDescription}>
       //         {/* {t(bottomDescription)} */}
-      //       </Text>
+      //       </BaseText>
       //       <PopUpCountDown up={false} warningLevel={1} />
       //     </>
       //   )
@@ -92,9 +92,9 @@ const ChargerModalMainWrapper = ({
       //         onPress={(): void => {}}
       //         style={styles.subtype2Touchable}
       //       >
-      //         <Text style={{color: Colors.primaryGreen}}>
+      //         <BaseText style={{color: Colors.primaryGreen}}>
       //           {t('charger.allChargerList')}
-      //         </Text>
+      //         </BaseText>
       //       </TouchableOpacity>
       //     </>
       //   )
@@ -102,9 +102,9 @@ const ChargerModalMainWrapper = ({
       //   break
       default:
         return (
-          <Text style={styles.bottomContentDescriptionType2}>
+          <BaseText style={styles.bottomContentDescriptionType2}>
             {t('bottomDescription')}
-          </Text>
+          </BaseText>
         )
 
         break

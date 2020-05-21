@@ -1,27 +1,42 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useCallback} from 'react'
 import {Text, TextProps, StyleSheet} from 'react-native'
+import i18next from 'i18next'
 
 import {Colors, GNOME} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
-  style: any
+  style?: any
 }
 
-const BaseText = (props: BaseTextPropType): ReactElement => {
-  const setFontFamily = (): string => {
-    if ('fontFamily' in props.style) {
-      return props.style?.fontFamily
-    }
+const BaseText = ({
+  style,
+  children,
+  ...props
+}: BaseTextPropType): ReactElement => {
+  const setFontFamily = useCallback((): Record<string, string> | undefined => {
+    if (style && 'fontFamily' in style) {
+      // return style?.fontFamily
+    } else return {fontFamily: GNOME.HELV_EX}
+  }, [style])
 
-    return GNOME.HELV_EX
-  }
-
-  const fontFamily = setFontFamily()
+  const setFontSize = useCallback((): Record<string, number> | undefined => {
+    if (style && 'fontSize' in style) {
+      return {
+        fontSize:
+          i18next.language == 'ka'
+            ? style?.fontSize
+            : parseInt(style?.fontSize) + 1,
+      }
+    } else return {fontSize: 13}
+  }, [style, i18next.language])
 
   return (
-    <Text {...props} style={[styles.text, fontFamily, props.style]}>
-      {props.children}
+    <Text
+      {...props}
+      style={[styles.text, style, setFontFamily(), setFontSize()]}
+    >
+      {children}
     </Text>
   )
 }

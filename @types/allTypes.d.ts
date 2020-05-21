@@ -388,6 +388,7 @@ export type ProfileFieldChange = {
   errors: any
   control: any
   type: UserSettingEnum
+  validator?: Record<string, any>
 }
 
 export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
@@ -608,4 +609,19 @@ export type SettingsListFieldType = {
   editableComponentName: string
   onEmptyText?: string
   color?: string
+}
+
+export type CarMarkAndModelResponseType = {
+  data: CarMarkAndModelTypes[]
+}
+export type CarMarkAndModelTypes = {
+  id: number
+  name: string
+  models: CarModelTypes[]
+}
+
+export type CarModelTypes = {
+  id: number
+  mark_id: number
+  name: string
 }
