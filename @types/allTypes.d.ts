@@ -45,24 +45,8 @@ export enum ChargingStatus {
   CHARGED = 'CHARGED',
   FINISHED = 'FINISHED',
   ON_FINE = 'ON_FINE',
+  USED_UP = 'USED_UP',
   ON_HOLD = 'ON_HOLD',
-}
-
-export type FinishChargingResponseType = {
-  message: LocaleStringObject
-  order_id: number
-  already_paid: number
-  consumed_money: number
-  refund_money: number
-  charger_type: LVL2
-  start_charging_time: string
-  charging_type: ChargingTypes
-  charging_status: ChargingStatus
-  charger_connector_type_id: number
-  charger_id: number
-  charger_code: string
-  connector_type_id: number
-  user_card_id: number
 }
 
 export type StandardErrorResponseType = {
@@ -116,6 +100,14 @@ export type ChargerDetail = {
   charger_types: ChargerChargerTypes[]
   is_favorite: boolean | null
   is_free: boolean
+  business_services?: BusinessService[]
+}
+
+type BusinessService = {
+  id: number
+  title: LanguageType
+  description: LanguageType
+  image_path: string
 }
 
 type ChargerConnectorType = {
@@ -179,9 +171,13 @@ export type ChargingState = {
   charger_connector_type_id: number
   charger_id: number
   connector_type_id: number
+  charging_type: ChargingTypes
   user_card_id: number
   order_id: number
   start_charging_time: string
+  penalty_start_time: string
+  penalty_fee: number
+  charger_type: ChargerTypes
 }
 
 export type Action = {
@@ -194,6 +190,11 @@ export type AppContextType = {
   dispatch: any
 }
 
+export enum ChargingFinishedPopupEnum {
+  LVL2FullCharge,
+  UsedUpFastProps,
+  FinishedCharging,
+}
 export interface BaseInputProps extends TextInputProps {
   title: string
   errorText?: string | null
@@ -387,6 +388,7 @@ export type ProfileFieldChange = {
   errors: any
   control: any
   type: UserSettingEnum
+  validator?: Record<string, any>
 }
 
 export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
@@ -402,9 +404,9 @@ export type LastUsedCharger = Charger
 
 export type ChargerFilters = {
   text?: string
-  free?: boolean
+  free?: 0 | 1
   type?: 'fast' | 'level2'
-  public?: boolean
+  public?: 0 | 1
 }
 
 export type ChargersObject = {
@@ -607,4 +609,19 @@ export type SettingsListFieldType = {
   editableComponentName: string
   onEmptyText?: string
   color?: string
+}
+
+export type CarMarkAndModelResponseType = {
+  data: CarMarkAndModelTypes[]
+}
+export type CarMarkAndModelTypes = {
+  id: number
+  name: string
+  models: CarModelTypes[]
+}
+
+export type CarModelTypes = {
+  id: number
+  mark_id: number
+  name: string
 }

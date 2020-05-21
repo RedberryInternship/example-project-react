@@ -10,7 +10,7 @@ import NotificationsListItem from './components/NotificationsListItem'
 const Notifications = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const notificationItems = notificationsList.map(el => {
+  const notificationItems = notificationsList.map((el) => {
     return <NotificationsListItem key={el.title} {...el} />
   })
 

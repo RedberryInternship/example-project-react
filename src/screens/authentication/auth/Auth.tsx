@@ -18,7 +18,13 @@ import {ScreenPropsWithNavigation} from 'allTypes'
 import {AppContext} from '../../../../App'
 import images from 'assets/images'
 import {Colors} from 'utils'
-import {BaseHeader, BaseInput, BaseButton, PhoneNumberInput} from 'components'
+import {
+  BaseHeader,
+  BaseInput,
+  BaseButton,
+  PhoneNumberInput,
+  BaseText,
+} from 'components'
 import useAuthHook from './useAuthHook'
 
 const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
@@ -74,9 +80,9 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
           hitSlop={styles.forgotPasswordTextContainer}
         >
-          <Text style={styles.forgotPasswordText}>
+          <BaseText style={styles.forgotPasswordText}>
             {t('authentication.forgotPassword')}
-          </Text>
+          </BaseText>
         </TouchableOpacity>
         <View style={styles.registrationView}>
           <TouchableOpacity
@@ -84,9 +90,9 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             style={styles.registrationTextContainer}
             hitSlop={styles.registrationTextContainerHitSlop}
           >
-            <Text style={styles.registrationText}>
+            <BaseText style={styles.registrationText}>
               {t('authentication.newRegistration')}
-            </Text>
+            </BaseText>
           </TouchableOpacity>
         </View>
       </KeyboardAwareScrollView>
@@ -102,6 +108,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           text={'authentication.authentication'}
           style={styles.baseButton}
           image={images.alertCircle2}
+          imageStyle={{tintColor: 'white'}}
         />
       </KeyboardAvoidingView>
     </View>

@@ -8,6 +8,7 @@ import {
   AppContextType,
   Charger,
   HomeNavigateModes,
+  LanguageType,
 } from '../../../../../@types/allTypes.d'
 import {
   NavigationState,
@@ -16,7 +17,13 @@ import {
   NavigationEventPayload,
   StackActions,
 } from 'react-navigation'
-import {Defaults, locationConfig, Helpers, NavigationActions} from 'utils'
+import {
+  Defaults,
+  locationConfig,
+  Helpers,
+  NavigationActions,
+  getLocaleText,
+} from 'utils'
 import {
   deleteToFavorites,
   addToFavorites,
@@ -27,8 +34,6 @@ import {
   isPermissionDeniedRegex,
   getCoordsAnyway,
 } from 'utils/mapAndLocation/mapFunctions'
-
-const dummyServices = [images.arrowLeft, images.arrowLeft]
 
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -158,16 +163,24 @@ export default (
   }
   const headerLeftPress = (): void => {
     if (charger?.from === 'home') {
-      NavigationActions.reset(
-        'ChargerStack',
-        Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
-      )
+      NavigationActions.reset('ChargerStack', 'ChargerWithCode')
       navigation.navigate('Home')
     } else if (Defaults.token !== '') {
       navigation.goBack()
     } else {
       navigation.navigate('NotAuthorized')
     }
+  }
+
+  const onBusinessServiceClick = (
+    title: LanguageType,
+    description: LanguageType,
+  ) => {
+    Defaults.dropdown.alertWithType(
+      'info',
+      t(getLocaleText(title)),
+      t(getLocaleText(description)),
+    )
   }
   return {
     loading,
@@ -180,10 +193,10 @@ export default (
     chargeWitchCode,
     activeChargerType,
     setActiveChargerType,
-    dummyServices,
     mainButtonClickHandler,
     charger,
     distance,
     headerLeftPress,
+    onBusinessServiceClick,
   }
 }

@@ -7,6 +7,7 @@ import {Colors, getLocaleText} from '../../utils'
 import {ChargerGroupPopupItem} from 'components'
 import {ChargerDetail} from 'allTypes'
 import images from 'assets/images'
+import BaseText from 'components/baseUI/BaseText'
 
 type MapPopUpProps = {
   data: Data
@@ -30,10 +31,10 @@ const MapPopUp = ({
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t(title)}</Text>
+      <BaseText style={styles.title}>{t(title)}</BaseText>
       <View style={styles.addressContainer}>
         <Image source={images.mapPin} style={styles.mapPinIcon} />
-        <Text style={styles.addressText}>{t(address)}</Text>
+        <BaseText style={styles.addressText}>{t(address)}</BaseText>
       </View>
       <View style={styles.groupChargerContainer}>
         {chargers?.map(

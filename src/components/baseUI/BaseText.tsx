@@ -1,27 +1,53 @@
-import React, {ReactElement} from 'react'
-import {Text, TextProps, StyleSheet} from 'react-native'
+import React, {ReactElement, useCallback} from 'react'
+import {Text, TextProps, StyleSheet, Alert, StyleProp} from 'react-native'
+import i18next from 'i18next'
 
-import {Colors} from 'utils'
+import {Colors, GNOME} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
-  style: any
+  // style?: StyleProp<Text>
 }
 
-const BaseText = (props: BaseTextPropType): ReactElement => {
-  const setFontFamily = (): string => {
-    if ('fontFamily' in props.style) {
-      return props.style?.fontFamily
+const BaseText = ({
+  style,
+  children,
+  ...props
+}: BaseTextPropType): ReactElement => {
+  const setStyle = useCallback(():
+    | Record<string, string | number>
+    | undefined => {
+    style = StyleSheet.flatten(style)
+
+    let fontSize = style?.fontSize ?? 13,
+      lineHeight = style?.lineHeight ?? style?.fontSize ?? 13,
+      fontFamily = GNOME.HELV_NORM
+    const lang: 'ka' | 'ru' | 'en' = i18next.language
+    lineHeight += 3
+
+    if (style && 'fontFamily' in style) {
+      fontFamily = style.fontFamily as string
+
+      if (lang === 'en') {
+        // fontSize = style?.fontSize ?? 13 + 1
+        // lineHeight = style?.fontSize ?? 13 - 1
+        fontFamily =
+          style.fontFamily == GNOME.HELV_HVEX ? GNOME.HELV_MED : GNOME.HELV_NORM
+      }
+      //  else if (lang === 'ru') {
+      // }
     }
 
-    return 'HelveticaNeueLTStd-Ex'
-  }
-
-  const fontFamily = setFontFamily()
+    return {
+      fontFamily,
+      fontSize,
+      lineHeight,
+    }
+  }, [style, i18next.language])
 
   return (
-    <Text {...props} style={[styles.text, fontFamily, props.style]}>
-      {props.children}
+    <Text {...props} style={[styles.text, style, setStyle()]}>
+      {children}
     </Text>
   )
 }

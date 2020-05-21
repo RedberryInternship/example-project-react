@@ -7,6 +7,7 @@ import {Colors} from 'utils'
 import {ChargerGroupPopupItem} from 'components'
 import {Charger} from 'allTypes'
 import images from 'assets/images'
+import BaseText from 'components/baseUI/BaseText'
 
 type LocationPermissionProps = {
   onPress?: (index: number) => void
@@ -21,7 +22,7 @@ const LocationPermission = ({data}: LocationPermissionProps): ReactElement => {
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t('needLocation')}</Text>
+      <BaseText style={styles.title}>{t('needLocation')}</BaseText>
     </View>
   )
 }

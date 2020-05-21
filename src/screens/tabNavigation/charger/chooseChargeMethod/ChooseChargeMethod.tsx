@@ -7,7 +7,7 @@ import {
   ChargingTypes,
 } from '../../../../../@types/allTypes.d'
 
-import {BaseHeader, BaseButton} from 'components'
+import {BaseHeader, BaseButton, BaseText} from 'components'
 import {Const, Colors} from 'utils'
 
 const ChargerDetail = ({
@@ -21,9 +21,9 @@ const ChargerDetail = ({
         title={'chooseChargeMethod.choose'}
       />
       <View style={styles.innerContainer}>
-        <Text style={styles.topInfoText}>
+        <BaseText style={styles.topInfoText}>
           {t('chooseChargeMethod.chooseChargeMethod')}
-        </Text>
+        </BaseText>
 
         <View>
           <BaseButton
@@ -37,7 +37,9 @@ const ChargerDetail = ({
             text={'chooseChargeMethod.untilTurnOff'}
             style={styles.untilTurnOffBtn}
           />
-          <Text style={styles.orText}>{t('chooseChargeMethod.or')}</Text>
+          <BaseText style={styles.orText}>
+            {t('chooseChargeMethod.or')}
+          </BaseText>
           <BaseButton
             onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
               type: ChargingTypes.byAmount,

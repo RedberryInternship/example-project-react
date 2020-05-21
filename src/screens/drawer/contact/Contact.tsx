@@ -15,7 +15,7 @@ import {useSafeArea} from 'react-native-safe-area-context'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {BaseHeader, BaseButton} from 'components'
+import {BaseHeader, BaseButton, BaseText} from 'components'
 import {Colors, Const} from 'utils'
 import images from 'assets/images'
 import ContactListItem from './components/ContactListItem'
@@ -68,7 +68,9 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         <View>
           <View style={styles.contactItemsContainer}>{listItems}</View>
           <View style={styles.messageContainer}>
-            <Text style={styles.messageTitle}>{t('contact.message')}</Text>
+            <BaseText style={styles.messageTitle}>
+              {t('contact.message')}
+            </BaseText>
             <Image source={images.mail} style={styles.messageIcon} />
             <TextInput
               multiline

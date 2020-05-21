@@ -15,8 +15,9 @@ import {
 import {useTranslation} from 'react-i18next'
 import LinearGradient from 'react-native-linear-gradient'
 
-import {BaseNativeTouchable} from 'components'
-import {Const, Colors} from 'utils'
+import {BaseNativeTouchable, BaseText} from 'components'
+import {Const, Colors, GNOME} from 'utils'
+import {useSafeArea} from 'react-native-safe-area-context'
 
 type Button = {
   onPress: () => void
@@ -40,7 +41,7 @@ const BaseButton = ({
   loading,
 }: Button): ReactElement => {
   const {t} = useTranslation()
-
+  const insets = useSafeArea()
   const btnImage = image && (
     <Image
       source={image}
@@ -75,7 +76,9 @@ const BaseButton = ({
           ) : (
             <>
               {isImageRight ? btnImage : null}
-              <Text style={[styles.textStyle, textStyle]}>{t(text)}</Text>
+              <BaseText style={[styles.textStyle, textStyle]}>
+                {t(text)}
+              </BaseText>
               {!isImageRight ? btnImage : null}
             </>
           )}
@@ -96,7 +99,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     elevation: 1,
     marginHorizontal: 24,
-    marginTop: Const.NotchHeight + 16,
   },
   touchableStyle: {
     justifyContent: 'center',
@@ -110,9 +112,12 @@ const styles = StyleSheet.create({
     color: Colors.primaryWhite,
     fontSize: 15,
     lineHeight: 24,
+    textAlignVertical: 'bottom',
     fontWeight: 'bold',
+    fontFamily: GNOME.HELV_HVEX,
     marginHorizontal: 4,
     textAlign: 'center',
     alignSelf: 'center',
+    textTransform: 'uppercase',
   },
 })

@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 // components
-import {BaseHeader} from 'components'
+import {BaseHeader, BaseText} from 'components'
 
 // utils
 import {Colors, getLocaleText} from 'utils'
@@ -25,8 +25,8 @@ type ShowTransactionsProps = {
 const DetailsItem = ({name, value}: DetailsItemType): ReactElement => {
   return (
     <View style={styles.detailsItem}>
-      <Text style={styles.detailsItemName}>{name}: </Text>
-      <Text style={styles.detailsItemValue}>{value}</Text>
+      <BaseText style={styles.detailsItemName}>{name}: </BaseText>
+      <BaseText style={styles.detailsItemValue}>{value}</BaseText>
     </View>
   )
 }
@@ -53,11 +53,15 @@ const ShowTransactions = ({
             source={images.transaction}
             style={styles.transactionIcon}
           />
-          <Text style={styles.title}>{getLocaleText(order.charger.name)}</Text>
-          <Text style={styles.dateAndTime}> {order.confirm_date}</Text>
-          <Text style={styles.price}>{order.price}</Text>
+          <BaseText style={styles.title}>
+            {getLocaleText(order.charger.name)}
+          </BaseText>
+          <BaseText style={styles.dateAndTime}> {order.confirm_date}</BaseText>
+          <BaseText style={styles.price}>{order.price}</BaseText>
         </View>
-        <Text style={styles.detailsCopy}>{t('transactions.details')}</Text>
+        <BaseText style={styles.detailsCopy}>
+          {t('transactions.details')}
+        </BaseText>
         <View style={styles.detailsContainer}>
           {order.charge_time && (
             <DetailsItem
@@ -77,12 +81,12 @@ const ShowTransactions = ({
           />
         </View>
         <View style={styles.cardDetailsContainer}>
-          <Text style={styles.cardNumberCopy}>
+          <BaseText style={styles.cardNumberCopy}>
             {t('transactions.cardNumber')}
-          </Text>
-          <Text style={styles.cardNumber}>
+          </BaseText>
+          <BaseText style={styles.cardNumber}>
             {order.payments[0]?.user_card?.masked_pan}
-          </Text>
+          </BaseText>
         </View>
       </View>
       <SafeAreaView />

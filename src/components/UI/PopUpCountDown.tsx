@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 
 import {CountDown} from 'components'
 
-const PopUpCountDown = ({warningLevel, up}: any): ReactElement => {
+const PopUpCountDown = ({warningLevel, ...props}: any): ReactElement => {
   return (
     <View
       style={[
@@ -17,7 +17,7 @@ const PopUpCountDown = ({warningLevel, up}: any): ReactElement => {
           warningLevel === 1 ? styles.warningLevel1ForInnerContainer : {},
         ]}
       >
-        <CountDown duration={120000} up={up} alarm={true} popup={true} />
+        <CountDown {...props} popup={true} />
       </View>
     </View>
   )
@@ -28,20 +28,20 @@ export default PopUpCountDown
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 0,
-    width: 78,
-    height: 78,
-    borderRadius: 39,
+    width: 88,
+    height: 88,
+    borderRadius: 44,
     borderWidth: 1,
     borderColor: '#FF000F54',
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
-    marginVertical: 24,
+    marginVertical: 16,
   },
   innerContainer: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
+    width: 82,
+    height: 82,
+    borderRadius: 41,
     borderWidth: 3,
     backgroundColor: 'rgba(255, 0, 15, 0.15)',
     borderColor: '#FF000F',

@@ -21,6 +21,7 @@ export default {
     needLocation: 'საჭიროა წვდომა ლოკაციაზე',
     locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
     navigateToSettings: 'პარამეტრებში გადასვლა',
+    chargerString: 'დამტენი',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -123,6 +124,9 @@ export default {
       returned: 'დაგიბრუნდათ',
       continueCharging: 'დატენვის გაგრძელება',
       finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატევა დასრულდა',
+      warningTextBeforeFine:
+        'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
+      yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო გავიდა',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',
@@ -134,7 +138,9 @@ export default {
     chargerDetail: {
       seeOnMap: 'რუკაზე ნახვა',
       currentPrices: 'მიმდინარე ტარიფები',
-      connectors: 'ქონექტორები',
+      speedRange: 'სიჩქარის რეინჯი',
+      minutesPrice: '15 წუთის ღირებულება',
+      connectors: 'კონექტორები',
       additionalServices: 'დამატებითი სერვისები',
       powerOfChargerType: 'სიმძლავრე {{power}}კვ/სთ',
       code: 'კოდი:#{{code}}',
@@ -159,8 +165,8 @@ export default {
     },
     chooseCard: {
       chooseCard: 'ბარათის არჩევა',
-      enterPrice: 'მიუთითეთ თანხა',
-      chargingUntilPlugOff: 'დატენვა გამოერტებამდე',
+      enterPrice: 'გთხოვთ მიუთითეთ თანხის ოდენობა',
+      chargingUntilPlugOff: 'დატენვა გამოერთებამდე',
     },
     favourites: {
       favourites: 'ფავორიტები',
@@ -209,6 +215,7 @@ export default {
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
+      thisUserIsBlocked: 'ეს უიზერი დაბლოკილია',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი',
@@ -225,7 +232,7 @@ export default {
       },
       editFirstname: {
         firstNameNotEmpty: 'გთხოვთ, შეავსეთ სახელის ველი',
-        minSize: 'სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
+        minSize: ' ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
         firstNameChangeSuccess: 'სახელი წარმატებით შეიცვალა!',
       },
       editLastname: {
@@ -266,6 +273,7 @@ export default {
         newPasswordIncorrectLength: 'პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
         passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
         passwordsNotFilled: 'გთხოვთ, შეავსოთ პაროლის ველები',
+        verificationCodeIsIncorrect: 'ვერიფიკაციის კოდი არასწორია',
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',

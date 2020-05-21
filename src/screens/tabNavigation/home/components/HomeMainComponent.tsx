@@ -40,7 +40,6 @@ const HomeMainComponent = ({
   mainInputRef,
 }: HomeMainComponentProps): ReactElement => {
   const insets = useSafeArea()
-  const {t} = useTranslation()
 
   const context: HomeContextType = useContext(HomeContext)
 

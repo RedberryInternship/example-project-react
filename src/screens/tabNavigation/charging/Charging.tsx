@@ -106,7 +106,7 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             >
               <TouchableOpacity onPress={() => changeActiveTab(i)}>
                 <Animated.Text style={{color}}>
-                  დამტენი {route.charger_code}
+                  {hook.t('chargerString')} {route.charger_code}
                 </Animated.Text>
               </TouchableOpacity>
             </Animated.View>

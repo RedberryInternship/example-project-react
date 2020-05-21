@@ -21,6 +21,7 @@ export default {
     needLocation: 'Need access to location service',
     locationIsDenied: 'Access on location is denied',
     navigateToSettings: 'Navigate to settings',
+    chargerString: 'Charger',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',
@@ -127,6 +128,9 @@ export default {
       returned: 'Returned',
       continueCharging: 'Continue charging',
       finishedChargingOfAutomobile: 'Finished charging of automobile',
+      warningTextBeforeFine:
+        'If you do not plug off the charger you will be fined',
+      yourChargingOnFineStarted: 'Your charging on fine started',
     },
     charger: {
       chargeWitchCode: 'Charge witch code',
@@ -138,6 +142,7 @@ export default {
     chargerDetail: {
       seeOnMap: 'See on map',
       currentPrices: 'Current prices',
+      minutesPrice: '15 minutes price',
       connectors: 'Connectors',
       additionalServices: 'Additional services',
       powerOfChargerType: 'power {{power}}kw/s',
@@ -212,6 +217,7 @@ export default {
       successOnFavoriteRemove: 'Charger deleted successfully',
       informationUpdatedSuccessfully: 'Information updated successfully',
       avatarUpdatedSuccessfully: 'Avatar updated successfully',
+      thisUserIsBlocked: 'This user is blocked',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',
@@ -270,6 +276,7 @@ export default {
           'New password should contain at least 8 symbols',
         passwordChangedSuccessfully: 'Password changed successfully',
         passwordsNotFilled: 'Please, fill  passwords fields',
+        verificationCodeIsIncorrect: 'Verification code is incorrect',
       },
       charging: {
         areUSore: 'Are you sore u want to finish',

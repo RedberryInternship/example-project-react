@@ -16,6 +16,7 @@ import {
 } from '../../../../../@types/allTypes.d'
 import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
+import {Alert} from 'react-native'
 
 const useHome = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -128,13 +129,7 @@ const useHome = (
     newSelectedFilters = selectedFiltersOnMap.map((val) =>
       val > 1 || val === 0 ? 0 : 1,
     )
-    // Vobi Todo: i think its more understandable now and you have same logic https://tppr.me/o1DAj here move this as function and call it s
-    // const newSelectedFilters: number[] = selectedFilters.map((val, i) => {
-    //   if (i === index) val++
-    //   if (val > 1 || val === 0) return 0
-    //   return 1
-    // })
-    // redberry: what? it is beautiful
+
     setSelectedFiltersOnMap(newSelectedFilters)
     setShowAll(false)
   }

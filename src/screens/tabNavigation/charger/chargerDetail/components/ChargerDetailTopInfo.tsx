@@ -5,6 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler'
 
 import {Colors} from 'utils'
 import images from 'assets/images'
+import {BaseText} from 'components'
 
 type ChargerDetailTopInfoProps = {
   chargerLocationDirectionPress: () => void
@@ -32,10 +33,10 @@ const ChargerDetailTopInfo = ({
     <View style={styles.container}>
       <View style={styles.nameAndfavIconContainer}>
         <View style={styles.nameAndCodeContainer}>
-          <Text style={styles.nameText}>{name}</Text>
-          <Text style={styles.codeContainer}>
+          <BaseText style={styles.nameText}>{name}</BaseText>
+          <BaseText style={styles.codeContainer}>
             {t('chargerDetail.code', {code})}
-          </Text>
+          </BaseText>
         </View>
         <View>
           <TouchableOpacity
@@ -54,17 +55,17 @@ const ChargerDetailTopInfo = ({
         <View style={styles.locationAndMapPressContainer}>
           <View style={styles.locationContainer}>
             <Image source={images.mapPin} style={styles.locationIcon} />
-            <Text style={styles.locationText} numberOfLines={2}>
+            <BaseText style={styles.locationText} numberOfLines={2}>
               {location}
-            </Text>
+            </BaseText>
           </View>
           <TouchableOpacity
             onPress={showChargerLocationPress}
             style={styles.seeOnMapContainer}
           >
-            <Text style={styles.seeOnMapText} numberOfLines={1}>
+            <BaseText style={styles.seeOnMapText} numberOfLines={1}>
               {t('chargerDetail.seeOnMap')}
-            </Text>
+            </BaseText>
             <Image source={images.arrowRight} style={styles.arrowRightIcon} />
           </TouchableOpacity>
         </View>
@@ -74,10 +75,10 @@ const ChargerDetailTopInfo = ({
             style={styles.distanceTouchable}
           >
             <Image source={images.cornerUpRight} style={styles.distanceIcon} />
-            <Text style={styles.distanceText} numberOfLines={1}>
+            <BaseText style={styles.distanceText} numberOfLines={1}>
               {distance}
               {/* {t('km')} */}
-            </Text>
+            </BaseText>
           </TouchableOpacity>
         </View>
       </View>

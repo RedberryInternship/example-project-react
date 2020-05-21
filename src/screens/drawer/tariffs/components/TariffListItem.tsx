@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
+import {BaseText} from 'components'
 
 type TariffItemProps = {
   company: string
@@ -23,30 +24,38 @@ const TariffListItem = ({
     <View style={styles.container}>
       <View style={styles.innerUpperContainer}>
         <View style={[styles.upperFields, styles.borderRight]}>
-          <Text style={styles.upperFieldsText}>{t('tariffs.company')}</Text>
+          <BaseText style={styles.upperFieldsText}>
+            {t('tariffs.company')}
+          </BaseText>
         </View>
         <View style={[styles.upperFields, styles.borderRight]}>
-          <Text style={styles.upperFieldsText}>{t('tariffs.power')}</Text>
+          <BaseText style={styles.upperFieldsText}>
+            {t('tariffs.power')}
+          </BaseText>
         </View>
         <View style={[styles.upperFields]}>
-          <Text style={styles.upperFieldsText}>{t('tariffs.chargerType')}</Text>
+          <BaseText style={styles.upperFieldsText}>
+            {t('tariffs.chargerType')}
+          </BaseText>
         </View>
       </View>
 
       <View style={styles.innerLowerContainer}>
         <View
-          style={[styles.lowerFields, styles.borderBottom, styles.borderRight]}>
-          <Text style={styles.lowerFieldsText}>{company}</Text>
+          style={[styles.lowerFields, styles.borderBottom, styles.borderRight]}
+        >
+          <BaseText style={styles.lowerFieldsText}>{company}</BaseText>
         </View>
         <View
-          style={[styles.lowerFields, styles.borderBottom, styles.borderRight]}>
-          <Text style={styles.lowerFieldsText}>{power}</Text>
+          style={[styles.lowerFields, styles.borderBottom, styles.borderRight]}
+        >
+          <BaseText style={styles.lowerFieldsText}>{power}</BaseText>
         </View>
         <View style={[styles.lowerFields, styles.borderBottom]}>
-          <Text style={styles.lowerFieldsText}>{chargerType}</Text>
+          <BaseText style={styles.lowerFieldsText}>{chargerType}</BaseText>
         </View>
       </View>
-      <Text style={styles.title}>{title}</Text>
+      <BaseText style={styles.title}>{title}</BaseText>
     </View>
   )
 }

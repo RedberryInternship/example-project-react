@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import {Colors} from 'utils'
-import {BaseNativeTouchable} from 'components'
+import {BaseNativeTouchable, BaseText} from 'components'
 import images from 'assets/images'
 
 type MainSearchItemProps = {
@@ -26,12 +26,12 @@ const MainSearchItem = ({
     <View style={styles.container}>
       <Image source={images.mapPin2} style={styles.image} />
       <View style={styles.textContainer}>
-        <Text numberOfLines={1} style={styles.mainTitleText}>
+        <BaseText numberOfLines={1} style={styles.mainTitleText}>
           {mainTitle}
-        </Text>
-        <Text numberOfLines={1} style={styles.addressText}>
+        </BaseText>
+        <BaseText numberOfLines={1} style={styles.addressText}>
           {text}
-        </Text>
+        </BaseText>
       </View>
     </View>
   )

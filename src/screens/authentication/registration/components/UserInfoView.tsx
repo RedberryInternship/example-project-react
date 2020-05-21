@@ -19,7 +19,7 @@ const UserInfoView = React.memo(
         <Controller
           as={BaseInput}
           name="name"
-          rules={{required: true}}
+          rules={InputValidationHelpers.inputString}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
           image={images.user}
@@ -33,7 +33,7 @@ const UserInfoView = React.memo(
         <Controller
           as={BaseInput}
           name="surname"
-          rules={{required: true}}
+          rules={InputValidationHelpers.inputString}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
           image={images.user}

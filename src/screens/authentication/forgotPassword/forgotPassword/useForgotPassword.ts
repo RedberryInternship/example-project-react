@@ -61,6 +61,11 @@ export default (navigation: Navigation) => {
             'dropDownAlert.forgotPassword.smsCodeExpired',
           )
           break
+        case 403:
+          Helpers.DisplayDropdownWithError(
+            'dropDownAlert.forgotPassword.verificationCodeIsIncorrect',
+          )
+          break
         default:
           Helpers.DisplayDropdownWithError()
           break

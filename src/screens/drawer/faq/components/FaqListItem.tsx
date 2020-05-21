@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native'
 
 import {Const, Colors} from 'utils'
 import images from 'assets/images'
+import {BaseText} from 'components'
 
 type FaqListItemProps = {
   number: number
@@ -32,9 +33,9 @@ const FaqListItem = ({
     <TouchableOpacity onPress={toggleFaq.bind(FaqListItem, 'open')}>
       <View style={styles.container}>
         <View style={styles.innerContainer}>
-          <Text style={styles.number}>{number}</Text>
+          <BaseText style={styles.number}>{number}</BaseText>
           <View style={styles.question}>
-            <Text style={styles.questionsText}>{question}</Text>
+            <BaseText style={styles.questionsText}>{question}</BaseText>
           </View>
           <View style={styles.arrowBackground}>
             <Animated.Image

@@ -9,6 +9,7 @@ import {StyleSheet, Text, View} from 'react-native'
 import moment from 'moment'
 
 import {Colors} from 'utils'
+import BaseText from 'components/baseUI/BaseText'
 
 enum Status {
   'finished',
@@ -19,52 +20,56 @@ type CountDownProps = {
   startTime?: string
   alarm: boolean
   popup?: boolean
-  onChange?: (status: Status) => void
+  onFinish?: () => void
   up?: boolean
-  duration?: number
 }
-const Interval = 1000
+const INTERVAL = 1000
 
 const CountDown = ({
   startTime,
+  onFinish,
   alarm,
-  onChange,
   popup,
   up,
-  duration,
 }: CountDownProps): ReactElement => {
   const [time, setTime] = useState('')
   const ref: any = useRef(null)
 
   useEffect(() => {
-    ref.current = setTimeout(up ? countUp.bind(CountDown) : countDown, 1000)
+    if (ref.current) clearTimeout(ref.current)
+
+    ref.current = setTimeout(countUp.bind(CountDown), INTERVAL)
 
     return (): void => {
       clearTimeout(ref.current)
     }
-  }, [startTime, time])
+  }, [startTime, time, alarm])
 
   const countUp = () => {
     if (!startTime)
       return setTime((prevState) =>
         prevState.length !== 3 ? prevState + '.' : '.',
       )
-    const diff = moment.duration(moment().valueOf() - parseInt(startTime))
+    const diff = moment().valueOf() - parseInt(startTime)
+    const momentDiff = moment.duration(Math.abs(diff))
 
-    console.log(moment().valueOf(), diff, startTime, 'diff.seconds')
+    if (alarm && diff > 0) {
+      onFinish && onFinish()
+      return
+    }
 
-    const hour = diff.hours() ? pad(diff.hours()) + ':' : ''
-    const countdownString = `${hour}${pad(diff.minutes())}:${pad(
-      diff.seconds(),
+    // console.log(moment().valueOf(), momentDiff, startTime, 'diff.seconds')
+
+    const hour = momentDiff.hours() ? pad(momentDiff.hours()) + ':' : ''
+    const countdownString = `${hour}${pad(momentDiff.minutes())}:${pad(
+      momentDiff.seconds(),
     )}`
     // console.log(startTime, countdownString, diff, time, 'fstartTime')
 
     setTime(countdownString)
   }
 
-  const countDown = () => {
-    duration && setTime(`${pad(parseInt(duration / 60))}:${pad(duration % 60)}`)
-  }
+  const countDown = () => {}
 
   const pad = (val: number) => {
     const valString = val + ''
@@ -82,7 +87,7 @@ const CountDown = ({
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, textStyle]}>{time}</Text>
+      <BaseText style={[styles.text, textStyle]}>{time}</BaseText>
     </View>
   )
 }

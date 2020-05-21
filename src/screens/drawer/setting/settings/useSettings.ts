@@ -9,13 +9,21 @@ import {
 } from '../../../../../@types/allTypes.d'
 
 import {AppContext} from '../../../../../App'
-import {useBaseActionSheetPicker} from 'components'
+// import {useBaseActionSheetPicker} from 'components'
 import {editUserInfo} from 'hooks/actions/rootActions'
+import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
+import {useTranslation} from 'react-i18next'
 
 export default (navigation: Navigation) => {
   const {state, dispatch}: any = useContext(AppContext)
   const [userData, setUserData] = useState<UserSettingsInfoType | null>(null)
-  const {selectedItem, renderPicker} = useBaseActionSheetPicker()
+
+  const {t} = useTranslation()
+
+  const [selectedItem, renderPicker] = useBaseActionSheetPicker({
+    cancelText: t('cancel'),
+    title: t('settings.chooseMapMode'),
+  })
 
   useEffect(() => {
     if (selectedItem) {
@@ -55,9 +63,9 @@ export default (navigation: Navigation) => {
   const onPressHandler = (item: SettingsListFieldType, value: string): void => {
     if (item.type === UserSettingEnum.mapMode) {
       renderPicker([
-        'settings.automatic',
-        'settings.mapColorLight',
-        'settings.mapColorDark',
+        t('settings.automatic'),
+        t('settings.mapColorLight'),
+        t('settings.mapColorDark'),
       ])
     } else {
       navigation.navigate('ProfileChange', {

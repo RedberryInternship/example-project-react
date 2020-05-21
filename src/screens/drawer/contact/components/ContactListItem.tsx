@@ -12,6 +12,7 @@ import {
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
+import {BaseText} from 'components'
 
 type ContactItemProps = {
   image: ImageSourcePropType
@@ -35,9 +36,9 @@ const ContactListItem = ({
       <View style={[styles.container, style]}>
         <View style={styles.innerLeftContainer}>
           <Image source={image} style={styles.image} />
-          <Text style={styles.name}>{t(name)}</Text>
+          <BaseText style={styles.name}>{t(name)}</BaseText>
         </View>
-        <Text style={styles.value}>{value}</Text>
+        <BaseText style={styles.value}>{value}</BaseText>
       </View>
     </TouchableOpacity>
   )

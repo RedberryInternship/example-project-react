@@ -2,6 +2,7 @@ import React, {ReactElement} from 'react'
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native'
 
 import {Colors} from 'utils'
+import BaseText from 'components/baseUI/BaseText'
 
 const pagination = [1, 2, 3, 4]
 
@@ -16,7 +17,8 @@ const RegistrationPagination = ({
         <TouchableOpacity
           onPress={paginationClickHandler.bind(RegistrationPagination, ind)}
           key={val}
-          style={styles.touchable}>
+          style={styles.touchable}
+        >
           <View
             style={[
               styles.paginationContainer,
@@ -24,14 +26,16 @@ const RegistrationPagination = ({
                 borderColor:
                   ind === activePage ? Colors.primaryGreen : '#B8BDC0',
               },
-            ]}>
-            <Text
+            ]}
+          >
+            <BaseText
               style={[
                 styles.paginationText,
                 {color: ind !== activePage ? '#B8BDC0' : Colors.primaryGreen},
-              ]}>
+              ]}
+            >
               {val}
-            </Text>
+            </BaseText>
           </View>
           {ind !== pagination.length - 1 && <View style={styles.gap}></View>}
         </TouchableOpacity>

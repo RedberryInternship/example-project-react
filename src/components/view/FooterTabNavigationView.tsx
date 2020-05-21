@@ -48,7 +48,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
         }
         navigate={navigate.bind(
           FooterTabNavigator,
-          Defaults.token ? 'ChargerStack' : 'NotAuthorized',
+          Helpers.isAuthenticated() ? 'ChargerStack' : 'NotAuthorized',
         )}
         image={images.charge}
       />

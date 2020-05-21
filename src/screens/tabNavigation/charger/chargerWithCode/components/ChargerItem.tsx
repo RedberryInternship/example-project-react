@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {StyleSheet, Text, View, Image} from 'react-native'
 
 import {Colors} from 'utils'
-import {BaseButton} from 'components'
+import {BaseButton, BaseText} from 'components'
 import images from 'assets/images'
 
 type ChargerItemProps = {
@@ -19,12 +19,12 @@ const ChargerItem = ({
   return (
     <View style={styles.container}>
       <View style={styles.codeTextContainer}>
-        <Text style={styles.codeText}>#{code}</Text>
+        <BaseText style={styles.codeText}>#{code}</BaseText>
         <View style={styles.addressContainer}>
           <Image source={images.mapPin} style={styles.addressImage} />
-          <Text style={styles.addressText} numberOfLines={1}>
+          <BaseText style={styles.addressText} numberOfLines={1}>
             {address}
-          </Text>
+          </BaseText>
         </View>
       </View>
       <BaseButton
