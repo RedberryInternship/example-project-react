@@ -16,6 +16,7 @@ export const MAP_URL = 'https://maps.googleapis.com/maps/api'
 export const Width = Dimensions.get('window').width
 export const Height = Dimensions.get('window').height
 
+export const platformIOS = Platform.OS === 'ios'
 export const locationIfNoGPS = {
   lat: 41.693036,
   lng: 44.801419,

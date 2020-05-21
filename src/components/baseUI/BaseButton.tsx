@@ -16,7 +16,7 @@ import {useTranslation} from 'react-i18next'
 import LinearGradient from 'react-native-linear-gradient'
 
 import {BaseNativeTouchable, BaseText} from 'components'
-import {Const, Colors} from 'utils'
+import {Const, Colors, GNOME} from 'utils'
 import {useSafeArea} from 'react-native-safe-area-context'
 
 type Button = {
@@ -112,9 +112,12 @@ const styles = StyleSheet.create({
     color: Colors.primaryWhite,
     fontSize: 15,
     lineHeight: 24,
+    textAlignVertical: 'bottom',
     fontWeight: 'bold',
+    fontFamily: GNOME.HELV_HVEX,
     marginHorizontal: 4,
     textAlign: 'center',
     alignSelf: 'center',
+    textTransform: 'uppercase',
   },
 })

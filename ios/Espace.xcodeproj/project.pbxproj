@@ -22,6 +22,9 @@
 		84DAB4D323D5E83500E1FE34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DAB4D223D5E83500E1FE34 /* MapKit.framework */; };
 		9530F6D57536E0355B3BF7F6 /* libPods-Espace-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */; };
 		9CEDBB8E2EAE1F3F68AE3353 /* libPods-Espace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E2309ADA54E62386D41D0B /* libPods-Espace.a */; };
+		0A0B6D6D525246CA9E7E55C6 /* HelveticaNeueLTStd-Ex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */; };
+		78F369430B1B4CDBB8FE5228 /* HelveticaNeueLTStd-HvEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */; };
+		6BC34164C3B54667B32DFF3F /* HelveticaNeueLTStd-MdEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +77,9 @@
 		EE07E70175C7C37EA5F66AD9 /* Pods-Espace-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Espace-tvOSTests/Pods-Espace-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE604970B834BD665BD7960C /* Pods-Espace-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Espace-tvOS/Pods-Espace-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueLTStd-Ex.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-Ex.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueLTStd-HvEx.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-HvEx.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueLTStd-MdEx.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-MdEx.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +169,9 @@
 		5FA86CA15FEF4917B86475B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */,
+				0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */,
+				B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -366,6 +375,9 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */,
+				0A0B6D6D525246CA9E7E55C6 /* HelveticaNeueLTStd-Ex.ttf in Resources */,
+				78F369430B1B4CDBB8FE5228 /* HelveticaNeueLTStd-HvEx.ttf in Resources */,
+				6BC34164C3B54667B32DFF3F /* HelveticaNeueLTStd-MdEx.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

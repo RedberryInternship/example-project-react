@@ -1,9 +1,14 @@
 import React from 'react'
 import {StyleSheet, View, Text} from 'react-native'
-import {Colors} from 'utils'
+import {Colors, GNOME} from 'utils'
+import {BaseText} from 'components'
 
 const App = () => {
-  return <View style={styles.container}></View>
+  return (
+    <View style={styles.container}>
+      {/* <BaseText style={styles.text}>ergweg</BaseText> */}
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -12,6 +17,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.primaryBackground,
+  },
+  text: {
+    fontFamily: GNOME.HELV_HVEX,
   },
 })
 

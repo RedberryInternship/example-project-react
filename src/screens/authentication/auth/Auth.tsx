@@ -108,6 +108,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           text={'authentication.authentication'}
           style={styles.baseButton}
           image={images.alertCircle2}
+          imageStyle={{tintColor: 'white'}}
         />
       </KeyboardAvoidingView>
     </View>

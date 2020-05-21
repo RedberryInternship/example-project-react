@@ -404,9 +404,9 @@ export type LastUsedCharger = Charger
 
 export type ChargerFilters = {
   text?: string
-  free?: boolean
+  free?: 0 | 1
   type?: 'fast' | 'level2'
-  public?: boolean
+  public?: 0 | 1
 }
 
 export type ChargersObject = {

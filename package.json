@@ -103,10 +103,5 @@
     "setupFiles": [
       "<rootDir>/jest.setup.js"
     ]
-  },
-  "rnpm": {
-    "assets": [
-      "./src/assets/fonts/"
-    ]
   }
 }

@@ -10,7 +10,7 @@ import {
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 
-import {Colors} from 'utils'
+import {Colors, GNOME} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
 import images from 'assets/images'
 
@@ -147,6 +147,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontSize: 17,
     textAlign: 'center',
+    fontFamily: GNOME.HELV_HVEX,
   },
   renderRightConatainer: {
     justifyContent: 'center',
