@@ -2,7 +2,7 @@ import React, {ReactElement, useCallback} from 'react'
 import {Text, TextProps, StyleSheet, Alert, StyleProp} from 'react-native'
 import i18next from 'i18next'
 
-import {Colors, GNOME} from 'utils'
+import {Colors, GNOME, Const} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
@@ -23,7 +23,7 @@ const BaseText = ({
       lineHeight = style?.lineHeight ?? style?.fontSize ?? 13,
       fontFamily = GNOME.HELV_NORM
     const lang: 'ka' | 'ru' | 'en' = i18next.language
-    lineHeight += 3
+    lineHeight += Const.platformIOS ? 0 : 3
 
     if (style && 'fontFamily' in style) {
       fontFamily = style.fontFamily as string
