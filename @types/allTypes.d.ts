@@ -377,10 +377,33 @@ type OrderCharger = {
 type OrderPayment = {
   id: number
   price: string
+  confirm_date: string
+  confirmed: number
+  created_at: string
+  id: number
+  old_id: null | number
+  order_id: number
+  price: string
+  prrn: string
+  trx_id: string
+  type: string
+  updated_at: string
+  user_card_id: number
   user_card: OrderUserCard
 }
 type OrderUserCard = {
   masked_pan: string
+  active: number
+  card_holder: string
+  created_at: string
+  default: number
+  id: number
+  old_id: null | number
+  order_index: number
+  transaction_id: string
+  updated_at: string
+  user_id: number
+  user_old_id: null | number
 }
 export type ProfileFieldChange = {
   value: string | undefined
@@ -530,7 +553,38 @@ export type Partner = {
 }
 
 export type UserOrderResponseType = {
-  data: Charger[]
+  data: UserOrderResponseItem[]
+}
+export type UserOrderResponseItem = {
+  charger_connector_type: ChargerConnectorTypeItem
+  charger_connector_type_id: number
+  charger_transaction_id: number
+  charging_status: ChargingStatus
+  charging_status_change_dates: null | string
+  charging_type: null | ChargerTypes
+  comment: null | string
+  created_at: string
+  id: number
+  old_id: null | number
+  payments: OrderPayment[] | null
+  price: null | number
+  target_price: null | number
+  updated_at: string
+  user_card_id: number
+  user_id: number
+}
+
+export type ChargerConnectorTypeItem = {
+  charger: ChargerDetail
+  charger_id: number
+  connector_type_id: number
+  created_at: string
+  id: number
+  m_connector_type_id: number
+  max_price: null | number
+  min_price: null | number
+  status: string
+  updated_at: string
 }
 
 export type UserLastChargersResponseType = {
@@ -624,4 +678,15 @@ export type CarModelTypes = {
   id: number
   mark_id: number
   name: string
+}
+
+export type ContactInfoResponseType = {
+  id: number
+  address: string
+  phone: string
+  email: string
+  fb_page: string
+  fb_page_url: string
+  web_page: string
+  web_page_url: string
 }

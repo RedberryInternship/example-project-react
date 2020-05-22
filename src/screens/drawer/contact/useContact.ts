@@ -1,14 +1,20 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {Alert, Linking} from 'react-native'
 
 import {Defaults, Const, Helpers} from 'utils'
-import {Navigation} from 'allTypes'
+import {Navigation, ContactInfoResponseType} from 'allTypes'
 import services from 'services'
 
 const {Logger} = Helpers
 
 export default (navigation: Navigation) => {
   const [message, setMessage] = useState<string>('')
+  const [data, setData] = useState<ContactInfoResponseType | undefined>(
+    undefined,
+  )
+  useEffect(() => {
+    services.getContactInfo().then((data) => setData(data))
+  }, [])
 
   const sendMessage = async (): Promise<void> => {
     if (!message) {
@@ -31,11 +37,11 @@ export default (navigation: Navigation) => {
       openUrl(mapsUrl, 'Address')
     },
     phone: () => {
-      openUrl(`tel:591935080`, 'Phone')
+      openUrl(`tel:${data?.phone.trim() ?? ''}`, 'Phone')
     },
 
     eMail: () => {
-      openUrl(`mailto:gela@espace.ge?subject=e-space`, 'Mail')
+      openUrl(`mailto:${data?.email ?? ''}?subject=contact`, 'Mail')
     },
 
     facebookPage: () => {
@@ -47,7 +53,7 @@ export default (navigation: Navigation) => {
     },
 
     webPage: () => {
-      openUrl('http://e-space.ge/', 'Web')
+      openUrl(data?.web_page_url ?? '', 'Web')
     },
   }
 
@@ -64,7 +70,6 @@ export default (navigation: Navigation) => {
       if (canOpenUrl) {
         Linking.openURL(url)
       } else {
-        // Vobi Todo: you just need if(backupUrl)
         if (typeof backupUrl === 'string') {
           Linking.openURL(backupUrl)
         } else {
@@ -74,7 +79,6 @@ export default (navigation: Navigation) => {
     } catch (e) {
       Logger(e)
       let msg = ''
-      // Vobi todo: move this as helper
       switch (errorMsgType) {
         case 'Address':
           msg = 'Something Went Wrong While Opening Map...'
@@ -104,5 +108,6 @@ export default (navigation: Navigation) => {
     setMessage,
     sendMessage,
     outgoingLinkMethods,
+    data,
   }
 }

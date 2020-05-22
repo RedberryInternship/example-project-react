@@ -28,7 +28,7 @@ const TransactionListItem = ({
             <BaseText style={styles.dateAndTime}>{date}</BaseText>
           </View>
         </View>
-        <BaseText style={styles.price}>- {price}</BaseText>
+        <BaseText style={styles.price}>- {price ?? ''}</BaseText>
       </View>
     </TouchableOpacity>
   )

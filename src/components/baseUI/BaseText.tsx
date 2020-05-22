@@ -23,7 +23,7 @@ const BaseText = ({
       lineHeight = style?.lineHeight ?? style?.fontSize ?? 13,
       fontFamily = GNOME.HELV_NORM
     const lang: 'ka' | 'ru' | 'en' = i18next.language
-    lineHeight += Const.platformIOS ? 0 : 3
+    lineHeight += Const.platformIOS ? 0 : 4
 
     if (style && 'fontFamily' in style) {
       fontFamily = style.fontFamily as string
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   text: {
     letterSpacing: 0.2,
     color: Colors.primaryWhite,
+    textAlignVertical: 'center',
     fontSize: 13,
   },
 })

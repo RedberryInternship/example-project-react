@@ -22,6 +22,10 @@ import {
   UsedUpFast,
   Finished,
 } from './chargingFinishedPopupTypes'
+import {
+  ScrollView,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
@@ -116,14 +120,18 @@ const ChargerModalMainWrapper = ({
       <TouchableOpacity style={styles.touchableStyle} onPress={onPress}>
         <Image source={images.close} style={styles.closeIcon} />
       </TouchableOpacity>
-      <View style={{flex: 0, marginHorizontal: 16}}>
-        <Image source={images.checkCircle} style={styles.checkMarkIcon} />
-        <BaseText style={styles.mainTitleStyle}>{t(title)}</BaseText>
-        <BaseText style={styles.mainDescriptionStyle}>
-          {t(description)}
-        </BaseText>
-      </View>
-      <View style={styles.bottomContentContainer}>{subTypeHandler()}</View>
+      <ScrollView bounces={false}>
+        <TouchableOpacity activeOpacity={1}>
+          <View style={{flex: 0, marginHorizontal: 16}}>
+            <Image source={images.checkCircle} style={styles.checkMarkIcon} />
+            <BaseText style={styles.mainTitleStyle}>{t(title)}</BaseText>
+            <BaseText style={styles.mainDescriptionStyle}>
+              {t(description)}
+            </BaseText>
+          </View>
+          <View style={styles.bottomContentContainer}>{subTypeHandler()}</View>
+        </TouchableOpacity>
+      </ScrollView>
     </>
   )
 }

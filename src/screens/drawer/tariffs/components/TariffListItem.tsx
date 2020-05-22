@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
   upperFieldsText: {
     textAlign: 'center',
     textAlignVertical: 'center',
+    color: '#11222D',
   },
   innerLowerContainer: {
     flexDirection: 'row',
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
   lowerFieldsText: {
     textAlign: 'center',
     textAlignVertical: 'center',
+    color: '#9A99A2',
   },
   borderBottom: {
     borderBottomColor: 'rgba(17, 34, 45, 0.1)',

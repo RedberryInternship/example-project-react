@@ -11,6 +11,7 @@ import {
   UserInfoUpdateResponseType,
   EditPasswordResponseType,
   CarMarkAndModelResponseType,
+  ContactInfoResponseType,
 } from 'allTypes'
 
 export const getUserData = (): Promise<UserMeResponseType> => ajax.get('/me')
@@ -57,3 +58,6 @@ export const sendFeedback = (message: string): Promise<any> =>
 
 export const getCarAndMarksList = (): Promise<CarMarkAndModelResponseType> =>
   ajax.get('/get-models-and-marks')
+
+export const getContactInfo = (): Promise<ContactInfoResponseType> =>
+  ajax.get('/contact')

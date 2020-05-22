@@ -24,15 +24,17 @@ import useContact from './useContact'
 const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const insets = useSafeArea()
-  const {outgoingLinkMethods, setMessage, sendMessage} = useContact(navigation)
+  const {outgoingLinkMethods, data, setMessage, sendMessage} = useContact(
+    navigation,
+  )
 
   // Dummy Info Before we connect App to Back-End
   const contactInfos = [
     'საირმის ქუჩა 11ო',
-    '+995 591 93 50 80',
-    'gela@espace.ge',
-    'e-space',
-    'www.espace.ge',
+    data?.phone ?? '',
+    data?.email ?? '',
+    data?.fb_page ?? '',
+    data?.web_page ?? '',
   ]
 
   const listItems = Const.ContactListFields.map((el, key) => {
@@ -110,8 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondaryGray,
     marginHorizontal: 16,
     borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    padding: 16,
     marginTop: 32,
   },
   messageContainer: {

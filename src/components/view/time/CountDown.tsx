@@ -36,7 +36,7 @@ const CountDown = ({
   const ref: any = useRef(null)
 
   useEffect(() => {
-    if (ref.current) clearTimeout(ref.current)
+    // if (ref.current) clearTimeout(ref.current)
 
     ref.current = setTimeout(countUp.bind(CountDown), INTERVAL)
 
@@ -68,8 +68,6 @@ const CountDown = ({
 
     setTime(countdownString)
   }
-
-  const countDown = () => {}
 
   const pad = (val: number) => {
     const valString = val + ''

@@ -41,10 +41,10 @@ const BeforeFineLVL2FullCharge = ({
       <View style={{marginVertical: 12}}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         {consumedMoney !== null && (
-          <ModalPopupChargerItem val={consumedMoney} type={0} />
+          <ModalPopupChargerItem val={consumedMoney} type={1} />
         )}
         {refundMoney !== null && (
-          <ModalPopupChargerItem val={refundMoney} type={0} />
+          <ModalPopupChargerItem val={refundMoney} type={2} />
         )}
       </View>
     </>
