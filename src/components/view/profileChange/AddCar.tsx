@@ -1,5 +1,11 @@
 import React, {ReactElement, useState, useEffect} from 'react'
-import {View, StyleSheet, Alert, KeyboardAvoidingView} from 'react-native'
+import {
+  View,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+  Keyboard,
+} from 'react-native'
 
 import {ProfileFieldChange, CarMarkAndModelTypes} from 'allTypes'
 
@@ -8,15 +14,13 @@ import images from '../../../assets/images'
 import {Controller} from 'react-hook-form'
 import {Const} from 'utils'
 import services from 'services'
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
 
 const AddCar = ({
-  value,
   errors,
   control,
   type,
-  inputName,
   register,
-  getValues,
   watch,
   setValue,
 }: ProfileFieldChange): ReactElement => {
@@ -42,59 +46,61 @@ const AddCar = ({
     )
   }, [watch('model')])
 
-  console.log('====================================')
-  console.log(
-    watch('manufacturer'),
-    data.find((val) => val.name == watch('manufacturer')),
-    'data',
-  )
-  console.log('====================================')
+  // console.log('====================================')
+  // console.log(
+  //   watch('manufacturer'),
+  //   data.find((val) => val.name == watch('manufacturer')),
+  //   'data',
+  // )
+  // console.log('====================================')
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView>
-        <Controller
-          as={AutoCompleteDropdown}
-          name={'manufacturer'}
-          rules={{required: true, minLength: 3}}
-          control={control}
-          onChange={(text) => {
-            return text
-          }}
-          title={'settings.model' ?? ''}
-          image={images.addCarInput}
-          // defaultValue={value}
-          data={[...data.map((val) => val.name)]}
-          errorText={
-            errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
-          }
-          zIndex={20}
-        />
-        <View>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <>
           <Controller
             as={AutoCompleteDropdown}
-            name={'model'}
+            name={'manufacturer'}
             rules={{required: true, minLength: 3}}
             control={control}
             onChange={(text) => {
               return text
             }}
-            title={'settings.manufacturer' ?? ''}
+            title={'settings.model' ?? ''}
             image={images.addCarInput}
             // defaultValue={value}
-            data={
-              data
-                .find((val) => val.name == watch('manufacturer'))
-                ?.models?.map((val) => val.name) ?? []
-            }
+            data={[...data.map((val) => val.name)]}
             errorText={
               errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
             }
-            zIndex={12}
+            zIndex={20}
           />
-        </View>
+          <View>
+            <Controller
+              as={AutoCompleteDropdown}
+              name={'model'}
+              rules={{required: true, minLength: 3}}
+              control={control}
+              onChange={(text) => {
+                return text
+              }}
+              title={'settings.manufacturer' ?? ''}
+              image={images.addCarInput}
+              // defaultValue={value}
+              data={
+                data
+                  .find((val) => val.name == watch('manufacturer'))
+                  ?.models?.map((val) => val.name) ?? []
+              }
+              errorText={
+                errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
+              }
+              zIndex={12}
+            />
+          </View>
 
-        <View style={{height: 164, zIndex: -1}} />
-      </KeyboardAvoidingView>
+          <View style={{height: 164, zIndex: -1}} />
+        </>
+      </TouchableWithoutFeedback>
     </View>
   )
 }
