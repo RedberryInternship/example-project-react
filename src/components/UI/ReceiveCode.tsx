@@ -27,9 +27,6 @@ const receiveConfirmationCode = React.forwardRef(
     const {t} = useTranslation()
 
     const codeReceiveHandler = (): void => {
-      console.log('====================================')
-      console.log(inputRef, 'inputRef')
-      console.log('====================================')
       if (disabled) return
       setDisabled(true)
       animation.setValue(0)

@@ -51,7 +51,6 @@ const ChargerStack = createStackNavigator(
       },
     },
     initialRouteName: 'ChargerWithCode',
-    mode: 'modal',
   },
 )
 
@@ -164,7 +163,6 @@ const MainStack = createStackNavigator(
         opacity: 1,
       },
     },
-    mode: 'modal',
   },
 )
 
