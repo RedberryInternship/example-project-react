@@ -7,7 +7,7 @@ import {BaseCheckbox, BaseText} from 'components'
 import images from 'assets/images'
 
 type ChargerTypesItemProps = {
-  type: 'Combo 2' | 'Type 2' | 'CHadeMO'
+  type: 'Combo 2' | 'Type 2' | 'CHAdeMO'
   power: string
   active: boolean
   onPress: () => void

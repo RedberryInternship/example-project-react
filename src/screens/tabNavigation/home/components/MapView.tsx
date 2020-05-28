@@ -92,10 +92,14 @@ const MapView = forwardRef(
           }}
           onMapReady={mapReady}
           showsUserLocation
-          showsPointsOfInterest
-          showsTraffic
+          showsPointsOfInterest={false}
+          showsTraffic={false}
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
           ref={mapRef}
+          loadingBackgroundColor={
+            determineTimePeriod() ? Colors.primaryBackground : 'white'
+          }
+          showsMyLocationButton={false}
         >
           {pins}
           {polylineRoute}

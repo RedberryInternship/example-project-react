@@ -109,12 +109,7 @@ const ProfileChange = ({
         behavior="padding"
         keyboardVerticalOffset={Platform.OS === 'android' ? 8 : 16}
       >
-        <BaseButton
-          onPress={form.handleSubmit(submit)}
-          text="save"
-          image={images.arrowLeft}
-          isImageRight
-        />
+        <BaseButton onPress={form.handleSubmit(submit)} text="save" />
       </KeyboardAvoidingView>
     </View>
   )

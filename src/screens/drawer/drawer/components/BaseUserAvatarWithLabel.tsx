@@ -35,19 +35,19 @@ const UserAvatarWithLabel = ({
         {paddingTop: insets.top, height: 140 + insets.top},
       ]}
     >
-      <View style={styles.imageContainer}>
+      <TouchableOpacity
+        onPress={onPress}
+        hitSlop={{left: 15, top: 15, bottom: 15, right: 15}}
+        style={styles.imageContainer}
+      >
         <Image
           source={avatar ? Avatars[avatar] : images.greenUser}
           style={styles.image}
         />
-        <TouchableOpacity
-          onPress={onPress}
-          style={styles.editButton}
-          hitSlop={{left: 15, top: 15, bottom: 15, right: 15}}
-        >
+        <View style={styles.editButton}>
           <Image source={images.bluePencil} style={styles.editButtonImage} />
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
 
       <View style={styles.usernameWrapper}>
         <BaseText style={styles.username}>{firstName}</BaseText>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   },
   username: {
     color: Colors.primaryWhite,
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 })

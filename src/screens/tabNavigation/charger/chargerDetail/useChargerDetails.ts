@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {useState, useRef, useContext, useEffect} from 'react'
-import {TextInput, Alert} from 'react-native'
+import {TextInput, BackHandler, Alert} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {AppContext} from '../../../../../App'
@@ -23,6 +23,7 @@ import {
   Helpers,
   NavigationActions,
   getLocaleText,
+  Const,
 } from 'utils'
 import {
   deleteToFavorites,
@@ -43,6 +44,8 @@ export default (
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
 
+  const backHandlerRef = useRef<any>()
+
   const [charger, setCharger] = useState<
     (Charger & {from?: string}) | undefined
   >(navigation.getParam('chargerDetails', undefined))
@@ -54,8 +57,19 @@ export default (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    const willBlur = navigation.addListener(
+      'willBlur',
+      () => backHandlerRef.current && backHandlerRef.current.remove(),
+    )
+    backHandlerRef.current = BackHandler.addEventListener(
+      'hardwareBackPress',
+      headerLeftPress,
+    )
+
     return (): void => {
       didFocus.remove()
+      willBlur.remove()
+      backHandlerRef.current && backHandlerRef.current.remove()
     }
   }, [])
 
@@ -64,6 +78,10 @@ export default (
   }, [charger])
 
   const onScreenFocus = (payload: NavigationEventPayload): void => {
+    backHandlerRef.current = BackHandler.addEventListener(
+      'hardwareBackPress',
+      headerLeftPress,
+    )
     const {params} = payload.state
     console.log('====================================')
     console.log(params, 'chargerDetailScreen')
@@ -84,8 +102,9 @@ export default (
 
   const chargerLocationDirectionHandler = async (): Promise<void> => {
     if (
-      Defaults.locationPermissionStatus &&
-      isPermissionDeniedRegex(Defaults.locationPermissionStatus)
+      (Defaults.locationPermissionStatus &&
+        isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
+      !Const.platformIOS
     ) {
       const status = await locationConfig.requestPermission()
       if (!status) return Helpers.DisplayDropdownWithError()
@@ -161,8 +180,9 @@ export default (
       Helpers.DisplayDropdownWithError()
     }
   }
-  const headerLeftPress = (): void => {
-    if (charger?.from === 'home') {
+
+  const headerLeftPress = (): boolean => {
+    if (charger?.from === 'Home') {
       NavigationActions.reset('ChargerStack', 'ChargerWithCode')
       navigation.navigate('Home')
     } else if (Defaults.token !== '') {
@@ -170,6 +190,7 @@ export default (
     } else {
       navigation.navigate('NotAuthorized')
     }
+    return true
   }
 
   const onBusinessServiceClick = (

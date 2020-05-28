@@ -34,10 +34,27 @@ export default [
   },
   {
     featureType: 'poi',
+    elementType: 'labels.text',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'poi',
     elementType: 'labels.text.fill',
     stylers: [
       {
         color: '#d59563',
+      },
+    ],
+  },
+  {
+    featureType: 'poi.business',
+    stylers: [
+      {
+        visibility: 'off',
       },
     ],
   },
@@ -79,6 +96,15 @@ export default [
   },
   {
     featureType: 'road',
+    elementType: 'labels.icon',
+    stylers: [
+      {
+        visibility: 'off',
+      },
+    ],
+  },
+  {
+    featureType: 'road',
     elementType: 'labels.text.fill',
     stylers: [
       {
@@ -110,6 +136,14 @@ export default [
     stylers: [
       {
         color: '#f3d19c',
+      },
+    ],
+  },
+  {
+    featureType: 'transit',
+    stylers: [
+      {
+        visibility: 'off',
       },
     ],
   },

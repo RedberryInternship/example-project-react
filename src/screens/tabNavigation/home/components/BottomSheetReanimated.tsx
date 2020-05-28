@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {TextInput} from 'react-native-gesture-handler'
+import {TextInput, FlatList} from 'react-native-gesture-handler'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
@@ -80,7 +80,7 @@ const BottomSheetReanimated = forwardRef(
         <View style={styles.headerComponent}>
           <View style={styles.headerComponentWrapper} />
           <BaseText style={styles.headerComponentText}>
-            {t('home.allChargers').toUpperCase()}
+            {t('home.allChargers')}
           </BaseText>
           <View style={styles.textInputContainer}>
             <Image source={images.iconSearch} style={styles.searchIcon} />
@@ -125,6 +125,16 @@ const BottomSheetReanimated = forwardRef(
               />
             ))}
           </View>
+          {/* <FlatList
+            keyboardShouldPersistTaps={'handled'}
+            data={filteredChargers}
+            renderItem={({item: chargerObj, index}) => {
+              const view = []
+             //  bottom stuff... 
+              return view
+            }}
+          /> */}
+
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {
@@ -209,7 +219,6 @@ const styles = StyleSheet.create({
   headerComponentText: {
     flex: 0,
     fontSize: 11,
-    lineHeight: 22,
     color: '#FFFFFF',
     alignSelf: 'center',
     marginBottom: 16,
@@ -263,8 +272,9 @@ const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
     marginBottom: 8,
+    paddingHorizontal: 4,
   },
 })

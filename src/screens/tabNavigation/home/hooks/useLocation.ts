@@ -12,7 +12,7 @@ import {
   getCoordsAnyway,
   isPermissionGrantedRegex,
 } from 'utils/mapAndLocation/mapFunctions'
-import {regionFrom, Defaults, locationConfig, Helpers} from 'utils'
+import {regionFrom, Defaults, locationConfig, Helpers, Const} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/home/Home'
 import services from 'services'
 import {getAllChargers} from 'hooks/actions/rootActions'
@@ -67,6 +67,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   ): void => {
     setPermissionStatus(status)
     Defaults.locationPermissionStatus = status
+
     if (status.match(/notDetermined/)) {
       requestPermission()
     } else if (isPermissionGrantedRegex(status)) {
@@ -101,7 +102,10 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     if (location) navigateByRef(location.lat, location.lng)
     else {
       try {
-        if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
+        if (
+          !isPermissionGrantedRegex(Defaults.locationPermissionStatus) ||
+          !Const.platformIOS
+        ) {
           const status = await locationConfig.requestPermission()
           if (!status) return
         }

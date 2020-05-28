@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useMemo} from 'react'
 import {StyleSheet, Text, Platform, TouchableOpacity, View} from 'react-native'
 
 import {Colors} from 'utils'
@@ -15,19 +15,27 @@ const BottomSheetFilterItem = ({
   onPress,
   active,
 }: BottomSheetFilterItemProps): ReactElement => {
-  const child = (
-    <View
-      style={[
-        styles.container,
-        {backgroundColor: active ? '#008AEE' : 'white'},
-      ]}
-    >
-      <BaseText
-        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}
-      >
-        {text}
-      </BaseText>
-    </View>
+  const child = useMemo(
+    () => (
+      <View style={styles.mainContainer}>
+        <View
+          style={[
+            styles.container,
+            {backgroundColor: active ? '#008AEE' : 'white'},
+          ]}
+        >
+          <BaseText
+            style={[
+              styles.text,
+              {color: active ? 'white' : Colors.primaryDark},
+            ]}
+          >
+            {text}
+          </BaseText>
+        </View>
+      </View>
+    ),
+    [text],
   )
   return (
     <>
@@ -45,22 +53,22 @@ const BottomSheetFilterItem = ({
 export default BottomSheetFilterItem
 
 const styles = StyleSheet.create({
+  mainContainer: {
+    minWidth: '33.33%',
+    paddingHorizontal: 4,
+    justifyContent: 'center',
+    alignItems: 'stretch',
+  },
   container: {
     height: 30,
     borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 4,
     backgroundColor: 'white',
-    marginHorizontal: 4,
     marginVertical: 6,
-    minWidth: '30%',
   },
   text: {
     fontSize: 11,
-    lineHeight: 22,
-    flex: 1,
   },
 })

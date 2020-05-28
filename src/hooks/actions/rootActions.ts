@@ -22,9 +22,9 @@ export const rootAction = async (data: any, dispatch: any): Promise<void> => {
       const result = await services.getUserData()
       dispatch(saveToken({token: data.token, ...data.user, ...result}))
     } catch (error) {
-      if (error.status == '406') {
+      if (error.status == '406' || error?.data?.status == '406') {
         Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
-        logOut()
+        dispatch(logOut())
       } else Helpers.DisplayDropdownWithError()
     }
     getFavoriteChargers(dispatch)

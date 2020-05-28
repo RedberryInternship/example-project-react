@@ -17,6 +17,7 @@ import {
 import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
 import {Alert} from 'react-native'
+import {DrawerActions} from 'react-navigation-drawer'
 
 const useHome = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -44,6 +45,7 @@ const useHome = (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    navigation.dispatch(DrawerActions.closeDrawer())
     bottomSheetSnapTo()
     return (): void => {
       didFocus.remove()
@@ -115,7 +117,7 @@ const useHome = (
 
   const onFilteredItemClick = (charger: ChargerDetail): void => {
     navigation.navigate('ChargerDetail', {
-      chargerDetails: {...charger, from: 'home'},
+      chargerDetails: {...charger, from: 'Home'},
     })
   }
 

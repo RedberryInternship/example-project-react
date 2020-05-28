@@ -43,6 +43,8 @@ const ChargerStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
     },
     initialRouteName: 'ChargerWithCode',
   },
@@ -87,6 +89,8 @@ const authenticationStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
     },
   },
 )
@@ -99,6 +103,8 @@ const drawerMenuOptionsStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
     },
   },
 )
@@ -111,6 +117,8 @@ const transactionStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
     },
   },
 )
@@ -132,6 +140,8 @@ const MainStack = createStackNavigator(
     initialRouteName: 'MainDrawer',
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
     },
   },
 )

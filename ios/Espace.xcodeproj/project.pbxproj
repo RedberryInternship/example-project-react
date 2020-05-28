@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* EspaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EspaceTests.m */; };
+		0A0B6D6D525246CA9E7E55C6 /* HelveticaNeueLTStd-Ex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */; };
 		124B033FFEC866003DB0EAF8 /* libPods-Espace-EspaceTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A4AAEA94DF51480D01074EE8 /* libPods-Espace-EspaceTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
@@ -18,13 +19,12 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* EspaceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* EspaceTests.m */; };
 		4319851581954EC8B69D1AF5 /* libPods-Espace-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */; };
+		6BC34164C3B54667B32DFF3F /* HelveticaNeueLTStd-MdEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */; };
+		78F369430B1B4CDBB8FE5228 /* HelveticaNeueLTStd-HvEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */; };
 		84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84502BB623FFBF800078412A /* GoogleService-Info.plist */; };
 		84DAB4D323D5E83500E1FE34 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84DAB4D223D5E83500E1FE34 /* MapKit.framework */; };
 		9530F6D57536E0355B3BF7F6 /* libPods-Espace-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */; };
 		9CEDBB8E2EAE1F3F68AE3353 /* libPods-Espace.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E2309ADA54E62386D41D0B /* libPods-Espace.a */; };
-		0A0B6D6D525246CA9E7E55C6 /* HelveticaNeueLTStd-Ex.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */; };
-		78F369430B1B4CDBB8FE5228 /* HelveticaNeueLTStd-HvEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */; };
-		6BC34164C3B54667B32DFF3F /* HelveticaNeueLTStd-MdEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +50,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* EspaceTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EspaceTests.m; sourceTree = "<group>"; };
 		09BDD2C9731AFC1BF7508992 /* Pods-Espace-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Espace-tvOS/Pods-Espace-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeueLTStd-HvEx.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-HvEx.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Espace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Espace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Espace/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Espace/AppDelegate.m; sourceTree = "<group>"; };
@@ -70,16 +71,15 @@
 		A4AAEA94DF51480D01074EE8 /* libPods-Espace-EspaceTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace-EspaceTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACA5DA59682128F94B7082F0 /* Pods-EspaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspaceTests.debug.xcconfig"; path = "Target Support Files/Pods-EspaceTests/Pods-EspaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ADD18A46FBC78FDC239AB043 /* Pods-EspaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EspaceTests.release.xcconfig"; path = "Target Support Files/Pods-EspaceTests/Pods-EspaceTests.release.xcconfig"; sourceTree = "<group>"; };
+		B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeueLTStd-MdEx.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-MdEx.ttf"; sourceTree = "<group>"; };
 		C9E836C42EDC78D1F31F6606 /* libPods-Espace-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E2309ADA54E62386D41D0B /* libPods-Espace.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EE07E70175C7C37EA5F66AD9 /* Pods-Espace-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Espace-tvOSTests/Pods-Espace-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F3E1FCB08DCC7210413D6B5B /* libPods-Espace-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Espace-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "HelveticaNeueLTStd-Ex.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-Ex.ttf"; sourceTree = "<group>"; };
 		FE604970B834BD665BD7960C /* Pods-Espace-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Espace-tvOS/Pods-Espace-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueLTStd-Ex.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-Ex.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueLTStd-HvEx.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-HvEx.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */ = {isa = PBXFileReference; name = "HelveticaNeueLTStd-MdEx.ttf"; path = "../src/assets/fonts/HelveticaNeueLTStd-MdEx.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -722,7 +722,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Espace/Espace.entitlements;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 106;
 				DEVELOPMENT_TEAM = WVG95FW9FG;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -753,7 +753,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Espace/Espace.entitlements;
-				CURRENT_PROJECT_VERSION = 104;
+				CURRENT_PROJECT_VERSION = 106;
 				DEVELOPMENT_TEAM = WVG95FW9FG;
 				INFOPLIST_FILE = Espace/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

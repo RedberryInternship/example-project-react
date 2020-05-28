@@ -55,11 +55,15 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 1,
+    // elevation: 1,
     backgroundColor: 'transparent',
-    margin: 16,
-    height: 40,
+    marginHorizontal: 16,
+    marginTop: 16,
+    paddingBottom: 16,
+    // height: 45,
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#1C3748',
   },
   image: {
     width: 23,
@@ -68,6 +72,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   mainTitleText: {
     fontSize: 13,
@@ -78,6 +83,5 @@ const styles = StyleSheet.create({
   addressText: {
     fontSize: 13,
     color: Colors.primaryGray,
-    lineHeight: 22,
   },
 })

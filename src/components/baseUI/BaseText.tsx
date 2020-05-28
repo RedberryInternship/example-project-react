@@ -21,7 +21,8 @@ const BaseText = ({
 
     let fontSize = style?.fontSize ?? 13,
       lineHeight = style?.lineHeight ?? style?.fontSize ?? 13,
-      fontFamily = GNOME.HELV_NORM
+      fontFamily = GNOME.HELV_NORM,
+      letterSpacing = style?.letterSpacing ?? 0.2
     const lang: 'ka' | 'ru' | 'en' = i18next.language
     lineHeight += Const.platformIOS ? 0 : 4
 
@@ -30,23 +31,31 @@ const BaseText = ({
 
       if (lang === 'en') {
         // fontSize = style?.fontSize ?? 13 + 1
-        // lineHeight = style?.fontSize ?? 13 - 1
         fontFamily =
           style.fontFamily == GNOME.HELV_HVEX ? GNOME.HELV_MED : GNOME.HELV_NORM
       }
       //  else if (lang === 'ru') {
       // }
     }
+    if (lang === 'en') {
+      fontSize = (style?.fontSize ?? 13) + 1
+      letterSpacing = 0.4
+    }
 
     return {
       fontFamily,
       fontSize,
       lineHeight,
+      letterSpacing,
     }
   }, [style, i18next.language])
 
   return (
-    <Text {...props} style={[styles.text, style, setStyle()]}>
+    <Text
+      {...props}
+      allowFontScaling={false}
+      style={[styles.text, style, setStyle()]}
+    >
       {children}
     </Text>
   )

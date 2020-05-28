@@ -27,7 +27,20 @@ export default (navigation: Navigation) => {
 
   useEffect(() => {
     if (selectedItem) {
-      editUserInfo(dispatch, selectedItem, UserSettingEnum.mapMode)
+      let _selectedItem = ''
+      switch (selectedItem) {
+        case t('settings.mapColorLight'):
+          _selectedItem = 'settings.mapColorLight'
+          break
+        case t('settings.mapColorDark'):
+          _selectedItem = 'settings.mapColorDark'
+          break
+
+        default:
+          _selectedItem = 'settings.automatic'
+          break
+      }
+      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode)
     }
   }, [selectedItem])
 

@@ -4,6 +4,7 @@ import {ChargingTypes, ChargingStatus} from '../../../@types/allTypes.d'
 
 import {Helpers} from 'utils'
 import services from 'services'
+import {getAllChargers} from './rootActions'
 
 export const CHARGING_STARTED_SUCCESS = 'CHARGING_STARTED_SUCCESS'
 export const CHARGING_STARTED_FAILURE = 'CHARGING_STARTED'
@@ -43,6 +44,7 @@ export const startCharging = async (
         chargingState: chargingStateResult,
       }),
     )
+    getAllChargers(dispatch)
     setLoading(false)
 
     NavigationActions.reset('ChargerStack', 'ChargerWithCode')

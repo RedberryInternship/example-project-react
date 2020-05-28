@@ -44,8 +44,10 @@ const useMapView = (
     ) {
       const onChargerSelect = (index: number): void => {
         navigation.navigate('ChargerDetail', {
-          chargerDetails: charger.charger_group?.chargers?.[index],
-          from: 'Home',
+          chargerDetails: {
+            ...charger.charger_group?.chargers?.[index],
+            from: 'Home',
+          },
         })
       }
 
@@ -60,8 +62,7 @@ const useMapView = (
       })
     } else {
       navigation.navigate('ChargerDetail', {
-        chargerDetails: charger,
-        from: 'Home',
+        chargerDetails: {...charger, from: 'Home'},
       })
     }
   }

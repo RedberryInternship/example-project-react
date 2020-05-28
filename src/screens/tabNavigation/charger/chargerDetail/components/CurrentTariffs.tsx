@@ -76,11 +76,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   currentPriceText: {
-    letterSpacing: -0.41,
     color: 'white',
   },
   currentPrice2Text: {
-    letterSpacing: -0.41,
     fontSize: 11,
     color: '#A1A8AB',
   },
@@ -102,9 +100,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     color: Colors.primaryWhite,
     fontSize: 11,
+    flexWrap: 'nowrap',
   },
   rowCol3: {
-    flex: 1.5,
+    flex: 1,
     alignSelf: 'center',
     color: Colors.primaryWhite,
     fontSize: 11,
