@@ -45,8 +45,13 @@ const ChargerStack = createStackNavigator(
       headerShown: false,
       gestureEnabled: true,
       gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
     initialRouteName: 'ChargerWithCode',
+    mode: 'modal',
   },
 )
 
@@ -91,6 +96,10 @@ const authenticationStack = createStackNavigator(
       headerShown: false,
       gestureEnabled: true,
       gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
   },
 )
@@ -105,6 +114,10 @@ const drawerMenuOptionsStack = createStackNavigator(
       headerShown: false,
       gestureEnabled: true,
       gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
   },
 )
@@ -119,6 +132,10 @@ const transactionStack = createStackNavigator(
       headerShown: false,
       gestureEnabled: true,
       gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
   },
 )
@@ -142,7 +159,12 @@ const MainStack = createStackNavigator(
       headerShown: false,
       gestureEnabled: true,
       gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
+    mode: 'modal',
   },
 )
 
