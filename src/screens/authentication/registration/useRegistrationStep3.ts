@@ -76,7 +76,7 @@ export default (
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)
 
-        if (Object.prototype.hasOwnProperty.call(data, 'email')) {
+        if (Object.prototype.hasOwnProperty.call(data, 'email')) { // Vobi Todo: can't you do if(data.email)
           if (data.email[0] == 'The email has already been taken.') {
             Helpers.DisplayDropdownWithError(
               'dropDownAlert.registration.emailAlreadyToken',
@@ -85,7 +85,7 @@ export default (
           } else {
             Helpers.DisplayDropdownWithError()
           }
-        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {
+        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {// Vobi Todo: can't you do if(data.phone_number)
           if (
             data.phone_number[0] == 'The phone number has already been taken.'
           ) {
@@ -103,7 +103,24 @@ export default (
         Helpers.DisplayDropdownWithError()
       }
     }
-  }
+  } 
+  // Vobi Todo:
+  // catch (error) {
+  //   if (typeof error.data === 'string') {
+  //     const data: RegisterError = JSON.parse(error.data)
+
+  //     if (Object.prototype.hasOwnProperty.call(data, 'email') && data.email[0] == 'The email has already been taken.') { // Vobi Todo: can't you do if(data.email)
+  //       // Vobi Todo: move this error constant and use strict equality
+  //         Helpers.DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
+  //         return setActivePage(1)
+  //     } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number') && data.phone_number[0] == 'The phone number has already been taken.') {// Vobi Todo: can't you do if(data.phone_number)
+  //       // Vobi Todo: move this error constant and use strict equality
+  //         Helpers.DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
+  //         return setActivePage(0)
+  //     }
+  //   }
+  //   Helpers.DisplayDropdownWithError()
+  // }
 
   const onSuccessRegistration = async (data: any) => {
     rootAction(data, dispatch)

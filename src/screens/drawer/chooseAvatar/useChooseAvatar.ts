@@ -7,7 +7,7 @@ import {editUserInfo} from 'hooks/actions/rootActions'
 
 export default (navigation: Navigation) => {
   const {dispatch, state}: AppContextType = useContext(AppContext)
-  const [activeAvatar, setActiveAvatar] = useState<number | undefined>(
+  const [activeAvatar, setActiveAvatar] = useState<number | undefined>( // Vobi Todo: why is avatar number
     state.user?.avatar,
   )
 

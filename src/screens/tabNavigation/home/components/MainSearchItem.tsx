@@ -22,7 +22,7 @@ const MainSearchItem = ({
   text,
   onPress,
 }: MainSearchItemProps): ReactElement => {
-  const child = (
+  const child = ( // Vobi Todo: what does child mean
     <View style={styles.container}>
       <Image source={images.mapPin2} style={styles.image} />
       <View style={styles.textContainer}>
@@ -36,9 +36,14 @@ const MainSearchItem = ({
     </View>
   )
 
+  // Vobi Todo:
+  // if (Platform.OS === 'ios') return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
+  // return <BaseNativeTouchable onPress={onPress} borderless={false}>
+  //   {child}
+  // </BaseNativeTouchable>
   return (
     <>
-      {Platform.OS === 'ios' ? (
+      {Platform.OS === 'ios' ? ( // Vobi Todo: in this moments you should split returns it is more readable
         <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
       ) : (
         <BaseNativeTouchable onPress={onPress} borderless={false}>

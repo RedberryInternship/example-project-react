@@ -27,7 +27,7 @@ const ChooseAvatar = ({
               key={index}
               image={image}
               active={
-                activeAvatar !== undefined ? index === activeAvatar : false
+                activeAvatar !== undefined ? index === activeAvatar : false // Vobi Todo: activeAvatar === index won't do the same?
               }
               onPress={onAvatarPress.bind(ChooseAvatar, index)}
             />

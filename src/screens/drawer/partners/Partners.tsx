@@ -24,7 +24,8 @@ const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
   const getPartners = async (): Promise<Partner[]> => {
     const {partners} = await services.getPartners()
     return partners
-  }
+  } // Vobi Todo: this will be called every time partners rerender 
+  // Vobi Todo: you can wrap this function in callback
 
   return (
     <View style={styles.container}>

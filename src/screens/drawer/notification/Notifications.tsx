@@ -13,6 +13,9 @@ const Notifications = ({
   const notificationItems = notificationsList.map((el) => {
     return <NotificationsListItem key={el.title} {...el} />
   })
+  // Vobi Todo: const notificationItems = useMemo(() => notificationsList.map(el => {
+  //   return <NotificationsListItem key={el.title} {...el} />
+  // }), [])
 
   return (
     <View style={styles.container}>

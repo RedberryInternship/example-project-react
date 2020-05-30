@@ -80,6 +80,45 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     )
   }
 
+  // Vobi Todo: move as this
+  /**
+    const isAuthorized = Helpers.isAuthenticated()
+  drawerContent = (
+    <>
+      <View>
+        {isAuthorized && <BaseButton
+          image={images.user}
+          onPress={navigation.navigate.bind(Drawer, 'Auth')}
+          text={'home.authorization'}
+          style={styles.drawerAuthBtn}
+        />}
+        {!isAuthorized && <BaseUserAvatarWithLabel
+          onPress={(): void => {
+            navigation.navigate('ChooseAvatar')
+          }}
+          avatar={context?.state.user?.avatar}
+          firstName={firstName ?? ''}
+          lastName={lastName ?? ''}
+        />}
+
+        {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
+          return (
+            <DrawerTextFieldItem
+              key={key}
+              onPress={navigation.navigate.bind(Drawer, field.route)}
+              badge={field.route === 'notifications' ? 1 : 0}
+              {...field}
+            />
+          )
+        })}
+      </View>
+      {!isAuthorized && <View style={{ justifyContent: 'flex-end' }}></View>}
+    </>
+  )
+   */
+
+   // Vobi Todo: const isAuth = useMemo(() => Helpers.isAuthenticated(), []) Line: 146
+
   return (
     <View
       style={[styles.safeAreaViewContainer, {paddingBottom: insets.bottom}]}
@@ -102,7 +141,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       >
         {drawerContent}
         <View>
-          {!Helpers.isAuthenticated() && (
+          {!Helpers.isAuthenticated() && ( // Vobi Todo: you can call this once
             <DrawerTextFieldItem
               onPress={(): void => {
                 Defaults.modal.current?.customUpdate(true, {type: 6})
@@ -117,7 +156,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ge'}
               style={styles.localeButton}
             />
-            {Helpers.isAuthenticated() && (
+            {Helpers.isAuthenticated() && ( // Vobi Todo: you can call this once
               <TouchableOpacity
                 onPress={(): void => {
                   context.dispatch(logOut())
