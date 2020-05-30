@@ -11,9 +11,9 @@ import {
 
 import images from 'assets/images'
 import {Const, Colors} from 'utils'
-import {BaseHeader, BaseButton} from 'components'
+import {BaseHeader, BaseButton, BaseText} from 'components'
 
-const ChargerDetail = ({
+const NotAuthorized = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
@@ -26,26 +26,26 @@ const ChargerDetail = ({
           style={styles.infoLinearGradient}
         >
           <Image source={images.alertCircle} style={styles.alertCircle} />
-          <Text style={styles.infoText}>
+          <BaseText style={styles.infoText}>
             {t('notAuthorized.notAuthorizedText')}
-          </Text>
+          </BaseText>
         </LinearGradient>
         <BaseButton
-          onPress={navigation.navigate.bind(ChargerDetail, 'Auth')}
+          onPress={navigation.navigate.bind(NotAuthorized, 'Auth')}
           text={'home.authorization'}
           style={styles.authBtn}
           image={images.user}
           imageStyle={styles.authBtnImg}
         />
         <TouchableOpacity
-          onPress={navigation.navigate.bind(ChargerDetail, 'Home', {
+          onPress={navigation.navigate.bind(NotAuthorized, 'Home', {
             mode: HomeNavigateModes.showAllChargers,
           })}
           style={styles.allChargersTextWrapper}
         >
-          <Text style={styles.allChargersText}>
+          <BaseText style={styles.allChargersText}>
             {t('charger.allChargerList')}
-          </Text>
+          </BaseText>
         </TouchableOpacity>
       </View>
     </View>
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ChargerDetail
+export default NotAuthorized

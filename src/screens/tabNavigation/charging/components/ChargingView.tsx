@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useMemo} from 'react'
 import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
 
 import {Const, Colors} from 'utils'
-import {Pulse, CountDown, BaseButton} from 'components'
+import {Pulse, CountDown, BaseButton, BaseText} from 'components'
 import images from 'assets/images'
 import {
   NavigationScreenProp,
@@ -11,8 +11,6 @@ import {
   NavigationState,
 } from 'react-navigation'
 import {ChargingState} from 'allTypes'
-
-const CircleDiameter = Const.Width - 150
 
 type ChargingViewProps = {
   hook: {
@@ -28,19 +26,34 @@ const ChargingView = ({
   chargingState: {consumed_money, already_paid, order_id, start_charging_time},
   singleCharger,
 }: ChargingViewProps): ReactElement => {
+  const CircleDiameter = useMemo(
+    () => Const.Width - 150 - (singleCharger ? 0 : 50),
+    [singleCharger],
+  )
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.MainChargerCircleContainer}>
         <Pulse
           color="transparent"
           numPulses={3}
-          diameter={Const.Width - 40}
+          diameter={Const.Width - 40 - (singleCharger ? 0 : 50)}
           initialDiameter={CircleDiameter}
           speed={20}
           duration={1200}
           pulseStyle={styles.pulseStyle}
         />
-        <View style={styles.MainChargerCircle}>
+        <View
+          style={[
+            styles.MainChargerCircle,
+            {
+              width: CircleDiameter,
+              height: CircleDiameter,
+              minHeight: CircleDiameter,
+              borderRadius: CircleDiameter / 2,
+            },
+          ]}
+        >
           <Image
             source={images.chargerWithGradient}
             style={styles.chargerImage}
@@ -49,10 +62,12 @@ const ChargingView = ({
         </View>
       </View>
       <View style={styles.pricingView}>
-        <Text style={styles.currentlyChargedPrice}>{consumed_money} / </Text>
-        <Text style={styles.finalPrice}>
+        <BaseText style={styles.currentlyChargedPrice}>
+          {consumed_money} /{' '}
+        </BaseText>
+        <BaseText style={styles.finalPrice}>
           {already_paid} {t('gel')}
-        </Text>
+        </BaseText>
       </View>
       <View style={styles.chargeAnotherCarContainer}>
         {singleCharger && (
@@ -60,9 +75,9 @@ const ChargingView = ({
             onPress={navigation.navigate.bind(ChargingView, 'Home')}
             style={styles.chargeAnotherCarTouchable}
           >
-            <Text style={styles.chargeAnotherCarText}>
+            <BaseText style={styles.chargeAnotherCarText}>
               {t('charging.chargeAnotherCar')}
-            </Text>
+            </BaseText>
           </TouchableOpacity>
         )}
 
@@ -103,10 +118,7 @@ const styles = StyleSheet.create({
   MainChargerCircle: {
     position: 'absolute',
     alignSelf: 'center',
-    width: CircleDiameter,
-    height: CircleDiameter,
-    minHeight: CircleDiameter,
-    borderRadius: CircleDiameter / 2,
+
     backgroundColor: Colors.primaryBackground,
     borderWidth: 4,
     borderColor: '#18a0fb',

@@ -3,11 +3,11 @@ import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
-import {BaseCheckbox} from 'components'
+import {BaseCheckbox, BaseText} from 'components'
 import images from 'assets/images'
 
 type ChargerTypesItemProps = {
-  type: 'Combo 2' | 'Type 2' | 'CHadeMO'
+  type: 'Combo 2' | 'Type 2' | 'CHAdeMO'
   power: string
   active: boolean
   onPress: () => void
@@ -28,10 +28,10 @@ const ChargerTypesItem = ({
           <Image source={images[type]} style={styles.connetctorsIcon} />
         </View>
         <View style={styles.powerAndTypeTextContainer}>
-          <Text style={styles.typeText}>{type}</Text>
-          <Text style={styles.powerText}>
+          <BaseText style={styles.typeText}>{type}</BaseText>
+          <BaseText style={styles.powerText}>
             {t('chargerDetail.powerOfChargerType', {power})}
-          </Text>
+          </BaseText>
         </View>
         <BaseCheckbox active={active} />
       </View>

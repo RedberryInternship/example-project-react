@@ -10,7 +10,7 @@ import {
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 
-import {Colors} from 'utils'
+import {Colors, GNOME} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
 import images from 'assets/images'
 
@@ -51,7 +51,7 @@ const BaseHeader = ({
   const renderMiddle = (): ReactElement | undefined => {
     return title ? (
       <View style={styles.renderMiddleContainer}>
-        <Text style={styles.renderMiddleText}>{t(title)}</Text>
+        <BaseText style={styles.renderMiddleText}>{t(title)}</BaseText>
       </View>
     ) : (
       undefined
@@ -67,7 +67,9 @@ const BaseHeader = ({
             style={styles.renderRightTouchable}
             hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
           >
-            <Text style={styles.renderRightText}>{t(titleRight ?? '')}</Text>
+            <BaseText style={styles.renderRightText}>
+              {t(titleRight ?? '')}
+            </BaseText>
             <Image source={images.iosBack} style={styles.rightImageStyle} />
           </TouchableOpacity>
         </View>
@@ -145,6 +147,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontSize: 17,
     textAlign: 'center',
+    fontFamily: GNOME.HELV_HVEX,
   },
   renderRightConatainer: {
     justifyContent: 'center',

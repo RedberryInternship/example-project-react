@@ -10,12 +10,14 @@ import {
   Image,
   ViewStyle,
   View,
+  ActivityIndicator,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import LinearGradient from 'react-native-linear-gradient'
 
-import {BaseNativeTouchable} from 'components'
-import {Const, Colors} from 'utils'
+import {BaseNativeTouchable, BaseText} from 'components'
+import {Const, Colors, GNOME} from 'utils'
+import {useSafeArea} from 'react-native-safe-area-context'
 
 type Button = {
   onPress: () => void
@@ -25,6 +27,7 @@ type Button = {
   style?: StyleProp<ViewStyle>
   imageStyle?: ImageStyle
   isImageRight?: boolean
+  loading?: boolean
 }
 
 const BaseButton = ({
@@ -35,9 +38,10 @@ const BaseButton = ({
   textStyle,
   text,
   isImageRight,
+  loading,
 }: Button): ReactElement => {
   const {t} = useTranslation()
-
+  const insets = useSafeArea()
   const btnImage = image && (
     <Image
       source={image}
@@ -54,17 +58,30 @@ const BaseButton = ({
       }
       start={{x: 0, y: 1}}
       end={{x: 1, y: 0}}
-      style={[styles.style, style]}>
+      style={[styles.style, style]}
+    >
       <View style={{flex: 1, backgroundColor: '#ffffff00'}}>
         <BaseNativeTouchable
           onPress={onPress}
           borderless={false}
-          style={[styles.touchableStyle]}>
-          <>
-            {isImageRight ? btnImage : null}
-            <Text style={[styles.textStyle, textStyle]}>{t(text)}</Text>
-            {!isImageRight ? btnImage : null}
-          </>
+          style={[styles.touchableStyle]}
+          enabled={!loading}
+        >
+          {loading ? (
+            <ActivityIndicator
+              color={'green'}
+              size="large"
+              // style={{backgroundColor: 'blue'}}
+            />
+          ) : (
+            <>
+              {isImageRight ? btnImage : null}
+              <BaseText style={[styles.textStyle, textStyle]}>
+                {t(text)}
+              </BaseText>
+              {!isImageRight ? btnImage : null}
+            </>
+          )}
         </BaseNativeTouchable>
       </View>
     </LinearGradient>
@@ -82,7 +99,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     elevation: 1,
     marginHorizontal: 24,
-    marginTop: Const.NotchHeight + 16,
   },
   touchableStyle: {
     justifyContent: 'center',
@@ -96,9 +112,12 @@ const styles = StyleSheet.create({
     color: Colors.primaryWhite,
     fontSize: 15,
     lineHeight: 24,
+    textAlignVertical: 'bottom',
     fontWeight: 'bold',
+    fontFamily: GNOME.HELV_HVEX,
     marginHorizontal: 4,
     textAlign: 'center',
     alignSelf: 'center',
+    textTransform: 'uppercase',
   },
 })

@@ -24,6 +24,7 @@ import {
   BaseButton,
   TitleTopLeftContainer,
   BaseInput,
+  BaseText,
 } from 'components'
 import images from 'assets/images'
 import {Const, Colors} from 'utils'
@@ -49,6 +50,7 @@ const ChoosingCard = ({
     submitHandler,
     errors,
     t,
+    loading,
   } = useChoosingCard(navigation)
 
   console.log(navigation, 'navigationnavigation')
@@ -85,7 +87,7 @@ const ChoosingCard = ({
                   source={images.checkCircle}
                   style={styles.contentsViewImage}
                 />
-                <Text>{t('Here is the content inside panel')}</Text>
+                <BaseText>{t('chooseCard.chargingUntilPlugOff')}</BaseText>
               </View>
             ) : (
               <View style={styles.pricingView}>
@@ -146,6 +148,7 @@ const ChoosingCard = ({
             text={'charger.turnOn'}
             imageStyle={{tintColor: 'white'}}
             image={images.charge}
+            loading={loading}
           />
         </KeyboardAvoidingView>
       </View>

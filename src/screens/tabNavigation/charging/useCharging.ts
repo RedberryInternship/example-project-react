@@ -1,4 +1,4 @@
-import {useState, useRef, useContext, useEffect} from 'react'
+import {useState, useContext, useEffect, useRef} from 'react'
 import {useTranslation} from 'react-i18next'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {Alert} from 'react-native'
@@ -9,6 +9,7 @@ import {
 } from 'hooks/actions/chargerActions'
 import {AppContext} from '../../../../App'
 import {AppContextType} from 'allTypes'
+import {Defaults, Helpers} from 'utils'
 
 export default (navigation: any) => {
   const {
@@ -18,19 +19,19 @@ export default (navigation: any) => {
 
   const [activeTab, setActiveTab] = useState<number>(0)
 
-  const _this: React.RefObject<any> = useRef()
-
   const {t} = useTranslation()
+  const timeInterval = useRef<any>()
 
   const insets = useSafeArea()
 
   useEffect(() => {
-    const timeInterval = setInterval(() => {
-      chargingStateAction(dispatch)
-    }, 100000)
+    timeInterval.current = setInterval(() => {
+      if (Helpers.isAuthenticated()) chargingStateAction(dispatch)
+      else clearInterval(timeInterval.current)
+    }, 30000) // time interval for per request
 
     return (): void => {
-      clearInterval(timeInterval)
+      clearInterval(timeInterval.current)
     }
   }, [])
 
@@ -62,7 +63,6 @@ export default (navigation: any) => {
 
   return {
     insets,
-    _this,
     t,
     chargingState,
     activeTab,

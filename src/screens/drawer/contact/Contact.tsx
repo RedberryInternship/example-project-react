@@ -15,7 +15,7 @@ import {useSafeArea} from 'react-native-safe-area-context'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {BaseHeader, BaseButton} from 'components'
+import {BaseHeader, BaseButton, BaseText} from 'components'
 import {Colors, Const} from 'utils'
 import images from 'assets/images'
 import ContactListItem from './components/ContactListItem'
@@ -24,15 +24,17 @@ import useContact from './useContact'
 const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
   const insets = useSafeArea()
-  const {outgoingLinkMethods, setMessage, sendMessage} = useContact(navigation)
+  const {outgoingLinkMethods, data, setMessage, sendMessage} = useContact(
+    navigation,
+  )
 
   // Dummy Info Before we connect App to Back-End
   const contactInfos = [
     'საირმის ქუჩა 11ო',
-    '+995 591 93 50 80',
-    'gela@espace.ge',
-    'e-space',
-    'www.espace.ge',
+    data?.phone ?? '',
+    data?.email ?? '',
+    data?.fb_page ?? '',
+    data?.web_page ?? '',
   ]
 
   const listItems = Const.ContactListFields.map((el, key) => {
@@ -48,7 +50,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   })
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, {paddingBottom: insets.bottom}]}>
       <BaseHeader
         title={'contact.contact'}
         onPressLeft={navigation.navigate.bind(Contact, 'MainDrawer')}
@@ -65,32 +67,31 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         extraHeight={Platform.select({ios: 500, android: 75})}
         resetScrollToCoords={{x: 0, y: 0}}
       >
-        <View style={styles.contactItemsContainer}>{listItems}</View>
-        <View style={styles.messageContainer}>
-          <Text style={styles.messageTitle}>{t('contact.message')}</Text>
-          <Image source={images.mail} style={styles.messageIcon} />
-          <TextInput
-            multiline
-            style={styles.message}
-            onChangeText={setMessage}
-            numberOfLines={4}
-          />
+        <View>
+          <View style={styles.contactItemsContainer}>{listItems}</View>
+          <View style={styles.messageContainer}>
+            <BaseText style={styles.messageTitle}>
+              {t('contact.message')}
+            </BaseText>
+            <Image source={images.mail} style={styles.messageIcon} />
+            <TextInput
+              multiline
+              style={styles.message}
+              onChangeText={setMessage}
+              numberOfLines={4}
+            />
+          </View>
         </View>
-      </KeyboardAwareScrollView>
 
-      <KeyboardAvoidingView
-        behavior="padding"
-        keyboardVerticalOffset={
-          Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
-        }
-      >
         <BaseButton
           onPress={sendMessage}
           text="contact.send"
           image={images.arrowRight}
           style={styles.baseButton}
         />
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
+
+      <KeyboardAvoidingView behavior="padding"></KeyboardAvoidingView>
     </View>
   )
 }
@@ -104,13 +105,14 @@ const styles = StyleSheet.create({
   },
   keyboardScrollViewContentContainer: {
     flex: 0,
+    flexGrow: 1,
+    justifyContent: 'space-between',
   },
   contactItemsContainer: {
     backgroundColor: Colors.secondaryGray,
     marginHorizontal: 16,
     borderRadius: 8,
-    paddingHorizontal: 16,
-    paddingTop: 32,
+    padding: 16,
     marginTop: 32,
   },
   messageContainer: {
@@ -135,6 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.black,
     borderRadius: 8,
     color: Colors.primaryWhite,
+    fontSize: 13,
+    lineHeight: 16,
     paddingLeft: 40,
     paddingRight: 16,
     paddingTop: 10,
@@ -142,6 +146,6 @@ const styles = StyleSheet.create({
   },
   baseButton: {
     marginTop: 0,
-    marginBottom: 0,
+    marginBottom: 16,
   },
 })

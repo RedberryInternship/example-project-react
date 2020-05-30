@@ -29,6 +29,7 @@ import CardListItem from './item/CardListItem'
 import ModalPopupChargerItem from './item/ModalPopupChargerItem'
 import MapMarkerItem from './item/MapMarkerItem'
 import ChargerGroupPopupItem from './item/ChargerGroupPopupItem'
+import AutoCompleteDropdown from './item/AutoCompleteDropdown'
 
 //BaseUI
 import BaseInput from './baseUI/BaseInput'
@@ -98,4 +99,5 @@ export {
   PasswordConfirmationView,
   AddCar,
   PrivacyPolicy,
+  AutoCompleteDropdown,
 }

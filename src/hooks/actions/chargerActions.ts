@@ -4,6 +4,7 @@ import {ChargingTypes, ChargingStatus} from '../../../@types/allTypes.d'
 
 import {Helpers} from 'utils'
 import services from 'services'
+import {getAllChargers} from './rootActions'
 
 export const CHARGING_STARTED_SUCCESS = 'CHARGING_STARTED_SUCCESS'
 export const CHARGING_STARTED_FAILURE = 'CHARGING_STARTED'
@@ -23,6 +24,7 @@ type StartChargingArg = {
 export const startCharging = async (
   {type, connectorTypeId, amount, userCardId}: StartChargingArg,
   dispatch: any,
+  setLoading: (bool: boolean) => void,
 ) => {
   try {
     const startResult = await services.startCharging(
@@ -42,14 +44,14 @@ export const startCharging = async (
         chargingState: chargingStateResult,
       }),
     )
+    getAllChargers(dispatch)
+    setLoading(false)
 
-    NavigationActions.reset(
-      'chargerStack',
-      Defaults.token ? 'ChargerWithCode' : 'NotAuthorized',
-    )
+    NavigationActions.reset('ChargerStack', 'ChargerWithCode')
 
     NavigationActions.navigate('Charging')
   } catch (error) {
+    setLoading(false)
     if (error.data.message)
       Helpers.DisplayDropdownWithError('', getLocaleText(error.data.message))
     else Helpers.DisplayDropdownWithError()
@@ -67,24 +69,12 @@ export const finishCharging = async (
   dispatch: any,
 ) => {
   try {
-    const {already_paid, charging_status} = await services.finishCharging(
-      orderId,
-    )
+    const result = await services.finishCharging(orderId)
 
-    Defaults.modal.current?.customUpdate(true, {
-      type: 3,
-      subType: charging_status,
-      data: {
-        title: 'popup.thankYou',
-        description: 'popup.automobileChargingFinished',
-        bottomDescription: 'popup.finishedChargingOfAutomobile',
-        price: already_paid,
-      },
-      onCloseClick: () => onModalClose(dispatch),
-    })
+    Helpers.configureChargingFinishPopup(result, dispatch)
   } catch (error) {
-    if (error.message)
-      Helpers.DisplayDropdownWithError('', getLocaleText(error.message))
+    if (error.data?.message)
+      Helpers.DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
     else Helpers.DisplayDropdownWithError()
     dispatch(finishChargingAction(error, false))
   }
@@ -99,34 +89,18 @@ export const chargingState = async (dispatch: any) => {
   try {
     const result = await services.chargingState()
 
-    // for (const {already_paid, charging_status} of result) {
-    //   if (
-    //     charging_status !== ChargingStatus.INITIATED &&
-    //     charging_status !== ChargingStatus.CHARGING
-    //   ) {
-    //     const options = {
-    //       type: 3,
-    //       subType: charging_status,
-    //       data: {
-    //         title: 'popup.thankYou',
-    //         description: 'popup.automobileChargingFinished',
-    //         bottomDescription: 'popup.finishedChargingOfAutomobile',
-    //         price: already_paid,
-    //       },
-    //       onCloseClick: onModalClose,
-    //     }
-    //     switch (charging_status) {
-    //       case ChargingStatus.CHARGED:
-    //         //construct data accordingly
-    //         break
-    //       case ChargingStatus.FINISHED:
-    //         break
-
-    //       default:
-    //         break
-    //     }
-    //   }
-    // }
+    for (const state of result) {
+      Helpers.configureChargingFinishPopup(state, dispatch)
+    }
+    if (Defaults.activeRoute === 'Charging' && result.length === 0) {
+      NavigationActions.navigate('Home')
+    }
+    if (
+      result.length === 0 &&
+      Defaults.modal.current?.state.config.type === 3
+    ) {
+      Defaults.modal.current?.customUpdate(false)
+    }
 
     dispatch(chargingStateAction(result))
   } catch (error) {
@@ -139,9 +113,3 @@ const chargingStateAction = (payload: any, success = true) => ({
   type: success ? CHARGING_STATE_SUCCESS : CHARGING_STATE_FAILURE,
   payload,
 })
-
-const onModalClose = (dispatch) => {
-  NavigationActions.navigate('Home')
-
-  chargingState(dispatch)
-}

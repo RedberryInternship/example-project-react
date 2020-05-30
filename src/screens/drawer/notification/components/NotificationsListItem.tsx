@@ -2,6 +2,7 @@ import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 
 import {Colors} from 'utils'
+import {BaseText} from 'components'
 
 type NotificationItemProps = {
   title: string
@@ -16,9 +17,9 @@ const NotificationsListItem = ({
 }: NotificationItemProps): ReactElement => {
   return (
     <View style={styles.container}>
-      <Text style={styles.date}>{date}</Text>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      <BaseText style={styles.date}>{date}</BaseText>
+      <BaseText style={styles.title}>{title}</BaseText>
+      <BaseText style={styles.description}>{description}</BaseText>
     </View>
   )
 }

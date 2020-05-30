@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import {useEffect, useState, useRef, RefObject, useContext} from 'react'
 
-import {Defaults} from 'utils'
+import {Defaults, NavigationActions, Helpers} from 'utils'
 
 import useRegistrationHookStep1 from './useRegistrationStep1'
 import useRegistrationHookStep2 from './useRegistrationStep2'
@@ -82,7 +82,7 @@ export default (navigation: any) => {
   }
 
   const addCardSkip = (): void => {
-    navigation.navigate('MainDrawer')
+    navigation.navigate('Home')
   }
 
   const registrationStepHandler: (() => Promise<void>)[] = [

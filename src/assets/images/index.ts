@@ -46,7 +46,7 @@ export default {
   internet: require('./icons/internet.png'),
   'Combo 2': require('./icons/fastCharger.png'),
   'Type 2': require('./icons/type2Charger.png'),
-  CHadeMO: require('./icons/chademoCharger.png'),
+  CHAdeMO: require('./icons/chademoCharger.png'),
   checkmark: require('./icons/checkmark.png'),
   addCarInput: require('./icons/addCarInput.png'),
 }

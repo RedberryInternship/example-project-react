@@ -58,12 +58,23 @@ const MapView = forwardRef(
 
     const polylineRoute = useMemo(
       () => (
-        <Polyline
-          key={1.4}
-          coordinates={polyline}
-          strokeWidth={4}
-          strokeColor={Colors.faqBlue}
-        />
+        <>
+          <Polyline
+            key={1.4}
+            coordinates={polyline}
+            strokeWidth={8}
+            strokeColor={Colors.primaryGreen}
+            zIndex={Number.MAX_VALUE}
+            geodesic={true}
+          />
+          <Polyline
+            key={1}
+            coordinates={polyline}
+            strokeWidth={4}
+            fillColor={Colors.primaryBlue}
+            zIndex={Number.MAX_VALUE}
+          />
+        </>
       ),
       [polyline],
     )
@@ -81,10 +92,14 @@ const MapView = forwardRef(
           }}
           onMapReady={mapReady}
           showsUserLocation
-          showsPointsOfInterest
-          showsTraffic
+          showsPointsOfInterest={false}
+          showsTraffic={false}
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
           ref={mapRef}
+          loadingBackgroundColor={
+            determineTimePeriod() ? Colors.primaryBackground : 'white'
+          }
+          showsMyLocationButton={false}
         >
           {pins}
           {polylineRoute}

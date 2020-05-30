@@ -14,6 +14,7 @@ export default (navigation: Navigation) => {
   const {dispatch, state}: AppContextType = useContext(AppContext)
   const [cards, setCards] = useState<UserCard[]>(state.user?.user_cards ?? [])
   const {control, handleSubmit, errors} = useForm()
+  const [loading, setLoading] = useState<boolean>(false)
 
   const slideUpPanelRef: React.RefObject<SlidingUpPanel> = useRef(null)
 
@@ -25,6 +26,7 @@ export default (navigation: Navigation) => {
     setCards([activeCard, ...(cards ?? [])])
   }
   const submitHandler = async ({amount}: {amount: number}) => {
+    setLoading(true)
     startCharging(
       {
         type: navigation.getParam('type'),
@@ -33,6 +35,7 @@ export default (navigation: Navigation) => {
         userCardId: cards?.[0].id,
       },
       dispatch,
+      setLoading,
     )
   }
 
@@ -46,5 +49,6 @@ export default (navigation: Navigation) => {
     submitHandler,
     errors,
     cards,
+    loading,
   }
 }

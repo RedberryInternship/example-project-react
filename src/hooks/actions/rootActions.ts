@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Defaults} from 'utils'
+import {Defaults, NavigationActions} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
 import {UserSettingEnum} from '../../../@types/allTypes.d'
 
@@ -22,7 +22,10 @@ export const rootAction = async (data: any, dispatch: any): Promise<void> => { /
       const result = await services.getUserData()
       dispatch(saveToken({token: data.token, ...data.user, ...result}))
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      if (error.status == '406' || error?.data?.status == '406') {
+        Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+        dispatch(logOut())
+      } else Helpers.DisplayDropdownWithError()
     }
     getFavoriteChargers(dispatch)
 
@@ -47,7 +50,7 @@ export const logOut = () => {
   AsyncStorage.clear()
   Defaults.token = ''
   Defaults.userDetail = null
-
+  NavigationActions.navigate('Home')
   return {
     type: LOG_OUT,
   }

@@ -7,6 +7,7 @@ import {Colors} from 'utils'
 import {ChargerGroupPopupItem} from 'components'
 import {Charger} from 'allTypes'
 import images from 'assets/images'
+import BaseText from 'components/baseUI/BaseText'
 
 type LocationPermissionProps = {
   onPress?: (index: number) => void
@@ -21,31 +22,7 @@ const LocationPermission = ({data}: LocationPermissionProps): ReactElement => {
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{t(data.title)}</Text>
-      <View style={styles.addressContainer}>
-        <Image source={images.mapPin} style={styles.mapPinIcon} />
-        <Text style={styles.addressText}>{t(data.address)}</Text>
-      </View>
-      <View style={styles.groupChargerContainer}>
-        <ChargerGroupPopupItem
-          text={'sdf'}
-          //TODO : handle onPress
-          onPress={() => {
-            Alert.alert('sd')
-          }}
-          code={'345'}
-          active={true}
-        />
-        <ChargerGroupPopupItem
-          text={'sdf'}
-          //TODO : handle onPress
-          onPress={() => {
-            Alert.alert('sd')
-          }}
-          code={'345'}
-          active={false}
-        />
-      </View>
+      <BaseText style={styles.title}>{t('needLocation')}</BaseText>
     </View>
   )
 }
@@ -61,24 +38,5 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     color: Colors.primaryDark,
     textTransform: 'uppercase',
-  },
-  addressContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingVertical: 8,
-
-    paddingBottom: 16,
-  },
-  addressText: {
-    color: '#436880',
-    fontSize: 13,
-    marginLeft: 12,
-  },
-  groupChargerContainer: {},
-  mapPinIcon: {
-    width: 21,
-    height: 21,
-    resizeMode: 'contain',
   },
 })

@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   StyleSheet,
-  TouchableWithoutFeedback,
   TextInput,
   Image,
   View,
@@ -10,7 +9,6 @@ import {
 
 import {Colors, Const} from 'utils'
 import images from 'assets/images'
-import {BaseNativeTouchable} from 'components'
 
 // eslint-disable-next-line react/display-name
 const HomeMainSearchInput = React.forwardRef(
@@ -52,7 +50,7 @@ const HomeMainSearchInput = React.forwardRef(
         <TouchableOpacity
           onPress={closeClick}
           style={styles.deleteTouchable}
-          hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+          hitSlop={{top: 25, bottom: 25, left: 25, right: 25}}
         >
           <Image source={images.delete} style={styles.deleteImage} />
         </TouchableOpacity>

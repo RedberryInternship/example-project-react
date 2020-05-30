@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react'
 import {Text, View, StyleSheet} from 'react-native'
 import {useTranslation} from 'react-i18next'
+import BaseText from 'components/baseUI/BaseText'
 
 type LegendColorItemProps = {
   text: string
@@ -10,7 +11,7 @@ const LegendColorItem = ({text, color}: LegendColorItemProps): ReactElement => {
   const {t} = useTranslation()
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{t(text)}</Text>
+      <BaseText style={styles.text}>{t(text)}</BaseText>
       <View style={[styles.backgrondView, {backgroundColor: color}]} />
     </View>
   )

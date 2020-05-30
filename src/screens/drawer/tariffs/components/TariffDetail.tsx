@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image} from 'react-native'
 
 import {Colors} from 'utils'
 import images from 'assets/images'
+import {BaseText} from 'components'
 
 type TariffProps = {
   title: string
@@ -13,8 +14,8 @@ const TariffDetail = ({title, description}: TariffProps): ReactElement => {
   return (
     <View style={styles.container}>
       <Image source={images.alertCircle} style={styles.image} />
-      <Text style={styles.description}> {description} </Text>
-      <Text style={styles.title}> {title} </Text>
+      <BaseText style={styles.description}> {description} </BaseText>
+      <BaseText style={styles.title}> {title} </BaseText>
     </View>
   )
 }

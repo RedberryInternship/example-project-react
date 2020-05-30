@@ -18,6 +18,10 @@ export default {
     loading: 'იტვირთება ...',
     cancel: 'გამოსვლა',
     pleaseFillInput: 'გთხოვთ შეავსოთ ველი',
+    needLocation: 'საჭიროა წვდომა ლოკაციაზე',
+    locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
+    navigateToSettings: 'პარამეტრებში გადასვლა',
+    chargerString: 'დამტენი',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -54,7 +58,7 @@ export default {
       contact: 'კონტაქტი',
       faq: 'ხდკ',
       partners: 'პარტნიორები',
-      terms_and_conditions: 'წესები და პირობები',
+      termsAndConditions: 'წესები და პირობები',
       settings: 'პარამეტრები',
       transactions: 'ტრანზაქციები',
       notifications: 'შეტყობინებები',
@@ -120,6 +124,9 @@ export default {
       returned: 'დაგიბრუნდათ',
       continueCharging: 'დატენვის გაგრძელება',
       finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატევა დასრულდა',
+      warningTextBeforeFine:
+        'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
+      yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო გავიდა',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',
@@ -131,10 +138,14 @@ export default {
     chargerDetail: {
       seeOnMap: 'რუკაზე ნახვა',
       currentPrices: 'მიმდინარე ტარიფები',
+      speedRange: 'სიჩქარის რეინჯი',
+      minutesPrice: '15 წუთის ღირებულება',
       connectors: 'ქონექტორები',
       additionalServices: 'დამატებითი სერვისები',
       powerOfChargerType: 'სიმძლავრე {{power}}კვ/სთ',
       code: 'კოდი:#{{code}}',
+      pleaseAddCardFirst: 'საჭიროა რომ დაამატოთ ბარათი',
+      maxAllowedCarCharing: 'მაქსიმუმ შესაძლებელია მხოლოდ 2 მანქანის დატენვა',
     },
     notAuthorized: {
       notAuthorizedText:
@@ -154,7 +165,8 @@ export default {
     },
     chooseCard: {
       chooseCard: 'ბარათის არჩევა',
-      enterPrice: 'მიუთითეთ თანხა',
+      enterPrice: 'გთხოვთ მიუთითეთ თანხის ოდენობა',
+      chargingUntilPlugOff: 'დატენვა გამოერთებამდე',
     },
     favourites: {
       favourites: 'ფავორიტები',
@@ -203,10 +215,11 @@ export default {
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
+      thisUserIsBlocked: 'ეს უიზერი დაბლოკილია',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
-        fillName: 'გთხოვთ ჩაწეროთ სახელი',
-        fillSurname: 'გთხოვთ ჩაწეროთ გვარი',
+        fillName: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',
+        fillSurname: 'გთხოვთ ჩაწეროთ გვარი სწორი ფორმატით',
         incorrectEmail: 'იმეილი არ არის სწორი',
         codeSentSuccessfully: 'კოდი გამოიგზავნა წარმატებით',
         codeLengthError: 'sms კოდი 4 ციფრისგან უნდა შედგებოდეს',
@@ -218,12 +231,12 @@ export default {
         needsCardAddOrPleaseSkip: 'საჭიროა ბარატის დამატება, ან გამოტოვეთ',
       },
       editFirstname: {
-        firstNameNotEmpty: 'გთხოვთ, შეავსეთ სახელის ველი',
-        minSize: 'სახელის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
+        firstNameNotEmpty: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',
+        minSize: ' ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
         firstNameChangeSuccess: 'სახელი წარმატებით შეიცვალა!',
       },
       editLastname: {
-        lastNameNotEmpty: 'გთხოვთ, შეავსეთ გვარის ველი',
+        lastNameNotEmpty: 'გთხოვთ ჩაწეროთ გვარი სწორი ფორმატით',
         minSize: 'გვარის ველი მინიმუმ 3 სიმბოლოს უნდა შეიცავდეს',
         lastNameChangeSuccess: 'გვარი წარმატებით შეიცვალა!',
       },
@@ -260,10 +273,11 @@ export default {
         newPasswordIncorrectLength: 'პაროლი მინიმუმ 8 სიმბოლოს უნდა შეიცავდეს',
         passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
         passwordsNotFilled: 'გთხოვთ, შეავსოთ პაროლის ველები',
+        verificationCodeIsIncorrect: 'ვერიფიკაციის კოდი არასწორია',
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
-        needToLogIn: 'საჭიროა რომ დალოგინდეთ',
+        needToLogIn: 'საჭიროა რომ გაიაროთ ავტორიზაცია',
         noRouteFound: 'გზა ვერ მოიძებნა',
       },
       home: {

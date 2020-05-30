@@ -16,6 +16,8 @@ import {
 } from '../../../../../@types/allTypes.d'
 import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
+import {Alert} from 'react-native'
+import {DrawerActions} from 'react-navigation-drawer'
 
 const useHome = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -43,6 +45,7 @@ const useHome = (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    navigation.dispatch(DrawerActions.closeDrawer())
     bottomSheetSnapTo()
     return (): void => {
       didFocus.remove()
@@ -114,7 +117,7 @@ const useHome = (
 
   const onFilteredItemClick = (charger: ChargerDetail): void => {
     navigation.navigate('ChargerDetail', {
-      chargerDetails: {...charger, from: 'home'},
+      chargerDetails: {...charger, from: 'Home'},
     })
   }
 
@@ -128,13 +131,7 @@ const useHome = (
     newSelectedFilters = selectedFiltersOnMap.map((val) =>
       val > 1 || val === 0 ? 0 : 1,
     )
-    // Vobi Todo: i think its more understandable now and you have same logic https://tppr.me/o1DAj here move this as function and call it s
-    // const newSelectedFilters: number[] = selectedFilters.map((val, i) => {
-    //   if (i === index) val++
-    //   if (val > 1 || val === 0) return 0
-    //   return 1
-    // })
-    // redberry: what? it is beautiful
+
     setSelectedFiltersOnMap(newSelectedFilters)
     setShowAll(false)
   }

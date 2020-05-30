@@ -11,6 +11,7 @@ import MaskedView from '@react-native-community/masked-view'
 
 import {useTranslation} from 'react-i18next'
 import {Colors} from 'utils'
+import BaseText from 'components/baseUI/BaseText'
 
 const CodeInputWidth = 128
 
@@ -26,9 +27,6 @@ const receiveConfirmationCode = React.forwardRef(
     const {t} = useTranslation()
 
     const codeReceiveHandler = (): void => {
-      console.log('====================================')
-      console.log(inputRef, 'inputRef')
-      console.log('====================================')
       if (disabled) return
       setDisabled(true)
       animation.setValue(0)
@@ -62,9 +60,9 @@ const receiveConfirmationCode = React.forwardRef(
 
     return (
       <View style={styles.container}>
-        <Text style={styles.smsCodeText}>
+        <BaseText style={styles.smsCodeText}>
           {t('authentication.forgotPasswordPage.smsCode')}
-        </Text>
+        </BaseText>
         <View style={styles.receiveCodeBtnContainer}>
           <TouchableOpacity
             activeOpacity={1}

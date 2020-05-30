@@ -1,15 +1,15 @@
-import React, {useRef, forwardRef, ReactElement} from 'react'
+import React, {useRef, forwardRef, ReactElement, useCallback} from 'react'
 import {
   StyleSheet,
   View,
-  Dimensions,
+  useWindowDimensions,
   Text,
   Image,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {TextInput} from 'react-native-gesture-handler'
+import {TextInput, FlatList} from 'react-native-gesture-handler'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeArea} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
@@ -19,8 +19,7 @@ import {Charger, ChargerDetail} from 'allTypes'
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
 import {BottomSheetFilterItem, MainSearchItem} from '../components'
-
-const screenHeight = Dimensions.get('window').height
+import {BaseText} from 'components'
 
 type _This = {
   text: string
@@ -51,6 +50,7 @@ const BottomSheetReanimated = forwardRef(
     // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
     const {t} = useTranslation()
+    const height = useWindowDimensions().height
 
     const insets = useSafeArea()
 
@@ -75,38 +75,41 @@ const BottomSheetReanimated = forwardRef(
       textHandler(text)
     }
 
-    const renderHeaderComponent = (): ReactElement => (
-      <View style={styles.headerComponent}>
-        <View style={styles.headerComponentWrapper} />
-        <Text style={styles.headerComponentText}>
-          {t('home.allChargers').toUpperCase()}
-        </Text>
-        <View style={styles.textInputContainer}>
-          <Image source={images.iconSearch} style={styles.searchIcon} />
-          <TextInput
-            style={styles.textInput}
-            placeholder={`${t('home.location')}/${t('home.organization')}`}
-            keyboardType={'default'}
-            onChangeText={onTextChange}
-            onSubmitEditing={() => {}}
-            placeholderTextColor={Colors.primaryWhite}
-            allowFontScaling={false}
-            ref={inputRef}
-            autoCorrect={false}
-            editable={true}
-            autoCapitalize={'none'}
-            returnKeyType={'go'}
-            testID={'mainInput'}
-          />
-          <TouchableWithoutFeedback
-            onPress={closeClick}
-            hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
-            style={styles.closeTouchable}
-          >
-            <Image source={images.delete} style={styles.deleteIcon} />
-          </TouchableWithoutFeedback>
+    const renderHeaderComponent = useCallback(
+      (): ReactElement => (
+        <View style={styles.headerComponent}>
+          <View style={styles.headerComponentWrapper} />
+          <BaseText style={styles.headerComponentText}>
+            {t('home.allChargers')}
+          </BaseText>
+          <View style={styles.textInputContainer}>
+            <Image source={images.iconSearch} style={styles.searchIcon} />
+            <TextInput
+              style={styles.textInput}
+              placeholder={`${t('home.location')}/${t('home.organization')}`}
+              keyboardType={'default'}
+              onChangeText={onTextChange}
+              onSubmitEditing={() => {}}
+              placeholderTextColor={Colors.primaryWhite}
+              allowFontScaling={false}
+              ref={inputRef}
+              autoCorrect={false}
+              editable={true}
+              autoCapitalize={'none'}
+              returnKeyType={'go'}
+              testID={'mainInput'}
+            />
+            <TouchableWithoutFeedback
+              onPress={closeClick}
+              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+              style={styles.closeTouchable}
+            >
+              <Image source={images.delete} style={styles.deleteIcon} />
+            </TouchableWithoutFeedback>
+          </View>
         </View>
-      </View>
+      ),
+      [t],
     )
 
     const renderContent = (): ReactElement => {
@@ -122,6 +125,16 @@ const BottomSheetReanimated = forwardRef(
               />
             ))}
           </View>
+          {/* <FlatList
+            keyboardShouldPersistTaps={'handled'}
+            data={filteredChargers}
+            renderItem={({item: chargerObj, index}) => {
+              const view = []
+             //  bottom stuff... 
+              return view
+            }}
+          /> */}
+
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {
@@ -162,7 +175,7 @@ const BottomSheetReanimated = forwardRef(
       <View style={styles.container} pointerEvents={'box-none'}>
         <BottomSheet
           ref={ref}
-          snapPoints={[55, screenHeight - insets.top - insets.bottom - 65 - 12]}
+          snapPoints={[55, height - insets.top - insets.bottom - 65 - 12]}
           renderContent={renderContent}
           renderHeader={renderHeaderComponent}
           onCloseEnd={Keyboard.dismiss}
@@ -206,7 +219,6 @@ const styles = StyleSheet.create({
   headerComponentText: {
     flex: 0,
     fontSize: 11,
-    lineHeight: 22,
     color: '#FFFFFF',
     alignSelf: 'center',
     marginBottom: 16,
@@ -260,8 +272,9 @@ const styles = StyleSheet.create({
   filterContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'stretch',
     marginBottom: 8,
+    paddingHorizontal: 4,
   },
 })

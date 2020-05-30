@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import {Colors} from 'utils'
-import {BaseNativeTouchable} from 'components'
+import {BaseNativeTouchable, BaseText} from 'components'
 import images from 'assets/images'
 
 type MainSearchItemProps = {
@@ -26,12 +26,12 @@ const MainSearchItem = ({
     <View style={styles.container}>
       <Image source={images.mapPin2} style={styles.image} />
       <View style={styles.textContainer}>
-        <Text numberOfLines={1} style={styles.mainTitleText}>
+        <BaseText numberOfLines={1} style={styles.mainTitleText}>
           {mainTitle}
-        </Text>
-        <Text numberOfLines={1} style={styles.addressText}>
+        </BaseText>
+        <BaseText numberOfLines={1} style={styles.addressText}>
           {text}
-        </Text>
+        </BaseText>
       </View>
     </View>
   )
@@ -60,11 +60,15 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 1,
+    // elevation: 1,
     backgroundColor: 'transparent',
-    margin: 16,
-    height: 40,
+    marginHorizontal: 16,
+    marginTop: 16,
+    paddingBottom: 16,
+    // height: 45,
     flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#1C3748',
   },
   image: {
     width: 23,
@@ -73,6 +77,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
+    justifyContent: 'space-between',
   },
   mainTitleText: {
     fontSize: 13,
@@ -83,6 +88,5 @@ const styles = StyleSheet.create({
   addressText: {
     fontSize: 13,
     color: Colors.primaryGray,
-    lineHeight: 22,
   },
 })

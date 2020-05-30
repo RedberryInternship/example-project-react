@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React, {ReactElement} from 'react'
 import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
 // components
-import {BaseHeader} from 'components'
+import {BaseHeader, BaseText} from 'components'
 
 // utils
 import {Colors, getLocaleText} from 'utils'
@@ -12,7 +13,7 @@ import {
   NavigationState,
   NavigationParams,
 } from 'react-navigation'
-import {OrderResponse} from 'allTypes'
+import {UserOrderResponseItem} from 'allTypes'
 import images from 'assets/images'
 
 type DetailsItemType = {
@@ -25,8 +26,8 @@ type ShowTransactionsProps = {
 const DetailsItem = ({name, value}: DetailsItemType): ReactElement => {
   return (
     <View style={styles.detailsItem}>
-      <Text style={styles.detailsItemName}>{name}: </Text>
-      <Text style={styles.detailsItemValue}>{value}</Text>
+      <BaseText style={styles.detailsItemName}>{name}: </BaseText>
+      <BaseText style={styles.detailsItemValue}>{value ?? ''}</BaseText>
     </View>
   )
 }
@@ -35,7 +36,12 @@ const ShowTransactions = ({
   navigation,
 }: ShowTransactionsProps): ReactElement => {
   const {t} = useTranslation()
-  const order: OrderResponse = navigation.getParam('order', [])
+  const {
+    charger_connector_type,
+    payments,
+    price,
+    charge_time,
+  }: UserOrderResponseItem = navigation.getParam('order', [])
   // Vobi Todo: destructure order
   // Vobi Todo: order.charger.name order.confirm_date
   // Vobi Todo: const { charger, confirm_date } = order
@@ -53,16 +59,23 @@ const ShowTransactions = ({
             source={images.transaction}
             style={styles.transactionIcon}
           />
-          <Text style={styles.title}>{getLocaleText(order.charger.name)}</Text>
-          <Text style={styles.dateAndTime}> {order.confirm_date}</Text>
-          <Text style={styles.price}>{order.price}</Text>
+          <BaseText style={styles.title}>
+            {getLocaleText(charger_connector_type.charger.name)}
+          </BaseText>
+          <BaseText style={styles.dateAndTime}>
+            {' '}
+            {payments?.[0]?.confirm_date}
+          </BaseText>
+          <BaseText style={styles.price}>{price ?? ''}</BaseText>
         </View>
-        <Text style={styles.detailsCopy}>{t('transactions.details')}</Text>
+        <BaseText style={styles.detailsCopy}>
+          {t('transactions.details')}
+        </BaseText>
         <View style={styles.detailsContainer}>
-          {order.charge_time && (
+          {charge_time && (
             <DetailsItem
               name={t('transactions.duration')}
-              value={order.charge_time}
+              value={charge_time}
             />
           )}
 
@@ -73,16 +86,16 @@ const ShowTransactions = ({
         <View style={styles.addressFieldConatainer}>
           <DetailsItem
             name={t('transactions.address')}
-            value={getLocaleText(order.charger.location)}
+            value={getLocaleText(charger_connector_type.charger.location)}
           />
         </View>
         <View style={styles.cardDetailsContainer}>
-          <Text style={styles.cardNumberCopy}>
+          <BaseText style={styles.cardNumberCopy}>
             {t('transactions.cardNumber')}
-          </Text>
-          <Text style={styles.cardNumber}>
-            {order.payments[0]?.user_card?.masked_pan}
-          </Text>
+          </BaseText>
+          <BaseText style={styles.cardNumber}>
+            {payments?.[0]?.user_card?.masked_pan ?? ''}
+          </BaseText>
         </View>
       </View>
       <SafeAreaView />

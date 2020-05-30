@@ -12,10 +12,12 @@ import {
   getCoordsAnyway,
   isPermissionGrantedRegex,
 } from 'utils/mapAndLocation/mapFunctions'
-import {regionFrom, Defaults, locationConfig, Helpers} from 'utils'
+import {regionFrom, Defaults, locationConfig, Helpers, Const} from 'utils'
 import {HomeContext} from 'screens/tabNavigation/home/Home'
 import services from 'services'
 import {getAllChargers} from 'hooks/actions/rootActions'
+import {Alert, Platform} from 'react-native'
+import {useTranslation} from 'react-i18next'
 
 type ThisRef = {
   interval: number
@@ -36,7 +38,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     permissionStatus,
     setPermissionStatus,
   ] = useState<LocationPermissionStatus | null>(null)
-
+  const {t} = useTranslation()
   const _this = useRef<ThisRef>({
     interval: 0,
     location: null,
@@ -47,11 +49,6 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      // RNLocation.subscribeToLocationUpdates((val) => {
-      //   console.log('====================================')
-      //   console.log(val, 'subscribeToLocationUpdates')
-      //   console.log('====================================')
-      // })
       RNLocation.getLatestLocation({timeout: 6000}).then(getLatestLocation)
     } catch (error) {}
 
@@ -70,9 +67,11 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   ): void => {
     setPermissionStatus(status)
     Defaults.locationPermissionStatus = status
+
     if (status.match(/notDetermined/)) {
       requestPermission()
     } else if (isPermissionGrantedRegex(status)) {
+      navigateToLocation()
       if (Defaults.modal.current?.state?.config?.type === 5)
         Defaults.modal.current?.customUpdate(false)
     }
@@ -93,7 +92,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     _this.current.permissionStatus = status
     Defaults.locationPermissionStatus = status
     if (!status.match(/denied|restricted|notDetermined/)) {
-      navigateToLocation()
+      // navigateToLocation()
     } else {
       // requestPermission()
     }
@@ -103,7 +102,13 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
     if (location) navigateByRef(location.lat, location.lng)
     else {
       try {
-        await locationConfig.requestPermission()
+        if (
+          !isPermissionGrantedRegex(Defaults.locationPermissionStatus) ||
+          !Const.platformIOS
+        ) {
+          const status = await locationConfig.requestPermission()
+          if (!status) return
+        }
         const coords = await getCoordsAnyway()
 
         navigateByRef(coords.lat, coords.lng)

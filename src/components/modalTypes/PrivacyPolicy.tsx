@@ -12,6 +12,7 @@ import {useTranslation} from 'react-i18next'
 
 import {Colors} from '../../utils'
 import images from 'assets/images'
+import BaseText from 'components/baseUI/BaseText'
 
 type PrivacyPolicyProps = {
   onPress: () => void
@@ -21,10 +22,10 @@ const PrivacyPolicy = ({onPress}: PrivacyPolicyProps): ReactElement => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{'წესები'}</Text>
+      <BaseText style={styles.title}>{'წესები'}</BaseText>
       <ScrollView style={{marginVertical: 32}}>
         <TouchableOpacity>
-          <Text style={styles.contentStyle}>
+          <BaseText style={styles.contentStyle}>
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
             voluptas enim molestiae vel sunt eius! Illum veniam laudantium
             debitis reiciendis optio illo, dolorem omnis ea porro ducimus
@@ -54,7 +55,7 @@ const PrivacyPolicy = ({onPress}: PrivacyPolicyProps): ReactElement => {
             adipisicing elit. Esse voluptas enim molestiae vel sunt eius! Illum
             veniam laudantium debitis reiciendis optio illo, dolorem omnis ea
             porro ducimus pariatur distinctio iure?
-          </Text>
+          </BaseText>
         </TouchableOpacity>
       </ScrollView>
       <View style={styles.closeButtonView}>

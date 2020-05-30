@@ -12,7 +12,7 @@ import {useTranslation} from 'react-i18next'
 
 import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
 
-import {BaseButton} from 'components'
+import {BaseButton, BaseText} from 'components'
 
 import {Const, Colors, Helpers, Defaults} from 'utils'
 import {AppContext} from '../../../../App'
@@ -41,7 +41,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   if (!Helpers.isAuthenticated()) {
     drawerContent = (
       <>
-        <View>
+        <View style={{paddingTop: insets.top, borderTopLeftRadius: 24}}>
           <BaseButton
             image={images.user}
             onPress={navigation.navigate.bind(Drawer, 'Auth')}
@@ -64,18 +64,8 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       </>
     )
   } else {
-    const firstName = context?.state?.user?.first_name
-    const lastName = context?.state?.user?.last_name
     drawerContent = (
       <View>
-        <BaseUserAvatarWithLabel
-          onPress={(): void => {
-            navigation.navigate('ChooseAvatar')
-          }}
-          avatar={context?.state.user?.avatar}
-          firstName={firstName ?? ''}
-          lastName={lastName ?? ''}
-        />
         {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
           return (
             <DrawerTextFieldItem
@@ -131,13 +121,21 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 
   return (
     <View
-      style={[
-        styles.safeAreaViewContainer,
-        {paddingTop: insets.top, paddingBottom: insets.bottom},
-      ]}
+      style={[styles.safeAreaViewContainer, {paddingBottom: insets.bottom}]}
     >
+      {Helpers.isAuthenticated() && (
+        <BaseUserAvatarWithLabel
+          onPress={(): void => {
+            navigation.navigate('ChooseAvatar')
+          }}
+          avatar={context?.state.user?.avatar}
+          firstName={context?.state?.user?.first_name ?? ''}
+          lastName={context?.state?.user?.last_name ?? ''}
+        />
+      )}
       <ScrollView
         bounces={false}
+        showsVerticalScrollIndicator={false}
         style={styles.scrollViewStyle}
         contentContainerStyle={styles.scrollViewContentContainerStyle}
       >
@@ -148,14 +146,14 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               onPress={(): void => {
                 Defaults.modal.current?.customUpdate(true, {type: 6})
               }}
-              text={'drawer.terms_and_conditions'}
+              text={'drawer.termsAndConditions'}
               image={images.greenTick}
             />
           )}
           <View style={styles.localeAndLogoutWrapper}>
             <BaseLocaleButton
               onPress={toggleLanguage}
-              text={i18n.language === 'ka' ? 'Eng' : 'Ka'}
+              text={i18n.language === 'ka' ? 'Eng' : 'Ge'}
               style={styles.localeButton}
             />
             {Helpers.isAuthenticated() && ( // Vobi Todo: you can call this once
@@ -164,7 +162,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                   context.dispatch(logOut())
                 }}
               >
-                <Text style={styles.logOut}>{t('drawer.logOut')}</Text>
+                <BaseText style={styles.logOut}>{t('drawer.logOut')}</BaseText>
               </TouchableOpacity>
             )}
           </View>
@@ -183,20 +181,19 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 24,
     backgroundColor: Colors.primaryBackground,
   },
-  scrollViewStyle: {
-    flex: 0,
-  },
+  scrollViewStyle: {},
   scrollViewContentContainerStyle: {
     flex: 0,
     flexGrow: 1,
     justifyContent: 'space-between',
+    marginHorizontal: 16,
   },
   container: {
     flex: 1,
     backgroundColor: Colors.primaryBackground,
   },
   drawerAuthBtn: {
-    width: Const.Width - 120,
+    width: '90%',
     marginTop: 10,
     marginBottom: 60,
   },
@@ -205,14 +202,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 16,
+    paddingHorizontal: 0,
   },
   localeButton: {
-    marginLeft: 24,
     marginTop: 20,
     marginBottom: 20,
   },
   logOut: {
-    marginRight: 24,
     color: 'white',
   },
 })

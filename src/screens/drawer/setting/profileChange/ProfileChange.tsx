@@ -16,7 +16,7 @@ import {
   AddCar,
   SingleInputView,
 } from 'components'
-import {Colors, Helpers} from 'utils'
+import {Colors, Helpers, InputValidationHelpers} from 'utils'
 import images from 'assets/images'
 import useProfileChange from './useProfileChange'
 
@@ -61,6 +61,7 @@ const ProfileChange = ({
             {...form}
             type={type}
             inputName={inputName}
+            validator={InputValidationHelpers.emailValidation}
           />
         )
 
@@ -109,8 +110,10 @@ const ProfileChange = ({
           extraHeight={0}
           extraScrollHeight={-150}
           enableResetScrollToCoords={true}
-          keyboardShouldPersistTaps={'handled'}
+          keyboardShouldPersistTaps={'always'}
+          keyboardDismissMode={'on-drag'}
           resetScrollToCoords={{x: 0, y: 0}}
+          // scrollEnabled={false}
         >
           {renderInputs()}
         </KeyboardAwareScrollView>
@@ -119,14 +122,9 @@ const ProfileChange = ({
       <KeyboardAvoidingView
         style={styles.keyboardAvoidingViewContainer}
         behavior="padding"
-        keyboardVerticalOffset={Platform.OS === 'android' ? 50 : 20}
+        keyboardVerticalOffset={Platform.OS === 'android' ? 8 : 16}
       >
-        <BaseButton
-          onPress={form.handleSubmit(submit)}
-          text="save"
-          image={images.arrowLeft}
-          isImageRight
-        />
+        <BaseButton onPress={form.handleSubmit(submit)} text="save" />
       </KeyboardAvoidingView>
     </View>
   )

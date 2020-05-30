@@ -78,6 +78,9 @@ export default (navigation: Navigation, dispatch: any) => {
       )
       navigation.navigate('Home')
     } catch (error) {
+      if (error.status == '406' || error?.data?.status == '406') {
+        Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+      }
       if (error?.data?.error === 'User Not Found') {
         Helpers.DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
       }

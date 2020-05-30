@@ -33,17 +33,22 @@ import {
   ChooseAvatar,
 } from 'screens'
 
-const chargerStack = createStackNavigator(
+const ChargerStack = createStackNavigator(
   {
     ChargerWithCode,
     ChargerDetail,
     ChooseChargeMethod,
     ChoosingCard,
-    NotAuthorized,
   },
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
     initialRouteName: 'ChargerWithCode',
   },
@@ -52,23 +57,14 @@ const chargerStack = createStackNavigator(
 const HomeTabNavigation = createBottomTabNavigator(
   {
     Home,
-    chargerStack,
+    ChargerStack,
     Favorites,
     Charging,
+    NotAuthorized,
   },
   {
     tabBarComponent: FooterTabNavigation,
     initialRouteName: 'Home',
-    tabBarOptions: {
-      activeTintColor: 'tomato',
-      inactiveTintColor: 'gray',
-      tabStyle: {
-        height: 60,
-      },
-      style: {
-        backgroundColor: '#111314',
-      },
-    },
   },
 )
 
@@ -97,6 +93,12 @@ const authenticationStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
   },
 )
@@ -109,6 +111,12 @@ const drawerMenuOptionsStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
   },
 )
@@ -121,17 +129,21 @@ const transactionStack = createStackNavigator(
   {
     defaultNavigationOptions: {
       headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
     },
   },
 )
 
-const AppNavigator = createSwitchNavigator(
+const MainStack = createStackNavigator(
   {
-    Plashka,
-    authenticationStack,
     MainDrawer,
+    authenticationStack,
     drawerMenuOptionsStack,
-    chargerStack,
     Faq,
     Contact,
     Tariffs,
@@ -139,6 +151,25 @@ const AppNavigator = createSwitchNavigator(
     transactionStack,
     Notifications,
     ChooseAvatar,
+  },
+  {
+    initialRouteName: 'MainDrawer',
+    defaultNavigationOptions: {
+      headerShown: false,
+      gestureEnabled: true,
+      gestureDirection: 'horizontal',
+      cardStyle: {
+        backgroundColor: 'transparent',
+        opacity: 1,
+      },
+    },
+  },
+)
+
+const AppNavigator = createSwitchNavigator(
+  {
+    Plashka,
+    MainStack,
   },
   {
     initialRouteName: 'Plashka',

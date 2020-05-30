@@ -11,7 +11,8 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {Colors} from 'utils'
+import {Colors, GNOME} from 'utils'
+import {BaseText} from 'components'
 
 type ContactItemProps = {
   image: ImageSourcePropType
@@ -26,18 +27,17 @@ const ContactListItem = ({
   name,
   value,
   onPress,
-  style,
 }: ContactItemProps): ReactElement => {
   const {t} = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={[styles.container, style]}>
+      <View style={[styles.container]}>
         <View style={styles.innerLeftContainer}>
           <Image source={image} style={styles.image} />
-          <Text style={styles.name}>{t(name)}</Text>
+          <BaseText style={styles.name}>{t(name)}</BaseText>
         </View>
-        <Text style={styles.value}>{value}</Text>
+        <BaseText style={styles.value}>{value}</BaseText>
       </View>
     </TouchableOpacity>
   )
@@ -49,14 +49,15 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignContent: 'center',
+    alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: 'rgba(22, 27, 28, 0.1)',
-    marginBottom: 16,
-    paddingBottom: 16,
+    height: 50,
   },
   innerLeftContainer: {
     flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   image: {
     width: 22,
@@ -65,8 +66,10 @@ const styles = StyleSheet.create({
   name: {
     color: Colors.primaryGray,
     marginLeft: 10,
+    fontFamily: GNOME.HELV_MED,
   },
   value: {
     color: Colors.faqBlue,
+    fontSize: 14,
   },
 })

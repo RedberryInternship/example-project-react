@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react'
 import {View, StyleSheet, Text} from 'react-native'
 
 // components
-import {BaseHeader} from 'components'
+import {BaseHeader, BaseText} from 'components'
 
 // utils
 import {Colors} from 'utils'
@@ -24,9 +24,9 @@ const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           title="30 წუთი - 2ლ"
           description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
         />
-        <Text style={styles.note}>
+        <BaseText style={styles.note}>
           ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
-        </Text>
+        </BaseText>
         {/* TODO: need to connect to backend */}
         {tariffsInfo.map((el) => (
           <TariffListItem key={el.company} {...el} />
