@@ -46,7 +46,7 @@ const DrawerTextFieldItem = ({
         <Image style={[styles.image, imageStyle]} source={image} />
         <BaseText style={styles.textField}>{t(text)}</BaseText>
       </View>
-      {badge !== undefined && badge > 0 && ( // Vobi Todo: badge > 0 wont do the same?
+      {!!badge && (
         <View style={styles.textFieldBadge}>
           <View style={styles.badgeConatainer}>
             <BaseText style={styles.badgeCounter}>{badge}</BaseText>

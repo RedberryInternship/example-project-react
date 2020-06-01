@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useCallback} from 'react'
 import {
   View,
   StyleSheet,
@@ -19,13 +19,11 @@ type PartnersResponseType = {
   name: string
   image: string
 }
-// Vobi Todo: Do not use any
 const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
-  const getPartners = async (): Promise<Partner[]> => {
+  const getPartners = useCallback(async (): Promise<Partner[]> => {
     const {partners} = await services.getPartners()
     return partners
-  } // Vobi Todo: this will be called every time partners rerender 
-  // Vobi Todo: you can wrap this function in callback
+  }, [])
 
   return (
     <View style={styles.container}>

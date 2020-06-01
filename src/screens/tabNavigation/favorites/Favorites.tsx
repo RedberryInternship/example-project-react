@@ -7,7 +7,7 @@ import {ScreenPropsWithNavigation, AppContextType, Charger} from 'allTypes'
 import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, Defaults} from 'utils'
 import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
-import {AppContext} from '../../../../App' // Vobi Todo: absolute import appcontext
+import {AppContext} from '../../../../App' //
 import {getLocaleText} from 'utils/localization/localization'
 import {FavoriteChargerListItem} from './components'
 
@@ -38,8 +38,7 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: Colors.primaryBackground}}>
-      {/* Vobi Todo: no inline styles */}
+    <View style={styles.mainContainer}>
       <BaseHeader title={'favourites.favourites'} />
       <ScrollView style={styles.container}>
         {
@@ -66,6 +65,7 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 export default Favorites
 
 const styles = StyleSheet.create({
+  mainContainer: {flex: 1, backgroundColor: Colors.primaryBackground},
   container: {
     paddingVertical: 32,
   },

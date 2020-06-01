@@ -215,7 +215,7 @@ export default {
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
-      thisUserIsBlocked: 'ეს უიზერი დაბლოკილია',
+      thisUserIsBlocked: 'იუზერი არ არის აქტიური',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',

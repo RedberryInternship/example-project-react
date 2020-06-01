@@ -3,7 +3,6 @@ import {useRef, useEffect} from 'react'
 
 import {Helpers} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
-import {BaseInputRefObject} from 'allTypes'
 import {useForm} from 'react-hook-form'
 import services from 'services'
 
@@ -76,7 +75,8 @@ export default (
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)
 
-        if (Object.prototype.hasOwnProperty.call(data, 'email')) { // Vobi Todo: can't you do if(data.email)
+        if (Object.prototype.hasOwnProperty.call(data, 'email')) {
+          // Vobi Todo: can't you do if(data.email)
           if (data.email[0] == 'The email has already been taken.') {
             Helpers.DisplayDropdownWithError(
               'dropDownAlert.registration.emailAlreadyToken',
@@ -85,7 +85,8 @@ export default (
           } else {
             Helpers.DisplayDropdownWithError()
           }
-        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {// Vobi Todo: can't you do if(data.phone_number)
+        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {
+          // Vobi Todo: can't you do if(data.phone_number)
           if (
             data.phone_number[0] == 'The phone number has already been taken.'
           ) {
@@ -103,7 +104,7 @@ export default (
         Helpers.DisplayDropdownWithError()
       }
     }
-  } 
+  }
   // Vobi Todo:
   // catch (error) {
   //   if (typeof error.data === 'string') {

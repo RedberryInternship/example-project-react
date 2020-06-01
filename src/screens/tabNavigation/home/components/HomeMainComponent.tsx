@@ -18,7 +18,6 @@ import {
   HomeFilterView,
   OnMapRoundButton,
 } from '../components'
-import {useTranslation} from 'react-i18next'
 
 type HomeMainComponentProps = {
   navigation?: NavigationScreenProp<NavigationState, NavigationParams>
@@ -60,7 +59,8 @@ const HomeMainComponent = ({
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
           onPress={(): void => {
-            if ( // Vobi Todo: this must be declared as function and validation in validationHelpers
+            if (
+              // Vobi Todo: this must be declared as function and validation in validationHelpers
               !Defaults.locationPermissionStatus.match(
                 /denied|restricted|notDetermined/,
               )

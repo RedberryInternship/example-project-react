@@ -14,7 +14,8 @@ export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
 export const LOG_OUT = 'LOG_OUT'
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
 
-export const rootAction = async (data: any, dispatch: any): Promise<void> => { // Vobi Todo: rename this to describe what it does
+export const rootAction = async (data: any, dispatch: any): Promise<void> => {
+  // Vobi Todo: rename this to describe what it does
   saveToken(data)
 
   if (data.token !== '') {
@@ -98,7 +99,8 @@ export const addToFavorites = async (
   }
 }
 
-export const deleteToFavorites = async ( // Vobi Todo: what does delete to favorites mean
+export const deleteToFavorites = async (
+  // Vobi Todo: what does delete to favorites mean
   payload: number,
   dispatch: any,
   callback?: () => void,

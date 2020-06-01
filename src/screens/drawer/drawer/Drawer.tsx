@@ -1,12 +1,5 @@
-import React, {useContext, ReactElement} from 'react'
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Alert,
-  TouchableOpacity,
-  Text,
-} from 'react-native'
+import React, {useContext, ReactElement, useMemo} from 'react'
+import {StyleSheet, ScrollView, View, TouchableOpacity} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {useTranslation} from 'react-i18next'
 
@@ -30,6 +23,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const insets = useSafeArea()
   const context: AppContextType = useContext(AppContext)
   const {setItem: setLocaleStorage} = useAsyncStorage('locale')
+
   let drawerContent = null
 
   const toggleLanguage = (): void => {
@@ -117,7 +111,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   )
    */
 
-   // Vobi Todo: const isAuth = useMemo(() => Helpers.isAuthenticated(), []) Line: 146
+  // Vobi Todo:  Line: 146
 
   return (
     <View

@@ -30,30 +30,13 @@ const ProfileChange = ({
 
   const {submit, ...form} = useProfileChange(navigation, type)
 
-  const renderInputs = useCallback(() => { // Vobi Todo: function still runs every time this component rerenders
+  const renderInputs = useCallback(() => {
+    // Vobi Todo: function still runs every time this component rerenders
     // Vobi Todo: useCallbacks are mostly used to avoid redeclaration of function on every rerender
     // Vobi Todo: you should wrap this in useMemo and render like {renderInputs}
     switch (type) {
       case UserSettingEnum.firstName:
-        return (
-          <SingleInputView
-            value={value}
-            {...form}
-            type={type}
-            inputName={inputName}
-          />
-        )
-
       case UserSettingEnum.lastName:
-        return (
-          <SingleInputView
-            value={value}
-            {...form}
-            type={type}
-            inputName={inputName}
-          />
-        )
-
       case UserSettingEnum.email:
         return (
           <SingleInputView
@@ -64,19 +47,6 @@ const ProfileChange = ({
             validator={InputValidationHelpers.emailValidation}
           />
         )
-
-      // Vobi Todo: You can do this like this
-      // case UserSettingEnum.firstName:
-      // case UserSettingEnum.lastName:
-      // case UserSettingEnum.email:
-      //   return (
-      //     <SingleInputView
-      //       value={value}
-      //       {...form}
-      //       type={type}
-      //       inputName={inputName}
-      //     />
-      //   )
 
       case UserSettingEnum.activeCard: // TODO
         Helpers.DisplayDropdownWithError('ჯერ არაა მზად')
@@ -89,7 +59,6 @@ const ProfileChange = ({
       case UserSettingEnum.addCar:
         return <AddCar {...form} />
       default:
-        Helpers.DisplayDropdownWithError('რანაირად?') // Vobi Todo: Helpers.DisplayDropdownWithError('რაფერ?')
         return <></>
     }
   }, [form.errors])

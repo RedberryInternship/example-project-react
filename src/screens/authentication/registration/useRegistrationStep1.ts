@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {useForm} from 'react-hook-form'
 
-import {Helpers} from 'utils' // Vobi Todo: only components and classes starts with upper case
+import {Helpers} from 'utils'
 import services from 'services'
 import {usePhoneVerification} from 'hooks'
 

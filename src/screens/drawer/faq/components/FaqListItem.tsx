@@ -142,6 +142,7 @@ const useMyAnim = ({activeFaq, setActiveFaq, number}: MyAnimProps) => {
     Animated.timing(toggleAnswerAnim, {
       toValue: toValue,
       duration: duration,
+      useNativeDriver: false,
     }).start()
   }
 

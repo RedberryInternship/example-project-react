@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useMemo} from 'react'
 import {
   StyleSheet,
   Platform,
@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native'
 
-import {Colors} from 'utils'
+import {Colors, Const} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
 import images from 'assets/images'
 
@@ -22,35 +22,29 @@ const MainSearchItem = ({
   text,
   onPress,
 }: MainSearchItemProps): ReactElement => {
-  const child = ( // Vobi Todo: what does child mean
-    <View style={styles.container}>
-      <Image source={images.mapPin2} style={styles.image} />
-      <View style={styles.textContainer}>
-        <BaseText numberOfLines={1} style={styles.mainTitleText}>
-          {mainTitle}
-        </BaseText>
-        <BaseText numberOfLines={1} style={styles.addressText}>
-          {text}
-        </BaseText>
+  const child = useMemo(
+    () => (
+      <View style={styles.container}>
+        <Image source={images.mapPin2} style={styles.image} />
+        <View style={styles.textContainer}>
+          <BaseText numberOfLines={1} style={styles.mainTitleText}>
+            {mainTitle}
+          </BaseText>
+          <BaseText numberOfLines={1} style={styles.addressText}>
+            {text}
+          </BaseText>
+        </View>
       </View>
-    </View>
+    ),
+    [mainTitle, text],
   )
 
-  // Vobi Todo:
-  // if (Platform.OS === 'ios') return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
-  // return <BaseNativeTouchable onPress={onPress} borderless={false}>
-  //   {child}
-  // </BaseNativeTouchable>
+  if (Const.platformIOS)
+    return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
   return (
-    <>
-      {Platform.OS === 'ios' ? ( // Vobi Todo: in this moments you should split returns it is more readable
-        <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
-      ) : (
-        <BaseNativeTouchable onPress={onPress} borderless={false}>
-          {child}
-        </BaseNativeTouchable>
-      )}
-    </>
+    <BaseNativeTouchable onPress={onPress} borderless={false}>
+      {child}
+    </BaseNativeTouchable>
   )
 }
 

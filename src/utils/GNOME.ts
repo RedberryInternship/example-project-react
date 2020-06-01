@@ -1,4 +1,3 @@
-import {Platform} from 'react-native'
 import {Const} from 'utils'
 
 export const GNOME = {

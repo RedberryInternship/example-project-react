@@ -27,7 +27,7 @@ export default (navigation: any) => {
   useEffect(() => {
     timeInterval.current = setInterval(() => {
       if (Helpers.isAuthenticated()) chargingStateAction(dispatch)
-      else clearInterval(timeInterval.current)
+      else return
     }, 30000) // time interval for per request
 
     return (): void => {

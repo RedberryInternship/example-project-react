@@ -1,15 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 import {useEffect, useState, useRef, RefObject, useContext} from 'react'
 
-import {Defaults, NavigationActions, Helpers} from 'utils'
+import {Defaults} from 'utils'
 
 import useRegistrationHookStep1 from './useRegistrationStep1'
 import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
-import {AppContext} from '../../../../App' // Vobi Todo: absolute import context
-import {Alert} from 'react-native'
+import {AppContext} from '../../../../App'
 
 type _This = {
   userRegistrationState: number
