@@ -52,7 +52,8 @@ const FaqListItem = ({
           style={[
             styles.answer,
             {
-              height: toggleAnswerAnim,
+              // height: activeFaq ? 'auto' : 0,
+              display: activeFaq === number ? 'flex' : 'none',
               paddingVertical: paddingMarginValue,
               marginTop: paddingMarginValue,
               borderTopWidth: onOrOff,
@@ -132,7 +133,7 @@ const useMyAnim = ({activeFaq, setActiveFaq, number}: MyAnimProps) => {
 
   const toggleFaq = (intend = 'open'): void => {
     let toValue = 0
-    const duration = 300
+    const duration = 16
 
     if (intend === 'open') {
       toValue = 120
