@@ -38,21 +38,18 @@ const AddCar = ({
         ?.models?.find((val) => val.name == watch('model')),
       true,
     )
-    console.log(
-      data
-        .find((val) => val.name == watch('manufacturer'))
-        ?.models?.find((val) => val.name == watch('model')),
-      'car_model_id',
-    )
+    // console.log(
+    //   data
+    //     .find((val) => val.name == watch('manufacturer'))
+    //     ?.models?.find((val) => val.name == watch('model')),
+    //   'car_model_id',
+    // )
   }, [watch('model')])
 
-  // console.log('====================================')
-  // console.log(
-  //   watch('manufacturer'),
-  //   data.find((val) => val.name == watch('manufacturer')),
-  //   'data',
-  // )
-  // console.log('====================================')
+  useEffect(() => {
+    setValue('model', '', true)
+  }, [watch('manufacturer')])
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

@@ -40,12 +40,19 @@ const useHomeMainSearch = (
     }).start(() => (showSearchContent ? InputRef.current?.focus() : 0))
   }, [showSearchContent])
 
-  const closeClick = (): void => {
+  const closeClick = (instantly = false): void => {
+    if (instantly) {
+      InputRef.current?.clear()
+      textHandler('')
+      setShowSearchContent(false)
+      Keyboard.dismiss()
+      return
+    }
     if (inputText !== '') {
       InputRef.current?.clear()
       textHandler('')
     } else {
-      setShowSearchContent(!showSearchContent)
+      setShowSearchContent(false)
       Keyboard.dismiss()
     }
   }

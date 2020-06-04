@@ -32,7 +32,6 @@ const BeforeFineLVL2FullCharge = ({
       </BaseText>
       <PopUpCountDown
         startTime={time}
-        up={onFine}
         alarm={!onFine}
         onFinish={onFinish}
         warningLevel={onFine ? 2 : 1}

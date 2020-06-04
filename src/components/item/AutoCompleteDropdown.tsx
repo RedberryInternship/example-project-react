@@ -3,7 +3,7 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableOpacity,
+  // TouchableOpacity,
   ImageSourcePropType,
   Image,
 } from 'react-native'
@@ -14,7 +14,10 @@ import {Colors} from 'utils'
 import {BaseText} from 'components'
 import colors from 'utils/colors'
 import BaseNativeTouchable from 'components/baseUI/BaseNativeTouchable'
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import {
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+} from 'react-native-gesture-handler'
 import {CarMarkAndModelTypes} from 'allTypes'
 type AutoCompleteDropdownProps = {
   title: string
@@ -47,10 +50,6 @@ const AutoCompleteDropdown = ({
       )
     setHideResults(false)
   }
-  console.log('====================================')
-  console.log(filteredMarks, 'filteredMarks')
-  console.log('====================================')
-  // const [state, setstate] = useState('')
   return (
     <View style={[styles.container, {zIndex}]}>
       <BaseText style={styles.title}>{t(title)}</BaseText>
@@ -96,7 +95,8 @@ const AutoCompleteDropdown = ({
             listContainerStyle={{
               backgroundColor: 'transparent',
               borderWidth: 0,
-              elevation: 10,
+              // elevation: 2,
+              // overflow: 'hidden',
               zIndex: zIndex + 1,
             }}
             listStyle={{
@@ -108,6 +108,7 @@ const AutoCompleteDropdown = ({
               borderTopLeftRadius: 0,
               borderTopRightRadius: 0,
               zIndex: zIndex + 2,
+              elevation: 2,
             }}
             renderItem={({item}: {item: string}) => (
               <TouchableOpacity
@@ -127,7 +128,7 @@ const AutoCompleteDropdown = ({
               {borderBottomLeftRadius: 0, borderBottomRightRadius: 0},
             ]}
           />
-          <BaseText style={styles.baseText}>^</BaseText>
+          {/* <BaseText style={styles.baseText}>^</BaseText> */}
         </View>
       </View>
       <BaseText style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>

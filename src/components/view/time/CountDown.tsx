@@ -1,27 +1,15 @@
-import React, {
-  useState,
-  useEffect,
-  ReactElement,
-  useCallback,
-  useRef,
-} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import React, {useState, useEffect, ReactElement, useRef} from 'react'
+import {StyleSheet, View} from 'react-native'
 import moment from 'moment'
 
 import {Colors} from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 
-enum Status {
-  'finished',
-  'started',
-  'threeMinuteLefted', // Vobi Todo: use spell checker
-}
 type CountDownProps = {
   startTime?: string
   alarm: boolean
   popup?: boolean
   onFinish?: () => void
-  up?: boolean
 }
 const INTERVAL = 1000
 
@@ -30,7 +18,6 @@ const CountDown = ({
   onFinish,
   alarm,
   popup,
-  up,
 }: CountDownProps): ReactElement => {
   const [time, setTime] = useState('')
   const ref: any = useRef(null)
@@ -38,7 +25,7 @@ const CountDown = ({
   useEffect(() => {
     // if (ref.current) clearTimeout(ref.current)
 
-    ref.current = setTimeout(countUp.bind(CountDown), INTERVAL)
+    ref.current = setTimeout(countUp, INTERVAL)
 
     return (): void => {
       clearTimeout(ref.current)

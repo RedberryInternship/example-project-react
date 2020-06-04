@@ -211,7 +211,7 @@ const configureChargingFinishPopup = (
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.LVL2FullCharge,
-          onfinish: chargingState.bind(this, dispatch),
+          onFinish: () => chargingState(dispatch),
           data: {
             ...options.data,
             bottomDescription: 'popup.warningTextBeforeFine',
@@ -245,6 +245,7 @@ const configureChargingFinishPopup = (
         }
         break
       case ChargingStatus.FINISHED:
+        chargingState(dispatch)
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.FinishedCharging,

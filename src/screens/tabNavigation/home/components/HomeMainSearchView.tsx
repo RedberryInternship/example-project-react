@@ -82,16 +82,23 @@ const HomeMainSearchView = forwardRef(
           ),
         )
       }
-
       return <React.Fragment>{view}</React.Fragment>
     }
 
     return useMemo(
       () => (
         <>
+          {showSearchContent && (
+            <TouchableOpacity
+              onPress={() => {
+                closeClick(true)
+              }}
+              style={styles.backgroundClose}
+            />
+          )}
           <TouchableOpacity
             activeOpacity={1}
-            onPress={closeClick}
+            onPress={() => setShowSearchContent(true)}
             style={styles.container}
           >
             <>
@@ -141,18 +148,6 @@ const HomeMainSearchView = forwardRef(
               </Animated.View>
             </>
           </TouchableOpacity>
-          <TouchableWithoutFeedback
-            style={{
-              width: Const.Width,
-              height: Const.Height,
-              backgroundColor: 'red',
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              zIndex: 10000,
-              elevation: 100,
-            }}
-          />
         </>
       ),
       [
@@ -199,5 +194,12 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 4,
     position: 'relative',
     alignContent: 'stretch',
+  },
+  backgroundClose: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
   },
 })
