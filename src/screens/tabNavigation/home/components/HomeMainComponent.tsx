@@ -81,17 +81,18 @@ const HomeMainComponent = ({
         />
       </View>
       <View style={styles.modalContainer} pointerEvents={'box-none'}>
-        <OnMapRoundButton
-          style={styles.modalOnMapRound}
-          onPress={(): void => {
-            Defaults.modal.current?.customUpdate(true, {
-              type: 2,
-            })
-          }}
-          image={images.alertCircle2}
-        />
+        <View style={styles.modalOnMapRoundContainer}>
+          <OnMapRoundButton
+            style={styles.modalOnMapRound}
+            onPress={(): void => {
+              Defaults.modal.current?.customUpdate(true, {
+                type: 2,
+              })
+            }}
+            image={images.alertCircle2}
+          />
+        </View>
         <HomeFilterView
-          context={context}
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}
         />
@@ -134,10 +135,18 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 0,
+    backgroundColor: 'red',
   },
   modalOnMapRound: {
-    right: 24,
-    bottom: 138,
     backgroundColor: '#FFFFFF',
+    position: 'relative',
+  },
+  modalOnMapRoundContainer: {
+    flex: 0,
+    position: 'absolute',
+    right: 0,
+    bottom: 130,
+    paddingRight: 24,
+    paddingBottom: 8,
   },
 })

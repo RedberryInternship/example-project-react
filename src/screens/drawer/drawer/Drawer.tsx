@@ -135,7 +135,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       >
         {drawerContent}
         <View>
-          {!Helpers.isAuthenticated() && ( // Vobi Todo: you can call this once
+          {!Helpers.isAuthenticated() && (
             <DrawerTextFieldItem
               onPress={(): void => {
                 Defaults.modal.current?.customUpdate(true, {type: 6})
@@ -150,7 +150,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ge'}
               style={styles.localeButton}
             />
-            {Helpers.isAuthenticated() && ( // Vobi Todo: you can call this once
+            {Helpers.isAuthenticated() && (
               <TouchableOpacity
                 onPress={(): void => {
                   context.dispatch(logOut())
@@ -166,7 +166,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   )
 }
 
-export default Drawer
+export default React.memo(Drawer)
 
 const styles = StyleSheet.create({
   safeAreaViewContainer: {

@@ -1,5 +1,12 @@
-import {useEffect, useState, useRef} from 'react'
-import {Keyboard, Animated, Easing, TextInput, Alert} from 'react-native'
+import {useEffect, useState, useRef, useCallback} from 'react'
+import {
+  Keyboard,
+  Animated,
+  Easing,
+  TextInput,
+  Alert,
+  BackHandler,
+} from 'react-native'
 import {useSafeArea} from 'react-native-safe-area-context'
 import {useTranslation} from 'react-i18next'
 
@@ -13,6 +20,7 @@ const useHomeMainSearch = (
   setShowAll: (boolean: boolean) => void,
 ) => {
   const InputRef = useRef<TextInput>(null)
+  const backHandlerRef = useRef<any>()
   const [showSearchContent, setShowSearchContent] = useState<boolean>(false)
   const [inputText, setInputText] = useState<string>('')
   const [filteredChargers, setFilteredChargers] = useState<Charger[]>([])
@@ -27,9 +35,12 @@ const useHomeMainSearch = (
       Const.Height * 0.95 - 65 - insets.top - insets.bottom - 180,
   })
 
-  const textHandler = (val: string): void => {
-    setInputText(val.toLowerCase())
-  }
+  const textHandler = useCallback(
+    (val: string): void => {
+      setInputText(val.toLowerCase())
+    },
+    [inputText],
+  )
 
   useEffect(() => {
     Animated.timing(_this.current.animatedSearchContentHeight, {
@@ -40,22 +51,40 @@ const useHomeMainSearch = (
     }).start(() => (showSearchContent ? InputRef.current?.focus() : 0))
   }, [showSearchContent])
 
-  const closeClick = (instantly = false): void => {
-    if (instantly) {
-      InputRef.current?.clear()
-      textHandler('')
-      setShowSearchContent(false)
-      Keyboard.dismiss()
-      return
+  useEffect(() => {
+    backHandlerRef.current = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleAndroidBack,
+    )
+  }, [])
+
+  const handleAndroidBack = useCallback(() => {
+    if (showSearchContent) {
+      closeClick(true)
+      return true
     }
-    if (inputText !== '') {
-      InputRef.current?.clear()
-      textHandler('')
-    } else {
-      setShowSearchContent(false)
-      Keyboard.dismiss()
-    }
-  }
+    return false
+  }, [])
+
+  const closeClick = useCallback(
+    (instantly = false): void => {
+      if (instantly) {
+        InputRef.current?.clear()
+        textHandler('')
+        setShowSearchContent(false)
+        Keyboard.dismiss()
+        return
+      }
+      if (inputText !== '') {
+        InputRef.current?.clear()
+        textHandler('')
+      } else {
+        setShowSearchContent(false)
+        Keyboard.dismiss()
+      }
+    },
+    [showSearchContent, InputRef, textHandler],
+  )
 
   useEffect(() => {
     Helpers.GetFilteredCharger([], inputText).then((data) => {

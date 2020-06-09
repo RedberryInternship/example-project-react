@@ -1,4 +1,10 @@
-import React, {useRef, forwardRef, ReactElement, useCallback} from 'react'
+import React, {
+  useRef,
+  forwardRef,
+  ReactElement,
+  useCallback,
+  useEffect,
+} from 'react'
 import {
   StyleSheet,
   View,
@@ -7,6 +13,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  BackHandler,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {TextInput, FlatList} from 'react-native-gesture-handler'
@@ -49,6 +56,7 @@ const BottomSheetReanimated = forwardRef(
     })
     // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
+    const backHandlerRef = useRef<any>(null)
     const {t} = useTranslation()
     const height = useWindowDimensions().height
 
@@ -74,6 +82,21 @@ const BottomSheetReanimated = forwardRef(
       _this.current.text = text
       textHandler(text)
     }
+    useEffect(() => {
+      backHandlerRef.current = BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleAndroidBack,
+      )
+    }, [])
+
+    const handleAndroidBack = useCallback(() => {
+      // if () {
+      // ref.current?.snapTo(0)
+
+      //   return true
+      // }
+      return false
+    }, [])
 
     const renderHeaderComponent = useCallback(
       (): ReactElement => (

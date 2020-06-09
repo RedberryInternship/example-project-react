@@ -17,7 +17,6 @@ import LinearGradient from 'react-native-linear-gradient'
 
 import {BaseNativeTouchable, BaseText} from 'components'
 import {Const, Colors, GNOME} from 'utils'
-import {useSafeArea} from 'react-native-safe-area-context'
 
 type Button = {
   onPress: () => void
@@ -41,7 +40,6 @@ const BaseButton = ({
   loading,
 }: Button): ReactElement => {
   const {t} = useTranslation()
-  const insets = useSafeArea()
   const btnImage = image && (
     <Image
       source={image}
@@ -88,7 +86,7 @@ const BaseButton = ({
   )
 }
 
-export default BaseButton
+export default React.memo(BaseButton)
 
 const styles = StyleSheet.create({
   style: {

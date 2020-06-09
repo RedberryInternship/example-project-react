@@ -63,9 +63,6 @@ export function useRoot() {
 
   const readUserToken = async (): Promise<void> => {
     const _token = await getItem()
-    console.log('====================================')
-    console.log(_token, '_token')
-    console.log('====================================')
     let user: string | null = ''
     if (_token) {
       const _user = await getUserDetail()
@@ -90,7 +87,7 @@ export function useRoot() {
   }
 
   const setNavigationTopLevelElement = (ref: any): void => {
-    console.log('settingNavigationTopLevelElement')
+    // console.log('settingNavigationTopLevelElement')
 
     if (ref == null) return
 
@@ -135,8 +132,6 @@ export function useRoot() {
   }
 
   const userStatusHandler = (): void => {
-    // if(!appReady ) return
-
     if (state.user == '') {
       onReady()
     } else if (state.user != null || state.user != '') {

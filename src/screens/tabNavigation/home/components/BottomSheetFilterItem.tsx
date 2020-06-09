@@ -35,7 +35,7 @@ const BottomSheetFilterItem = ({
         </View>
       </View>
     ),
-    [text],
+    [text, active],
   )
   return (
     <>
@@ -50,7 +50,7 @@ const BottomSheetFilterItem = ({
   )
 }
 
-export default BottomSheetFilterItem
+export default React.memo(BottomSheetFilterItem)
 
 const styles = StyleSheet.create({
   mainContainer: {

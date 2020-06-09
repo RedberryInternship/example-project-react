@@ -75,6 +75,7 @@ export default (
 
   useEffect(() => {
     getDistance(charger?.lat ?? '0', charger?.lng ?? '0')
+    setActiveChargerType(charger?.connector_types.length !== 1 ? -1 : 0)
   }, [charger])
 
   const onScreenFocus = (payload: NavigationEventPayload): void => {
@@ -83,9 +84,6 @@ export default (
       headerLeftPress,
     )
     const {params} = payload.state
-    console.log('====================================')
-    console.log(params, 'chargerDetailScreen')
-    console.log('====================================')
     // navigation.setParams({chargerDetails: null})
     if (params?.chargerDetails !== undefined) {
       setCharger(params.chargerDetails)

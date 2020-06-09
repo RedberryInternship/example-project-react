@@ -1,4 +1,10 @@
-import React, {useState, useEffect, ReactElement, useMemo} from 'react'
+import React, {
+  useState,
+  useEffect,
+  ReactElement,
+  useMemo,
+  useCallback,
+} from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -16,7 +22,6 @@ import images from 'assets/images'
 import {FilterTextItem} from '../components'
 
 type HomeFilterProps = {
-  context: HomeContextType
   selectedFiltersOnMap: number[]
   onFilterClickOnMap: (index: number) => void
 }
@@ -32,65 +37,71 @@ const HomeFilter = ({
 
   const [translateX] = useState(new Animated.Value(translate))
 
-  const handleFilterButton = (): void => {
+  const handleFilterButton = useCallback((): void => {
     setShowFilter(!showFilter)
-  }
+  }, [])
 
-  useEffect(() => {
-    Animated.timing(translateX, {
-      toValue: showFilter ? 0 : translate,
-      duration: 300,
-      easing: Easing.out(Easing.ease),
-      useNativeDriver: false,
-    }).start()
-  }, [showFilter])
+  useEffect(
+    useCallback(() => {
+      Animated.timing(translateX, {
+        toValue: showFilter ? 0 : translate,
+        duration: 300,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: false,
+      }).start()
+    }, [showFilter]),
+    [showFilter],
+  )
 
   const buttonImageStyle = useMemo(
     () => (showFilter ? {width: 23, height: 23} : {width: 18, height: 18}),
     [showFilter],
   )
 
-  return (
-    <Animated.View style={[styles.container, {transform: [{translateX}]}]}>
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContentContainer}
-        horizontal
-        pointerEvents={'box-none'}
-        showsHorizontalScrollIndicator={false}
-        scrollEnabled={showFilter}
-      >
-        <Animated.View
-          style={[
-            styles.buttonContainer,
-            {
-              backgroundColor: translateX.interpolate({
-                inputRange: [0, translate],
-                outputRange: [Colors.primaryYellow, '#009AF0'],
-              }),
-            },
-          ]}
+  return useMemo(
+    () => (
+      <Animated.View style={[styles.container, {transform: [{translateX}]}]}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollViewContentContainer}
+          horizontal
+          pointerEvents={'box-none'}
+          showsHorizontalScrollIndicator={false}
+          scrollEnabled={showFilter}
         >
-          <TouchableOpacity
-            onPress={handleFilterButton}
-            hitSlop={styles.buttonHitSlop}
+          <Animated.View
+            style={[
+              styles.buttonContainer,
+              {
+                backgroundColor: translateX.interpolate({
+                  inputRange: [0, translate],
+                  outputRange: [Colors.primaryYellow, '#009AF0'],
+                }),
+              },
+            ]}
           >
-            <Image
-              source={showFilter ? images.close : images.filterType}
-              style={[buttonImageStyle, styles.buttonImage]}
+            <TouchableOpacity
+              onPress={handleFilterButton}
+              hitSlop={styles.buttonHitSlop}
+            >
+              <Image
+                source={showFilter ? images.close : images.filterType}
+                style={[buttonImageStyle, styles.buttonImage]}
+              />
+            </TouchableOpacity>
+          </Animated.View>
+          {Const.FilterTypes.map((val: string, index: number) => (
+            <FilterTextItem
+              text={t(val)}
+              key={index}
+              active={!!selectedFiltersOnMap[index]}
+              onPress={onFilterClickOnMap.bind(HomeFilter, index)}
             />
-          </TouchableOpacity>
-        </Animated.View>
-        {Const.FilterTypes.map((val: string, index: number) => (
-          <FilterTextItem
-            text={t(val)}
-            key={index}
-            active={!!selectedFiltersOnMap[index]}
-            onPress={onFilterClickOnMap.bind(HomeFilter, index)}
-          />
-        ))}
-      </ScrollView>
-    </Animated.View>
+          ))}
+        </ScrollView>
+      </Animated.View>
+    ),
+    [selectedFiltersOnMap, onFilterClickOnMap, showFilter, t],
   )
 }
 

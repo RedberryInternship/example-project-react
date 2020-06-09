@@ -1,5 +1,5 @@
 import React, {ReactElement, useCallback} from 'react'
-import {Text, TextProps, StyleSheet, Alert, StyleProp} from 'react-native'
+import {Text, TextProps, StyleSheet} from 'react-native'
 import i18next from 'i18next'
 
 import {Colors, GNOME, Const} from 'utils'
@@ -61,7 +61,7 @@ const BaseText = ({
   )
 }
 
-export default BaseText
+export default React.memo(BaseText)
 
 const styles = StyleSheet.create({
   text: {

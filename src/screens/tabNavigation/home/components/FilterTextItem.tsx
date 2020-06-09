@@ -31,7 +31,7 @@ const FilterTextItem = ({
   )
 }
 
-export default FilterTextItem
+export default React.memo(FilterTextItem)
 
 const styles = StyleSheet.create({
   container: {
