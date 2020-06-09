@@ -24,7 +24,7 @@ const BaseAddCardButton = ({onPress}: AddCard): ReactElement => {
   )
 }
 
-export default BaseAddCardButton
+export default React.memo(BaseAddCardButton)
 
 const styles = StyleSheet.create({
   container: {

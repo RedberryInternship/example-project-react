@@ -160,7 +160,7 @@ const MainStack = createStackNavigator(
       gestureDirection: 'horizontal',
       cardStyle: {
         backgroundColor: 'transparent',
-        opacity: 1,
+        opacity: 0,
       },
     },
   },

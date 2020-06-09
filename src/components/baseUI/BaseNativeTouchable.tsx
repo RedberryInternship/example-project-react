@@ -23,4 +23,4 @@ const BaseNativeTouchable = (props: BaseNativeTouchableProps): ReactElement => {
   )
 }
 
-export default BaseNativeTouchable
+export default React.memo(BaseNativeTouchable)

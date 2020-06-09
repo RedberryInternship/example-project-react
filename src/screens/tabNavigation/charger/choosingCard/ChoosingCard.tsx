@@ -53,8 +53,6 @@ const ChoosingCard = ({
     loading,
   } = useChoosingCard(navigation)
 
-  console.log(navigation, 'navigationnavigation')
-
   const slidingUpTransformation = {
     transform: [
       {

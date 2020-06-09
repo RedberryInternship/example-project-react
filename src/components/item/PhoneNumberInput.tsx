@@ -108,15 +108,11 @@ const PhoneNumberInput = React.forwardRef(
     }
 
     const onPickerChange = (val: string): void => {
-      console.log(value, 'value')
-
       if (
         value?.slice(0, selectedCountryCode.value.length) ===
         selectedCountryCode.value
       )
         value = value.replace(selectedCountryCode.value, '')
-
-      console.log(value, 'value2')
 
       onChangeText(val + (value ?? ''))
       setSelectedCountryCode({label: val, value: val})

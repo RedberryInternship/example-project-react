@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useCallback} from 'react'
 import {
   StyleSheet,
   Text,
@@ -30,7 +30,7 @@ const BaseHeader = ({
   const {t} = useTranslation()
   const insets = useSafeArea()
 
-  const renderLeft = (): ReactElement | undefined => {
+  const renderLeft = useCallback((): ReactElement | undefined => {
     return (
       onPressLeft && (
         <View style={styles.renderLeftContainer}>
@@ -46,9 +46,9 @@ const BaseHeader = ({
         </View>
       )
     )
-  }
+  }, [t])
 
-  const renderMiddle = (): ReactElement | undefined => {
+  const renderMiddle = useCallback((): ReactElement | undefined => {
     return title ? (
       <View style={styles.renderMiddleContainer}>
         <BaseText style={styles.renderMiddleText}>{t(title)}</BaseText>
@@ -56,9 +56,9 @@ const BaseHeader = ({
     ) : (
       undefined
     )
-  }
+  }, [title, t])
 
-  const renderRight = (): ReactElement | undefined => {
+  const renderRight = useCallback((): ReactElement | undefined => {
     return (
       onPressRight && (
         <View style={styles.renderRightConatainer}>
@@ -75,7 +75,7 @@ const BaseHeader = ({
         </View>
       )
     )
-  }
+  }, [t, titleRight])
   return (
     <View style={[styles.mainContainer, {paddingTop: insets.top}]}>
       <View style={[styles.container]}>
@@ -87,7 +87,7 @@ const BaseHeader = ({
   )
 }
 
-export default BaseHeader
+export default React.memo(BaseHeader)
 
 const styles = StyleSheet.create({
   mainContainer: {

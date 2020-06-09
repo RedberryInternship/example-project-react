@@ -42,7 +42,7 @@ const HomeMainSearchView = forwardRef(
     }
 
     useImperativeHandle(ref, () => ({
-      close: closeClick.bind(HomeMainSearchView),
+      close: closeClick.bind(HomeMainSearchView, true),
       show: setShowSearchContent.bind(HomeMainSearchView, true),
     }))
 

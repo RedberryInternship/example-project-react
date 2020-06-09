@@ -29,7 +29,7 @@ const OnMapRoundButton = ({
   )
 }
 
-export default OnMapRoundButton
+export default React.memo(OnMapRoundButton)
 
 const styles = StyleSheet.create({
   container: {

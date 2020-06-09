@@ -96,6 +96,7 @@ const MapView = forwardRef(
           showsTraffic={false}
           customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
           ref={mapRef}
+          showsCompass={false}
           loadingBackgroundColor={
             determineTimePeriod() ? Colors.primaryBackground : 'white'
           }
@@ -109,7 +110,7 @@ const MapView = forwardRef(
   },
 )
 
-export default MapView
+export default React.memo(MapView)
 
 const styles = StyleSheet.create({
   container: {

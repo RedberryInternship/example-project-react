@@ -18,7 +18,7 @@ const BaseCheckbox = ({active}: BaseCheckboxProp): ReactElement => {
   )
 }
 
-export default BaseCheckbox
+export default React.memo(BaseCheckbox)
 
 const styles = StyleSheet.create({
   checkboxImageContainer: {

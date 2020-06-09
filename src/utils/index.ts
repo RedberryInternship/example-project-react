@@ -1,6 +1,4 @@
 import Defaults from './defaults'
-import Ajax from './ajax'
-import Style from './style'
 import Colors from './colors'
 import * as Const from './const'
 import GNOME from './GNOME'
@@ -17,8 +15,6 @@ import InputValidationHelpers from './InputValidationHelpers'
 
 export {
   Defaults,
-  Ajax,
-  Style,
   Colors,
   GNOME,
   NavigationActions,

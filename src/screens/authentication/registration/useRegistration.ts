@@ -43,7 +43,7 @@ export default (navigation: any) => {
     KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
     setTimeout(() => paginationClickHandler(activePage), 250)
 
-    console.log(activePage, regStep1, regStep2, regStep3, 'activePage')
+    // console.log(activePage, regStep1, regStep2, regStep3, 'activePage')
   }, [activePage])
 
   const paginationClickHandler = async (index: number) => {
