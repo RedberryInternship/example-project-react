@@ -1,6 +1,6 @@
 import React, {ReactElement} from 'react'
 import {View, StatusBar, StyleSheet} from 'react-native'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
 
 import {TabNavigationButtons} from 'components'
@@ -11,7 +11,7 @@ import images from 'assets/images'
 const FooterTabNavigator = (props: any): ReactElement => {
   const currentRouteName =
     props.navigation.state.routes[props.navigation.state.index].key
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   const navigate = (name: string): void => {
     if (name === 'drawer') return props.navigation.openDrawer()

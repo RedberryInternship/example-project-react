@@ -15,8 +15,6 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {HomeContextType} from 'allTypes'
-
 import {Const, Colors} from 'utils'
 import images from 'assets/images'
 import {FilterTextItem} from '../components'
@@ -39,19 +37,16 @@ const HomeFilter = ({
 
   const handleFilterButton = useCallback((): void => {
     setShowFilter(!showFilter)
-  }, [])
+  }, [showFilter])
 
-  useEffect(
-    useCallback(() => {
-      Animated.timing(translateX, {
-        toValue: showFilter ? 0 : translate,
-        duration: 300,
-        easing: Easing.out(Easing.ease),
-        useNativeDriver: false,
-      }).start()
-    }, [showFilter]),
-    [showFilter],
-  )
+  useEffect(() => {
+    Animated.timing(translateX, {
+      toValue: showFilter ? 0 : translate,
+      duration: 300,
+      easing: Easing.out(Easing.ease),
+      useNativeDriver: false,
+    }).start()
+  }, [showFilter])
 
   const buttonImageStyle = useMemo(
     () => (showFilter ? {width: 23, height: 23} : {width: 18, height: 18}),
@@ -105,7 +100,7 @@ const HomeFilter = ({
   )
 }
 
-export default HomeFilter
+export default React.memo(HomeFilter)
 
 const styles = StyleSheet.create({
   container: {

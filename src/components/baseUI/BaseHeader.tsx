@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 import {Colors, GNOME} from 'utils'
 import {BaseNativeTouchable, BaseText} from 'components'
@@ -28,7 +28,7 @@ const BaseHeader = ({
   titleRight,
 }: HeaderProps): ReactElement => {
   const {t} = useTranslation()
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   const renderLeft = useCallback((): ReactElement | undefined => {
     return (

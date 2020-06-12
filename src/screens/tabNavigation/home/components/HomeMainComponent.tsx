@@ -6,7 +6,7 @@ import {
   NavigationScreenProp,
 } from 'react-navigation'
 import {View, StyleSheet, Alert} from 'react-native'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
 
 import {BaseButton, MultiChargingTopModal} from 'components'
@@ -38,7 +38,7 @@ const HomeMainComponent = ({
   setShowAll,
   mainInputRef,
 }: HomeMainComponentProps): ReactElement => {
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   const context: HomeContextType = useContext(HomeContext)
 
@@ -81,17 +81,17 @@ const HomeMainComponent = ({
         />
       </View>
       <View style={styles.modalContainer} pointerEvents={'box-none'}>
-        <View style={styles.modalOnMapRoundContainer}>
-          <OnMapRoundButton
-            style={styles.modalOnMapRound}
-            onPress={(): void => {
-              Defaults.modal.current?.customUpdate(true, {
-                type: 2,
-              })
-            }}
-            image={images.alertCircle2}
-          />
-        </View>
+        <View style={styles.modalOnMapRoundContainer}></View>
+        <OnMapRoundButton
+          style={styles.modalOnMapRound}
+          onPress={(): void => {
+            Defaults.modal.current?.customUpdate(true, {
+              type: 2,
+            })
+          }}
+          image={images.alertCircle2}
+        />
+
         <HomeFilterView
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}
@@ -135,11 +135,12 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 0,
-    backgroundColor: 'red',
+    position: 'relative',
   },
   modalOnMapRound: {
+    right: 24,
+    bottom: 138,
     backgroundColor: '#FFFFFF',
-    position: 'relative',
   },
   modalOnMapRoundContainer: {
     flex: 0,
@@ -147,6 +148,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 130,
     paddingRight: 24,
-    paddingBottom: 8,
+    paddingBottom: 60,
+    backgroundColor: 'transparent',
   },
 })

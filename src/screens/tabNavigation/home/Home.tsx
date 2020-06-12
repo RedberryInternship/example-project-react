@@ -6,7 +6,13 @@ import {ScreenPropsWithNavigation} from 'allTypes'
 import {Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
 import {useHome} from './hooks'
-import {MapView, HomeMainComponent, BottomSheetReanimated} from './components'
+import {
+  MapView,
+  HomeMainComponent,
+  BottomSheetReanimated,
+  BottomSheetSlideUp,
+  BottomSheetModalize,
+} from './components'
 
 export const HomeContext = createContext({})
 
@@ -47,7 +53,15 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           setShowAll={setShowAll}
           mainInputRef={mainInputRef}
         />
-        <BottomSheetReanimated
+        {/* <BottomSheetReanimated
+          ref={bottomSheetRef}
+          onFilterClick={onFilterClick}
+          selectedFilters={selectedFilters}
+          onFilteredItemClick={onFilteredItemClick}
+          filteredChargers={bottomSheetChargers ?? []}
+          textHandler={searchInputTextChangeHandler}
+        /> */}
+        <BottomSheetModalize
           ref={bottomSheetRef}
           onFilterClick={onFilterClick}
           selectedFilters={selectedFilters}
@@ -55,6 +69,14 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           filteredChargers={bottomSheetChargers ?? []}
           textHandler={searchInputTextChangeHandler}
         />
+        {/* <BottomSheetSlideUp
+          ref={bottomSheetRef}
+          onFilterClick={onFilterClick}
+          selectedFilters={selectedFilters}
+          onFilteredItemClick={onFilteredItemClick}
+          filteredChargers={bottomSheetChargers ?? []}
+          textHandler={searchInputTextChangeHandler}
+        /> */}
       </View>
     </HomeContext.Provider>
   )

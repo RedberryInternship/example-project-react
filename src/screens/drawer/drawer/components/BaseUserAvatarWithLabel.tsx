@@ -10,7 +10,7 @@ import {
 
 import {Colors} from 'utils'
 import images, {Avatars} from 'assets/images'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {BaseText} from 'components'
 
 type AvatarWithLabel = {
@@ -26,7 +26,7 @@ const UserAvatarWithLabel = ({
   lastName,
   avatar,
 }: AvatarWithLabel): ReactElement => {
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   return (
     <View

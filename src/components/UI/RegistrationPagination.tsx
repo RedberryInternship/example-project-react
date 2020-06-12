@@ -5,12 +5,14 @@ import {Colors} from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 
 const pagination = [1, 2, 3, 4]
-
+type RegistrationPaginationProps = {
+  activePage: number
+  paginationClickHandler: (index: number) => void
+}
 const RegistrationPagination = ({
   activePage,
   paginationClickHandler,
-}: any): ReactElement => {
-  // Vobi todo: no any types
+}: RegistrationPaginationProps): ReactElement => {
   return (
     <View style={styles.container}>
       {pagination.map((val, ind) => (
@@ -18,6 +20,7 @@ const RegistrationPagination = ({
           onPress={paginationClickHandler.bind(RegistrationPagination, ind)}
           key={val}
           style={styles.touchable}
+          hitSlop={{top: 15, bottom: 15, left: 8, right: 8}}
         >
           <View
             style={[

@@ -7,6 +7,8 @@ import MainSearchItem from './MainSearchItem'
 import FilterTextItem from './FilterTextItem'
 import HomeMainSearchView from './HomeMainSearchView'
 import HomeFilterView from './HomeFilterView'
+import BottomSheetSlideUp from './BottomSheetSlideUp'
+import BottomSheetModalize from './BottomSheetModalize'
 
 export {
   HomeMainComponent,
@@ -18,4 +20,6 @@ export {
   FilterTextItem,
   HomeMainSearchView,
   HomeFilterView,
+  BottomSheetSlideUp,
+  BottomSheetModalize,
 }

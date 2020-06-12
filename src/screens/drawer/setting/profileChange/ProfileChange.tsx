@@ -31,9 +31,6 @@ const ProfileChange = ({
   const {submit, ...form} = useProfileChange(navigation, type)
 
   const renderInputs = useCallback(() => {
-    // Vobi Todo: function still runs every time this component rerenders
-    // Vobi Todo: useCallbacks are mostly used to avoid redeclaration of function on every rerender
-    // Vobi Todo: you should wrap this in useMemo and render like {renderInputs}
     switch (type) {
       case UserSettingEnum.firstName:
       case UserSettingEnum.lastName:

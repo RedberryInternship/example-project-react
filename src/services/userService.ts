@@ -12,6 +12,7 @@ import {
   EditPasswordResponseType,
   CarMarkAndModelResponseType,
   ContactInfoResponseType,
+  GetCardAddUrl,
 } from 'allTypes'
 
 export const getUserData = (): Promise<UserMeResponseType> => ajax.get('/me')
@@ -61,3 +62,6 @@ export const getCarAndMarksList = (): Promise<CarMarkAndModelResponseType> =>
 
 export const getContactInfo = (): Promise<ContactInfoResponseType> =>
   ajax.get('/contact')
+
+export const getCardAddUrl = (): Promise<GetCardAddUrl> =>
+  ajax.get('/save-card-url')

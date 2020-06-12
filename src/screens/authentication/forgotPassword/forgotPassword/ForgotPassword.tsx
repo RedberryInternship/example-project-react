@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react'
 import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
@@ -14,7 +14,7 @@ const ForgotPassword = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
   const {handleSubmit, onButtonClick, ...hook} = useForgotPassword(navigation)
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>

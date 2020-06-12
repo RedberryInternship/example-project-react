@@ -7,7 +7,7 @@ import {
   Alert,
   BackHandler,
 } from 'react-native'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useTranslation} from 'react-i18next'
 
 import {Charger, MapImperativeRefObject} from 'allTypes'
@@ -24,7 +24,7 @@ const useHomeMainSearch = (
   const [showSearchContent, setShowSearchContent] = useState<boolean>(false)
   const [inputText, setInputText] = useState<string>('')
   const [filteredChargers, setFilteredChargers] = useState<Charger[]>([])
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   const {t} = useTranslation()
 
@@ -51,20 +51,23 @@ const useHomeMainSearch = (
     }).start(() => (showSearchContent ? InputRef.current?.focus() : 0))
   }, [showSearchContent])
 
-  useEffect(() => {
-    backHandlerRef.current = BackHandler.addEventListener(
-      'hardwareBackPress',
-      handleAndroidBack,
-    )
-  }, [])
-
   const handleAndroidBack = useCallback(() => {
     if (showSearchContent) {
       closeClick(true)
       return true
     }
     return false
-  }, [])
+  }, [showSearchContent])
+
+  useEffect(() => {
+    backHandlerRef.current = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleAndroidBack,
+    )
+    return () => {
+      backHandlerRef.current.remove()
+    }
+  }, [handleAndroidBack])
 
   const closeClick = useCallback(
     (instantly = false): void => {

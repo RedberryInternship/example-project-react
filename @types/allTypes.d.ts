@@ -690,3 +690,8 @@ export type ContactInfoResponseType = {
   web_page: string
   web_page_url: string
 }
+export type GetCardAddUrl = {
+  save_card_url
+  success_url
+  failed_url
+}

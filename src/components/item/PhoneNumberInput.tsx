@@ -31,7 +31,6 @@ type PhoneNumberInputProps = {
 const pickeritems: Item[] = []
 
 const placeholder = {label: '+995', value: '+995'}
-
 // eslint-disable-next-line react/display-name
 const PhoneNumberInput = React.forwardRef(
   (

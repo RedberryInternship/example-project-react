@@ -2,7 +2,7 @@ import React, {useRef, ReactElement} from 'react'
 import {StyleSheet} from 'react-native'
 import {PanGestureHandler, State} from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 const {
   event,
@@ -24,7 +24,7 @@ enum PopupStatus {
   'CLOSED' = 1,
 }
 const MultiChargingTopModal = (): ReactElement => {
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   const _This = useRef({
     popupStatus: PopupStatus.OPENED,

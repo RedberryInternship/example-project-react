@@ -20,7 +20,7 @@ const FilterTextItem = ({
         styles.container,
         {backgroundColor: active ? '#008AEE' : 'white'},
       ]}
-      onPress={onPress}
+      onPressOut={onPress}
     >
       <BaseText
         style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}

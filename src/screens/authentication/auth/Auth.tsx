@@ -10,7 +10,7 @@ import {
 import {useTranslation} from 'react-i18next'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {TouchableOpacity} from 'react-native-gesture-handler'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Controller} from 'react-hook-form'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
@@ -30,7 +30,7 @@ import useAuthHook from './useAuthHook'
 const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {dispatch} = useContext(AppContext)
 
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
   const {
     buttonClickHandler,
     phoneRef,

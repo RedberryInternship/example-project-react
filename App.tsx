@@ -3,7 +3,10 @@ import {StatusBar} from 'react-native'
 import {Navigation} from './src'
 import {CustomModal} from 'components'
 import DropdownAlert from 'react-native-dropdownalert'
-import {SafeAreaProvider} from 'react-native-safe-area-context'
+import {
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from 'react-native-safe-area-context'
 import {Defaults} from 'utils'
 import {useRoot} from 'hooks'
 
@@ -27,7 +30,7 @@ const App = (): React.ReactElement => {
 
   return useMemo(
     () => (
-      <SafeAreaProvider>
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
         <AppContext.Provider value={{state, dispatch}}>
           <Navigation
             ref={(ref) => setNavigationTopLevelElement(ref)}

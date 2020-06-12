@@ -96,5 +96,6 @@ const styles = StyleSheet.create({
   },
   value: {
     marginRight: 12,
+    paddingLeft: 16,
   },
 })

@@ -3,7 +3,7 @@ import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createDrawerNavigator} from 'react-navigation-drawer'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
-import {FooterTabNavigation} from 'components'
+import {FooterTabNavigation, CardAdd} from 'components'
 
 //screens
 import {
@@ -160,7 +160,7 @@ const MainStack = createStackNavigator(
       gestureDirection: 'horizontal',
       cardStyle: {
         backgroundColor: 'transparent',
-        opacity: 0,
+        opacity: 1,
       },
     },
   },

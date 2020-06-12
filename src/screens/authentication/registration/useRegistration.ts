@@ -1,5 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import {useEffect, useState, useRef, RefObject, useContext} from 'react'
+import {
+  useEffect,
+  useState,
+  useRef,
+  RefObject,
+  useContext,
+  useCallback,
+} from 'react'
 
 import {Defaults} from 'utils'
 
@@ -9,6 +16,7 @@ import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
 import {AppContext} from '../../../../App'
+import {BackHandler} from 'react-native'
 
 type _This = {
   userRegistrationState: number
@@ -18,6 +26,7 @@ let userRegistrationState = 0
 
 export default (navigation: any) => {
   const flatListRef: any = useRef(null)
+  const backHandlerRef: any = useRef(null)
   const KeyboardAwareScrollViewRef: any = useRef(null)
 
   const newPasswordRef: any = useRef(null)
@@ -91,6 +100,24 @@ export default (navigation: any) => {
     // regStep4.handleSubmit(regStep4.buttonClickHandler)
   ]
 
+  const backButtonClick = useCallback(() => {
+    if (activePage) {
+      paginationClickHandler(activePage - 1)
+    } else {
+      navigation.navigate('Auth')
+    }
+    return true
+  }, [activePage, paginationClickHandler])
+
+  useEffect(() => {
+    backHandlerRef.current = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backButtonClick,
+    )
+    return () => {
+      backHandlerRef.current.remove()
+    }
+  }, [backButtonClick])
   return {
     flatListRef,
     paginationClickHandler,
@@ -100,6 +127,7 @@ export default (navigation: any) => {
     activePage,
     headerRightClick,
     registrationStepHandler,
+    backButtonClick,
     regStep1,
     regStep2,
     regStep3,

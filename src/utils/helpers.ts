@@ -151,6 +151,40 @@ const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
     {cancelable: true},
   )
 }
+type EasyAlert = Partial<{
+  title: string
+  text: string
+  rightText: string
+  leftText: string
+  onRightClick: () => void
+  onLeftClick: () => void
+}>
+
+const easyAlert = ({
+  title,
+  text,
+  rightText,
+  leftText,
+  onRightClick,
+  onLeftClick,
+}: EasyAlert) => {
+  Alert.alert(
+    i18next.t(title ?? ''),
+    i18next.t(text ?? ''),
+    [
+      {
+        text: i18next.t(leftText ?? ''),
+        onPress: onLeftClick,
+      },
+      {
+        text: i18next.t(rightText ?? 'no'),
+        onPress: onRightClick,
+        style: 'destructive',
+      },
+    ],
+    {cancelable: true},
+  )
+}
 
 const getAndRequestLocation = async (): Promise<boolean> => {
   if (
@@ -274,4 +308,5 @@ export default {
   onLocationAccessDenied,
   getAndRequestLocation,
   configureChargingFinishPopup,
+  easyAlert,
 }

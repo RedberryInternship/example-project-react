@@ -4,6 +4,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
 } from 'react'
 import {
   StyleSheet,
@@ -27,6 +28,8 @@ import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
 import {BottomSheetFilterItem, MainSearchItem} from '../components'
 import {BaseText} from 'components'
+import SlidingUpPanel from 'rn-sliding-up-panel'
+import {Width} from 'utils/const'
 
 type _This = {
   text: string
@@ -60,7 +63,7 @@ const BottomSheetReanimated = forwardRef(
     const {t} = useTranslation()
     const height = useWindowDimensions().height
 
-    const insets = useSafeAreaInsets()
+    const {top, bottom} = useSafeAreaInsets()
 
     const closeClick = (): void => {
       if (_this.current.text !== '') {
@@ -97,6 +100,14 @@ const BottomSheetReanimated = forwardRef(
       // }
       return false
     }, [])
+
+    const draggableRange = useMemo(
+      () => ({
+        bottom: 55,
+        top: height - top - bottom - 65 - 12,
+      }),
+      [height, top, bottom],
+    )
 
     const renderHeaderComponent = useCallback(
       (): ReactElement => (
@@ -148,17 +159,46 @@ const BottomSheetReanimated = forwardRef(
               />
             ))}
           </View>
-          {/* <FlatList
+          <FlatList
             keyboardShouldPersistTaps={'handled'}
             data={filteredChargers}
+            keyExtractor={(item: Charger) => item.id + ''}
+            initialNumToRender={6}
+            extraData={filteredChargers}
             renderItem={({item: chargerObj, index}) => {
               const view = []
-             //  bottom stuff... 
+              if (chargerObj.charger_group?.chargers?.length !== 0) {
+                view.push(
+                  <MainSearchItem
+                    key={chargerObj.id + getLocaleText(chargerObj.name) + index}
+                    text={getLocaleText(chargerObj.location)}
+                    mainTitle={getLocaleText(chargerObj.name)}
+                    onPress={onFilteredItemClick?.bind(
+                      BottomSheetReanimated,
+                      chargerObj,
+                    )}
+                  />,
+                )
+              } else {
+                chargerObj.charger_group?.chargers?.map((val, index: number) =>
+                  view.push(
+                    <MainSearchItem
+                      key={val.id + getLocaleText(val.name) + index}
+                      text={getLocaleText(val.location)}
+                      mainTitle={getLocaleText(val.name)}
+                      onPress={onFilteredItemClick?.bind(
+                        BottomSheetReanimated,
+                        val,
+                      )}
+                    />,
+                  ),
+                )
+              }
               return view
             }}
-          /> */}
+          />
 
-          {filteredChargers?.map((chargerObj: Charger, index: number) => {
+          {/* {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {
               view.push(
@@ -188,7 +228,7 @@ const BottomSheetReanimated = forwardRef(
               )
             }
             return view
-          })}
+          })} */}
           <KeyboardSpacer />
         </View>
       )
@@ -196,13 +236,28 @@ const BottomSheetReanimated = forwardRef(
 
     return (
       <View style={styles.container} pointerEvents={'box-none'}>
-        <BottomSheet
-          ref={ref}
-          snapPoints={[55, height - insets.top - insets.bottom - 65 - 12]}
-          renderContent={renderContent}
-          renderHeader={renderHeaderComponent}
-          onCloseEnd={Keyboard.dismiss}
-        />
+        <SlidingUpPanel
+          ref={backHandlerRef}
+          draggableRange={{...draggableRange}}
+          snappingPoints={[draggableRange.top]}
+          friction={0.5}
+          // animatedValue={animatedArrow}
+          minimumDistanceThreshold={20}
+          backdropOpacity={0.3}
+        >
+          {/* {renderHeaderComponent()} */}
+
+          {(dragHandler) => (
+            <View style={styles.slideUpcontainer}>
+              <View style={styles.dragHandler} {...dragHandler}>
+                <View style={styles.bodyWrapper}>
+                  {renderHeaderComponent()}
+                  {renderContent()}
+                </View>
+              </View>
+            </View>
+          )}
+        </SlidingUpPanel>
       </View>
     )
   },
@@ -220,12 +275,30 @@ const styles = StyleSheet.create({
     top: 0,
     zIndex: 44,
   },
+  slideUpcontainer: {
+    flex: 1,
+    zIndex: 1,
+    width: '100%',
+    backgroundColor: 'transparent',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    elevation: 18,
+  },
+  dragHandler: {
+    flex: 0,
+    alignSelf: 'stretch',
+    alignItems: 'stretch',
+    justifyContent: 'flex-start',
+    backgroundColor: 'transparent',
+    width: Width,
+  },
   headerComponent: {
     justifyContent: 'center',
+    alignSelf: 'stretch',
     paddingBottom: 16,
     paddingHorizontal: 16,
     backgroundColor: '#023D63',
-    flex: 1,
+    flex: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginHorizontal: 8,
@@ -290,7 +363,7 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     marginHorizontal: 8,
     marginTop: 0,
-    minHeight: '100%',
+    flex: 1,
   },
   filterContainer: {
     flexDirection: 'row',
@@ -299,5 +372,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginBottom: 8,
     paddingHorizontal: 4,
+  },
+  bodyWrapper: {
+    backgroundColor: '#023D63',
+    paddingBottom: 16,
+    marginHorizontal: 8,
+    marginTop: 0,
+    // flex: 1,
+    height: '100%',
   },
 })

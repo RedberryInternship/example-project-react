@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {useTranslation} from 'react-i18next'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
@@ -23,7 +23,7 @@ import useContact from './useContact'
 
 const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t} = useTranslation()
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
   const {outgoingLinkMethods, data, setMessage, sendMessage} = useContact(
     navigation,
   )

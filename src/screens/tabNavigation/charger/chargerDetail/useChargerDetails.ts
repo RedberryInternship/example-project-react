@@ -140,18 +140,23 @@ export default (
   }
 
   const mainButtonClickHandler = (): void => {
-    if (!Defaults.token)
-      return Helpers.DisplayDropdownWithError(
-        t('dropDownAlert.charging.needToLogIn'),
-      )
-    else if (Defaults.userDetail?.user_cards.length === 0) {
-      return Helpers.DisplayDropdownWithError(
-        t('chargerDetail.pleaseAddCardFirst'),
-      )
+    if (!Defaults.token) {
+      Helpers.easyAlert({
+        text: 'dropDownAlert.charging.needToLogIn',
+        leftText: 'authentication.authentication',
+        onLeftClick: () => navigation.navigate('Auth'),
+      })
+      return
+    } else if (Defaults.userDetail?.user_cards.length === 0) {
+      Helpers.easyAlert({
+        text: 'chargerDetail.pleaseAddCardFirst',
+        leftText: 'settings.add',
+        onLeftClick: () => navigation.navigate('AddCard'),
+      })
+      return
     } else if (state.chargingState.length > 1) {
-      return Helpers.DisplayDropdownWithError(
-        t('chargerDetail.maxAllowedCarCharing'),
-      )
+      Helpers.DisplayDropdownWithError(t('chargerDetail.maxAllowedCarCharing'))
+      return
     }
 
     navigation.navigate('ChooseChargeMethod', {

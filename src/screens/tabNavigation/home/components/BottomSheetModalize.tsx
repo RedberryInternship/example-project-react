@@ -20,6 +20,7 @@ import {TextInput, FlatList} from 'react-native-gesture-handler'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
+import {Modalize} from 'react-native-modalize'
 
 import {Charger, ChargerDetail} from 'allTypes'
 
@@ -32,7 +33,7 @@ type _This = {
   text: string
 }
 
-type BottomSheetReanimatedProps = {
+type BottomSheetModalizeProps = {
   onFilterClick: (index: number) => void
   selectedFilters: number[]
   filteredChargers: Charger[]
@@ -48,7 +49,7 @@ const BottomSheetReanimated = forwardRef(
       filteredChargers,
       onFilteredItemClick,
       textHandler,
-    }: BottomSheetReanimatedProps,
+    }: BottomSheetModalizeProps,
     ref: any,
   ) => {
     const _this = useRef<_This>({
@@ -60,7 +61,7 @@ const BottomSheetReanimated = forwardRef(
     const {t} = useTranslation()
     const height = useWindowDimensions().height
 
-    const insets = useSafeAreaInsets()
+    const {top, bottom} = useSafeAreaInsets()
 
     const closeClick = (): void => {
       if (_this.current.text !== '') {
@@ -196,13 +197,34 @@ const BottomSheetReanimated = forwardRef(
 
     return (
       <View style={styles.container} pointerEvents={'box-none'}>
-        <BottomSheet
-          ref={ref}
-          snapPoints={[55, height - insets.top - insets.bottom - 65 - 12]}
-          renderContent={renderContent}
-          renderHeader={renderHeaderComponent}
-          onCloseEnd={Keyboard.dismiss}
-        />
+        <Modalize
+          ref={backHandlerRef}
+          // contentRef={contentRef}
+          HeaderComponent={renderHeaderComponent}
+          adjustToContentHeight={false}
+          modalHeight={height - top - bottom - 65 - 12}
+          alwaysOpen={55}
+          rootStyle={{elevation: 22, zIndex: 34}}
+          avoidKeyboardLikeIOS={true}
+          onClose={() => {
+            Keyboard.dismiss()
+            inputRef.current && inputRef.current.blur()
+          }}
+          modalStyle={{
+            elevation: 22,
+            zIndex: 34,
+            marginHorizontal: 8,
+            backgroundColor: '#023D63',
+            borderTopLeftRadius: 20,
+            borderTopRightRadius: 20,
+          }}
+          withHandle={false}
+          panGestureComponentEnabled={true}
+          panGestureEnabled={true}
+          closeOnOverlayTap={true}
+        >
+          {renderContent()}
+        </Modalize>
       </View>
     )
   },
@@ -225,10 +247,9 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     paddingHorizontal: 16,
     backgroundColor: '#023D63',
-    flex: 1,
+    flex: 0,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    marginHorizontal: 8,
     marginBottom: 0,
   },
   headerComponentWrapper: {
@@ -288,7 +309,6 @@ const styles = StyleSheet.create({
   bodyContainer: {
     backgroundColor: '#023D63',
     paddingBottom: 16,
-    marginHorizontal: 8,
     marginTop: 0,
     minHeight: '100%',
   },

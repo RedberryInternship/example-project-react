@@ -7,7 +7,7 @@ import {
   FlatList,
 } from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
@@ -23,7 +23,7 @@ import useRegistration from './useRegistration'
 const Registration = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   const {
     flatListRef,
@@ -35,6 +35,7 @@ const Registration = ({
     regStep1,
     regStep2,
     regStep3,
+    backButtonClick,
   } = useRegistration(navigation)
 
   const pages = [
@@ -47,7 +48,7 @@ const Registration = ({
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(Registration, 'Auth')}
+        onPressLeft={backButtonClick}
         title={'authentication.registration.registration'}
         titleRight={'authentication.registration.skip'}
         onPressRight={activePage === 3 ? headerRightClick : undefined}

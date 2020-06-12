@@ -57,55 +57,59 @@ const MapView = forwardRef(
     )
 
     const polylineRoute = useMemo(
-      () => (
-        <>
-          <Polyline
-            key={1.4}
-            coordinates={polyline}
-            strokeWidth={8}
-            strokeColor={Colors.primaryGreen}
-            zIndex={Number.MAX_VALUE}
-            geodesic={true}
-          />
-          <Polyline
-            key={1}
-            coordinates={polyline}
-            strokeWidth={4}
-            fillColor={Colors.primaryBlue}
-            zIndex={Number.MAX_VALUE}
-          />
-        </>
-      ),
+      () =>
+        !!polyline.length && (
+          <>
+            <Polyline
+              key={1.4}
+              coordinates={polyline}
+              strokeWidth={8}
+              strokeColor={Colors.primaryGreen}
+              zIndex={Number.MAX_VALUE}
+              geodesic={true}
+            />
+            <Polyline
+              key={1}
+              coordinates={polyline}
+              strokeWidth={4}
+              fillColor={Colors.primaryBlue}
+              zIndex={Number.MAX_VALUE}
+            />
+          </>
+        ),
       [polyline],
     )
 
-    return (
-      <View style={styles.mapContainer}>
-        <Map
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          initialRegion={{
-            latitude: 41.720787,
-            longitude: 44.745651,
-            latitudeDelta: 0.015,
-            longitudeDelta: 0.0121,
-          }}
-          onMapReady={mapReady}
-          showsUserLocation
-          showsPointsOfInterest={false}
-          showsTraffic={false}
-          customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
-          ref={mapRef}
-          showsCompass={false}
-          loadingBackgroundColor={
-            determineTimePeriod() ? Colors.primaryBackground : 'white'
-          }
-          showsMyLocationButton={false}
-        >
-          {pins}
-          {polylineRoute}
-        </Map>
-      </View>
+    return useMemo(
+      () => (
+        <View style={styles.mapContainer}>
+          <Map
+            provider={PROVIDER_GOOGLE}
+            style={styles.map}
+            initialRegion={{
+              latitude: 41.720787,
+              longitude: 44.745651,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.0121,
+            }}
+            onMapReady={mapReady}
+            showsUserLocation
+            showsPointsOfInterest={false}
+            showsTraffic={false}
+            customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
+            ref={mapRef}
+            showsCompass={false}
+            loadingBackgroundColor={
+              determineTimePeriod() ? Colors.primaryBackground : 'white'
+            }
+            showsMyLocationButton={false}
+          >
+            {pins}
+            {polylineRoute}
+          </Map>
+        </View>
+      ),
+      [pins, polylineRoute, mapReady, mapRef],
     )
   },
 )

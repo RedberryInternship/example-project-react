@@ -1,6 +1,6 @@
 import React, {useContext, ReactElement, useMemo} from 'react'
 import {StyleSheet, ScrollView, View, TouchableOpacity} from 'react-native'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useTranslation} from 'react-i18next'
 
 import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
@@ -20,7 +20,7 @@ import {useAsyncStorage} from '@react-native-community/async-storage'
 
 const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const {t, i18n} = useTranslation()
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
   const context: AppContextType = useContext(AppContext)
   const {setItem: setLocaleStorage} = useAsyncStorage('locale')
 

@@ -14,7 +14,7 @@ import {Colors} from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 
 const CodeInputWidth = 128
-
+const animationDuration = 10000
 // eslint-disable-next-line react/display-name
 const receiveConfirmationCode = React.forwardRef(
   ({receiveCode, ...props}: any, ref: any) => {
@@ -35,7 +35,7 @@ const receiveConfirmationCode = React.forwardRef(
 
       Animated.timing(animation, {
         toValue: CodeInputWidth,
-        duration: 2000,
+        duration: animationDuration,
         useNativeDriver: false,
       }).start(() => {
         setDisabled(false)

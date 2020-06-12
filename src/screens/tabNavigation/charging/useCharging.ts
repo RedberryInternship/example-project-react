@@ -1,6 +1,6 @@
 import {useState, useContext, useEffect, useRef} from 'react'
 import {useTranslation} from 'react-i18next'
-import {useSafeArea} from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Alert} from 'react-native'
 
 import {
@@ -22,7 +22,7 @@ export default (navigation: any) => {
   const {t} = useTranslation()
   const timeInterval = useRef<any>()
 
-  const insets = useSafeArea()
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     timeInterval.current = setInterval(() => {

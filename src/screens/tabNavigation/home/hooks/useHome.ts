@@ -45,10 +45,15 @@ const useHome = (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    const willBlur = navigation.addListener(
+      'willBlur',
+      () => mapRef.current && mapRef.current.showRoute(0, 0, false),
+    )
     navigation.dispatch(DrawerActions.closeDrawer())
     bottomSheetSnapTo()
     return (): void => {
       didFocus.remove()
+      willBlur.remove()
     }
   }, [])
 
@@ -63,12 +68,6 @@ const useHome = (
 
   const onScreenFocus = (payload: NavigationEventPayload): void => {
     const {params} = payload.state
-
-    // remove directions on every focus
-    if (!params?.mode) {
-      mapRef.current &&
-        mapRef.current.showRoute(params?.lat, params?.lng, false)
-    }
 
     // mainInputRef.current?.close() //close main input always
     if (params !== undefined) {
