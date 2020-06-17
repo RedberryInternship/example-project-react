@@ -35,10 +35,10 @@ class Ajax {
       (resolve: (val: any) => void, reject: (val: Error) => void) => {
         const headers = this.headers()
         const url = API + uri
-        this.logRequest(method, url, headers, data)
+        // this.logRequest(method, url, headers, data)
         axios({method, url, headers, data})
           .then((response) => {
-            this.logResponse(method, url, headers, response.data)
+            // this.logResponse(method, url, headers, response.data)
             resolve(response.data)
           })
           .catch((error) => {
@@ -46,7 +46,7 @@ class Ajax {
               AsyncStorage.clear()
             }
             // Defaults.dropdown && Defaults.dropdown?.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
-            else this.logResponse(method, url, headers, error.response)
+            // else this.logResponse(method, url, headers, error.response)
             reject(error.response)
             Sentry.withScope(function(scope) {
               scope.setFingerprint([method, url, JSON.stringify(headers)])

@@ -14,6 +14,7 @@ type UserInfoViewProps = {
 const UserInfoView = React.memo(
   ({hook}: UserInfoViewProps): ReactElement => {
     const {control, errors} = hook
+
     return (
       <View style={{width: Const.Width, paddingHorizontal: 16}}>
         <Controller

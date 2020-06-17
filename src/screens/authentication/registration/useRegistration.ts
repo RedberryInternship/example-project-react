@@ -16,7 +16,8 @@ import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
 import {AppContext} from '../../../../App'
-import {BackHandler} from 'react-native'
+import {BackHandler, Alert, Keyboard} from 'react-native'
+import {updateUser} from 'hooks/actions/rootActions'
 
 type _This = {
   userRegistrationState: number
@@ -44,12 +45,12 @@ export default (navigation: any) => {
     regStep2.getValues,
     dispatch,
   )
-  //TODO
   const regStep4 = useRegistrationHookStep4(setActivePage)
 
   useEffect(() => {
     userRegistrationState = Math.max(activePage, userRegistrationState)
     KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
+    Keyboard.dismiss()
     setTimeout(() => paginationClickHandler(activePage), 250)
 
     // console.log(activePage, regStep1, regStep2, regStep3, 'activePage')
@@ -101,23 +102,30 @@ export default (navigation: any) => {
   ]
 
   const backButtonClick = useCallback(() => {
-    if (activePage) {
-      paginationClickHandler(activePage - 1)
-    } else {
-      navigation.navigate('Auth')
-    }
-    return true
+    navigation.navigate('Auth')
+
+    // if (activePage) {
+    //   paginationClickHandler(activePage - 1)
+    // } else {
+    //   navigation.navigate('Auth')
+    // }
+    // return true
   }, [activePage, paginationClickHandler])
 
-  useEffect(() => {
-    backHandlerRef.current = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backButtonClick,
-    )
-    return () => {
-      backHandlerRef.current.remove()
-    }
-  }, [backButtonClick])
+  // useEffect(() => {
+  //   backHandlerRef.current = BackHandler.addEventListener(
+  //     'hardwareBackPress',
+  //     backButtonClick,
+  //   )
+  //   return () => {
+  //     backHandlerRef.current.remove()
+  //   }
+  // }, [backButtonClick])
+
+  const onCardAddSuccess = () => {
+    updateUser(dispatch)
+    headerRightClick()
+  }
   return {
     flatListRef,
     paginationClickHandler,
@@ -131,5 +139,7 @@ export default (navigation: any) => {
     regStep1,
     regStep2,
     regStep3,
+    regStep4,
+    onCardAddSuccess,
   }
 }

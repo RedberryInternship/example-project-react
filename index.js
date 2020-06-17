@@ -14,7 +14,8 @@ import './src/utils/localization/localization'
 import './src/utils/mapAndLocation/location'
 
 import {enableScreens} from 'react-native-screens'
+import {Const} from 'utils'
 
-enableScreens()
+Const.platformIOS ? enableScreens() : null
 
 AppRegistry.registerComponent(appName, () => App)

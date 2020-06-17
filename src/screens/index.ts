@@ -25,6 +25,7 @@ import {TransactionList} from './drawer/transactions/transactionList'
 import {ShowTransaction} from './drawer/transactions/showTransaction'
 
 import {Partners} from './drawer/partners'
+import {CardAdd} from './CardAdd'
 
 export {
   Home,
@@ -51,4 +52,5 @@ export {
   ShowTransaction,
   Partners,
   ChooseAvatar,
+  CardAdd,
 }

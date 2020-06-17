@@ -615,7 +615,7 @@ export type LoginResponseType = {
   access_token: string
   user: UserMeResponseType
   token_type: 'bearer'
-  expires_in: 5184000
+  expires_in: number
 }
 
 export type VerifyCodeResponseType = {
@@ -695,3 +695,5 @@ export type GetCardAddUrl = {
   success_url
   failed_url
 }
+
+export type RootActionArg1 = {user: UserMeResponseType; token: string}

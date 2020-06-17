@@ -36,24 +36,25 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     searchInputTextChangeHandler,
   } = useHome(navigation)
 
-  return (
-    <HomeContext.Provider value={{state, dispatch}}>
-      <View style={styles.mainContainer}>
-        <MapView
-          ref={mapRef}
-          showAll={showAll}
-          filteredChargersOnMap={onMapFilteredChargers}
-          navigation={navigation}
-        />
-        <HomeMainComponent
-          allchargers={context?.state.AllChargers ?? []}
-          mapRef={mapRef}
-          selectedFiltersOnMap={selectedFiltersOnMap}
-          onFilterClickOnMap={onFilterClickOnMap}
-          setShowAll={setShowAll}
-          mainInputRef={mainInputRef}
-        />
-        {/* <BottomSheetReanimated
+  return useMemo(
+    () => (
+      <HomeContext.Provider value={{state, dispatch}}>
+        <View style={styles.mainContainer}>
+          <MapView
+            ref={mapRef}
+            showAll={showAll}
+            filteredChargersOnMap={onMapFilteredChargers}
+            navigation={navigation}
+          />
+          <HomeMainComponent
+            allchargers={context?.state.AllChargers ?? []}
+            mapRef={mapRef}
+            selectedFiltersOnMap={selectedFiltersOnMap}
+            onFilterClickOnMap={onFilterClickOnMap}
+            setShowAll={setShowAll}
+            mainInputRef={mainInputRef}
+          />
+          {/* <BottomSheetReanimated
           ref={bottomSheetRef}
           onFilterClick={onFilterClick}
           selectedFilters={selectedFilters}
@@ -61,15 +62,15 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           filteredChargers={bottomSheetChargers ?? []}
           textHandler={searchInputTextChangeHandler}
         /> */}
-        <BottomSheetModalize
-          ref={bottomSheetRef}
-          onFilterClick={onFilterClick}
-          selectedFilters={selectedFilters}
-          onFilteredItemClick={onFilteredItemClick}
-          filteredChargers={bottomSheetChargers ?? []}
-          textHandler={searchInputTextChangeHandler}
-        />
-        {/* <BottomSheetSlideUp
+          <BottomSheetModalize
+            ref={bottomSheetRef}
+            onFilterClick={onFilterClick}
+            selectedFilters={selectedFilters}
+            onFilteredItemClick={onFilteredItemClick}
+            filteredChargers={bottomSheetChargers ?? []}
+            textHandler={searchInputTextChangeHandler}
+          />
+          {/* <BottomSheetSlideUp
           ref={bottomSheetRef}
           onFilterClick={onFilterClick}
           selectedFilters={selectedFilters}
@@ -77,8 +78,25 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           filteredChargers={bottomSheetChargers ?? []}
           textHandler={searchInputTextChangeHandler}
         /> */}
-      </View>
-    </HomeContext.Provider>
+        </View>
+      </HomeContext.Provider>
+    ),
+    [
+      mapRef,
+      showAll,
+      onMapFilteredChargers,
+      context,
+      selectedFiltersOnMap,
+      onFilterClickOnMap,
+      setShowAll,
+      mainInputRef,
+      bottomSheetRef,
+      onFilterClick,
+      selectedFilters,
+      onFilteredItemClick,
+      bottomSheetChargers,
+      searchInputTextChangeHandler,
+    ],
   )
 }
 
@@ -90,4 +108,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Home
+export default React.memo(Home)

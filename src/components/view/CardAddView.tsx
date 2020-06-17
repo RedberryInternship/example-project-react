@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, {useCallback, useState, useEffect} from 'react'
 import {WebView, WebViewNavigation} from 'react-native-webview'
-import {Helpers} from 'utils'
+import {Helpers, Colors} from 'utils'
 import services from 'services'
-import {Alert} from 'react-native'
+import {Alert, StyleSheet} from 'react-native'
 import {GetCardAddUrl} from 'allTypes'
 
-type CardAddProps = {
+type CardAddViewProps = {
   onSuccess: () => void
-  onfail?: () => void
+  onFail?: () => void
 }
-const CardAdd = ({onSuccess, onfail}: CardAddProps) => {
+const CardAddView = ({onSuccess, onFail}: CardAddViewProps) => {
   const [urlData, setUrlData] = useState<GetCardAddUrl | undefined>(undefined)
   const navigationStateChange = useCallback(
     (event: WebViewNavigation) => {
       if (event.url.includes(urlData?.success_url)) {
-        Alert.alert('sdaf')
         onSuccess()
       } else if (event.url.includes(urlData?.failed_url)) {
-        onfail && onfail()
+        onFail && onFail()
+        getCardAddUrl()
       }
     },
     [urlData],
@@ -42,8 +42,20 @@ const CardAdd = ({onSuccess, onfail}: CardAddProps) => {
         uri: urlData?.save_card_url,
       }}
       onNavigationStateChange={navigationStateChange}
+      style={styles.webView}
+      containerStyle={styles.webView}
+      automaticallyAdjustContentInsets={true}
+      javaScriptEnabled={true}
+      showsVerticalScrollIndicator={false}
+      scalesPageToFit={true}
     />
   )
 }
 
-export default React.memo(CardAdd)
+export default React.memo(CardAddView)
+
+const styles = StyleSheet.create({
+  webView: {
+    backgroundColor: Colors.primaryBackground,
+  },
+})

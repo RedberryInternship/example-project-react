@@ -17,7 +17,7 @@ import {BaseHeader, BaseButton, RegistrationPagination} from 'components'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'
 import PasswordView from './components/PasswordView'
-import CardAddView from './components/CardAddView'
+import CardAddContainer from './components/CardAddContainer'
 import useRegistration from './useRegistration'
 
 const Registration = ({
@@ -35,6 +35,8 @@ const Registration = ({
     regStep1,
     regStep2,
     regStep3,
+    regStep4,
+    onCardAddSuccess,
     backButtonClick,
   } = useRegistration(navigation)
 
@@ -42,13 +44,19 @@ const Registration = ({
     <PhoneNumberView hook={regStep1} key={1} activePage={activePage} />,
     <UserInfoView hook={regStep2} key={2} activePage={activePage} />,
     <PasswordView hook={regStep3} key={3} activePage={activePage} />,
-    <CardAddView key={4} activePage={activePage} />,
+    <CardAddContainer
+      onSuccess={onCardAddSuccess}
+      key={4}
+      activePage={activePage}
+    />,
   ]
 
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
-        onPressLeft={backButtonClick}
+        onPressLeft={() => {
+          backButtonClick()
+        }}
         title={'authentication.registration.registration'}
         titleRight={'authentication.registration.skip'}
         onPressRight={activePage === 3 ? headerRightClick : undefined}

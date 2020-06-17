@@ -5,6 +5,7 @@ import {Helpers} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {useForm} from 'react-hook-form'
 import services from 'services'
+import {RegisterResponseType} from 'allTypes'
 
 type RegisterError = {
   email: Array<string>
@@ -63,14 +64,14 @@ export default (
     const {name: first_name, surname: last_name, email} = getValues2()
 
     try {
-      const data = await services.register({
+      const {user, token} = await services.register({
         first_name,
         last_name,
         phone_number,
         email,
         password,
       })
-      onSuccessRegistration(data)
+      onSuccessRegistration({user, token})
     } catch (error) {
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)
@@ -123,7 +124,7 @@ export default (
   //   Helpers.DisplayDropdownWithError()
   // }
 
-  const onSuccessRegistration = async (data: any) => {
+  const onSuccessRegistration = async (data: RegisterResponseType) => {
     rootAction(data, dispatch)
     setActivePage(3)
   }

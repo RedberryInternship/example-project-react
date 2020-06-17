@@ -38,13 +38,14 @@ const App = (): React.ReactElement => {
               token: Defaults.token,
               chargingState: state.chargingState,
             }}
+            theme={'dark'}
             onNavigationStateChange={(_, state) => {
               Defaults.activeRoute = getCurrentRoute(state)
               StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
               console.log('====================================')
               console.log(
                 Defaults.activeRoute,
-                state,
+                // state,
                 'Defaults.activeRout state',
               )
               console.log('====================================')

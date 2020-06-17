@@ -1,4 +1,10 @@
-import React, {useState, useEffect, ReactElement, useRef} from 'react'
+import React, {
+  useState,
+  useEffect,
+  ReactElement,
+  useRef,
+  useCallback,
+} from 'react'
 import {StyleSheet, View} from 'react-native'
 import moment from 'moment'
 
@@ -22,17 +28,7 @@ const CountDown = ({
   const [time, setTime] = useState('')
   const ref: any = useRef(null)
 
-  useEffect(() => {
-    // if (ref.current) clearTimeout(ref.current)
-
-    ref.current = setTimeout(countUp, INTERVAL)
-
-    return (): void => {
-      clearTimeout(ref.current)
-    }
-  }, [startTime, time, alarm])
-
-  const countUp = () => {
+  const countUp = useCallback(() => {
     if (!startTime)
       return setTime((prevState) =>
         prevState.length !== 3 ? prevState + '.' : '.',
@@ -54,7 +50,17 @@ const CountDown = ({
     // console.log(startTime, countdownString, diff, time, 'fstartTime')
 
     setTime(countdownString)
-  }
+  }, [time, startTime, alarm])
+
+  useEffect(() => {
+    // if (ref.current) clearTimeout(ref.current)
+
+    ref.current = setTimeout(countUp, INTERVAL)
+
+    return (): void => {
+      clearTimeout(ref.current)
+    }
+  }, [countUp])
 
   const pad = (val: number) => {
     const valString = val + ''

@@ -1,6 +1,10 @@
 import {useContext} from 'react'
 
-import {Navigation, UserSettingEnum} from '../../../../../@types/allTypes.d'
+import {
+  Navigation,
+  UserSettingEnum,
+  AppContextType,
+} from '../../../../../@types/allTypes.d'
 
 import {AppContext} from '../../../../../App'
 import {useForm} from 'react-hook-form'
@@ -9,7 +13,7 @@ import {Helpers, Defaults} from 'utils'
 import {editUserInfo} from 'hooks/actions/rootActions'
 
 export default (navigation: Navigation, type: UserSettingEnum) => {
-  const {state, dispatch}: any = useContext(AppContext)
+  const {state, dispatch}: AppContextType = useContext(AppContext)
   const {
     setValue,
     getValues,
@@ -65,7 +69,7 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
     }
     try {
       const result = await services.editPassword(
-        Defaults.userDetail?.phone_number ?? '',
+        state?.user?.phone_number ?? '',
         form.currentPassword,
         form.password,
       )

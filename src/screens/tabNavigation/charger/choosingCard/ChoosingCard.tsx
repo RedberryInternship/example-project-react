@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, {ReactElement, useMemo} from 'react'
 import {
   StyleSheet,
   View,
@@ -29,20 +29,14 @@ import {
 import images from 'assets/images'
 import {Const, Colors} from 'utils'
 import useChoosingCard from './useChoosingCard'
-import {ChooseCardOnCharging} from './components'
+import {ChooseCardOnCharging, BaseAddCardButton} from './components'
 import {Controller} from 'react-hook-form'
-
-const draggableRange = {
-  bottom: Platform.select({ios: 160, android: 200}) ?? 200,
-  top: 400,
-}
 
 const ChoosingCard = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
   const {
     control,
-    cards,
     animatedArrow,
     slideUpPanelRef,
     setActiveCard,
@@ -51,7 +45,18 @@ const ChoosingCard = ({
     errors,
     t,
     loading,
+    state,
   } = useChoosingCard(navigation)
+
+  const draggableRange = useMemo(
+    () => ({
+      bottom: Const.platformIOS ? 160 : 200,
+      top:
+        (Const.platformIOS ? 160 : 200) +
+        ((state.user?.user_cards?.length ?? 0) + 1) * 50,
+    }),
+    [state],
+  )
 
   const slidingUpTransformation = {
     transform: [
@@ -123,15 +128,22 @@ const ChoosingCard = ({
             <TitleTopLeftContainer
               direction={'column'}
               title={''}
-              data={cards}
+              data={state.user?.user_cards.sort((a, b) =>
+                a.default !== 1 ? 1 : -1,
+              )}
               onRenderItem={(val: UserCard, index) => (
                 <ChooseCardOnCharging
-                  key={index}
-                  active={index === 0}
-                  onPress={setActiveCard.bind(ChoosingCard, index)}
+                  key={val.id}
+                  active={val.default === 1}
+                  onPress={setActiveCard.bind(ChoosingCard, val.id)}
                   lastDigits={val.masked_pan}
                 />
               )}
+            />
+            <BaseAddCardButton
+              onPress={() => {
+                navigation.navigate('CardAdd')
+              }}
             />
           </View>
         </SlidingUpPanel>
@@ -212,7 +224,10 @@ const styles = StyleSheet.create({
     marginBottom: Platform.select({ios: 16, android: 36}),
     marginHorizontal: 0,
     alignSelf: 'center',
-    width: Const.Width - 88,
+    width: Const.Width - 44,
+  },
+  addCardStyle: {
+    paddingRight: 32,
   },
 })
 

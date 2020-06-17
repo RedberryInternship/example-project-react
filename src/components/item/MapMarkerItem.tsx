@@ -26,10 +26,11 @@ const MapMarkerItem = ({
       coordinate={{latitude: lat, longitude: lng}}
       onPress={onPress}
       anchor={{x: 0.5, y: 0.5}}
+      tracksInfoWindowChanges={false}
     >
       <MarkerController {...props} />
     </Marker>
   )
 }
 
-export default MapMarkerItem
+export default React.memo(MapMarkerItem)

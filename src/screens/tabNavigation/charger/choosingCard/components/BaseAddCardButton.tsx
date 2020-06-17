@@ -35,7 +35,6 @@ export default React.memo(BaseAddCardButton)
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.primaryDark,
     height: 66,
     marginBottom: 10,
     flexDirection: 'row',
@@ -43,19 +42,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 10,
     paddingLeft: 32,
-    paddingRight: 16,
+    paddingRight: 32,
   },
   title: {
     color: Colors.primaryWhite,
   },
   addCard: {
-    width: 32,
-    height: 32,
+    width: 28,
+    height: 28,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.secondaryBlue,
     color: Colors.primaryWhite,
-    borderRadius: 25,
+    borderRadius: 14,
   },
   addCardText: {
     color: Colors.primaryWhite,

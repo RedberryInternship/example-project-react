@@ -1,7 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {Defaults, NavigationActions} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
-import {UserSettingEnum} from '../../../@types/allTypes.d'
+import {
+  UserSettingEnum,
+  RootActionArg1,
+  UserMeResponseType,
+} from '../../../@types/allTypes.d'
 
 import {Helpers} from 'utils'
 import services from 'services'
@@ -14,36 +18,54 @@ export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
 export const LOG_OUT = 'LOG_OUT'
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
 
-export const rootAction = async (data: any, dispatch: any): Promise<void> => {
-  // Vobi Todo: rename this to describe what it does
+export const rootAction = async (
+  data: RootActionArg1,
+  dispatch: any,
+): Promise<void> => {
   saveToken(data)
 
   if (data.token !== '') {
-    try {
-      const result = await services.getUserData()
-      dispatch(saveToken({token: data.token, ...data.user, ...result}))
-    } catch (error) {
-      if (error.status == '406' || error?.data?.status == '406') {
-        Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
-        dispatch(logOut())
-      } else Helpers.DisplayDropdownWithError()
-    }
+    await updateUser(dispatch)
     getFavoriteChargers(dispatch)
-
     chargingState(dispatch)
   }
 }
 
-const saveToken = (payload: any): Record<string, string> => {
-  AsyncStorage.setItem('token', payload.token ?? '')
-  AsyncStorage.setItem('userDetail', JSON.stringify(payload))
+export const updateUser = async (dispatch: any) => {
+  try {
+    const result = await services.getUserData()
+    dispatch(
+      saveToken({
+        token: Defaults.token ?? '',
+        user: {
+          ...Defaults.userDetail,
+          ...result,
+        },
+      }),
+    )
+  } catch (error) {
+    if (error.status == '406' || error?.data?.status == '406') {
+      Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+      dispatch(logOut())
+    } else Helpers.DisplayDropdownWithError()
+  }
+}
 
-  Defaults.token = payload.token
-  Defaults.userDetail = payload
+const saveToken = ({
+  user,
+  token,
+}: RootActionArg1): Record<string, string | UserMeResponseType> => {
+  console.log(JSON.stringify({user, token}, null, 2), 'payload')
+
+  AsyncStorage.setItem('token', token ?? '')
+  AsyncStorage.setItem('userDetail', JSON.stringify(user))
+
+  Defaults.token = token
+  Defaults.userDetail = user
 
   return {
     type: SAVE_TOKEN,
-    payload,
+    payload: user,
   }
 }
 

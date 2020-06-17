@@ -1,3 +1,4 @@
 import ChooseCardOnCharging from './ChooseCardOnCharging'
+import BaseAddCardButton from './BaseAddCardButton'
 
-export {ChooseCardOnCharging}
+export {ChooseCardOnCharging, BaseAddCardButton}

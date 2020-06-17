@@ -10,7 +10,7 @@ import PasswordChangeView from './view/profileChange/PasswordChangeView'
 import FooterTabNavigation from './view/FooterTabNavigationView'
 import PhoneVerificationView from './view/PhoneVerificationView'
 import PasswordConfirmationView from './view/PasswordConfirmationView'
-import CardAdd from './view/CardAdd'
+import CardAddView from './view/CardAddView'
 
 // ./
 import CustomModal from './CustomModal'
@@ -101,5 +101,5 @@ export {
   AddCar,
   PrivacyPolicy,
   AutoCompleteDropdown,
-  CardAdd,
+  CardAddView,
 }

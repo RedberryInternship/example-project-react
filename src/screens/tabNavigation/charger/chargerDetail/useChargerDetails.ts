@@ -147,7 +147,7 @@ export default (
         onLeftClick: () => navigation.navigate('Auth'),
       })
       return
-    } else if (Defaults.userDetail?.user_cards.length === 0) {
+    } else if (state.user?.user_cards.length === 0) {
       Helpers.easyAlert({
         text: 'chargerDetail.pleaseAddCardFirst',
         leftText: 'settings.add',

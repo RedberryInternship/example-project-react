@@ -1,9 +1,10 @@
+import React, {useMemo, createContext} from 'react'
 import {Dimensions} from 'react-native'
 import {createAppContainer, createSwitchNavigator} from 'react-navigation'
 import {createStackNavigator} from 'react-navigation-stack'
 import {createDrawerNavigator} from 'react-navigation-drawer'
 import {createBottomTabNavigator} from 'react-navigation-tabs'
-import {FooterTabNavigation, CardAdd} from 'components'
+import {FooterTabNavigation} from 'components'
 
 //screens
 import {
@@ -31,6 +32,7 @@ import {
   Partners,
   SetNewPasswords,
   ChooseAvatar,
+  CardAdd,
 } from 'screens'
 
 const ChargerStack = createStackNavigator(
@@ -151,6 +153,7 @@ const MainStack = createStackNavigator(
     transactionStack,
     Notifications,
     ChooseAvatar,
+    CardAdd,
   },
   {
     initialRouteName: 'MainDrawer',
@@ -159,7 +162,7 @@ const MainStack = createStackNavigator(
       gestureEnabled: true,
       gestureDirection: 'horizontal',
       cardStyle: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'black',
         opacity: 1,
       },
     },
@@ -176,4 +179,4 @@ const AppNavigator = createSwitchNavigator(
   },
 )
 
-export default createAppContainer(AppNavigator)
+export default React.memo(createAppContainer(AppNavigator))

@@ -65,3 +65,6 @@ export const getContactInfo = (): Promise<ContactInfoResponseType> =>
 
 export const getCardAddUrl = (): Promise<GetCardAddUrl> =>
   ajax.get('/save-card-url')
+
+export const setDefaultCard = (user_card_id: number): Promise<GetCardAddUrl> =>
+  ajax.post('/user-card/set-default', {user_card_id})

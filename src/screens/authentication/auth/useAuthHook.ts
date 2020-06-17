@@ -65,10 +65,7 @@ export default (navigation: Navigation, dispatch: any) => {
     password,
   }: InputValues): Promise<void> => {
     try {
-      const {access_token, user}: UserDataType = await services.loginUser(
-        phone,
-        password,
-      )
+      const {access_token, user} = await services.loginUser(phone, password)
       rootAction(
         {
           token: access_token,

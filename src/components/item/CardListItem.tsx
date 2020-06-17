@@ -8,7 +8,7 @@ import images from 'assets/images'
 type CardListItemProps = {
   code: string
   selected: boolean
-  onPress: () => void | null
+  onPress: () => void | null | any
 }
 
 const CardListItem = ({
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   innerLeftContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 
   image: {

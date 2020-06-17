@@ -2,7 +2,9 @@ import {useEffect, useState, useRef, useReducer} from 'react'
 import {StatusBar, Platform, Alert, StatusBarStyle} from 'react-native'
 import {useNetInfo} from '@react-native-community/netinfo'
 import {useAppState} from '@react-native-community/hooks'
-import {useAsyncStorage} from '@react-native-community/async-storage'
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage'
 import {useTranslation} from 'react-i18next'
 
 import rootReducer, {initialState} from './reducers/rootReducer'

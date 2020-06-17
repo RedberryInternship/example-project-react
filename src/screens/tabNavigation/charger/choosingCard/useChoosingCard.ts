@@ -7,12 +7,14 @@ import {useForm} from 'react-hook-form'
 import {Navigation, AppContextType, UserCard} from 'allTypes'
 import {startCharging} from 'hooks/actions/chargerActions'
 import {AppContext} from '../../../../../App'
+import services from 'services'
+import {updateUser} from 'hooks/actions/rootActions'
+import {Helpers} from 'utils'
 
 const animatedArrow = new Animated.Value(0)
 
 export default (navigation: Navigation) => {
-  const {dispatch, state}: AppContextType = useContext(AppContext)
-  const [cards, setCards] = useState<UserCard[]>(state.user?.user_cards ?? [])
+  const {state, dispatch}: AppContextType = useContext(AppContext)
   const {control, handleSubmit, errors} = useForm()
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -20,10 +22,13 @@ export default (navigation: Navigation) => {
 
   const {t} = useTranslation()
 
-  const setActiveCard = (index: number) => {
-    const activeCard = cards?.[index]
-    cards?.splice(index, 1)
-    setCards([activeCard, ...(cards ?? [])])
+  const setActiveCard = async (id: number) => {
+    try {
+      await services.setDefaultCard(id)
+      updateUser(dispatch)
+    } catch (error) {
+      Helpers.DisplayDropdownWithError()
+    }
   }
   const submitHandler = async ({amount}: {amount: number}) => {
     setLoading(true)
@@ -32,7 +37,7 @@ export default (navigation: Navigation) => {
         type: navigation.getParam('type'),
         connectorTypeId: navigation.getParam('connectorTypeId'),
         amount,
-        userCardId: cards?.[0].id,
+        userCardId: state.user?.user_cards?.[0].id,
       },
       dispatch,
       setLoading,
@@ -48,7 +53,7 @@ export default (navigation: Navigation) => {
     handleSubmit,
     submitHandler,
     errors,
-    cards,
     loading,
+    state,
   }
 }

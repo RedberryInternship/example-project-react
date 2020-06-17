@@ -30,7 +30,7 @@ const TransactionList = ({navigation}: any): ReactElement => {
                 'ShowTransaction',
                 {order: val},
               )}
-              title={getLocaleText(val.charger_connector_type.charger.name)}
+              title={getLocaleText(val.charger_connector_type?.charger.name)}
               date={val.created_at}
               price={val.price}
             />

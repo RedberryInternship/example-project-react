@@ -46,11 +46,8 @@ const ProfileChange = ({
         )
 
       case UserSettingEnum.activeCard: // TODO
-        Helpers.DisplayDropdownWithError('ჯერ არაა მზად')
-        return <></>
         return <CardListView />
       case UserSettingEnum.phone:
-        return <PhoneChangeView {...form} />
       case UserSettingEnum.password:
         return <PasswordChangeView {...form} />
       case UserSettingEnum.addCar:
@@ -85,13 +82,15 @@ const ProfileChange = ({
         </KeyboardAwareScrollView>
       </View>
 
-      <KeyboardAvoidingView
-        style={styles.keyboardAvoidingViewContainer}
-        behavior="padding"
-        keyboardVerticalOffset={Platform.OS === 'android' ? 8 : 16}
-      >
-        <BaseButton onPress={form.handleSubmit(submit)} text="save" />
-      </KeyboardAvoidingView>
+      {type !== UserSettingEnum.activeCard && (
+        <KeyboardAvoidingView
+          style={styles.keyboardAvoidingViewContainer}
+          behavior="padding"
+          keyboardVerticalOffset={Platform.OS === 'android' ? 8 : 16}
+        >
+          <BaseButton onPress={form.handleSubmit(submit)} text="save" />
+        </KeyboardAvoidingView>
+      )}
     </View>
   )
 }
