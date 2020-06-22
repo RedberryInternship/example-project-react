@@ -1,12 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import {
-  useEffect,
-  useState,
-  useRef,
-  RefObject,
-  useContext,
-  useCallback,
-} from 'react'
+import {useEffect, useState, useRef, useContext, useCallback} from 'react'
 
 import {Defaults} from 'utils'
 
@@ -102,25 +95,24 @@ export default (navigation: any) => {
   ]
 
   const backButtonClick = useCallback(() => {
-    navigation.navigate('Auth')
-
-    // if (activePage) {
-    //   paginationClickHandler(activePage - 1)
-    // } else {
-    //   navigation.navigate('Auth')
-    // }
-    // return true
+    // navigation.navigate('Auth')
+    if (activePage) {
+      paginationClickHandler(activePage - 1)
+    } else {
+      navigation.navigate('Auth')
+    }
+    return true
   }, [activePage, paginationClickHandler])
 
-  // useEffect(() => {
-  //   backHandlerRef.current = BackHandler.addEventListener(
-  //     'hardwareBackPress',
-  //     backButtonClick,
-  //   )
-  //   return () => {
-  //     backHandlerRef.current.remove()
-  //   }
-  // }, [backButtonClick])
+  useEffect(() => {
+    backHandlerRef.current = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backButtonClick,
+    )
+    return () => {
+      backHandlerRef.current.remove()
+    }
+  }, [backButtonClick])
 
   const onCardAddSuccess = () => {
     updateUser(dispatch)

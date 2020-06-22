@@ -54,7 +54,7 @@
     "react-native-picker-select": "^7.0.0",
     "react-native-platform-specific-hook-selector": "^1.0.41",
     "react-native-reanimated": "^1.9.0",
-    "react-native-safe-area-context": "^3.0.2",
+    "react-native-safe-area-context": "^3.0.5",
     "react-native-screens": "^2.8.0",
     "react-native-svg": "^12.1.0",
     "react-native-tab-view": "^2.14.4",

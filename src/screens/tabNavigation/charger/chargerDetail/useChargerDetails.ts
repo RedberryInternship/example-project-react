@@ -151,7 +151,7 @@ export default (
       Helpers.easyAlert({
         text: 'chargerDetail.pleaseAddCardFirst',
         leftText: 'settings.add',
-        onLeftClick: () => navigation.navigate('AddCard'),
+        onLeftClick: () => navigation.navigate('CardAdd'),
       })
       return
     } else if (state.chargingState.length > 1) {

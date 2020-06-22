@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, {ReactElement} from 'react'
-import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native'
+import {View, Text, StyleSheet, Image} from 'react-native'
 import {useTranslation} from 'react-i18next'
+import {SafeAreaView} from 'react-navigation'
 
 // components
 import {BaseHeader, BaseText} from 'components'

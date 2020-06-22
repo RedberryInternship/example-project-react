@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
-import {ScrollView, StyleSheet, View, SafeAreaView} from 'react-native'
+import {ScrollView, StyleSheet, View} from 'react-native'
+import {SafeAreaView} from 'react-navigation'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 

@@ -1,5 +1,6 @@
 import React, {ReactElement} from 'react'
-import {ScrollView, View, StyleSheet, SafeAreaView} from 'react-native'
+import {ScrollView, View, StyleSheet} from 'react-native'
+import {SafeAreaView} from 'react-navigation'
 
 import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, getLocaleText} from 'utils'

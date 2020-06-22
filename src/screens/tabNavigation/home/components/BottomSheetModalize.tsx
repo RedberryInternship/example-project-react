@@ -210,6 +210,10 @@ const BottomSheetReanimated = forwardRef(
             Keyboard.dismiss()
             inputRef.current && inputRef.current.blur()
           }}
+          onClosed={() => {
+            Keyboard.dismiss()
+            inputRef.current && inputRef.current.blur()
+          }}
           modalStyle={{
             elevation: 22,
             zIndex: 34,

@@ -47,7 +47,7 @@ const RegistrationPagination = ({
   )
 }
 
-export default RegistrationPagination
+export default React.memo(RegistrationPagination)
 
 const styles = StyleSheet.create({
   container: {

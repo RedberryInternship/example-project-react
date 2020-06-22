@@ -46,7 +46,7 @@ const BaseHeader = ({
         </View>
       )
     )
-  }, [t])
+  }, [t, onPressLeft])
 
   const renderMiddle = useCallback((): ReactElement | undefined => {
     return title ? (
@@ -75,7 +75,8 @@ const BaseHeader = ({
         </View>
       )
     )
-  }, [t, titleRight])
+  }, [t, titleRight, onPressRight])
+
   return (
     <View style={[styles.mainContainer, {paddingTop: insets.top}]}>
       <View style={[styles.container]}>
