@@ -4,6 +4,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
 } from 'react'
 import {
   StyleSheet,
@@ -63,7 +64,7 @@ const BottomSheetReanimated = forwardRef(
 
     const {top, bottom} = useSafeAreaInsets()
 
-    const closeClick = (): void => {
+    const closeClick = useCallback((): void => {
       if (_this.current.text !== '') {
         textHandler('')
         // Vobi Todo: setText('')
@@ -78,11 +79,15 @@ const BottomSheetReanimated = forwardRef(
           Keyboard.dismiss()
         }, 400)
       }
-    }
-    const onTextChange = (text: string): void => {
-      _this.current.text = text
-      textHandler(text)
-    }
+    }, [textHandler, inputRef, ref, _this])
+
+    const onTextChange = useCallback(
+      (text: string): void => {
+        _this.current.text = text
+        textHandler(text)
+      },
+      [textHandler, _this],
+    )
     useEffect(() => {
       backHandlerRef.current = BackHandler.addEventListener(
         'hardwareBackPress',
@@ -195,46 +200,57 @@ const BottomSheetReanimated = forwardRef(
       )
     }
 
-    return (
-      <View style={styles.container} pointerEvents={'box-none'}>
-        <Modalize
-          ref={backHandlerRef}
-          // contentRef={contentRef}
-          HeaderComponent={renderHeaderComponent}
-          adjustToContentHeight={false}
-          modalHeight={height - top - bottom - 65 - 12}
-          alwaysOpen={55}
-          rootStyle={{elevation: 22, zIndex: 34}}
-          avoidKeyboardLikeIOS={true}
-          onClose={() => {
-            Keyboard.dismiss()
-            inputRef.current && inputRef.current.blur()
-          }}
-          onClosed={() => {
-            Keyboard.dismiss()
-            inputRef.current && inputRef.current.blur()
-          }}
-          modalStyle={{
-            elevation: 22,
-            zIndex: 34,
-            marginHorizontal: 8,
-            backgroundColor: '#023D63',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20,
-          }}
-          withHandle={false}
-          panGestureComponentEnabled={true}
-          panGestureEnabled={true}
-          closeOnOverlayTap={true}
-        >
-          {renderContent()}
-        </Modalize>
-      </View>
+    return useMemo(
+      () => (
+        <View style={styles.container} pointerEvents={'box-none'}>
+          <Modalize
+            ref={backHandlerRef}
+            // contentRef={contentRef}
+            HeaderComponent={renderHeaderComponent}
+            adjustToContentHeight={false}
+            modalHeight={height - top - bottom - 65 - 12}
+            alwaysOpen={55}
+            rootStyle={{elevation: 22, zIndex: 34}}
+            avoidKeyboardLikeIOS={true}
+            onClose={() => {
+              Keyboard.dismiss()
+              inputRef.current && inputRef.current.blur()
+            }}
+            onClosed={() => {
+              Keyboard.dismiss()
+              inputRef.current && inputRef.current.blur()
+            }}
+            modalStyle={{
+              elevation: 22,
+              zIndex: 34,
+              marginHorizontal: 8,
+              backgroundColor: '#023D63',
+              borderTopLeftRadius: 20,
+              borderTopRightRadius: 20,
+            }}
+            withHandle={false}
+            panGestureComponentEnabled={true}
+            panGestureEnabled={true}
+            closeOnOverlayTap={true}
+          >
+            {renderContent()}
+          </Modalize>
+        </View>
+      ),
+      [
+        backHandlerRef,
+        inputRef,
+        height,
+        top,
+        bottom,
+        renderHeaderComponent,
+        renderContent,
+      ],
     )
   },
 )
 
-export default BottomSheetReanimated
+export default React.memo(BottomSheetReanimated)
 
 const styles = StyleSheet.create({
   container: {

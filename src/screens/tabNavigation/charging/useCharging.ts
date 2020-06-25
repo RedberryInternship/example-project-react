@@ -13,7 +13,7 @@ import {Defaults, Helpers} from 'utils'
 
 export default (navigation: any) => {
   const {
-    state: {chargingState},
+    state: {chargingState, authStatus},
     dispatch,
   }: AppContextType = useContext(AppContext)
 
@@ -25,15 +25,16 @@ export default (navigation: any) => {
   const insets = useSafeAreaInsets()
 
   useEffect(() => {
-    timeInterval.current = setInterval(() => {
-      if (Helpers.isAuthenticated()) chargingStateAction(dispatch)
+    timeInterval.current = setTimeout(() => {
+      if (authStatus === 'success' && chargingState.length)
+        chargingStateAction(dispatch)
       else return
     }, 30000) // time interval for per request
 
     return (): void => {
       clearInterval(timeInterval.current)
     }
-  }, [])
+  }, [chargingStateAction, dispatch, chargingState, authStatus])
 
   const changeActiveTab = (index: number) => {
     setActiveTab(index)

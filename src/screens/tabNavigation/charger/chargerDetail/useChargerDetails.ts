@@ -157,6 +157,9 @@ export default (
     } else if (state.chargingState.length > 1) {
       Helpers.DisplayDropdownWithError(t('chargerDetail.maxAllowedCarCharing'))
       return
+    } else if (activeChargerType === -1) {
+      Helpers.DisplayDropdownWithError(t('chargerDetail.selectConnector'))
+      return
     }
 
     navigation.navigate('ChooseChargeMethod', {

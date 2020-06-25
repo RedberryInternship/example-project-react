@@ -40,8 +40,8 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 number={index + 1}
                 question={getLocaleText(val.question)}
                 answer={getLocaleText(val.answer)}
-                activeFaq={activeFaq}
-                setActiveFaq={setActiveFaq}
+                active={activeFaq === index}
+                toggle={(open = true) => setActiveFaq(open ? index : -1)}
               />
             )}
             fetchData={getFAQ}

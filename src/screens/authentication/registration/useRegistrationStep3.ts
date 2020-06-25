@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import {useRef, useEffect} from 'react'
 
-import {Helpers} from 'utils'
+import {Helpers, InputValidationHelpers} from 'utils'
 import {rootAction} from 'hooks/actions/rootActions'
 import {useForm} from 'react-hook-form'
 import services from 'services'
@@ -30,6 +30,8 @@ export default (
     watch,
     reset,
     triggerValidation,
+    setValue,
+    register,
   } = useForm({
     validateCriteriaMode: 'all',
   })
@@ -40,6 +42,13 @@ export default (
         errors[Object.keys(errors)?.[0]]?.message,
       )
   }, [errors])
+
+  useEffect(() => {
+    register(
+      {name: 'termsAndConditions'},
+      {validate: InputValidationHelpers.checkboxValidation},
+    )
+  }, [])
 
   const buttonClickHandler = async ({
     password,
@@ -137,5 +146,6 @@ export default (
     watch,
     reset,
     triggerValidation,
+    setValue,
   }
 }

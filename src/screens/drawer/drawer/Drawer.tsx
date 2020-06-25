@@ -153,7 +153,13 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             {Helpers.isAuthenticated() && (
               <TouchableOpacity
                 onPress={(): void => {
-                  context.dispatch(logOut())
+                  Helpers.easyAlert({
+                    title: t('dropDownAlert.areYouSureYouWantToLogOut'),
+                    rightText: t('drawer.logOut'),
+                    leftText: t('no'),
+                    onRightClick: () => context.dispatch(logOut()),
+                    onLeftClick: () => {},
+                  })
                 }}
               >
                 <BaseText style={styles.logOut}>{t('drawer.logOut')}</BaseText>

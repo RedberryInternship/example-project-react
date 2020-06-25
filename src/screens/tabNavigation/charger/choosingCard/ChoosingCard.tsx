@@ -104,6 +104,7 @@ const ChoosingCard = ({
                   image={images.briefCase}
                   returnKeyType={'send'}
                   errorText={errors.amount ? 'dropDownAlert.fillAmount' : ''}
+                  keyboardType={'number-pad'}
                 />
               </View>
             )}

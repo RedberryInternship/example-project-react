@@ -1,8 +1,9 @@
 import React, {ReactElement} from 'react'
-import {StyleSheet, Text, TouchableOpacity} from 'react-native'
+import {StyleSheet, Text} from 'react-native'
 
 import {Colors} from 'utils'
 import {BaseText} from 'components'
+import {TouchableOpacity} from 'react-native-gesture-handler'
 
 type FilterTextItemProps = {
   text: string
@@ -20,7 +21,7 @@ const FilterTextItem = ({
         styles.container,
         {backgroundColor: active ? '#008AEE' : 'white'},
       ]}
-      onPressOut={onPress}
+      onPress={onPress}
     >
       <BaseText
         style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}

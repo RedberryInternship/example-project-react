@@ -5,7 +5,7 @@ import React, {
   useRef,
   useCallback,
 } from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, View, Alert} from 'react-native'
 import moment from 'moment'
 
 import {Colors} from 'utils'
@@ -25,7 +25,7 @@ const CountDown = ({
   alarm,
   popup,
 }: CountDownProps): ReactElement => {
-  const [time, setTime] = useState('')
+  const [time, setTime] = useState('.')
   const ref: any = useRef(null)
 
   const countUp = useCallback(() => {
@@ -38,7 +38,7 @@ const CountDown = ({
 
     if (alarm && diff > 0) {
       onFinish && onFinish()
-      return
+      // return
     }
 
     // console.log(moment().valueOf(), momentDiff, startTime, 'diff.seconds')
@@ -50,7 +50,7 @@ const CountDown = ({
     // console.log(startTime, countdownString, diff, time, 'fstartTime')
 
     setTime(countdownString)
-  }, [time, startTime, alarm])
+  }, [time, startTime, alarm, onFinish])
 
   useEffect(() => {
     // if (ref.current) clearTimeout(ref.current)

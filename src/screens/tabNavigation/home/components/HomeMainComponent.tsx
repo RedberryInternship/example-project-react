@@ -103,7 +103,7 @@ const HomeMainComponent = ({
   )
 }
 
-export default withNavigation(HomeMainComponent)
+export default React.memo(withNavigation(HomeMainComponent))
 
 const styles = StyleSheet.create({
   container: {

@@ -49,6 +49,12 @@ export default (navigation: any) => {
     // console.log(activePage, regStep1, regStep2, regStep3, 'activePage')
   }, [activePage])
 
+  useEffect(() => {
+    return () => {
+      userRegistrationState = 0
+    }
+  }, [])
+
   const paginationClickHandler = async (index: number) => {
     if (index > userRegistrationState) return
     else if (userRegistrationState === activePage) {

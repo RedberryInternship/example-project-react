@@ -146,6 +146,7 @@ export default {
       code: 'კოდი:#{{code}}',
       pleaseAddCardFirst: 'საჭიროა რომ დაამატოთ ბარათი',
       maxAllowedCarCharing: 'მაქსიმუმ შესაძლებელია მხოლოდ 2 მანქანის დატენვა',
+      selectConnector: 'გთხოვთ აირჩიოთ  ქონექტორი',
     },
     notAuthorized: {
       notAuthorizedText:
@@ -216,6 +217,7 @@ export default {
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
       thisUserIsBlocked: 'იუზერი არ არის აქტიური',
+      areYouSureYouWantToLogOut: 'დარწმუნებული ხახრთ რომ გსურთ გამოსვლა?',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',
@@ -229,6 +231,7 @@ export default {
         passwordNotEqual: 'პაროლები ერთმანეთს არ ემთხვევა',
         minPasswordTextLength: 'მინიმუმ 8 სიმბოლო უნდა იყოს პაროლში',
         needsCardAddOrPleaseSkip: 'საჭიროა ბარატის დამატება, ან გამოტოვეთ',
+        pleaseSelectTermsAndConditions: 'გთხოვთ დაეთანხმოთ წესებს და პირობებს',
       },
       editFirstname: {
         firstNameNotEmpty: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',

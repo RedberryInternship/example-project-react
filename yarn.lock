@@ -6049,6 +6049,11 @@ react-native-backdrop@^2.0.0:
   resolved "https://registry.yarnpkg.com/react-native-backdrop/-/react-native-backdrop-2.0.0.tgz#07491fb737890b7b904a7c4e590523577198d306"
   integrity sha512-mIN23Gcvfe/VBVW+lPSnZvAkah/UmhxIwIfMuJ2gTRkxXflh06itC1vSKd1/d92HrlTRQkvWnCcnBjSxpPjtqg==
 
+react-native-cjk-textinput-patch@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-cjk-textinput-patch/-/react-native-cjk-textinput-patch-1.0.0.tgz#b9ff449f05bb1b6dc52cee741de91a15208747b0"
+  integrity sha512-4IrZxlgMMfXLiSOU5x7g51f4yLfcgL2qw7fXI/J5ICYexVBr5mcz7PgVekURIbTvYnj0uZrrjmnn6av3g6tKNg==
+
 react-native-device-info@^5.6.1:
   version "5.6.1"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.6.1.tgz#3ae88d8659b7b64d204dbfc39f69126b769363d4"

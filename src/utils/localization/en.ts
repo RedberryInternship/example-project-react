@@ -149,6 +149,7 @@ export default {
       code: 'code:#{{code}}',
       pleaseAddCardFirst: 'Please add card first',
       maxAllowedCarCharing: 'Max allowed only two car',
+      selectConnector: 'Please, select connector',
     },
     notAuthorized: {
       notAuthorizedText: 'If u want to charge a car u have to register',
@@ -218,6 +219,7 @@ export default {
       informationUpdatedSuccessfully: 'Information updated successfully',
       avatarUpdatedSuccessfully: 'Avatar updated successfully',
       thisUserIsBlocked: 'This user is blocked',
+      areYouSureYouWantToLogOut: 'Are you sure you want to log out?',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',

@@ -16,7 +16,6 @@ import {
 } from '../../../../../@types/allTypes.d'
 import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
-import {Alert} from 'react-native'
 import {DrawerActions} from 'react-navigation-drawer'
 
 const useHome = (

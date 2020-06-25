@@ -42,6 +42,10 @@ const emailValidation = {
     emailRegex.test(value ?? '') ||
     'dropDownAlert.registration.incorrectEmail',
 }
+const checkboxValidation = {
+  isChecked: (value: boolean | undefined) =>
+    value || 'dropDownAlert.registration.pleaseSelectTermsAndConditions',
+}
 
 // const inputString = {required: true, pattern: /^[a-zA-Z]+$/}
 const inputString = {required: true}
@@ -52,4 +56,5 @@ export default {
   passwordConfirmValidation,
   emailValidation,
   inputString,
+  checkboxValidation,
 }

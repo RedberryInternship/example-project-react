@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     justifyContent: 'center',
+    paddingHorizontal: 8,
   },
   upperFieldsText: {
     textAlign: 'center',
@@ -93,6 +94,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 16,
     justifyContent: 'center',
+    padding: 8,
   },
   lowerFieldsText: {
     textAlign: 'center',

@@ -162,7 +162,7 @@ const HomeMainSearchView = forwardRef(
   },
 )
 
-export default HomeMainSearchView
+export default React.memo(HomeMainSearchView)
 
 const styles = StyleSheet.create({
   container: {

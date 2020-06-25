@@ -70,18 +70,22 @@ const ChargerDetail = ({
             />
           )}
         />
-        <TitleTopLeftContainer
-          title={'chargerDetail.additionalServices'}
-          direction={'row'}
-          data={charger?.business_services}
-          onRenderItem={(val: BusinessService): ReactElement => (
-            <BusinessServiceItem
-              key={val.id}
-              onPress={() => onBusinessServiceClick(val.title, val.description)}
-              image={val.image_path}
-            />
-          )}
-        />
+        {!!charger?.business_services?.length && (
+          <TitleTopLeftContainer
+            title={'chargerDetail.additionalServices'}
+            direction={'row'}
+            data={charger?.business_services}
+            onRenderItem={(val: BusinessService): ReactElement => (
+              <BusinessServiceItem
+                key={val.id}
+                onPress={() =>
+                  onBusinessServiceClick(val.title, val.description)
+                }
+                image={val.image_path}
+              />
+            )}
+          />
+        )}
       </ScrollView>
       <BaseButton
         onPress={mainButtonClickHandler}

@@ -92,6 +92,11 @@ export const chargingState = async (dispatch: any) => {
     for (const state of result) {
       Helpers.configureChargingFinishPopup(state, dispatch)
     }
+    if (Defaults.activeRoute !== 'Charging' && result.length > 0) {
+      setTimeout(() => {
+        NavigationActions.navigate('Charging')
+      }, 1000)
+    }
     if (Defaults.activeRoute === 'Charging' && result.length === 0) {
       NavigationActions.navigate('Home')
     }

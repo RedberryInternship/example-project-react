@@ -5,6 +5,7 @@ import {
   RefObject,
   useState,
   useEffect,
+  useCallback,
 } from 'react'
 import MapView from 'react-native-maps'
 
@@ -31,49 +32,53 @@ const useMapView = (
   const [polyline, setPolyline] = useState([])
   const location = useLocation({mapRef, setPolyline, dispatch})
 
-  const mapReady = (): void => {
+  const getChargerPins = useCallback((): void => {
+    getAllChargers(dispatch)
+  }, [dispatch, getAllChargers])
+
+  const mapReady = useCallback((): void => {
     location.navigateToLocation()
     getChargerPins()
-  }
+  }, [getChargerPins, location])
 
-  const getChargerPins = (): void => {
-    getAllChargers(dispatch)
-  }
   useImperativeHandle(ref, (): any => ({
     animateToCoords: location.navigateByRef,
     locate: location.navigateToLocation,
     showRoute: location.showRoute,
   }))
 
-  const onMarkerPress = (charger: Charger): void => {
-    if (
-      charger.charger_group?.chargers &&
-      charger.charger_group?.chargers.length !== 0
-    ) {
-      const onChargerSelect = (index: number): void => {
-        navigation.navigate('ChargerDetail', {
-          chargerDetails: {
-            ...charger.charger_group?.chargers?.[index],
-            from: 'Home',
+  const onMarkerPress = useCallback(
+    (charger: Charger): void => {
+      if (
+        charger.charger_group?.chargers &&
+        charger.charger_group?.chargers.length !== 0
+      ) {
+        const onChargerSelect = (index: number): void => {
+          navigation.navigate('ChargerDetail', {
+            chargerDetails: {
+              ...charger.charger_group?.chargers?.[index],
+              from: 'Home',
+            },
+          })
+        }
+
+        Defaults.modal.current?.customUpdate(true, {
+          type: 4,
+          data: {
+            title: getLocaleText(charger.name),
+            address: getLocaleText(charger.location),
+            chargers: charger.charger_group?.chargers ?? [],
+            onChargerSelect: onChargerSelect,
           },
         })
+      } else {
+        navigation.navigate('ChargerDetail', {
+          chargerDetails: {...charger, from: 'Home'},
+        })
       }
-
-      Defaults.modal.current?.customUpdate(true, {
-        type: 4,
-        data: {
-          title: getLocaleText(charger.name),
-          address: getLocaleText(charger.location),
-          chargers: charger.charger_group?.chargers ?? [],
-          onChargerSelect: onChargerSelect,
-        },
-      })
-    } else {
-      navigation.navigate('ChargerDetail', {
-        chargerDetails: {...charger, from: 'Home'},
-      })
-    }
-  }
+    },
+    [navigation, Defaults],
+  )
   return {
     location,
     mapReady,

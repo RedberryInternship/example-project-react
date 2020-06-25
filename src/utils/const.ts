@@ -118,6 +118,8 @@ export const SettingsListFields: SettingsListFieldType[] = [
     name: 'settings.addCar',
     type: UserSettingEnum.addCar,
     editableComponentName: 'settings.addCar',
+    onEmptyText: 'settings.add',
+    color: Colors.primaryGray,
   },
 ]
 
@@ -160,7 +162,7 @@ export const FilterTypes = [
 
 export const eSpaceLocationOnMapInfo = {
   scheme: Platform.select({android: 'geo:0,0?q=', ios: 'maps:0,0?q='}),
-  latitude: 41.707204,
-  longitude: 44.784487,
+  latitude: 41.7276579,
+  longitude: 44.7486845,
   label: 'E-space',
 }

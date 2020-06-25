@@ -46,9 +46,9 @@ export default (navigation: Navigation) => {
 
     facebookPage: () => {
       openUrl(
-        'fb://group/272061007052173',
+        'fb://page/?id=1653854168267854',
         'FaceBook',
-        'https://www.facebook.com/groups/272061007052173/',
+        'https://www.facebook.com/ltd.espace/',
       )
     },
 
@@ -80,7 +80,7 @@ export default (navigation: Navigation) => {
       Logger(e)
       let msg = ''
       // Vobi todo: move this as util
-      // Vobi Todo: you can do something like this 
+      // Vobi Todo: you can do something like this
       // Vobi Todo: errors = {
       // Facebook: 'Something Went Wrong While Opening FaceBook...',
       // Address: 'Something Went Wrong While Opening Map...',

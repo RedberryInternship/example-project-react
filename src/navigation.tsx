@@ -165,7 +165,6 @@ const MainStack = createStackNavigator(
         backgroundColor: 'transparent',
         opacity: 1,
       },
-      animationEnabled: false,
     },
   },
 )

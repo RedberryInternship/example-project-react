@@ -33,7 +33,6 @@ const MapView = forwardRef(
       mapRef,
       navigation,
     )
-
     const pins = useMemo(
       () =>
         (showAll
@@ -80,8 +79,8 @@ const MapView = forwardRef(
       [polyline],
     )
 
-    return useMemo(
-      () => (
+    return useMemo(() => {
+      return (
         <View style={styles.mapContainer}>
           <Map
             provider={PROVIDER_GOOGLE}
@@ -108,9 +107,8 @@ const MapView = forwardRef(
             {polylineRoute}
           </Map>
         </View>
-      ),
-      [pins, polylineRoute, mapReady, mapRef],
-    )
+      )
+    }, [pins, polylineRoute, mapReady, mapRef])
   },
 )
 

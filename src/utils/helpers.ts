@@ -243,7 +243,10 @@ const configureChargingFinishPopup = (
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.LVL2FullCharge,
-          onFinish: () => chargingState(dispatch),
+          onFinish: () => {
+            Alert.alert('dfg')
+            chargingState(dispatch)
+          },
           data: {
             ...options.data,
             bottomDescription: 'popup.warningTextBeforeFine',
