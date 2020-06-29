@@ -6,6 +6,7 @@ import {
   useState,
   useEffect,
   useCallback,
+  useMemo,
 } from 'react'
 import MapView from 'react-native-maps'
 
@@ -30,21 +31,25 @@ const useMapView = (
 ) => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
   const [polyline, setPolyline] = useState([])
-  const location = useLocation({mapRef, setPolyline, dispatch})
+  const {navigateToLocation, navigateByRef, showRoute} = useLocation({
+    mapRef,
+    setPolyline,
+    dispatch,
+  })
 
   const getChargerPins = useCallback((): void => {
     getAllChargers(dispatch)
   }, [dispatch, getAllChargers])
 
   const mapReady = useCallback((): void => {
-    location.navigateToLocation()
+    navigateToLocation()
     getChargerPins()
-  }, [getChargerPins, location])
+  }, [getChargerPins, navigateToLocation])
 
   useImperativeHandle(ref, (): any => ({
-    animateToCoords: location.navigateByRef,
-    locate: location.navigateToLocation,
-    showRoute: location.showRoute,
+    animateToCoords: navigateByRef,
+    locate: navigateToLocation,
+    showRoute: showRoute,
   }))
 
   const onMarkerPress = useCallback(
@@ -77,10 +82,9 @@ const useMapView = (
         })
       }
     },
-    [navigation, Defaults],
+    [navigation, Defaults, getLocaleText],
   )
   return {
-    location,
     mapReady,
     state,
     dispatch,

@@ -41,10 +41,10 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <HomeContext.Provider value={{state, dispatch}}>
         <View style={styles.mainContainer}>
           <MapView
-          // ref={mapRef}
-          // showAll={showAll}
-          // filteredChargersOnMap={onMapFilteredChargers}
-          // navigation={navigation}
+            ref={mapRef}
+            showAll={showAll}
+            filteredChargersOnMap={onMapFilteredChargers}
+            navigation={navigation}
           />
           <HomeMainComponent
             allchargers={context?.state.AllChargers ?? []}
@@ -67,7 +67,11 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
             onFilterClick={onFilterClick}
             selectedFilters={selectedFilters}
             onFilteredItemClick={onFilteredItemClick}
-            filteredChargers={bottomSheetChargers ?? []}
+            filteredChargers={
+              bottomSheetChargers.length
+                ? bottomSheetChargers
+                : context?.state.AllChargers ?? []
+            }
             textHandler={searchInputTextChangeHandler}
           />
           {/* <BottomSheetSlideUp

@@ -281,7 +281,7 @@ export default {
         verificationCodeIsIncorrect: 'Verification code is incorrect',
       },
       charging: {
-        areUSore: 'Are you sore u want to finish',
+        areUSore: 'Are you sore you want to finish?',
         needToLogIn: 'You need to log in ',
         noRouteFound: 'No route found',
       },

@@ -117,7 +117,7 @@ export default {
       notWorking: 'არ მუშაობს',
       free: 'თავისუფალი',
       thankYou: 'მადლობა',
-      automobileChargingFinished: 'ავტომობილის დატენვა დასრულენულია',
+      automobileChargingFinished: 'ავტომობილის დატენვა დასრულებულია',
       chargingFinishedWarning:
         'თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       chargeOff: 'ანგარიშიდან ჩამოგეჭრათ',
@@ -279,7 +279,7 @@ export default {
         verificationCodeIsIncorrect: 'ვერიფიკაციის კოდი არასწორია',
       },
       charging: {
-        areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება',
+        areUSore: 'დარწმუნებული ხართ რომ გინდათ დასრულება?',
         needToLogIn: 'საჭიროა რომ გაიაროთ ავტორიზაცია',
         noRouteFound: 'გზა ვერ მოიძებნა',
       },

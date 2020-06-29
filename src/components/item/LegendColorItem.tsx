@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#436880',
-    fontSize: 13,
+    fontSize: 12,
   },
   backgrondView: {
     width: 12,

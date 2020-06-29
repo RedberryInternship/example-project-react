@@ -54,6 +54,7 @@ const MapView = forwardRef(
 
       [state?.AllChargers, showAll, filteredChargersOnMap],
     )
+    console.log('debug', 'mapView')
 
     const polylineRoute = useMemo(
       () =>
@@ -80,6 +81,8 @@ const MapView = forwardRef(
     )
 
     return useMemo(() => {
+      console.log('debug', 'mapView inside useMemo')
+
       return (
         <View style={styles.mapContainer}>
           <Map

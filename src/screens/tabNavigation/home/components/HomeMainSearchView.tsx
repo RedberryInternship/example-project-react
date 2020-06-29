@@ -46,44 +46,43 @@ const HomeMainSearchView = forwardRef(
       show: setShowSearchContent.bind(HomeMainSearchView, true),
     }))
 
-    const searchedItems = ({
-      item: chargerObj,
-    }: {
-      item: Charger
-    }): ReactElement => {
-      const view = []
+    const searchedItems = useCallback(
+      ({item: chargerObj}: {item: Charger}): ReactElement => {
+        const view = []
 
-      if (chargerObj?.charger_group?.chargers?.length !== 0) {
-        view.push(
-          <MainSearchItem
-            key={chargerObj.id}
-            text={getLocaleText(chargerObj.name)}
-            mainTitle={getLocaleText(chargerObj.location)}
-            onPress={onSearchItemClickHandler.bind(
-              HomeMainSearchView,
-              chargerObj.lat,
-              chargerObj.lng,
-            )}
-          />,
-        )
-      } else {
-        chargerObj?.charger_group?.chargers?.map((val) =>
+        if (chargerObj?.charger_group?.chargers?.length !== 0) {
           view.push(
             <MainSearchItem
-              key={val.id + 'inside'}
-              text={getLocaleText(val.name)}
-              mainTitle={getLocaleText(val.location)}
+              key={chargerObj.id}
+              text={getLocaleText(chargerObj.name)}
+              mainTitle={getLocaleText(chargerObj.location)}
               onPress={onSearchItemClickHandler.bind(
                 HomeMainSearchView,
-                val.lat,
-                val.lng,
+                chargerObj.lat,
+                chargerObj.lng,
               )}
             />,
-          ),
-        )
-      }
-      return <React.Fragment>{view}</React.Fragment>
-    }
+          )
+        } else {
+          chargerObj?.charger_group?.chargers?.map((val) =>
+            view.push(
+              <MainSearchItem
+                key={val.id + 'inside'}
+                text={getLocaleText(val.name)}
+                mainTitle={getLocaleText(val.location)}
+                onPress={onSearchItemClickHandler.bind(
+                  HomeMainSearchView,
+                  val.lat,
+                  val.lng,
+                )}
+              />,
+            ),
+          )
+        }
+        return <React.Fragment>{view}</React.Fragment>
+      },
+      [getLocaleText, onSearchItemClickHandler],
+    )
 
     return useMemo(
       () => (
@@ -102,7 +101,7 @@ const HomeMainSearchView = forwardRef(
             style={styles.container}
           >
             <>
-              <Animated.View style={[styles.inputStyleContainer, animate()]}>
+              <Animated.View style={[styles.inputStyleContainer, animate]}>
                 <HomeMainSearchInput
                   showSearchContent={showSearchContent}
                   placeholder={`${t('home.location')}/${t(

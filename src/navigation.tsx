@@ -34,6 +34,7 @@ import {
   ChooseAvatar,
   CardAdd,
 } from 'screens'
+import {Colors} from 'utils'
 
 const ChargerStack = createStackNavigator(
   {
@@ -116,8 +117,9 @@ const drawerMenuOptionsStack = createStackNavigator(
       gestureEnabled: true,
       gestureDirection: 'horizontal',
       cardStyle: {
-        backgroundColor: 'transparent',
+        backgroundColor: Colors.primaryBackground,
         opacity: 1,
+        backfaceVisibility: 'hidden',
       },
     },
   },
@@ -162,7 +164,8 @@ const MainStack = createStackNavigator(
       gestureEnabled: true,
       gestureDirection: 'horizontal',
       cardStyle: {
-        backgroundColor: 'transparent',
+        backgroundColor: Colors.primaryBackground,
+        backfaceVisibility: 'hidden',
         opacity: 1,
       },
     },

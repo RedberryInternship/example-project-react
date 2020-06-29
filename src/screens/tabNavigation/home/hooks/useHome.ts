@@ -1,4 +1,11 @@
-import {useState, useEffect, useRef, RefObject, useContext} from 'react'
+import {
+  useState,
+  useEffect,
+  useRef,
+  RefObject,
+  useContext,
+  useCallback,
+} from 'react'
 import {
   NavigationParams,
   NavigationScreenProp,
@@ -17,6 +24,8 @@ import {
 import {AppContext} from '../../../../../App'
 import {Helpers} from 'utils'
 import {DrawerActions} from 'react-navigation-drawer'
+import {Alert} from 'react-native'
+import {Modalize} from 'react-native-modalize'
 
 const useHome = (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
@@ -38,7 +47,7 @@ const useHome = (
   const [inputText, setInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
 
-  const bottomSheetRef: RefObject<BottomSheet> = useRef(null)
+  const bottomSheetRef: RefObject<Modalize> = useRef(null)
   const mapRef: MapImperativeRefObject = useRef(null)
   const mainInputRef: any = useRef(null)
 
@@ -46,10 +55,13 @@ const useHome = (
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
     const willBlur = navigation.addListener(
       'willBlur',
-      () => mapRef.current && mapRef.current.showRoute(0, 0, false),
+      () =>
+        mapRef.current &&
+        mapRef.current.showRoute(0, 0, false) &&
+        navigation.setParams(''),
     )
     navigation.dispatch(DrawerActions.closeDrawer())
-    bottomSheetSnapTo()
+    bottomSheetSnapTo(false)
     return (): void => {
       didFocus.remove()
       willBlur.remove()
@@ -59,86 +71,111 @@ const useHome = (
   useEffect(() => {
     if (showAll) {
       setSelectedFiltersOnMap(Array(6).fill(0))
+      setOnMapFilteredChargers([])
     } else {
       setInputText('')
       setSelectedFilters(Array(6).fill(0))
     }
   }, [showAll])
 
-  const onScreenFocus = (payload: NavigationEventPayload): void => {
-    const {params} = payload.state
+  const bottomSheetSnapTo = useCallback(
+    (show = true): void => {
+      // because of library bug
+      if (show) bottomSheetRef.current?.open('top')
+      else bottomSheetRef.current?.close('alwaysOpen')
+      // bottomSheetRef.current?.snapTo(snapPoint)
+    },
+    [bottomSheetRef],
+  )
 
-    // mainInputRef.current?.close() //close main input always
-    if (params !== undefined) {
-      setTimeout(() => {
-        switch (params?.mode) {
-          case HomeNavigateModes.showAllChargers: {
-            bottomSheetSnapTo(1)
-            break
-          }
-          case HomeNavigateModes.chargerLocateOnMap: {
-            bottomSheetSnapTo()
-            mapRef.current?.animateToCoords(params?.lat, params?.lng)
-            break
-          }
-          case HomeNavigateModes.showRoutesToCharger: {
-            bottomSheetSnapTo()
-            mapRef.current?.showRoute(params?.lat, params?.lng)
-            break
-          }
-          default:
-            break
-        }
-      }, 600)
-    }
-  }
-  const bottomSheetSnapTo = (snapPoint = 0): void => {
-    // because of library bug
-    bottomSheetRef.current?.snapTo(snapPoint)
-    bottomSheetRef.current?.snapTo(snapPoint)
-  }
+  const onScreenFocus = useCallback(
+    (payload: NavigationEventPayload): void => {
+      const {params} = payload.state
 
-  const onFilterClick = (index: number): void => {
-    let newSelectedFilters: number[] = []
-    ++selectedFilters[index]
-    newSelectedFilters = selectedFilters.map((val) =>
-      val > 1 || val === 0 ? 0 : 1,
-    )
-    setSelectedFilters(newSelectedFilters)
-  }
+      if (params !== undefined) {
+        setTimeout(() => {
+          switch (params?.mode) {
+            case HomeNavigateModes.showAllChargers: {
+              bottomSheetSnapTo()
+              break
+            }
+            case HomeNavigateModes.chargerLocateOnMap: {
+              bottomSheetSnapTo(false)
+              mapRef.current?.animateToCoords(params?.lat, params?.lng)
+              break
+            }
+            case HomeNavigateModes.showRoutesToCharger: {
+              bottomSheetSnapTo(false)
+              mapRef.current?.showRoute(params?.lat, params?.lng)
+              break
+            }
+            default:
+              break
+          }
+        }, 500)
+      }
+    },
+    [bottomSheetSnapTo, mapRef],
+  )
+
+  const onFilterClick = useCallback(
+    (index: number): void => {
+      let newSelectedFilters: number[] = []
+      ++selectedFilters[index]
+      newSelectedFilters = selectedFilters.map((val) =>
+        val > 1 || val === 0 ? 0 : 1,
+      )
+      setSelectedFilters(newSelectedFilters)
+    },
+    [selectedFilters, setSelectedFilters],
+  )
 
   useEffect(() => {
     Helpers.GetFilteredCharger(selectedFilters, inputText).then((data) => {
-      setBottomSheetChargers(data ?? context.state?.AllChargers ?? [])
+      setBottomSheetChargers(data ?? [])
     })
-  }, [selectedFilters, inputText, context.state.AllChargers])
+  }, [selectedFilters, inputText])
 
-  const onFilteredItemClick = (charger: ChargerDetail): void => {
-    navigation.navigate('ChargerDetail', {
-      chargerDetails: {...charger, from: 'Home'},
-    })
-  }
+  const onFilteredItemClick = useCallback(
+    (charger: ChargerDetail): void => {
+      navigation.navigate('ChargerDetail', {
+        chargerDetails: {...charger, from: 'Home'},
+      })
+    },
+    [navigation],
+  )
 
-  const searchInputTextChangeHandler = (text: string): void => {
-    setInputText(text)
-  }
+  const searchInputTextChangeHandler = useCallback(
+    (text: string): void => {
+      setInputText(text)
+    },
+    [setInputText],
+  )
 
-  const onFilterClickOnMap = (index: number): void => {
-    let newSelectedFilters: number[] = []
-    ++selectedFiltersOnMap[index]
-    newSelectedFilters = selectedFiltersOnMap.map((val) =>
-      val > 1 || val === 0 ? 0 : 1,
-    )
+  const onFilterClickOnMap = useCallback(
+    (index: number): void => {
+      let newSelectedFilters: number[] = []
+      ++selectedFiltersOnMap[index]
+      newSelectedFilters = selectedFiltersOnMap.map((val) =>
+        val > 1 || val === 0 ? 0 : 1,
+      )
 
-    setSelectedFiltersOnMap(newSelectedFilters)
-    setShowAll(false)
-  }
+      setSelectedFiltersOnMap(newSelectedFilters)
+    },
+    [selectedFiltersOnMap, setSelectedFiltersOnMap],
+  )
 
   useEffect(() => {
     Helpers.GetFilteredCharger(selectedFiltersOnMap, inputText).then((data) => {
-      setOnMapFilteredChargers(data ?? context.state?.AllChargers ?? [])
+      if (data) {
+        setShowAll(false)
+        setOnMapFilteredChargers(data)
+      } else {
+        setShowAll(true)
+        setOnMapFilteredChargers([])
+      }
     })
-  }, [selectedFiltersOnMap, context.state.AllChargers])
+  }, [selectedFiltersOnMap])
 
   return {
     loading,

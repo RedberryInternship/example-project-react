@@ -34,6 +34,14 @@ const ProfileChange = ({
     switch (type) {
       case UserSettingEnum.firstName:
       case UserSettingEnum.lastName:
+        return (
+          <SingleInputView
+            value={value}
+            {...form}
+            type={type}
+            inputName={inputName}
+          />
+        )
       case UserSettingEnum.email:
         return (
           <SingleInputView

@@ -73,8 +73,7 @@ const BottomSheetReanimated = forwardRef(
       } else {
         inputRef.current?.blur()
         // Keyboard.dismiss()
-        ref.current?.snapTo(0)
-        ref.current?.snapTo(0)
+        ref.current?.close()
         setTimeout(() => {
           Keyboard.dismiss()
         }, 400)
@@ -88,6 +87,7 @@ const BottomSheetReanimated = forwardRef(
       },
       [textHandler, _this],
     )
+
     useEffect(() => {
       backHandlerRef.current = BackHandler.addEventListener(
         'hardwareBackPress',
@@ -204,7 +204,7 @@ const BottomSheetReanimated = forwardRef(
       () => (
         <View style={styles.container} pointerEvents={'box-none'}>
           <Modalize
-            ref={backHandlerRef}
+            ref={ref}
             // contentRef={contentRef}
             HeaderComponent={renderHeaderComponent}
             adjustToContentHeight={false}

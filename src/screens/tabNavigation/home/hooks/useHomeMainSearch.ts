@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef, useCallback} from 'react'
+import {useEffect, useState, useRef, useCallback, useMemo} from 'react'
 import {
   Keyboard,
   Animated,
@@ -95,26 +95,29 @@ const useHomeMainSearch = (
     })
   }, [inputText, allChargers])
 
-  const animate = (): any => ({
-    opacity: _this.current.animatedSearchContentHeight.interpolate({
-      inputRange: [0, _this.current.searchContentHeight],
-      outputRange: [0.8, 1],
+  const animate = useMemo(
+    () => ({
+      opacity: _this.current.animatedSearchContentHeight.interpolate({
+        inputRange: [0, _this.current.searchContentHeight],
+        outputRange: [0.8, 1],
+      }),
+      borderTopLeftRadius: 10,
+      borderTopRightRadius: 10,
+      borderBottomLeftRadius: _this.current.animatedSearchContentHeight.interpolate(
+        {
+          inputRange: [0, _this.current.searchContentHeight],
+          outputRange: [10, 0],
+        },
+      ),
+      borderBottomRightRadius: _this.current.animatedSearchContentHeight.interpolate(
+        {
+          inputRange: [0, _this.current.searchContentHeight],
+          outputRange: [10, 0],
+        },
+      ),
     }),
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    borderBottomLeftRadius: _this.current.animatedSearchContentHeight.interpolate(
-      {
-        inputRange: [0, _this.current.searchContentHeight],
-        outputRange: [10, 0],
-      },
-    ),
-    borderBottomRightRadius: _this.current.animatedSearchContentHeight.interpolate(
-      {
-        inputRange: [0, _this.current.searchContentHeight],
-        outputRange: [10, 0],
-      },
-    ),
-  })
+    [_this],
+  )
 
   const onSearchItemClickHandler = (lat: string, lng: string): void => {
     setShowSearchContent(false)
