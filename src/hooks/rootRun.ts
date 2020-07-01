@@ -18,6 +18,7 @@ import {
   Helpers,
 } from 'utils'
 import useCharger from './useCharger'
+import {chargingState} from './actions/chargerActions'
 
 export default () => {
   const [state, dispatch] = useReducer(rootReducer, initialState)
@@ -63,8 +64,10 @@ export default () => {
 
   useEffect(() => {
     if (currentAppState === 'active') {
-      if (Defaults.isForeground === false && state.authStatus === 'success')
+      if (Defaults.isForeground === false && state.authStatus === 'success') {
         getAllChargers(dispatch)
+        chargingState(dispatchCharger)
+      }
       Defaults.isForeground = true
     } else if (currentAppState.match(/inactive|background/)) {
       Defaults.isForeground = false

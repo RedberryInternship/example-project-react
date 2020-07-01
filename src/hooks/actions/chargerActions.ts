@@ -129,6 +129,7 @@ export const chargingState = async (dispatch: any) => {
   }
 }
 
+// CONTROLLER
 export const chargerStateController = (
   result: ChargingState[],
   dispatch: any,

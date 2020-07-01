@@ -23,13 +23,19 @@ export default (state: AppState, dispatch: any) => {
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       console.log(JSON.stringify(remoteMessage, null, 2), 'remoteMessage')
-      const state = remoteMessage.data as ChargingState[] | undefined
+      const state = JSON.parse(remoteMessage.data?.data) as
+        | ChargingState[]
+        | undefined
+
       if (state) {
+        console.log(JSON.stringify(state, null, 2), 'remoteMessage')
+
         state.every((val, index) => {
           if (
             val.charging_status !== ChargingStatus.INITIATED &&
             charger.chargingState[index].charging_status ===
-              ChargingStatus.INITIATED
+              ChargingStatus.INITIATED &&
+            val.charger_id === charger.chargingState[index].charger_id
           ) {
             getAllChargers(dispatch)
             return false
