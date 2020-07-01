@@ -3,7 +3,7 @@ import {useState, useRef, useContext, useEffect} from 'react'
 import {TextInput, BackHandler, Alert} from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {AppContext} from '../../../../../App'
+import {AppContext, ChargerContext} from '../../../../../App'
 import {
   AppContextType,
   Charger,
@@ -40,6 +40,12 @@ export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
+
+  const {
+    state: {chargingState},
+    dispatch: chargerDispatch,
+  } = useContext(ChargerContext)
+
   const [loading, setLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
@@ -154,7 +160,7 @@ export default (
         onLeftClick: () => navigation.navigate('CardAdd'),
       })
       return
-    } else if (state.chargingState.length > 1) {
+    } else if (chargingState.length > 1) {
       Helpers.DisplayDropdownWithError(t('chargerDetail.maxAllowedCarCharing'))
       return
     } else if (activeChargerType === -1) {

@@ -4,6 +4,7 @@ import {RefObject} from 'react'
 import BottomSheetBehavior from 'reanimated-bottom-sheet'
 import {LocationPermissionStatus} from 'react-native-location'
 import {UserMeResponseType} from 'allTypes'
+import {boolean} from 'yup'
 
 type userDetail = {
   first_name: string
@@ -26,6 +27,8 @@ class Defaults {
   _modal: any = null
   _bottomSheet: any = null
   _userDetail: UserMeResponseType | null = null
+  _internetConnected: boolean | null = null
+  _isForeground: boolean | null = null
 
   set dropdown(dropdown) {
     this._dropdown = dropdown
@@ -92,6 +95,18 @@ class Defaults {
   }
   get bottomSheet(): React.RefObject<BottomSheetBehavior> | null {
     return this._bottomSheet
+  }
+  set internetConnected(bool: boolean | null) {
+    this._internetConnected = bool
+  }
+  get internetConnected(): boolean | null {
+    return this._internetConnected
+  }
+  set isForeground(bool: boolean | null) {
+    this._isForeground = bool
+  }
+  get isForeground(): boolean | null {
+    return this._isForeground
   }
 }
 

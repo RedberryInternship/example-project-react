@@ -155,12 +155,6 @@ export type AppState = {
   authStatus: 'failed' | 'success' | null
   favoriteChargers: Favorite[] | null
   userState: any //TODO: don't know object structure
-  chargingStarted: any //TODO: don't know object structure
-  chargingStartedError: any //TODO: don't know object structure
-  chargingFinished: any //TODO: don't know object structure
-  chargingFinishedError: any //TODO: don't know object structure
-  chargingState: ChargingState[]
-  chargingStateError: any //TODO: don't know object structure
 }
 
 export type ChargingState = {
@@ -274,6 +268,15 @@ export type HomeState = {
 export type HomeContextType = {
   state: HomeState
   dispatch: (val: any) => void
+}
+
+export type ChargerState = {
+  chargingStarted: any //TODO: don't know object structure
+  chargingStartedError: any //TODO: don't know object structure
+  chargingFinished: any //TODO: don't know object structure
+  chargingFinishedError: any //TODO: don't know object structure
+  chargingState: ChargingState[]
+  chargingStateError: any //TODO: don't know object structure
 }
 
 export type Favorite = {

@@ -220,6 +220,7 @@ export default {
       avatarUpdatedSuccessfully: 'Avatar updated successfully',
       thisUserIsBlocked: 'This user is blocked',
       areYouSureYouWantToLogOut: 'Are you sure you want to log out?',
+      needInternetConnection: 'Need internet connection',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',

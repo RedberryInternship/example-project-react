@@ -1,20 +1,33 @@
 import {useEffect, useState, useRef, useReducer} from 'react'
 import {StatusBar, Platform, Alert, StatusBarStyle} from 'react-native'
 import {useNetInfo} from '@react-native-community/netinfo'
-import {useAppState} from '@react-native-community/hooks'
+import {useAppState, AppStateStatus} from '@react-native-community/hooks'
 import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage'
 import {useTranslation} from 'react-i18next'
 
 import rootReducer, {initialState} from './reducers/rootReducer'
-import {rootAction} from './actions/rootActions'
-import {Defaults, NavigationActions, determineTimePeriod} from 'utils'
+import chargerReducer, {chargerInitialState} from './reducers/chargerReducer'
+import {rootAction, getAllChargers} from './actions/rootActions'
+import {
+  Defaults,
+  NavigationActions,
+  determineTimePeriod,
+  useFirebase,
+  Helpers,
+} from 'utils'
+import useCharger from './useCharger'
 
-export function useRoot() {
+export default () => {
   const [state, dispatch] = useReducer(rootReducer, initialState)
 
+  useFirebase(state)
+
+  const {charger, dispatchCharger} = useCharger(state, dispatch)
+
   const currentAppState = useAppState()
+
   const networkState = useNetInfo()
   const {t, i18n} = useTranslation()
 
@@ -50,18 +63,32 @@ export function useRoot() {
 
   useEffect(() => {
     if (currentAppState === 'active') {
-      //call userState Update
+      if (Defaults.isForeground === false && state.authStatus === 'success')
+        getAllChargers(dispatch)
+      Defaults.isForeground = true
     } else if (currentAppState.match(/inactive|background/)) {
-      //do some background tasks
+      Defaults.isForeground = false
     }
+  }, [currentAppState])
 
+  useEffect(() => {
     if (networkState.isConnected) {
-      //call userState Update
-    } else if (!networkState.isConnected) {
-      //show alert
+      if (Defaults.internetConnected === false) {
+        readUserToken()
+      }
+
+      Defaults.internetConnected = true
+    } else if (
+      !networkState.isConnected &&
+      Defaults.internetConnected !== null
+    ) {
+      Helpers.DisplayDropdownWithError(
+        'dropDownAlert.error',
+        'dropDownAlert.needInternetConnection',
+      )
+      Defaults.internetConnected = false
     }
-    //TODO: finish network handling
-  }, [currentAppState, networkState])
+  }, [networkState])
 
   const readUserToken = async (): Promise<void> => {
     const _token = await getItem()
@@ -166,5 +193,7 @@ export function useRoot() {
     dispatch,
     getCurrentRoute,
     dropDownInactiveBarColor,
+    charger,
+    dispatchCharger,
   }
 }

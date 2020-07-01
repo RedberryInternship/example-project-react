@@ -68,3 +68,6 @@ export const getCardAddUrl = (): Promise<GetCardAddUrl> =>
 
 export const setDefaultCard = (user_card_id: number): Promise<GetCardAddUrl> =>
   ajax.post('/user-card/set-default', {user_card_id})
+
+export const setUserFirebaseToken = (firebase_token: string): Promise<any> =>
+  ajax.post('/update-firebase-token', {firebase_token})

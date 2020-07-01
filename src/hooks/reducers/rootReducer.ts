@@ -6,14 +6,6 @@ import {
   EDIT_USER_INFO,
 } from '../actions/rootActions'
 import {AppState, Action} from 'allTypes'
-import {
-  CHARGING_STARTED_SUCCESS,
-  CHARGING_STARTED_FAILURE,
-  CHARGING_FINISHED_SUCCESS,
-  CHARGING_FINISHED_FAILURE,
-  CHARGING_STATE_SUCCESS,
-  CHARGING_STATE_FAILURE,
-} from 'hooks/actions/chargerActions'
 
 const initialStateSchema: AppState = {
   user: null,
@@ -22,13 +14,8 @@ const initialStateSchema: AppState = {
   AllChargers: null,
   favoriteChargers: null,
   userState: null,
-  chargingStarted: null,
-  chargingStartedError: null,
-  chargingFinished: null,
-  chargingFinishedError: null,
-  chargingState: [],
-  chargingStateError: null,
 }
+
 export const initialState: AppState = {...initialStateSchema}
 
 function reducer(
@@ -68,36 +55,6 @@ function reducer(
           ...state.user,
           [payload.type]: payload.data,
         },
-      }
-    case CHARGING_STARTED_SUCCESS:
-      return {
-        ...state,
-        ...payload,
-      }
-    case CHARGING_STARTED_FAILURE:
-      return {
-        ...state,
-        chargingStartedError: payload,
-      }
-    case CHARGING_FINISHED_SUCCESS:
-      return {
-        ...state,
-        chargingFinished: payload,
-      }
-    case CHARGING_FINISHED_FAILURE:
-      return {
-        ...state,
-        chargingFinishedError: payload,
-      }
-    case CHARGING_STATE_SUCCESS:
-      return {
-        ...state,
-        chargingState: payload,
-      }
-    case CHARGING_STATE_FAILURE:
-      return {
-        ...state,
-        chargingStateError: payload,
       }
 
     default:

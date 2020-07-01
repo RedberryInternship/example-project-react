@@ -27,7 +27,7 @@ export const rootAction = async (
   if (data.token !== '') {
     await updateUser(dispatch)
     getFavoriteChargers(dispatch)
-    chargingState(dispatch)
+    // chargingState(dispatch)
   }
 }
 
@@ -55,7 +55,7 @@ const saveToken = ({
   user,
   token,
 }: RootActionArg1): Record<string, string | UserMeResponseType> => {
-  console.log(JSON.stringify({user, token}, null, 2), 'payload')
+  // console.log(JSON.stringify({user, token}, null, 2), 'payload')
 
   AsyncStorage.setItem('token', token ?? '')
   AsyncStorage.setItem('userDetail', JSON.stringify(user))

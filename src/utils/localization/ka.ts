@@ -218,6 +218,7 @@ export default {
       avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
       thisUserIsBlocked: 'იუზერი არ არის აქტიური',
       areYouSureYouWantToLogOut: 'დარწმუნებული ხახრთ რომ გსურთ გამოსვლა?',
+      needInternetConnection: 'საჭიროა ინტერნეტთნ კომუნიკაცია',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',

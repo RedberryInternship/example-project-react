@@ -6,7 +6,7 @@ import {useForm} from 'react-hook-form'
 
 import {Navigation, AppContextType, UserCard} from 'allTypes'
 import {startCharging} from 'hooks/actions/chargerActions'
-import {AppContext} from '../../../../../App'
+import {AppContext, ChargerContext} from '../../../../../App'
 import services from 'services'
 import {updateUser} from 'hooks/actions/rootActions'
 import {Helpers} from 'utils'
@@ -15,6 +15,9 @@ const animatedArrow = new Animated.Value(0)
 
 export default (navigation: Navigation) => {
   const {state, dispatch}: AppContextType = useContext(AppContext)
+
+  const {dispatch: chargerDispatch} = useContext(ChargerContext)
+
   const {control, handleSubmit, errors} = useForm()
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -39,7 +42,7 @@ export default (navigation: Navigation) => {
         amount,
         userCardId: state.user?.user_cards?.[0].id,
       },
-      dispatch,
+      chargerDispatch,
       setLoading,
     )
   }

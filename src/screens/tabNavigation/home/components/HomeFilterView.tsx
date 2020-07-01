@@ -52,7 +52,6 @@ const HomeFilter = ({
     () => (showFilter ? {width: 23, height: 23} : {width: 18, height: 18}),
     [showFilter],
   )
-  console.log('debug', 'HomeFilter')
 
   return useMemo(
     () => (
