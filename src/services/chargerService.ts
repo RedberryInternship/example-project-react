@@ -7,15 +7,15 @@ import {
   ChargingTypes,
   ChargingState,
 } from '../../@types/allTypes.d'
-import {Defaults} from 'utils'
+import { Defaults } from 'utils'
 
 export const getAllChargersFiltered = (
   params: ChargerFilters = {},
 ): Promise<GetAllChargerResponseType> =>
   ajax.get(
     '/chargers?' +
-      Object.keys({...params, ...Defaults.location})
-        .map((key) => key + '=' + {...params, ...Defaults.location}[key])
+      Object.keys({ ...params, ...Defaults.location })
+        .map((key) => key + '=' + { ...params, ...Defaults.location }[key])
         .join('&'),
   )
 

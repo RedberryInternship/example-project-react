@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Sentry, Defaults, locationConfig, NavigationActions} from 'utils'
-import {Exception} from '@sentry/react-native'
+import { Sentry, Defaults, locationConfig, NavigationActions } from 'utils'
+import { Exception } from '@sentry/react-native'
 import {
   ChargerFilters,
   Charger,
@@ -12,10 +12,10 @@ import {
 } from '../../@types/allTypes.d'
 import i18next from 'i18next'
 import services from 'services'
-import {Alert, Linking, Platform} from 'react-native'
-import {isPermissionGrantedRegex} from './mapAndLocation/mapFunctions'
+import { Alert, Linking, Platform } from 'react-native'
+import { isPermissionGrantedRegex } from './mapAndLocation/mapFunctions'
 
-import {chargingState} from 'hooks/actions/chargerActions'
+import { chargingState } from 'hooks/actions/chargerActions'
 const Logger = (err: Exception | string | number): void => {
   if (__DEV__) {
     Sentry.captureException(err)
@@ -53,7 +53,7 @@ const GetFilteredCharger = async (
   )
   if (Object.entries(params).length !== 0) {
     try {
-      const {data}: ChargersObject = await services.getAllChargersFiltered(
+      const { data }: ChargersObject = await services.getAllChargersFiltered(
         params,
       )
       return data
@@ -148,7 +148,7 @@ const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
         style: 'destructive',
       },
     ],
-    {cancelable: true},
+    { cancelable: true },
   )
 }
 type EasyAlert = Partial<{
@@ -182,7 +182,7 @@ const easyAlert = ({
         style: 'destructive',
       },
     ],
-    {cancelable: true},
+    { cancelable: true },
   )
 }
 
@@ -218,9 +218,15 @@ const configureChargingFinishPopup = (
   }: ChargingState,
   dispatch: any,
 ) => {
+  if (charging_status === ChargingStatus.UNPLUGGED) {
+    DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
+    return
+  }
+
   if (
     charging_status !== ChargingStatus.INITIATED &&
-    charging_status !== ChargingStatus.CHARGING
+    charging_status !== ChargingStatus.CHARGING &&
+    charging_status !== ChargingStatus.NOT_CONFIRMED
   ) {
     let options: any = {
       type: 3,
@@ -243,14 +249,13 @@ const configureChargingFinishPopup = (
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.LVL2FullCharge,
-          onFinish: () => {
-            Alert.alert('dfg')
-            chargingState(dispatch)
-          },
           data: {
             ...options.data,
             bottomDescription: 'popup.warningTextBeforeFine',
             onFine: false,
+            onFinish: () => {
+              chargingState(dispatch)
+            },
           },
         }
         break

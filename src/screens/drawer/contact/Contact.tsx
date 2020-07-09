@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
   View,
   Text,
@@ -9,24 +9,28 @@ import {
   Platform,
   StatusBar,
 } from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useTranslation} from 'react-i18next'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useTranslation } from 'react-i18next'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { ScreenPropsWithNavigation } from 'allTypes'
 
-import {BaseHeader, BaseButton, BaseText} from 'components'
-import {Colors, Const} from 'utils'
+import { BaseHeader, BaseButton, BaseText } from 'components'
+import { Colors, Const } from 'utils'
 import images from 'assets/images'
 import ContactListItem from './components/ContactListItem'
 import useContact from './useContact'
 
-const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {t} = useTranslation()
+const Contact = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { t } = useTranslation()
   const insets = useSafeAreaInsets()
-  const {outgoingLinkMethods, data, setMessage, sendMessage} = useContact(
-    navigation,
-  )
+  const {
+    outgoingLinkMethods,
+    data,
+    setMessage,
+    sendMessage,
+    message,
+  } = useContact(navigation)
 
   // Dummy Info Before we connect App to Back-End
   const contactInfos = [
@@ -50,7 +54,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   })
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <BaseHeader
         title={'contact.contact'}
         onPressLeft={navigation.navigate.bind(Contact, 'MainDrawer')}
@@ -59,13 +63,13 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
         enableAutomaticScroll={true}
-        extraScrollHeight={Platform.select({ios: -300, android: 150})}
+        extraScrollHeight={Platform.select({ ios: -300, android: 150 })}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
         contentContainerStyle={styles.keyboardScrollViewContentContainer}
         overScrollMode={'always'}
-        extraHeight={Platform.select({ios: 500, android: 75})}
-        resetScrollToCoords={{x: 0, y: 0}}
+        extraHeight={Platform.select({ ios: 500, android: 75 })}
+        resetScrollToCoords={{ x: 0, y: 0 }}
       >
         <View>
           <View style={styles.contactItemsContainer}>{listItems}</View>
@@ -79,6 +83,7 @@ const Contact = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
               style={styles.message}
               onChangeText={setMessage}
               numberOfLines={4}
+              value={message}
             />
           </View>
         </View>

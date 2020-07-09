@@ -8,15 +8,15 @@ import {
   ImageStyle,
   ViewStyle,
 } from 'react-native'
-import {RefObject, Ref} from 'react'
-import {Item} from 'react-native-picker-select'
-import {LocationPermissionStatus} from 'react-native-location'
+import { RefObject, Ref } from 'react'
+import { Item } from 'react-native-picker-select'
+import { LocationPermissionStatus } from 'react-native-location'
 import {
   NavigationScreenProp,
   NavigationState,
   NavigationParams,
 } from 'react-navigation'
-import {MapViewProps} from 'react-native-maps'
+import { MapViewProps } from 'react-native-maps'
 
 type LanguageType = {
   en: string
@@ -47,6 +47,8 @@ export enum ChargingStatus {
   ON_FINE = 'ON_FINE',
   USED_UP = 'USED_UP',
   ON_HOLD = 'ON_HOLD',
+  UNPLUGGED = 'UNPLUGGED',
+  NOT_CONFIRMED = 'NOT_CONFIRMED',
 }
 
 export type StandardErrorResponseType = {
@@ -699,4 +701,4 @@ export type GetCardAddUrl = {
   failed_url
 }
 
-export type RootActionArg1 = {user: UserMeResponseType; token: string}
+export type RootActionArg1 = { user: UserMeResponseType; token: string | null }

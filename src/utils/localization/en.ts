@@ -221,6 +221,7 @@ export default {
       thisUserIsBlocked: 'This user is blocked',
       areYouSureYouWantToLogOut: 'Are you sure you want to log out?',
       needInternetConnection: 'Need internet connection',
+      pleaseSeeIfChargerIsConnected: 'Please see if charger is connected',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',

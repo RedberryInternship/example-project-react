@@ -1,14 +1,14 @@
 /* eslint-disable react/display-name */
-import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { Text, View, Image, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {Colors, getLocaleText} from '../../utils'
-import {ChargerGroupPopupItem} from 'components'
-import {ChargerDetail} from 'allTypes'
+import { Colors, getLocaleText } from '../../utils'
+import { ChargerGroupPopupItem } from 'components'
+import { ChargerDetail } from 'allTypes'
 import images from 'assets/images'
 import BaseText from 'components/baseUI/BaseText'
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 
 type MapPopUpProps = {
   data: Data
@@ -21,10 +21,10 @@ type Data = {
   onChargerSelect: (index: number) => void
 }
 const MapPopUp = ({
-  data: {title, address, chargers, onChargerSelect},
+  data: { title, address, chargers, onChargerSelect },
   close,
 }: MapPopUpProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const onPressItem = (index: number): void => {
     onChargerSelect(index)
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   title: {
-    fontSize: 17,
-    lineHeight: 22,
+    fontSize: 15,
+    lineHeight: 18,
     color: Colors.primaryDark,
     textTransform: 'uppercase',
   },

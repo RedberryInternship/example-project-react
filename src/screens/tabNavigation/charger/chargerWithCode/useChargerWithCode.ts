@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
-import {useState, useRef, useContext} from 'react'
-import {TextInput} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useState, useRef, useContext } from 'react'
+import { TextInput } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import {
   NavigationState,
   NavigationScreenProp,
   NavigationParams,
 } from 'react-navigation'
 
-import {AppContext} from '../../../../../App'
+import { AppContext } from '../../../../../App'
 import {
   AppContextType,
   Charger,
@@ -16,7 +16,7 @@ import {
   LastUsedCharger,
   LastUsedChargerResponseObject,
 } from '../../../../../@types/allTypes.d'
-import {Defaults} from 'utils'
+import { Defaults } from 'utils'
 import services from 'services'
 
 type _This = {
@@ -30,12 +30,12 @@ export default (
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
 
-  const _this: React.RefObject<_This> = useRef({chargeWitchCode: ''}) // Vobi Todo: _this is not React's practice why do you need it
+  const _this: React.RefObject<_This> = useRef({ chargeWitchCode: '' }) // Vobi Todo: _this is not React's practice why do you need it
 
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null) // Vobi Todo: move this as state
   const passwordRef: any = useRef(null)
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const codeTextHandler = (val: string) => {
     _this.current!.chargeWitchCode = val
@@ -65,7 +65,7 @@ export default (
   }
 
   const navigateToChargerDetailScreen = (charger: Charger): void => {
-    navigation.navigate('ChargerDetail', {chargerDetails: charger})
+    navigation.navigate('ChargerDetail', { chargerDetails: charger })
   }
 
   const lastUsed = async (): Promise<LastUsedCharger[]> => {
@@ -79,7 +79,7 @@ export default (
   }
 
   const allChargerHandler = (): void => {
-    navigation.navigate('Home', {mode: HomeNavigateModes.showAllChargers})
+    navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
   }
 
   return {

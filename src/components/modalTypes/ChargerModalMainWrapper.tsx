@@ -1,5 +1,5 @@
 /* eslint-disable react/display-name */
-import React, {useState, useEffect, ReactElement} from 'react'
+import React, { useState, useEffect, ReactElement } from 'react'
 import {
   Text,
   View,
@@ -8,10 +8,10 @@ import {
   Image,
   Alert,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-import {Colors} from 'utils'
-import {PopUpCountDown, BaseText} from 'components'
+import { Colors } from 'utils'
+import { PopUpCountDown, BaseText } from 'components'
 import images from 'assets/images'
 import {
   ChargingStatus,
@@ -49,9 +49,9 @@ type Data = {
 const ChargerModalMainWrapper = ({
   onPress,
   subType,
-  data: {title, description, ...data},
+  data: { title, description, ...data },
 }: ChargerModalMainWrapperProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const subTypeHandler = (): ReactElement => {
     switch (subType) {
@@ -110,8 +110,6 @@ const ChargerModalMainWrapper = ({
             {t('bottomDescription')}
           </BaseText>
         )
-
-        break
     }
   }
 
@@ -122,7 +120,7 @@ const ChargerModalMainWrapper = ({
       </TouchableOpacity>
       <ScrollView bounces={false}>
         <TouchableOpacity activeOpacity={1}>
-          <View style={{flex: 0, marginHorizontal: 16}}>
+          <View style={{ flex: 0, marginHorizontal: 16 }}>
             <Image source={images.checkCircle} style={styles.checkMarkIcon} />
             <BaseText style={styles.mainTitleStyle}>{t(title)}</BaseText>
             <BaseText style={styles.mainDescriptionStyle}>
@@ -163,8 +161,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     marginHorizontal: 32,
-    marginTop: 8,
-    marginBottom: 24,
+    marginTop: '2%',
+    marginBottom: '6%',
   },
   bottomContentContainer: {
     flex: 0,

@@ -1,10 +1,10 @@
-import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { Text, View, Image, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {Colors, GNOME} from 'utils'
+import { Colors, GNOME } from 'utils'
 import images from 'assets/images'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
 
 const modalPopupChargerItemTypes = [
   {
@@ -29,7 +29,7 @@ const ModalPopupChargerItem = ({
   type,
   val,
 }: ModalPopupChargerItemProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const popupItemPriceColorStyle = {
     color: type === 2 ? Colors.primaryBlue : Colors.primaryBackground,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginVertical: 8,
+    marginVertical: '3%',
     maxWidth: '100%',
     flexWrap: 'wrap',
   },
@@ -70,8 +70,8 @@ const styles = StyleSheet.create({
   popUpItemText: {
     color: '#436880',
     fontSize: 13,
-    marginLeft: 12,
-    marginRight: 4,
+    marginLeft: '4%',
+    marginRight: '4%',
     // fontFamily: GNOME.HELV_EX,
   },
   popUpItemPriceText: {

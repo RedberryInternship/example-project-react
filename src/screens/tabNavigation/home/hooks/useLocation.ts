@@ -13,18 +13,18 @@ import RNLocation, {
   LocationPermissionStatus,
 } from 'react-native-location'
 
-import {Coords} from 'allTypes'
+import { Coords } from 'allTypes'
 
 import {
   getCoordsAnyway,
   isPermissionGrantedRegex,
 } from 'utils/mapAndLocation/mapFunctions'
-import {regionFrom, Defaults, locationConfig, Helpers, Const} from 'utils'
-import {HomeContext} from 'screens/tabNavigation/home/Home'
+import { regionFrom, Defaults, locationConfig, Helpers, Const } from 'utils'
+import { HomeContext } from 'screens/tabNavigation/home/Home'
 import services from 'services'
-import {getAllChargers} from 'hooks/actions/rootActions'
-import {Alert, Platform} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { getAllChargers } from 'hooks/actions/rootActions'
+import { Alert, Platform } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 type ThisRef = {
   interval: number
@@ -39,13 +39,13 @@ type useLocationProps = {
   setPolyline: (data: any) => void
   dispatch: (data: any) => void
 }
-const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
+const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   const context: any = useContext(HomeContext)
   const [
     permissionStatus,
     setPermissionStatus,
   ] = useState<LocationPermissionStatus | null>(null)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const _this = useRef<ThisRef>({
     interval: 0,
     location: null,
@@ -56,7 +56,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      RNLocation.getLatestLocation({timeout: 6000}).then(getLatestLocation)
+      RNLocation.getLatestLocation({ timeout: 6000 }).then(getLatestLocation)
     } catch (error) {}
 
     const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
@@ -67,7 +67,7 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
       subscribedPermissionUpdate()
       clearInterval(_this.current.interval)
     }
-  }, [])
+  }, [getPermissionStatus, getLatestLocation, subscribePermissionUpdate])
 
   const subscribePermissionUpdate = useCallback(
     (status: LocationPermissionStatus): void => {
@@ -82,7 +82,14 @@ const useLocation = ({mapRef, setPolyline, dispatch}: useLocationProps) => {
           Defaults.modal.current?.customUpdate(false)
       }
     },
-    [permissionStatus, navigateToLocation, requestPermission],
+    [
+      permissionStatus,
+      navigateToLocation,
+      requestPermission,
+      setPermissionStatus,
+      isPermissionGrantedRegex,
+      Defaults,
+    ],
   )
 
   const getLatestLocation = useCallback(

@@ -56,6 +56,7 @@ const ProfileChange = ({
       case UserSettingEnum.activeCard: // TODO
         return <CardListView />
       case UserSettingEnum.phone:
+        return <PhoneChangeView {...form} />
       case UserSettingEnum.password:
         return <PasswordChangeView {...form} />
       case UserSettingEnum.addCar:

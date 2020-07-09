@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Defaults, NavigationActions, getLocaleText} from 'utils'
+import { Defaults, NavigationActions, getLocaleText } from 'utils'
 import {
   ChargingTypes,
   ChargingStatus,
   ChargingState,
 } from '../../../@types/allTypes.d'
 
-import {Helpers} from 'utils'
+import { Helpers } from 'utils'
 import services from 'services'
-import {getAllChargers} from './rootActions'
+import { getAllChargers } from './rootActions'
+import { Alert } from 'react-native'
 
 export enum ChargerActions {
   CHARGING_STARTED_SUCCESS,
@@ -28,7 +29,7 @@ type StartChargingArg = {
 
 // START
 export const startCharging = async (
-  {type, connectorTypeId, amount, userCardId}: StartChargingArg,
+  { type, connectorTypeId, amount, userCardId }: StartChargingArg,
   dispatch: any,
   setLoading: (bool: boolean) => void,
 ) => {
@@ -39,6 +40,12 @@ export const startCharging = async (
       userCardId ?? 0,
       amount,
     )
+    if (startResult.charging_status === ChargingStatus.UNPLUGGED) {
+      Helpers.DisplayDropdownWithError(
+        'dropDownAlert.pleaseSeeIfChargerIsConnected',
+      )
+      return
+    }
 
     const chargingStateResult = await services.chargingState()
 
@@ -85,7 +92,7 @@ const startChargingAction = (
 
 // FINISH
 export const finishCharging = async (
-  {orderId}: {orderId: number},
+  { orderId }: { orderId: number },
   dispatch: any,
 ) => {
   try {
@@ -136,15 +143,15 @@ export const chargerStateController = (
 ) => {
   for (const state of result) {
     Helpers.configureChargingFinishPopup(state, dispatch)
-    if (
-      Defaults.activeRoute !== 'Charging' &&
-      (state.charging_status == ChargingStatus.CHARGED ||
-        state.charging_status == ChargingStatus.ON_FINE)
-    ) {
-      setTimeout(() => {
-        NavigationActions.navigate('Charging')
-      }, 1000)
-    }
+    // if (
+    //   Defaults.activeRoute !== 'Charging' &&
+    //   (state.charging_status == ChargingStatus.CHARGED ||
+    //     state.charging_status == ChargingStatus.ON_FINE)
+    // ) {
+    //   setTimeout(() => {
+    //     NavigationActions.navigate('Charging')
+    //   }, 1000)
+    // }
   }
 
   if (Defaults.activeRoute === 'Charging' && result.length === 0) {
@@ -153,7 +160,6 @@ export const chargerStateController = (
   if (result.length === 0 && Defaults.modal.current?.state.config.type === 3) {
     Defaults.modal.current?.customUpdate(false)
   }
-
   dispatch(chargingStateAction(result))
 }
 
@@ -175,4 +181,4 @@ const chargingStateAction = (
   payload,
 })
 
-export type ChargerAction = {type: ChargerActions; payload: any}
+export type ChargerAction = { type: ChargerActions; payload: any }

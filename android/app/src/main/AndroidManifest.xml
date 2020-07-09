@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_COURSE_LOCATION"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
       android:name=".MainApplication"
@@ -31,15 +32,15 @@
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw"/>
-      <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
+      <!-- <service android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService">
         <intent-filter>
           <action android:name="com.google.firebase.MESSAGING_EVENT" />
         </intent-filter>
-      </service>
-
+      </service> -->
+<!-- 
       <meta-data
         android:name="com.google.firebase.messaging.default_notification_icon"
-        android:resource="@mipmap/ic_launcher" />
+        android:resource="@mipmap/ic_launcher" /> -->
       <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
           notification message. See README(https://goo.gl/6BKBk7) for more. -->
       <!-- <meta-data

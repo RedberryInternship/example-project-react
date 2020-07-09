@@ -1,8 +1,8 @@
-import {Dimensions, Platform} from 'react-native'
-import {ifIphoneX} from 'react-native-iphone-x-helper'
-import {env} from '../../env'
+import { Dimensions, Platform } from 'react-native'
+import { ifIphoneX } from 'react-native-iphone-x-helper'
+import { env } from '../../env'
 import images from 'assets/images'
-import {UserSettingEnum, SettingsListFieldType} from '../../@types/allTypes.d'
+import { UserSettingEnum, SettingsListFieldType } from '../../@types/allTypes.d'
 import Colors from './colors'
 
 export const API: string =
@@ -23,11 +23,11 @@ export const locationIfNoGPS = {
 }
 
 export const DrawerFieldsBeforeAuthorization = [
-  {
-    image: images.bookOpen,
-    text: 'drawer.tariff',
-    route: 'Tariffs',
-  },
+  // {
+  //   image: images.bookOpen,
+  //   text: 'drawer.tariff',
+  //   route: 'Tariffs',
+  // },
   {
     image: images.phone,
     text: 'drawer.contact',
@@ -57,11 +57,11 @@ export const DrawerFieldsAfterAuthorization = [
     text: 'drawer.transactions',
     route: 'TransactionList',
   },
-  {
-    image: images.mail,
-    text: 'drawer.notifications',
-    route: 'Notifications',
-  },
+  // {
+  //   image: images.mail,
+  //   text: 'drawer.notifications',
+  //   route: 'Notifications',
+  // },
 ]
 
 export const SettingsListFields: SettingsListFieldType[] = [
@@ -161,7 +161,7 @@ export const FilterTypes = [
 ]
 
 export const eSpaceLocationOnMapInfo = {
-  scheme: Platform.select({android: 'geo:0,0?q=', ios: 'maps:0,0?q='}),
+  scheme: Platform.select({ android: 'geo:0,0?q=', ios: 'maps:0,0?q=' }),
   latitude: 41.7276579,
   longitude: 44.7486845,
   label: 'E-space',

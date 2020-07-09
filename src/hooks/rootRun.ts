@@ -1,15 +1,14 @@
-import {useEffect, useState, useRef, useReducer} from 'react'
-import {StatusBar, Platform, Alert, StatusBarStyle} from 'react-native'
-import {useNetInfo} from '@react-native-community/netinfo'
-import {useAppState, AppStateStatus} from '@react-native-community/hooks'
+import { useEffect, useState, useRef, useReducer, useCallback } from 'react'
+import { StatusBar, Platform, Alert, StatusBarStyle } from 'react-native'
+import { useNetInfo } from '@react-native-community/netinfo'
+import { useAppState } from '@react-native-community/hooks'
 import AsyncStorage, {
   useAsyncStorage,
 } from '@react-native-community/async-storage'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-import rootReducer, {initialState} from './reducers/rootReducer'
-import chargerReducer, {chargerInitialState} from './reducers/chargerReducer'
-import {rootAction, getAllChargers} from './actions/rootActions'
+import rootReducer, { initialState } from './reducers/rootReducer'
+import { rootAction, getAllChargers } from './actions/rootActions'
 import {
   Defaults,
   NavigationActions,
@@ -18,24 +17,25 @@ import {
   Helpers,
 } from 'utils'
 import useCharger from './useCharger'
-import {chargingState} from './actions/chargerActions'
+import { chargingState } from './actions/chargerActions'
+import { UserMeResponseType } from 'allTypes'
 
 export default () => {
   const [state, dispatch] = useReducer(rootReducer, initialState)
 
   useFirebase(state)
 
-  const {charger, dispatchCharger} = useCharger(state, dispatch)
+  const { charger, dispatchCharger } = useCharger(state, dispatch)
 
   const currentAppState = useAppState()
 
   const networkState = useNetInfo()
-  const {t, i18n} = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const [token, setToken] = useState<null | string>('')
   const [locale, setLocale] = useState<null | string>('')
-  const {getItem, setItem} = useAsyncStorage('token')
-  const {getItem: getUserDetail, setItem: setUserDetail} = useAsyncStorage(
+  const { getItem, setItem } = useAsyncStorage('token')
+  const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage(
     'userDetail',
   )
   const {
@@ -60,13 +60,17 @@ export default () => {
       StatusBar.setBackgroundColor('transparent', true)
       StatusBar.setTranslucent(true)
     }
+    return () => {
+      Defaults.isForeground = null
+      Defaults.internetConnected = null
+    }
   }, [])
 
   useEffect(() => {
     if (currentAppState === 'active') {
-      if (Defaults.isForeground === false && state.authStatus === 'success') {
+      if (Defaults.isForeground === false) {
+        if (state.authStatus === 'success') chargingState(dispatchCharger)
         getAllChargers(dispatch)
-        chargingState(dispatchCharger)
       }
       Defaults.isForeground = true
     } else if (currentAppState.match(/inactive|background/)) {
@@ -95,13 +99,13 @@ export default () => {
 
   const readUserToken = async (): Promise<void> => {
     const _token = await getItem()
-    let user: string | null = ''
+    let user: UserMeResponseType | null = null
     if (_token) {
       const _user = await getUserDetail()
       user = _user != null ? JSON.parse(_user) : ''
     }
 
-    rootAction({token: _token ?? '', user}, dispatch)
+    rootAction({ token: _token ?? '', user }, dispatch)
     setToken(_token)
   }
 
@@ -133,7 +137,7 @@ export default () => {
 
     if (navigationState && locale !== '' && token != '') {
       setAppReady(true)
-      userStatusHandler()
+      onReady()
     } else setAppReady(false)
   }, [token, navigationState, locale])
 
@@ -163,27 +167,21 @@ export default () => {
     console.log(Defaults.token, 'App ready to boot')
   }
 
-  const userStatusHandler = (): void => {
-    if (state.user == '') {
-      onReady()
-    } else if (state.user != null || state.user != '') {
-      //ajax for user state
-      onReady()
-    }
-  }
+  const getCurrentRoute = useCallback(
+    (state): string =>
+      state.index !== undefined
+        ? getCurrentRoute(state.routes[state.index])
+        : state.routeName,
+    [getCurrentRoute],
+  )
 
-  const getCurrentRoute = (state: any): string =>
-    state.index !== undefined
-      ? getCurrentRoute(state.routes[state.index])
-      : state.routeName
-
-  const dropDownInactiveBarColor = (): StatusBarStyle => {
+  const dropDownInactiveBarColor = useCallback((): StatusBarStyle => {
     if (Defaults.activeRoute !== 'Home') {
       return 'light-content'
     } else {
       return determineTimePeriod() ? 'dark-content' : 'light-content'
     }
-  }
+  }, [determineTimePeriod, Defaults])
   return {
     currentAppState,
     networkState,

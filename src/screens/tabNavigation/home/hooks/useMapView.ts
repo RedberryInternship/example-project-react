@@ -10,10 +10,10 @@ import {
 } from 'react'
 import MapView from 'react-native-maps'
 
-import {AppContextType, Charger} from 'allTypes'
+import { AppContextType, Charger } from 'allTypes'
 
-import {getAllChargers} from 'hooks/actions/rootActions'
-import {AppContext} from '../../../../../App'
+import { getAllChargers } from 'hooks/actions/rootActions'
+import { AppContext } from '../../../../../App'
 import useLocation from './useLocation'
 
 import {
@@ -21,17 +21,17 @@ import {
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
-import {Defaults, getLocaleText} from 'utils'
-import {Alert} from 'react-native'
+import { Defaults, getLocaleText } from 'utils'
+import { Alert } from 'react-native'
 
 const useMapView = (
   ref: Ref<MapView>,
   mapRef: RefObject<MapView>,
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
-  const {state, dispatch}: AppContextType = useContext(AppContext)
+  const { state, dispatch }: AppContextType = useContext(AppContext)
   const [polyline, setPolyline] = useState([])
-  const {navigateToLocation, navigateByRef, showRoute} = useLocation({
+  const { navigateToLocation, navigateByRef, showRoute } = useLocation({
     mapRef,
     setPolyline,
     dispatch,
@@ -70,7 +70,7 @@ const useMapView = (
         Defaults.modal.current?.customUpdate(true, {
           type: 4,
           data: {
-            title: getLocaleText(charger.name),
+            title: getLocaleText(charger.charger_group?.name),
             address: getLocaleText(charger.location),
             chargers: charger.charger_group?.chargers ?? [],
             onChargerSelect: onChargerSelect,
@@ -78,7 +78,7 @@ const useMapView = (
         })
       } else {
         navigation.navigate('ChargerDetail', {
-          chargerDetails: {...charger, from: 'Home'},
+          chargerDetails: { ...charger, from: 'Home' },
         })
       }
     },

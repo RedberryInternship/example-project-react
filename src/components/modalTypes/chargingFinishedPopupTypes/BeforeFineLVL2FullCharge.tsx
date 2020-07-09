@@ -1,9 +1,9 @@
-import React, {ReactElement} from 'react'
-import {Text, View, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {PopUpCountDown, ModalPopupChargerItem, BaseText} from 'components'
-import {Colors} from 'utils'
+import { PopUpCountDown, ModalPopupChargerItem, BaseText } from 'components'
+import { Colors } from 'utils'
 type BeforeFineLVL2FullChargeProps = {
   time: string
   bottomDescription: string
@@ -23,7 +23,7 @@ const BeforeFineLVL2FullCharge = ({
   onFine,
   onFinish,
 }: BeforeFineLVL2FullChargeProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -37,7 +37,7 @@ const BeforeFineLVL2FullCharge = ({
         warningLevel={onFine ? 2 : 1}
       />
       <View style={styles.lineView} />
-      <View style={{marginVertical: 12}}>
+      <View style={{ marginVertical: 12 }}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         {consumedMoney !== null && (
           <ModalPopupChargerItem val={consumedMoney} type={1} />
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     color: '#436880',
     alignSelf: 'center',
     textAlign: 'center',
-    marginHorizontal: 32,
-    marginVertical: 16,
-    marginBottom: 8,
+    marginHorizontal: '4%',
+    marginVertical: '3%',
+    marginBottom: '3%',
   },
   lineView: {
     backgroundColor: Colors.primaryBackground,

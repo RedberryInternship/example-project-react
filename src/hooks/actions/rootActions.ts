@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {Defaults, NavigationActions} from 'utils'
+import { Defaults, NavigationActions } from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
 import {
   UserSettingEnum,
@@ -7,9 +7,9 @@ import {
   UserMeResponseType,
 } from '../../../@types/allTypes.d'
 
-import {Helpers} from 'utils'
+import { Helpers } from 'utils'
 import services from 'services'
-import {chargingState} from './chargerActions'
+import { chargingState } from './chargerActions'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
@@ -36,7 +36,7 @@ export const updateUser = async (dispatch: any) => {
     const result = await services.getUserData()
     dispatch(
       saveToken({
-        token: Defaults.token ?? '',
+        token: Defaults.token ?? null,
         user: {
           ...Defaults.userDetail,
           ...result,
@@ -54,8 +54,11 @@ export const updateUser = async (dispatch: any) => {
 const saveToken = ({
   user,
   token,
-}: RootActionArg1): Record<string, string | UserMeResponseType> => {
-  // console.log(JSON.stringify({user, token}, null, 2), 'payload')
+}: RootActionArg1): {
+  type: string
+  payload: { user: UserMeResponseType; token: string | null }
+} => {
+  // console.log(JSON.stringify({ user, token }, null, 2), 'payload')
 
   AsyncStorage.setItem('token', token ?? '')
   AsyncStorage.setItem('userDetail', JSON.stringify(user))
@@ -65,7 +68,7 @@ const saveToken = ({
 
   return {
     type: SAVE_TOKEN,
-    payload: user,
+    payload: { user, token },
   }
 }
 
@@ -81,8 +84,8 @@ export const logOut = () => {
 
 export const getAllChargers = async (dispatch: any): Promise<void> => {
   try {
-    const {data} = await services.getAllChargersFiltered()
-    dispatch({type: GET_ALL_CHARGER_SUCCESS, payload: data})
+    const { data } = await services.getAllChargersFiltered()
+    dispatch({ type: GET_ALL_CHARGER_SUCCESS, payload: data })
   } catch (error) {
     Helpers.DisplayDropdownWithError()
   }
@@ -90,9 +93,9 @@ export const getAllChargers = async (dispatch: any): Promise<void> => {
 
 export const getFavoriteChargers = async (dispatch: any): Promise<void> => {
   try {
-    const {user_favorite_chargers} = await services.getUserFavoriteChargers()
+    const { user_favorite_chargers } = await services.getUserFavoriteChargers()
 
-    dispatch({type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers})
+    dispatch({ type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers })
   } catch (error) {
     Helpers.DisplayDropdownWithError()
   }
@@ -105,7 +108,7 @@ export const addToFavorites = async (
 ): Promise<void> => {
   if (payload !== undefined) {
     try {
-      const {status} = await services.addUserFavoriteCharger(payload)
+      const { status } = await services.addUserFavoriteCharger(payload)
       if (status) {
         getFavoriteChargers(dispatch)
         getAllChargers(dispatch)
@@ -128,7 +131,7 @@ export const deleteToFavorites = async (
   callback?: () => void,
 ): Promise<void> => {
   try {
-    const {status} = await services.removeUserFavoriteCharger(payload)
+    const { status } = await services.removeUserFavoriteCharger(payload)
     if (status) {
       getFavoriteChargers(dispatch)
       getAllChargers(dispatch)

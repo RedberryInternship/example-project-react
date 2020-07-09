@@ -1,17 +1,17 @@
-import React, {useMemo, createContext, Dispatch} from 'react'
-import {StatusBar} from 'react-native'
-import {Navigation} from './src'
-import {CustomModal} from 'components'
+import React, { useMemo, createContext, Dispatch } from 'react'
+import { StatusBar } from 'react-native'
+import { Navigation } from './src'
+import { CustomModal } from 'components'
 import DropdownAlert from 'react-native-dropdownalert'
 import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context'
-import {Defaults, useFirebase} from 'utils'
-import {useRoot} from 'hooks'
-import {ChargerActions, ChargerAction} from 'hooks/actions/chargerActions'
-import {chargerInitialState} from 'hooks/reducers/chargerReducer'
-import {ChargerState} from 'allTypes'
+import { Defaults, useFirebase } from 'utils'
+import { useRoot } from 'hooks'
+import { ChargerActions, ChargerAction } from 'hooks/actions/chargerActions'
+import { chargerInitialState } from 'hooks/reducers/chargerReducer'
+import { ChargerState } from 'allTypes'
 
 console.disableYellowBox = true
 
@@ -23,7 +23,7 @@ if (__DEV__) {
 export const ChargerContext = createContext<{
   state: ChargerState
   dispatch: Dispatch<ChargerAction>
-}>({state: chargerInitialState, dispatch: () => null})
+}>({ state: chargerInitialState, dispatch: () => null })
 
 export const AppContext = createContext({})
 
@@ -42,9 +42,9 @@ const App = (): React.ReactElement => {
   return useMemo(
     () => (
       <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <AppContext.Provider value={{state, dispatch}}>
+        <AppContext.Provider value={{ state, dispatch }}>
           <ChargerContext.Provider
-            value={{state: charger, dispatch: dispatchCharger}}
+            value={{ state: charger, dispatch: dispatchCharger }}
           >
             <Navigation
               ref={(ref) => setNavigationTopLevelElement(ref)}
@@ -76,7 +76,7 @@ const App = (): React.ReactElement => {
           }
           ref={(ref) => (Defaults.dropdown = ref)}
           testID={'dropdownAlert'}
-          titleStyle={{fontSize: 14, color: 'white'}}
+          titleStyle={{ fontSize: 14, color: 'white' }}
           imageStyle={{
             marginHorizontal: 8,
             alignSelf: 'center',

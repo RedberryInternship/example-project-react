@@ -5,7 +5,7 @@ import {
   GET_FAVORITE_CHARGERS,
   EDIT_USER_INFO,
 } from '../actions/rootActions'
-import {AppState, Action} from 'allTypes'
+import { AppState, Action } from 'allTypes'
 
 const initialStateSchema: AppState = {
   user: null,
@@ -16,19 +16,19 @@ const initialStateSchema: AppState = {
   userState: null,
 }
 
-export const initialState: AppState = {...initialStateSchema}
+export const initialState: AppState = { ...initialStateSchema }
 
 function reducer(
   state: AppState = initialState,
-  {type, payload}: Action,
+  { type, payload }: Action,
 ): AppState {
   switch (type) {
     case SAVE_TOKEN:
       return {
         ...state,
         loading: false,
-        user: payload,
-        authStatus: typeof payload.token === 'string' ? 'failed' : 'success',
+        user: payload.user,
+        authStatus: typeof payload.token === 'string' ? 'success' : 'failed',
       }
     case LOG_OUT:
       return {

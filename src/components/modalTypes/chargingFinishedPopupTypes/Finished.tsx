@@ -1,9 +1,9 @@
-import React, {ReactElement} from 'react'
-import {Text, View, StyleSheet, TouchableOpacity, Alert} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {ModalPopupChargerItem, BaseText} from 'components'
-import {Colors} from 'utils'
+import { ModalPopupChargerItem, BaseText } from 'components'
+import { Colors } from 'utils'
 type FinishedProps = {
   bottomDescription: string
   price: number
@@ -18,7 +18,7 @@ const Finished = ({
   refundMoney,
   chargerTypeFAST,
 }: FinishedProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -26,13 +26,13 @@ const Finished = ({
         {t(bottomDescription)}
       </BaseText>
       <View style={styles.lineView} />
-      <View style={{marginVertical: 12}}>
+      <View style={{ marginVertical: 12 }}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         {consumedMoney !== null && (
-          <ModalPopupChargerItem val={consumedMoney} type={0} />
+          <ModalPopupChargerItem val={consumedMoney} type={1} />
         )}
         {refundMoney !== null && (
-          <ModalPopupChargerItem val={refundMoney} type={0} />
+          <ModalPopupChargerItem val={refundMoney} type={2} />
         )}
         <View style={styles.lineView} />
         {chargerTypeFAST && (
@@ -42,7 +42,7 @@ const Finished = ({
             }}
             style={styles.subtype2Touchable}
           >
-            <BaseText style={{color: Colors.primaryGreen}}>
+            <BaseText style={{ color: Colors.primaryGreen }}>
               {t('charger.allChargerList')}
             </BaseText>
           </TouchableOpacity>
@@ -61,9 +61,9 @@ const styles = StyleSheet.create({
     color: '#436880',
     alignSelf: 'center',
     textAlign: 'center',
-    marginHorizontal: 32,
-    marginVertical: 16,
-    marginBottom: 8,
+    marginHorizontal: '4%',
+    marginVertical: '3%',
+    marginBottom: '3%',
   },
   lineView: {
     backgroundColor: Colors.primaryBackground,

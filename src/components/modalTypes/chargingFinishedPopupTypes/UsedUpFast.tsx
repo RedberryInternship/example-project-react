@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
     color: '#436880',
     alignSelf: 'center',
     textAlign: 'center',
-    marginHorizontal: 32,
-    marginVertical: 16,
-    marginBottom: 8,
+    marginHorizontal: '4%',
+    marginVertical: '3%',
+    marginBottom: '3%',
   },
   lineView: {
     backgroundColor: Colors.primaryBackground,

@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react'
-import {Alert, Linking} from 'react-native'
+import { useState, useEffect } from 'react'
+import { Alert, Linking } from 'react-native'
 
-import {Defaults, Const, Helpers} from 'utils'
-import {Navigation, ContactInfoResponseType} from 'allTypes'
+import { Defaults, Const, Helpers } from 'utils'
+import { Navigation, ContactInfoResponseType } from 'allTypes'
 import services from 'services'
 
-const {Logger} = Helpers
+const { Logger } = Helpers
 
 export default (navigation: Navigation) => {
   const [message, setMessage] = useState<string>('')
@@ -23,14 +23,14 @@ export default (navigation: Navigation) => {
     }
     try {
       await services.sendFeedback(message)
-
+      setMessage('')
       Helpers.DisplayDropdownWithSuccess('contact.yourFeedbackReceived')
     } catch (error) {
       Helpers.DisplayDropdownWithError()
     }
   }
 
-  const outgoingLinkMethods: {[key: string]: () => void} = {
+  const outgoingLinkMethods: { [key: string]: () => void } = {
     address: () => {
       const mapsInfo = Const.eSpaceLocationOnMapInfo
       const mapsUrl = `${mapsInfo.scheme}@${mapsInfo.latitude},${mapsInfo.longitude}( ${mapsInfo.label} )`

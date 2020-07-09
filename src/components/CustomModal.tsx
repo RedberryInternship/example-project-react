@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
 
-import {Const} from 'utils'
+import { Const } from 'utils'
 
 import {
   RegistrationType1,
@@ -12,7 +12,7 @@ import {
   LocationPermission,
   PrivacyPolicy,
 } from 'components'
-import {ChargingStatus} from '../../@types/allTypes.d'
+import { ChargingStatus } from '../../@types/allTypes.d'
 
 type Data = {
   title?: string
@@ -51,7 +51,7 @@ const initialState: InitialState = {
 }
 
 class CustomModal extends React.PureComponent implements CustomModalInterface {
-  state = {...initialState}
+  state = { ...initialState }
   ref: any = React.createRef()
 
   showModal = (): void => {
@@ -92,6 +92,8 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         onBackButtonPress={this.closeModal}
         hideModalContentWhileAnimating={true}
         propagateSwipe={true}
+        coverScreen={true}
+        statusBarTranslucent={true}
       >
         <View
           style={[

@@ -1,10 +1,10 @@
-import {useEffect, useRef, useCallback} from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from '@react-native-firebase/messaging'
 import services from 'services'
-import {AppState} from 'allTypes'
+import { AppState } from 'allTypes'
 
-const useFirebase = ({authStatus}: AppState): void => {
+const useFirebase = ({ authStatus }: AppState): void => {
   const onTokenRefreshListener = useRef<any>()
   useEffect(() => {
     initialRun()
@@ -25,7 +25,6 @@ const useFirebase = ({authStatus}: AppState): void => {
     const enabled =
       FCMAuthStatus === messaging.AuthorizationStatus.AUTHORIZED ||
       FCMAuthStatus === messaging.AuthorizationStatus.PROVISIONAL
-
     if (enabled) {
       getToken()
     }
@@ -33,12 +32,8 @@ const useFirebase = ({authStatus}: AppState): void => {
 
   const tokenRefresh = useCallback(
     async (newFCMToken: string): Promise<void> => {
-      // handle token change, if change update everywhere
-      const fcmToken = await AsyncStorage.getItem('fcmToken')
-      if (fcmToken === null || fcmToken !== newFCMToken) {
-        AsyncStorage.setItem('fcmToken', newFCMToken)
-        authStatus === 'success' && services.setUserFirebaseToken(newFCMToken)
-      }
+      AsyncStorage.setItem('fcmToken', newFCMToken)
+      authStatus === 'success' && services.setUserFirebaseToken(newFCMToken)
     },
     [services, AsyncStorage, authStatus],
   )

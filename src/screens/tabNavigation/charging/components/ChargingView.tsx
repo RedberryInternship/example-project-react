@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, {ReactElement, useMemo} from 'react'
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native'
+import React, { ReactElement, useMemo } from 'react'
+import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
 
-import {Const, Colors} from 'utils'
-import {Pulse, CountDown, BaseButton, BaseText} from 'components'
+import { Const, Colors } from 'utils'
+import { Pulse, CountDown, BaseButton, BaseText } from 'components'
 import images from 'assets/images'
 import {
   NavigationScreenProp,
   NavigationParams,
   NavigationState,
 } from 'react-navigation'
-import {ChargingState} from 'allTypes'
+import {
+  ChargingState,
+  HomeNavigateModes,
+} from '../../../../../@types/allTypes.d'
 
 type ChargingViewProps = {
   hook: {
@@ -22,8 +25,13 @@ type ChargingViewProps = {
   singleCharger?: boolean
 }
 const ChargingView = ({
-  hook: {t, navigation, onFinish},
-  chargingState: {consumed_money, already_paid, order_id, start_charging_time},
+  hook: { t, navigation, onFinish },
+  chargingState: {
+    consumed_money,
+    already_paid,
+    order_id,
+    start_charging_time,
+  },
   singleCharger,
 }: ChargingViewProps): ReactElement => {
   const CircleDiameter = useMemo(
@@ -32,7 +40,7 @@ const ChargingView = ({
   )
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={styles.MainChargerCircleContainer}>
         <Pulse
           color="transparent"
@@ -58,9 +66,10 @@ const ChargingView = ({
             source={images.chargerWithGradient}
             style={styles.chargerImage}
           />
-          <CountDown startTime={start_charging_time} alarm={false} up={true} />
+          <CountDown startTime={start_charging_time} alarm={false} />
         </View>
       </View>
+
       <View style={styles.pricingView}>
         <BaseText style={styles.currentlyChargedPrice}>
           {consumed_money} /{' '}
@@ -69,10 +78,16 @@ const ChargingView = ({
           {already_paid} {t('gel')}
         </BaseText>
       </View>
+
+      {/* <BaseText style={styles.isChargerConnected}>
+        {t('dropDownAlert.pleaseSeeIfChargerIsConnected')}
+      </BaseText> */}
       <View style={styles.chargeAnotherCarContainer}>
         {singleCharger && (
           <TouchableOpacity
-            onPress={navigation.navigate.bind(ChargingView, 'Home')}
+            onPress={navigation.navigate.bind(ChargingView, 'Home', {
+              mode: HomeNavigateModes.showAllChargers,
+            })}
             style={styles.chargeAnotherCarTouchable}
           >
             <BaseText style={styles.chargeAnotherCarText}>
@@ -176,4 +191,5 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: Const.Width - 32,
   },
+  isChargerConnected: {},
 })

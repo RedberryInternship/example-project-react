@@ -120,13 +120,13 @@ export default {
       automobileChargingFinished: 'ავტომობილის დატენვა დასრულებულია',
       chargingFinishedWarning:
         'თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს მოგიწევთ, ჯარიმის გადახდა ყოველ დამატებით წუთზე',
-      chargeOff: 'ანგარიშიდან ჩამოგეჭრათ',
+      chargeOff: 'ჩამოგეჭრათ',
       returned: 'დაგიბრუნდათ',
       continueCharging: 'დატენვის გაგრძელება',
-      finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატევა დასრულდა',
+      finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატენ ვა დასრულდა',
       warningTextBeforeFine:
         'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
-      yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო გავიდა',
+      yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',
@@ -219,6 +219,8 @@ export default {
       thisUserIsBlocked: 'იუზერი არ არის აქტიური',
       areYouSureYouWantToLogOut: 'დარწმუნებული ხახრთ რომ გსურთ გამოსვლა?',
       needInternetConnection: 'საჭიროა ინტერნეტთნ კომუნიკაცია',
+      pleaseSeeIfChargerIsConnected:
+        'გთხოვთ დარწმუნდით, რომ ავტომობილი დამტენის კონექტორთან კარგადაა შეერთებული',
       registration: {
         fillPhoneNumber: 'გთხოვთ ჩაწეროთ ტელეფონის ნომერი',
         fillName: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',

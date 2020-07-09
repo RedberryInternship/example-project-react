@@ -1,17 +1,16 @@
-import {useRef, useReducer, useEffect} from 'react'
+import { useReducer, useEffect } from 'react'
 import {
   AppState,
-  ChargerState,
   ChargingState,
   ChargingStatus,
 } from '../../@types/allTypes.d'
 import chargerReducer, {
   chargerInitialState,
 } from 'hooks/reducers/chargerReducer'
-import {chargingState, chargerStateController} from './actions/chargerActions'
+import { chargingState, chargerStateController } from './actions/chargerActions'
 import messaging from '@react-native-firebase/messaging'
-import {Defaults, Helpers} from 'utils'
-import {getAllChargers} from './actions/rootActions'
+import { Defaults } from 'utils'
+import { getAllChargers } from './actions/rootActions'
 
 export default (state: AppState, dispatch: any) => {
   const [charger, dispatchCharger] = useReducer(
@@ -33,9 +32,9 @@ export default (state: AppState, dispatch: any) => {
         state.every((val, index) => {
           if (
             val.charging_status !== ChargingStatus.INITIATED &&
-            charger.chargingState[index].charging_status ===
+            charger.chargingState[index]?.charging_status ===
               ChargingStatus.INITIATED &&
-            val.charger_id === charger.chargingState[index].charger_id
+            val.charger_id === charger.chargingState[index]?.charger_id
           ) {
             getAllChargers(dispatch)
             return false
@@ -65,5 +64,5 @@ export default (state: AppState, dispatch: any) => {
   //   }
   // }, [charger])
 
-  return {charger, dispatchCharger}
+  return { charger, dispatchCharger }
 }
