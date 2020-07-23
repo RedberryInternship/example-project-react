@@ -1,8 +1,8 @@
-import {useState} from 'react'
-import {Platform, ActionSheetIOS} from 'react-native'
+import { useState } from 'react'
+import { Platform, ActionSheetIOS } from 'react-native'
 import DialogAndroid from 'react-native-dialogs'
 
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 type PickerOptions = string[]
 type UseBaseActionSheetPicker = {
@@ -12,7 +12,7 @@ type UseBaseActionSheetPicker = {
 
 const useBaseActionSheetPicker = (): UseBaseActionSheetPicker => {
   const [selectedItem, setSelectedItem] = useState('')
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const renderPicker = (options: PickerOptions): void => {
     if (Platform.OS === 'ios') renderIOSActionSheet(options)
@@ -41,7 +41,7 @@ const useBaseActionSheetPicker = (): UseBaseActionSheetPicker => {
       t('settings.chooseMapMode'),
       null,
       {
-        items: [...options.map((val) => ({label: t(val), id: val}))],
+        items: [...options.map((val) => ({ label: t(val), id: val }))],
       },
     )
 

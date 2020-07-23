@@ -1,9 +1,9 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, View} from 'react-native'
+import React, { ReactElement } from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import {CountDown} from 'components'
+import { CountDown } from 'components'
 
-const PopUpCountDown = ({warningLevel, ...props}: any): ReactElement => {
+const PopUpCountDown = ({ warningLevel, ...props }: any): ReactElement => {
   return (
     <View
       style={[

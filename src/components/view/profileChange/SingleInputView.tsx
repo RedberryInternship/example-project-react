@@ -1,11 +1,11 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet } from 'react-native'
 
-import {ProfileFieldChange} from 'allTypes'
+import { ProfileFieldChange } from 'allTypes'
 
-import {BaseInput} from 'components'
+import { BaseInput } from 'components'
 import images from '../../../assets/images'
-import {Controller} from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
 const SingleInputView = ({
   value,
@@ -22,8 +22,8 @@ const SingleInputView = ({
         name={type}
         rules={
           validator
-            ? {required: true, validate: validator}
-            : {required: true, minLength: 3}
+            ? { required: true, validate: validator }
+            : { required: true, minLength: 3 }
         }
         control={control}
         onChange={(args) => args[0].nativeEvent.text}

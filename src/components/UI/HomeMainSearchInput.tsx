@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 
-import {Colors, Const} from 'utils'
+import { Colors, Const } from 'utils'
 import images from 'assets/images'
 
 // eslint-disable-next-line react/display-name
@@ -28,7 +28,7 @@ const HomeMainSearchInput = React.forwardRef(
         <Image source={images.iconSearch} style={styles.searchImage} />
         <View
           pointerEvents={showSearchContent ? 'auto' : 'none'}
-          style={{flex: 1}}
+          style={{ flex: 1 }}
         >
           <TextInput
             style={styles.searchTextInput}
@@ -50,7 +50,7 @@ const HomeMainSearchInput = React.forwardRef(
         <TouchableOpacity
           onPress={closeClick}
           style={styles.deleteTouchable}
-          hitSlop={{top: 25, bottom: 25, left: 25, right: 25}}
+          hitSlop={{ top: 25, bottom: 25, left: 25, right: 25 }}
         >
           <Image source={images.delete} style={styles.deleteImage} />
         </TouchableOpacity>

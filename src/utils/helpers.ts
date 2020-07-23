@@ -281,6 +281,7 @@ const configureChargingFinishPopup = (
             ...options.data,
             bottomDescription: 'popup.yourChargingOnFineStarted',
             chargerTypeFAST: charger_type === 'LVL2',
+            price: already_paid,
           },
         }
         break
@@ -295,7 +296,18 @@ const configureChargingFinishPopup = (
           },
         }
         break
-
+      case ChargingStatus.BANKRUPT:
+        options = {
+          ...options,
+          subType: ChargingFinishedPopupEnum.UsedUpFastProps,
+          data: {
+            ...options.data,
+            bottomDescription: 'popup.bankrupt',
+            chargerTypeFAST: charger_type === 'LVL2',
+            price: already_paid,
+          },
+        }
+        break
       default:
         break
     }

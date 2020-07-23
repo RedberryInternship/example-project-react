@@ -1,25 +1,25 @@
-import React, {ReactElement, useContext} from 'react'
+import React, { ReactElement, useContext } from 'react'
 import {
   NavigationScreenProp,
   NavigationParams,
   NavigationState,
   withNavigation,
 } from 'react-navigation'
-import {View, StyleSheet} from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
-import {CardListItem, BaseAddCardButton} from 'components'
-import {AppContext} from '../../../../App'
-import {AppContextType} from 'allTypes'
-import {updateUser} from 'hooks/actions/rootActions'
+import { CardListItem, BaseAddCardButton } from 'components'
+import { AppContext } from '../../../../App'
+import { AppContextType } from 'allTypes'
+import { updateUser } from 'hooks/actions/rootActions'
 import services from 'services'
-import {Helpers} from 'utils'
+import { Helpers } from 'utils'
 
 type CardListViewProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
-const CardListView = ({navigation}: CardListViewProps): ReactElement => {
+const CardListView = ({ navigation }: CardListViewProps): ReactElement => {
   const {
-    state: {user},
+    state: { user },
     dispatch,
   }: AppContextType = useContext(AppContext)
 

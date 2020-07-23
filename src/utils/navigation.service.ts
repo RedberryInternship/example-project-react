@@ -1,4 +1,4 @@
-import {NavigationActions, StackActions} from 'react-navigation'
+import { NavigationActions, StackActions } from 'react-navigation'
 let _navigator: any = null
 
 export default {
@@ -25,7 +25,7 @@ export default {
       StackActions.reset({
         index: 0,
         key: stackKey,
-        actions: [NavigationActions.navigate({routeName, params})],
+        actions: [NavigationActions.navigate({ routeName, params })],
       }),
     )
   },

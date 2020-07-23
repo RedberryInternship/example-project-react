@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import ajax from './ajax'
+import ajax from './ajax';
 import {
   ChargerFilters,
   GetAllChargerResponseType,
   StartChargingResponseType,
   ChargingTypes,
   ChargingState,
-} from '../../@types/allTypes.d'
-import { Defaults } from 'utils'
+} from '../../@types/allTypes.d';
+import { Defaults } from 'utils';
 
 export const getAllChargersFiltered = (
   params: ChargerFilters = {},
@@ -17,7 +17,7 @@ export const getAllChargersFiltered = (
       Object.keys({ ...params, ...Defaults.location })
         .map((key) => key + '=' + { ...params, ...Defaults.location }[key])
         .join('&'),
-  )
+  );
 
 export const startCharging = (
   charger_connector_type_id: number,
@@ -30,12 +30,12 @@ export const startCharging = (
     charging_type,
     price,
     user_card_id,
-  })
+  });
 
 export const finishCharging = (order_id: number): Promise<ChargingState> =>
   ajax.post('/charging/stop', {
     order_id,
-  })
+  });
 
 export const chargingState = (): Promise<ChargingState[]> =>
-  ajax.get('/active-orders')
+  ajax.get('/active-orders');

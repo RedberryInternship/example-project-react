@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, useEffect, useCallback} from 'react'
-import {TextInput} from 'react-native'
+import { useRef, useEffect, useCallback } from 'react'
+import { TextInput } from 'react-native'
 
-import {Helpers, InputValidationHelpers} from 'utils'
-import {CodeRefType} from 'allTypes'
+import { Helpers, InputValidationHelpers } from 'utils'
+import { CodeRefType } from 'allTypes'
 import services from 'services'
 
 type useForgotPasswordProps = {
@@ -27,13 +27,13 @@ export default ({
 
   useEffect(() => {
     register(
-      {name: 'phone'},
-      {validate: InputValidationHelpers.phoneNumberValidation},
+      { name: 'phone' },
+      { validate: InputValidationHelpers.phoneNumberValidation },
     )
 
     register(
-      {name: 'code'},
-      {validate: InputValidationHelpers.codeVerification},
+      { name: 'code' },
+      { validate: InputValidationHelpers.codeVerification },
     )
     setTimeout(() => phoneRef.current?.focus(), 500)
   }, [])
@@ -62,7 +62,7 @@ export default ({
         'dropDownAlert.registration.fillPhoneNumber',
       )
     try {
-      const {phone} = getValues()
+      const { phone } = getValues()
       await services.sendSMSCode(phone)
 
       codeRef.current?.startCodeAnimation()

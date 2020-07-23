@@ -1,4 +1,4 @@
-import {Const} from 'utils'
+import { Const } from 'utils'
 
 export const GNOME = {
   HELV_NORM: Const.platformIOS ? 'HelveticaNeue' : 'HelveticaNeueLTStd-Ex',

@@ -1,6 +1,6 @@
-import React, {ReactElement, useCallback} from 'react'
-import {View, StyleSheet, KeyboardAvoidingView, Platform} from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import React, { ReactElement, useCallback } from 'react'
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import {
   ScreenPropsWithNavigation,
@@ -16,7 +16,7 @@ import {
   AddCar,
   SingleInputView,
 } from 'components'
-import {Colors, Helpers, InputValidationHelpers} from 'utils'
+import { Colors, Helpers, InputValidationHelpers } from 'utils'
 import images from 'assets/images'
 import useProfileChange from './useProfileChange'
 
@@ -28,7 +28,7 @@ const ProfileChange = ({
   const value = navigation.getParam('value')
   const inputName: string = navigation.getParam('inputName')
 
-  const {submit, ...form} = useProfileChange(navigation, type)
+  const { submit, ...form } = useProfileChange(navigation, type)
 
   const renderInputs = useCallback(() => {
     switch (type) {
@@ -84,7 +84,7 @@ const ProfileChange = ({
           enableResetScrollToCoords={true}
           keyboardShouldPersistTaps={'always'}
           keyboardDismissMode={'on-drag'}
-          resetScrollToCoords={{x: 0, y: 0}}
+          resetScrollToCoords={{ x: 0, y: 0 }}
           // scrollEnabled={false}
         >
           {renderInputs()}

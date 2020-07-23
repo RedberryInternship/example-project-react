@@ -1,16 +1,16 @@
-import React, {ReactElement, useMemo} from 'react'
-import {View, StyleSheet} from 'react-native'
-import {ScrollView} from 'react-native-gesture-handler'
+import React, { ReactElement, useMemo } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { ScreenPropsWithNavigation } from 'allTypes'
 
-import {BaseHeader} from 'components'
-import {Colors, Const} from 'utils'
+import { BaseHeader } from 'components'
+import { Colors, Const } from 'utils'
 import useSettings from './useSettings'
-import {SettingsListItem} from './components'
+import { SettingsListItem } from './components'
 
-const Settings = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {userData, onPressHandler} = useSettings(navigation)
+const Settings = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { userData, onPressHandler } = useSettings(navigation)
 
   const SettingsListItems = useMemo(
     () =>
@@ -34,7 +34,7 @@ const Settings = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         onPressLeft={navigation.navigate.bind(Settings, 'MainDrawer')}
         title={'settings.settings'}
       />
-      <ScrollView style={{flex: 1}}>
+      <ScrollView style={{ flex: 1 }}>
         <View style={styles.listItemsContainer}>{SettingsListItems}</View>
         <View></View>
       </ScrollView>

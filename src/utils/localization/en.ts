@@ -131,6 +131,7 @@ export default {
       warningTextBeforeFine:
         'If you do not plug off the charger you will be fined',
       yourChargingOnFineStarted: 'Your charging on fine started',
+      bankrupt: 'You have not enough money on your card',
     },
     charger: {
       chargeWitchCode: 'Charge witch code',

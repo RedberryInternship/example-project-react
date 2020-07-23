@@ -1,4 +1,4 @@
-import React, {useState, useRef, useImperativeHandle} from 'react'
+import React, { useState, useRef, useImperativeHandle } from 'react'
 import {
   TextInput,
   Text,
@@ -9,22 +9,22 @@ import {
 } from 'react-native'
 import MaskedView from '@react-native-community/masked-view'
 
-import {useTranslation} from 'react-i18next'
-import {Colors} from 'utils'
+import { useTranslation } from 'react-i18next'
+import { Colors } from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 
 const CodeInputWidth = 128
 const animationDuration = 10000
 // eslint-disable-next-line react/display-name
 const receiveConfirmationCode = React.forwardRef(
-  ({receiveCode, ...props}: any, ref: any) => {
+  ({ receiveCode, ...props }: any, ref: any) => {
     // Vobi todo: no any types
     const [animation] = useState(new Animated.Value(0))
     const [disabled, setDisabled] = useState(false)
     const [disabledInput, setDisabledInput] = useState(true)
     const [showText, setShowText] = useState(false)
     const inputRef: any = useRef(null)
-    const {t} = useTranslation()
+    const { t } = useTranslation()
 
     const codeReceiveHandler = (): void => {
       if (disabled) return
@@ -70,7 +70,7 @@ const receiveConfirmationCode = React.forwardRef(
             disabled={disabled}
             style={styles.receiveCodeBtnTouchable}
           >
-            <Animated.View style={[styles.codeReceive, {width: animation}]} />
+            <Animated.View style={[styles.codeReceive, { width: animation }]} />
             <MaskedView
               style={styles.maskedView}
               maskElement={
@@ -82,7 +82,7 @@ const receiveConfirmationCode = React.forwardRef(
               }
             >
               <Animated.View
-                style={[styles.receiveCodeAnimatedView1, {width: animation}]}
+                style={[styles.receiveCodeAnimatedView1, { width: animation }]}
               />
               <Animated.View style={styles.receiveCodeAnimatedView2} />
             </MaskedView>

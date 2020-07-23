@@ -1,8 +1,8 @@
-import React, {useRef, ReactElement} from 'react'
-import {StyleSheet} from 'react-native'
-import {PanGestureHandler, State} from 'react-native-gesture-handler'
+import React, { useRef, ReactElement } from 'react'
+import { StyleSheet } from 'react-native'
+import { PanGestureHandler, State } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 const {
   event,
@@ -48,7 +48,7 @@ const MultiChargingTopModal = (): ReactElement => {
         },
       },
     ],
-    {useNativeDriver: true},
+    { useNativeDriver: true },
   )
 
   const _translateY = block([
@@ -110,7 +110,10 @@ const MultiChargingTopModal = (): ReactElement => {
       <Animated.View
         style={[
           styles.mainPanResponderStyle,
-          {height: 100 + insets.top, transform: [{translateY: _translateY}]},
+          {
+            height: 100 + insets.top,
+            transform: [{ translateY: _translateY }],
+          },
         ]}
       ></Animated.View>
     </PanGestureHandler>

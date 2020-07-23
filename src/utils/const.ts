@@ -1,26 +1,27 @@
-import { Dimensions, Platform } from 'react-native'
-import { ifIphoneX } from 'react-native-iphone-x-helper'
-import { env } from '../../env'
-import images from 'assets/images'
-import { UserSettingEnum, SettingsListFieldType } from '../../@types/allTypes.d'
-import Colors from './colors'
+import { Dimensions, Platform } from 'react-native';
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+import { env } from '../../env';
+import images from 'assets/images';
+import {
+  UserSettingEnum,
+  SettingsListFieldType,
+} from '../../@types/allTypes.d';
+import Colors from './colors';
 
-export const API: string =
-  env === 'local'
-    ? 'http://espace.test/api/app/V1'
-    : 'https://api-dev.e-space.ge/api/app/V1'
+// export const API = 'https://api-dev.e-space.ge/api/app/V1' // dev
+export const API = 'https://app.e-space.ge/api/app/V1'; // prod
 
-export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'
-export const MAP_URL = 'https://maps.googleapis.com/maps/api'
+export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw';
+export const MAP_URL = 'https://maps.googleapis.com/maps/api';
 // Vobi Todo: move this as config
-export const Width = Dimensions.get('window').width
-export const Height = Dimensions.get('window').height
+export const Width = Dimensions.get('window').width;
+export const Height = Dimensions.get('window').height;
 
-export const platformIOS = Platform.OS === 'ios'
+export const platformIOS = Platform.OS === 'ios';
 export const locationIfNoGPS = {
   lat: 41.693036,
   lng: 44.801419,
-}
+};
 
 export const DrawerFieldsBeforeAuthorization = [
   // {
@@ -43,7 +44,7 @@ export const DrawerFieldsBeforeAuthorization = [
     text: 'drawer.partners',
     route: 'Partners',
   },
-]
+];
 
 export const DrawerFieldsAfterAuthorization = [
   {
@@ -62,7 +63,7 @@ export const DrawerFieldsAfterAuthorization = [
   //   text: 'drawer.notifications',
   //   route: 'Notifications',
   // },
-]
+];
 
 export const SettingsListFields: SettingsListFieldType[] = [
   {
@@ -121,7 +122,7 @@ export const SettingsListFields: SettingsListFieldType[] = [
     onEmptyText: 'settings.add',
     color: Colors.primaryGray,
   },
-]
+];
 
 export const ContactListFields = [
   {
@@ -149,7 +150,7 @@ export const ContactListFields = [
     name: 'contact.webPage',
     type: 'webPage',
   },
-]
+];
 
 export const FilterTypes = [
   'filterTypes.free',
@@ -158,11 +159,11 @@ export const FilterTypes = [
   'filterTypes.lvl2',
   'filterTypes.public',
   'filterTypes.notPublic',
-]
+];
 
 export const eSpaceLocationOnMapInfo = {
   scheme: Platform.select({ android: 'geo:0,0?q=', ios: 'maps:0,0?q=' }),
   latitude: 41.7276579,
   longitude: 44.7486845,
   label: 'E-space',
-}
+};

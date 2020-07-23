@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {MAP_URL, locationIfNoGPS, MAP_API} from 'utils/const'
-import {mergeCoords} from 'utils/mapAndLocation/mapFunctions'
-import i18next from 'i18next'
-import axios from 'axios'
-import ajax from './ajax'
-import {getCoordsByIPResponseType} from 'allTypes'
+import { MAP_URL, locationIfNoGPS, MAP_API } from 'utils/const';
+import { mergeCoords } from 'utils/mapAndLocation/mapFunctions';
+import i18next from 'i18next';
+import axios from 'axios';
+import ajax from './ajax';
+import { getCoordsByIPResponseType } from 'allTypes';
 export const getDistance = (
   originLat: number,
   originLng: number,
@@ -19,7 +19,7 @@ export const getDistance = (
     destinationLat ?? locationIfNoGPS.lat,
     destinationLng ?? locationIfNoGPS.lng,
   )}
-  &mode=driving&units=metric&language=${i18next.language}&key=${MAP_API}`)
+  &mode=driving&units=metric&language=${i18next.language}&key=${MAP_API}`);
 
 export const getDirection = (
   originLat: number,
@@ -35,7 +35,7 @@ export const getDirection = (
       destinationLat,
       destinationLng,
     )}&mode=driving&key=${MAP_API}`,
-  )
+  );
 
 export const getCoordsByIP = (): Promise<getCoordsByIPResponseType> =>
-  ajax.get('/geo-ip')
+  ajax.get('/geo-ip');

@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {View, Image, StyleSheet} from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 
 export default class Pulse extends Component {
   static propTypes = {
@@ -55,9 +55,9 @@ export default class Pulse extends Component {
   mounted = true
 
   componentDidMount() {
-    const {numPulses, duration, speed} = this.state
+    const { numPulses, duration, speed } = this.state
 
-    this.setState({started: true})
+    this.setState({ started: true })
 
     let a = 0
     while (a < numPulses) {
@@ -92,7 +92,7 @@ export default class Pulse extends Component {
 
       pulses.push(pulse)
 
-      this.setState({pulses})
+      this.setState({ pulses })
     }
   }
 
@@ -116,7 +116,7 @@ export default class Pulse extends Component {
         return pulse
       })
 
-      this.setState({pulses})
+      this.setState({ pulses })
     }
   }
 
@@ -131,7 +131,7 @@ export default class Pulse extends Component {
       style,
     } = this.state
     const containerStyle = [styles.container, style]
-    const pulseWrapperStyle = {width: maxDiameter, height: maxDiameter}
+    const pulseWrapperStyle = { width: maxDiameter, height: maxDiameter }
 
     return (
       <View style={containerStyle}>

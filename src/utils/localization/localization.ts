@@ -1,10 +1,9 @@
 import i18n from 'i18next'
-import {initReactI18next} from 'react-i18next'
+import { initReactI18next } from 'react-i18next'
 
-import {LocaleStringObject} from 'allTypes'
+import { LocaleStringObject } from 'allTypes'
 import en from './en'
 import ka from './ka'
-import {Defaults} from '../'
 
 // const locales = RNLocalize.getLocales();
 
@@ -27,7 +26,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     fallbackLng: 'ka',
-    debug: true,
+    debug: __DEV__,
     lng: 'ka',
 
     interpolation: {

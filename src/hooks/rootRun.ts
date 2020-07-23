@@ -34,6 +34,7 @@ export default () => {
 
   const [token, setToken] = useState<null | string>('')
   const [locale, setLocale] = useState<null | string>('')
+
   const { getItem, setItem } = useAsyncStorage('token')
   const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage(
     'userDetail',

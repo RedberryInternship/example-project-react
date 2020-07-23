@@ -1,20 +1,20 @@
-import {useState, useContext, useCallback} from 'react'
-import {useTranslation} from 'react-i18next'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Alert} from 'react-native'
+import { useState, useContext, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Alert } from 'react-native'
 
-import {finishCharging} from 'hooks/actions/chargerActions'
-import {ChargerContext} from '../../../../App'
+import { finishCharging } from 'hooks/actions/chargerActions'
+import { ChargerContext } from '../../../../App'
 
 export default (navigation: any) => {
   const {
-    state: {chargingState},
+    state: { chargingState },
     dispatch: chargerDispatch,
   } = useContext(ChargerContext)
 
   const [activeTab, setActiveTab] = useState<number>(0)
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const insets = useSafeAreaInsets()
 
@@ -31,7 +31,7 @@ export default (navigation: any) => {
         t('dropDownAlert.charging.areUSore'),
         '',
         [
-          {text: t('no'), onPress: () => console.log('Ask me later pressed')},
+          { text: t('no'), onPress: () => console.log('Ask me later pressed') },
           {
             text: t('yes'),
             onPress: () =>
@@ -44,7 +44,7 @@ export default (navigation: any) => {
             style: 'cancel',
           },
         ],
-        {cancelable: true},
+        { cancelable: true },
       )
     },
     [t, finishCharging, chargerDispatch],

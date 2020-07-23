@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react'
-import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { ModalPopupChargerItem, BaseText } from 'components'
 import { Colors } from 'utils'
-type UsedUpFastProps = {
+type BankruptProps = {
   bottomDescription: string
   price: number
 }
-const UsedUpFast = ({
+const Bankrupt = ({
   bottomDescription,
   price,
-}: UsedUpFastProps): ReactElement => {
+}: BankruptProps): ReactElement => {
   const { t } = useTranslation()
 
   return (
@@ -23,7 +23,7 @@ const UsedUpFast = ({
       <View style={{ marginVertical: 12 }}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         <View style={styles.lineView} />
-        <TouchableOpacity
+        {/* <TouchableOpacity
           onPress={(): void => {
             Alert.alert('not yet')
           }}
@@ -32,13 +32,13 @@ const UsedUpFast = ({
           <BaseText style={{ color: Colors.primaryGreen }}>
             {t('charger.allChargerList')}
           </BaseText>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </>
   )
 }
 
-export default UsedUpFast
+export default Bankrupt
 
 const styles = StyleSheet.create({
   bottomContentDescriptionType2: {

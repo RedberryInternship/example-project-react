@@ -1,4 +1,4 @@
-import {Validate} from 'react-hook-form'
+import { Validate } from 'react-hook-form'
 
 const phoneNumberValidation = {
   ifGeorgian: (value: string | undefined): boolean | string => {
@@ -48,7 +48,7 @@ const checkboxValidation = {
 }
 
 // const inputString = {required: true, pattern: /^[a-zA-Z]+$/}
-const inputString = {required: true}
+const inputString = { required: true }
 
 export default {
   phoneNumberValidation,

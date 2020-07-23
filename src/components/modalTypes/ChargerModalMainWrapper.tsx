@@ -21,6 +21,7 @@ import {
   BeforeFineLVL2FullCharge,
   UsedUpFast,
   Finished,
+  Bankrupt,
 } from './chargingFinishedPopupTypes'
 import {
   ScrollView,
@@ -61,6 +62,8 @@ const ChargerModalMainWrapper = ({
         return <UsedUpFast {...data} />
       case ChargingFinishedPopupEnum.FinishedCharging:
         return <Finished {...data} />
+      case ChargingFinishedPopupEnum.Bankrupt:
+        return <Bankrupt {...data} />
 
       // case ChargingFinishedPopupEnum.FinishedCharging: // TODO
       //   _view[0] = (

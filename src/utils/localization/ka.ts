@@ -127,6 +127,7 @@ export default {
       warningTextBeforeFine:
         'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
+      bankrupt: 'თქვენს ბარათზე არაა საკმარისი თანხა',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',

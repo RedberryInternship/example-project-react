@@ -49,6 +49,7 @@ export enum ChargingStatus {
   ON_HOLD = 'ON_HOLD',
   UNPLUGGED = 'UNPLUGGED',
   NOT_CONFIRMED = 'NOT_CONFIRMED',
+  BANKRUPT = 'BANKRUPT',
 }
 
 export type StandardErrorResponseType = {
@@ -190,6 +191,7 @@ export enum ChargingFinishedPopupEnum {
   LVL2FullCharge,
   UsedUpFastProps,
   FinishedCharging,
+  Bankrupt,
 }
 export interface BaseInputProps extends TextInputProps {
   title: string

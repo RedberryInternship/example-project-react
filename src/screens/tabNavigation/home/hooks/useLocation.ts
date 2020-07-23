@@ -56,12 +56,23 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-      RNLocation.getLatestLocation({ timeout: 6000 }).then(getLatestLocation)
     } catch (error) {}
 
-    const subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
-      subscribePermissionUpdate,
-    )
+    let subscribedPermissionUpdate: any = null
+    ;(async () => {
+      if (Platform.OS === 'android') {
+        await RNLocation.requestPermission({
+          android: { detail: 'coarse' },
+        })
+        await RNLocation.checkPermission({
+          android: { detail: 'coarse' },
+        })
+      }
+      RNLocation.getLatestLocation({ timeout: 6000 }).then(getLatestLocation)
+      subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
+        subscribePermissionUpdate,
+      )
+    })()
 
     return (): void => {
       subscribedPermissionUpdate()
@@ -73,10 +84,13 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     (status: LocationPermissionStatus): void => {
       setPermissionStatus(status)
       Defaults.locationPermissionStatus = status
+      console.log(status, 'status outside')
 
       if (status.match(/notDetermined/)) {
         requestPermission()
       } else if (isPermissionGrantedRegex(status)) {
+        console.log(status, 'status')
+
         navigateToLocation()
         if (Defaults.modal.current?.state?.config?.type === 5)
           Defaults.modal.current?.customUpdate(false)
@@ -111,9 +125,9 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
       _this.current.permissionStatus = status
       Defaults.locationPermissionStatus = status
       if (!status.match(/denied|restricted|notDetermined/)) {
-        // navigateToLocation()
+        navigateToLocation()
       } else {
-        // requestPermission()
+        requestPermission()
       }
     },
     [permissionStatus],

@@ -1,9 +1,9 @@
-import React, {ReactElement, useEffect, useState} from 'react'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement, useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import {Defaults} from 'utils'
-import {BaseText} from 'components'
-import {StyleSheet} from 'react-native'
+import { Defaults } from 'utils'
+import { BaseText } from 'components'
+import { StyleSheet } from 'react-native'
 
 type FetchedDataRendererProp = {
   property: string
@@ -22,7 +22,7 @@ const FetchedDataRenderer = ({
   updateAlways = false,
   data,
 }: FetchedDataRendererProp): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [localState, setLocalState] = useState(staticData[property])
 
   useEffect(() => {

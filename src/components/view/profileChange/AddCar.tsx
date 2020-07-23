@@ -1,4 +1,4 @@
-import React, {ReactElement, useState, useEffect} from 'react'
+import React, { ReactElement, useState, useEffect } from 'react'
 import {
   View,
   StyleSheet,
@@ -7,14 +7,14 @@ import {
   Keyboard,
 } from 'react-native'
 
-import {ProfileFieldChange, CarMarkAndModelTypes} from 'allTypes'
+import { ProfileFieldChange, CarMarkAndModelTypes } from 'allTypes'
 
-import {BaseInput, AutoCompleteDropdown} from 'components'
+import { BaseInput, AutoCompleteDropdown } from 'components'
 import images from '../../../assets/images'
-import {Controller} from 'react-hook-form'
-import {Const} from 'utils'
+import { Controller } from 'react-hook-form'
+import { Const } from 'utils'
 import services from 'services'
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 const AddCar = ({
   errors,
@@ -26,23 +26,23 @@ const AddCar = ({
 }: ProfileFieldChange): ReactElement => {
   const [data, setData] = useState<CarMarkAndModelTypes[]>([])
   useEffect(() => {
-    services.getCarAndMarksList().then(({data}) => setData(data))
-    register('car_model_id')
+    services.getCarAndMarksList().then(({ data }) => setData(data))
+    register('carModelId')
   }, [])
 
   useEffect(() => {
     setValue(
-      'car_model_id',
+      'carModelId',
       data
         .find((val) => val.name == watch('manufacturer'))
-        ?.models?.find((val) => val.name == watch('model')),
+        ?.models?.find((val) => val.name == watch('model'))?.id,
       true,
     )
     // console.log(
     //   data
     //     .find((val) => val.name == watch('manufacturer'))
-    //     ?.models?.find((val) => val.name == watch('model')),
-    //   'car_model_id',
+    //     ?.models?.find((val) => val.name == watch('model'))?.id,
+    //   'carModelId',
     // )
   }, [watch('model')])
 
@@ -57,7 +57,7 @@ const AddCar = ({
           <Controller
             as={AutoCompleteDropdown}
             name={'manufacturer'}
-            rules={{required: true, minLength: 3}}
+            rules={{ required: true, minLength: 3 }}
             control={control}
             onChange={(text) => {
               return text
@@ -75,7 +75,7 @@ const AddCar = ({
             <Controller
               as={AutoCompleteDropdown}
               name={'model'}
-              rules={{required: true, minLength: 3}}
+              rules={{ required: true, minLength: 3 }}
               control={control}
               onChange={(text) => {
                 return text
@@ -95,7 +95,7 @@ const AddCar = ({
             />
           </View>
 
-          <View style={{height: 164, zIndex: -1}} />
+          <View style={{ height: 164, zIndex: -1 }} />
         </>
       </TouchableWithoutFeedback>
     </View>

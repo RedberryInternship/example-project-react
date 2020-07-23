@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useState, useContext, useEffect, useCallback} from 'react'
+import { useState, useContext, useEffect, useCallback } from 'react'
 
 import {
   Navigation,
@@ -10,17 +10,17 @@ import {
   UserCard,
 } from '../../../../../@types/allTypes.d'
 
-import {AppContext} from '../../../../../App'
+import { AppContext } from '../../../../../App'
 // import {useBaseActionSheetPicker} from 'components'
-import {editUserInfo} from 'hooks/actions/rootActions'
+import { editUserInfo } from 'hooks/actions/rootActions'
 import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 export default (navigation: Navigation) => {
-  const {state, dispatch}: AppContextType = useContext(AppContext)
+  const { state, dispatch }: AppContextType = useContext(AppContext)
   const [userData, setUserData] = useState<UserSettingsInfoType | null>(null)
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const [selectedItem, renderPicker] = useBaseActionSheetPicker({
     cancelText: t('cancel'),
@@ -101,5 +101,5 @@ export default (navigation: Navigation) => {
       })
     }
   }
-  return {userData, state, dispatch, onPressHandler}
+  return { userData, state, dispatch, onPressHandler }
 }
