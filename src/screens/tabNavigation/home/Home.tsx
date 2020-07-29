@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 
 import {ScreenPropsWithNavigation} from 'allTypes'
 
-import {Colors} from 'utils'
+import {Defaults, Colors} from 'utils'
 import reducer, {initialState} from 'hooks/reducers/homeReducers'
 import {useHome} from './hooks'
 import {
@@ -41,6 +41,7 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <HomeContext.Provider value={{state, dispatch}}>
         <View style={styles.mainContainer}>
           <MapView
+            key={Defaults?.userDetail?.mapMode}
             ref={mapRef}
             showAll={showAll}
             filteredChargersOnMap={onMapFilteredChargers}

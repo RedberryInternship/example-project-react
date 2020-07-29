@@ -9,6 +9,7 @@ import {
 import Colors from './colors';
 
 // export const API = 'https://api-dev.e-space.ge/api/app/V1' // dev
+// export const API = 'http://espace.test/api/app/V1' // local dev
 export const API = 'https://app.e-space.ge/api/app/V1'; // prod
 
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw';

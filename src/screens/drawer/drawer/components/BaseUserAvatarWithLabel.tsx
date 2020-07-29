@@ -41,12 +41,9 @@ const UserAvatarWithLabel = ({
         style={styles.imageContainer}
       >
         <Image
-          source={avatar ? Avatars[avatar] : images.greenUser}
+          source={(avatar > -1) ? Avatars[avatar] : images.greenUser}
           style={styles.image}
         />
-        <View style={styles.editButton}>
-          <Image source={images.bluePencil} style={styles.editButtonImage} />
-        </View>
       </TouchableOpacity>
 
       <View style={styles.usernameWrapper}>

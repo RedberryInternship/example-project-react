@@ -96,14 +96,14 @@ const styles = StyleSheet.create({
     fontSize: 11,
   },
   rowCol2: {
-    flex: 1,
+    flex: 1.2,
     alignSelf: 'center',
     color: Colors.primaryWhite,
     fontSize: 11,
     flexWrap: 'nowrap',
   },
   rowCol3: {
-    flex: 1,
+    flex: 0.8,
     alignSelf: 'center',
     color: Colors.primaryWhite,
     fontSize: 11,

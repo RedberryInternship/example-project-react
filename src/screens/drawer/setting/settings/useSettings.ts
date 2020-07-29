@@ -42,7 +42,8 @@ export default (navigation: Navigation) => {
           _selectedItem = 'settings.automatic'
           break
       }
-      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode)
+      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode);
+      // setUserData({mapMode: _selectedItem});
     }
   }, [selectedItem])
 
