@@ -4,6 +4,18 @@ import {Platform} from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import {Defaults, Sentry} from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
+import { logOut } from 'hooks/actions/rootActions'
+
+// axios.interceptors.response.use(response => {
+//   console.log("Test response",response);
+//   return response;
+// },error => {
+//   console.log("Test ERROR:",error);
+//   if(error.response.status === 401){
+//     logOut();
+//   }
+//   return Promise.reject(error);
+// })
 
 type Method = 'get' | 'post'
 type Error = {
@@ -43,7 +55,7 @@ class Ajax {
           })
           .catch((error) => {
             if (error.response && error.response.status === 401) {
-              AsyncStorage.clear()
+              logOut();
             }
             // Defaults.dropdown && Defaults.dropdown?.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
             // else this.logResponse(method, url, headers, error.response)
