@@ -12,8 +12,14 @@ import Colors from './colors';
 // export const API = 'http://espace.test/api/app/V1' // local dev
 export const API = 'https://app.e-space.ge/api/app/V1'; // prod
 
+//google maps api
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw';
 export const MAP_URL = 'https://maps.googleapis.com/maps/api';
+
+// facebook page id
+export const FB_ID = 1653854168267854;
+export const FB_PAGE = 'ltd.espace';
+
 // Vobi Todo: move this as config
 export const Width = Dimensions.get('window').width;
 export const Height = Dimensions.get('window').height;

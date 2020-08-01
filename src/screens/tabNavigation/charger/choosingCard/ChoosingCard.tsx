@@ -97,7 +97,7 @@ const ChoosingCard = ({
                 <Controller
                   as={BaseInput}
                   name="amount"
-                  rules={{required: true}}
+                  rules={{required: true,min: 1}}
                   control={control}
                   onChange={(args) => args[0].nativeEvent.text}
                   title={'chooseCard.enterPrice'}

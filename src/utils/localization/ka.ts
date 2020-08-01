@@ -211,14 +211,14 @@ export default {
       generalError: 'დაფიქსირდა შეცდომა',
       generalSuccess: 'მოთხოვნა წარმატებით დამუშავდა',
       fillCode: 'გთხოვთ ჩაწეროთ დამტენის კოდი',
-      fillAmount: 'გთხოვთ თანხის ოდენობა',
+      fillAmount: 'გთხოვთ ჩაწეროთ თანხის ოდენობა',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
       successOnFavoriteAdd: 'წარმატებით დაემატა ჩარჯერი',
       successOnFavoriteRemove: 'ჩარჯერი წარმატებით წაიშალა',
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
       avatarUpdatedSuccessfully: 'ავატარი განახლდა წარმატებით',
       thisUserIsBlocked: 'იუზერი არ არის აქტიური',
-      areYouSureYouWantToLogOut: 'დარწმუნებული ხახრთ რომ გსურთ გამოსვლა?',
+      areYouSureYouWantToLogOut: 'დარწმუნებული ხართ რომ გსურთ გამოსვლა?',
       needInternetConnection: 'საჭიროა ინტერნეტთნ კომუნიკაცია',
       pleaseSeeIfChargerIsConnected:
         'გთხოვთ დარწმუნდით, რომ ავტომობილი დამტენის კონექტორთან კარგადაა შეერთებული',
@@ -267,7 +267,7 @@ export default {
       auth: {
         phoneNumberLength: 'მობილურის ნომერი 9 ციფრს უნდა შეიცავდეს',
         passwordNotEmpty: 'პაროლის ველი ცარიელი არ უნდა იყოს',
-        userNotFound: 'მომხმარებელი ვერ მოიძებნა ბაზაში',
+        userNotFound: 'მობილურის ნომერი ან პაროლი არასწორია',
       },
       forgotPassword: {
         smsCodeLength: 'sms კოდი 4 ციფრისგან უნდა შედგებოდეს',

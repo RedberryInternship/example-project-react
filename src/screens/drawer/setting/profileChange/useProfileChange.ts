@@ -29,10 +29,14 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   })
 
   const submit = async (form: Record<string, string>) => {
-    if (type === UserSettingEnum.phone) updateUserInfo({ [type]: form.phone })
-    if (type === UserSettingEnum.password) updateUserPassword(form)
-    if (type === UserSettingEnum.addCar) updateCar(form)
-    else updateUserInfo(form)
+    if (type === UserSettingEnum.phone) {
+      updateUserInfo({ [type]: form.phone })
+    }
+    else if (type === UserSettingEnum.password) {
+      updateUserPassword(form);
+    }else if (type === UserSettingEnum.addCar){
+      updateCar(form)
+    }else updateUserInfo(form)
   }
 
   const updateUserInfo = async (form: Record<string, string>) => {
@@ -81,9 +85,10 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
         'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
       )
     } else if (form.password !== form.repeatPassword) {
-      return Helpers.DisplayDropdownWithError(
+      Helpers.DisplayDropdownWithError(
         'dropDownAlert.registration.passwordNotEqual',
       )
+      return "passwordNotEqual"; //return error true because we dont check password match from backend
     }
     try {
       const result = await services.editPassword(
@@ -91,7 +96,7 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
         form.currentPassword,
         form.password,
       )
-      if (result.status_code === 200) {
+      if (result.status_code === 200 || !result.status_code) {
         Helpers.DisplayDropdownWithSuccess('dropDownAlert.editPassword.success')
         navigation.goBack()
       } else {

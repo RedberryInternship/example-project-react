@@ -46,9 +46,9 @@ export default (navigation: Navigation) => {
 
     facebookPage: () => {
       openUrl(
-        'fb://page/?id=1653854168267854',
+        'fb://page/'+Const.FB_ID,
         'FaceBook',
-        'https://www.facebook.com/ltd.espace/',
+        'https://www.facebook.com/'+Const.FB_PAGE,
       )
     },
 
@@ -64,20 +64,15 @@ export default (navigation: Navigation) => {
     errorMsgType: ErrorMessageType,
     backupUrl: string | boolean = false,
   ): Promise<void> => {
-    try {
-      const canOpenUrl = await Linking.canOpenURL(url)
-
-      if (canOpenUrl) {
-        Linking.openURL(url)
-      } else {
-        if (typeof backupUrl === 'string') {
-          Linking.openURL(backupUrl)
-        } else {
-          throw new Error(`Opening Url Not Supported`)
-        }
+    Linking.canOpenURL(url)
+    .then(response => {
+      Linking.openURL(url);
+    }).catch(error => {
+      Logger(error)
+      if(error.message.indexOf('fb://page') > -1 && typeof backupUrl === 'string'){
+        Linking.openURL(backupUrl);
+        return;
       }
-    } catch (e) {
-      Logger(e)
       let msg = ''
       // Vobi todo: move this as util
       // Vobi Todo: you can do something like this
@@ -107,7 +102,7 @@ export default (navigation: Navigation) => {
       }
 
       Defaults.dropdown?.alertWithType('error', 'Error', msg)
-    }
+    })
   }
 
   return {

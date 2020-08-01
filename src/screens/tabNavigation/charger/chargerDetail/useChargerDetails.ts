@@ -110,14 +110,19 @@ export default (
         isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
       !Const.platformIOS
     ) {
-      const status = await locationConfig.requestPermission()
+      const status = await Helpers.getAndRequestLocation();
       if (!status) return Helpers.DisplayDropdownWithError()
     }
-    navigation.navigate('Home', {
-      mode: HomeNavigateModes.showRoutesToCharger,
-      lat: parseFloat(charger?.lat ?? '0'),
-      lng: parseFloat(charger?.lng ?? '0'),
-    })
+    
+    if(!Defaults.locationPermissionStatus.match(
+      /denied|restricted|notDetermined/,
+    )){
+      navigation.navigate('Home', {
+        mode: HomeNavigateModes.showRoutesToCharger,
+        lat: parseFloat(charger?.lat ?? '0'),
+        lng: parseFloat(charger?.lng ?? '0'),
+      })
+    }
   }
 
   const onFavoritePress = (): void => {

@@ -28,7 +28,7 @@ RNLocation.configure({
   headingFilter: 1, // Degrees
   headingOrientation: 'portrait',
   pausesLocationUpdatesAutomatically: false,
-  showsBackgroundLocationIndicator: true,
+  showsBackgroundLocationIndicator: false,
 })
 
 export default {
