@@ -14,8 +14,9 @@ export const getPhoneCountryCodes = (): Promise<CountryPhoneCodesResponseType> =
 
 export const sendSMSCode = (
   phone_number: string,
+  formType: string
 ): Promise<SendSMSCodeResponseType> =>
-  ajax.post('/send-sms-code', { phone_number })
+  ajax.post('/send-sms-code', { phone_number,type: formType })
 
 export const loginUser = (
   phone_number: string,

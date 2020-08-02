@@ -56,14 +56,14 @@ export default ({
     validatePhone()
   }, [phone])
 
-  const receiveCodeHandler = async (): Promise<void> => {
+  const receiveCodeHandler = async (formType: string): Promise<void> => {
     if (!(await triggerValidation('phone')))
       return Helpers.DisplayDropdownWithError(
         'dropDownAlert.registration.fillPhoneNumber',
       )
     try {
       const { phone } = getValues()
-      await services.sendSMSCode(phone)
+      await services.sendSMSCode(phone,formType)
 
       codeRef.current?.startCodeAnimation()
       codeRef.current?.focus()

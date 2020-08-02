@@ -6,9 +6,10 @@ import {PhoneNumberInput, ReceiveCode} from 'components'
 type PhoneVerificationViewProps = {
   watch: (name: string) => string
   setValue: (name: string, value: string, validate: boolean) => void
-  receiveCodeHandler: () => any
+  receiveCodeHandler: (formType: string) => any
   phoneRef: any
   codeRef: any
+  formType: string
 }
 
 const PhoneVerificationView = ({
@@ -17,6 +18,7 @@ const PhoneVerificationView = ({
   phoneRef,
   receiveCodeHandler,
   codeRef,
+  formType,
 }: PhoneVerificationViewProps): ReactElement => {
   return (
     <>
@@ -30,7 +32,7 @@ const PhoneVerificationView = ({
         ref={codeRef}
         onChangeText={(text: string) => setValue('code', text, true)}
         // onSubmit={handleSubmit(buttonClickHandler)}
-        receiveCode={receiveCodeHandler}
+        receiveCode={() => {receiveCodeHandler(formType)}}
       />
     </>
   )

@@ -151,6 +151,7 @@ export default {
       pleaseAddCardFirst: 'Please add card first',
       maxAllowedCarCharing: 'Max allowed only two car',
       selectConnector: 'Please, select connector',
+      chargerIsBusy: 'Charger is busy'
     },
     notAuthorized: {
       notAuthorizedText: 'If u want to charge a car u have to register',

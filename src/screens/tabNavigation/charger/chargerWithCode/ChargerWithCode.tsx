@@ -68,9 +68,9 @@ const ChargerWithCode = ({
             <FetchedDataRenderer
               property={'lastUsedCharger'}
               key={val}
-              onItemRender={(val: Charger): ReactElement => (
+              onItemRender={(val: Charger,index): ReactElement => (
                 <ChargerItem
-                  key={val.id}
+                  key={index}
                   onPress={() => navigateToChargerDetailScreen(val)}
                   address={getLocaleText(val.location)}
                   code={val.code}

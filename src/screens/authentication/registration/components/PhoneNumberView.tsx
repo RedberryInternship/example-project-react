@@ -12,7 +12,7 @@ const PhoneNumberView = React.memo(
   ({hook}: PhoneNumberViewProps): React.ReactElement => {
     return (
       <View style={{width: Const.Width, paddingHorizontal: 16}}>
-        <PhoneVerificationView {...hook} />
+        <PhoneVerificationView {...hook} formType="registers" />
       </View>
     )
   },

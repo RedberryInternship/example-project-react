@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useState, useRef, useContext, useEffect} from 'react'
-import {TextInput, BackHandler, Alert} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useState, useRef, useContext, useEffect } from 'react'
+import { TextInput, BackHandler, Alert } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {AppContext, ChargerContext} from '../../../../../App'
+import { AppContext, ChargerContext } from '../../../../../App'
 import {
   AppContextType,
   Charger,
@@ -39,10 +39,10 @@ import {
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
-  const {state, dispatch}: AppContextType = useContext(AppContext)
+  const { state, dispatch }: AppContextType = useContext(AppContext)
 
   const {
-    state: {chargingState},
+    state: { chargingState },
     dispatch: chargerDispatch,
   } = useContext(ChargerContext)
 
@@ -53,13 +53,13 @@ export default (
   const backHandlerRef = useRef<any>()
 
   const [charger, setCharger] = useState<
-    (Charger & {from?: string}) | undefined
+    (Charger & { from?: string }) | undefined
   >(navigation.getParam('chargerDetails', undefined))
 
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
   const passwordRef: React.RefObject<TextInput> = useRef(null)
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
@@ -89,7 +89,7 @@ export default (
       'hardwareBackPress',
       headerLeftPress,
     )
-    const {params} = payload.state
+    const { params } = payload.state
     // navigation.setParams({chargerDetails: null})
     if (params?.chargerDetails !== undefined) {
       setCharger(params.chargerDetails)
@@ -113,10 +113,10 @@ export default (
       const status = await Helpers.getAndRequestLocation();
       if (!status) return Helpers.DisplayDropdownWithError()
     }
-    
-    if(!Defaults.locationPermissionStatus.match(
+
+    if (!Defaults.locationPermissionStatus.match(
       /denied|restricted|notDetermined/,
-    )){
+    )) {
       navigation.navigate('Home', {
         mode: HomeNavigateModes.showRoutesToCharger,
         lat: parseFloat(charger?.lat ?? '0'),
@@ -137,7 +137,7 @@ export default (
     } as Charger
 
     const updateCharger = (): void => {
-      navigation.setParams({chargerDetails: newCharger})
+      navigation.setParams({ chargerDetails: newCharger })
       setCharger(newCharger)
     }
 
@@ -171,8 +171,11 @@ export default (
     } else if (activeChargerType === -1) {
       Helpers.DisplayDropdownWithError(t('chargerDetail.selectConnector'))
       return
+    }else if (chargingState.length > 0 &&
+      charger?.connector_types[activeChargerType]?.pivot.id === chargingState[activeChargerType]?.charger_id) {
+      Helpers.DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
+      return
     }
-
     navigation.navigate('ChooseChargeMethod', {
       connectorTypeId: charger?.connector_types[activeChargerType]?.pivot.id,
     })

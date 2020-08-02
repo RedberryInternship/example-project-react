@@ -123,7 +123,7 @@ export default {
       chargeOff: 'ჩამოგეჭრათ',
       returned: 'დაგიბრუნდათ',
       continueCharging: 'დატენვის გაგრძელება',
-      finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატენ ვა დასრულდა',
+      finishedChargingOfAutomobile: 'თქვენი ავტომობილის დატენვა დასრულდა',
       warningTextBeforeFine:
         'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
@@ -148,6 +148,7 @@ export default {
       pleaseAddCardFirst: 'საჭიროა რომ დაამატოთ ბარათი',
       maxAllowedCarCharing: 'მაქსიმუმ შესაძლებელია მხოლოდ 2 მანქანის დატენვა',
       selectConnector: 'გთხოვთ აირჩიოთ  ქონექტორი',
+      chargerIsBusy: 'დამტენი დაკავებულია'
     },
     notAuthorized: {
       notAuthorizedText:

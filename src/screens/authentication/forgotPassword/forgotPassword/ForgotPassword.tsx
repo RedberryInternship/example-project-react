@@ -15,7 +15,7 @@ const ForgotPassword = ({
 }: ScreenPropsWithNavigation): ReactElement => {
   const {handleSubmit, onButtonClick, ...hook} = useForgotPassword(navigation)
   const insets = useSafeAreaInsets()
-
+  
   return (
     <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
       <BaseHeader
@@ -32,7 +32,7 @@ const ForgotPassword = ({
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
       >
-        <PhoneVerificationView {...hook} />
+        <PhoneVerificationView {...hook} formType='password_reset'/>
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
         behavior={'padding'}
