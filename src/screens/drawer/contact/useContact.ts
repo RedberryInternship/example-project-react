@@ -14,6 +14,8 @@ export default (navigation: Navigation) => {
   )
   useEffect(() => {
     services.getContactInfo().then((data) => setData(data))
+    console.log("CONTACT:",data);
+
   }, [])
 
   const sendMessage = async (): Promise<void> => {
@@ -46,9 +48,9 @@ export default (navigation: Navigation) => {
 
     facebookPage: () => {
       openUrl(
-        'fb://page/'+Const.FB_ID,
+        'fb://page/'+data?.fb_page_url.split('/')[3],
         'FaceBook',
-        'https://www.facebook.com/'+Const.FB_PAGE,
+        data?.fb_page_url,
       )
     },
 
@@ -64,6 +66,7 @@ export default (navigation: Navigation) => {
     errorMsgType: ErrorMessageType,
     backupUrl: string | boolean = false,
   ): Promise<void> => {
+    console.log("URL:",url);
     Linking.canOpenURL(url)
     .then(response => {
       Linking.openURL(url);

@@ -215,7 +215,7 @@ export default {
       error: 'Error',
       generalError: 'Error encountered',
       generalSuccess: 'Order completed successfully',
-      pleaseAllowLocation: 'Please allow access to device location',
+      pleaseAllowLocation: 'Please allow access to device location to make route',
       fillCode: 'Please, enter charger code',
       fillAmount: 'Please, enter price amount',
       chargerNotExist: "this kind of charger don't exist",
@@ -226,6 +226,7 @@ export default {
       thisUserIsBlocked: 'This user is blocked',
       areYouSureYouWantToLogOut: 'Are you sure you want to log out?',
       needInternetConnection: 'Need internet connection',
+      connectionProblem: 'Connection problem with charger, please wait',
       pleaseSeeIfChargerIsConnected: 'Please see if charger is connected',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',

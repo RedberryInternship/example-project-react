@@ -19,13 +19,15 @@ import {
   TouchableOpacity,
 } from 'react-native-gesture-handler'
 import {CarMarkAndModelTypes} from 'allTypes'
+import { translate } from 'i18n-js'
 type AutoCompleteDropdownProps = {
   title: string
   data: string[]
   defaultValue: string
   errorText: string
   onChange: (text: string) => void
-  image: ImageSourcePropType
+  image: ImageSourcePropType,
+  dropdownIcon: ImageSourcePropType
   zIndex: number
 }
 const AutoCompleteDropdown = ({
@@ -35,6 +37,7 @@ const AutoCompleteDropdown = ({
   image,
   errorText,
   zIndex,
+  dropdownIcon,
   ...props
 }: AutoCompleteDropdownProps): ReactElement => {
   const {t} = useTranslation()
@@ -85,11 +88,12 @@ const AutoCompleteDropdown = ({
             containerStyle={{
               backgroundColor: 'transparent',
               borderWidth: 0,
+              padding:0
             }}
             inputContainerStyle={{
               backgroundColor: 'transparent',
               borderWidth: 0,
-              elevation: 10,
+              // elevation: 10,
               zIndex: zIndex,
             }}
             listContainerStyle={{
@@ -108,7 +112,9 @@ const AutoCompleteDropdown = ({
               borderTopLeftRadius: 0,
               borderTopRightRadius: 0,
               zIndex: zIndex + 2,
-              elevation: 2,
+              top: -3,
+              margin: 0,
+              padding: 0,
             }}
             renderItem={({item}: {item: string}) => (
               <TouchableOpacity
@@ -125,10 +131,11 @@ const AutoCompleteDropdown = ({
             )}
             style={[
               styles.Input,
-              {borderBottomLeftRadius: 0, borderBottomRightRadius: 0},
             ]}
           />
-          {/* <BaseText style={styles.baseText}>^</BaseText> */}
+          <View style={styles.dropdownIconContainer}>
+            <Image style={[{width: 10,height:10},!hideResults ? styles.rotateDropdown : null]} source={dropdownIcon} resizeMode="contain"/>
+          </View>
         </View>
       </View>
       <BaseText style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>
@@ -196,12 +203,14 @@ const styles = StyleSheet.create({
     color: '#FF3B3B',
     marginTop: 4,
   },
-  baseText: {
+  dropdownIconContainer: {
     position: 'absolute',
-    right: 8,
-    top: 8,
-    color: 'white',
-    fontSize: 18,
+    right: 22,
+    top: 20,
+    zIndex: 5
+  },
+  rotateDropdown: {
+    transform: [{rotate: '180deg'}]
   },
   listItemStyle: {
     height: 40,

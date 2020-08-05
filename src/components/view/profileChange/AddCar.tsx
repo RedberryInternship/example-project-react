@@ -64,6 +64,7 @@ const AddCar = ({
             }}
             title={'settings.model' ?? ''}
             image={images.addCarInput}
+            dropdownIcon={images.caretDown}
             // defaultValue={value}
             data={[...data.map((val) => val.name)]}
             errorText={
@@ -82,6 +83,7 @@ const AddCar = ({
               }}
               title={'settings.manufacturer' ?? ''}
               image={images.addCarInput}
+              dropdownIcon={images.caretDown}
               // defaultValue={value}
               data={
                 data

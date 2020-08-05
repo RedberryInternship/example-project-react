@@ -50,6 +50,7 @@ export enum ChargingStatus {
   UNPLUGGED = 'UNPLUGGED',
   NOT_CONFIRMED = 'NOT_CONFIRMED',
   BANKRUPT = 'BANKRUPT',
+  PAYMENT_FAILED = 'PAYMENT_FAILED',
 }
 
 export type StandardErrorResponseType = {

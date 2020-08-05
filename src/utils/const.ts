@@ -17,8 +17,7 @@ export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw';
 export const MAP_URL = 'https://maps.googleapis.com/maps/api';
 
 // facebook page id
-export const FB_ID = 1653854168267854;
-export const FB_PAGE = 'ltd.espace';
+export const FB_PAGE_ID_REGEX = '(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?'
 
 // Vobi Todo: move this as config
 export const Width = Dimensions.get('window').width;

@@ -34,7 +34,7 @@ const Contact = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
 
   // Dummy Info Before we connect App to Back-End
   const contactInfos = [
-    'საირმის ქუჩა 11ო',
+    data?.address ?? '',
     data?.phone ?? '',
     data?.email ?? '',
     data?.fb_page ?? '',

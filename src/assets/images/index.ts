@@ -49,6 +49,7 @@ export default {
   CHAdeMO: require('./icons/chademoCharger.png'),
   checkmark: require('./icons/checkmark.png'),
   addCarInput: require('./icons/addCarInput.png'),
+  caretDown: require('./icons/caret-down.png'),
 }
 
 export const Partners = {

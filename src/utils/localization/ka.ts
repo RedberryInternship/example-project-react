@@ -213,7 +213,7 @@ export default {
       error: 'შეცდომა',
       generalError: 'დაფიქსირდა შეცდომა',
       generalSuccess: 'მოთხოვნა წარმატებით დამუშავდა',
-      pleaseAllowLocation: 'ამ ოპერაციისთვის საჭიროა ჩართოთ ლოკაციაზე წვდომა',
+      pleaseAllowLocation: 'რუტის სანახავად საჭიროა ლოკაციის ჩართვა',
       fillCode: 'გთხოვთ ჩაწეროთ დამტენის კოდი',
       fillAmount: 'გთხოვთ ჩაწეროთ თანხის ოდენობა',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',
@@ -224,6 +224,7 @@ export default {
       thisUserIsBlocked: 'იუზერი არ არის აქტიური',
       areYouSureYouWantToLogOut: 'დარწმუნებული ხართ რომ გსურთ გამოსვლა?',
       needInternetConnection: 'საჭიროა ინტერნეტთნ კომუნიკაცია',
+      connectionProblem: 'დამტენთან კავშირის პრობლემაა, გთხოვთ დაელოდოთ',
       pleaseSeeIfChargerIsConnected:
         'გთხოვთ დარწმუნდით, რომ ავტომობილი დამტენის კონექტორთან კარგადაა შეერთებული',
       registration: {

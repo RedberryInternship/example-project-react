@@ -44,6 +44,9 @@ export const startCharging = async (
       Helpers.DisplayDropdownWithError(
         'dropDownAlert.pleaseSeeIfChargerIsConnected',
       )
+      console.log("CONNECTOR_ID:",connectorTypeId);
+      // const test = await services.finishCharging(connectorTypeId);
+      setLoading(false)
       return
     }
 
@@ -142,7 +145,7 @@ export const chargerStateController = (
   dispatch: any,
 ) => {
   console.log("CHARGER_STATE:",result);
-  for (const state of result) {
+  for (let state of result) {
     Helpers.configureChargingFinishPopup(state, dispatch)
     // if (
     //   Defaults.activeRoute !== 'Charging' &&

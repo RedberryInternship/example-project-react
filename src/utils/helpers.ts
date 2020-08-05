@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Sentry, Defaults, locationConfig, NavigationActions } from 'utils'
+import { Sentry, Defaults, locationConfig, Helpers } from 'utils'
 import { Exception } from '@sentry/react-native'
 import {
   ChargerFilters,
@@ -309,6 +309,10 @@ const configureChargingFinishPopup = (
           },
         }
         break
+      case ChargingStatus.ON_HOLD:
+        Helpers.DisplayDropdownWithError('dropDownAlert.connectionProblem')
+        return;
+        break;
       default:
         break
     }

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: 'rgba(22, 27, 28, 0.1)',
-    height: 50,
+    minHeight: 50
   },
   innerLeftContainer: {
     flexDirection: 'row',
@@ -71,5 +71,7 @@ const styles = StyleSheet.create({
   value: {
     color: Colors.faqBlue,
     fontSize: 14,
+    flex: 0.8,
+    textAlign: 'right'
   },
 })

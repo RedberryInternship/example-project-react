@@ -55,6 +55,7 @@ const BaseText = ({
       {...props}
       allowFontScaling={false}
       style={[styles.text, style, setStyle()]}
+      numberOfLines={1}
     >
       {children}
     </Text>
