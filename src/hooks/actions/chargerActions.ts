@@ -141,6 +141,7 @@ export const chargerStateController = (
   result: ChargingState[],
   dispatch: any,
 ) => {
+  console.log("CHARGER_STATE:",result);
   for (const state of result) {
     Helpers.configureChargingFinishPopup(state, dispatch)
     // if (

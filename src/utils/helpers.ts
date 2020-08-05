@@ -222,6 +222,7 @@ const configureChargingFinishPopup = (
     DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
     return
   }
+  console.log("CHARGIN_STATUS:",ChargingStatus,charging_status);
 
   if (
     charging_status !== ChargingStatus.INITIATED &&

@@ -77,6 +77,7 @@ export const logOut = () => {
   Defaults.token = ''
   Defaults.userDetail = null
   NavigationActions.navigate('Home')
+
   return {
     type: LOG_OUT,
   }

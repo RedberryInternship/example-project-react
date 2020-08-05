@@ -142,6 +142,8 @@ export default {
     },
     chargerDetail: {
       seeOnMap: 'See on map',
+      kw: 'Kilowatts',
+      tariffs: 'Tariffs',
       currentPrices: 'Current prices',
       minutesPrice: '15 minutes price',
       connectors: 'Connectors',
@@ -213,6 +215,7 @@ export default {
       error: 'Error',
       generalError: 'Error encountered',
       generalSuccess: 'Order completed successfully',
+      pleaseAllowLocation: 'Please allow access to device location',
       fillCode: 'Please, enter charger code',
       fillAmount: 'Please, enter price amount',
       chargerNotExist: "this kind of charger don't exist",

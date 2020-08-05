@@ -51,6 +51,13 @@ const FetchedDataRenderer = ({
     }
   }
 
+  // Refetch data after logout and login
+  if(!Defaults._userDetail && localState?.length > 0){
+    staticData[property] = undefined
+  }else if(updateAlways && staticData[property] === undefined && Defaults._userDetail !== null){
+    shouldFetch();
+  }
+
   if (localState === undefined)
     return <BaseText style={styles.text}>{t('loading')}</BaseText>
   if (!localState?.length)

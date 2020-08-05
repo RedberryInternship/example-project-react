@@ -69,6 +69,7 @@ export default (
   }
 
   const lastUsed = async (): Promise<LastUsedCharger[]> => {
+    console.log("LAST_USED");
     if (Defaults.token !== '') {
       const res: LastUsedChargerResponseObject = await services.getUserChargers()
       //charger_connector_type

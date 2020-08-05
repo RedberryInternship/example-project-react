@@ -21,6 +21,7 @@ export default {
   },
 
   reset: function(stackKey = 'root', routeName = '', params = {}): void {
+    console.log("RESET");
     _navigator.dispatch(
       StackActions.reset({
         index: 0,

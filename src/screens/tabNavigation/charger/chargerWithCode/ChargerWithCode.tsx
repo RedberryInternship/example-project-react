@@ -29,7 +29,7 @@ const ChargerWithCode = ({
     navigateToChargerDetailScreen,
     lastUsed,
   } = useChargerWithCode(navigation)
-
+  
   return (
     <View style={styles.container}>
       <BaseHeader title={'charger.chargeWitchCode'} />

@@ -139,6 +139,8 @@ export default {
     chargerDetail: {
       seeOnMap: 'რუკაზე ნახვა',
       currentPrices: 'მიმდინარე ტარიფები',
+      kw: 'კილოვატები',
+      tariffs: 'ტარიფები',
       speedRange: 'სიჩქარის რეინჯი',
       minutesPrice: '15 წუთის ღირებულება',
       connectors: 'ქონექტორები',
@@ -211,6 +213,7 @@ export default {
       error: 'შეცდომა',
       generalError: 'დაფიქსირდა შეცდომა',
       generalSuccess: 'მოთხოვნა წარმატებით დამუშავდა',
+      pleaseAllowLocation: 'ამ ოპერაციისთვის საჭიროა ჩართოთ ლოკაციაზე წვდომა',
       fillCode: 'გთხოვთ ჩაწეროთ დამტენის კოდი',
       fillAmount: 'გთხოვთ ჩაწეროთ თანხის ოდენობა',
       chargerNotExist: 'ასეთი დამტენის კოდი არ არსებობს',

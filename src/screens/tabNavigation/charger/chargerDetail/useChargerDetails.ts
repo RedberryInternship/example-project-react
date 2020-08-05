@@ -111,7 +111,7 @@ export default (
       !Const.platformIOS
     ) {
       const status = await Helpers.getAndRequestLocation();
-      if (!status) return Helpers.DisplayDropdownWithError()
+      if (!status) return Helpers.DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
     }
 
     if (!Defaults.locationPermissionStatus.match(
