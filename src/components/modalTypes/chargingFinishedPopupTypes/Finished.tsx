@@ -1,16 +1,15 @@
 import React, { ReactElement } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Navigation , HomeNavigateModes} from '../../../../@types/allTypes.d'
+import { HomeNavigateModes } from '../../../../@types/allTypes.d'
 import { ModalPopupChargerItem, BaseText } from 'components'
-import { Colors } from 'utils'
+import { NavigationActions, Colors } from 'utils'
 type FinishedProps = {
   bottomDescription: string
   price: number
   consumedMoney: number
   refundMoney: number
-  chargerTypeFAST: boolean,
-  navigation: Navigation
+  chargerTypeFAST: boolean
 }
 const Finished = ({
   bottomDescription,
@@ -18,7 +17,6 @@ const Finished = ({
   consumedMoney,
   refundMoney,
   chargerTypeFAST,
-  navigation
 }: FinishedProps): ReactElement => {
   const { t } = useTranslation()
 
@@ -40,7 +38,7 @@ const Finished = ({
         {chargerTypeFAST && (
           <TouchableOpacity
             onPress={(): void => {
-              navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
+              NavigationActions.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
             }}
             style={styles.subtype2Touchable}
           >

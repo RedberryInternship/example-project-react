@@ -131,7 +131,9 @@ export default {
       warningTextBeforeFine:
         'If you do not plug off the charger you will be fined',
       yourChargingOnFineStarted: 'Your charging on fine started',
-      bankrupt: 'You have not enough money on your card',
+      bankrupt: 'Not enough money',
+      paymentFailed: 'Payment failed',
+      processFailed: 'Process failed'
     },
     charger: {
       chargeWitchCode: 'Charge witch code',
@@ -153,7 +155,8 @@ export default {
       pleaseAddCardFirst: 'Please add card first',
       maxAllowedCarCharing: 'Max allowed only two car',
       selectConnector: 'Please, select connector',
-      chargerIsBusy: 'Charger is busy'
+      chargerIsBusy: 'Charger is busy',
+      minutes: 'Minutes'
     },
     notAuthorized: {
       notAuthorizedText: 'If u want to charge a car u have to register',

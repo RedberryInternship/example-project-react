@@ -127,6 +127,11 @@ type ChargerConnectorType = {
 
 type ChargerConnectorTypePivot = {
   id: number
+  charger_id: number
+  connector_type_id: number
+  min_price: number | null
+  max_price: number | null
+  status: string | null
 }
 type ChargerChargerTypes = {
   id: number
@@ -193,6 +198,7 @@ export enum ChargingFinishedPopupEnum {
   UsedUpFastProps,
   FinishedCharging,
   Bankrupt,
+  PaymentFailed
 }
 export interface BaseInputProps extends TextInputProps {
   title: string

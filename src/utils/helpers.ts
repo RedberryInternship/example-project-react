@@ -222,7 +222,6 @@ const configureChargingFinishPopup = (
     DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
     return
   }
-  console.log("CHARGIN_STATUS:",ChargingStatus,charging_status);
 
   if (
     charging_status !== ChargingStatus.INITIATED &&
@@ -243,6 +242,7 @@ const configureChargingFinishPopup = (
       },
       onCloseClick: () => onModalClose(dispatch),
     }
+    console.log("CH_STAT:",charging_status);
     switch (charging_status) {
       case ChargingStatus.CHARGED:
         //TODO: On every case there should be if statement that checks if charging type is full or by amount
@@ -280,7 +280,7 @@ const configureChargingFinishPopup = (
               : ChargingFinishedPopupEnum.UsedUpFastProps,
           data: {
             ...options.data,
-            bottomDescription: 'popup.yourChargingOnFineStarted',
+            bottomDescription: charger_type === 'LVL2' ? 'popup.yourChargingOnFineStarted' : 'popup.automobileChargingFinished',
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
           },
@@ -300,7 +300,7 @@ const configureChargingFinishPopup = (
       case ChargingStatus.BANKRUPT:
         options = {
           ...options,
-          subType: ChargingFinishedPopupEnum.UsedUpFastProps,
+          subType: ChargingFinishedPopupEnum.Bankrupt,
           data: {
             ...options.data,
             bottomDescription: 'popup.bankrupt',
@@ -309,6 +309,18 @@ const configureChargingFinishPopup = (
           },
         }
         break
+      case ChargingStatus.PAYMENT_FAILED:
+        options = {
+          ...options,
+          subType: ChargingFinishedPopupEnum.PaymentFailed,
+          data: {
+            ...options.data,
+            bottomDescription: 'popup.processFailed',
+            chargerTypeFAST: charger_type === 'LVL2',
+            price: already_paid,
+          },
+        }
+        break;
       case ChargingStatus.ON_HOLD:
         Helpers.DisplayDropdownWithError('dropDownAlert.connectionProblem')
         return;

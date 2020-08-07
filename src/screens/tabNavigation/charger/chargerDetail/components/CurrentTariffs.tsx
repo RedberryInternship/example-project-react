@@ -13,11 +13,17 @@ type CurrentTariffsProps = {
 
 const CurrentTariffs = ({connector}: CurrentTariffsProps): ReactElement => {
   const {t} = useTranslation()
+  console.log("COnnector",connector);
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
         <BaseText style={styles.currentPriceText}>
-          {t('chargerDetail.kw')}
+          {
+            connector?.pivot?.connector_type_id === 2 ? 
+            t('chargerDetail.minutes')
+            :
+            t('chargerDetail.kw')
+            }
         </BaseText>
         <BaseText style={styles.currentPrice2Text}>
           {t('chargerDetail.tariffs')}

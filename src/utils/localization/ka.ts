@@ -127,7 +127,9 @@ export default {
       warningTextBeforeFine:
         'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
-      bankrupt: 'თქვენს ბარათზე არაა საკმარისი თანხა',
+      bankrupt: 'არასაკმარისი თანხა',
+      paymentFailed: 'ბარათით გადახდა ვერ განხორციელდა.',
+      processFailed: 'პროცესი წარუმატებლად დასრულდა'
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',
@@ -150,7 +152,8 @@ export default {
       pleaseAddCardFirst: 'საჭიროა რომ დაამატოთ ბარათი',
       maxAllowedCarCharing: 'მაქსიმუმ შესაძლებელია მხოლოდ 2 მანქანის დატენვა',
       selectConnector: 'გთხოვთ აირჩიოთ  ქონექტორი',
-      chargerIsBusy: 'დამტენი დაკავებულია'
+      chargerIsBusy: 'დამტენი დაკავებულია',
+      minutes: 'წუთები'
     },
     notAuthorized: {
       notAuthorizedText:

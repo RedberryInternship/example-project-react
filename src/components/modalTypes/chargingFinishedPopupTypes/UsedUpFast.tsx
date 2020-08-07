@@ -2,20 +2,18 @@ import React, { ReactElement } from 'react'
 import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import { Navigation , HomeNavigateModes} from '../../../../@types/allTypes.d'
-
+import { HomeNavigateModes} from '../../../../@types/allTypes.d'
 
 import { ModalPopupChargerItem, BaseText } from 'components'
-import { Colors } from 'utils'
+import { Colors,NavigationActions } from 'utils'
 type UsedUpFastProps = {
   bottomDescription: string
   price: number,
-  navigation: Navigation
 }
+
 const UsedUpFast = ({
   bottomDescription,
   price,
-  navigation
 }: UsedUpFastProps): ReactElement => {
   const { t } = useTranslation()
 
@@ -30,7 +28,8 @@ const UsedUpFast = ({
         <View style={styles.lineView} />
         <TouchableOpacity
           onPress={(): void => {
-            navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
+            // console.log("NAVG:",navigation);
+            NavigationActions.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
           }}
           style={styles.subtype2Touchable}
         >

@@ -144,8 +144,9 @@ export const chargerStateController = (
   result: ChargingState[],
   dispatch: any,
 ) => {
-  console.log("CHARGER_STATE:",result);
-  for (let state of result) {
+  for (const state of result) {
+    // state = {...state,...{charging_status: ChargingStatus.PAYMENT_FAILED}}
+    console.log("STATE_FROM_BACK:",state);
     Helpers.configureChargingFinishPopup(state, dispatch)
     // if (
     //   Defaults.activeRoute !== 'Charging' &&
