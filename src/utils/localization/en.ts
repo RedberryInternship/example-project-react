@@ -1,3 +1,5 @@
+import privacyPolicy from './privacyPolicyEn';
+
 export default {
   translation: {
     hello: 'Hello',
@@ -133,7 +135,7 @@ export default {
       yourChargingOnFineStarted: 'The fine counting started',
       bankrupt: 'Not enough money',
       paymentFailed: 'Payment failed',
-      processFailed: 'Process failed'
+      processFailed: 'Process failed',
     },
     charger: {
       chargeWitchCode: 'Charge witch code',
@@ -156,7 +158,7 @@ export default {
       maxAllowedCarCharing: 'Max allowed only two car',
       selectConnector: 'Please, select connector',
       chargerIsBusy: 'Charger is occupied',
-      minutes: 'Minutes'
+      minutes: 'Minutes',
     },
     notAuthorized: {
       notAuthorizedText: 'Registration required',
@@ -218,7 +220,8 @@ export default {
       error: 'Error',
       generalError: 'Error encountered',
       generalSuccess: 'Order completed successfully',
-      pleaseAllowLocation: 'Please allow access to device location to make route',
+      pleaseAllowLocation:
+        'Please allow access to device location to make route',
       fillCode: 'Please, enter charger code',
       fillAmount: 'Please, enter price amount',
       chargerNotExist: "this kind of charger don't exist",
@@ -230,7 +233,8 @@ export default {
       areYouSureYouWantToLogOut: 'Are you sure you want to log out?',
       needInternetConnection: 'Internet connection required',
       connectionProblem: 'Delay in Connection with charger, please wait',
-      pleaseSeeIfChargerIsConnected: 'Please check if cable is connected properly',
+      pleaseSeeIfChargerIsConnected:
+        'Please check if cable is connected properly',
       registration: {
         fillPhoneNumber: 'Please, fill phone number',
         fillName: 'Please, fill name',
@@ -241,7 +245,7 @@ export default {
         incorrectCode: 'code is incorrect',
         emailAlreadyToken: 'The email has already been taken',
         phoneAlreadyToken: 'The phone number has already been taken.',
-        passwordNotEqual: 'Passwords don\'t match',
+        passwordNotEqual: "Passwords don't match",
         needsCardAddOrPleaseSkip: 'Card required, or skip',
       },
       editFirstname: {
@@ -268,7 +272,7 @@ export default {
         fillRepeatPassword: 'Please, Fill Repeat Password Filed',
         fillNewPassword: 'Please, Fill New Password Field',
         minSize: 'Password Should Contain At Least 8 Characters',
-        passwordsMismatch: 'Passwords don\'t identical',
+        passwordsMismatch: "Passwords don't identical",
         passwordNotValid: 'Current Password is Not Correct',
       },
       auth: {
@@ -279,7 +283,7 @@ export default {
       forgotPassword: {
         smsCodeLength: 'SMS code should be exactly 4 digits long',
         getVerificationCode: 'Get verification code',
-        userNotFound: 'A user with this phone number isn\'t found',
+        userNotFound: "A user with this phone number isn't found",
         smsCodeExpired: 'SMS code expired',
         fillCode: 'Please, fill the code field',
         newPasswordNotFilled: 'Please, fill the New Password field',
@@ -310,5 +314,6 @@ export default {
       public: 'Public',
       notPublic: 'Non-Public',
     },
+    privacyPolicy: privacyPolicy,
   },
-}
+};

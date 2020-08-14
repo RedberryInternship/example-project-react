@@ -8,6 +8,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native'
+import HTML from 'react-native-render-html'
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from '../../utils'
@@ -23,39 +24,9 @@ const PrivacyPolicy = ({onPress}: PrivacyPolicyProps): ReactElement => {
   return (
     <View style={styles.container}>
       <BaseText style={styles.title}>{'წესები'}</BaseText>
-      <ScrollView style={{marginVertical: 32}}>
+      <ScrollView style={{ marginVertical: 32 }}>
         <TouchableOpacity>
-          <BaseText style={styles.contentStyle}>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Esse
-            voluptas enim molestiae vel sunt eius! Illum veniam laudantium
-            debitis reiciendis optio illo, dolorem omnis ea porro ducimus
-            pariatur distinctio iure? Lorem ipsum dolor, sit amet consectetur
-            adipisicing elit. Esse voluptas enim molestiae vel sunt eius! Illum
-            veniam laudantium debitis reiciendis optio illo, dolorem omnis ea
-            porro ducimus pariatur distinctio iure? Lorem ipsum dolor, sit amet
-            consectetur adipisicing elit. Esse voluptas enim molestiae vel sunt
-            eius! Illum veniam laudantium debitis reiciendis optio illo, dolorem
-            omnis ea porro ducimus pariatur distinctio iure? Lorem ipsum dolor,
-            sit amet consectetur adipisicing elit. Esse voluptas enim molestiae
-            vel sunt eius! Illum veniam laudantium debitis reiciendis optio
-            illo, dolorem omnis ea porro ducimus pariatur distinctio iure? Lorem
-            ipsum dolor, sit amet consectetur adipisicing elit. Esse voluptas
-            enim molestiae vel sunt eius! Illum veniam laudantium debitis
-            reiciendis optio illo, dolorem omnis ea porro ducimus pariatur
-            distinctio iure? dolor, sit amet consectetur adipisicing elit. Esse
-            voluptas enim molestiae vel sunt eius! Illum veniam laudantium
-            debitis reiciendis optio illo, dolorem omnis ea porro ducimus
-            pariatur distinctio iure? dolor, sit amet consectetur adipisicing
-            elit. Esse voluptas enim molestiae vel sunt eius! Illum veniam
-            laudantium debitis reiciendis optio illo, dolorem omnis ea porro
-            ducimus pariatur distinctio iure? dolor, sit amet consectetur
-            adipisicing elit. Esse voluptas enim molestiae vel sunt eius! Illum
-            veniam laudantium debitis reiciendis optio illo, dolorem omnis ea
-            porro ducimus pariatur distinctio iure? dolor, sit amet consectetur
-            adipisicing elit. Esse voluptas enim molestiae vel sunt eius! Illum
-            veniam laudantium debitis reiciendis optio illo, dolorem omnis ea
-            porro ducimus pariatur distinctio iure?
-          </BaseText>
+          <HTML html={t('privacyPolicy')} />
         </TouchableOpacity>
       </ScrollView>
       <View style={styles.closeButtonView}>
@@ -64,14 +35,14 @@ const PrivacyPolicy = ({onPress}: PrivacyPolicyProps): ReactElement => {
         </TouchableOpacity>
       </View>
     </View>
-  )
+  );
 }
 export default PrivacyPolicy
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 24,
-    marginVertical: 8,
+    marginHorizontal: 16,
+    marginVertical: 2,
     flex: 1,
   },
   title: {
@@ -86,7 +57,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 12,
     lineHeight: 16,
-    marginVertical: 32,
+    marginVertical: 12,
+  },
+  contentStyleTitle: {
+    fontWeight: 'bold'
   },
   closeButtonView: {
     alignItems: 'stretch',
@@ -94,7 +68,7 @@ const styles = StyleSheet.create({
   closeButtonTouchable: {
     borderRadius: 25,
     width: 50,
-    height: 50,
+    height: 20,
     backgroundColor: '#0199F011',
     alignSelf: 'center',
     justifyContent: 'center',

@@ -1,3 +1,5 @@
+import privacyPolicy from './privacyPolicyKa';
+
 export default {
   translation: {
     hello: 'გამარჯობა',
@@ -50,7 +52,8 @@ export default {
       allChargers: 'ყველა დამტენი',
       authorization: 'ავტორიზაცია',
       location: 'ლოკაცია',
-      locationRequestTextOnDenied: 'სიზუსტისთვის საჭიროა ჩართოთ ლოკაციის სერვისი',
+      locationRequestTextOnDenied:
+        'სიზუსტისთვის საჭიროა ჩართოთ ლოკაციის სერვისი',
       organization: 'ორგანიზაცია',
     },
     drawer: {
@@ -122,7 +125,7 @@ export default {
       yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
       bankrupt: 'არასაკმარისი თანხა',
       paymentFailed: 'ბარათით გადახდა ვერ განხორციელდა.',
-      processFailed: 'პროცესი წარუმატებლად დასრულდა'
+      processFailed: 'პროცესი წარუმატებლად დასრულდა',
     },
     charger: {
       chargeWitchCode: 'დატენვა კოდით',
@@ -146,11 +149,10 @@ export default {
       maxAllowedCarCharing: 'შესაძლებელია მაქსიმუმ 2 ავტომობილის დატენვა',
       selectConnector: 'გთხოვთ აირჩიოთ შესაერთებელი',
       chargerIsBusy: 'დამტენი დაკავებულია',
-      minutes: 'წუთები'
+      minutes: 'წუთები',
     },
     notAuthorized: {
-      notAuthorizedText:
-        'დატენვის დასაწყებად, გაიარეთ ავტორიზაცია',
+      notAuthorizedText: 'დატენვის დასაწყებად, გაიარეთ ავტორიზაცია',
     },
     chooseChargeMethod: {
       choose: 'აირჩიეთ',
@@ -303,5 +305,6 @@ export default {
       public: 'საჯარო',
       notPublic: 'არასაჯარო',
     },
+    privacyPolicy: privacyPolicy,
   },
-}
+};
