@@ -150,6 +150,12 @@ let html = `
 
           <li>
             <p>
+              The Company is entitled to make the information provided by the User available to its employee and/or the relevant account manager who needs access to such information when performing and/or fulfilling official duties and/or when fulfilling the relevant contractual or statutory obligations by the Company;
+            </p>
+          </li>
+
+          <li>
+            <p>
               The Company is entitled to process the information submitted by the User for direct marketing purposes and to provide the User with advertising or other offers through the Application or other means.
             </p>
           </li>
