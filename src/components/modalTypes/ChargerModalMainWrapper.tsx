@@ -6,27 +6,20 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
-  Alert,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { Colors } from 'utils'
-import { PopUpCountDown, BaseText } from 'components'
+import { BaseText } from 'components'
 import images from 'assets/images'
-import {
-  ChargingStatus,
-  ChargingFinishedPopupEnum,
-} from '../../../@types/allTypes.d'
+import { ChargingFinishedPopupEnum } from '../../../@types/allTypes.d'
 import {
   BeforeFineLVL2FullCharge,
   UsedUpFast,
   Finished,
   Bankrupt,
 } from './chargingFinishedPopupTypes'
-import {
-  ScrollView,
-  TouchableWithoutFeedback,
-} from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 
 type ChargerModalMainWrapperProps = {
   onPress: () => void
@@ -68,48 +61,6 @@ const ChargerModalMainWrapper = ({
       case ChargingFinishedPopupEnum.PaymentFailed:
         return <Bankrupt {...data} />
 
-      // case ChargingFinishedPopupEnum.FinishedCharging: // TODO
-      //   _view[0] = (
-      //     <>
-      //       <BaseText style={styles.bottomContentDescription}>
-      //         {/* {t(bottomDescription)} */}
-      //       </BaseText>
-      //       <PopUpCountDown up={false} warningLevel={1} />
-      //     </>
-      //   )
-
-      //   _view[1] = (
-      //     <View style={{marginVertical: 12}}>
-      //       <ModalPopupChargerItem key={ind} {...val} />
-
-      //       {[
-      //         {val: 3, type: 0},
-      //         {val: 3, type: 1},
-      //         {val: 33, type: 2},
-      //       ].map((val, ind) => (
-      //         //TODO: not stable data options from back
-      //         <ModalPopupChargerItem key={ind} {...val} />
-      //       ))}
-      //     </View>
-      //   )
-      //   break
-      // case 3:
-      //   _view[2] = (
-      //     <>
-      //       <View style={styles.lineView} />
-      //       <TouchableOpacity
-      //         //TODO: no action known yet
-      //         onPress={(): void => {}}
-      //         style={styles.subtype2Touchable}
-      //       >
-      //         <BaseText style={{color: Colors.primaryGreen}}>
-      //           {t('charger.allChargerList')}
-      //         </BaseText>
-      //       </TouchableOpacity>
-      //     </>
-      //   )
-
-      //   break
       default:
         return (
           <BaseText style={styles.bottomContentDescriptionType2}>

@@ -6,11 +6,11 @@ import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, getLocaleText} from 'utils'
 import TransactionListItem from './components/TransactionListItem'
 import services from 'services'
-import {UserOrderResponseItem} from 'allTypes'
+import {TransactionsHistoryResponseItem} from 'allTypes'
 
 const TransactionList = ({navigation}: any): ReactElement => {
-  const getOrders = async (): Promise<any> => {
-    const res = await services.getUserOrders()
+  const getTransactionsHistory = async (): Promise<any> => {
+    const res = await services.getTransactionsHistory()
     return res.data
   }
 
@@ -23,7 +23,7 @@ const TransactionList = ({navigation}: any): ReactElement => {
       <ScrollView style={styles.transactionsContainer}>
         <FetchedDataRenderer
           property={'Partners'}
-          onItemRender={(val: UserOrderResponseItem): ReactElement => (
+          onItemRender={(val: TransactionsHistoryResponseItem ): ReactElement => (
             <TransactionListItem
               key={val.id}
               onPress={navigation.navigate.bind(
@@ -31,13 +31,13 @@ const TransactionList = ({navigation}: any): ReactElement => {
                 'ShowTransaction',
                 {order: val},
               )}
-              title={getLocaleText(val.charger_connector_type?.charger.name)}
-              date={val.created_at}
-              price={val.price}
+              charger_name={val.charger_name}
+              start_date={val.start_date}
+              charge_price={val.charge_price}
             />
           )}
           updateAlways={true}
-          fetchData={getOrders}
+          fetchData={getTransactionsHistory}
         />
       </ScrollView>
       <SafeAreaView />

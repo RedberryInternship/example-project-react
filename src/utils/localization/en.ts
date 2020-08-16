@@ -215,6 +215,7 @@ export default {
       energy: 'Energy',
       address: 'Address',
       cardNumber: 'Card Number',
+      penaltyFee: 'Penalty Fee',
     },
     dropDownAlert: {
       error: 'Error',

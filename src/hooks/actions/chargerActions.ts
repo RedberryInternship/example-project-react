@@ -100,7 +100,7 @@ export const finishCharging = async (
 ) => {
   try {
     const result = await services.finishCharging(orderId)
-
+    console.log([ 'is_free', result ]);
     Helpers.configureChargingFinishPopup(result, dispatch)
   } catch (error) {
     if (error.data?.message)
@@ -145,18 +145,7 @@ export const chargerStateController = (
   dispatch: any,
 ) => {
   for (const state of result) {
-    // state = {...state,...{charging_status: ChargingStatus.PAYMENT_FAILED}}
-    console.log("STATE_FROM_BACK:",state);
     Helpers.configureChargingFinishPopup(state, dispatch)
-    // if (
-    //   Defaults.activeRoute !== 'Charging' &&
-    //   (state.charging_status == ChargingStatus.CHARGED ||
-    //     state.charging_status == ChargingStatus.ON_FINE)
-    // ) {
-    //   setTimeout(() => {
-    //     NavigationActions.navigate('Charging')
-    //   }, 1000)
-    // }
   }
 
   if (Defaults.activeRoute === 'Charging' && result.length === 0) {

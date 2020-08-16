@@ -23,7 +23,7 @@ const PrivacyPolicy = ({onPress}: PrivacyPolicyProps): ReactElement => {
 
   return (
     <View style={styles.container}>
-      <BaseText style={styles.title}>{'წესები'}</BaseText>
+      <BaseText style={styles.title}>{t('drawer.termsAndConditions')}</BaseText>
       <ScrollView style={{ marginVertical: 32 }}>
         <TouchableOpacity>
           <HTML html={t('privacyPolicy')} />
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   closeButtonTouchable: {
     borderRadius: 25,
     width: 50,
-    height: 20,
+    height: 50,
     backgroundColor: '#0199F011',
     alignSelf: 'center',
     justifyContent: 'center',

@@ -28,9 +28,9 @@ export default PopUpCountDown
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 0,
-    width: 88,
-    height: 88,
-    borderRadius: 44,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
     borderWidth: 1,
     borderColor: '#FF000F54',
     alignItems: 'center',
@@ -39,9 +39,9 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   innerContainer: {
-    width: 82,
-    height: 82,
-    borderRadius: 41,
+    width: 98,
+    height: 98,
+    borderRadius: 49,
     borderWidth: 3,
     backgroundColor: 'rgba(255, 0, 15, 0.15)',
     borderColor: '#FF000F',

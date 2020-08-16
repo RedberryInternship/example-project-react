@@ -206,6 +206,7 @@ export default {
       energy: 'ენერგია',
       address: 'მისამართი',
       cardNumber: 'ბარათის ნომერი',
+      penaltyFee: 'ჯარიმა',
     },
     dropDownAlert: {
       error: 'შეცდომა',

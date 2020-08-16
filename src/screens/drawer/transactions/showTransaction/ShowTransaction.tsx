@@ -14,7 +14,7 @@ import {
   NavigationState,
   NavigationParams,
 } from 'react-navigation'
-import {UserOrderResponseItem} from 'allTypes'
+import {TransactionsHistoryResponseItem} from 'allTypes'
 import images from 'assets/images'
 
 type DetailsItemType = {
@@ -38,15 +38,20 @@ const ShowTransactions = ({
 }: ShowTransactionsProps): ReactElement => {
   const {t} = useTranslation()
   const {
-    charger_connector_type,
-    payments,
-    price,
-    charge_time,
-  }: UserOrderResponseItem = navigation.getParam('order', [])
-  // Vobi Todo: destructure order
-  // Vobi Todo: order.charger.name order.confirm_date
-  // Vobi Todo: const { charger, confirm_date } = order
-  // Vobi Todo :charger.name confirm_date...
+    charger_name,
+    address,
+    duration,
+    penalty_fee,
+    charge_power,
+    start_date,
+    charge_price,
+    user_card_pan,
+  }: TransactionsHistoryResponseItem = navigation.getParam('order', [])
+
+  const penaltyFee      = (): string => (`${penalty_fee} ${t('gel')}`)
+  const chargePrice     = (): string => (`${charge_price} ${t('gel')}`) 
+  const durationInMins  = (): string => (`${duration} ${t('minute')}`) 
+
   return (
     <View style={styles.container}>
       <BaseHeader
@@ -55,48 +60,23 @@ const ShowTransactions = ({
       />
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
-          <Image
-            // Vobi Todo: import image at top
-            source={images.transaction}
-            style={styles.transactionIcon}
-          />
-          <BaseText style={styles.title}>
-            {getLocaleText(charger_connector_type.charger.name)}
-          </BaseText>
-          <BaseText style={styles.dateAndTime}>
-            {' '}
-            {payments?.[0]?.confirm_date}
-          </BaseText>
-          <BaseText style={styles.price}>{price ?? ''}</BaseText>
+          <Image source={images.transaction} style={styles.transactionIcon} />
+          <BaseText style={styles.title}> {charger_name} </BaseText>
+          <BaseText style={styles.dateAndTime}> {' '} { start_date } </BaseText>
+          <BaseText style={styles.price}>{chargePrice()}</BaseText>
         </View>
-        <BaseText style={styles.detailsCopy}>
-          {t('transactions.details')}
-        </BaseText>
+        <BaseText style={styles.detailsCopy}> {t('transactions.details')} </BaseText>
         <View style={styles.detailsContainer}>
-          {charge_time && (
-            <DetailsItem
-              name={t('transactions.duration')}
-              value={charge_time}
-            />
-          )}
-
-          {/* TODO: No info about powers and energy */}
-          {/* <DetailsItem name={t('transactions.power')} value={order.power} />
-          <DetailsItem name={t('transactions.energy')} value={order.energy} /> */}
+          {duration     && ( <DetailsItem name={t('transactions.duration')}    value={durationInMins()}     /> )}
+          {charge_power && ( <DetailsItem name={t('transactions.power')}       value={charge_power} /> )}
+          {penalty_fee  && ( <DetailsItem name={t('transactions.penaltyFee')}  value={penaltyFee()}   /> )}
         </View>
         <View style={styles.addressFieldConatainer}>
-          <DetailsItem
-            name={t('transactions.address')}
-            value={getLocaleText(charger_connector_type.charger.location)}
-          />
+          <DetailsItem name={t('transactions.address')} value={address} />
         </View>
         <View style={styles.cardDetailsContainer}>
-          <BaseText style={styles.cardNumberCopy}>
-            {t('transactions.cardNumber')}
-          </BaseText>
-          <BaseText style={styles.cardNumber}>
-            {payments?.[0]?.user_card?.masked_pan ?? ''}
-          </BaseText>
+          <BaseText style={styles.cardNumberCopy}> {t('transactions.cardNumber')} </BaseText>
+          <BaseText style={styles.cardNumber}>{user_card_pan ?? ''}</BaseText>
         </View>
       </View>
       <SafeAreaView />

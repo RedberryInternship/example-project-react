@@ -181,6 +181,7 @@ export type ChargingState = {
   penalty_start_time: string
   penalty_fee: number
   charger_type: ChargerTypes
+  is_free: boolean
 }
 
 export type Action = {
@@ -566,26 +567,19 @@ export type Partner = {
   image: string | null
 }
 
-export type UserOrderResponseType = {
-  data: UserOrderResponseItem[]
+export type TransactionsHistoryResponseType = {
+  data: TransactionsHistoryResponseItem[]
 }
-export type UserOrderResponseItem = {
-  charger_connector_type: ChargerConnectorTypeItem
-  charger_connector_type_id: number
-  charger_transaction_id: number
-  charging_status: ChargingStatus
-  charging_status_change_dates: null | string
-  charging_type: null | ChargerTypes
-  comment: null | string
-  created_at: string
+export type TransactionsHistoryResponseItem = {
   id: number
-  old_id: null | number
-  payments: OrderPayment[] | null
-  price: null | number
-  target_price: null | number
-  updated_at: string
-  user_card_id: number
-  user_id: number
+  charger_name: string
+  address: string
+  duration: string
+  penalty_fee: null|string
+  charge_power: null | string
+  start_date: string
+  charge_price: string
+  user_card_pan: string | null
 }
 
 export type ChargerConnectorTypeItem = {

@@ -65,11 +65,6 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
       visible: false,
     })
     this.state.config.onCloseClick && this.state.config.onCloseClick()
-
-    // for performace option should use bollow, but it has some drowbacks for example delay in navigation
-    // InteractionManager.runAfterInteractions(() => {
-    //   this.state.config.onCloseClick && this.state.config.onCloseClick()
-    // })
   }
 
   customUpdate = (visible: boolean, config?: Config): void => {
@@ -98,13 +93,6 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         <View
           style={[
             styles.modalContentContainer,
-            // Vobi Todo: move this configs as constants what is 3 and 4
-            // Vobi todo: const isConfig3 = this.state.config?.type === 3
-            // Vobi todo: const isConfig4 = this.state.config?.type === 4
-            // {
-            //   justifyContent: isConfig3 ? 'flex-start' : 'space-between',
-            //   height: isConfig4 ? 'auto' : Const.Height * 0.7
-            // }
             {
               justifyContent:
                 this.state.config && this.state.config.type === 3

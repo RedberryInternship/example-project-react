@@ -215,6 +215,7 @@ const configureChargingFinishPopup = (
     refund_money,
     consumed_money,
     charging_type,
+    is_free,
   }: ChargingState,
   dispatch: any,
 ) => {
@@ -239,6 +240,7 @@ const configureChargingFinishPopup = (
         time: penalty_start_time,
         consumedMoney: consumed_money,
         refundMoney: refund_money,
+        is_free: is_free,
       },
       onCloseClick: () => onModalClose(dispatch),
     }
@@ -324,14 +326,12 @@ const configureChargingFinishPopup = (
       case ChargingStatus.ON_HOLD:
         Helpers.DisplayDropdownWithError('dropDownAlert.connectionProblem')
         return;
-        break;
-      default:
-        break
     }
     setTimeout(() => {
-      // NavigationActions.navigate('Charging')
+      console.log([ 'შემოდის აქ',  charging_status, options ]);
+
       Defaults.modal.current?.customUpdate(true, options)
-    }, 500)
+    }, 1000)
   }
 }
 export default {

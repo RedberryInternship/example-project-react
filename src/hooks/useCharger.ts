@@ -17,17 +17,17 @@ export default (state: AppState, dispatch: any) => {
     chargerReducer,
     chargerInitialState,
   )
-  // const timeInterval = useRef<any>()
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      console.log(JSON.stringify(remoteMessage, null, 2), 'remoteMessage')
-      const state = JSON.parse(remoteMessage.data?.data) as
-        | ChargingState[]
-        | undefined
+      
+      const firebaseMSG = JSON.parse(remoteMessage.data?.data);
+      
+      console.log([ 'FirebaseMSG', firebaseMSG ])     
+      
+      const state = firebaseMSG as | ChargingState[] | undefined
 
       if (state) {
-        console.log(JSON.stringify(state, null, 2), 'remoteMessage')
 
         state.every((val, index) => {
           if (
@@ -55,14 +55,6 @@ export default (state: AppState, dispatch: any) => {
       Defaults.modal?.current?.customUpdate(false)
     }
   }, [state.authStatus])
-
-  // useEffect(() => {
-  //   if (charger.chargingState.length && state.authStatus === 'success') {
-  //     timeInterval.current = setTimeout(() => {
-  //       chargingState(dispatchCharger)
-  //     }, 30000)
-  //   }
-  // }, [charger])
 
   return { charger, dispatchCharger }
 }

@@ -6,7 +6,7 @@ import {
   RequestStandardResponseType,
   FAQResponseType,
   PartnersResponseType,
-  UserOrderResponseType,
+  TransactionsHistoryResponseType,
   UserLastChargersResponseType,
   UserInfoUpdateResponseType,
   EditPasswordResponseType,
@@ -46,8 +46,8 @@ export const getFAQ = (): Promise<FAQResponseType> => ajax.get('/faq');
 export const getPartners = (): Promise<PartnersResponseType> =>
   ajax.get('/partners');
 
-export const getUserOrders = (): Promise<UserOrderResponseType> =>
-  ajax.get('/user-orders');
+export const getTransactionsHistory = (): Promise<TransactionsHistoryResponseType> =>
+  ajax.get('/transactions-history');
 
 export const getUserChargers = (): Promise<UserLastChargersResponseType> =>
   ajax.get('/user-chargers');
