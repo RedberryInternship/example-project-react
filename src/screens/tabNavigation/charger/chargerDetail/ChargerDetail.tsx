@@ -7,9 +7,8 @@ import {
   BaseHeader,
   TitleTopLeftContainer,
   BaseButton,
-  FetchedDataRenderer,
 } from 'components'
-import {Colors, Defaults} from 'utils'
+import {Colors, Const } from 'utils'
 import {getLocaleText} from 'utils/localization/localization'
 import images from 'assets/images'
 import {
@@ -66,8 +65,9 @@ const ChargerDetail = ({
               active={activeChargerType === index}
               onPress={setActiveChargerType.bind(ChargerDetail, index)}
               type={val.name}
-              power={'34'}
+              power={Const.connectorTypeChargePowers[val.name]}
             />
+
           )}
         />
         {!!charger?.business_services?.length && (

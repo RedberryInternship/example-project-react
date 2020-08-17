@@ -173,3 +173,9 @@ export const eSpaceLocationOnMapInfo = {
   longitude: 44.7486845,
   label: 'E-space',
 };
+
+export const connectorTypeChargePowers = {
+  'Combo 2': 50,
+  'CHAdeMO': 50,
+  'Type 2': 22,
+};
