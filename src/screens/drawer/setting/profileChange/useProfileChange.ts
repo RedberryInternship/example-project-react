@@ -60,15 +60,11 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
     try {
       const result = await services.addCar(+form.carModelId)
 
-      if (result.json_status === 'User Car Added') {
-        navigation.goBack()
-        updateUser(dispatch)
-        Helpers.DisplayDropdownWithSuccess(
-          'dropDownAlert.informationUpdatedSuccessfully',
-        )
-      } else {
-        throw new Error('Something Went Wrong...')
-      }
+      navigation.goBack()
+      updateUser(dispatch)
+      Helpers.DisplayDropdownWithSuccess(
+        'dropDownAlert.informationUpdatedSuccessfully',
+      )
     } catch (err) {
       Helpers.DisplayDropdownWithError()
     }
