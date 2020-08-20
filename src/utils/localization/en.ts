@@ -152,7 +152,7 @@ export default {
       minutesPrice: '15 minutes price',
       connectors: 'Connectors',
       additionalServices: 'Additional services',
-      powerOfChargerType: 'power {{power}}kw/s',
+      powerOfChargerType: 'power {{power}}kw/h',
       code: 'code: #{{code}}',
       pleaseAddCardFirst: 'Please add card first',
       maxAllowedCarCharing: 'Max allowed only two car',

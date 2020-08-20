@@ -70,15 +70,8 @@ const BottomSheetReanimated = forwardRef(
         // Vobi Todo: setText('')
         _this.current.text = ''
         inputRef.current?.clear()
-      } else {
-        inputRef.current?.blur()
-        // Keyboard.dismiss()
-        ref.current?.close()
-        setTimeout(() => {
-          Keyboard.dismiss()
-        }, 400)
       }
-    }, [textHandler, inputRef, ref, _this])
+    }, [textHandler, inputRef, _this])
 
     const onTextChange = useCallback(
       (text: string): void => {
@@ -136,14 +129,6 @@ const BottomSheetReanimated = forwardRef(
               <Image source={images.delete} style={styles.deleteIcon} />
             </TouchableWithoutFeedback>
           </View>
-        </View>
-      ),
-      [t],
-    )
-
-    const renderContent = (): ReactElement => {
-      return (
-        <View style={styles.bodyContainer}>
           <View style={styles.filterContainer}>
             {Const.FilterTypes.map((val: string, index: number) => (
               <BottomSheetFilterItem
@@ -154,6 +139,14 @@ const BottomSheetReanimated = forwardRef(
               />
             ))}
           </View>
+        </View>
+      ),
+      [t],
+    )
+
+    const renderContent = (): ReactElement => {
+      return (
+        <View style={styles.bodyContainer}>
           {/* <FlatList
             keyboardShouldPersistTaps={'handled'}
             data={filteredChargers}
@@ -264,7 +257,6 @@ const styles = StyleSheet.create({
   },
   headerComponent: {
     justifyContent: 'center',
-    paddingBottom: 16,
     paddingHorizontal: 16,
     backgroundColor: '#023D63',
     flex: 0,
@@ -337,6 +329,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'flex-start',
     alignItems: 'stretch',
+    marginTop: 16,
     marginBottom: 8,
     paddingHorizontal: 4,
   },
