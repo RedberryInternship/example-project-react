@@ -12,6 +12,7 @@ type MapMarkerItemProps = {
   privateCharger: boolean
   active: boolean
   free: boolean
+  status: string
 }
 const MapMarkerItem = ({
   lat,

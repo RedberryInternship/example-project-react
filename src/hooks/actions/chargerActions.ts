@@ -100,7 +100,7 @@ export const finishCharging = async (
 ) => {
   try {
     const result = await services.finishCharging(orderId)
-    console.log([ 'is_free', result ]);
+    // console.log([ 'is_free', result ]);
     Helpers.configureChargingFinishPopup(result, dispatch)
   } catch (error) {
     if (error.data?.message)

@@ -39,6 +39,7 @@ const MapView = forwardRef(
           ? state?.AllChargers
           : filteredChargersOnMap
         )?.map((charger: Charger) => (
+          charger.status !== "NOT_PRESENT" &&
           <MapMarkerItem
             key={charger.id}
             lat={parseFloat(charger.lat.toString())}
@@ -47,6 +48,7 @@ const MapView = forwardRef(
             fastCharger={charger.connector_types?.[0]?.name !== 'Type 2'}
             privateCharger={!charger.public}
             active={!!charger.active}
+            status={charger.status}
             free={charger.is_free}
             groupChargerCount={charger.charger_group?.chargers?.length ?? 0}
           />
