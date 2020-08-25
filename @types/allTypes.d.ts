@@ -92,6 +92,7 @@ export type ChargerDetail = {
   location: LanguageType
   public: number
   active: number
+  status: string
   lat: string
   lng: string
   iban: string
@@ -453,6 +454,7 @@ export type ChargersObject = {
 
 export type ChargerMarkerIconControllerType = {
   active: boolean
+  status: string
   groupChargerCount?: number
   privateCharger: boolean
   fastCharger: boolean

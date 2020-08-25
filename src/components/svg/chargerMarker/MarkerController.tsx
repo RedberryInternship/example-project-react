@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 
 import {
   ChargerMarkerIconControllerType,
@@ -8,15 +8,22 @@ import {
 import RootPin from './RootPin'
 
 const MarkerController = ({
-  active,
-  free,
+  status,
   ...props
 }: ChargerMarkerIconControllerType): ReactElement => {
   const getStatus = () => {
-    if (!active) return ChargerMarkerColor.notWorking
-    else if (free) return ChargerMarkerColor.free
-    else return ChargerMarkerColor.busy
-    //TODO: need on going charging status handling, which doeasn't exist //maybe finished, nned to be checked
+    switch (status) {
+      case 'ACTIVE':
+        return ChargerMarkerColor.free
+        break;
+      case 'INACTIVE':
+        return ChargerMarkerColor.notWorking
+        break;
+      case 'CHARGING':
+        return ChargerMarkerColor.busy
+        break;
+    }
+    return ChargerMarkerColor.notWorking
   }
 
   return <RootPin {...props} pinColorType={getStatus()} />
