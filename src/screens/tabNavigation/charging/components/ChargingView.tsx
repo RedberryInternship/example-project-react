@@ -14,18 +14,21 @@ import {
   ChargingState,
   HomeNavigateModes,
 } from '../../../../../@types/allTypes.d'
+import useCharging from '../useCharging'
 
 type ChargingViewProps = {
   hook: {
     t: any
     navigation: NavigationScreenProp<NavigationState, NavigationParams>
     onFinish: (charger_connector_type_id: number) => void
+    setLoading: (loading: boolean) => void
+    loading: boolean
   }
   chargingState: ChargingState
   singleCharger?: boolean
 }
 const ChargingView = ({
-  hook: { t, navigation, onFinish },
+  hook: { t, navigation, onFinish, setLoading, loading },
   chargingState: {
     consumed_money,
     already_paid,
@@ -34,11 +37,11 @@ const ChargingView = ({
   },
   singleCharger,
 }: ChargingViewProps): ReactElement => {
+  
   const CircleDiameter = useMemo(
     () => Const.Width - 150 - (singleCharger ? 0 : 50),
     [singleCharger],
   )
-
   return (
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={styles.MainChargerCircleContainer}>
@@ -97,9 +100,10 @@ const ChargingView = ({
         )}
 
         <BaseButton
-          onPress={() => onFinish(order_id)}
+          onPress={() => { setLoading(true); onFinish(order_id) }}
           text={'charging.finish'}
           style={styles.finishBtn}
+          loading={loading}
         />
       </View>
     </View>
