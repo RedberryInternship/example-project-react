@@ -98,6 +98,8 @@ target 'Espace' do
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
   target 'EspaceTests' do
     inherit! :complete
     # Pods for testing

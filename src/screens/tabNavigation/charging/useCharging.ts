@@ -13,7 +13,7 @@ export default (navigation: any) => {
   } = useContext(ChargerContext)
 
   const [activeTab, setActiveTab] = useState<number>(0)
-
+  const [loading, setLoading] = useState<boolean>(false)
   const { t } = useTranslation()
 
   const insets = useSafeAreaInsets()
@@ -31,7 +31,7 @@ export default (navigation: any) => {
         t('dropDownAlert.charging.areUSore'),
         '',
         [
-          { text: t('no'), onPress: () => console.log('Ask me later pressed') },
+          { text: t('no'), onPress: () => {setLoading(false); console.log('Ask me later pressed: ',loading);} },
           {
             text: t('yes'),
             onPress: () =>
@@ -40,14 +40,16 @@ export default (navigation: any) => {
                   orderId,
                 },
                 chargerDispatch,
-              ),
+              ).then(() => {
+                setLoading(false)
+              }),
             style: 'cancel',
           },
         ],
         { cancelable: true },
       )
     },
-    [t, finishCharging, chargerDispatch],
+    [t, finishCharging, chargerDispatch, setLoading, loading],
   )
 
   return {
@@ -59,5 +61,7 @@ export default (navigation: any) => {
     changeActiveTab,
     onFinish,
     navigation,
+    setLoading,
+    loading
   }
 }
