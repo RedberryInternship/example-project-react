@@ -1,28 +1,28 @@
-import React, {useContext, ReactElement, useMemo} from 'react'
-import {StyleSheet, ScrollView, View, TouchableOpacity} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {useTranslation} from 'react-i18next'
+import React, { useContext, ReactElement, useMemo } from 'react'
+import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
 
-import {AppContextType, ScreenPropsWithNavigation} from 'allTypes'
+import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
 
-import {BaseButton, BaseText} from 'components'
+import { BaseButton, BaseText } from 'components'
 
-import {Const, Colors, Helpers, Defaults} from 'utils'
-import {AppContext} from '../../../../App'
-import {logOut} from '../../../hooks/actions/rootActions'
+import { Const, Colors, Helpers, Defaults } from 'utils'
+import { AppContext } from '../../../../App'
+import { logOut } from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
 import {
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
 } from './components'
-import {useAsyncStorage} from '@react-native-community/async-storage'
+import { useAsyncStorage } from '@react-native-community/async-storage'
 
-const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {t, i18n} = useTranslation()
+const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { t, i18n } = useTranslation()
   const insets = useSafeAreaInsets()
   const context: AppContextType = useContext(AppContext)
-  const {setItem: setLocaleStorage} = useAsyncStorage('locale')
+  const { setItem: setLocaleStorage } = useAsyncStorage('locale')
 
   let drawerContent = null
 
@@ -35,7 +35,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   if (!Helpers.isAuthenticated()) {
     drawerContent = (
       <>
-        <View style={{paddingTop: insets.top, borderTopLeftRadius: 24}}>
+        <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
           <BaseButton
             image={images.user}
             onPress={navigation.navigate.bind(Drawer, 'Auth')}
@@ -54,7 +54,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           })}
         </View>
 
-        <View style={{justifyContent: 'flex-end'}}></View>
+        <View style={{ justifyContent: 'flex-end' }}></View>
       </>
     )
   } else {
@@ -76,7 +76,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 
   return (
     <View
-      style={[styles.safeAreaViewContainer, {paddingBottom: insets.bottom}]}
+      style={[styles.safeAreaViewContainer, { paddingBottom: insets.bottom }]}
     >
       {Helpers.isAuthenticated() && (
         <BaseUserAvatarWithLabel
@@ -96,15 +96,13 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       >
         {drawerContent}
         <View>
-          {!Helpers.isAuthenticated() && (
-            <DrawerTextFieldItem
-              onPress={(): void => {
-                Defaults.modal.current?.customUpdate(true, {type: 6})
-              }}
-              text={'drawer.termsAndConditions'}
-              image={images.greenTick}
-            />
-          )}
+          <DrawerTextFieldItem
+            onPress={(): void => {
+              Defaults.modal.current?.customUpdate(true, { type: 6 })
+            }}
+            text={'drawer.termsAndConditions'}
+            image={images.greenTick}
+          />
           <View style={styles.localeAndLogoutWrapper}>
             <BaseLocaleButton
               onPress={toggleLanguage}
@@ -119,7 +117,7 @@ const Drawer = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                     rightText: t('drawer.logOut'),
                     leftText: t('no'),
                     onRightClick: () => context.dispatch(logOut()),
-                    onLeftClick: () => {},
+                    onLeftClick: () => { },
                   })
                 }}
               >

@@ -1,11 +1,11 @@
-import React, {createContext, useReducer, useMemo, ReactElement} from 'react'
-import {StyleSheet, View} from 'react-native'
+import React, { createContext, useReducer, useMemo, ReactElement } from 'react'
+import { StyleSheet, View } from 'react-native'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { ScreenPropsWithNavigation } from 'allTypes'
 
-import {Defaults, Colors} from 'utils'
-import reducer, {initialState} from 'hooks/reducers/homeReducers'
-import {useHome} from './hooks'
+import { Defaults, Colors } from 'utils'
+import reducer, { initialState } from 'hooks/reducers/homeReducers'
+import { useHome } from './hooks'
 import {
   MapView,
   HomeMainComponent,
@@ -16,7 +16,7 @@ import {
 
 export const HomeContext = createContext({})
 
-const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
+const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const {
@@ -38,7 +38,7 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 
   return useMemo(
     () => (
-      <HomeContext.Provider value={{state, dispatch}}>
+      <HomeContext.Provider value={{ state, dispatch }}>
         <View style={styles.mainContainer}>
           <MapView
             key={Defaults?.userDetail?.mapMode}
@@ -63,18 +63,20 @@ const Home = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
           filteredChargers={bottomSheetChargers ?? []}
           textHandler={searchInputTextChangeHandler}
         /> */}
-          <BottomSheetModalize
-            ref={bottomSheetRef}
-            onFilterClick={onFilterClick}
-            selectedFilters={selectedFilters}
-            onFilteredItemClick={onFilteredItemClick}
-            filteredChargers={
-              bottomSheetChargers.length
-                ? bottomSheetChargers
-                : context?.state.AllChargers ?? []
-            }
-            textHandler={searchInputTextChangeHandler}
-          />
+          {
+          context?.state.AllChargers?.length &&
+            <BottomSheetModalize
+              ref={bottomSheetRef}
+              onFilteredItemClick={onFilteredItemClick}
+              allChargers={
+                bottomSheetChargers.length
+                  ? bottomSheetChargers
+                  : context?.state.AllChargers ?? []
+              }
+              textHandler={searchInputTextChangeHandler}
+            />
+          }
+
           {/* <BottomSheetSlideUp
           ref={bottomSheetRef}
           onFilterClick={onFilterClick}
