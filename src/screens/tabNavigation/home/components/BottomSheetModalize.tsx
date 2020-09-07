@@ -66,14 +66,14 @@ const BottomSheetReanimated = forwardRef(
     const [chargersList, setChargersList] = useState<Charger[]>(allChargers)
     const selectedFilters = [false, false, false, false, false]
 
-    const closeClick = useCallback((): void => {
+    const closeClick = (): void => {
       if (_this.current.text !== '') {
-        textHandler('')
+        searchChargers('')
         // Vobi Todo: setText('')
         _this.current.text = ''
         inputRef.current?.clear()
       }
-    }, [textHandler, inputRef, _this])
+    }
 
     const onTextChange =
       (text: string): void => {
