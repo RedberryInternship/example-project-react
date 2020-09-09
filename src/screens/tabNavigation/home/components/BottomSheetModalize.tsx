@@ -5,7 +5,6 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
-  useState,
 } from 'react'
 import {
   StyleSheet,
@@ -17,19 +16,19 @@ import {
   Keyboard,
   BackHandler,
 } from 'react-native'
-import { useTranslation } from 'react-i18next'
-import { TextInput, FlatList } from 'react-native-gesture-handler'
+import {useTranslation} from 'react-i18next'
+import {TextInput, FlatList} from 'react-native-gesture-handler'
 import BottomSheet from 'reanimated-bottom-sheet'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Modalize } from 'react-native-modalize'
+import {Modalize} from 'react-native-modalize'
 
-import { Charger, ChargerDetail } from 'allTypes'
+import {Charger, ChargerDetail} from 'allTypes'
 
-import { Const, Colors, getLocaleText } from 'utils'
+import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
-import { BottomSheetFilterItem, MainSearchItem } from '../components'
-import { BaseText } from 'components'
+import {BottomSheetFilterItem, MainSearchItem} from '../components'
+import {BaseText} from 'components'
 
 type _This = {
   text: string
@@ -37,8 +36,8 @@ type _This = {
 
 type BottomSheetModalizeProps = {
   onFilterClick: (index: number) => void
-  selectedFilters: boolean[]
-  allChargers: Charger[]
+  selectedFilters: number[]
+  filteredChargers: Charger[]
   onFilteredItemClick: (charger: ChargerDetail) => void
   textHandler: (text: string) => void
 }
@@ -46,7 +45,9 @@ type BottomSheetModalizeProps = {
 const BottomSheetReanimated = forwardRef(
   (
     {
-      allChargers,
+      onFilterClick,
+      selectedFilters,
+      filteredChargers,
       onFilteredItemClick,
       textHandler,
     }: BottomSheetModalizeProps,
@@ -58,28 +59,27 @@ const BottomSheetReanimated = forwardRef(
     // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
-    const { t } = useTranslation()
+    const {t} = useTranslation()
     const height = useWindowDimensions().height
 
-    const { top, bottom } = useSafeAreaInsets()
+    const {top, bottom} = useSafeAreaInsets()
 
-    const [chargersList, setChargersList] = useState<Charger[]>(allChargers)
-    const selectedFilters = [false, false, false, false, false]
-
-    const closeClick = (): void => {
+    const closeClick = useCallback((): void => {
       if (_this.current.text !== '') {
-        searchChargers('')
+        textHandler('')
         // Vobi Todo: setText('')
         _this.current.text = ''
         inputRef.current?.clear()
       }
-    }
+    }, [textHandler, inputRef, _this])
 
-    const onTextChange =
+    const onTextChange = useCallback(
       (text: string): void => {
         _this.current.text = text
-        searchChargers(text)
-      }
+        textHandler(text)
+      },
+      [textHandler, _this],
+    )
 
     useEffect(() => {
       backHandlerRef.current = BackHandler.addEventListener(
@@ -97,64 +97,6 @@ const BottomSheetReanimated = forwardRef(
       return false
     }, [])
 
-    const filterChargers = (filterIndex: number) => {
-      selectedFilters[filterIndex] = !selectedFilters[filterIndex];
-      const chargers = allChargers;
-      const all = selectedFilters.indexOf(true) > -1 ? false : true;
-      let list = chargers.filter((charger, index) => {
-        if (selectedFilters[0] && charger.status === 'ACTIVE') {
-          return true;
-        }
-        if (selectedFilters[1] && charger.status === 'CHARGING') {
-          return true;
-        }
-        if (selectedFilters[2] && charger.connector_types?.length > 0 &&
-          (charger.connector_types[0]?.name === 'Combo 2' || charger.connector_types[0]?.name === 'Chademo')) {
-          return true;
-        }
-        if (selectedFilters[3] && charger.connector_types?.length > 0 && charger.connector_types[0]?.name === 'Type 2') {
-          return true;
-        }
-        if (selectedFilters[4] && charger?.public == 1) {
-          return true;
-        }
-        if (selectedFilters[5] && charger?.public == 0) {
-          return true;
-        }
-        return all;
-      })
-      setChargersList(list);
-    }
-
-    const searchChargers = (text: any) => {
-      const chargers = chargersList.length ? chargersList : allChargers;
-      const list = text !== "" ? chargers.filter(charger => {
-        if(charger?.code.includes(text)){
-          return true;
-        }
-        if(charger?.name.ka){
-          if(charger?.name.ka.includes(text)){
-            return true;
-          }
-        }
-        if(charger?.name.en){
-          if(charger?.name.en.includes(text)){
-            return true;
-          }
-        }
-
-        if(charger?.name.ru){
-          if(charger?.name.ru.includes(text)){
-            return true;
-          }
-        }
-        return false;
-      }) : allChargers;
-      if(list.length){
-        setChargersList(list)
-      }
-    }
-
     const renderHeaderComponent = useCallback(
       (): ReactElement => (
         <View style={styles.headerComponent}>
@@ -169,6 +111,7 @@ const BottomSheetReanimated = forwardRef(
               placeholder={`${t('home.location')}/${t('home.organization')}`}
               keyboardType={'default'}
               onChangeText={onTextChange}
+              onSubmitEditing={() => {}}
               placeholderTextColor={Colors.primaryWhite}
               allowFontScaling={false}
               ref={inputRef}
@@ -180,7 +123,7 @@ const BottomSheetReanimated = forwardRef(
             />
             <TouchableWithoutFeedback
               onPress={closeClick}
-              hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
               style={styles.closeTouchable}
             >
               <Image source={images.delete} style={styles.deleteIcon} />
@@ -191,14 +134,14 @@ const BottomSheetReanimated = forwardRef(
               <BottomSheetFilterItem
                 key={index}
                 text={t(val)}
-                onPress={() => filterChargers(index)}
                 active={!!selectedFilters[index]}
+                onPress={() => onFilterClick(index)}
               />
             ))}
           </View>
         </View>
       ),
-      [t],
+      [t,selectedFilters,textHandler],
     )
 
     const renderContent = (): ReactElement => {
@@ -214,8 +157,7 @@ const BottomSheetReanimated = forwardRef(
             }}
           /> */}
 
-          {chargersList?.map((chargerObj: Charger, index: number) => {
-
+          {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {
               view.push(
@@ -230,8 +172,7 @@ const BottomSheetReanimated = forwardRef(
                 />,
               )
             } else {
-              chargerObj.charger_group?.chargers?.map((val, index: number) => {
-                console.log("Chargers:", chargerObj.charger_group?.chargers);
+              chargerObj.charger_group?.chargers?.map((val, index: number) =>
                 view.push(
                   <MainSearchItem
                     key={val.id + getLocaleText(val.name) + index}
@@ -242,8 +183,8 @@ const BottomSheetReanimated = forwardRef(
                       val,
                     )}
                   />,
-                )
-              })
+                ),
+              )
             }
             return view
           })}
@@ -262,7 +203,7 @@ const BottomSheetReanimated = forwardRef(
             adjustToContentHeight={false}
             modalHeight={height - top - bottom - 65 - 12}
             alwaysOpen={55}
-            rootStyle={{ elevation: 22, zIndex: 34 }}
+            rootStyle={{elevation: 22, zIndex: 34}}
             avoidKeyboardLikeIOS={true}
             onClose={() => {
               Keyboard.dismiss()
@@ -367,7 +308,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  closeTouchable: { backgroundColor: 'red' },
+  closeTouchable: {backgroundColor: 'red'},
   searchContent: {
     width: Const.Width - 48,
     backgroundColor: Colors.primaryBackground,

@@ -9,8 +9,6 @@ import { useHome } from './hooks'
 import {
   MapView,
   HomeMainComponent,
-  BottomSheetReanimated,
-  BottomSheetSlideUp,
   BottomSheetModalize,
 } from './components'
 
@@ -64,11 +62,13 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           textHandler={searchInputTextChangeHandler}
         /> */}
           {
-          context?.state.AllChargers?.length &&
+            context?.state.AllChargers?.length &&
             <BottomSheetModalize
               ref={bottomSheetRef}
+              onFilterClick={onFilterClick}
+              selectedFilters={selectedFilters}
               onFilteredItemClick={onFilteredItemClick}
-              allChargers={
+              filteredChargers={
                 bottomSheetChargers.length
                   ? bottomSheetChargers
                   : context?.state.AllChargers ?? []
@@ -76,15 +76,6 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
               textHandler={searchInputTextChangeHandler}
             />
           }
-
-          {/* <BottomSheetSlideUp
-          ref={bottomSheetRef}
-          onFilterClick={onFilterClick}
-          selectedFilters={selectedFilters}
-          onFilteredItemClick={onFilteredItemClick}
-          filteredChargers={bottomSheetChargers ?? []}
-          textHandler={searchInputTextChangeHandler}
-        /> */}
         </View>
       </HomeContext.Provider>
     ),

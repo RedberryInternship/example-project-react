@@ -32,7 +32,7 @@ const HomeFilter = ({
 }: HomeFilterProps): ReactElement => {
   const [showFilter, setShowFilter] = useState(false)
   const {t} = useTranslation()
-
+  console.log("HomeFilter");
   const [translateX] = useState(new Animated.Value(translate))
 
   const handleFilterButton = useCallback((): void => {
@@ -90,7 +90,7 @@ const HomeFilter = ({
               text={t(val)}
               key={index}
               active={!!selectedFiltersOnMap[index]}
-              onPress={onFilterClickOnMap.bind(HomeFilter, index)}
+              onPress={() => onFilterClickOnMap(index)}
             />
           ))}
         </ScrollView>
