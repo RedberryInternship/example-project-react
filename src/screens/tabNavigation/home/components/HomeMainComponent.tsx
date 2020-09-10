@@ -1,17 +1,17 @@
-import React, {useContext, ReactElement} from 'react'
+import React, { useContext, ReactElement } from 'react'
 import {
   withNavigation,
   NavigationParams,
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
-import {View, StyleSheet, Alert} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {HomeContextType, Charger, MapImperativeRefObject} from 'allTypes'
+import { View, StyleSheet, Alert } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { HomeContextType, Charger, MapImperativeRefObject } from 'allTypes'
 
-import {BaseButton, MultiChargingTopModal} from 'components'
-import {Defaults, Helpers} from 'utils'
-import {HomeContext} from '../Home'
+import { BaseButton, MultiChargingTopModal } from 'components'
+import { Defaults, Helpers } from 'utils'
+import { HomeContext } from '../Home'
 import images from 'assets/images'
 import {
   HomeMainSearchView,
@@ -44,7 +44,7 @@ const HomeMainComponent = ({
 
   return (
     <View
-      style={[styles.container, {paddingTop: insets.top}]}
+      style={[styles.container, { paddingTop: insets.top }]}
       pointerEvents={'box-none'}
     >
       {Defaults.token ? null : (
@@ -58,6 +58,25 @@ const HomeMainComponent = ({
       <View style={styles.onMapRoundContainer} pointerEvents={'box-none'}>
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
+          onPress={(): void => {
+            Defaults.modal.current?.customUpdate(true, {
+              type: 2,
+            })
+          }}
+          image={images.alertCircle2}
+        />
+        <HomeMainSearchView
+          allChargers={allchargers}
+          mapRef={mapRef}
+          setShowAll={setShowAll}
+          ref={mainInputRef}
+        />
+      </View>
+      <View style={styles.modalContainer} pointerEvents={'box-none'}>
+        <View style={styles.modalOnMapRoundContainer}></View>
+        
+        <OnMapRoundButton
+          style={styles.modalOnMapRound}
           onPress={(): void => {
             if (
               // Vobi Todo: this must be declared as function and validation in validationHelpers
@@ -73,25 +92,6 @@ const HomeMainComponent = ({
           image={context.state.locationImageType}
           imageStyle={styles.onMapRoundImage}
         />
-        <HomeMainSearchView
-          allChargers={allchargers}
-          mapRef={mapRef}
-          setShowAll={setShowAll}
-          ref={mainInputRef}
-        />
-      </View>
-      <View style={styles.modalContainer} pointerEvents={'box-none'}>
-        <View style={styles.modalOnMapRoundContainer}></View>
-        <OnMapRoundButton
-          style={styles.modalOnMapRound}
-          onPress={(): void => {
-            Defaults.modal.current?.customUpdate(true, {
-              type: 2,
-            })
-          }}
-          image={images.alertCircle2}
-        />
-
         <HomeFilterView
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}

@@ -205,6 +205,12 @@ const BottomSheetReanimated = forwardRef(
             alwaysOpen={55}
             rootStyle={{elevation: 22, zIndex: 34}}
             avoidKeyboardLikeIOS={true}
+            onPositionChange = {(position) => {
+              if(position === 'initial'){
+                Keyboard.dismiss()
+                inputRef.current && inputRef.current.blur()
+              }
+            }}
             onClose={() => {
               Keyboard.dismiss()
               inputRef.current && inputRef.current.blur()

@@ -9,6 +9,7 @@ import {
   ChargingStatus,
   ChargingState,
   ChargingFinishedPopupEnum,
+  ChargerDetail
 } from '../../@types/allTypes.d'
 import i18next from 'i18next'
 import services from 'services'
@@ -80,27 +81,187 @@ const filterChargers = (selectedFilters: number[], data: Charger[]) => {
     showAll = selectedFilters.indexOf(1) > -1 ? false : true;
   }
   return data.filter((charger, index) => {
-    if (selectedFilters[0] && charger.status === 'ACTIVE') {
-      return true;
+    if (charger.status === "CHARGING") {
+      console.log("public:", charger.public);
     }
-    if (selectedFilters[1] && charger.status === 'CHARGING') {
-      return true;
+    let isFree: boolean = false;
+    let isBusy: boolean = false;
+    let isPublic: boolean = false;
+    let isFast: boolean = false;
+
+    if (charger.status === "CHARGING") {
+      isBusy = true;
     }
-    if (selectedFilters[2] && charger.connector_types?.length > 0 &&
-      (charger.connector_types[0]?.name === 'Combo 2' || charger.connector_types[0]?.name === 'Chademo')) {
-      return true;
+
+    if (charger.status === "ACTIVE") {
+      isFree = true;
     }
-    if (selectedFilters[3] && charger.connector_types?.length > 0 && charger.connector_types[0]?.name === 'Type 2') {
-      return true;
+
+    if (charger?.public) {
+      isPublic = true;
     }
-    if (selectedFilters[4] && charger?.public == 1) {
-      return true;
+
+    if ((charger.connector_types[0]?.name === 'Combo 2' || charger.connector_types[0]?.name === 'Chademo')) {
+      isFast = true;
     }
-    if (selectedFilters[5] && charger?.public == 0) {
-      return true;
+
+
+    // //free
+    if (isFree && selectedFilters[0]) {
+      if (filterByStatus(isFast, isPublic, selectedFilters)) {
+        return true;
+      }
     }
+
+    //busy
+    if (isBusy && selectedFilters[1]) {
+      if (filterByStatus(isFast, isPublic, selectedFilters)) {
+        return true;
+      }
+    }
+
+    if (isFast && selectedFilters[2] && selectedFilters[2] && !selectedFilters[0] && !selectedFilters[1]) {
+      if (filterByChargerType(isFast, isPublic, selectedFilters)) {
+        return true;
+      }
+    }
+
+    if (!isFast && selectedFilters[3] && !selectedFilters[0] && !selectedFilters[1]) {
+      if (filterByChargerType(isFast, isPublic, selectedFilters)) {
+        return true;
+      }
+    }
+
+    if (isPublic && selectedFilters[4] && !selectedFilters[0] && !selectedFilters[1] && !selectedFilters[2] && !selectedFilters[3]) {
+      if (filterByChargerAccess(isFast, isPublic, selectedFilters)) {
+        return true;
+      }
+    }
+
+    if (!isPublic && selectedFilters[5] && !selectedFilters[0] && !selectedFilters[1] && !selectedFilters[2] && !selectedFilters[3]) {
+      if (filterByChargerAccess(isFast, isPublic, selectedFilters)) {
+        return true;
+      }
+    }
+
     return showAll;
   })
+}
+
+const filterByStatus = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+  if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
+    return true;
+  }
+  if (filterFastChargers(isFast, isPublic, selectedFilters)) {
+    return true;
+  }
+  if (!selectedFilters[2] && !selectedFilters[3] && !selectedFilters[4] && !selectedFilters[5]) {
+    return true;
+  }
+}
+
+const filterByChargerType = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+  if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
+    return true;
+  }
+  if (filterFastChargers(isFast, isPublic, selectedFilters)) {
+    return true;
+  }
+  if (!selectedFilters[4] && !selectedFilters[5]) {
+    return true;
+  }
+}
+
+const filterByChargerAccess = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+  if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
+    console.log("slowP:", 1);
+    return true;
+  }
+  if (filterFastChargers(isFast, isPublic, selectedFilters)) {
+    console.log("fastPr:", 2);
+    return true;
+  }
+  if (!selectedFilters[2] && !selectedFilters[3]) {
+    return true;
+  }
+}
+
+const filterSlowChargers = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+
+  if (!isFast && isPublic && selectedFilters[3] && selectedFilters[4]) {
+    console.log("slow:", 1);
+    return true;
+  }
+
+  //slow and private
+  if (!isFast && !isPublic && selectedFilters[3] && selectedFilters[5]) {
+    console.log("slow:", 2);
+    return true;
+  }
+
+  //slow and busy
+  if (!isFast && selectedFilters[3] && !selectedFilters[4] && !selectedFilters[5]) {
+    console.log("slow:", 3);
+    return true;
+  }
+
+  //slow and public
+  if (isPublic && !isFast && !selectedFilters[2] && selectedFilters[4] && !selectedFilters[5]) {
+    console.log("slow:", 4);
+    return true;
+  }
+
+  //slow and private
+  if (!isPublic && !isFast && !selectedFilters[2] && selectedFilters[5] && !selectedFilters[4]) {
+    console.log("slow:", 5);
+    return true;
+  }
+
+  if (!selectedFilters[2] && selectedFilters[5] && selectedFilters[4]) {
+    console.log("slow:", 6);
+    return true;
+  }
+
+  return false;
+}
+
+
+const filterFastChargers = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+  if (isFast && isPublic && selectedFilters[2] && selectedFilters[4]) {
+    console.log("fast:", 1);
+    return true;
+  }
+
+  //Fast and private
+  if (isFast && !isPublic && selectedFilters[2] && selectedFilters[5]) {
+    console.log("fast:", 2);
+    return true;
+  }
+
+  //Fast 
+  if (isFast && selectedFilters[2] && !selectedFilters[4] && !selectedFilters[5]) {
+    console.log("fast:", 3);
+    return true;
+  }
+
+  //Fast and public
+  if (isPublic && isFast && !selectedFilters[3] && selectedFilters[4] && !selectedFilters[5]) {
+    console.log("fast:", 4);
+    return true;
+  }
+
+  //Fast and private
+  if (!isPublic && isFast && !selectedFilters[3] && selectedFilters[5] && !selectedFilters[4]) {
+    console.log("fast:", 5);
+    return true;
+  }
+
+  if (!selectedFilters[3] && selectedFilters[5] && selectedFilters[4]) {
+    console.log("fast:", 6);
+    return true;
+  }
+
+  return false;
 }
 
 const DisplayDropdownWithError = (
