@@ -12,7 +12,6 @@ import {
   NavigationState,
   NavigationEventPayload,
 } from 'react-navigation'
-import BottomSheet from 'reanimated-bottom-sheet'
 
 import {
   HomeNavigateModes,
@@ -120,11 +119,8 @@ const useHome = (
 
   const onFilterClick = useCallback(
     (index: number): void => {
-      let newSelectedFilters: number[] = []
-      ++selectedFilters[index]
-      newSelectedFilters = selectedFilters.map((val) =>
-        val > 1 || val === 0 ? 0 : 1,
-      )
+      let newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFilters))
+      newSelectedFilters[index] = selectedFilters[index] > 0 ? 0 : 1;
       setSelectedFilters(newSelectedFilters)
     },
     [selectedFilters, setSelectedFilters],
@@ -151,15 +147,11 @@ const useHome = (
     },
     [setInputText],
   )
-
+  
   const onFilterClickOnMap = useCallback(
     (index: number): void => {
-      let newSelectedFilters: number[] = []
-      ++selectedFiltersOnMap[index]
-      newSelectedFilters = selectedFiltersOnMap.map((val) =>
-        val > 1 || val === 0 ? 0 : 1,
-      )
-
+      const newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFiltersOnMap));
+      newSelectedFilters[index] = selectedFiltersOnMap[index] > 0 ? 0 : 1;
       setSelectedFiltersOnMap(newSelectedFilters)
     },
     [selectedFiltersOnMap, setSelectedFiltersOnMap],

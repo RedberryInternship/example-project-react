@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Alert, Linking } from 'react-native'
+import { Linking } from 'react-native'
 
 import { Defaults, Const, Helpers } from 'utils'
 import { Navigation, ContactInfoResponseType } from 'allTypes'

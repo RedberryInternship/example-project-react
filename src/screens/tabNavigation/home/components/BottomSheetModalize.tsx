@@ -134,14 +134,14 @@ const BottomSheetReanimated = forwardRef(
               <BottomSheetFilterItem
                 key={index}
                 text={t(val)}
-                onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
                 active={!!selectedFilters[index]}
+                onPress={() => onFilterClick(index)}
               />
             ))}
           </View>
         </View>
       ),
-      [t],
+      [t,selectedFilters,textHandler],
     )
 
     const renderContent = (): ReactElement => {
@@ -205,6 +205,12 @@ const BottomSheetReanimated = forwardRef(
             alwaysOpen={55}
             rootStyle={{elevation: 22, zIndex: 34}}
             avoidKeyboardLikeIOS={true}
+            onPositionChange = {(position) => {
+              if(position === 'initial'){
+                Keyboard.dismiss()
+                inputRef.current && inputRef.current.blur()
+              }
+            }}
             onClose={() => {
               Keyboard.dismiss()
               inputRef.current && inputRef.current.blur()

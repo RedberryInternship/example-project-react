@@ -1,11 +1,11 @@
-import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {TouchableOpacity} from 'react-native-gesture-handler'
+import React, { ReactElement } from 'react'
+import { Text, View, Image, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
-import {Colors} from 'utils'
+import { Colors } from 'utils'
 import images from 'assets/images'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
 
 type ChargerDetailTopInfoProps = {
   chargerLocationDirectionPress: () => void
@@ -28,14 +28,14 @@ const ChargerDetailTopInfo = ({
   distance,
   favorite,
 }: ChargerDetailTopInfoProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <View style={styles.nameAndfavIconContainer}>
         <View style={styles.nameAndCodeContainer}>
           <BaseText style={styles.nameText}>{name}</BaseText>
           <BaseText style={styles.codeContainer}>
-            {t('chargerDetail.code', {code})}
+            {t('chargerDetail.code', { code })}
           </BaseText>
         </View>
         <View>
@@ -51,14 +51,16 @@ const ChargerDetailTopInfo = ({
         </View>
       </View>
       <View style={styles.divisor} />
+      <View style={styles.locationContainer}>
+        <Image source={images.mapPin} style={styles.locationIcon} />
+        <Text style={styles.locationText}>
+          {location}
+        </Text>
+      </View>
+      <View style={styles.divisor} />
       <View style={styles.locationAndDistanceContainer}>
         <View style={styles.locationAndMapPressContainer}>
-          <View style={styles.locationContainer}>
-            <Image source={images.mapPin} style={styles.locationIcon} />
-            <BaseText style={styles.locationText} numberOfLines={2}>
-              {location}
-            </BaseText>
-          </View>
+
           <TouchableOpacity
             onPress={showChargerLocationPress}
             style={styles.seeOnMapContainer}

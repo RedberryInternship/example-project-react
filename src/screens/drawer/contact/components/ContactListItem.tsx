@@ -37,7 +37,7 @@ const ContactListItem = ({
           <Image source={image} style={styles.image} />
           <BaseText style={styles.name}>{t(name)}</BaseText>
         </View>
-        <BaseText style={styles.value}>{value}</BaseText>
+        <Text style={styles.value}>{value}</Text>
       </View>
     </TouchableOpacity>
   )

@@ -13,7 +13,6 @@ type CurrentTariffsProps = {
 
 const CurrentTariffs = ({connector}: CurrentTariffsProps): ReactElement => {
   const {t} = useTranslation()
-  console.log("COnnector",connector);
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
