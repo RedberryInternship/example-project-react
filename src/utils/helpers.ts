@@ -56,6 +56,7 @@ const GetFilteredCharger = async (
       if (filterInput !== "") {
         return searchChargers(filterInput, data);
       }
+      // console.log("Filters:",filterChargers(selectedFilters, data));
       return filterChargers(selectedFilters, data)
     } catch (error) {
       DisplayDropdownWithError()
@@ -81,9 +82,6 @@ const filterChargers = (selectedFilters: number[], data: Charger[]) => {
     showAll = selectedFilters.indexOf(1) > -1 ? false : true;
   }
   return data.filter((charger, index) => {
-    if (charger.status === "CHARGING") {
-      console.log("public:", charger.public);
-    }
     let isFree: boolean = false;
     let isBusy: boolean = false;
     let isPublic: boolean = false;

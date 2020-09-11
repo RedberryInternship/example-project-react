@@ -69,9 +69,7 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
               selectedFilters={selectedFilters}
               onFilteredItemClick={onFilteredItemClick}
               filteredChargers={
-                bottomSheetChargers.length
-                  ? bottomSheetChargers
-                  : context?.state.AllChargers ?? []
+                bottomSheetChargers
               }
               textHandler={searchInputTextChangeHandler}
             />
