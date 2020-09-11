@@ -69,7 +69,11 @@ export default (navigation: Navigation) => {
     console.log("URL:",url);
     Linking.canOpenURL(url)
     .then(response => {
-      Linking.openURL(url);
+      if(response){
+        Linking.openURL(url);
+      }else{
+        Linking.openURL(backupUrl.toString());
+      }
     }).catch(error => {
       Logger(error)
       if(error.message.indexOf('fb://page') > -1 && typeof backupUrl === 'string'){

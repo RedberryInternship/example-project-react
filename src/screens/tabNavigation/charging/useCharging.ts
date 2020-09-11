@@ -46,7 +46,7 @@ export default (navigation: any) => {
             style: 'cancel',
           },
         ],
-        { cancelable: true },
+        { cancelable: false },
       )
     },
     [t, finishCharging, chargerDispatch, setLoading, loading],
