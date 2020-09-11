@@ -16,9 +16,6 @@ export const API = 'https://app.e-space.ge/api/app/V1'; // prod
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw';
 export const MAP_URL = 'https://maps.googleapis.com/maps/api';
 
-// facebook page id
-export const FB_PAGE_ID_REGEX = '(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?'
-
 // Vobi Todo: move this as config
 export const Width = Dimensions.get('window').width;
 export const Height = Dimensions.get('window').height;
