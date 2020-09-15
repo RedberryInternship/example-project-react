@@ -172,11 +172,9 @@ const filterByChargerType = (isFast: boolean, isPublic: boolean, selectedFilters
 
 const filterByChargerAccess = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
   if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
-    console.log("slowP:", 1);
     return true;
   }
   if (filterFastChargers(isFast, isPublic, selectedFilters)) {
-    console.log("fastPr:", 2);
     return true;
   }
   if (!selectedFilters[2] && !selectedFilters[3]) {
@@ -187,36 +185,30 @@ const filterByChargerAccess = (isFast: boolean, isPublic: boolean, selectedFilte
 const filterSlowChargers = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
 
   if (!isFast && isPublic && selectedFilters[3] && selectedFilters[4]) {
-    console.log("slow:", 1);
     return true;
   }
 
   //slow and private
   if (!isFast && !isPublic && selectedFilters[3] && selectedFilters[5]) {
-    console.log("slow:", 2);
     return true;
   }
 
   //slow and busy
   if (!isFast && selectedFilters[3] && !selectedFilters[4] && !selectedFilters[5]) {
-    console.log("slow:", 3);
     return true;
   }
 
   //slow and public
   if (isPublic && !isFast && !selectedFilters[2] && selectedFilters[4] && !selectedFilters[5]) {
-    console.log("slow:", 4);
     return true;
   }
 
   //slow and private
   if (!isPublic && !isFast && !selectedFilters[2] && selectedFilters[5] && !selectedFilters[4]) {
-    console.log("slow:", 5);
     return true;
   }
 
   if (!selectedFilters[2] && selectedFilters[5] && selectedFilters[4]) {
-    console.log("slow:", 6);
     return true;
   }
 
@@ -226,36 +218,30 @@ const filterSlowChargers = (isFast: boolean, isPublic: boolean, selectedFilters:
 
 const filterFastChargers = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
   if (isFast && isPublic && selectedFilters[2] && selectedFilters[4]) {
-    console.log("fast:", 1);
     return true;
   }
 
   //Fast and private
   if (isFast && !isPublic && selectedFilters[2] && selectedFilters[5]) {
-    console.log("fast:", 2);
     return true;
   }
 
   //Fast 
   if (isFast && selectedFilters[2] && !selectedFilters[4] && !selectedFilters[5]) {
-    console.log("fast:", 3);
     return true;
   }
 
   //Fast and public
   if (isPublic && isFast && !selectedFilters[3] && selectedFilters[4] && !selectedFilters[5]) {
-    console.log("fast:", 4);
     return true;
   }
 
   //Fast and private
   if (!isPublic && isFast && !selectedFilters[3] && selectedFilters[5] && !selectedFilters[4]) {
-    console.log("fast:", 5);
     return true;
   }
 
   if (!selectedFilters[3] && selectedFilters[5] && selectedFilters[4]) {
-    console.log("fast:", 6);
     return true;
   }
 

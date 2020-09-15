@@ -108,6 +108,8 @@ export const finishCharging = async (
     else Helpers.DisplayDropdownWithError()
     dispatch(finishChargingAction(error, false))
   }
+  //load chargers if charging is finished
+  services.getAllChargersFiltered();
 }
 
 type FinishChargingAction = {

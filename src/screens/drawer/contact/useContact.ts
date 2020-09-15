@@ -4,9 +4,10 @@ import { Linking } from 'react-native'
 import { Defaults, Const, Helpers } from 'utils'
 import { Navigation, ContactInfoResponseType } from 'allTypes'
 import services from 'services'
+import {platformIOS} from '../../../utils/const';
 
 const { Logger } = Helpers
-
+const fbPageType = platformIOS ? 'profile' : 'page';
 export default (navigation: Navigation) => {
   const [message, setMessage] = useState<string>('')
   const [data, setData] = useState<ContactInfoResponseType | undefined>(
@@ -48,7 +49,7 @@ export default (navigation: Navigation) => {
 
     facebookPage: () => {
       openUrl(
-        'fb://page/'+data?.fb_page_url.split('/')[3],
+        'fb://'+fbPageType+'/'+data?.fb_page_url.split('/')[3],
         'FaceBook',
         data?.fb_page_url,
       )
@@ -69,10 +70,14 @@ export default (navigation: Navigation) => {
     console.log("URL:",url);
     Linking.canOpenURL(url)
     .then(response => {
-      Linking.openURL(url);
+      if(response){
+        Linking.openURL(url);
+      }else{
+        Linking.openURL(backupUrl.toString());
+      }
     }).catch(error => {
       Logger(error)
-      if(error.message.indexOf('fb://page') > -1 && typeof backupUrl === 'string'){
+      if(error.message.indexOf('fb://'+fbPageType) > -1 && typeof backupUrl === 'string'){
         Linking.openURL(backupUrl);
         return;
       }
