@@ -240,6 +240,7 @@ export default {
         minPasswordTextLength: 'პაროლი უნდა შეიცავდეს მინ. 8 სიმბოლოს',
         needsCardAddOrPleaseSkip: 'საჭიროა ბარათის დამატება, ან გამოტოვეთ',
         pleaseSelectTermsAndConditions: 'გთხოვთ დაეთანხმოთ წესებს და პირობებს',
+        alreadyExists: 'მომხმარებელი ასეთი ნომერით უკვე დარეგისტრირებულია!',
       },
       editFirstname: {
         firstNameNotEmpty: 'გთხოვთ ჩაწეროთ სახელი სწორი ფორმატით',
@@ -285,6 +286,7 @@ export default {
         passwordChangedSuccessfully: 'პაროლი წარმატებით შეიცვალა',
         passwordsNotFilled: 'გთხოვთ, შეავსოთ პაროლის ველები',
         verificationCodeIsIncorrect: 'ვერიფიკაციის კოდი არასწორია',
+        doesNotExist: 'ასეთი ნომრით მომხმარებელი არ არსებობს!',
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ, რომ გინდათ დასრულება?',

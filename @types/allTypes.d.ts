@@ -167,6 +167,11 @@ export type AppState = {
   userState: any //TODO: don't know object structure
 }
 
+export enum SendSmsCodeStatus {
+  USER_ALREADY_EXISTS  = 'USER_ALREADY_EXISTS',
+  USER_DOES_NOT_EXISTS = 'USER_DOES_NOT_EXISTS'
+}
+
 export type ChargingState = {
   already_paid: number
   consumed_money: number

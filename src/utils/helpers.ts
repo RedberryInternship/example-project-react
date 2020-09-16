@@ -29,17 +29,8 @@ const ConvertToChargerFilterParam = (
   filterInput = '',
 ): object => {
   const param: ChargerFilters = {}
-  // if (filterChargerTypes[0] && !filterChargerTypes[1]) param.status = 1
-  // if (filterChargerTypes[1] && !filterChargerTypes[0]) param.free = 0
-
-  // if (filterChargerTypes[2] && !filterChargerTypes[3]) param.type = 'fast'
-  // if (filterChargerTypes[3] && !filterChargerTypes[2]) param.type = 'level2'
-
-  // if (filterChargerTypes[4] && !filterChargerTypes[5]) param.public = 1
-  // if (filterChargerTypes[5] && !filterChargerTypes[4]) param.public = 0
-  // if (filterInput !== '') param.text = filterInput
+  
   param.text = filterInput
-  // console.log(filterChargerTypes, param, 'filterChargerTypes')
   return param
 }
 

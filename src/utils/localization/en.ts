@@ -248,6 +248,7 @@ export default {
         phoneAlreadyToken: 'The phone number has already been taken.',
         passwordNotEqual: "Passwords don't match",
         needsCardAddOrPleaseSkip: 'Card required, or skip',
+        alreadyExists: 'User with this number already exists!',
       },
       editFirstname: {
         firstNameNotEmpty: 'Please, Fill the First Name Field',
@@ -294,6 +295,7 @@ export default {
         passwordChangedSuccessfully: 'Password changed successfully',
         passwordsNotFilled: 'Please, fill passwords fields',
         verificationCodeIsIncorrect: 'Verification code is incorrect',
+        doesNotExist: 'Such user does not exists!',
       },
       charging: {
         areUSore: 'Are you sure you want to finish?',

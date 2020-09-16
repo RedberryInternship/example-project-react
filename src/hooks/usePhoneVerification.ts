@@ -3,7 +3,7 @@ import { useRef, useEffect, useCallback } from 'react'
 import { TextInput } from 'react-native'
 
 import { Helpers, InputValidationHelpers } from 'utils'
-import { CodeRefType } from 'allTypes'
+import { CodeRefType, SendSmsCodeStatus } from '../../@types/allTypes.d'
 import services from 'services'
 
 type useForgotPasswordProps = {
@@ -73,8 +73,26 @@ export default ({
         'dropDownAlert.registration.codeSentSuccessfully',
       )
     } catch (e) {
-      Helpers.Logger(e)
-      Helpers.DisplayDropdownWithError()
+    
+      if(e.data.status == SendSmsCodeStatus.USER_ALREADY_EXISTS)
+      {
+        Helpers.DisplayDropdownWithError(
+          'dropDownAlert.error',
+          'dropDownAlert.registration.alreadyExists',
+        )
+      }
+      else if(e.data.status == SendSmsCodeStatus.USER_DOES_NOT_EXISTS)
+      {
+        Helpers.DisplayDropdownWithError(
+          'dropDownAlert.error',
+          'dropDownAlert.forgotPassword.doesNotExist',
+        )
+      }
+      else
+      {
+        Helpers.DisplayDropdownWithError()
+        Helpers.Logger(e)
+      }
     }
   }
 

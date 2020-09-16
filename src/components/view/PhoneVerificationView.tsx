@@ -31,7 +31,6 @@ const PhoneVerificationView = ({
       <ReceiveCode
         ref={codeRef}
         onChangeText={(text: string) => setValue('code', text, true)}
-        // onSubmit={handleSubmit(buttonClickHandler)}
         receiveCode={() => {receiveCodeHandler(formType)}}
       />
     </>
