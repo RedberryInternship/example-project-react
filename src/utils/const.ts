@@ -1,6 +1,4 @@
 import { Dimensions, Platform } from 'react-native';
-import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { env } from '../../env';
 import images from 'assets/images';
 import {
   UserSettingEnum,
