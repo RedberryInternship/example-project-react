@@ -1,114 +1,201 @@
-import React, {useEffect, useState,useRef} from "react";
-import { useAppState } from 'react-native-hooks';
-import {useNetInfo} from "@react-native-community/netinfo";
-import AsyncStorage, {useAsyncStorage} from "@react-native-community/async-storage";
-import { Defaults, NavigationActions } from "../utils";
-import {useTranslation} from 'react-i18next';
+import { useEffect, useState, useRef, useReducer, useCallback } from 'react'
+import { StatusBar, Platform, Alert, StatusBarStyle } from 'react-native'
+import { useNetInfo } from '@react-native-community/netinfo'
+import { useAppState } from '@react-native-community/hooks'
+import AsyncStorage, {
+  useAsyncStorage,
+} from '@react-native-community/async-storage'
+import { useTranslation } from 'react-i18next'
 
+import rootReducer, { initialState } from './reducers/rootReducer'
+import { rootAction, getAllChargers } from './actions/rootActions'
+import {
+  Defaults,
+  NavigationActions,
+  determineTimePeriod,
+  useFirebase,
+  Helpers,
+} from 'utils'
+import useCharger from './useCharger'
+import { chargingState } from './actions/chargerActions'
+import { UserMeResponseType } from 'allTypes'
 
+export default () => {
+  const [state, dispatch] = useReducer(rootReducer, initialState)
 
-export function  useRoot(){
+  useFirebase(state)
 
-    const currentAppState = useAppState()
-    const networkState = useNetInfo()
-    const { t, i18n } = useTranslation();
+  const { charger, dispatchCharger } = useCharger(state, dispatch)
 
-    const [token, setToken] = useState<null | string>('')
-    const [locale, setLocale] = useState<null | string>('');
-    const {getItem, setItem} = useAsyncStorage("token")
-    const {getItem : getLocaleStorage, setItem : setLocaleStorage} = useAsyncStorage("locale")
+  const currentAppState = useAppState()
 
-    const [appReady, setAppReady] = useState(false);
-    const [navigationState, setNavigationState] = useState(false);
+  const networkState = useNetInfo()
+  const { t, i18n } = useTranslation()
 
-    const ref = useRef(null)
+  const [token, setToken] = useState<null | string>('')
+  const [locale, setLocale] = useState<null | string>('')
 
-    Defaults.modal = useRef(null);
+  const { getItem, setItem } = useAsyncStorage('token')
+  const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage(
+    'userDetail',
+  )
+  const {
+    getItem: getLocaleStorage,
+    setItem: setLocaleStorage,
+  } = useAsyncStorage('locale')
 
+  const [appReady, setAppReady] = useState(false)
+  const [navigationState, setNavigationState] = useState(false)
 
+  Defaults.modal = useRef(null)
 
-    useEffect(() => {
+  useEffect(() => {
+    // setItem("token");
+    // AsyncStorage.clear()
 
-        setItem("token");
-        readUserToken();
-        readUserLocale()
-        // AsyncStorage.clear()
-        onReady()
-        console.log("remounted", appReady , " appReady");
-        
-    }, [])
+    readUserToken()
+    readUserLocale()
+    // onReady()
+    console.log('remounted', appReady, ' appReady')
+    if (Platform.OS === 'android') {
+      StatusBar.setBackgroundColor('transparent', true)
+      StatusBar.setTranslucent(true)
+    }
+    return () => {
+      Defaults.isForeground = null
+      Defaults.internetConnected = null
+    }
+  }, [])
 
-    useEffect(() => {
-        if(currentAppState === "active"){
-            //call userState Update
-        }
-        else if(currentAppState.match(/inactive|background/)){
-            //do some background tasks
-        }
+  useEffect(() => {
+    if (currentAppState === 'active') {
+      if (Defaults.isForeground === false) {
+        if (state.authStatus === 'success') chargingState(dispatchCharger)
+        getAllChargers(dispatch)
+      }
+      Defaults.isForeground = true
+    } else if (currentAppState.match(/inactive|background/)) {
+      Defaults.isForeground = false
+    }
+  }, [currentAppState])
 
-        if(networkState.isConnected){
-            //call userState Update
-        }
-        else if (!networkState.isConnected){
-            //show alert
-        }
+  useEffect(() => {
+    if (networkState.isConnected) {
+      if (Defaults.internetConnected === false) {
+        readUserToken()
+      }
 
-    }, [currentAppState, networkState])
+      Defaults.internetConnected = true
+    } else if (
+      !networkState.isConnected &&
+      Defaults.internetConnected !== null
+    ) {
+      Helpers.DisplayDropdownWithError(
+        'dropDownAlert.error',
+        'dropDownAlert.needInternetConnection',
+      )
+      Defaults.internetConnected = false
+    }
+  }, [networkState])
 
-    const readUserToken = async () => {
-        let _token = await getItem();
-        Defaults.token = _token;
-        setToken(_token)
+  const readUserToken = async (): Promise<void> => {
+    const _token = await getItem()
+    let user: UserMeResponseType | null = null
+    if (_token) {
+      const _user = await getUserDetail()
+      user = _user != null ? JSON.parse(_user) : ''
     }
 
-    const readUserLocale =  async () => {
-        let _locale = await getLocaleStorage();
+    rootAction({ token: _token ?? '', user }, dispatch)
+    setToken(_token)
+  }
 
-        if(_locale === null) {
-            _locale = "ka";
-            setLocaleStorage("ka");
-        }
-        else {
-            i18n.changeLanguage(_locale)
-        }
-        
-        Defaults.locale = _locale;
-        setLocale(_locale)
+  const readUserLocale = async (): Promise<void> => {
+    let _locale: 'en' | 'ka' | 'ru' | null = await getLocaleStorage()
+    if (_locale === null) {
+      _locale = 'ka'
+      setLocaleStorage('ka')
+    } else {
+      i18n.changeLanguage(_locale)
     }
 
+    Defaults.locale = _locale
+    setLocale(_locale)
+  }
 
-    const setNavigationTopLevelElement = (ref : any) =>{
-        console.log("settingNavigationTopLevelElement",ref, NavigationActions()._navigator);
+  const setNavigationTopLevelElement = (ref: any): void => {
+    // console.log('settingNavigationTopLevelElement')
 
-        if( ref === null  ) return
+    if (ref == null) return
 
-        NavigationActions().setTopLevelNavigator(ref)
-        setNavigationState(true);
-        onReady()
+    NavigationActions.setTopLevelNavigator(ref)
+    setNavigationState(true)
+    // if(__DEV__) userStatusHandler() // for development
+  }
+
+  useEffect(() => {
+    // onReady()
+
+    if (navigationState && locale !== '' && token != '') {
+      setAppReady(true)
+      onReady()
+    } else setAppReady(false)
+  }, [token, navigationState, locale])
+
+  const onReady = (): void => {
+    NavigationActions.navigate('MainDrawer')
+    // NavigationActions().navigate('Auth')
+    // NavigationActions().navigate('ForgotPassword')
+    // NavigationActions().navigate("Registration")
+    // NavigationActions().navigate('Settings')
+    // NavigationActions().navigate("ProfileChange");
+    // NavigationActions().navigate("ChargerWithCode");
+    // NavigationActions().navigate('ChargerDetail')
+    // NavigationActions().navigate('NotAuthorized')
+    // NavigationActions().navigate('ChoosingCard')
+    // NavigationActions().navigate("ChooseChargeMethod");
+    // NavigationActions().navigate("Charging");
+    // NavigationActions().navigate('Favorites')
+    // NavigationActions().navigate('Faq')
+    // NavigationActions().navigate('Charging')
+    // NavigationActions().navigate('Tariffs')
+    // NavigationActions().navigate('Favorites')
+    // NavigationActions().navigate('Contact')
+    // NavigationActions().navigate('Notifications')
+    // NavigationActions().navigate('Partners')
+    // NavigationActions().navigate('TransactionList')
+
+    console.log(Defaults.token, 'App ready to boot')
+  }
+
+  const getCurrentRoute = useCallback(
+    (state): string =>
+      state.index !== undefined
+        ? getCurrentRoute(state.routes[state.index])
+        : state.routeName,
+    [getCurrentRoute],
+  )
+
+  const dropDownInactiveBarColor = useCallback((): StatusBarStyle => {
+    if (Defaults.activeRoute !== 'Home') {
+      return 'light-content'
+    } else {
+      return determineTimePeriod() ? 'dark-content' : 'light-content'
     }
-
-
-    useEffect(() => {
-        onReady()
-    },[token,navigationState, locale])
-
-    const onReady =() =>{
-        if(navigationState && token !== '' && Defaults && Defaults.token !== '' && locale !== ''){
-            if(!appReady)
-                setAppReady(true)
-
-            NavigationActions().navigate("MainDrawer")
-            // NavigationActions().navigate("authenticationFlow")
-            // NavigationActions().navigate("ForgotPassword")
-            // NavigationActions().navigate("Registration")
-            // NavigationActions().navigate("Settings");
-            // NavigationActions().navigate("ProfileChange");
-
-        }
-        else setAppReady(false)
-
-        console.log(Defaults.token, "App ready to boot");
-
-    }
-    return {currentAppState,networkState, token, setNavigationTopLevelElement, appReady, locale, t}
+  }, [determineTimePeriod, Defaults])
+  return {
+    currentAppState,
+    networkState,
+    token,
+    setNavigationTopLevelElement,
+    appReady,
+    locale,
+    t,
+    state,
+    dispatch,
+    getCurrentRoute,
+    dropDownInactiveBarColor,
+    charger,
+    dispatchCharger,
+  }
 }

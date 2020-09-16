@@ -1,54 +1,33 @@
-import React, {} from "react"
+import { NavigationActions, StackActions } from 'react-navigation'
+let _navigator: any = null
 
-import { NavigationActions,StackActions,DrawerActions } from 'react-navigation';
-import Defaults from './defaults';
+export default {
+  setTopLevelNavigator: function(navigatorRef: any): void {
+    _navigator = navigatorRef
+  },
 
-let _navigator : any = null;
+  navigate: function(routeName: string, params = {}): void {
+    console.log(routeName, 'routeName')
 
-export default  () => {
+    _navigator.dispatch(
+      NavigationActions.navigate({
+        routeName,
+        params,
+      }),
+    )
+  },
+  back: function(routeName: string, params = {}): void {
+    _navigator.dispatch(NavigationActions.back({}))
+  },
 
-
-    function setTopLevelNavigator(navigatorRef : any) {
-        _navigator = navigatorRef;
-    }
-
-    function navigate(routeName : string, params = {}) {
-        console.log(routeName,"routeName");
-        
-        _navigator.dispatch(
-            NavigationActions.navigate({
-                routeName,
-                params,
-            })
-        );
-    }
-
-    // add other navigation functions that you need and export them
-    function back(routeName : string, params = {}) {
-        _navigator.dispatch(
-            NavigationActions.back({
-            })
-        );
-    }
-
-
-    function reset(routeName = "", params = {}) {
-        _navigator.dispatch(
-            StackActions.reset({
-                index: 0,
-                actions: [
-                    NavigationActions.navigate({ routeName,params})
-                ]
-            })
-        );
-    }
-
-
-    return {
-        navigate,
-        back,
-        setTopLevelNavigator,
-        reset,
-        _navigator,
-    };
+  reset: function(stackKey = 'root', routeName = '', params = {}): void {
+    console.log("RESET");
+    _navigator.dispatch(
+      StackActions.reset({
+        index: 0,
+        key: stackKey,
+        actions: [NavigationActions.navigate({ routeName, params })],
+      }),
+    )
+  },
 }

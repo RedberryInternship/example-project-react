@@ -1,17 +1,18 @@
-/**
- * @format
- */
 import 'react-native-gesture-handler'
+import { enableScreens } from 'react-native-screens'
 
-import {AppRegistry} from 'react-native';
-import App from './App';
-import {name as appName} from './app.json';
+import { AppRegistry, Platform } from 'react-native'
+// if (Platform.OS === 'ios') enableScreens()
 
-import 'react-i18next';
+enableScreens()
 
-import './src/utils/localization/localization';
+import App from './App'
+import { name as appName } from './app.json'
 
-import './src/utils/mapAndLocation/location';
+import 'react-i18next'
 
+import './src/utils/localization/localization'
 
-AppRegistry.registerComponent(appName, () => App);
+import './src/utils/mapAndLocation/location'
+
+AppRegistry.registerComponent(appName, () => App)

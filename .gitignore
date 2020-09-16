@@ -1,7 +1,7 @@
 # OSX
 #
 .DS_Store
-
+.hprof
 # Xcode
 #
 build/
@@ -21,6 +21,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 project.xcworkspace
+env.js
 
 # Android/IntelliJ
 #
@@ -39,6 +40,8 @@ local.properties
 node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
+yarn.lock
 
 # BUCK
 buck-out/
@@ -62,3 +65,4 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+/ios/Podfile.lock

@@ -1,54 +1,94 @@
-import React, {useMemo} from 'react';
+import React, { useMemo, createContext, Dispatch } from 'react'
+import { StatusBar } from 'react-native'
+import { Navigation } from './src'
+import { CustomModal } from 'components'
+import DropdownAlert from 'react-native-dropdownalert'
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from './src/redux';
-import { Navigation } from './src';
-import { useRoot } from './src/hooks';
-import { Defaults, Colors } from './src/utils';
-import './src/utils/style';
-import { CustomModal } from './src/components';
+  SafeAreaProvider,
+  initialWindowMetrics,
+} from 'react-native-safe-area-context'
+import { Defaults, useFirebase } from 'utils'
+import { useRoot } from 'hooks'
+import { ChargerActions, ChargerAction } from 'hooks/actions/chargerActions'
+import { chargerInitialState } from 'hooks/reducers/chargerReducer'
+import { ChargerState } from 'allTypes'
 
+console.disableYellowBox = true
 
-console.disableYellowBox = true;
+if (__DEV__) {
+} else {
+  console.log = () => {}
+}
 
-const App = () => {
+export const ChargerContext = createContext<{
+  state: ChargerState
+  dispatch: Dispatch<ChargerAction>
+}>({ state: chargerInitialState, dispatch: () => null })
 
-  const root = useRoot();
- 
-  return useMemo (()=>(
-    <View style={{backgroundColor :Colors.primaryBackground, flex:1}}>
-      <StatusBar barStyle="dark-content" />
-      <Navigation
-        onNavigationStateChange={() => {}}
-        ref={(ref) => root.setNavigationTopLevelElement(ref) }
-        screenProps={{
-          t : root.t
-        }}
-      />
+export const AppContext = createContext({})
 
-      <CustomModal 
-        ref={Defaults.modal}
-      />
-    </View>
-  ),[root.appReady, root.locale]);
-};
+const App = (): React.ReactElement => {
+  const {
+    state,
+    dispatch,
+    setNavigationTopLevelElement,
+    getCurrentRoute,
+    dropDownInactiveBarColor,
+    appReady,
+    charger,
+    dispatchCharger,
+  } = useRoot()
 
+  return useMemo(
+    () => (
+      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+        <AppContext.Provider value={{ state, dispatch }}>
+          <ChargerContext.Provider
+            value={{ state: charger, dispatch: dispatchCharger }}
+          >
+            <Navigation
+              ref={(ref) => setNavigationTopLevelElement(ref)}
+              screenProps={{
+                token: Defaults.token,
+                chargingState: charger.chargingState,
+              }}
+              theme={'dark'}
+              onNavigationStateChange={(_, state) => {
+                Defaults.activeRoute = getCurrentRoute(state)
+                StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
+                console.log('====================================')
+                console.log(
+                  Defaults.activeRoute,
+                  // state,
+                  'Defaults.activeRout state',
+                )
+                console.log('====================================')
+              }}
+            />
+          </ChargerContext.Provider>
+        </AppContext.Provider>
+        <DropdownAlert
+          translucent={true}
+          useNativeDriver={true}
+          inactiveStatusBarBackgroundColor={'transparent'}
+          onClose={() =>
+            StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
+          }
+          ref={(ref) => (Defaults.dropdown = ref)}
+          testID={'dropdownAlert'}
+          titleStyle={{ fontSize: 14, color: 'white' }}
+          imageStyle={{
+            marginHorizontal: 8,
+            alignSelf: 'center',
+            resizeMode: 'contain',
+          }}
+          titleNumOfLines={2}
+        />
+        <CustomModal ref={Defaults.modal} />
+      </SafeAreaProvider>
+    ),
+    [appReady, state, charger],
+  )
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-});
-
-export default App;
+export default App

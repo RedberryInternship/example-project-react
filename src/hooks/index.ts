@@ -1,21 +1,17 @@
-import {useRoot} from "./rootRun"
-import useMap from "./mapViewHook"
-import useLocation from "./locationHook"
-import useHomeHook from "./homeHook"
-import useHomeMainInputHook from "./homeMainInputHook"
-import useAuthHook from "./authentication/authHook"
-import useForgotPassword from "./authentication/forgotPassword"
-import useRegistrationHook from "./authentication/registrationHook"
-import useSetNewPasswords from "./authentication/setNewPasswords"
+import useRoot from './rootRun'
+import useCharger from './useCharger'
+import usePhoneVerification from './usePhoneVerification'
+
+//reducer
+import rootReducer, {initialState} from './reducers/rootReducer'
+import chargerReducer, {chargerInitialState} from './reducers/chargerReducer'
 
 export {
-    useRoot,
-    useMap,
-    useLocation,
-    useHomeHook,
-    useHomeMainInputHook,
-    useAuthHook,
-    useForgotPassword,
-    useRegistrationHook,
-    useSetNewPasswords
+  useRoot,
+  rootReducer,
+  initialState,
+  usePhoneVerification,
+  chargerInitialState,
+  chargerReducer,
+  useCharger,
 }
