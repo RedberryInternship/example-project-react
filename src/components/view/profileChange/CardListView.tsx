@@ -6,10 +6,10 @@ import {
   withNavigation,
 } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
-
-import { CardListItem, BaseAddCardButton } from 'components'
-import { AppContext } from '../../../../App'
+import CardListItem from 'components/item/CardListItem'
+import BaseAddCardButton from 'components/baseUI/BaseAddCardButton'
 import { AppContextType } from 'allTypes'
+import AppContext from 'hooks/contexts/app';
 import { updateUser } from 'hooks/actions/rootActions'
 import services from 'services'
 import { Helpers } from 'utils'

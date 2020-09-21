@@ -9,23 +9,21 @@ import {
   StyleSheet,
   View,
   useWindowDimensions,
-  Text,
   Image,
   TouchableWithoutFeedback,
   Keyboard,
   BackHandler,
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
-import {TextInput, FlatList} from 'react-native-gesture-handler'
+import {TextInput} from 'react-native-gesture-handler'
 import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-
 import {Charger, ChargerDetail} from 'allTypes'
-
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
-import {BottomSheetFilterItem, MainSearchItem} from '../components'
+import BottomSheetFilterItem from './BottomSheetFilterItem'
+import MainSearchItem from './MainSearchItem'
 import {BaseText} from 'components'
 
 type _This = {
@@ -65,12 +63,10 @@ const BottomSheetReanimated = forwardRef(
     const closeClick = (): void => {
       if (_this.current.text !== '') {
         textHandler('')
-        // Vobi Todo: setText('')
         _this.current.text = ''
         inputRef.current?.clear()
       } else {
         inputRef.current?.blur()
-        // Keyboard.dismiss()
         ref.current?.snapTo(0)
         ref.current?.snapTo(0)
         setTimeout(() => {
@@ -89,14 +85,7 @@ const BottomSheetReanimated = forwardRef(
       )
     }, [])
 
-    const handleAndroidBack = useCallback(() => {
-      // if () {
-      // ref.current?.snapTo(0)
-
-      //   return true
-      // }
-      return false
-    }, [])
+    const handleAndroidBack = useCallback(() => false, [])
 
     const renderHeaderComponent = useCallback(
       (): ReactElement => (
@@ -148,15 +137,6 @@ const BottomSheetReanimated = forwardRef(
               />
             ))}
           </View>
-          {/* <FlatList
-            keyboardShouldPersistTaps={'handled'}
-            data={filteredChargers}
-            renderItem={({item: chargerObj, index}) => {
-              const view = []
-             //  bottom stuff... 
-              return view
-            }}
-          /> */}
 
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []

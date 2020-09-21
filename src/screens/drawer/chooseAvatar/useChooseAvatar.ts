@@ -2,7 +2,7 @@ import {useState, useContext} from 'react'
 
 import {Helpers} from 'utils'
 import {Navigation, AppContextType} from 'allTypes'
-import {AppContext} from '../../../../App'
+import AppContext from 'hooks/contexts/app'
 import {editUserInfo} from 'hooks/actions/rootActions'
 
 export default (navigation: Navigation) => {
@@ -13,17 +13,11 @@ export default (navigation: Navigation) => {
 
   const updateAvatar = async () => {
     try {
-      // const result = await services.updateUserInfo({[type]: form[type]})
-
-      // if (result.updated === true) {
       navigation.navigate('Home')
       editUserInfo(dispatch, activeAvatar, 'avatar')
       Helpers.DisplayDropdownWithSuccess(
         'dropDownAlert.avatarUpdatedSuccessfully',
       )
-      // } else {
-      //   throw new Error('Something Went Wrong...')
-      // }
     } catch (err) {
       Helpers.DisplayDropdownWithError()
     }

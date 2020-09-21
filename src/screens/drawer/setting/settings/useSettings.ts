@@ -10,8 +10,7 @@ import {
   UserCard,
 } from '../../../../../@types/allTypes.d'
 
-import { AppContext } from '../../../../../App'
-// import {useBaseActionSheetPicker} from 'components'
+import AppContext from 'hooks/contexts/app';
 import { editUserInfo } from 'hooks/actions/rootActions'
 import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
 import { useTranslation } from 'react-i18next'
@@ -43,7 +42,6 @@ export default (navigation: Navigation) => {
           break
       }
       editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode);
-      // setUserData({mapMode: _selectedItem});
     }
   }, [selectedItem])
 
@@ -52,8 +50,6 @@ export default (navigation: Navigation) => {
   }, [state])
 
   const structureSettingsInfoObj = (): void => {
-    const activeCardNumber = '********* 9281'
-
     if (state?.user) {
       const {
         first_name,

@@ -1,7 +1,6 @@
 import React, {ReactElement, useCallback} from 'react'
 import {
   StyleSheet,
-  Text,
   Platform,
   View,
   Image,
@@ -9,9 +8,9 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
-
 import {Colors, GNOME} from 'utils'
-import {BaseNativeTouchable, BaseText} from 'components'
+import BaseNativeTouchable from 'components/baseUI/BaseNativeTouchable'
+import BaseText from 'components/baseUI/BaseText'
 import images from 'assets/images'
 
 type HeaderProps = {

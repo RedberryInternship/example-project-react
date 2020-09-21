@@ -1,10 +1,8 @@
 import { useEffect, useState, useRef, useReducer, useCallback } from 'react'
-import { StatusBar, Platform, Alert, StatusBarStyle } from 'react-native'
+import { StatusBar, Platform, StatusBarStyle } from 'react-native'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { useAppState } from '@react-native-community/hooks'
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage'
+import { useAsyncStorage } from '@react-native-community/async-storage'
 import { useTranslation } from 'react-i18next'
 
 import rootReducer, { initialState } from './reducers/rootReducer'
@@ -26,37 +24,25 @@ export default () => {
   useFirebase(state)
 
   const { charger, dispatchCharger } = useCharger(state, dispatch)
-
   const currentAppState = useAppState()
-
   const networkState = useNetInfo()
   const { t, i18n } = useTranslation()
-
   const [token, setToken] = useState<null | string>('')
   const [locale, setLocale] = useState<null | string>('')
-
   const { getItem, setItem } = useAsyncStorage('token')
-  const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage(
-    'userDetail',
-  )
+  const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage('userDetail')
   const {
     getItem: getLocaleStorage,
     setItem: setLocaleStorage,
   } = useAsyncStorage('locale')
-
   const [appReady, setAppReady] = useState(false)
   const [navigationState, setNavigationState] = useState(false)
 
   Defaults.modal = useRef(null)
 
   useEffect(() => {
-    // setItem("token");
-    // AsyncStorage.clear()
-
     readUserToken()
     readUserLocale()
-    // onReady()
-    console.log('remounted', appReady, ' appReady')
     if (Platform.OS === 'android') {
       StatusBar.setBackgroundColor('transparent', true)
       StatusBar.setTranslucent(true)
@@ -124,18 +110,12 @@ export default () => {
   }
 
   const setNavigationTopLevelElement = (ref: any): void => {
-    // console.log('settingNavigationTopLevelElement')
-
     if (ref == null) return
-
     NavigationActions.setTopLevelNavigator(ref)
     setNavigationState(true)
-    // if(__DEV__) userStatusHandler() // for development
   }
 
   useEffect(() => {
-    // onReady()
-
     if (navigationState && locale !== '' && token != '') {
       setAppReady(true)
       onReady()
@@ -144,37 +124,7 @@ export default () => {
 
   const onReady = (): void => {
     NavigationActions.navigate('MainDrawer')
-    // NavigationActions().navigate('Auth')
-    // NavigationActions().navigate('ForgotPassword')
-    // NavigationActions().navigate("Registration")
-    // NavigationActions().navigate('Settings')
-    // NavigationActions().navigate("ProfileChange");
-    // NavigationActions().navigate("ChargerWithCode");
-    // NavigationActions().navigate('ChargerDetail')
-    // NavigationActions().navigate('NotAuthorized')
-    // NavigationActions().navigate('ChoosingCard')
-    // NavigationActions().navigate("ChooseChargeMethod");
-    // NavigationActions().navigate("Charging");
-    // NavigationActions().navigate('Favorites')
-    // NavigationActions().navigate('Faq')
-    // NavigationActions().navigate('Charging')
-    // NavigationActions().navigate('Tariffs')
-    // NavigationActions().navigate('Favorites')
-    // NavigationActions().navigate('Contact')
-    // NavigationActions().navigate('Notifications')
-    // NavigationActions().navigate('Partners')
-    // NavigationActions().navigate('TransactionList')
-
-    console.log(Defaults.token, 'App ready to boot')
   }
-
-  const getCurrentRoute = useCallback(
-    (state): string =>
-      state.index !== undefined
-        ? getCurrentRoute(state.routes[state.index])
-        : state.routeName,
-    [getCurrentRoute],
-  )
 
   const dropDownInactiveBarColor = useCallback((): StatusBarStyle => {
     if (Defaults.activeRoute !== 'Home') {
@@ -193,7 +143,6 @@ export default () => {
     t,
     state,
     dispatch,
-    getCurrentRoute,
     dropDownInactiveBarColor,
     charger,
     dispatchCharger,

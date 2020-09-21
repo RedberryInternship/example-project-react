@@ -9,7 +9,7 @@ import {
 import {useTranslation} from 'react-i18next'
 
 import {Colors} from 'utils'
-import {BaseText} from 'components'
+import BaseText from 'components/baseUI/BaseText'
 
 type AddCard = {
   onPress: () => void | null

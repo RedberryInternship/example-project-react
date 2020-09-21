@@ -10,7 +10,6 @@ import {
   StyleSheet,
   View,
   useWindowDimensions,
-  Text,
   Image,
   TouchableWithoutFeedback,
   Keyboard,
@@ -25,7 +24,8 @@ import {Charger, ChargerDetail} from 'allTypes'
 
 import {Const, Colors, getLocaleText} from 'utils'
 import images from 'assets/images'
-import {BottomSheetFilterItem, MainSearchItem} from '../components'
+import BottomSheetFilterItem from './BottomSheetFilterItem';
+import MainSearchItem from './MainSearchItem'
 import {BaseText} from 'components'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import {Width} from 'utils/const'

@@ -8,7 +8,7 @@ import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
 import { BaseButton, BaseText } from 'components'
 
 import { Const, Colors, Helpers, Defaults } from 'utils'
-import { AppContext } from '../../../../App'
+import AppContext from 'hooks/contexts/app';
 import { logOut } from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
 import {

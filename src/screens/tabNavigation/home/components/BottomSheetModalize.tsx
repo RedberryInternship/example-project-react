@@ -10,7 +10,6 @@ import {
   StyleSheet,
   View,
   useWindowDimensions,
-  Text,
   Image,
   TouchableWithoutFeedback,
   Keyboard,
@@ -25,9 +24,10 @@ import {Modalize} from 'react-native-modalize'
 import {Charger, ChargerDetail} from 'allTypes'
 
 import {Const, Colors, getLocaleText} from 'utils'
-import images from 'assets/images'
-import {BottomSheetFilterItem, MainSearchItem} from '../components'
+import BottomSheetFilterItem from './BottomSheetFilterItem';
+import MainSearchItem from './MainSearchItem'
 import {BaseText} from 'components'
+import images from 'assets/images'
 
 type _This = {
   text: string

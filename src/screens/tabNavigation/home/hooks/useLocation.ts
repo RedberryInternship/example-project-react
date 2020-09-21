@@ -20,10 +20,10 @@ import {
   isPermissionGrantedRegex,
 } from 'utils/mapAndLocation/mapFunctions'
 import { regionFrom, Defaults, locationConfig, Helpers, Const } from 'utils'
-import { HomeContext } from 'screens/tabNavigation/home/Home'
+import HomeContext from 'hooks/contexts/home'
 import services from 'services'
 import { getAllChargers } from 'hooks/actions/rootActions'
-import { Alert, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 type ThisRef = {

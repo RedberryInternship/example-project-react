@@ -3,10 +3,10 @@ import {View, StyleSheet} from 'react-native'
 
 import {ScreenPropsWithNavigation} from '../../../@types/allTypes'
 
-import {BaseHeader, BaseButton, CardAddView} from 'components'
+import {BaseHeader, CardAddView} from 'components'
 import {Colors} from 'utils'
 
-import {AppContext} from '../../../App'
+import AppContext from 'hooks/contexts/app'
 import {AppContextType} from 'allTypes'
 import {updateUser} from 'hooks/actions/rootActions'
 

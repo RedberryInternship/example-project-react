@@ -1,10 +1,11 @@
 /* eslint-disable react/display-name */
 import React, {ReactElement} from 'react'
-import {Text, View, TouchableOpacity, Image, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { View, TouchableOpacity, Image, StyleSheet} from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {Colors} from 'utils'
-import {LegendItem, LegendColorItem} from 'components'
+import { Colors } from 'utils'
+import LegendItem from 'components/item/LegendItem'
+import LegendColorItem from 'components/item/LegendColorItem'
 import images from 'assets/images'
 import BaseText from 'components/baseUI/BaseText'
 

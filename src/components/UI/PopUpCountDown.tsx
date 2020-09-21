@@ -1,7 +1,6 @@
 import React, { ReactElement } from 'react'
 import { StyleSheet, View } from 'react-native'
-
-import { CountDown } from 'components'
+import CountDown from 'components/view/time/CountDown'
 
 const PopUpCountDown = ({ warningLevel, ...props }: any): ReactElement => {
   return (
