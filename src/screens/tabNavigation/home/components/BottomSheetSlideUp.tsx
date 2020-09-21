@@ -18,7 +18,6 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {TextInput, FlatList} from 'react-native-gesture-handler'
-import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
@@ -57,7 +56,6 @@ const BottomSheetReanimated = forwardRef(
     const _this = useRef<_This>({
       text: '',
     })
-    // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
     const {t} = useTranslation()
@@ -68,12 +66,10 @@ const BottomSheetReanimated = forwardRef(
     const closeClick = (): void => {
       if (_this.current.text !== '') {
         textHandler('')
-        // Vobi Todo: setText('')
         _this.current.text = ''
         inputRef.current?.clear()
       } else {
         inputRef.current?.blur()
-        // Keyboard.dismiss()
         ref.current?.snapTo(0)
         ref.current?.snapTo(0)
         setTimeout(() => {
@@ -93,11 +89,6 @@ const BottomSheetReanimated = forwardRef(
     }, [])
 
     const handleAndroidBack = useCallback(() => {
-      // if () {
-      // ref.current?.snapTo(0)
-
-      //   return true
-      // }
       return false
     }, [])
 
@@ -197,38 +188,6 @@ const BottomSheetReanimated = forwardRef(
               return view
             }}
           />
-
-          {/* {filteredChargers?.map((chargerObj: Charger, index: number) => {
-            const view = []
-            if (chargerObj.charger_group?.chargers?.length !== 0) {
-              view.push(
-                <MainSearchItem
-                  key={chargerObj.id + getLocaleText(chargerObj.name) + index}
-                  text={getLocaleText(chargerObj.location)}
-                  mainTitle={getLocaleText(chargerObj.name)}
-                  onPress={onFilteredItemClick?.bind(
-                    BottomSheetReanimated,
-                    chargerObj,
-                  )}
-                />,
-              )
-            } else {
-              chargerObj.charger_group?.chargers?.map((val, index: number) =>
-                view.push(
-                  <MainSearchItem
-                    key={val.id + getLocaleText(val.name) + index}
-                    text={getLocaleText(val.location)}
-                    mainTitle={getLocaleText(val.name)}
-                    onPress={onFilteredItemClick?.bind(
-                      BottomSheetReanimated,
-                      val,
-                    )}
-                  />,
-                ),
-              )
-            }
-            return view
-          })} */}
           <KeyboardSpacer />
         </View>
       )
@@ -241,12 +200,9 @@ const BottomSheetReanimated = forwardRef(
           draggableRange={{...draggableRange}}
           snappingPoints={[draggableRange.top]}
           friction={0.5}
-          // animatedValue={animatedArrow}
           minimumDistanceThreshold={20}
           backdropOpacity={0.3}
         >
-          {/* {renderHeaderComponent()} */}
-
           {(dragHandler) => (
             <View style={styles.slideUpcontainer}>
               <View style={styles.dragHandler} {...dragHandler}>
@@ -378,7 +334,6 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     marginHorizontal: 8,
     marginTop: 0,
-    // flex: 1,
     height: '100%',
   },
 })

@@ -9,7 +9,6 @@ import {
 
 import { Helpers } from 'utils'
 import services from 'services'
-import { chargingState } from './chargerActions'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
@@ -27,7 +26,6 @@ export const rootAction = async (
   if (data.token !== '') {
     await updateUser(dispatch)
     getFavoriteChargers(dispatch)
-    // chargingState(dispatch)
   }
 }
 
@@ -58,8 +56,6 @@ const saveToken = ({
   type: string
   payload: { user: UserMeResponseType; token: string | null }
 } => {
-  // console.log(JSON.stringify({ user, token }, null, 2), 'payload')
-
   AsyncStorage.setItem('token', token ?? '')
   AsyncStorage.setItem('userDetail', JSON.stringify(user))
 

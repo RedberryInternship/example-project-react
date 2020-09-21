@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useMemo, ReactElement } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 
 import { ScreenPropsWithNavigation } from 'allTypes'
 
@@ -53,14 +53,6 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
             setShowAll={setShowAll}
             mainInputRef={mainInputRef}
           />
-          {/* <BottomSheetReanimated
-          ref={bottomSheetRef}
-          onFilterClick={onFilterClick}
-          selectedFilters={selectedFilters}
-          onFilteredItemClick={onFilteredItemClick}
-          filteredChargers={bottomSheetChargers ?? []}
-          textHandler={searchInputTextChangeHandler}
-        /> */}
           {
             context?.state.AllChargers?.length &&
             <BottomSheetModalize
