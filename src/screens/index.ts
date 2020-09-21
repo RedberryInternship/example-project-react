@@ -6,7 +6,7 @@ import {ChooseChargeMethod} from './tabNavigation/charger/chooseChargeMethod'
 import {Charging} from './tabNavigation/charging'
 import {ChoosingCard} from './tabNavigation/charger/choosingCard'
 
-import Plashka from './Plashka'
+import Opening from './Opening'
 import {Drawer} from './drawer/drawer'
 import {Auth} from './authentication/auth'
 import {Registration} from './authentication/registration'
@@ -30,7 +30,7 @@ import {CardAdd} from './CardAdd'
 export {
   Home,
   Auth,
-  Plashka,
+  Opening,
   ChargerWithCode,
   Drawer,
   ForgotPassword,
