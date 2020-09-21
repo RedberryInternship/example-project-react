@@ -6,7 +6,6 @@ import {Colors, GNOME, Const} from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
-  // style?: StyleProp<Text>
 }
 
 const BaseText = ({

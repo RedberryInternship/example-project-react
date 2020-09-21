@@ -1,12 +1,12 @@
 import React from 'react'
-import {StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {Colors, GNOME} from 'utils'
 import {BaseText} from 'components'
 
-const App = () => {
+const Opening = () => {
   return (
     <View style={styles.container}>
-      {/* <BaseText style={styles.text}>ergweg</BaseText> */}
+      <BaseText style={styles.text}>Welcome to E-Space</BaseText>
     </View>
   )
 }
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default App
+export default Opening

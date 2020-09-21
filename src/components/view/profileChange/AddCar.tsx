@@ -2,17 +2,13 @@ import React, { ReactElement, useState, useEffect } from 'react'
 import {
   View,
   StyleSheet,
-  Alert,
-  KeyboardAvoidingView,
   Keyboard,
 } from 'react-native'
 
 import { ProfileFieldChange, CarMarkAndModelTypes } from 'allTypes'
-
-import { BaseInput, AutoCompleteDropdown } from 'components'
+import AutoCompleteDropdown from 'components/item/AutoCompleteDropdown'
 import images from '../../../assets/images'
 import { Controller } from 'react-hook-form'
-import { Const } from 'utils'
 import services from 'services'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
@@ -38,12 +34,6 @@ const AddCar = ({
         ?.models?.find((val) => val.name == watch('model'))?.id,
       true,
     )
-    // console.log(
-    //   data
-    //     .find((val) => val.name == watch('manufacturer'))
-    //     ?.models?.find((val) => val.name == watch('model'))?.id,
-    //   'carModelId',
-    // )
   }, [watch('model')])
 
   useEffect(() => {
@@ -65,7 +55,6 @@ const AddCar = ({
             title={'settings.model' ?? ''}
             image={images.addCarInput}
             dropdownIcon={images.caretDown}
-            // defaultValue={value}
             data={[...data.map((val) => val.name)]}
             errorText={
               errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
@@ -84,7 +73,6 @@ const AddCar = ({
               title={'settings.manufacturer' ?? ''}
               image={images.addCarInput}
               dropdownIcon={images.caretDown}
-              // defaultValue={value}
               data={
                 data
                   .find((val) => val.name == watch('manufacturer'))
@@ -110,6 +98,5 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
     paddingTop: 80,
-    // height: Const.Height / 1.6,
   },
 })

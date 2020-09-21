@@ -10,7 +10,6 @@ import {
   StyleSheet,
   View,
   useWindowDimensions,
-  Text,
   Image,
   TouchableWithoutFeedback,
   Keyboard,
@@ -18,7 +17,6 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 import {TextInput, FlatList} from 'react-native-gesture-handler'
-import BottomSheet from 'reanimated-bottom-sheet'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import {Modalize} from 'react-native-modalize'
@@ -26,9 +24,10 @@ import {Modalize} from 'react-native-modalize'
 import {Charger, ChargerDetail} from 'allTypes'
 
 import {Const, Colors, getLocaleText} from 'utils'
-import images from 'assets/images'
-import {BottomSheetFilterItem, MainSearchItem} from '../components'
+import BottomSheetFilterItem from './BottomSheetFilterItem';
+import MainSearchItem from './MainSearchItem'
 import {BaseText} from 'components'
+import images from 'assets/images'
 
 type _This = {
   text: string
@@ -56,7 +55,6 @@ const BottomSheetReanimated = forwardRef(
     const _this = useRef<_This>({
       text: '',
     })
-    // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
     const {t} = useTranslation()
@@ -67,7 +65,6 @@ const BottomSheetReanimated = forwardRef(
     const closeClick = useCallback((): void => {
       if (_this.current.text !== '') {
         textHandler('')
-        // Vobi Todo: setText('')
         _this.current.text = ''
         inputRef.current?.clear()
       }
@@ -89,11 +86,6 @@ const BottomSheetReanimated = forwardRef(
     }, [])
 
     const handleAndroidBack = useCallback(() => {
-      // if () {
-      // ref.current?.snapTo(0)
-
-      //   return true
-      // }
       return false
     }, [])
 
@@ -147,16 +139,6 @@ const BottomSheetReanimated = forwardRef(
     const renderContent = (): ReactElement => {
       return (
         <View style={styles.bodyContainer}>
-          {/* <FlatList
-            keyboardShouldPersistTaps={'handled'}
-            data={filteredChargers}
-            renderItem={({item: chargerObj, index}) => {
-              const view = []
-             //  bottom stuff... 
-              return view
-            }}
-          /> */}
-
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {
@@ -198,7 +180,6 @@ const BottomSheetReanimated = forwardRef(
         <View style={styles.container} pointerEvents={'box-none'}>
           <Modalize
             ref={ref}
-            // contentRef={contentRef}
             HeaderComponent={renderHeaderComponent}
             adjustToContentHeight={false}
             modalHeight={height - top - bottom - 65 - 12}

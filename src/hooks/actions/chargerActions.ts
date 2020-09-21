@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Defaults, NavigationActions, getLocaleText } from 'utils'
 import {
   ChargingTypes,
   ChargingStatus,
   ChargingState,
 } from '../../../@types/allTypes.d'
 
-import { Helpers } from 'utils'
+import Defaults from 'utils/defaults'
+import NavigationActions from 'utils/navigation.service'
+import { getLocaleText } from 'utils/localization/localization'
+import Helpers from 'utils/helpers'
 import services from 'services'
 import { getAllChargers } from './rootActions'
-import { Alert } from 'react-native'
 
 export enum ChargerActions {
   CHARGING_STARTED_SUCCESS,
@@ -45,7 +46,6 @@ export const startCharging = async (
         'dropDownAlert.pleaseSeeIfChargerIsConnected',
       )
       console.log("CONNECTOR_ID:",connectorTypeId);
-      // const test = await services.finishCharging(connectorTypeId);
       setLoading(false)
       return
     }
@@ -71,7 +71,6 @@ export const startCharging = async (
     if (error.data.message)
       Helpers.DisplayDropdownWithError('', getLocaleText(error.data.message))
     else Helpers.DisplayDropdownWithError()
-    // const chargingStateResult = await services.chargingState() //temporary
   }
 }
 

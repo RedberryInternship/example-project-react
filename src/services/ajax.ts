@@ -2,20 +2,9 @@ import axios from 'axios'
 import {API} from 'utils/const'
 import {Platform} from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import {Defaults, Sentry} from 'utils'
-import AsyncStorage from '@react-native-community/async-storage'
-import { logOut } from 'hooks/actions/rootActions'
-
-// axios.interceptors.response.use(response => {
-//   console.log("Test response",response);
-//   return response;
-// },error => {
-//   console.log("Test ERROR:",error);
-//   if(error.response.status === 401){
-//     logOut();
-//   }
-//   return Promise.reject(error);
-// })
+import Defaults from 'utils/defaults'
+import Sentry from 'utils/sentry'
+import { logOut } from 'hooks/actions/general/logout'
 
 type Method = 'get' | 'post'
 type Error = {
@@ -47,18 +36,14 @@ class Ajax {
       (resolve: (val: any) => void, reject: (val: Error) => void) => {
         const headers = this.headers()
         const url = API + uri
-        // this.logRequest(method, url, headers, data)
         axios({method, url, headers, data})
           .then((response) => {
-            // this.logResponse(method, url, headers, response.data)
             resolve(response.data)
           })
           .catch((error) => {
             if (error.response && error.response.status === 401) {
               logOut();
             }
-            // Defaults.dropdown && Defaults.dropdown?.alertWithType('error',"შეცომა",'დაფიქსირდა შეცომა, გთხოვთ ცადოთ თავიდან');
-            // else this.logResponse(method, url, headers, error.response)
             reject(error.response)
             Sentry.withScope(function(scope) {
               scope.setFingerprint([method, url, JSON.stringify(headers)])

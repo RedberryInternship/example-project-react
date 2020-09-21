@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Defaults, NavigationActions } from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
 import {
   UserSettingEnum,
@@ -7,16 +6,17 @@ import {
   UserMeResponseType,
 } from '../../../@types/allTypes.d'
 
-import { Helpers } from 'utils'
+import Defaults from 'utils/defaults'
+import Helpers from 'utils/helpers'
 import services from 'services'
-import { chargingState } from './chargerActions'
 
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
 export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
 export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
-export const LOG_OUT = 'LOG_OUT'
+
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
+export { LOG_OUT, logOut } from './general/logout'
 
 export const rootAction = async (
   data: RootActionArg1,
@@ -27,7 +27,6 @@ export const rootAction = async (
   if (data.token !== '') {
     await updateUser(dispatch)
     getFavoriteChargers(dispatch)
-    // chargingState(dispatch)
   }
 }
 
@@ -58,8 +57,6 @@ const saveToken = ({
   type: string
   payload: { user: UserMeResponseType; token: string | null }
 } => {
-  // console.log(JSON.stringify({ user, token }, null, 2), 'payload')
-
   AsyncStorage.setItem('token', token ?? '')
   AsyncStorage.setItem('userDetail', JSON.stringify(user))
 
@@ -69,17 +66,6 @@ const saveToken = ({
   return {
     type: SAVE_TOKEN,
     payload: { user, token },
-  }
-}
-
-export const logOut = () => {
-  AsyncStorage.clear()
-  Defaults.token = ''
-  Defaults.userDetail = null
-  NavigationActions.navigate('Home')
-
-  return {
-    type: LOG_OUT,
   }
 }
 

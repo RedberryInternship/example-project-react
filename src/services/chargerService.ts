@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import ajax from './ajax';
 import {
-  ChargerFilters,
   GetAllChargerResponseType,
   StartChargingResponseType,
   ChargingTypes,
   ChargingState,
 } from '../../@types/allTypes.d';
-import { Defaults } from 'utils';
+import Defaults from 'utils/defaults';
 import AsyncStorage from '@react-native-community/async-storage'
 
 export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseType> => {

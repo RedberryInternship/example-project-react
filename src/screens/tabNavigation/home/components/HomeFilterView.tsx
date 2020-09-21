@@ -15,9 +15,9 @@ import {
 } from 'react-native'
 import {useTranslation} from 'react-i18next'
 
+import FilterTextItem from './FilterTextItem'
 import {Const, Colors} from 'utils'
 import images from 'assets/images'
-import {FilterTextItem} from '../components'
 
 type HomeFilterProps = {
   selectedFiltersOnMap: number[]

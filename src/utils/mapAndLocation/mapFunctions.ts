@@ -2,19 +2,15 @@ import moment from 'moment'
 import SunCalc from 'suncalc'
 import RNLocation, {
   Location,
-  LocationPermissionStatus,
 } from 'react-native-location'
-import {
-  check,
-  checkMultiple,
-  PERMISSIONS,
-  RESULTS,
-  request,
-} from 'react-native-permissions'
 
-import {Defaults, Const, Helpers} from 'utils'
+import Defaults from 'utils/defaults'
+import * as Const from 'utils/const'
+import Helpers from 'utils/helpers'
 import services from 'services'
-import {Alert} from 'react-native'
+import {
+  isPermissionGrantedRegex,
+} from './permissionsRegex'
 
 type RegionFrom = {
   latitude: number
@@ -58,13 +54,6 @@ export function determineTimePeriod() {
   }
 }
 
-export const mergeCoords = (
-  lat: number | string,
-  lng: number | string,
-): string => {
-  return lat + ',' + lng
-}
-
 type getCoordsAnywayType = {
   lat: number
   lng: number
@@ -72,44 +61,6 @@ type getCoordsAnywayType = {
 let IPCoords: any = null
 
 export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
-  // checkMultiple([
-  //   PERMISSIONS.IOS.LOCATION_ALWAYS,
-  //   PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-  // ])
-  //   .then((result) => {
-  //     console.log('====================================')
-  //     console.log(result, 'checkMultiple result')
-  //     console.log('====================================')
-  //     request(PERMISSIONS.IOS.LOCATION_ALWAYS)
-  //       .then((result) => {
-  //         console.log('====================================')
-  //         console.log(result, 'LOCATION_ALWAYS result')
-  //         console.log('====================================')
-  //       })
-  //       .catch((error) => {
-  //         Alert.alert('LOCATION_ALWAYS')
-  //       })
-  //     request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)
-  //       .then((result) => {
-  //         console.log('====================================')
-  //         console.log(result, 'LOCATION_WHEN_IN_USE result')
-  //         console.log('====================================')
-  //       })
-  //       .catch((error) => {
-  //         Alert.alert('LOCATION_WHEN_IN_USE')
-  //       })
-  //   })
-  //   .catch((error) => {
-  //     Alert.alert('main')
-  //   })
-
-  // RNLocation.getLatestLocation({
-  //   timeout: 6000,
-  // }).then((val) => {
-  //   console.log('====================================')
-  //   console.log(val, 'valval')
-  //   console.log('====================================')
-  // })
   if (isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
     try {
       const location: Location | null = await RNLocation.getLatestLocation({
@@ -117,9 +68,6 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
       })
       if (location !== null)
         return {lat: location.latitude, lng: location.longitude}
-      // else {
-      //   Helpers.DisplayDropdownWithError('ver moiZebna')
-      // }
     } catch (error) {
       Helpers.DisplayDropdownWithError()
       console.log('====================================')
@@ -145,10 +93,3 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
 
   return Const.locationIfNoGPS
 }
-
-export const isPermissionGrantedRegex = (status: LocationPermissionStatus) =>
-  status.match(
-    /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
-  )
-export const isPermissionDeniedRegex = (status: LocationPermissionStatus) =>
-  status.match(/denied|restricted|notDetermined/)

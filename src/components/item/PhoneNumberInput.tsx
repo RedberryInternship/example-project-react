@@ -9,10 +9,9 @@ import {
   StyleProp,
 } from 'react-native'
 import {Item} from 'react-native-picker-select'
-
 import {PhoneCountryCode, BaseInputRefProp} from 'allTypes'
-
-import {BaseInput, BasePickerSelect} from 'components'
+import BasePickerSelect from 'components/baseUI/BasePickerSelect'
+import BaseInput from 'components/baseUI/BaseInput'
 import images from 'assets/images'
 import {Helpers, Colors} from 'utils'
 import services from 'services'
@@ -82,7 +81,6 @@ const PhoneNumberInput = React.forwardRef(
     }
 
     const _onSubmit = (): void => {
-      // onChangeText(selectedCountryCode.value + value)
       onSubmit()
     }
 

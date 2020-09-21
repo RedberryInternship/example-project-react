@@ -2,7 +2,6 @@ import React, {useContext, ReactElement} from 'react'
 import {
   StyleSheet,
   View,
-  Text,
   KeyboardAvoidingView,
   Platform,
   StatusBar,
@@ -12,10 +11,8 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Controller} from 'react-hook-form'
-
 import {ScreenPropsWithNavigation} from 'allTypes'
-
-import {AppContext} from '../../../../App'
+import AppContext from 'hooks/contexts/app'
 import images from 'assets/images'
 import {Colors} from 'utils'
 import {

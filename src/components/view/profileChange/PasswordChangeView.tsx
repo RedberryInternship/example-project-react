@@ -1,7 +1,7 @@
 import React, {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
-
-import {BaseInput, PasswordConfirmationView} from 'components'
+import PasswordConfirmationView from 'components/view/PasswordConfirmationView'
+import BaseInput from 'components/baseUI/BaseInput'
 import images from 'assets/images'
 import {Controller} from 'react-hook-form'
 

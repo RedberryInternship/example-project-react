@@ -1,9 +1,10 @@
 import React, { ReactElement } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-
-import { ModalPopupChargerItem, BaseText } from 'components'
+import ModalPopupChargerItem from 'components/item/ModalPopupChargerItem'
+import BaseText from 'components/baseUI/BaseText'
 import { Colors } from 'utils'
+
 type BankruptProps = {
   bottomDescription: string
   price: number
@@ -23,16 +24,6 @@ const Bankrupt = ({
       <View style={{ marginVertical: 12 }}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         <View style={styles.lineView} />
-        {/* <TouchableOpacity
-          onPress={(): void => {
-            Alert.alert('not yet')
-          }}
-          style={styles.subtype2Touchable}
-        >
-          <BaseText style={{ color: Colors.primaryGreen }}>
-            {t('charger.allChargerList')}
-          </BaseText>
-        </TouchableOpacity> */}
       </View>
     </>
   )

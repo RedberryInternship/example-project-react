@@ -20,10 +20,9 @@ import {
   MapImperativeRefObject,
   ChargerDetail,
 } from '../../../../../@types/allTypes.d'
-import {AppContext} from '../../../../../App'
+import AppContext from 'hooks/contexts/app'
 import {Helpers} from 'utils'
 import {DrawerActions} from 'react-navigation-drawer'
-import {Alert} from 'react-native'
 import {Modalize} from 'react-native-modalize'
 
 const useHome = (
@@ -82,7 +81,6 @@ const useHome = (
       // because of library bug
       if (show) bottomSheetRef.current?.open('top')
       else bottomSheetRef.current?.close('alwaysOpen')
-      // bottomSheetRef.current?.snapTo(snapPoint)
     },
     [bottomSheetRef],
   )
@@ -119,7 +117,7 @@ const useHome = (
 
   const onFilterClick = useCallback(
     (index: number): void => {
-      let newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFilters))
+      const newSelectedFilters: number[] = [...selectedFilters]
       newSelectedFilters[index] = selectedFilters[index] > 0 ? 0 : 1;
       setSelectedFilters(newSelectedFilters)
     },
@@ -169,6 +167,15 @@ const useHome = (
     })
   }, [selectedFiltersOnMap])
 
+  const resetBottomFilters = useCallback(
+    (): void => {
+      const resetFilters:number[] = [...selectedFilters].fill(0)
+      setSelectedFilters(resetFilters)
+      console.log(['SELECTED_FILTERS', selectedFilters])
+    },
+    [selectedFilters, setSelectedFilters],
+  )
+
   return {
     loading,
     setLoading,
@@ -187,6 +194,7 @@ const useHome = (
     mainInputRef,
     onMapFilteredChargers,
     bottomSheetChargers,
+    resetBottomFilters,
   }
 }
 export default useHome

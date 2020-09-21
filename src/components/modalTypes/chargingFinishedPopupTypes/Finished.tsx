@@ -2,8 +2,10 @@ import React, { ReactElement } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { HomeNavigateModes } from '../../../../@types/allTypes.d'
-import { ModalPopupChargerItem, BaseText } from 'components'
+import ModalPopupChargerItem from 'components/item/ModalPopupChargerItem'
+import BaseText from 'components/baseUI/BaseText'
 import { NavigationActions, Colors } from 'utils'
+
 type FinishedProps = {
   bottomDescription: string
   price: number

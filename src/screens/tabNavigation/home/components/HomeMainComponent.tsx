@@ -5,19 +5,17 @@ import {
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
-import { View, StyleSheet, Alert } from 'react-native'
+import { View, StyleSheet} from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { HomeContextType, Charger, MapImperativeRefObject } from 'allTypes'
 
 import { BaseButton, MultiChargingTopModal } from 'components'
 import { Defaults, Helpers } from 'utils'
-import { HomeContext } from '../Home'
+import HomeContext from 'hooks/contexts/home'
 import images from 'assets/images'
-import {
-  HomeMainSearchView,
-  HomeFilterView,
-  OnMapRoundButton,
-} from '../components'
+import HomeMainSearchView from './HomeMainSearchView'
+import HomeFilterView from './HomeMainSearchView'
+import OnMapRoundButton from './OnMapRoundButton'
 
 type HomeMainComponentProps = {
   navigation?: NavigationScreenProp<NavigationState, NavigationParams>

@@ -1,7 +1,6 @@
 import React, {ReactElement} from 'react'
-import {StyleSheet} from 'react-native'
-
-import {PhoneNumberInput, ReceiveCode} from 'components'
+import ReceiveCode from 'components/UI/ReceiveCode'
+import PhoneNumberInput from 'components/item/PhoneNumberInput'
 
 type PhoneVerificationViewProps = {
   watch: (name: string) => string
@@ -38,10 +37,3 @@ const PhoneVerificationView = ({
 }
 
 export default PhoneVerificationView
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 15,
-    paddingTop: 80,
-  },
-})

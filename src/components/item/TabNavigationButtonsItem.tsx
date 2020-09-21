@@ -1,11 +1,10 @@
 import React, {ReactElement} from 'react'
 import {
-  TouchableOpacity,
   Image,
   ImageSourcePropType,
   StyleSheet,
 } from 'react-native'
-import {BaseButton, BaseNativeTouchable} from 'components'
+import BaseNativeTouchable from 'components/baseUI/BaseNativeTouchable'
 
 type TabNavigationButtonsItemProps = {
   navigate: () => void

@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-
 import { Defaults } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/baseUI/BaseText'
 import { StyleSheet } from 'react-native'
+import Helpers from 'utils/helpers'
 
 type FetchedDataRendererProp = {
   property: string
@@ -41,6 +41,7 @@ const FetchedDataRenderer = ({
         setLocalState(dataList)
         staticData[property] = dataList
       } catch (error) {
+        Helpers.Logger(error);
         Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.generalError'),

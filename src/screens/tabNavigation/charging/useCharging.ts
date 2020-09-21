@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Alert } from 'react-native'
 
 import { finishCharging } from 'hooks/actions/chargerActions'
-import { ChargerContext } from '../../../../App'
+import ChargerContext from 'hooks/contexts/charger'
 
 export default (navigation: any) => {
   const {
