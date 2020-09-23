@@ -13,15 +13,9 @@ const MarkerController = ({
 }: ChargerMarkerIconControllerType): ReactElement => {
   const getStatus = () => {
     switch (status) {
-      case 'ACTIVE':
-        return ChargerMarkerColor.free
-        break;
-      case 'INACTIVE':
-        return ChargerMarkerColor.notWorking
-        break;
-      case 'CHARGING':
-        return ChargerMarkerColor.busy
-        break;
+      case 'ACTIVE':  return ChargerMarkerColor.free
+      case 'INACTIVE':  return ChargerMarkerColor.notWorking
+      case 'CHARGING':  return ChargerMarkerColor.busy
     }
     return ChargerMarkerColor.notWorking
   }

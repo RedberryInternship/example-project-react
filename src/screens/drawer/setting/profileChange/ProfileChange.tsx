@@ -16,8 +16,7 @@ import {
   AddCar,
   SingleInputView,
 } from 'components'
-import { Colors, Helpers, InputValidationHelpers } from 'utils'
-import images from 'assets/images'
+import { Colors, InputValidationHelpers } from 'utils'
 import useProfileChange from './useProfileChange'
 
 const ProfileChange = ({
@@ -68,7 +67,7 @@ const ProfileChange = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.innherContainer}>
+      <View style={styles.innerContainer}>
         <BaseHeader
           title={headerName}
           onPressLeft={navigation.navigate.bind(ProfileChange, 'Settings')}
@@ -85,7 +84,6 @@ const ProfileChange = ({
           keyboardShouldPersistTaps={'always'}
           keyboardDismissMode={'on-drag'}
           resetScrollToCoords={{ x: 0, y: 0 }}
-          // scrollEnabled={false}
         >
           {renderInputs()}
         </KeyboardAwareScrollView>
@@ -112,7 +110,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     backgroundColor: Colors.primaryBackground,
   },
-  innherContainer: {
+  innerContainer: {
     flex: 1,
   },
   keyboardAwareScrollView: {

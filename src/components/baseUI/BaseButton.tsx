@@ -68,7 +68,6 @@ const BaseButton = ({
             <ActivityIndicator
               color={'green'}
               size="large"
-              // style={{backgroundColor: 'blue'}}
             />
           ) : (
             <>

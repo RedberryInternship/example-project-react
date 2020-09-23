@@ -1,9 +1,7 @@
 import React, { useReducer, useMemo, ReactElement } from 'react'
 import { StyleSheet, View } from 'react-native'
-
 import { ScreenPropsWithNavigation } from 'allTypes'
-
-import { Defaults, Colors } from 'utils'
+import { Defaults, Colors, Helpers } from 'utils'
 import reducer, { initialState } from 'hooks/reducers/homeReducers'
 import { useHome } from './hooks'
 import {
@@ -32,7 +30,9 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     bottomSheetChargers,
     searchInputTextChangeHandler,
   } = useHome(navigation)
-
+  
+  Helpers.Logger(["Home - Component"]);
+  
   return useMemo(
     () => (
       <HomeContext.Provider value={{ state, dispatch }}>

@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import Sentry from 'utils/sentry'
 import locationConfig from 'utils/mapAndLocation/location'
 import Defaults from 'utils/defaults'
-import { Exception } from '@sentry/react-native'
 import {
   ChargerFilters,
   Charger,
@@ -18,11 +16,9 @@ import { Alert, Linking, Platform } from 'react-native'
 import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
 import { chargingState } from 'hooks/actions/chargerActions'
 
-const Logger = (err: Exception | string | number): void => {
+const Logger = (data: any): void => {
   if (__DEV__) {
-    Sentry.captureException(err)
-  } else {
-    console.log(['Logger', err])
+    console.log(data)
   }
 }
 
@@ -243,11 +239,14 @@ const DisplayDropdownWithError = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
-  Defaults.dropdown?.alertWithType(
+
+  const args = [
     'error',
     i18next.t(title ?? 'dropDownAlert.generalError'),
-    i18next.t(text ?? ''),
-  )
+  ];
+  
+  text && args.push(i18next.t(text));
+  Defaults.dropdown?.alertWithType(...args)
 }
 
 const DisplayDropdownWithSuccess = (
