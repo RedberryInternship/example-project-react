@@ -5,6 +5,7 @@ import DeviceInfo from 'react-native-device-info'
 import Defaults from 'utils/defaults'
 import Sentry from 'utils/sentry'
 import { logOut } from 'hooks/actions/general/logout'
+import Helpers from 'utils/helpers'
 
 type Method = 'get' | 'post'
 type Error = {
@@ -26,9 +27,11 @@ class Ajax {
   }
 
   get(uri: string): Promise<any> {
+    Helpers.Logger([`Service | GET : ${uri}`])
     return this._fetch(uri, null, 'get')
   }
   post(uri: string, payload: any): Promise<any> {
+    Helpers.Logger([`Service | POST : ${uri}`])
     return this._fetch(uri, payload, 'post')
   }
   private _fetch(uri: string, data: any, method: Method): Promise<any> {
@@ -53,58 +56,6 @@ class Ajax {
       },
     )
     return promise
-  }
-
-  static getParams(payload: any, request: boolean): string {
-    return payload
-      ? '\n>>>>>>>>' +
-          (request ? '>>>>>' : '<<<<<') +
-          ' Body Param: ' +
-          JSON.stringify(payload)
-      : ''
-  }
-
-  logRequest(
-    method: Method,
-    url: string,
-    headers: Record<string, any>,
-    payload: any = '',
-  ): void {
-    console.log(
-      '>>>>>>>>>>>>>> Headers: ' +
-        JSON.stringify(headers) +
-        '\n' +
-        '>>>>> ' +
-        method +
-        '>>' +
-        url +
-        Ajax.getParams(payload, true) +
-        '\n' +
-        '>>>>>>>>>>>>>>>>',
-    )
-  }
-
-  logResponse(
-    method: Method,
-    url: string,
-    headers: object,
-    payload = '',
-  ): void {
-    console.log(
-      '<<<<<<<<<<<<<<<<\n' +
-        '<<<<< Headers: ' +
-        JSON.stringify(headers) +
-        '\n' +
-        '<<<<< ' +
-        method +
-        ' ' +
-        url +
-        '\n' +
-        '<<<<< Status Code: ' +
-        JSON.stringify(payload) +
-        '\n' +
-        '<<<<<<<<<<<<<<<<',
-    )
   }
 }
 export default new Ajax()
