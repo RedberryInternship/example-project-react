@@ -19,6 +19,7 @@ const TransactionListItem = ({
 }: TransactionItemProps): ReactElement => {
   
   const chargePrice = charge_price ? `${charge_price} ₾` : '0 ₾';
+  // const chargePrice = `${charge_price ?? 0} ₾`
 
   return (
     <TouchableOpacity onPress={onPress}>

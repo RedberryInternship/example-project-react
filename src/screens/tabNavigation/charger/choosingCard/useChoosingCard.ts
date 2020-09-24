@@ -13,6 +13,7 @@ import { Helpers } from 'utils'
 
 const animatedArrow = new Animated.Value(0)
 
+// Vobi todo: move this in hooks
 export default (navigation: Navigation) => {
   const { state, dispatch }: AppContextType = useContext(AppContext)
 

@@ -56,7 +56,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   useEffect(() => {
     try {
       RNLocation.getCurrentPermission().then(getPermissionStatus)
-    } catch (error) {}
+    } catch (error) {} // Vobi Todo: this catch wont work and result in unresolved
 
     let subscribedPermissionUpdate: any = null
     ;(async () => {
@@ -219,6 +219,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         if (error === 'ERROR') Helpers.DisplayDropdownWithError()
         else if (error === 'ZERO_RESULTS')
           Helpers.DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
+        // Vobi Todo: log error to sentry if none matches
       }
     },
     [mapRef, polyline],

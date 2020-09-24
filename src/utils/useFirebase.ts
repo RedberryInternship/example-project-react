@@ -4,6 +4,7 @@ import messaging from '@react-native-firebase/messaging'
 import services from 'services'
 import { AppState } from 'allTypes'
 
+// Vobi Todo: this is not util this is hook
 const useFirebase = ({ authStatus }: AppState): void => {
   const onTokenRefreshListener = useRef<any>()
   useEffect(() => {
@@ -46,6 +47,7 @@ const useFirebase = ({ authStatus }: AppState): void => {
       try {
         fcmToken = await messaging().getToken()
       } catch (error) {
+        // Vobi Todo: log this error to sentry
         console.log('error', 'on get token')
       }
       if (fcmToken) {

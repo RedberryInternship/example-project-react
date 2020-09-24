@@ -11,7 +11,7 @@ type UserInfoViewProps = {
   activePage: number
 }
 // eslint-disable-next-line react/display-name
-const UserInfoView = React.memo(
+const UserInfoView = React.memo( // Vobi Todo: use memo on bottom or while defining component (keep same syntax)
   ({hook}: UserInfoViewProps): ReactElement => {
     const {control, errors} = hook
 

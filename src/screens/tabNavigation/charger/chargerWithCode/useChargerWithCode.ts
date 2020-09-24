@@ -23,6 +23,7 @@ type _This = {
   chargeWitchCode: string
 }
 
+// Vobi todo: move this in hooks
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {

@@ -112,6 +112,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   }
 
   renderView = (): ReactElement | undefined => {
+    // Vobi Todo: make enum types instead of numbers this.state.config.type
     switch (this.state.config.type) {
       case 1:
         return <RegistrationType1 onPress={this.closeModal} />

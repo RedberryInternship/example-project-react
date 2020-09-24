@@ -119,7 +119,7 @@ const useHome = (
 
   const onFilterClick = useCallback(
     (index: number): void => {
-      let newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFilters))
+      let newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFilters)) // Vobi Todo: well done
       newSelectedFilters[index] = selectedFilters[index] > 0 ? 0 : 1;
       setSelectedFilters(newSelectedFilters)
     },
@@ -141,6 +141,7 @@ const useHome = (
     [navigation],
   )
 
+  // Vobi Todo: what is purpose of this function
   const searchInputTextChangeHandler = useCallback(
     (text: string): void => {
       setInputText(text)
@@ -150,7 +151,7 @@ const useHome = (
   
   const onFilterClickOnMap = useCallback(
     (index: number): void => {
-      const newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFiltersOnMap));
+      const newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFiltersOnMap)); // Vobi todo: what are you doing?
       newSelectedFilters[index] = selectedFiltersOnMap[index] > 0 ? 0 : 1;
       setSelectedFiltersOnMap(newSelectedFilters)
     },

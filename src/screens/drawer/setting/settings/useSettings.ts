@@ -51,6 +51,7 @@ export default (navigation: Navigation) => {
     structureSettingsInfoObj()
   }, [state])
 
+  // Vobi Todo: what is purpose of this function if it is only used in useEffect
   const structureSettingsInfoObj = (): void => {
     const activeCardNumber = '********* 9281'
 
@@ -82,6 +83,9 @@ export default (navigation: Navigation) => {
       if (activeCard) {
         return activeCard.masked_pan
       } else return ''
+      // Vobi Todo: choose one approach
+      // if() { return } else { return }
+      // if() return else return
     },
     [state],
   )

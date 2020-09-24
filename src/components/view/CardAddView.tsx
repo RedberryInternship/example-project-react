@@ -11,7 +11,7 @@ type CardAddViewProps = {
   onFail?: () => void
 }
 const CardAddView = ({onSuccess, onFail}: CardAddViewProps) => {
-  const [urlData, setUrlData] = useState<GetCardAddUrl | undefined>(undefined)
+  const [urlData, setUrlData] = useState<GetCardAddUrl | undefined>() // Vobi Todo: useState default value is undefined
   const navigationStateChange = useCallback(
     (event: WebViewNavigation) => {
       if (event.url.includes(urlData?.success_url)) {

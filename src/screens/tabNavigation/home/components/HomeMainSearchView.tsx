@@ -46,6 +46,10 @@ const HomeMainSearchView = forwardRef(
       show: setShowSearchContent.bind(HomeMainSearchView, true),
     }))
 
+    // Vobi Todo: https://tppr.me/pHt49
+    // same logic is written in 2 components
+    // make one SearchedItems component and render them
+    // you only would write it like so here <SearchedItems chargers={chargers} />
     const searchedItems = useCallback(
       ({item: chargerObj}: {item: Charger}): ReactElement => {
         const view = []

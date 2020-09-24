@@ -12,6 +12,7 @@ import {
   BottomSheetModalize,
 } from './components'
 
+// Vobi Todo: move contexts in separate folder
 export const HomeContext = createContext({})
 
 const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {

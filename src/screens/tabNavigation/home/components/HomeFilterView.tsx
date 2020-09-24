@@ -53,6 +53,7 @@ const HomeFilter = ({
     [showFilter],
   )
 
+  // Vobi Todo: what is purpose of this useMemos everywhere in return
   return useMemo(
     () => (
       <Animated.View style={[styles.container, {transform: [{translateX}]}]}>

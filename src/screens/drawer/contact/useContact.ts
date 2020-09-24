@@ -67,6 +67,7 @@ export default (navigation: Navigation) => {
     errorMsgType: ErrorMessageType,
     backupUrl: string | boolean = false,
   ): Promise<void> => {
+    // Vobi Todo: use async await
     console.log("URL:",url);
     Linking.canOpenURL(url)
     .then(response => {

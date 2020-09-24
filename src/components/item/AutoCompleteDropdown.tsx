@@ -30,6 +30,8 @@ type AutoCompleteDropdownProps = {
   dropdownIcon: ImageSourcePropType
   zIndex: number
 }
+
+// Vobi Todo: No Inline styles
 const AutoCompleteDropdown = ({
   title,
   data,

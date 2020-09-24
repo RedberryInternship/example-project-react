@@ -28,8 +28,10 @@ type PhoneNumberInputProps = {
   value?: string
 }
 
+// Vobi Todo: what is that
 const pickeritems: Item[] = []
 
+// Vobi Todo: this is util
 const placeholder = {label: '+995', value: '+995'}
 // eslint-disable-next-line react/display-name
 const PhoneNumberInput = React.forwardRef(

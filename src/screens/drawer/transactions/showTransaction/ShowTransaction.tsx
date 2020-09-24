@@ -48,11 +48,12 @@ const ShowTransactions = ({
     user_card_pan,
   }: TransactionsHistoryResponseItem = navigation.getParam('order', [])
 
+  // Vobi Todo: const penaltyFee = () => use normal function syntax
   const penaltyFee      = (): string => (`${penalty_fee ?? 0} ${t('gel')}`)
   const chargePrice     = (): string => (`${charge_price ?? 0} ${t('gel')}`) 
   const durationInMins  = (): string => (`${duration ?? 0} ${t('minute')}`)
 
-  const shouldNotRender    = (): boolean => (! duration) && (! penalty_fee ) && (! charge_price)
+  const shouldNotRender = (): boolean => (! duration) && (! penalty_fee ) && (! charge_price)
 
   return (
     <View style={styles.container}>
@@ -69,6 +70,7 @@ const ShowTransactions = ({
         </View>
         <BaseText style={styles.detailsCopy}> {t('transactions.details')} </BaseText>
         { ! shouldNotRender() && <View style={styles.detailsContainer}>
+          {/** Vobi Todo: code doesn't have to be vertically aligned */}
           {duration     && ( <DetailsItem name={t('transactions.duration')}    value={durationInMins()}  /> )}
           {charge_power && ( <DetailsItem name={t('transactions.power')}       value={charge_power}      /> )}
           {penalty_fee  && ( <DetailsItem name={t('transactions.penaltyFee')}  value={penaltyFee()}      /> )}
