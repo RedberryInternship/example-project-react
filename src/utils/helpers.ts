@@ -253,6 +253,7 @@ const DisplayDropdownWithSuccess = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
+  
   Defaults.dropdown?.alertWithType(
     'success',
     i18next.t(title ?? 'dropDownAlert.generalSuccess'),
@@ -499,8 +500,6 @@ const configureChargingFinishPopup = (
         return;
     }
     setTimeout(() => {
-      console.log(['შემოდის აქ', charging_status, options]);
-
       Defaults.modal.current?.customUpdate(true, options)
     }, 1000)
   }

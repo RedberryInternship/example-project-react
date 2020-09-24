@@ -41,7 +41,7 @@ const initialState: InitialState = {
       title: 'popup.thankYou',
       description: 'popup.automobileChargingFinished',
       bottomDescription: 'popup.chargingFinishedWarning',
-      address: 'asdfasdf dsfd',
+      address: '#1',
     },
   },
 }

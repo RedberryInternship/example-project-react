@@ -46,7 +46,10 @@ export const updateUser = async (dispatch: any) => {
     if (error.status == '406' || error?.data?.status == '406') {
       Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       dispatch(logOut())
-    } else Helpers.DisplayDropdownWithError()
+    } else {
+      Helpers.DisplayDropdownWithError()
+      Helpers.Logger(["Error", error]);
+    }
   }
 }
 

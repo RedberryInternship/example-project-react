@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import ajax from './ajax';
+
 import {
   UserMeResponseType,
   UserFavoriteChargersResponseType,
@@ -15,7 +16,7 @@ import {
   GetCardAddUrl,
 } from 'allTypes';
 
-export const getUserData = (): Promise<UserMeResponseType> => ajax.get('/me');
+export const getUserData = (): Promise<UserMeResponseType> => ajax.get('/me')
 
 export const getUserFavoriteChargers = (): Promise<UserFavoriteChargersResponseType> =>
   ajax.get('/user-favorites');

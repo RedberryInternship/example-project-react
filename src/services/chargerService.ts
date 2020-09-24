@@ -13,11 +13,9 @@ export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseTyp
     const date = new Date();
     let storeNew = false;
     let chargers = {}
-    // AsyncStorage.removeItem("storedChargers");
     const storedChargers = await AsyncStorage.getItem("storedChargers");
     if(storedChargers){
       chargers = JSON.parse(storedChargers);
-      
     }
     const milisec_diff = date.getTime() - chargers?.time;
     const minutes_diff = new Date(milisec_diff).getMinutes();

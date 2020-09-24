@@ -5,7 +5,9 @@ import services from 'services'
 import { AppState } from 'allTypes'
 
 const useFirebase = ({ authStatus }: AppState): void => {
+  
   const onTokenRefreshListener = useRef<any>()
+  
   useEffect(() => {
     initialRun()
     return () => {
@@ -53,7 +55,6 @@ const useFirebase = ({ authStatus }: AppState): void => {
         authStatus === 'success' && services.setUserFirebaseToken(fcmToken)
       }
     }
-    console.log('FCMtoken', fcmToken)
   }, [services, AsyncStorage, authStatus])
 
   useEffect(() => {

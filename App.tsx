@@ -7,7 +7,7 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context'
-import { Defaults, Helpers } from 'utils'
+import { Defaults } from 'utils'
 import { useRoot } from 'hooks'
 import AppContext from 'hooks/contexts/app'
 import ChargerContext from 'hooks/contexts/charger'
@@ -24,8 +24,6 @@ const App = (): React.ReactElement => {
     charger,
     dispatchCharger,
   } = useRoot()
-
-  Helpers.Logger(["App - Component"]);
 
   return useMemo(
     () => (
