@@ -17,6 +17,7 @@ import {
 import useCharger from './useCharger'
 import { chargingState } from './actions/chargerActions'
 import { UserMeResponseType } from 'allTypes'
+import { locale } from 'locale'
 
 export default () => {
   const [state, dispatch] = useReducer(rootReducer, initialState)
@@ -97,16 +98,16 @@ export default () => {
   }
 
   const readUserLocale = async (): Promise<void> => {
-    let _locale: 'en' | 'ka' | 'ru' | null = await getLocaleStorage()
-    if (_locale === null) {
-      _locale = 'ka'
+    let locale:locale  = await getLocaleStorage()
+    if (locale === null) {
+      locale = 'ka'
       setLocaleStorage('ka')
     } else {
-      i18n.changeLanguage(_locale)
+      i18n.changeLanguage(locale)
     }
 
-    Defaults.locale = _locale
-    setLocale(_locale)
+    Defaults.locale = locale
+    setLocale(locale)
   }
 
   const setNavigationTopLevelElement = (ref: any): void => {
