@@ -1,8 +1,8 @@
 import React, {ReactElement, useEffect} from 'react'
 import {Controller} from 'react-hook-form'
 
-import {Colors, InputValidationHelpers, Helpers} from 'utils'
-import {BaseInput} from 'components'
+import {Colors, Helpers} from 'utils'
+import BaseInput from 'components/baseUI/BaseInput'
 import images from 'assets/images'
 
 type PasswordConfirmationViewProps = {
@@ -12,7 +12,6 @@ type PasswordConfirmationViewProps = {
 }
 const PasswordConfirmationView = ({
   errors,
-  watch,
   control,
 }: PasswordConfirmationViewProps): ReactElement => {
   useEffect(() => {
@@ -27,11 +26,6 @@ const PasswordConfirmationView = ({
       <Controller
         as={BaseInput}
         name="password"
-        // rules={{
-        //   validate: InputValidationHelpers.passwordConfirmValidation(
-        //     watch('repeatPassword'),
-        //   ),
-        // }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
@@ -43,11 +37,6 @@ const PasswordConfirmationView = ({
       <Controller
         as={BaseInput}
         name="repeatPassword"
-        // rules={{
-        //   validate: InputValidationHelpers.passwordConfirmValidation(
-        //     watch('password'),
-        //   ),
-        // }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}

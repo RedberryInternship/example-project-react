@@ -16,7 +16,6 @@ import CardAddView from './view/CardAddView'
 import CustomModal from './CustomModal'
 
 //library
-import CustomSlideUpModal from './library/CustomSlideUpModal'
 import Pulse from './library/Pulse'
 import MultiChargingTopModal from './library/MultiChargingTopModal'
 import FetchedDataRenderer from './library/FetchedDataRenderer'
@@ -58,7 +57,6 @@ import LocationPermission from './modalTypes/LocationPermission'
 import PrivacyPolicy from './modalTypes/PrivacyPolicy'
 
 export {
-  CustomSlideUpModal,
   TabNavigationButtons,
   BaseButton,
   BaseInput,

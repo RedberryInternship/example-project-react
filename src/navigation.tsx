@@ -1,4 +1,4 @@
-import React, { useMemo, createContext } from 'react';
+import React from 'react';
 import { Dimensions } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
@@ -6,12 +6,11 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { FooterTabNavigation } from 'components';
 
-//screens
 import {
   Home,
   Drawer,
   Auth,
-  Plashka,
+  Opening,
   ChargerWithCode,
   ForgotPassword,
   Registration,
@@ -174,11 +173,11 @@ const MainStack = createStackNavigator(
 
 const AppNavigator = createSwitchNavigator(
   {
-    Plashka,
+    Opening,
     MainStack,
   },
   {
-    initialRouteName: 'Plashka',
+    initialRouteName: 'Opening',
   },
 );
 

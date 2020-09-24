@@ -8,7 +8,7 @@ import {
   NavigationParams,
 } from 'react-navigation'
 
-import { AppContext } from '../../../../../App'
+import AppContext from 'hooks/contexts/app';
 import {
   AppContextType,
   Charger,

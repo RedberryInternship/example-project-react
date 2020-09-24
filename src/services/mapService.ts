@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { MAP_URL, locationIfNoGPS, MAP_API } from 'utils/const';
-import { mergeCoords } from 'utils/mapAndLocation/mapFunctions';
+import mergeCoords from 'utils/mapAndLocation/mergeCoords'
 import i18next from 'i18next';
 import axios from 'axios';
 import ajax from './ajax';
 import { getCoordsByIPResponseType } from 'allTypes';
+
 export const getDistance = (
   originLat: number,
   originLng: number,

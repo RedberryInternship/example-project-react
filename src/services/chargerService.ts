@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import ajax from './ajax';
 import {
-  ChargerFilters,
   GetAllChargerResponseType,
   StartChargingResponseType,
   ChargingTypes,
   ChargingState,
 } from '../../@types/allTypes.d';
-import { Defaults } from 'utils';
+import Defaults from 'utils/defaults';
 import AsyncStorage from '@react-native-community/async-storage'
 
 // Vobi Todo: you can not have business logic inside service
@@ -15,11 +14,9 @@ export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseTyp
     const date = new Date();
     let storeNew = false;
     let chargers = {}
-    // AsyncStorage.removeItem("storedChargers");
     const storedChargers = await AsyncStorage.getItem("storedChargers");
     if(storedChargers){
       chargers = JSON.parse(storedChargers);
-      
     }
     const milisec_diff = date.getTime() - chargers?.time;
     const minutes_diff = new Date(milisec_diff).getMinutes();

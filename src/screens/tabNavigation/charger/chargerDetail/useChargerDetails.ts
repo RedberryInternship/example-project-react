@@ -3,7 +3,8 @@ import { useState, useRef, useContext, useEffect } from 'react'
 import { TextInput, BackHandler, Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import { AppContext, ChargerContext } from '../../../../../App'
+import AppContext from 'hooks/contexts/app';
+import ChargerContext from 'hooks/contexts/charger'
 import {
   AppContextType,
   Charger,
@@ -15,11 +16,9 @@ import {
   NavigationScreenProp,
   NavigationParams,
   NavigationEventPayload,
-  StackActions,
 } from 'react-navigation'
 import {
   Defaults,
-  locationConfig,
   Helpers,
   NavigationActions,
   getLocaleText,
@@ -29,13 +28,9 @@ import {
   deleteToFavorites,
   addToFavorites,
 } from '../../../../hooks/actions/rootActions'
-import images from 'assets/images'
 import services from 'services'
-import {
-  isPermissionDeniedRegex,
-  getCoordsAnyway,
-} from 'utils/mapAndLocation/mapFunctions'
-
+import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
+import { isPermissionDeniedRegex } from 'utils/mapAndLocation/permissionsRegex'
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
@@ -90,7 +85,6 @@ export default (
       headerLeftPress,
     )
     const { params } = payload.state
-    // navigation.setParams({chargerDetails: null})
     if (params?.chargerDetails !== undefined) {
       setCharger(params.chargerDetails)
     }

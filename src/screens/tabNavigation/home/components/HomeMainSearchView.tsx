@@ -13,8 +13,7 @@ import {Charger, MapImperativeRefObject, ChargerDetail} from 'allTypes'
 import {HomeMainSearchInput} from 'components'
 import {useHomeMainSearch} from '../hooks'
 import {Const, Colors, getLocaleText} from 'utils'
-import {MainSearchItem} from '../components'
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler'
+import MainSearchItem from './MainSearchItem'
 
 type MainInput = {
   allChargers: Charger[]
@@ -37,9 +36,7 @@ const HomeMainSearchView = forwardRef(
       InputRef,
       inputText,
     } = useHomeMainSearch(allChargers, mapRef, setShowAll)
-    const InputSubmit = (): void => {
-      // Alert.alert(JSON.stringify(_this.current))
-    }
+    const InputSubmit = (): void => {}
 
     useImperativeHandle(ref, () => ({
       close: closeClick.bind(HomeMainSearchView, true),

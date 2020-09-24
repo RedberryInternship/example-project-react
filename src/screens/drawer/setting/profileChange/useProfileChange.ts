@@ -6,10 +6,10 @@ import {
   AppContextType,
 } from '../../../../../@types/allTypes.d'
 
-import { AppContext } from '../../../../../App'
+import AppContext from 'hooks/contexts/app';
 import { useForm } from 'react-hook-form'
 import services from 'services'
-import { Helpers, Defaults } from 'utils'
+import { Helpers} from 'utils'
 import { editUserInfo, updateUser } from 'hooks/actions/rootActions'
 
 export default (navigation: Navigation, type: UserSettingEnum) => {

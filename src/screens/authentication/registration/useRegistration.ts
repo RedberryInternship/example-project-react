@@ -8,13 +8,9 @@ import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
 
-import {AppContext} from '../../../../App'
-import {BackHandler, Alert, Keyboard} from 'react-native'
+import AppContext from 'hooks/contexts/app'
+import {BackHandler, Keyboard} from 'react-native'
 import {updateUser} from 'hooks/actions/rootActions'
-
-type _This = {
-  userRegistrationState: number
-}
 
 let userRegistrationState = 0
 

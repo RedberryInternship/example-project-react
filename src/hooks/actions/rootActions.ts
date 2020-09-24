@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Defaults, NavigationActions } from 'utils'
 import AsyncStorage from '@react-native-community/async-storage'
 import {
   UserSettingEnum,
@@ -7,17 +6,18 @@ import {
   UserMeResponseType,
 } from '../../../@types/allTypes.d'
 
-import { Helpers } from 'utils'
+import Defaults from 'utils/defaults'
+import Helpers from 'utils/helpers'
 import services from 'services'
-import { chargingState } from './chargerActions'
 
 // Vobi Todo: it is better to separate action types from actions
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
 export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
 export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
-export const LOG_OUT = 'LOG_OUT'
+
 export const EDIT_USER_INFO = 'EDIT_USER_INFO'
+export { LOG_OUT, logOut } from './general/logout'
 
 export const rootAction = async (
   data: RootActionArg1,
@@ -28,7 +28,6 @@ export const rootAction = async (
   if (data.token !== '') {
     await updateUser(dispatch)
     getFavoriteChargers(dispatch)
-    // chargingState(dispatch)
   }
 }
 
@@ -49,7 +48,10 @@ export const updateUser = async (dispatch: any) => {
     if (error.status == '406' || error?.data?.status == '406') {
       Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       dispatch(logOut())
-    } else Helpers.DisplayDropdownWithError()
+    } else {
+      Helpers.DisplayDropdownWithError()
+      Helpers.Logger(["Error", error]);
+    }
   }
 }
 
@@ -60,8 +62,6 @@ const saveToken = ({
   type: string
   payload: { user: UserMeResponseType; token: string | null }
 } => {
-  // console.log(JSON.stringify({ user, token }, null, 2), 'payload')
-
   AsyncStorage.setItem('token', token ?? '')
   AsyncStorage.setItem('userDetail', JSON.stringify(user))
 

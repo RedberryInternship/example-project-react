@@ -1,8 +1,6 @@
-import React, { createContext, useReducer, useMemo, ReactElement } from 'react'
+import React, { useReducer, useMemo, ReactElement } from 'react'
 import { StyleSheet, View } from 'react-native'
-
 import { ScreenPropsWithNavigation } from 'allTypes'
-
 import { Defaults, Colors } from 'utils'
 import reducer, { initialState } from 'hooks/reducers/homeReducers'
 import { useHome } from './hooks'
@@ -11,9 +9,7 @@ import {
   HomeMainComponent,
   BottomSheetModalize,
 } from './components'
-
-// Vobi Todo: move contexts in separate folder
-export const HomeContext = createContext({})
+import HomeContext from 'hooks/contexts/home'
 
 const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -34,7 +30,7 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     bottomSheetChargers,
     searchInputTextChangeHandler,
   } = useHome(navigation)
-
+  
   return useMemo(
     () => (
       <HomeContext.Provider value={{ state, dispatch }}>
@@ -54,14 +50,6 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
             setShowAll={setShowAll}
             mainInputRef={mainInputRef}
           />
-          {/* <BottomSheetReanimated
-          ref={bottomSheetRef}
-          onFilterClick={onFilterClick}
-          selectedFilters={selectedFilters}
-          onFilteredItemClick={onFilteredItemClick}
-          filteredChargers={bottomSheetChargers ?? []}
-          textHandler={searchInputTextChangeHandler}
-        /> */}
           {
             context?.state.AllChargers?.length &&
             <BottomSheetModalize

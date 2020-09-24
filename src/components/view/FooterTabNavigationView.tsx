@@ -3,9 +3,9 @@ import {View, StatusBar, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
 
-import {TabNavigationButtons} from 'components'
+import TabNavigationButtons from 'components/item/TabNavigationButtonsItem'
 import {determineTimePeriod} from 'utils/mapAndLocation/mapFunctions'
-import {Defaults, Helpers} from 'utils'
+import {Helpers} from 'utils'
 import images from 'assets/images'
 
 const FooterTabNavigator = (props: any): ReactElement => {

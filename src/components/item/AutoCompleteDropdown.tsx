@@ -1,25 +1,15 @@
 import React, {ReactElement, useState} from 'react'
 import {
-  Text,
   View,
   StyleSheet,
-  // TouchableOpacity,
   ImageSourcePropType,
   Image,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 import Autocomplete from 'react-native-autocomplete-input'
-
-import {Colors} from 'utils'
-import {BaseText} from 'components'
-import colors from 'utils/colors'
-import BaseNativeTouchable from 'components/baseUI/BaseNativeTouchable'
-import {
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native-gesture-handler'
-import {CarMarkAndModelTypes} from 'allTypes'
-import { translate } from 'i18n-js'
+import { Colors } from 'utils'
+import BaseText from 'components/baseUI/BaseText'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 type AutoCompleteDropdownProps = {
   title: string
   data: string[]
@@ -76,12 +66,7 @@ const AutoCompleteDropdown = ({
             onChangeText={ontextChange}
             hideResults={hideResults}
             keyExtractor={(item, i) => item + i}
-            flatListProps={
-              {
-                // keyboardShouldPersistTaps: 'always',
-                // keyboardDismissMode: 'none',
-              }
-            }
+            flatListProps={{}}
             onFocus={() => {
               ontextChange(props.value?.[0] ?? '')
               setHideResults(false)
@@ -95,14 +80,11 @@ const AutoCompleteDropdown = ({
             inputContainerStyle={{
               backgroundColor: 'transparent',
               borderWidth: 0,
-              // elevation: 10,
               zIndex: zIndex,
             }}
             listContainerStyle={{
               backgroundColor: 'transparent',
               borderWidth: 0,
-              // elevation: 2,
-              // overflow: 'hidden',
               zIndex: zIndex + 1,
             }}
             listStyle={{
@@ -156,14 +138,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 0,
-    // zIndex: 11,
   },
 
   container: {
     flex: 0,
     marginVertical: 16,
     marginBottom: 8,
-    // zIndex: 11,
   },
   innerContainer: {
     width: '100%',

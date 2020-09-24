@@ -15,15 +15,13 @@ import RNLocation, {
 
 import { Coords } from 'allTypes'
 
-import {
-  getCoordsAnyway,
-  isPermissionGrantedRegex,
-} from 'utils/mapAndLocation/mapFunctions'
+import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
+import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
 import { regionFrom, Defaults, locationConfig, Helpers, Const } from 'utils'
-import { HomeContext } from 'screens/tabNavigation/home/Home'
+import HomeContext from 'hooks/contexts/home'
 import services from 'services'
 import { getAllChargers } from 'hooks/actions/rootActions'
-import { Alert, Platform } from 'react-native'
+import { Platform } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 type ThisRef = {
@@ -39,6 +37,7 @@ type useLocationProps = {
   setPolyline: (data: any) => void
   dispatch: (data: any) => void
 }
+
 const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   const context: any = useContext(HomeContext)
   const [
@@ -53,32 +52,73 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     GPSEnabled: false,
   })
 
-  useEffect(() => {
-    try {
-      RNLocation.getCurrentPermission().then(getPermissionStatus)
-    } catch (error) {} // Vobi Todo: this catch wont work and result in unresolved
-
-    let subscribedPermissionUpdate: any = null
-    ;(async () => {
-      if (Platform.OS === 'android') {
-        await RNLocation.requestPermission({
-          android: { detail: 'coarse' },
-        })
-        await RNLocation.checkPermission({
-          android: { detail: 'coarse' },
-        })
+  const navigateByRef = useCallback(
+    (
+      lat: number,
+      lng: number,
+      zoomLevel: number = ZOOM_LEVEL,
+      duration = 400,
+    ): void => {
+      mapRef.current?.animateToRegion(regionFrom(lat, lng, zoomLevel), duration)
+    },
+    [mapRef],
+  )
+  
+  const getPermissionStatus = useCallback(
+    (status: LocationPermissionStatus): void => {
+      setPermissionStatus(status)
+      _this.current.permissionStatus = status
+      Defaults.locationPermissionStatus = status
+      if (!status.match(/denied|restricted|notDetermined/)) {
+        navigateToLocation()
+      } else {
+        requestPermission()
       }
-      RNLocation.getLatestLocation({ timeout: 6000 }).then(getLatestLocation)
-      subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
-        subscribePermissionUpdate,
-      )
-    })()
+    },
+    [permissionStatus],
+  )
 
-    return (): void => {
-      subscribedPermissionUpdate()
-      clearInterval(_this.current.interval)
-    }
-  }, [getPermissionStatus, getLatestLocation, subscribePermissionUpdate])
+  const getLatestLocation = useCallback(
+    (_location: Location | null): void => {
+      _this.current.location = _location // for testing on emulator comment out
+      Defaults.location = {
+        lat: _location?.latitude ?? 0,
+        lng: _location?.longitude ?? 0,
+      }
+      getAllChargers(dispatch)
+      _location && navigateByRef(_location.latitude, _location.longitude)
+    },
+    [dispatch, navigateByRef],
+  )
+  
+  const navigateToLocation = useCallback(
+    async (location: Coords = null): Promise<void> => {
+      if (location) navigateByRef(location.lat, location.lng)
+      else {
+        try {
+          if (
+            !isPermissionGrantedRegex(Defaults.locationPermissionStatus) ||
+            !Const.platformIOS
+          ) {
+            const status = await locationConfig.requestPermission()
+            if (!status) return
+          }
+          const coords = await getCoordsAnyway()
+
+          navigateByRef(coords.lat, coords.lng)
+        } catch (error) {
+          Helpers.Logger(['error', error]);
+          Helpers.DisplayDropdownWithError()
+        }
+      }
+    },
+    [navigateByRef],
+  )
+
+  const requestPermission = useCallback(async (): Promise<any> => {
+    const status = await locationConfig.requestPermission()
+    if (status) navigateToLocation()
+  }, [navigateToLocation])
 
   const subscribePermissionUpdate = useCallback(
     (status: LocationPermissionStatus): void => {
@@ -106,72 +146,32 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     ],
   )
 
-  const getLatestLocation = useCallback(
-    (_location: Location | null): void => {
-      _this.current.location = _location // for testing on emulator comment out
-      Defaults.location = {
-        lat: _location?.latitude ?? 0,
-        lng: _location?.longitude ?? 0,
+  useEffect(() => {
+    try {
+      RNLocation.getCurrentPermission().then(getPermissionStatus)
+    } catch (error) {}
+
+    let subscribedPermissionUpdate: any = null
+    ;(async () => {
+      if (Platform.OS === 'android') {
+        await RNLocation.requestPermission({
+          android: { detail: 'coarse' },
+        })
+        await RNLocation.checkPermission({
+          android: { detail: 'coarse' },
+        })
       }
-      getAllChargers(dispatch)
-      _location && navigateByRef(_location.latitude, _location.longitude)
-    },
-    [dispatch, navigateByRef],
-  )
+      RNLocation.getLatestLocation({ timeout: 6000 }).then(getLatestLocation)
+      subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(
+        subscribePermissionUpdate,
+      )
+    })()
 
-  const getPermissionStatus = useCallback(
-    (status: LocationPermissionStatus): void => {
-      setPermissionStatus(status)
-      _this.current.permissionStatus = status
-      Defaults.locationPermissionStatus = status
-      if (!status.match(/denied|restricted|notDetermined/)) {
-        navigateToLocation()
-      } else {
-        requestPermission()
-      }
-    },
-    [permissionStatus],
-  )
-
-  const navigateToLocation = useCallback(
-    async (location: Coords = null): Promise<void> => {
-      if (location) navigateByRef(location.lat, location.lng)
-      else {
-        try {
-          if (
-            !isPermissionGrantedRegex(Defaults.locationPermissionStatus) ||
-            !Const.platformIOS
-          ) {
-            const status = await locationConfig.requestPermission()
-            if (!status) return
-          }
-          const coords = await getCoordsAnyway()
-
-          navigateByRef(coords.lat, coords.lng)
-        } catch (error) {
-          Helpers.DisplayDropdownWithError()
-        }
-      }
-    },
-    [navigateByRef],
-  )
-
-  const requestPermission = useCallback(async (): Promise<any> => {
-    const status = await locationConfig.requestPermission()
-    if (status) navigateToLocation()
-  }, [navigateToLocation])
-
-  const navigateByRef = useCallback(
-    (
-      lat: number,
-      lng: number,
-      zoomLevel: number = ZOOM_LEVEL,
-      duration = 400,
-    ): void => {
-      mapRef.current?.animateToRegion(regionFrom(lat, lng, zoomLevel), duration)
-    },
-    [mapRef],
-  )
+    return (): void => {
+      subscribedPermissionUpdate()
+      clearInterval(_this.current.interval)
+    }
+  }, [getPermissionStatus, getLatestLocation, subscribePermissionUpdate])
 
   const showRoute = useCallback(
     async (

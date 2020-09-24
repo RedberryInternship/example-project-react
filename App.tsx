@@ -1,4 +1,4 @@
-import React, { useMemo, createContext, Dispatch } from 'react'
+import React, { useMemo } from 'react'
 import { StatusBar } from 'react-native'
 import { Navigation } from './src'
 import { CustomModal } from 'components'
@@ -7,32 +7,18 @@ import {
   SafeAreaProvider,
   initialWindowMetrics,
 } from 'react-native-safe-area-context'
-import { Defaults, useFirebase } from 'utils'
+import { Defaults } from 'utils'
 import { useRoot } from 'hooks'
-import { ChargerActions, ChargerAction } from 'hooks/actions/chargerActions'
-import { chargerInitialState } from 'hooks/reducers/chargerReducer'
-import { ChargerState } from 'allTypes'
+import AppContext from 'hooks/contexts/app'
+import ChargerContext from 'hooks/contexts/charger'
 
 console.disableYellowBox = true
-
-if (__DEV__) {
-} else {
-  console.log = () => {}
-}
-
-export const ChargerContext = createContext<{
-  state: ChargerState
-  dispatch: Dispatch<ChargerAction>
-}>({ state: chargerInitialState, dispatch: () => null })
-
-export const AppContext = createContext({})
 
 const App = (): React.ReactElement => {
   const {
     state,
     dispatch,
     setNavigationTopLevelElement,
-    getCurrentRoute,
     dropDownInactiveBarColor,
     appReady,
     charger,
@@ -54,15 +40,7 @@ const App = (): React.ReactElement => {
               }}
               theme={'dark'}
               onNavigationStateChange={(_, state) => {
-                Defaults.activeRoute = getCurrentRoute(state)
                 StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
-                console.log('====================================')
-                console.log(
-                  Defaults.activeRoute,
-                  // state,
-                  'Defaults.activeRout state',
-                )
-                console.log('====================================')
               }}
             />
           </ChargerContext.Provider>

@@ -6,7 +6,9 @@ import { AppState } from 'allTypes'
 
 // Vobi Todo: this is not util this is hook
 const useFirebase = ({ authStatus }: AppState): void => {
+  
   const onTokenRefreshListener = useRef<any>()
+  
   useEffect(() => {
     initialRun()
     return () => {
@@ -55,7 +57,6 @@ const useFirebase = ({ authStatus }: AppState): void => {
         authStatus === 'success' && services.setUserFirebaseToken(fcmToken)
       }
     }
-    console.log('FCMtoken', fcmToken)
   }, [services, AsyncStorage, authStatus])
 
   useEffect(() => {

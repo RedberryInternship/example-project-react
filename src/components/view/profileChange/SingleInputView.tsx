@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 
 import { ProfileFieldChange } from 'allTypes'
 
-import { BaseInput } from 'components'
+import BaseInput from 'components/baseUI/BaseInput'
 import images from '../../../assets/images'
 import { Controller } from 'react-hook-form'
 

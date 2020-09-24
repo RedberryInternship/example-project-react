@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Sentry, Defaults, locationConfig, Helpers } from 'utils'
-import { Exception } from '@sentry/react-native'
+import locationConfig from 'utils/mapAndLocation/location'
+import Defaults from 'utils/defaults'
 import {
   ChargerFilters,
   Charger,
@@ -9,19 +9,16 @@ import {
   ChargingStatus,
   ChargingState,
   ChargingFinishedPopupEnum,
-  ChargerDetail
 } from '../../@types/allTypes.d'
 import i18next from 'i18next'
 import services from 'services'
 import { Alert, Linking, Platform } from 'react-native'
-import { isPermissionGrantedRegex } from './mapAndLocation/mapFunctions'
-
+import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
 import { chargingState } from 'hooks/actions/chargerActions'
-const Logger = (err: Exception | string | number): void => {
+
+const Logger = (data: any): void => {
   if (__DEV__) {
-    Sentry.captureException(err)
-  } else {
-    console.log(['Logger', err])
+    console.log(data)
   }
 }
 
@@ -51,7 +48,6 @@ const GetFilteredCharger = async (
       if (filterInput !== "") {
         return searchChargers(filterInput, data);
       }
-      // console.log("Filters:",filterChargers(selectedFilters, data));
       return filterChargers(selectedFilters, data)
     } catch (error) {
       DisplayDropdownWithError()
@@ -286,17 +282,21 @@ const DisplayDropdownWithError = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
-  Defaults.dropdown?.alertWithType(
+
+  const args = [
     'error',
     i18next.t(title ?? 'dropDownAlert.generalError'),
-    i18next.t(text ?? ''),
-  )
+  ];
+  
+  text && args.push(i18next.t(text));
+  Defaults.dropdown?.alertWithType(...args)
 }
 
 const DisplayDropdownWithSuccess = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
+  
   Defaults.dropdown?.alertWithType(
     'success',
     i18next.t(title ?? 'dropDownAlert.generalSuccess'),
@@ -420,7 +420,6 @@ const getAndRequestLocation = async (): Promise<boolean> => {
 }
 
 const onModalClose = (dispatch: any) => {
-  // NavigationActions.navigate('Home')
   chargingState(dispatch)
 }
 
@@ -465,8 +464,6 @@ const configureChargingFinishPopup = (
     console.log("CH_STAT:", charging_status);
     switch (charging_status) {
       case ChargingStatus.CHARGED:
-        //TODO: On every case there should be if statement that checks if charging type is full or by amount
-        // for now left this and default is full charge
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.LVL2FullCharge,
@@ -542,12 +539,10 @@ const configureChargingFinishPopup = (
         }
         break;
       case ChargingStatus.ON_HOLD:
-        Helpers.DisplayDropdownWithError('dropDownAlert.connectionProblem')
+        DisplayDropdownWithError('dropDownAlert.connectionProblem')
         return;
     }
     setTimeout(() => {
-      console.log(['შემოდის აქ', charging_status, options]);
-
       Defaults.modal.current?.customUpdate(true, options)
     }, 1000)
   }

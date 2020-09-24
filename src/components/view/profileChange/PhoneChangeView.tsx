@@ -1,7 +1,6 @@
 import React, {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
-
-import {PhoneVerificationView} from 'components'
+import PhoneVerificationView from 'components/view/PhoneVerificationView'
 import {usePhoneVerification} from 'hooks'
 
 type PhoneChangeViewProps = {

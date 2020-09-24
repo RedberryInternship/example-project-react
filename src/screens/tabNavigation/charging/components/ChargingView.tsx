@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { ReactElement, useMemo } from 'react'
-import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 
 import { Const, Colors } from 'utils'
 import { Pulse, CountDown, BaseButton, BaseText } from 'components'
@@ -14,7 +14,6 @@ import {
   ChargingState,
   HomeNavigateModes,
 } from '../../../../../@types/allTypes.d'
-import useCharging from '../useCharging'
 
 type ChargingViewProps = {
   hook: {
@@ -81,10 +80,6 @@ const ChargingView = ({
           {already_paid} {t('gel')}
         </BaseText>
       </View>
-
-      {/* <BaseText style={styles.isChargerConnected}>
-        {t('dropDownAlert.pleaseSeeIfChargerIsConnected')}
-      </BaseText> */}
       <View style={styles.chargeAnotherCarContainer}>
         {singleCharger && (
           <TouchableOpacity

@@ -1,7 +1,4 @@
 import { Dimensions, Platform } from 'react-native';
-// Vobi Todo: remove this unused library
-import { ifIphoneX } from 'react-native-iphone-x-helper';
-import { env } from '../../env';
 import images from 'assets/images';
 import {
   UserSettingEnum,
@@ -28,11 +25,6 @@ export const locationIfNoGPS = {
 };
 
 export const DrawerFieldsBeforeAuthorization = [
-  // {
-  //   image: images.bookOpen,
-  //   text: 'drawer.tariff',
-  //   route: 'Tariffs',
-  // },
   {
     image: images.phone,
     text: 'drawer.contact',

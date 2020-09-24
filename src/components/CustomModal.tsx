@@ -1,17 +1,13 @@
 import React, { ReactElement } from 'react'
 import { View, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
-
 import { Const } from 'utils'
-
-import {
-  RegistrationType1,
-  LegendType2,
-  ChargerModalMainWrapper,
-  MapPopUp,
-  LocationPermission,
-  PrivacyPolicy,
-} from 'components'
+import ChargerModalMainWrapper from 'components/modalTypes/ChargerModalMainWrapper'
+import LocationPermission from 'components/modalTypes/LocationPermission'
+import RegistrationType1 from 'components/modalTypes/RegistrationType1'
+import PrivacyPolicy from 'components/modalTypes/PrivacyPolicy'
+import LegendType2 from 'components/modalTypes/LegendType2'
+import MapPopUp from 'components/modalTypes/MapPopUp'
 import { ChargingStatus } from '../../@types/allTypes.d'
 
 type Data = {
@@ -45,7 +41,7 @@ const initialState: InitialState = {
       title: 'popup.thankYou',
       description: 'popup.automobileChargingFinished',
       bottomDescription: 'popup.chargingFinishedWarning',
-      address: 'asdfasdf dsfd',
+      address: '#1',
     },
   },
 }

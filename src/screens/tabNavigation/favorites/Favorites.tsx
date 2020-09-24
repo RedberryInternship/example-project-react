@@ -7,7 +7,7 @@ import {ScreenPropsWithNavigation, AppContextType, Charger} from 'allTypes'
 import {BaseHeader, FetchedDataRenderer} from 'components'
 import {Colors, Defaults} from 'utils'
 import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
-import {AppContext} from '../../../../App' //
+import AppContext from 'hooks/contexts/app'
 import {getLocaleText} from 'utils/localization/localization'
 import {FavoriteChargerListItem} from './components'
 

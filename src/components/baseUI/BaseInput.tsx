@@ -1,16 +1,10 @@
-import React, {
-  useState,
-  useImperativeHandle,
-  useRef,
-  RefObject,
-  Ref,
-} from 'react'
-import {View, TextInput, Image, StyleSheet, TextInputProps} from 'react-native'
+import React, { Ref } from 'react'
+import { View, TextInput, Image, StyleSheet, TextInputProps } from 'react-native'
 import {useTranslation} from 'react-i18next'
 
-import {Colors} from 'utils'
-import {BaseInputProps} from 'allTypes'
-import {BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseInputProps } from 'allTypes'
+import BaseText from 'components/baseUI/BaseText'
 
 // eslint-disable-next-line react/display-name
 const BaseInput = React.forwardRef(

@@ -1,7 +1,6 @@
 /* eslint-disable react/display-name */
-import React, { useState, useEffect, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import {
-  Text,
   View,
   TouchableOpacity,
   StyleSheet,
@@ -10,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next'
 
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/baseUI/BaseText'
 import images from 'assets/images'
 import { ChargingFinishedPopupEnum } from '../../../@types/allTypes.d'
 import {

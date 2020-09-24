@@ -4,16 +4,14 @@ import {
   useImperativeHandle,
   RefObject,
   useState,
-  useEffect,
   useCallback,
-  useMemo,
 } from 'react'
 import MapView from 'react-native-maps'
 
 import { AppContextType, Charger } from 'allTypes'
 
 import { getAllChargers } from 'hooks/actions/rootActions'
-import { AppContext } from '../../../../../App'
+import AppContext from 'hooks/contexts/app'
 import useLocation from './useLocation'
 
 import {
@@ -22,7 +20,6 @@ import {
   NavigationScreenProp,
 } from 'react-navigation'
 import { Defaults, getLocaleText } from 'utils'
-import { Alert } from 'react-native'
 
 const useMapView = (
   ref: Ref<MapView>,

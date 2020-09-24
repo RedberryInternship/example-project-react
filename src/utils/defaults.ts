@@ -4,17 +4,6 @@ import {RefObject} from 'react'
 import BottomSheetBehavior from 'reanimated-bottom-sheet'
 import {LocationPermissionStatus} from 'react-native-location'
 import {UserMeResponseType} from 'allTypes'
-import {boolean} from 'yup'
-
-type userDetail = {
-  first_name: string
-  last_name: string
-  phone_number: string
-  email: string
-  verified: number
-  id: number
-  mapMode: string
-} | null
 
 class Defaults {
   _dropdown: any = null
