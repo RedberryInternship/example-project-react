@@ -1,13 +1,9 @@
-/* eslint-disable @typescript-eslint/camelcase */
-// Vobi Todo: remove unused imports
-import {useRef, useEffect, useCallback} from 'react'
-import {TextInput} from 'react-native'
-
-import {Helpers, InputValidationHelpers} from 'utils'
-import {Navigation, CodeRefType} from 'allTypes'
-import {useForm} from 'react-hook-form'
+// Vobi Done: remove unused imports
+import Helpers from 'utils/helpers'
+import { Navigation } from 'allTypes'
+import { useForm } from 'react-hook-form'
 import services from 'services'
-import {usePhoneVerification} from 'hooks'
+import { usePhoneVerification } from 'hooks'
 
 type InputValues = {
   phone: string
@@ -28,7 +24,7 @@ export default (navigation: Navigation) => {
     submitFocusError: true,
   })
 
-  const {phoneRef, codeRef, receiveCodeHandler} = usePhoneVerification({
+  const { phoneRef, codeRef, receiveCodeHandler } = usePhoneVerification({
     getValues,
     register,
     errors,
@@ -36,7 +32,7 @@ export default (navigation: Navigation) => {
     triggerValidation,
   })
 
-  const onButtonClick = async ({phone, code}: InputValues): Promise<void> => {
+  const onButtonClick = async ({ phone, code }: InputValues): Promise<void> => {
     try {
       await services.forgotPasswordRecovery(phone, code)
 
@@ -71,13 +67,6 @@ export default (navigation: Navigation) => {
           Helpers.DisplayDropdownWithError()
           break
       }
-      // phoneRef.current?.setNativeProps({
-      //   text: '',
-      // })
-      // codeRef.current?.setNativeProps({
-      //   text: '',
-      // })
-      // reset()
     }
   }
 

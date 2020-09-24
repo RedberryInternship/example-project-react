@@ -168,8 +168,8 @@ export type AppState = {
 }
 
 export enum SendSmsCodeStatus {
-  USER_ALREADY_EXISTS  = 'USER_ALREADY_EXISTS',
-  USER_DOES_NOT_EXISTS = 'USER_DOES_NOT_EXISTS'
+  USER_ALREADY_EXISTS = 'USER_ALREADY_EXISTS',
+  USER_DOES_NOT_EXISTS = 'USER_DOES_NOT_EXISTS',
 }
 
 export type ChargingState = {
@@ -196,7 +196,7 @@ export type Action = {
 }
 
 export type AppContextType = {
-  state: AppState
+  state: AppState | null
   dispatch: any
 }
 
@@ -205,7 +205,7 @@ export enum ChargingFinishedPopupEnum {
   UsedUpFastProps,
   FinishedCharging,
   Bankrupt,
-  PaymentFailed
+  PaymentFailed,
 }
 export interface BaseInputProps extends TextInputProps {
   title: string
@@ -582,7 +582,7 @@ export type TransactionsHistoryResponseItem = {
   charger_name: string
   address: string
   duration: string
-  penalty_fee: null|string
+  penalty_fee: null | string
   charge_power: null | string
   start_date: string
   charge_price: string
@@ -610,16 +610,6 @@ export type UserLastChargersResponseType = {
 export type getCoordsByIPResponseType = {
   Latitude: number
   Longitude: number
-}
-
-export type CountryPhoneCodesResponseType = {
-  data: CountryPhoneCode[]
-}
-
-export type CountryPhoneCode = {
-  id: number
-  country_code: string
-  phone_code: number
 }
 
 export type SendSMSCodeResponseType = {

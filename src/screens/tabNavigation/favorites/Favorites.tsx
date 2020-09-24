@@ -1,22 +1,25 @@
-import React, {useContext, ReactElement, useEffect} from 'react'
-import {ScrollView, View, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { useContext, ReactElement, useEffect } from 'react'
+import { ScrollView, View, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {ScreenPropsWithNavigation, AppContextType, Charger} from 'allTypes'
+import { ScreenPropsWithNavigation, AppContextType, Charger } from 'allTypes'
 
-import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Defaults} from 'utils'
-import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
+import { BaseHeader, FetchedDataRenderer } from 'components'
+import { Colors, Defaults } from 'utils'
+import {
+  deleteFromFavorites,
+  getFavoriteChargers,
+} from 'hooks/actions/rootActions'
 import AppContext from 'hooks/contexts/app'
-import {getLocaleText} from 'utils/localization/localization'
-import {FavoriteChargerListItem} from './components'
+import { getLocaleText } from 'utils/localization/localization'
+import { FavoriteChargerListItem } from './components'
 
-const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {t} = useTranslation()
+const Favorites = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { t } = useTranslation()
   const context: AppContextType = useContext(AppContext)
 
   useEffect(() => {
-    // Vobi todo: this way of fetching data is not understandable 
+    // Vobi todo: this way of fetching data is not understandable
     // you getFavoriteChargers but it is not shown where it goes
     // it is better to do
     // const favoriteChargers = await getFavoriteChargers()
@@ -26,15 +29,15 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   }, [])
 
   const deleteFavoriteCharger = (chargerId: number): void => {
-    deleteToFavorites(chargerId, context.dispatch)
+    deleteFromFavorites(chargerId, context.dispatch)
   }
 
   const turnOnOnHandler = (id: number): void => {
     const charger =
-      context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
+      context?.state?.AllChargers?.filter((val: Charger) => val.id == id) ?? []
 
     if (charger.length !== 0) {
-      navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
+      navigation.navigate('ChargerDetail', { chargerDetails: charger[0] })
     } else {
       return Defaults.dropdown?.alertWithType(
         'error',
@@ -71,7 +74,7 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 export default Favorites
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1, backgroundColor: Colors.primaryBackground},
+  mainContainer: { flex: 1, backgroundColor: Colors.primaryBackground },
   container: {
     paddingVertical: 32,
   },

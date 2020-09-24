@@ -1,10 +1,10 @@
-import React from 'react';
-import { Dimensions } from 'react-native';
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { FooterTabNavigation } from 'components';
+import React from 'react'
+import { Dimensions } from 'react-native'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation-stack'
+import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { FooterTabNavigation } from 'components'
 
 import {
   Home,
@@ -23,7 +23,6 @@ import {
   Favorites,
   Faq,
   ChoosingCard,
-  Notifications,
   Contact,
   Tariffs,
   TransactionList,
@@ -32,8 +31,8 @@ import {
   SetNewPasswords,
   ChooseAvatar,
   CardAdd,
-} from 'screens';
-import { Colors } from 'utils';
+} from 'screens'
+import { Colors } from 'utils'
 
 const ChargerStack = createStackNavigator(
   {
@@ -54,7 +53,7 @@ const ChargerStack = createStackNavigator(
     },
     initialRouteName: 'ChargerWithCode',
   },
-);
+)
 
 const HomeTabNavigation = createBottomTabNavigator(
   {
@@ -68,7 +67,7 @@ const HomeTabNavigation = createBottomTabNavigator(
     tabBarComponent: FooterTabNavigation,
     initialRouteName: 'Home',
   },
-);
+)
 
 export const MainDrawer = createDrawerNavigator(
   {
@@ -83,7 +82,7 @@ export const MainDrawer = createDrawerNavigator(
     contentComponent: Drawer,
     keyboardDismissMode: 'on-drag',
   },
-);
+)
 
 const authenticationStack = createStackNavigator(
   {
@@ -103,7 +102,7 @@ const authenticationStack = createStackNavigator(
       },
     },
   },
-);
+)
 
 const drawerMenuOptionsStack = createStackNavigator(
   {
@@ -122,7 +121,7 @@ const drawerMenuOptionsStack = createStackNavigator(
       },
     },
   },
-);
+)
 
 const transactionStack = createStackNavigator(
   {
@@ -140,7 +139,7 @@ const transactionStack = createStackNavigator(
       },
     },
   },
-);
+)
 
 const MainStack = createStackNavigator(
   {
@@ -152,7 +151,6 @@ const MainStack = createStackNavigator(
     Tariffs,
     Partners,
     transactionStack,
-    Notifications,
     ChooseAvatar,
     CardAdd,
   },
@@ -169,7 +167,7 @@ const MainStack = createStackNavigator(
       },
     },
   },
-);
+)
 
 const AppNavigator = createSwitchNavigator(
   {
@@ -179,6 +177,6 @@ const AppNavigator = createSwitchNavigator(
   {
     initialRouteName: 'Opening',
   },
-);
+)
 
-export default React.memo(createAppContainer(AppNavigator));
+export default React.memo(createAppContainer(AppNavigator))

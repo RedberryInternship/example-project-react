@@ -8,7 +8,7 @@ import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
 import { BaseButton, BaseText } from 'components'
 
 import { Const, Colors, Helpers, Defaults } from 'utils'
-import AppContext from 'hooks/contexts/app';
+import AppContext from 'hooks/contexts/app'
 import { logOut } from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
 import {
@@ -65,7 +65,6 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
             <DrawerTextFieldItem
               key={key}
               onPress={navigation.navigate.bind(Drawer, field.route)}
-              badge={field.route === 'notifications' ? 1 : 0}
               {...field}
             />
           )
@@ -117,7 +116,7 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
                     rightText: t('drawer.logOut'),
                     leftText: t('no'),
                     onRightClick: () => context.dispatch(logOut()),
-                    onLeftClick: () => { },
+                    onLeftClick: () => {},
                   })
                 }}
               >

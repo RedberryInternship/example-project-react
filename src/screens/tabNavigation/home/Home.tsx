@@ -3,13 +3,9 @@ import { StyleSheet, View } from 'react-native'
 import { ScreenPropsWithNavigation } from 'allTypes'
 import { Defaults, Colors } from 'utils'
 import reducer, { initialState } from 'hooks/reducers/homeReducers'
-import { useHome } from './hooks'
-import {
-  MapView,
-  HomeMainComponent,
-  BottomSheetModalize,
-} from './components'
 import HomeContext from 'hooks/contexts/home'
+import { useHome } from './hooks'
+import { MapView, HomeMainComponent, BottomSheetModalize } from './components'
 
 const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -30,7 +26,7 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     bottomSheetChargers,
     searchInputTextChangeHandler,
   } = useHome(navigation)
-  
+
   return useMemo(
     () => (
       <HomeContext.Provider value={{ state, dispatch }}>
@@ -50,19 +46,16 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
             setShowAll={setShowAll}
             mainInputRef={mainInputRef}
           />
-          {
-            context?.state.AllChargers?.length &&
+          {context?.state.AllChargers?.length && (
             <BottomSheetModalize
               ref={bottomSheetRef}
               onFilterClick={onFilterClick}
               selectedFilters={selectedFilters}
               onFilteredItemClick={onFilteredItemClick}
-              filteredChargers={
-                bottomSheetChargers
-              }
+              filteredChargers={bottomSheetChargers}
               textHandler={searchInputTextChangeHandler}
             />
-          }
+          )}
         </View>
       </HomeContext.Provider>
     ),

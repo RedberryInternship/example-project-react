@@ -50,7 +50,7 @@ export const updateUser = async (dispatch: any) => {
       dispatch(logOut())
     } else {
       Helpers.DisplayDropdownWithError()
-      Helpers.Logger(["Error", error]);
+      Helpers.Logger(['Error', error])
     }
   }
 }
@@ -130,8 +130,10 @@ export const addToFavorites = async (
   }
 }
 
-export const deleteToFavorites = async (
-  // Vobi Todo: what does delete to favorites mean
+// Vobi Done: what does delete to favorites mean
+// Giuna: it meant to delete charger from favorites list
+
+export const deleteFromFavorites = async (
   payload: number,
   dispatch: any,
   callback?: () => void,

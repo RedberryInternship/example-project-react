@@ -1,4 +1,4 @@
-import React, {ReactElement, useState} from 'react'
+import React, { ReactElement, useState } from 'react'
 import {
   View,
   StyleSheet,
@@ -21,7 +21,8 @@ type AutoCompleteDropdownProps = {
   zIndex: number
 }
 
-// Vobi Todo: No Inline styles
+// Vobi Done: No Inline styles
+
 const AutoCompleteDropdown = ({
   title,
   data,
@@ -32,7 +33,7 @@ const AutoCompleteDropdown = ({
   dropdownIcon,
   ...props
 }: AutoCompleteDropdownProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const [filteredMarks, setFilteredMarks] = useState<string[]>(data)
   const [hideResults, setHideResults] = useState<boolean>(true)
   const ontextChange = (text: string) => {
@@ -41,12 +42,12 @@ const AutoCompleteDropdown = ({
     else
       setFilteredMarks(
         data.filter((val) => val.toLowerCase().includes(text?.toLowerCase())) ??
-          [],
+        [],
       )
     setHideResults(false)
   }
   return (
-    <View style={[styles.container, {zIndex}]}>
+    <View style={[styles.container, { zIndex }]}>
       <BaseText style={styles.title}>{t(title)}</BaseText>
       <View style={styles.innerContainer}>
         <View style={styles.autocompleteContainer}>
@@ -72,43 +73,19 @@ const AutoCompleteDropdown = ({
               setHideResults(false)
             }}
             onBlur={() => setHideResults(true)}
-            containerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              padding:0
-            }}
-            inputContainerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              zIndex: zIndex,
-            }}
-            listContainerStyle={{
-              backgroundColor: 'transparent',
-              borderWidth: 0,
-              zIndex: zIndex + 1,
-            }}
-            listStyle={{
-              backgroundColor: '#0D1B24',
-              borderWidth: 0,
-              paddingBottom: 6,
-              borderRadius: 6,
-              maxHeight: 136,
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
-              zIndex: zIndex + 2,
-              top: -3,
-              margin: 0,
-              padding: 0,
-            }}
-            renderItem={({item}: {item: string}) => (
+            containerStyle={styles.autoCompleteContainer}
+            inputContainerStyle={[styles.autoCompleteInputContainer, { zIndex: zIndex }]}
+            listContainerStyle={[styles.autoCompleteListContainer, { zIndex: zIndex + 1, }]}
+            listStyle={[styles.autoCompleteList, { zIndex: zIndex + 2 }]}
+            renderItem={({ item }: { item: string }) => (
               <TouchableOpacity
-                style={[styles.listItemStyle, {zIndex}]}
+                style={[styles.listItemStyle, { zIndex }]}
                 onPress={() => {
                   onChange(item)
                   setHideResults(true)
                 }}
               >
-                <BaseText style={{opacity: 0.65, color: 'white'}}>
+                <BaseText style={{ opacity: 0.65, color: 'white' }}>
                   {item}
                 </BaseText>
               </TouchableOpacity>
@@ -118,11 +95,11 @@ const AutoCompleteDropdown = ({
             ]}
           />
           <View style={styles.dropdownIconContainer}>
-            <Image style={[{width: 10,height:10},!hideResults ? styles.rotateDropdown : null]} source={dropdownIcon} resizeMode="contain"/>
+            <Image style={[styles.imageSizes, !hideResults ? styles.rotateDropdown : null]} source={dropdownIcon} resizeMode="contain" />
           </View>
         </View>
       </View>
-      <BaseText style={[styles.errorText, {opacity: errorText ? 1 : 0}]}>
+      <BaseText style={[styles.errorText, { opacity: errorText ? 1 : 0 }]}>
         {errorText ? t(errorText) : ' '}
       </BaseText>
     </View>
@@ -192,7 +169,7 @@ const styles = StyleSheet.create({
     zIndex: 5
   },
   rotateDropdown: {
-    transform: [{rotate: '180deg'}]
+    transform: [{ rotate: '180deg' }]
   },
   listItemStyle: {
     height: 40,
@@ -202,4 +179,33 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     zIndex: 11,
   },
+  imageSizes: {
+    width: 10,
+    height: 10
+  },
+  autoCompleteContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    padding: 0
+  },
+  autoCompleteInputContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+  },
+  autoCompleteListContainer: {
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+  },
+  autoCompleteList: {
+    backgroundColor: '#0D1B24',
+    borderWidth: 0,
+    paddingBottom: 6,
+    borderRadius: 6,
+    maxHeight: 136,
+    borderTopLeftRadius: 0,
+    borderTopRightRadius: 0,
+    top: -3,
+    margin: 0,
+    padding: 0,
+  }
 })

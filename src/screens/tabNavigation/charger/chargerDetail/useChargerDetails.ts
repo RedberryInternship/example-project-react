@@ -3,7 +3,7 @@ import { useState, useRef, useContext, useEffect } from 'react'
 import { TextInput, BackHandler, Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import AppContext from 'hooks/contexts/app';
+import AppContext from 'hooks/contexts/app'
 import ChargerContext from 'hooks/contexts/charger'
 import {
   AppContextType,
@@ -25,7 +25,7 @@ import {
   Const,
 } from 'utils'
 import {
-  deleteToFavorites,
+  deleteFromFavorites,
   addToFavorites,
 } from '../../../../hooks/actions/rootActions'
 import services from 'services'
@@ -104,13 +104,18 @@ export default (
         isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
       !Const.platformIOS
     ) {
-      const status = await Helpers.getAndRequestLocation();
-      if (!status) return Helpers.DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
+      const status = await Helpers.getAndRequestLocation()
+      if (!status)
+        return Helpers.DisplayDropdownWithError(
+          'dropDownAlert.pleaseAllowLocation',
+        )
     }
 
-    if (!Defaults.locationPermissionStatus.match(
-      /denied|restricted|notDetermined/,
-    )) {
+    if (
+      !Defaults.locationPermissionStatus.match(
+        /denied|restricted|notDetermined/,
+      )
+    ) {
       navigation.navigate('Home', {
         mode: HomeNavigateModes.showRoutesToCharger,
         lat: parseFloat(charger?.lat ?? '0'),
@@ -138,7 +143,7 @@ export default (
     if (charger?.is_favorite === false) {
       addToFavorites(charger.id, dispatch, updateCharger)
     } else if (charger?.is_favorite === true) {
-      deleteToFavorites(charger.id, dispatch, updateCharger)
+      deleteFromFavorites(charger.id, dispatch, updateCharger)
     } else {
       Helpers.DisplayDropdownWithError()
     }
@@ -165,8 +170,11 @@ export default (
     } else if (activeChargerType === -1) {
       Helpers.DisplayDropdownWithError(t('chargerDetail.selectConnector'))
       return
-    }else if (chargingState.length > 0 &&
-      charger?.connector_types[activeChargerType]?.pivot.id === chargingState[activeChargerType]?.charger_id) {
+    } else if (
+      chargingState.length > 0 &&
+      charger?.connector_types[activeChargerType]?.pivot.id ===
+        chargingState[activeChargerType]?.charger_id
+    ) {
       Helpers.DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
       return
     }

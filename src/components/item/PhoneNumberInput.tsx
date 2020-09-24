@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, {useState, useEffect, useRef, Ref} from 'react'
+import React, { useState, useEffect, useRef, Ref } from 'react'
 import {
   StyleSheet,
   View,
@@ -8,12 +8,13 @@ import {
   TextInputProps,
   StyleProp,
 } from 'react-native'
-import {Item} from 'react-native-picker-select'
-import {PhoneCountryCode, BaseInputRefProp} from 'allTypes'
+import { Item } from 'react-native-picker-select'
+import { PhoneCountryCode, BaseInputRefProp } from 'allTypes'
 import BasePickerSelect from 'components/baseUI/BasePickerSelect'
 import BaseInput from 'components/baseUI/BaseInput'
 import images from 'assets/images'
-import {Helpers, Colors} from 'utils'
+import { Helpers, Colors } from 'utils'
+import { phoneNumberPlaceHolder } from 'utils/const'
 import services from 'services'
 
 type PhoneNumberInputProps = {
@@ -27,12 +28,6 @@ type PhoneNumberInputProps = {
   value?: string
 }
 
-// Vobi Todo: what is that
-const pickeritems: Item[] = []
-
-// Vobi Todo: this is util
-const placeholder = {label: '+995', value: '+995'}
-// eslint-disable-next-line react/display-name
 const PhoneNumberInput = React.forwardRef(
   (
     {
@@ -50,8 +45,10 @@ const PhoneNumberInput = React.forwardRef(
     const [animation] = useState(new Animated.Value(0))
     const pickerRef = useRef(null)
     const [showSelector, setShowSelector] = useState(false)
-    const [selectedCountryCode, setSelectedCountryCode] = useState(placeholder)
-    const [pickeritemsState, setPickeritemsState] = useState(pickeritems)
+    const [selectedCountryCode, setSelectedCountryCode] = useState(
+      phoneNumberPlaceHolder,
+    )
+    const [pickerItemsState, setPickerItemsState] = useState<Item[]>([])
 
     useEffect(() => {
       fetchPhoneCountryCodes()
@@ -87,15 +84,19 @@ const PhoneNumberInput = React.forwardRef(
     }
 
     const fetchPhoneCountryCodes = async (): Promise<void> => {
-      if (pickeritemsState.length === 0) {
+      if (pickerItemsState.length === 0) {
         try {
-          const {data} = await services.getPhoneCountryCodes()
+          const { data } = await services.getPhoneCountryCodes()
+          console.log(['Picker Items Data', data])
+          const pickerItems = data
+            .filter((value: PhoneCountryCode) => {
+              return !!value.phone_code
+            })
+            .map((value: PhoneCountryCode) => {
+              return { value: value.phone_code, label: value.phone_code }
+            })
 
-          data.forEach((val: PhoneCountryCode) => {
-            if (val.phone_code)
-              pickeritems.push({value: val.phone_code, label: val.phone_code})
-          })
-          setPickeritemsState(pickeritems)
+          setPickerItemsState(pickerItems)
         } catch (error) {
           Helpers.DisplayDropdownWithError()
         }
@@ -114,7 +115,7 @@ const PhoneNumberInput = React.forwardRef(
         value = value.replace(selectedCountryCode.value, '')
 
       onChangeText(val + (value ?? ''))
-      setSelectedCountryCode({label: val, value: val})
+      setSelectedCountryCode({ label: val, value: val })
       if (Platform.OS == 'android') ref.current.focus()
     }
 
@@ -131,13 +132,11 @@ const PhoneNumberInput = React.forwardRef(
         <View pointerEvents={'none'} style={styles.imageContainer}>
           <Animated.Image
             source={images.phone}
-            style={[styles.image, {opacity: imageAnimatedOpacity}]}
+            style={[styles.image, { opacity: imageAnimatedOpacity }]}
             resizeMode="contain"
           />
         </View>
-
         <BaseInput
-          // paddingLeft={showSelector ? 64 : undefined}
           paddingLeft={64}
           style={style}
           keyboardType={'phone-pad'}
@@ -154,14 +153,14 @@ const PhoneNumberInput = React.forwardRef(
           {...props}
         />
         <Animated.View
-          style={[styles.modalSelectorContainer, {opacity: animation}]}
+          style={[styles.modalSelectorContainer, { opacity: animation }]}
         >
           <View style={styles.touchableStyle}>
             <BasePickerSelect
               onDone={onPickerDone}
               onChange={onPickerChange}
-              items={pickeritemsState}
-              placeholder={placeholder}
+              items={pickerItemsState}
+              placeholder={phoneNumberPlaceHolder}
               ref={pickerRef}
             />
           </View>

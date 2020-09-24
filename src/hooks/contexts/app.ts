@@ -1,2 +1,9 @@
 import { createContext } from 'react'
-export default createContext({})
+import { AppContextType } from '@types/allTypes'
+
+export default createContext<AppContextType>(
+  {
+    state: null,
+    dispatch: null
+  }
+)

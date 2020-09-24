@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import ajax from './ajax'
 import {
-  CountryPhoneCodesResponseType,
+  PhoneCountryCodesData,
   SendSMSCodeResponseType,
   LoginResponseType,
   VerifyCodeResponseType,
@@ -9,14 +9,14 @@ import {
   RegisterResponseType,
 } from 'allTypes'
 
-export const getPhoneCountryCodes = (): Promise<CountryPhoneCodesResponseType> =>
+export const getPhoneCountryCodes = (): Promise<PhoneCountryCodesData> =>
   ajax.get('/phone-codes')
 
 export const sendSMSCode = (
   phone_number: string,
-  formType: string
+  formType: string,
 ): Promise<SendSMSCodeResponseType> =>
-  ajax.post('/send-sms-code', { phone_number,type: formType })
+  ajax.post('/send-sms-code', { phone_number, type: formType })
 
 export const loginUser = (
   phone_number: string,

@@ -1,8 +1,8 @@
-import React, {ReactElement, useMemo} from 'react'
-import {StyleSheet, Text, Platform, TouchableOpacity, View} from 'react-native'
+import React, { ReactElement, useMemo } from 'react'
+import { StyleSheet, Platform, TouchableOpacity, View } from 'react-native'
 
-import {Colors} from 'utils'
-import {BaseNativeTouchable, BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseNativeTouchable, BaseText } from 'components'
 
 type BottomSheetFilterItemProps = {
   text: string
@@ -21,13 +21,13 @@ const BottomSheetFilterItem = ({
         <View
           style={[
             styles.container,
-            {backgroundColor: active ? '#008AEE' : 'white'},
+            { backgroundColor: active ? '#008AEE' : 'white' },
           ]}
         >
           <BaseText
             style={[
               styles.text,
-              {color: active ? 'white' : Colors.primaryDark},
+              { color: active ? 'white' : Colors.primaryDark },
             ]}
           >
             {text}
@@ -37,17 +37,18 @@ const BottomSheetFilterItem = ({
     ),
     [text, active],
   )
-  return ( // Vobi todo: in situations like this it is preferred to use if() return else return
-    <>
-      {Platform.OS === 'ios' ? (
-        <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
-      ) : (
-        <BaseNativeTouchable borderless={false} onPress={onPress}>
-          {child}
-        </BaseNativeTouchable>
-      )}
-    </>
-  )
+
+  // Vobi Done: in situations like this it is preferred to use if() return else return
+
+  if (Platform.OS === 'ios') {
+    return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
+  } else {
+    return (
+      <BaseNativeTouchable borderless={false} onPress={onPress}>
+        {child}
+      </BaseNativeTouchable>
+    )
+  }
 }
 
 export default React.memo(BottomSheetFilterItem)

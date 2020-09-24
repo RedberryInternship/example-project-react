@@ -1,26 +1,19 @@
-/* eslint-disable no-unused-vars */ // Vobi Todo: remove unused vars
-import {useEffect} from 'react'
-import {useForm} from 'react-hook-form'
-
-type InputValues = {
-  name: string
-  surname: string
-  email: string | undefined
-}
+// Vobi Done: remove unused vars
+import { useForm } from 'react-hook-form'
 
 export default (setActivePage: any) => {
-  const {control, handleSubmit, getValues, errors, triggerValidation} = useForm(
-    {
-      validateCriteriaMode: 'all',
-      submitFocusError: true,
-    },
-  )
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    errors,
+    triggerValidation,
+  } = useForm({
+    validateCriteriaMode: 'all',
+    submitFocusError: true,
+  })
 
-  const buttonClickHandler = async ({
-    name,
-    surname,
-    email,
-  }: InputValues): Promise<void> => {
+  const buttonClickHandler = async (): Promise<void> => {
     setActivePage(2)
   }
 

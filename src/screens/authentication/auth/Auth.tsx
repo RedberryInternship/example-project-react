@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react'
+import React, { useContext, ReactElement } from 'react'
 import {
   StyleSheet,
   View,
@@ -6,15 +6,15 @@ import {
   Platform,
   StatusBar,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {TouchableOpacity} from 'react-native-gesture-handler'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Controller} from 'react-hook-form'
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { useTranslation } from 'react-i18next'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Controller } from 'react-hook-form'
+import { ScreenPropsWithNavigation } from 'allTypes'
 import AppContext from 'hooks/contexts/app'
 import images from 'assets/images'
-import {Colors} from 'utils'
+import { Colors } from 'utils'
 import {
   BaseHeader,
   BaseInput,
@@ -24,8 +24,8 @@ import {
 } from 'components'
 import useAuthHook from './useAuthHook'
 
-const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {dispatch} = useContext(AppContext)
+const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { dispatch } = useContext(AppContext)
 
   const insets = useSafeAreaInsets()
   const {
@@ -36,10 +36,10 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
     handleSubmit,
     watch,
   } = useAuthHook(navigation, dispatch)
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(Auth, 'MainDrawer')}
         title={'authentication.authentication'}
@@ -53,7 +53,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         enableResetScrollToCoords={true}
-        resetScrollToCoords={{x: 0, y: 0}}
+        resetScrollToCoords={{ x: 0, y: 0 }}
       >
         <PhoneNumberInput
           onChangeText={(text) => setValue('phone', text, true)}
@@ -64,7 +64,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         <Controller
           as={BaseInput}
           name="password"
-          rules={{required: true}}
+          rules={{ required: true }}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
           title={'authentication.password'}

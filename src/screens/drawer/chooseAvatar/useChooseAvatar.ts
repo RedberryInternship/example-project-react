@@ -1,14 +1,14 @@
-import {useState, useContext} from 'react'
+import { useState, useContext } from 'react'
 
-import {Helpers} from 'utils'
-import {Navigation, AppContextType} from 'allTypes'
+import { Helpers } from 'utils'
+import { Navigation, AppContextType } from 'allTypes'
 import AppContext from 'hooks/contexts/app'
-import {editUserInfo} from 'hooks/actions/rootActions'
+import { editUserInfo } from 'hooks/actions/rootActions'
 
 export default (navigation: Navigation) => {
-  const {dispatch, state}: AppContextType = useContext(AppContext)
+  const { dispatch, state }: AppContextType = useContext(AppContext)
   const [activeAvatar, setActiveAvatar] = useState<number | undefined>( // Vobi Todo: why is avatar number
-    state.user?.avatar,
+    state?.user?.avatar,
   )
 
   const updateAvatar = async () => {
