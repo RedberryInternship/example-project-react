@@ -29,11 +29,8 @@ import {
   addToFavorites,
 } from '../../../../hooks/actions/rootActions'
 import services from 'services'
-import {
-  isPermissionDeniedRegex,
-  getCoordsAnyway,
-} from 'utils/mapAndLocation/mapFunctions'
-
+import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
+import { isPermissionDeniedRegex } from 'utils/mapAndLocation/permissionsRegex'
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
