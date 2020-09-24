@@ -33,6 +33,8 @@ const MapView = forwardRef(
       mapRef,
       navigation,
     )
+    
+    // Vobi todo: move this as separate component and wrap it in React.memo
     const pins = useMemo(
       () =>
         (showAll
@@ -57,6 +59,7 @@ const MapView = forwardRef(
       [state?.AllChargers, showAll, filteredChargersOnMap],
     )
 
+    // Vobi todo: move this as separate component and wrap it in React.memo
     const polylineRoute = useMemo(
       () =>
         !!polyline.length && (

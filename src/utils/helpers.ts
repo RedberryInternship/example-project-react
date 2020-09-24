@@ -22,6 +22,9 @@ const Logger = (data: any): void => {
   }
 }
 
+// Vobi todo: this helper is unnecessary
+// but if you like this approach you can use following typing
+// const ConvertToChargerFilterParam = (filterInput = ''): ChargerFilters => ({ text: filterInput })
 const ConvertToChargerFilterParam = (
   filterInput = '',
 ): object => {
@@ -38,6 +41,7 @@ const GetFilteredCharger = async (
   const params: ChargerFilters = ConvertToChargerFilterParam(
     filterInput,
   )
+  // Vobi Todo: why Object.entries
   if (Object.entries(params).length !== 0) {
     try {
       const { data }: ChargersObject = await services.getAllChargersFiltered()
@@ -52,6 +56,11 @@ const GetFilteredCharger = async (
   return null
 }
 
+// Vobi Todo: searchChargers can be written as this
+// const searchChargers = (text: string, data: Charger[]) => data.filter(charger => {
+//   const stringifiedCharger = JSON.stringify(charger);
+//   return stringifiedCharger.toLowerCase().includes(text.toLowerCase())
+// })
 const searchChargers = (text: string, data: Charger[]) => {
   const list = data.filter(charger => {
     const string = JSON.stringify(charger);
@@ -132,6 +141,40 @@ const filterChargers = (selectedFilters: number[], data: Charger[]) => {
     return showAll;
   })
 }
+// Vobi todo: refacor as this and move selectedFilters as enum types
+// const filterChargers = (selectedFilters: number[], data: Charger[]) => {
+//   let showAll = true;
+//   if (selectedFilters.length) {
+//     showAll = !!(selectedFilters.indexOf(1) > -1)
+//   }
+//   return data.filter((charger, index) => {
+//     let isFree = charger.status === "ACTIVE";
+//     let isBusy = charger.status === "CHARGING";
+//     let isPublic = !!charger?.public;
+//     let isFast = charger.connector_types[0]?.name === 'Combo 2' || charger.connector_types[0]?.name === 'Chademo'
+
+//     if ((isFree && selectedFilters[0]) || (isBusy && selectedFilters[1])) {
+//       if(filterByStatus(isFast, isPublic, selectedFilters)) return true
+//     }
+
+//     if (
+//       (isFast && selectedFilters[2] && selectedFilters[2] && !selectedFilters[0] && !selectedFilters[1]) ||
+//       (!isFast && selectedFilters[3] && !selectedFilters[0] && !selectedFilters[1]) ||
+//       (!isFast && selectedFilters[3] && !selectedFilters[0] && !selectedFilters[1])
+//     ) {
+//       if(filterByChargerType(isFast, isPublic, selectedFilters)) return true
+//     }
+
+//     if (
+//       (isPublic && selectedFilters[4] && !selectedFilters[0] && !selectedFilters[1] && !selectedFilters[2] && !selectedFilters[3]) ||
+//       (!isPublic && selectedFilters[5] && !selectedFilters[0] && !selectedFilters[1] && !selectedFilters[2] && !selectedFilters[3])
+//     ) {
+//       if(filterByChargerAccess(isFast, isPublic, selectedFilters)) return true
+//     }
+
+//     return showAll;
+//   })
+// }
 
 const filterByStatus = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
   if (filterSlowChargers(isFast, isPublic, selectedFilters)) {

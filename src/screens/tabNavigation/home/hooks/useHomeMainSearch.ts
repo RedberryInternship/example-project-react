@@ -35,6 +35,7 @@ const useHomeMainSearch = (
       Const.Height * 0.95 - 65 - insets.top - insets.bottom - 180,
   })
 
+  // Vobi Todo: this function is useless you can just (val) => setInputText(val.toLowerCase())
   const textHandler = useCallback(
     (val: string): void => {
       setInputText(val.toLowerCase())
@@ -89,6 +90,12 @@ const useHomeMainSearch = (
     [showSearchContent, InputRef, textHandler],
   )
 
+  // Vobi Todo: move filteredChargers in useMemo
+  // and use like this
+  // const filteredChargers = useMemo(async () => {
+  //   const chargers = await Helpers.GetFilteredCharger([], inputText)
+  //   return chargers ?? allChargers ?? []
+  // }, [inputText, allChargers])
   useEffect(() => {
     Helpers.GetFilteredCharger([], inputText).then((data) => {
       setFilteredChargers(data ?? allChargers ?? [])

@@ -20,6 +20,7 @@ const TabNavigationButtonsItem = ({
   return (
     <BaseNativeTouchable
       onPress={navigate}
+      {/** Vobi Todo: no inline styles */}
       style={{height: '80%', justifyContent: 'center'}}
     >
       <Image

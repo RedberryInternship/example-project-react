@@ -6,6 +6,7 @@ import { Alert } from 'react-native'
 import { finishCharging } from 'hooks/actions/chargerActions'
 import ChargerContext from 'hooks/contexts/charger'
 
+// Vobi todo: move this in hooks
 export default (navigation: any) => {
   const {
     state: { chargingState },
@@ -18,6 +19,7 @@ export default (navigation: any) => {
 
   const insets = useSafeAreaInsets()
 
+  // Vobi Todo: this function does literally nothing
   const changeActiveTab = useCallback(
     (index: number) => {
       setActiveTab(index)
@@ -42,7 +44,7 @@ export default (navigation: any) => {
                 chargerDispatch,
               ).then(() => {
                 setLoading(false)
-              }),
+              }), // Vobi Todo: what if error happens 
             style: 'cancel',
           },
         ],

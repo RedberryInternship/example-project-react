@@ -34,13 +34,13 @@ const useMapView = (
     dispatch,
   })
 
-  const getChargerPins = useCallback((): void => {
+  const getChargerPins = useCallback((): void => {// Vobi todo: why callback you don't need it
     getAllChargers(dispatch)
   }, [dispatch, getAllChargers])
 
   const mapReady = useCallback((): void => {
     navigateToLocation()
-    getChargerPins()
+    getChargerPins() 
   }, [getChargerPins, navigateToLocation])
 
   useImperativeHandle(ref, (): any => ({

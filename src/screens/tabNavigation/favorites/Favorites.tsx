@@ -16,6 +16,12 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   const context: AppContextType = useContext(AppContext)
 
   useEffect(() => {
+    // Vobi todo: this way of fetching data is not understandable 
+    // you getFavoriteChargers but it is not shown where it goes
+    // it is better to do
+    // const favoriteChargers = await getFavoriteChargers()
+    // dispatch(chargersFetched(favoriteChargers)
+    // or even dispatch(getFavoriteChargers())
     getFavoriteChargers(context.dispatch)
   }, [])
 

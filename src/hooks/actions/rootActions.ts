@@ -10,6 +10,7 @@ import Defaults from 'utils/defaults'
 import Helpers from 'utils/helpers'
 import services from 'services'
 
+// Vobi Todo: it is better to separate action types from actions
 export const SAVE_TOKEN = 'SAVE_TOKEN'
 export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
 export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
@@ -30,6 +31,7 @@ export const rootAction = async (
   }
 }
 
+// Vobi Todo: it would be better if you had userReducer
 export const updateUser = async (dispatch: any) => {
   try {
     const result = await services.getUserData()
@@ -72,6 +74,19 @@ const saveToken = ({
   }
 }
 
+// Vobi Todo: actions must be plain objects
+export const logOut = () => {
+  AsyncStorage.clear()
+  Defaults.token = ''
+  Defaults.userDetail = null
+  NavigationActions.navigate('Home')
+
+  return {
+    type: LOG_OUT,
+  }
+}
+
+// Vobi Todo: why isn't this in charger actions
 export const getAllChargers = async (dispatch: any): Promise<void> => {
   try {
     const { data } = await services.getAllChargersFiltered()
@@ -81,6 +96,7 @@ export const getAllChargers = async (dispatch: any): Promise<void> => {
   }
 }
 
+// Vobi Todo: why isn't this in charger actions
 export const getFavoriteChargers = async (dispatch: any): Promise<void> => {
   try {
     const { user_favorite_chargers } = await services.getUserFavoriteChargers()
@@ -139,6 +155,7 @@ export const deleteToFavorites = async (
   }
 }
 
+// Vobi Todo: it would be better if you had userReducer
 export const editUserInfo = (
   dispatch: any,
   payload: any,

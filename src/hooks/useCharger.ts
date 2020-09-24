@@ -29,6 +29,7 @@ export default (state: AppState, dispatch: any) => {
 
       if (state) {
 
+        // Vobi Todo: use map instead
         state.every((val, index) => {
           if (
             val.charging_status !== ChargingStatus.INITIATED &&

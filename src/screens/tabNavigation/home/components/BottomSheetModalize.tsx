@@ -137,8 +137,19 @@ const BottomSheetReanimated = forwardRef(
     )
 
     const renderContent = (): ReactElement => {
+      // Vobi Todo: remove this comments if it is not used anymore
       return (
         <View style={styles.bodyContainer}>
+          {/* <FlatList
+            keyboardShouldPersistTaps={'handled'}
+            data={filteredChargers}
+            renderItem={({item: chargerObj, index}) => {
+              const view = []
+             //  bottom stuff... 
+              return view
+            }} 
+          /> */}
+
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {

@@ -29,6 +29,7 @@ const ProfileChange = ({
 
   const { submit, ...form } = useProfileChange(navigation, type)
 
+  // Vobi todo: why not memo
   const renderInputs = useCallback(() => {
     switch (type) {
       case UserSettingEnum.firstName:

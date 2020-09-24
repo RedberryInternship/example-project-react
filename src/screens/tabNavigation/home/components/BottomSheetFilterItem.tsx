@@ -37,7 +37,7 @@ const BottomSheetFilterItem = ({
     ),
     [text, active],
   )
-  return (
+  return ( // Vobi todo: in situations like this it is preferred to use if() return else return
     <>
       {Platform.OS === 'ios' ? (
         <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>

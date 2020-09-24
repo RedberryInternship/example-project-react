@@ -219,6 +219,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         if (error === 'ERROR') Helpers.DisplayDropdownWithError()
         else if (error === 'ZERO_RESULTS')
           Helpers.DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
+        // Vobi Todo: log error to sentry if none matches
       }
     },
     [mapRef, polyline],

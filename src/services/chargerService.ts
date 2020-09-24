@@ -9,6 +9,7 @@ import {
 import Defaults from 'utils/defaults';
 import AsyncStorage from '@react-native-community/async-storage'
 
+// Vobi Todo: you can not have business logic inside service
 export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseType> => {
     const date = new Date();
     let storeNew = false;
@@ -24,6 +25,9 @@ export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseTyp
     }
 
     if(storeNew){
+      // Vobi Todo: 
+      // Object.keys({...Defaults.location }) is same as Object.keys(Defaults.location)
+      // use qs or axios params option for generating query string 
       const response = await ajax.get(
         '/chargers?' +
           Object.keys({...Defaults.location })

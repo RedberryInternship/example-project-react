@@ -47,6 +47,7 @@ const SettingsListItem = ({
             style={[styles.value, {color: value ? Colors.primaryWhite : color}]}
             numberOfLines={1}
           >
+            { /** Vobi Todo: why value.toString() if it is already string */ }
             {value ? t(value.toString()) : t(onEmptyText ?? '')}
           </BaseText>
           <Image source={images.chervonRight} style={styles.arrow} />
