@@ -196,7 +196,7 @@ export type Action = {
 }
 
 export type AppContextType = {
-  state: AppState | null
+  state: AppState
   dispatch: any
 }
 
@@ -284,8 +284,8 @@ export type HomeState = {
 }
 
 export type HomeContextType = {
-  state: HomeState
-  dispatch: (val: any) => void
+  state: HomeState | null
+  dispatch: ((val: any) => void) | null
 }
 
 export type ChargerState = {
@@ -521,7 +521,7 @@ export type UserMeResponseType = {
   user_cars: any[]
   car_models: any[]
   avatar: number //TODO:needs correct key
-}
+} | null
 
 export type UserCard = {
   active: number

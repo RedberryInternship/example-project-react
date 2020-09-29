@@ -3,7 +3,7 @@ import Helpers from 'utils/helpers'
 import { Navigation } from 'allTypes'
 import { useForm } from 'react-hook-form'
 import services from 'services'
-import { usePhoneVerification } from 'hooks'
+import usePhoneVerification from 'hooks/usePhoneVerification'
 
 type InputValues = {
   phone: string

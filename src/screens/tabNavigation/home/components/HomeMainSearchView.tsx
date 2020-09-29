@@ -5,14 +5,14 @@ import React, {
   ReactElement,
   useCallback,
 } from 'react'
-import {StyleSheet, Animated, View, TouchableOpacity, Alert} from 'react-native'
-import {KeyboardAwareFlatList} from 'react-native-keyboard-aware-scroll-view'
+import { StyleSheet, Animated, View, TouchableOpacity } from 'react-native'
+import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
-import {Charger, MapImperativeRefObject, ChargerDetail} from 'allTypes'
+import { Charger, MapImperativeRefObject, ChargerDetail } from 'allTypes'
 
-import {HomeMainSearchInput} from 'components'
-import {useHomeMainSearch} from '../hooks'
-import {Const, Colors, getLocaleText} from 'utils'
+import { HomeMainSearchInput } from 'components'
+import { useHomeMainSearch } from '../hooks'
+import { Const, Colors, getLocaleText } from 'utils'
 import MainSearchItem from './MainSearchItem'
 
 type MainInput = {
@@ -20,9 +20,9 @@ type MainInput = {
   mapRef: MapImperativeRefObject
   setShowAll: (boolean: boolean) => void
 }
-// eslint-disable-next-line react/display-name
+
 const HomeMainSearchView = forwardRef(
-  ({allChargers, mapRef, setShowAll}: MainInput, ref: any): ReactElement => {
+  ({ allChargers, mapRef, setShowAll }: MainInput, ref: any): ReactElement => {
     const {
       _this,
       closeClick,
@@ -48,7 +48,7 @@ const HomeMainSearchView = forwardRef(
     // make one SearchedItems component and render them
     // you only would write it like so here <SearchedItems chargers={chargers} />
     const searchedItems = useCallback(
-      ({item: chargerObj}: {item: Charger}): ReactElement => {
+      ({ item: chargerObj }: { item: Charger }): ReactElement => {
         const view = []
 
         if (chargerObj?.charger_group?.chargers?.length !== 0) {
@@ -117,7 +117,7 @@ const HomeMainSearchView = forwardRef(
               <Animated.View
                 style={[
                   styles.searchContent,
-                  {height: _this.current.animatedSearchContentHeight},
+                  { height: _this.current.animatedSearchContentHeight },
                 ]}
               >
                 <View
@@ -128,7 +128,7 @@ const HomeMainSearchView = forwardRef(
                   }}
                 >
                   <KeyboardAwareFlatList
-                    style={{flex: 1}}
+                    style={{ flex: 1 }}
                     contentContainerStyle={{}}
                     keyboardShouldPersistTaps={'handled'}
                     enableOnAndroid={true}
@@ -136,7 +136,7 @@ const HomeMainSearchView = forwardRef(
                     extraScrollHeight={0}
                     showsVerticalScrollIndicator={false}
                     enableResetScrollToCoords={true}
-                    resetScrollToCoords={{x: 0, y: 0}}
+                    resetScrollToCoords={{ x: 0, y: 0 }}
                     viewIsInsideTabBar={true}
                     data={filteredChargers}
                     renderItem={searchedItems}

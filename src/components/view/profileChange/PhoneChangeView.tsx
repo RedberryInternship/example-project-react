@@ -1,7 +1,7 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet } from 'react-native'
 import PhoneVerificationView from 'components/view/PhoneVerificationView'
-import {usePhoneVerification} from 'hooks'
+import usePhoneVerification from 'hooks/usePhoneVerification'
 
 type PhoneChangeViewProps = {
   setValue: (name: string, value: string, validate: boolean) => void
@@ -30,7 +30,12 @@ const PhoneChangeView = ({
 
   return (
     <View style={styles.container}>
-      <PhoneVerificationView {...hook} setValue={setValue} watch={watch} formType='phone_change' />
+      <PhoneVerificationView
+        {...hook}
+        setValue={setValue}
+        watch={watch}
+        formType="phone_change"
+      />
     </View>
   )
 }

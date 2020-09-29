@@ -179,4 +179,4 @@ const AppNavigator = createSwitchNavigator(
   },
 )
 
-export default React.memo(createAppContainer(AppNavigator))
+export default createAppContainer(AppNavigator)

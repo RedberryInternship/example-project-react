@@ -31,7 +31,10 @@
             "allow": "as-needed"
         }],
         "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error"
+        "@typescript-eslint/no-unused-vars": "error",
+        "max-len": ["error", {
+            "code": 100
+        }]
     },
     "settings": {
         "import/resolver": {

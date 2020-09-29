@@ -15,18 +15,18 @@ import {
   Keyboard,
   BackHandler,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {TextInput, FlatList} from 'react-native-gesture-handler'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
+import { TextInput, FlatList } from 'react-native-gesture-handler'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import {Modalize} from 'react-native-modalize'
+import { Modalize } from 'react-native-modalize'
 
-import {Charger, ChargerDetail} from 'allTypes'
+import { Charger, ChargerDetail } from 'allTypes'
 
-import {Const, Colors, getLocaleText} from 'utils'
-import BottomSheetFilterItem from './BottomSheetFilterItem';
+import { Const, Colors, getLocaleText } from 'utils'
+import BottomSheetFilterItem from './BottomSheetFilterItem'
 import MainSearchItem from './MainSearchItem'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
 import images from 'assets/images'
 
 type _This = {
@@ -57,10 +57,10 @@ const BottomSheetReanimated = forwardRef(
     })
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
-    const {t} = useTranslation()
+    const { t } = useTranslation()
     const height = useWindowDimensions().height
 
-    const {top, bottom} = useSafeAreaInsets()
+    const { top, bottom } = useSafeAreaInsets()
 
     const closeClick = useCallback((): void => {
       if (_this.current.text !== '') {
@@ -115,7 +115,7 @@ const BottomSheetReanimated = forwardRef(
             />
             <TouchableWithoutFeedback
               onPress={closeClick}
-              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+              hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
               style={styles.closeTouchable}
             >
               <Image source={images.delete} style={styles.deleteIcon} />
@@ -133,23 +133,13 @@ const BottomSheetReanimated = forwardRef(
           </View>
         </View>
       ),
-      [t,selectedFilters,textHandler],
+      [t, selectedFilters, textHandler],
     )
 
     const renderContent = (): ReactElement => {
-      // Vobi Todo: remove this comments if it is not used anymore
+      // Vobi done: remove this comments if it is not used anymore
       return (
         <View style={styles.bodyContainer}>
-          {/* <FlatList
-            keyboardShouldPersistTaps={'handled'}
-            data={filteredChargers}
-            renderItem={({item: chargerObj, index}) => {
-              const view = []
-             //  bottom stuff... 
-              return view
-            }} 
-          /> */}
-
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
             if (chargerObj.charger_group?.chargers?.length !== 0) {
@@ -195,10 +185,10 @@ const BottomSheetReanimated = forwardRef(
             adjustToContentHeight={false}
             modalHeight={height - top - bottom - 65 - 12}
             alwaysOpen={55}
-            rootStyle={{elevation: 22, zIndex: 34}}
+            rootStyle={{ elevation: 22, zIndex: 34 }}
             avoidKeyboardLikeIOS={true}
-            onPositionChange = {(position) => {
-              if(position === 'initial'){
+            onPositionChange={(position) => {
+              if (position === 'initial') {
                 Keyboard.dismiss()
                 inputRef.current && inputRef.current.blur()
               }
@@ -306,7 +296,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  closeTouchable: {backgroundColor: 'red'},
+  closeTouchable: { backgroundColor: 'red' },
   searchContent: {
     width: Const.Width - 48,
     backgroundColor: Colors.primaryBackground,

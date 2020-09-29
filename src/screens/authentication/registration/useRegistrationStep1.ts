@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
-import {Helpers} from 'utils'
+import { Helpers } from 'utils'
 import services from 'services'
-import {usePhoneVerification} from 'hooks'
+import usePhoneVerification from 'hooks/usePhoneVerification'
 
 type InputValues = {
   phone: string
@@ -24,7 +24,7 @@ export default (setActivePage: (index: number) => void) => {
     submitFocusError: true,
   })
 
-  const {phoneRef, codeRef, receiveCodeHandler} = usePhoneVerification({
+  const { phoneRef, codeRef, receiveCodeHandler } = usePhoneVerification({
     getValues,
     register,
     errors,
@@ -52,14 +52,6 @@ export default (setActivePage: (index: number) => void) => {
       } else {
         Helpers.DisplayDropdownWithError()
       }
-
-      // phoneRef.current?.setNativeProps({
-      //   text: '',
-      // })
-      // codeRef.current?.setNativeProps({
-      //   text: '',
-      // })
-      // reset()
     }
   }
 

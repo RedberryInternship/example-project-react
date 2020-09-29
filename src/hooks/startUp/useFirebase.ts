@@ -1,14 +1,16 @@
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useContext } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from '@react-native-firebase/messaging'
+import AppContext from 'hooks/contexts/app'
 import services from 'services'
-import { AppState } from 'allTypes'
 
-// Vobi Todo: this is not util this is hook
-const useFirebase = ({ authStatus }: AppState): void => {
-  
+// Vobi Done: this is not util this is hook
+const useFirebase = (): void => {
+  const { state, dispatch } = useContext(AppContext)
+  const { authStatus } = state
+
   const onTokenRefreshListener = useRef<any>()
-  
+
   useEffect(() => {
     initialRun()
     return () => {

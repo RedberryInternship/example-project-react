@@ -6,6 +6,8 @@ import {
   UserMeResponseType,
 } from '../../../@types/allTypes.d'
 
+import NavigationActions from 'utils/navigation.service'
+
 import Defaults from 'utils/defaults'
 import Helpers from 'utils/helpers'
 import services from 'services'

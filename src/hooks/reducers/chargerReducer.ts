@@ -1,17 +1,9 @@
 import { ChargerActions, ChargerAction } from '../actions/chargerActions'
 import { ChargerState } from 'allTypes'
-
-export const chargerInitialState: ChargerState = {
-  chargingStarted: null,
-  chargingStartedError: null,
-  chargingFinished: null,
-  chargingFinishedError: null,
-  chargingState: [],
-  chargingStateError: null,
-}
+import initialState from 'hooks/initialStates/charger'
 
 function reducer(
-  state: ChargerState = chargerInitialState,
+  state: ChargerState = initialState,
   { type, payload }: ChargerAction,
 ): ChargerState {
   switch (type) {

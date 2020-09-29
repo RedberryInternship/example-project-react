@@ -6,17 +6,7 @@ import {
   EDIT_USER_INFO,
 } from '../actions/rootActions'
 import { AppState, Action } from 'allTypes'
-
-const initialStateSchema: AppState = {
-  user: null,
-  loading: false,
-  authStatus: null,
-  AllChargers: null,
-  favoriteChargers: null,
-  userState: null,
-}
-
-export const initialState: AppState = { ...initialStateSchema }
+import initialState from 'hooks/initialStates/app'
 
 function reducer(
   state: AppState = initialState,
@@ -32,7 +22,7 @@ function reducer(
       }
     case LOG_OUT:
       return {
-        ...initialStateSchema,
+        ...initialState,
         AllChargers: state.AllChargers,
       }
     case GET_ALL_CHARGER_SUCCESS:

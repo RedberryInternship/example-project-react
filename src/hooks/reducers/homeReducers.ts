@@ -2,20 +2,12 @@ import {
   SET_LOCATION_HANDLER,
   SET_FILTERED_CHARGERS,
 } from '../actions/homeActions'
-import {HomeState, Action} from 'allTypes'
-import images from 'assets/images'
-
-export const initialState: HomeState = {
-  PermissionStatus: null,
-  locationImageType: images.location,
-  loading: false,
-  LocationRequestFunc: () => {},
-  filteredChargers: null,
-}
+import { HomeState, Action } from 'allTypes'
+import initialState from 'hooks/initialStates/home'
 
 function reducer(
   state: HomeState = initialState,
-  {type, payload}: Action,
+  { type, payload }: Action,
 ): HomeState {
   switch (type) {
     case SET_LOCATION_HANDLER:
@@ -30,7 +22,6 @@ function reducer(
         loading: false,
         filteredChargers: payload,
       }
-
     default:
       return state
   }

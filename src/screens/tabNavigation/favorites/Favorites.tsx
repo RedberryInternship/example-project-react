@@ -62,8 +62,8 @@ const Favorites = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
                 deleteItem={deleteFavoriteCharger.bind(Favorites, val.id)}
               />
             )}
-            fetchData={() => Promise.resolve(context.state.favoriteChargers)}
-            data={context.state.favoriteChargers}
+            fetchData={() => Promise.resolve(context?.state?.favoriteChargers)}
+            data={context?.state?.favoriteChargers}
           />
         }
       </ScrollView>

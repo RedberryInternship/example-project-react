@@ -25,11 +25,9 @@ const Logger = (data: any): void => {
 // Vobi todo: this helper is unnecessary
 // but if you like this approach you can use following typing
 // const ConvertToChargerFilterParam = (filterInput = ''): ChargerFilters => ({ text: filterInput })
-const ConvertToChargerFilterParam = (
-  filterInput = '',
-): object => {
+const ConvertToChargerFilterParam = (filterInput = ''): object => {
   const param: ChargerFilters = {}
-  
+
   param.text = filterInput
   return param
 }
@@ -38,15 +36,13 @@ const GetFilteredCharger = async (
   selectedFilters: number[],
   filterInput = '',
 ): Promise<Charger[] | null> => {
-  const params: ChargerFilters = ConvertToChargerFilterParam(
-    filterInput,
-  )
+  const params: ChargerFilters = ConvertToChargerFilterParam(filterInput)
   // Vobi Todo: why Object.entries
   if (Object.entries(params).length !== 0) {
     try {
       const { data }: ChargersObject = await services.getAllChargersFiltered()
-      if (filterInput !== "") {
-        return searchChargers(filterInput, data);
+      if (filterInput !== '') {
+        return searchChargers(filterInput, data)
       }
       return filterChargers(selectedFilters, data)
     } catch (error) {
@@ -62,83 +58,110 @@ const GetFilteredCharger = async (
 //   return stringifiedCharger.toLowerCase().includes(text.toLowerCase())
 // })
 const searchChargers = (text: string, data: Charger[]) => {
-  const list = data.filter(charger => {
-    const string = JSON.stringify(charger);
+  const list = data.filter((charger) => {
+    const string = JSON.stringify(charger)
     if (string.toLowerCase().includes(text.toLowerCase())) {
-      return true;
+      return true
     }
-    return false;
-  });
-  return list;
+    return false
+  })
+  return list
 }
 
 const filterChargers = (selectedFilters: number[], data: Charger[]) => {
-  let showAll = true;
+  let showAll = true
   if (selectedFilters.length) {
-    showAll = selectedFilters.indexOf(1) > -1 ? false : true;
+    showAll = selectedFilters.indexOf(1) > -1 ? false : true
   }
   return data.filter((charger, index) => {
-    let isFree: boolean = false;
-    let isBusy: boolean = false;
-    let isPublic: boolean = false;
-    let isFast: boolean = false;
+    let isFree: boolean = false
+    let isBusy: boolean = false
+    let isPublic: boolean = false
+    let isFast: boolean = false
 
-    if (charger.status === "CHARGING") {
-      isBusy = true;
+    if (charger.status === 'CHARGING') {
+      isBusy = true
     }
 
-    if (charger.status === "ACTIVE") {
-      isFree = true;
+    if (charger.status === 'ACTIVE') {
+      isFree = true
     }
 
     if (charger?.public) {
-      isPublic = true;
+      isPublic = true
     }
 
-    if ((charger.connector_types[0]?.name === 'Combo 2' || charger.connector_types[0]?.name === 'Chademo')) {
-      isFast = true;
+    if (
+      charger.connector_types[0]?.name === 'Combo 2' ||
+      charger.connector_types[0]?.name === 'Chademo'
+    ) {
+      isFast = true
     }
-
 
     // //free
     if (isFree && selectedFilters[0]) {
       if (filterByStatus(isFast, isPublic, selectedFilters)) {
-        return true;
+        return true
       }
     }
 
     //busy
     if (isBusy && selectedFilters[1]) {
       if (filterByStatus(isFast, isPublic, selectedFilters)) {
-        return true;
+        return true
       }
     }
 
-    if (isFast && selectedFilters[2] && selectedFilters[2] && !selectedFilters[0] && !selectedFilters[1]) {
+    if (
+      isFast &&
+      selectedFilters[2] &&
+      selectedFilters[2] &&
+      !selectedFilters[0] &&
+      !selectedFilters[1]
+    ) {
       if (filterByChargerType(isFast, isPublic, selectedFilters)) {
-        return true;
+        return true
       }
     }
 
-    if (!isFast && selectedFilters[3] && !selectedFilters[0] && !selectedFilters[1]) {
+    if (
+      !isFast &&
+      selectedFilters[3] &&
+      !selectedFilters[0] &&
+      !selectedFilters[1]
+    ) {
       if (filterByChargerType(isFast, isPublic, selectedFilters)) {
-        return true;
+        return true
       }
     }
 
-    if (isPublic && selectedFilters[4] && !selectedFilters[0] && !selectedFilters[1] && !selectedFilters[2] && !selectedFilters[3]) {
+    if (
+      isPublic &&
+      selectedFilters[4] &&
+      !selectedFilters[0] &&
+      !selectedFilters[1] &&
+      !selectedFilters[2] &&
+      !selectedFilters[3]
+    ) {
       if (filterByChargerAccess(isFast, isPublic, selectedFilters)) {
-        return true;
+        return true
       }
     }
 
-    if (!isPublic && selectedFilters[5] && !selectedFilters[0] && !selectedFilters[1] && !selectedFilters[2] && !selectedFilters[3]) {
+    if (
+      !isPublic &&
+      selectedFilters[5] &&
+      !selectedFilters[0] &&
+      !selectedFilters[1] &&
+      !selectedFilters[2] &&
+      !selectedFilters[3]
+    ) {
       if (filterByChargerAccess(isFast, isPublic, selectedFilters)) {
-        return true;
+        return true
       }
     }
 
-    return showAll;
+    return showAll
   })
 }
 // Vobi todo: refacor as this and move selectedFilters as enum types
@@ -176,119 +199,172 @@ const filterChargers = (selectedFilters: number[], data: Charger[]) => {
 //   })
 // }
 
-const filterByStatus = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+const filterByStatus = (
+  isFast: boolean,
+  isPublic: boolean,
+  selectedFilters: number[],
+) => {
   if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
-    return true;
+    return true
   }
   if (filterFastChargers(isFast, isPublic, selectedFilters)) {
-    return true;
+    return true
   }
-  if (!selectedFilters[2] && !selectedFilters[3] && !selectedFilters[4] && !selectedFilters[5]) {
-    return true;
+  if (
+    !selectedFilters[2] &&
+    !selectedFilters[3] &&
+    !selectedFilters[4] &&
+    !selectedFilters[5]
+  ) {
+    return true
   }
 }
 
-const filterByChargerType = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+const filterByChargerType = (
+  isFast: boolean,
+  isPublic: boolean,
+  selectedFilters: number[],
+) => {
   if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
-    return true;
+    return true
   }
   if (filterFastChargers(isFast, isPublic, selectedFilters)) {
-    return true;
+    return true
   }
   if (!selectedFilters[4] && !selectedFilters[5]) {
-    return true;
+    return true
   }
 }
 
-const filterByChargerAccess = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+const filterByChargerAccess = (
+  isFast: boolean,
+  isPublic: boolean,
+  selectedFilters: number[],
+) => {
   if (filterSlowChargers(isFast, isPublic, selectedFilters)) {
-    return true;
+    return true
   }
   if (filterFastChargers(isFast, isPublic, selectedFilters)) {
-    return true;
+    return true
   }
   if (!selectedFilters[2] && !selectedFilters[3]) {
-    return true;
+    return true
   }
 }
 
-const filterSlowChargers = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
-
+const filterSlowChargers = (
+  isFast: boolean,
+  isPublic: boolean,
+  selectedFilters: number[],
+) => {
   if (!isFast && isPublic && selectedFilters[3] && selectedFilters[4]) {
-    return true;
+    return true
   }
 
   //slow and private
   if (!isFast && !isPublic && selectedFilters[3] && selectedFilters[5]) {
-    return true;
+    return true
   }
 
   //slow and busy
-  if (!isFast && selectedFilters[3] && !selectedFilters[4] && !selectedFilters[5]) {
-    return true;
+  if (
+    !isFast &&
+    selectedFilters[3] &&
+    !selectedFilters[4] &&
+    !selectedFilters[5]
+  ) {
+    return true
   }
 
   //slow and public
-  if (isPublic && !isFast && !selectedFilters[2] && selectedFilters[4] && !selectedFilters[5]) {
-    return true;
+  if (
+    isPublic &&
+    !isFast &&
+    !selectedFilters[2] &&
+    selectedFilters[4] &&
+    !selectedFilters[5]
+  ) {
+    return true
   }
 
   //slow and private
-  if (!isPublic && !isFast && !selectedFilters[2] && selectedFilters[5] && !selectedFilters[4]) {
-    return true;
+  if (
+    !isPublic &&
+    !isFast &&
+    !selectedFilters[2] &&
+    selectedFilters[5] &&
+    !selectedFilters[4]
+  ) {
+    return true
   }
 
   if (!selectedFilters[2] && selectedFilters[5] && selectedFilters[4]) {
-    return true;
+    return true
   }
 
-  return false;
+  return false
 }
 
-
-const filterFastChargers = (isFast: boolean, isPublic: boolean, selectedFilters: number[]) => {
+const filterFastChargers = (
+  isFast: boolean,
+  isPublic: boolean,
+  selectedFilters: number[],
+) => {
   if (isFast && isPublic && selectedFilters[2] && selectedFilters[4]) {
-    return true;
+    return true
   }
 
   //Fast and private
   if (isFast && !isPublic && selectedFilters[2] && selectedFilters[5]) {
-    return true;
+    return true
   }
 
-  //Fast 
-  if (isFast && selectedFilters[2] && !selectedFilters[4] && !selectedFilters[5]) {
-    return true;
+  //Fast
+  if (
+    isFast &&
+    selectedFilters[2] &&
+    !selectedFilters[4] &&
+    !selectedFilters[5]
+  ) {
+    return true
   }
 
   //Fast and public
-  if (isPublic && isFast && !selectedFilters[3] && selectedFilters[4] && !selectedFilters[5]) {
-    return true;
+  if (
+    isPublic &&
+    isFast &&
+    !selectedFilters[3] &&
+    selectedFilters[4] &&
+    !selectedFilters[5]
+  ) {
+    return true
   }
 
   //Fast and private
-  if (!isPublic && isFast && !selectedFilters[3] && selectedFilters[5] && !selectedFilters[4]) {
-    return true;
+  if (
+    !isPublic &&
+    isFast &&
+    !selectedFilters[3] &&
+    selectedFilters[5] &&
+    !selectedFilters[4]
+  ) {
+    return true
   }
 
   if (!selectedFilters[3] && selectedFilters[5] && selectedFilters[4]) {
-    return true;
+    return true
   }
 
-  return false;
+  return false
 }
 
 const DisplayDropdownWithError = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
+  const args = ['error', i18next.t(title ?? 'dropDownAlert.generalError')]
 
-  const args = [
-    'error',
-    i18next.t(title ?? 'dropDownAlert.generalError'),
-  ];
-  
-  text && args.push(i18next.t(text));
+  text && args.push(i18next.t(text))
   Defaults.dropdown?.alertWithType(...args)
 }
 
@@ -296,7 +372,6 @@ const DisplayDropdownWithSuccess = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
-  
   Defaults.dropdown?.alertWithType(
     'success',
     i18next.t(title ?? 'dropDownAlert.generalSuccess'),
@@ -461,7 +536,7 @@ const configureChargingFinishPopup = (
       },
       onCloseClick: () => onModalClose(dispatch),
     }
-    console.log("CH_STAT:", charging_status);
+    console.log('CH_STAT:', charging_status)
     switch (charging_status) {
       case ChargingStatus.CHARGED:
         options = {
@@ -497,7 +572,10 @@ const configureChargingFinishPopup = (
               : ChargingFinishedPopupEnum.UsedUpFastProps,
           data: {
             ...options.data,
-            bottomDescription: charger_type === 'LVL2' ? 'popup.yourChargingOnFineStarted' : 'popup.automobileChargingFinished',
+            bottomDescription:
+              charger_type === 'LVL2'
+                ? 'popup.yourChargingOnFineStarted'
+                : 'popup.automobileChargingFinished',
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
           },
@@ -537,16 +615,17 @@ const configureChargingFinishPopup = (
             price: already_paid,
           },
         }
-        break;
+        break
       case ChargingStatus.ON_HOLD:
         DisplayDropdownWithError('dropDownAlert.connectionProblem')
-        return;
+        return
     }
     setTimeout(() => {
       Defaults.modal.current?.customUpdate(true, options)
     }, 1000)
   }
 }
+
 export default {
   Logger,
   ConvertToChargerFilterParam,

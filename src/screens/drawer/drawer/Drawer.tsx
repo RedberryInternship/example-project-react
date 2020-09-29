@@ -9,7 +9,9 @@ import { BaseButton, BaseText } from 'components'
 
 import { Const, Colors, Helpers, Defaults } from 'utils'
 import AppContext from 'hooks/contexts/app'
+import HomeContext from 'hooks/contexts/home'
 import { logOut } from '../../../hooks/actions/rootActions'
+import { reset } from '../../../hooks/actions/homeActions'
 import images from 'assets/images'
 import {
   DrawerTextFieldItem,
@@ -22,6 +24,7 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const { t, i18n } = useTranslation()
   const insets = useSafeAreaInsets()
   const context: AppContextType = useContext(AppContext)
+  const homeContext = useContext(HomeContext)
   const { setItem: setLocaleStorage } = useAsyncStorage('locale')
 
   let drawerContent = null
@@ -115,7 +118,10 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
                     title: t('dropDownAlert.areYouSureYouWantToLogOut'),
                     rightText: t('drawer.logOut'),
                     leftText: t('no'),
-                    onRightClick: () => context.dispatch(logOut()),
+                    onRightClick: () => {
+                      context.dispatch(logOut())
+                      homeContext.dispatch(reset())
+                    },
                     onLeftClick: () => {},
                   })
                 }}

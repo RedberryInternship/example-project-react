@@ -1,5 +1,10 @@
 import {
-  useState, useEffect, useRef, RefObject, useContext, useCallback,
+  useState,
+  useEffect,
+  useRef,
+  RefObject,
+  useContext,
+  useCallback,
 } from 'react'
 import {
   NavigationParams,
@@ -20,14 +25,22 @@ import {
   ChargerDetail,
 } from '../../../../../@types/allTypes.d'
 
-const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
+const useHome = (
+  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+) => {
   const context: AppContextType = useContext(AppContext)
   const [loading, setLoading] = useState<boolean>(true)
 
-  const [selectedFilters, setSelectedFilters] = useState<number[]>(Array(6).fill(0))
+  const [selectedFilters, setSelectedFilters] = useState<number[]>(
+    Array(6).fill(0),
+  )
   const [bottomSheetChargers, setBottomSheetChargers] = useState<Charger[]>([])
-  const [onMapFilteredChargers, setOnMapFilteredChargers] = useState<Charger[]>([])
-  const [selectedFiltersOnMap, setSelectedFiltersOnMap] = useState<number[]>(Array(6).fill(0))
+  const [onMapFilteredChargers, setOnMapFilteredChargers] = useState<Charger[]>(
+    [],
+  )
+  const [selectedFiltersOnMap, setSelectedFiltersOnMap] = useState<number[]>(
+    Array(6).fill(0),
+  )
 
   const [inputText, setInputText] = useState<string>('')
   const [showAll, setShowAll] = useState<boolean>(true)
@@ -40,7 +53,10 @@ const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationPar
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
     const willBlur = navigation.addListener(
       'willBlur',
-      () => mapRef.current && mapRef.current.showRoute(0, 0, false) && navigation.setParams(''),
+      () =>
+        mapRef.current &&
+        mapRef.current.showRoute(0, 0, false) &&
+        navigation.setParams(''),
     )
     navigation.dispatch(DrawerActions.closeDrawer())
     bottomSheetSnapTo(false)
@@ -133,7 +149,9 @@ const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationPar
 
   const onFilterClickOnMap = useCallback(
     (index: number): void => {
-      const newSelectedFilters: number[] = JSON.parse(JSON.stringify(selectedFiltersOnMap)) // Vobi todo: what are you doing?
+      const newSelectedFilters: number[] = JSON.parse(
+        JSON.stringify(selectedFiltersOnMap),
+      ) // Vobi todo: what are you doing?
       newSelectedFilters[index] = selectedFiltersOnMap[index] > 0 ? 0 : 1
       setSelectedFiltersOnMap(newSelectedFilters)
     },
@@ -151,12 +169,6 @@ const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationPar
       }
     })
   }, [selectedFiltersOnMap])
-
-  const resetBottomFilters = useCallback((): void => {
-    const resetFilters: number[] = [...selectedFilters].fill(0)
-    setSelectedFilters(resetFilters)
-    console.log(['SELECTED_FILTERS', selectedFilters])
-  }, [selectedFilters, setSelectedFilters])
 
   return {
     loading,
@@ -176,7 +188,6 @@ const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationPar
     mainInputRef,
     onMapFilteredChargers,
     bottomSheetChargers,
-    resetBottomFilters,
   }
 }
 export default useHome

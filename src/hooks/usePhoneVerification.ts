@@ -63,7 +63,7 @@ export default ({
       )
     try {
       const { phone } = getValues()
-      await services.sendSMSCode(phone,formType)
+      await services.sendSMSCode(phone, formType)
 
       codeRef.current?.startCodeAnimation()
       codeRef.current?.focus()
@@ -73,23 +73,17 @@ export default ({
         'dropDownAlert.registration.codeSentSuccessfully',
       )
     } catch (e) {
-    
-      if(e.data.status == SendSmsCodeStatus.USER_ALREADY_EXISTS)
-      {
+      if (e.data.status == SendSmsCodeStatus.USER_ALREADY_EXISTS) {
         Helpers.DisplayDropdownWithError(
           'dropDownAlert.error',
           'dropDownAlert.registration.alreadyExists',
         )
-      }
-      else if(e.data.status == SendSmsCodeStatus.USER_DOES_NOT_EXISTS)
-      {
+      } else if (e.data.status == SendSmsCodeStatus.USER_DOES_NOT_EXISTS) {
         Helpers.DisplayDropdownWithError(
           'dropDownAlert.error',
           'dropDownAlert.forgotPassword.doesNotExist',
         )
-      }
-      else
-      {
+      } else {
         Helpers.DisplayDropdownWithError()
         Helpers.Logger(e)
       }
