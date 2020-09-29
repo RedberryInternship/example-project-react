@@ -702,3 +702,12 @@ export type GetCardAddUrl = {
 }
 
 export type RootActionArg1 = { user: UserMeResponseType; token: string | null }
+
+export type EasyAlert = Partial<{
+  title: string
+  text: string
+  rightText: string
+  leftText: string
+  onRightClick: () => void
+  onLeftClick: () => void
+}>

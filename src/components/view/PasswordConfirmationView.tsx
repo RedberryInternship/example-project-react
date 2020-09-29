@@ -1,7 +1,8 @@
-import React, {ReactElement, useEffect} from 'react'
-import {Controller} from 'react-hook-form'
+import React, { ReactElement, useEffect } from 'react'
+import { Controller } from 'react-hook-form'
 
-import {Colors, Helpers} from 'utils'
+import { Colors } from 'utils'
+import { DisplayDropdownWithError } from 'helpers/inform'
 import BaseInput from 'components/baseUI/BaseInput'
 import images from 'assets/images'
 
@@ -16,9 +17,7 @@ const PasswordConfirmationView = ({
 }: PasswordConfirmationViewProps): ReactElement => {
   useEffect(() => {
     if (Object.keys(errors).length)
-      Helpers.DisplayDropdownWithError(
-        errors[Object.keys(errors)?.[0]]?.message,
-      )
+      DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
   }, [errors])
 
   return (
@@ -29,7 +28,7 @@ const PasswordConfirmationView = ({
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
-        imageStyle={{tintColor: Colors.primaryBlue}}
+        imageStyle={{ tintColor: Colors.primaryBlue }}
         testID={'passwordInput'}
         secure={true}
         title={'authentication.registration.password'}
@@ -40,7 +39,7 @@ const PasswordConfirmationView = ({
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
-        imageStyle={{tintColor: Colors.primaryBlue}}
+        imageStyle={{ tintColor: Colors.primaryBlue }}
         returnKeyType={'send'}
         testID={'RepeatpasswordInput'}
         secure={true}

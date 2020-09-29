@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useForm } from 'react-hook-form'
-
-import { Helpers } from 'utils'
 import services from 'services'
 import usePhoneVerification from 'hooks/usePhoneVerification'
+import { Logger, DisplayDropdownWithError } from 'helpers/inform'
 
 type InputValues = {
   phone: string
@@ -40,17 +39,13 @@ export default (setActivePage: (index: number) => void) => {
       await services.verifyCodeOnRegistration(phone, code)
       setActivePage(1)
     } catch (error) {
-      Helpers.Logger(error)
+      Logger(error)
       if (error.data?.error?.verified === false) {
-        Helpers.DisplayDropdownWithError(
-          'dropDownAlert.registration.incorrectCode',
-        )
+        DisplayDropdownWithError('dropDownAlert.registration.incorrectCode')
       } else if (error.data.status === 409) {
-        Helpers.DisplayDropdownWithError(
-          'dropDownAlert.registration.phoneAlreadyToken',
-        )
+        DisplayDropdownWithError('dropDownAlert.registration.phoneAlreadyToken')
       } else {
-        Helpers.DisplayDropdownWithError()
+        DisplayDropdownWithError()
       }
     }
   }

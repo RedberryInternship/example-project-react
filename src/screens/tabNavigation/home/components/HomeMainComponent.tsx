@@ -5,12 +5,13 @@ import {
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
-import { View, StyleSheet} from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { HomeContextType, Charger, MapImperativeRefObject } from 'allTypes'
 
 import { BaseButton, MultiChargingTopModal } from 'components'
-import { Defaults, Helpers } from 'utils'
+import { Defaults } from 'utils'
+import { getAndRequestLocation } from 'helpers/location'
 import HomeContext from 'hooks/contexts/home'
 import images from 'assets/images'
 import HomeMainSearchView from './HomeMainSearchView'
@@ -72,7 +73,7 @@ const HomeMainComponent = ({
       </View>
       <View style={styles.modalContainer} pointerEvents={'box-none'}>
         <View style={styles.modalOnMapRoundContainer}></View>
-        
+
         <OnMapRoundButton
           style={styles.modalOnMapRound}
           onPress={(): void => {
@@ -84,10 +85,10 @@ const HomeMainComponent = ({
             ) {
               mapRef.current?.locate()
             } else {
-              Helpers.getAndRequestLocation()
+              getAndRequestLocation()
             }
           }}
-          image={context.state.locationImageType}
+          image={context?.state?.locationImageType}
           imageStyle={styles.onMapRoundImage}
         />
         <HomeFilterView

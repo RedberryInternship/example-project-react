@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef, useCallback, useMemo} from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import {
   Keyboard,
   Animated,
@@ -7,12 +7,13 @@ import {
   Alert,
   BackHandler,
 } from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {useTranslation} from 'react-i18next'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
 
-import {Charger, MapImperativeRefObject} from 'allTypes'
+import { Charger, MapImperativeRefObject } from 'allTypes'
 
-import {Const, Helpers} from 'utils'
+import { Const } from 'utils'
+import { GetFilteredCharger } from 'helpers/chargerFilter'
 
 const useHomeMainSearch = (
   allChargers: Charger[],
@@ -26,7 +27,7 @@ const useHomeMainSearch = (
   const [filteredChargers, setFilteredChargers] = useState<Charger[]>([])
   const insets = useSafeAreaInsets()
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const _this: any = useRef({
     animatedSearchContentHeight: new Animated.Value(0),
@@ -97,7 +98,7 @@ const useHomeMainSearch = (
   //   return chargers ?? allChargers ?? []
   // }, [inputText, allChargers])
   useEffect(() => {
-    Helpers.GetFilteredCharger([], inputText).then((data) => {
+    GetFilteredCharger([], inputText).then((data) => {
       setFilteredChargers(data ?? allChargers ?? [])
     })
   }, [inputText, allChargers])

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, useEffect} from 'react'
+import { useEffect } from 'react'
 
-import {Helpers, InputValidationHelpers} from 'utils'
-import {rootAction} from 'hooks/actions/rootActions'
-import {useForm} from 'react-hook-form'
+import { InputValidationHelpers } from 'utils'
+import { rootAction } from 'hooks/actions/rootActions'
+import { useForm } from 'react-hook-form'
 import services from 'services'
-import {RegisterResponseType} from 'allTypes'
+import { RegisterResponseType } from 'allTypes'
+import { DisplayDropdownWithError } from 'helpers/inform'
 
 type RegisterError = {
   email: Array<string>
@@ -38,15 +39,13 @@ export default (
 
   useEffect(() => {
     if (Object.keys(errors).length)
-      Helpers.DisplayDropdownWithError(
-        errors[Object.keys(errors)?.[0]]?.message,
-      )
+      DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
   }, [errors])
 
   useEffect(() => {
     register(
-      {name: 'termsAndConditions'},
-      {validate: InputValidationHelpers.checkboxValidation},
+      { name: 'termsAndConditions' },
+      { validate: InputValidationHelpers.checkboxValidation },
     )
   }, [])
 
@@ -56,31 +55,31 @@ export default (
   }: InputValueTypes): Promise<void> => {
     //TODO: need outside component validation
     if (!repeatPassword && !password)
-      return Helpers.DisplayDropdownWithError(
+      return DisplayDropdownWithError(
         'dropDownAlert.forgotPassword.passwordsNotFilled',
       )
     else if (password && password.length < 8) {
-      return Helpers.DisplayDropdownWithError(
+      return DisplayDropdownWithError(
         'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
       )
     } else if (password !== repeatPassword) {
-      return Helpers.DisplayDropdownWithError(
+      return DisplayDropdownWithError(
         'dropDownAlert.registration.passwordNotEqual',
       )
     }
 
-    const {phone: phone_number} = getValues1()
-    const {name: first_name, surname: last_name, email} = getValues2()
+    const { phone: phone_number } = getValues1()
+    const { name: first_name, surname: last_name, email } = getValues2()
 
     try {
-      const {user, token} = await services.register({
+      const { user, token } = await services.register({
         first_name,
         last_name,
         phone_number,
         email,
         password,
       })
-      onSuccessRegistration({user, token})
+      onSuccessRegistration({ user, token })
     } catch (error) {
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)
@@ -88,30 +87,30 @@ export default (
         if (Object.prototype.hasOwnProperty.call(data, 'email')) {
           // Vobi Todo: can't you do if(data.email)
           if (data.email[0] == 'The email has already been taken.') {
-            Helpers.DisplayDropdownWithError(
+            DisplayDropdownWithError(
               'dropDownAlert.registration.emailAlreadyToken',
             )
             setActivePage(1)
           } else {
-            Helpers.DisplayDropdownWithError()
+            DisplayDropdownWithError()
           }
         } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {
           // Vobi Todo: can't you do if(data.phone_number)
           if (
             data.phone_number[0] == 'The phone number has already been taken.'
           ) {
-            Helpers.DisplayDropdownWithError(
+            DisplayDropdownWithError(
               'dropDownAlert.registration.emailAlreadyToken',
             )
             setActivePage(0)
           } else {
-            Helpers.DisplayDropdownWithError()
+            DisplayDropdownWithError()
           }
         } else {
-          Helpers.DisplayDropdownWithError()
+          DisplayDropdownWithError()
         }
       } else {
-        Helpers.DisplayDropdownWithError()
+        DisplayDropdownWithError()
       }
     }
   }

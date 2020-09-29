@@ -14,7 +14,7 @@ import {
 } from 'react-navigation'
 
 import AppContext from 'hooks/contexts/app'
-import { Helpers } from 'utils'
+import { GetFilteredCharger } from 'helpers/chargerFilter'
 import { DrawerActions } from 'react-navigation-drawer'
 import { Modalize } from 'react-native-modalize'
 import {
@@ -125,7 +125,7 @@ const useHome = (
   )
 
   useEffect(() => {
-    Helpers.GetFilteredCharger(selectedFilters, inputText).then((data) => {
+    GetFilteredCharger(selectedFilters, inputText).then((data) => {
       setBottomSheetChargers(data ?? [])
     })
   }, [selectedFilters, inputText])
@@ -159,7 +159,7 @@ const useHome = (
   )
 
   useEffect(() => {
-    Helpers.GetFilteredCharger(selectedFiltersOnMap, inputText).then((data) => {
+    GetFilteredCharger(selectedFiltersOnMap, inputText).then((data) => {
       if (data) {
         setShowAll(false)
         setOnMapFilteredChargers(data)

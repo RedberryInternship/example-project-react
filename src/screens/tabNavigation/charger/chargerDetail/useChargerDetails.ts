@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useState, useRef, useContext, useEffect } from 'react'
-import { TextInput, BackHandler, Alert } from 'react-native'
+import { TextInput, BackHandler } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import AppContext from 'hooks/contexts/app'
@@ -17,13 +17,9 @@ import {
   NavigationParams,
   NavigationEventPayload,
 } from 'react-navigation'
-import {
-  Defaults,
-  Helpers,
-  NavigationActions,
-  getLocaleText,
-  Const,
-} from 'utils'
+import { Defaults, NavigationActions, getLocaleText, Const } from 'utils'
+import { getAndRequestLocation } from 'helpers/location'
+import { easyAlert, DisplayDropdownWithError } from 'helpers/inform'
 import {
   deleteFromFavorites,
   addToFavorites,
@@ -31,6 +27,7 @@ import {
 import services from 'services'
 import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
 import { isPermissionDeniedRegex } from 'utils/mapAndLocation/permissionsRegex'
+
 export default (
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
@@ -104,11 +101,9 @@ export default (
         isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
       !Const.platformIOS
     ) {
-      const status = await Helpers.getAndRequestLocation()
+      const status = await getAndRequestLocation()
       if (!status)
-        return Helpers.DisplayDropdownWithError(
-          'dropDownAlert.pleaseAllowLocation',
-        )
+        return DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
     }
 
     if (
@@ -126,9 +121,7 @@ export default (
 
   const onFavoritePress = (): void => {
     if (!Defaults.token)
-      return Helpers.DisplayDropdownWithError(
-        'dropDownAlert.charging.needToLogIn',
-      )
+      return DisplayDropdownWithError('dropDownAlert.charging.needToLogIn')
 
     const newCharger = {
       ...charger,
@@ -145,37 +138,37 @@ export default (
     } else if (charger?.is_favorite === true) {
       deleteFromFavorites(charger.id, dispatch, updateCharger)
     } else {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
 
   const mainButtonClickHandler = (): void => {
     if (!Defaults.token) {
-      Helpers.easyAlert({
+      easyAlert({
         text: 'dropDownAlert.charging.needToLogIn',
         leftText: 'authentication.authentication',
         onLeftClick: () => navigation.navigate('Auth'),
       })
       return
     } else if (state.user?.user_cards.length === 0) {
-      Helpers.easyAlert({
+      easyAlert({
         text: 'chargerDetail.pleaseAddCardFirst',
         leftText: 'settings.add',
         onLeftClick: () => navigation.navigate('CardAdd'),
       })
       return
     } else if (chargingState.length > 1) {
-      Helpers.DisplayDropdownWithError(t('chargerDetail.maxAllowedCarCharing'))
+      DisplayDropdownWithError(t('chargerDetail.maxAllowedCarCharing'))
       return
     } else if (activeChargerType === -1) {
-      Helpers.DisplayDropdownWithError(t('chargerDetail.selectConnector'))
+      DisplayDropdownWithError(t('chargerDetail.selectConnector'))
       return
     } else if (
       chargingState.length > 0 &&
       charger?.connector_types[activeChargerType]?.pivot.id ===
         chargingState[activeChargerType]?.charger_id
     ) {
-      Helpers.DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
+      DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
       return
     }
     navigation.navigate('ChooseChargeMethod', {
@@ -196,10 +189,10 @@ export default (
         setDistance(result?.data.rows?.[0].elements?.[0].distance.text)
       else {
         setDistance('0')
-        Helpers.DisplayDropdownWithError('dropDownAlert.charging.noRouteFound')
+        DisplayDropdownWithError('dropDownAlert.charging.noRouteFound')
       }
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
 

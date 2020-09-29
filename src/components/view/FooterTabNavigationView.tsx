@@ -1,11 +1,11 @@
-import React, {ReactElement} from 'react'
-import {View, StatusBar, StyleSheet} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import React, { ReactElement } from 'react'
+import { View, StatusBar, StyleSheet } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
 
 import TabNavigationButtons from 'components/item/TabNavigationButtonsItem'
-import {determineTimePeriod} from 'utils/mapAndLocation/mapFunctions'
-import {Helpers} from 'utils'
+import { determineTimePeriod } from 'utils/mapAndLocation/mapFunctions'
+import { isAuthenticated } from 'helpers/auth'
 import images from 'assets/images'
 
 const FooterTabNavigator = (props: any): ReactElement => {
@@ -15,7 +15,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
 
   const navigate = (name: string): void => {
     if (name === 'drawer') return props.navigation.openDrawer()
-    props.navigation.navigate(name, {mode: null})
+    props.navigation.navigate(name, { mode: null })
   }
 
   if (currentRouteName !== 'Home') {
@@ -30,7 +30,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
     <View
       style={[
         styles.bottomTabContainer,
-        {paddingBottom: insets.bottom, height: 65 + insets.bottom},
+        { paddingBottom: insets.bottom, height: 65 + insets.bottom },
       ]}
     >
       <TabNavigationButtons
@@ -48,11 +48,11 @@ const FooterTabNavigator = (props: any): ReactElement => {
         }
         navigate={navigate.bind(
           FooterTabNavigator,
-          Helpers.isAuthenticated() ? 'ChargerStack' : 'NotAuthorized',
+          isAuthenticated() ? 'ChargerStack' : 'NotAuthorized',
         )}
         image={images.charge}
       />
-      {props.screenProps.chargingState.length > 0 && Helpers.isAuthenticated() && (
+      {props.screenProps.chargingState.length > 0 && isAuthenticated() && (
         <Animatable.View
           animation={zoomOut}
           iterationCount={'infinite'}
@@ -69,7 +69,7 @@ const FooterTabNavigator = (props: any): ReactElement => {
         </Animatable.View>
       )}
 
-      {Helpers.isAuthenticated() && (
+      {isAuthenticated() && (
         <TabNavigationButtons
           navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
           image={images.favorite}

@@ -10,7 +10,7 @@ import AppContext from 'hooks/contexts/app'
 import ChargerContext from 'hooks/contexts/charger'
 import services from 'services'
 import { updateUser } from 'hooks/actions/rootActions'
-import { Helpers } from 'utils'
+import { DisplayDropdownWithError } from 'helpers/inform'
 
 const animatedArrow = new Animated.Value(0)
 
@@ -32,7 +32,7 @@ export default (navigation: Navigation) => {
       await services.setDefaultCard(id)
       updateUser(dispatch)
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
   const submitHandler = async ({ amount }: { amount: number }) => {

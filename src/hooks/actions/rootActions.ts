@@ -5,21 +5,23 @@ import {
   RootActionArg1,
   UserMeResponseType,
 } from '../../../@types/allTypes.d'
-
 import NavigationActions from 'utils/navigation.service'
-
 import Defaults from 'utils/defaults'
-import Helpers from 'utils/helpers'
 import services from 'services'
+import {
+  Logger,
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+} from 'helpers/inform'
 
-// Vobi Todo: it is better to separate action types from actions
-export const SAVE_TOKEN = 'SAVE_TOKEN'
-export const GET_ALL_CHARGER_SUCCESS = 'GET_ALL_CHARGER_SUCCESS'
-export const GET_FAVORITE_CHARGERS = 'GET_FAVORITE_CHARGERS'
-export const ADD_FAVORITE_CHARGER = 'ADD_FAVORITE_CHARGER'
-
-export const EDIT_USER_INFO = 'EDIT_USER_INFO'
-export { LOG_OUT, logOut } from './general/logout'
+// Vobi Done: it is better to separate action types from actions
+import {
+  SAVE_TOKEN,
+  GET_ALL_CHARGER_SUCCESS,
+  GET_FAVORITE_CHARGERS,
+  EDIT_USER_INFO,
+  LOG_OUT,
+} from 'hooks/actionTypes/rootActions'
 
 export const rootAction = async (
   data: RootActionArg1,
@@ -48,11 +50,11 @@ export const updateUser = async (dispatch: any) => {
     )
   } catch (error) {
     if (error.status == '406' || error?.data?.status == '406') {
-      Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+      DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       dispatch(logOut())
     } else {
-      Helpers.DisplayDropdownWithError()
-      Helpers.Logger(['Error', error])
+      DisplayDropdownWithError()
+      Logger(['Error', error])
     }
   }
 }
@@ -94,7 +96,7 @@ export const getAllChargers = async (dispatch: any): Promise<void> => {
     const { data } = await services.getAllChargersFiltered()
     dispatch({ type: GET_ALL_CHARGER_SUCCESS, payload: data })
   } catch (error) {
-    Helpers.DisplayDropdownWithError()
+    DisplayDropdownWithError()
   }
 }
 
@@ -105,7 +107,7 @@ export const getFavoriteChargers = async (dispatch: any): Promise<void> => {
 
     dispatch({ type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers })
   } catch (error) {
-    Helpers.DisplayDropdownWithError()
+    DisplayDropdownWithError()
   }
 }
 
@@ -120,14 +122,13 @@ export const addToFavorites = async (
       if (status) {
         getFavoriteChargers(dispatch)
         getAllChargers(dispatch)
-        Helpers.DisplayDropdownWithSuccess('dropDownAlert.successOnFavoriteAdd')
-
+        DisplayDropdownWithSuccess('dropDownAlert.successOnFavoriteAdd')
         callback && callback()
       } else {
         throw new Error()
       }
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
 }
@@ -146,16 +147,14 @@ export const deleteFromFavorites = async (
       getFavoriteChargers(dispatch)
       getAllChargers(dispatch)
 
-      Helpers.DisplayDropdownWithSuccess(
-        'dropDownAlert.successOnFavoriteRemove',
-      )
+      DisplayDropdownWithSuccess('dropDownAlert.successOnFavoriteRemove')
 
       callback && callback()
     } else {
       throw new Error()
     }
   } catch (error) {
-    Helpers.DisplayDropdownWithError()
+    DisplayDropdownWithError()
   }
 }
 

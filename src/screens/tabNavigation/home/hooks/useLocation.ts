@@ -17,12 +17,13 @@ import { Coords } from 'allTypes'
 
 import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
 import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
-import { regionFrom, Defaults, locationConfig, Helpers, Const } from 'utils'
+import { regionFrom, Defaults, locationConfig, Const } from 'utils'
 import HomeContext from 'hooks/contexts/home'
 import services from 'services'
 import { getAllChargers } from 'hooks/actions/rootActions'
 import { Platform } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { Logger, DisplayDropdownWithError } from 'helpers/inform'
 
 type ThisRef = {
   interval: number
@@ -63,7 +64,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     },
     [mapRef],
   )
-  
+
   const getPermissionStatus = useCallback(
     (status: LocationPermissionStatus): void => {
       setPermissionStatus(status)
@@ -90,7 +91,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     },
     [dispatch, navigateByRef],
   )
-  
+
   const navigateToLocation = useCallback(
     async (location: Coords = null): Promise<void> => {
       if (location) navigateByRef(location.lat, location.lng)
@@ -107,8 +108,8 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
 
           navigateByRef(coords.lat, coords.lng)
         } catch (error) {
-          Helpers.Logger(['error', error]);
-          Helpers.DisplayDropdownWithError()
+          Logger(['error', error])
+          DisplayDropdownWithError()
         }
       }
     },
@@ -216,9 +217,9 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
           animated: true,
         })
       } catch (error) {
-        if (error === 'ERROR') Helpers.DisplayDropdownWithError()
+        if (error === 'ERROR') DisplayDropdownWithError()
         else if (error === 'ZERO_RESULTS')
-          Helpers.DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
+          DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
         // Vobi Todo: log error to sentry if none matches
       }
     },

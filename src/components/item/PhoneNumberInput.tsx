@@ -13,7 +13,8 @@ import { PhoneCountryCode, BaseInputRefProp } from 'allTypes'
 import BasePickerSelect from 'components/baseUI/BasePickerSelect'
 import BaseInput from 'components/baseUI/BaseInput'
 import images from 'assets/images'
-import { Helpers, Colors } from 'utils'
+import { Colors } from 'utils'
+import { DisplayDropdownWithError } from 'helpers/inform'
 import { phoneNumberPlaceHolder } from 'utils/const'
 import services from 'services'
 
@@ -98,7 +99,7 @@ const PhoneNumberInput = React.forwardRef(
 
           setPickerItemsState(pickerItems)
         } catch (error) {
-          Helpers.DisplayDropdownWithError()
+          DisplayDropdownWithError()
         }
       }
     }

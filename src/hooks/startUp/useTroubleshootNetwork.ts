@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNetInfo } from '@react-native-community/netinfo'
 import Defaults from 'utils/defaults'
-import Helpers from 'utils/helpers'
+import { DisplayDropdownWithError } from 'helpers/inform'
 
 const troubleshootNetwork = (readUserToken: () => Promise<void>) => {
   const networkState = useNetInfo()
@@ -16,7 +16,7 @@ const troubleshootNetwork = (readUserToken: () => Promise<void>) => {
       !networkState.isConnected &&
       Defaults.internetConnected !== null
     ) {
-      Helpers.DisplayDropdownWithError(
+      DisplayDropdownWithError(
         'dropDownAlert.error',
         'dropDownAlert.needInternetConnection',
       )

@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, {useCallback, useState, useEffect} from 'react'
-import {WebView, WebViewNavigation} from 'react-native-webview'
-import {Helpers, Colors} from 'utils'
+import React, { useCallback, useState, useEffect } from 'react'
+import { WebView, WebViewNavigation } from 'react-native-webview'
+import { Colors } from 'utils'
+import { DisplayDropdownWithError } from 'helpers/inform'
 import services from 'services'
-import {Alert, StyleSheet} from 'react-native'
-import {GetCardAddUrl} from 'allTypes'
+import { StyleSheet } from 'react-native'
+import { GetCardAddUrl } from 'allTypes'
 
 type CardAddViewProps = {
   onSuccess: () => void
   onFail?: () => void
 }
-const CardAddView = ({onSuccess, onFail}: CardAddViewProps) => {
+const CardAddView = ({ onSuccess, onFail }: CardAddViewProps) => {
   const [urlData, setUrlData] = useState<GetCardAddUrl | undefined>() // Vobi Todo: useState default value is undefined
   const navigationStateChange = useCallback(
     (event: WebViewNavigation) => {
@@ -29,7 +30,7 @@ const CardAddView = ({onSuccess, onFail}: CardAddViewProps) => {
       const data = await services.getCardAddUrl()
       setUrlData(data)
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
   useEffect(() => {

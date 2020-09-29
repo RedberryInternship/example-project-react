@@ -1,9 +1,9 @@
 // Vobi Done: remove unused imports
-import Helpers from 'utils/helpers'
 import { Navigation } from 'allTypes'
-import { useForm } from 'react-hook-form'
 import services from 'services'
 import usePhoneVerification from 'hooks/usePhoneVerification'
+import { Logger, DisplayDropdownWithError } from 'helpers/inform'
+import { useForm } from 'react-hook-form'
 
 type InputValues = {
   phone: string
@@ -40,31 +40,27 @@ export default (navigation: Navigation) => {
         phone,
       })
     } catch (error) {
-      Helpers.Logger(error)
+      Logger(error)
       switch (error.status) {
         case 401:
-          Helpers.DisplayDropdownWithError(
-            'dropDownAlert.forgotPassword.userNotFound',
-          )
+          DisplayDropdownWithError('dropDownAlert.forgotPassword.userNotFound')
           break
         case 409:
-          Helpers.DisplayDropdownWithError(
-            'dropDownAlert.forgotPassword.userNotFound',
-          )
+          DisplayDropdownWithError('dropDownAlert.forgotPassword.userNotFound')
           break
 
         case 440:
-          Helpers.DisplayDropdownWithError(
+          DisplayDropdownWithError(
             'dropDownAlert.forgotPassword.smsCodeExpired',
           )
           break
         case 403:
-          Helpers.DisplayDropdownWithError(
+          DisplayDropdownWithError(
             'dropDownAlert.forgotPassword.verificationCodeIsIncorrect',
           )
           break
         default:
-          Helpers.DisplayDropdownWithError()
+          DisplayDropdownWithError()
           break
       }
     }

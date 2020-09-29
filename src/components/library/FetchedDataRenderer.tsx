@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Defaults } from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 import { StyleSheet } from 'react-native'
-import Helpers from 'utils/helpers'
+import { Logger } from 'helpers/inform'
 
 type FetchedDataRendererProp = {
   property: string
@@ -41,7 +41,7 @@ const FetchedDataRenderer = ({
         setLocalState(dataList)
         staticData[property] = dataList
       } catch (error) {
-        Helpers.Logger(error);
+        Logger(error)
         Defaults.dropdown?.alertWithType(
           'error',
           t('dropDownAlert.generalError'),
@@ -53,10 +53,14 @@ const FetchedDataRenderer = ({
   }
 
   // Refetch data after logout and login
-  if(!Defaults._userDetail && localState?.length > 0){
+  if (!Defaults._userDetail && localState?.length > 0) {
     staticData[property] = undefined
-  }else if(updateAlways && staticData[property] === undefined && Defaults._userDetail !== null){
-    shouldFetch();
+  } else if (
+    updateAlways &&
+    staticData[property] === undefined &&
+    Defaults._userDetail !== null
+  ) {
+    shouldFetch()
   }
 
   if (localState === undefined)

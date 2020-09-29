@@ -6,10 +6,13 @@ import {
   AppContextType,
 } from '../../../../../@types/allTypes.d'
 
-import AppContext from 'hooks/contexts/app';
+import AppContext from 'hooks/contexts/app'
 import { useForm } from 'react-hook-form'
 import services from 'services'
-import { Helpers} from 'utils'
+import {
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+} from 'helpers/inform'
 import { editUserInfo, updateUser } from 'hooks/actions/rootActions'
 
 export default (navigation: Navigation, type: UserSettingEnum) => {
@@ -31,12 +34,11 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   const submit = async (form: Record<string, string>) => {
     if (type === UserSettingEnum.phone) {
       updateUserInfo({ [type]: form.phone })
-    }
-    else if (type === UserSettingEnum.password) {
-      updateUserPassword(form);
-    }else if (type === UserSettingEnum.addCar){
+    } else if (type === UserSettingEnum.password) {
+      updateUserPassword(form)
+    } else if (type === UserSettingEnum.addCar) {
       updateCar(form)
-    }else updateUserInfo(form)
+    } else updateUserInfo(form)
   }
 
   const updateUserInfo = async (form: Record<string, string>) => {
@@ -46,14 +48,14 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
       if (result.updated === true) {
         navigation.goBack()
         editUserInfo(dispatch, form[type], type)
-        Helpers.DisplayDropdownWithSuccess(
+        DisplayDropdownWithSuccess(
           'dropDownAlert.informationUpdatedSuccessfully',
         )
       } else {
         throw new Error('Something Went Wrong...')
       }
     } catch (err) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
   const updateCar = async (form: Record<string, string | number>) => {
@@ -62,29 +64,25 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
 
       navigation.goBack()
       updateUser(dispatch)
-      Helpers.DisplayDropdownWithSuccess(
-        'dropDownAlert.informationUpdatedSuccessfully',
-      )
+      DisplayDropdownWithSuccess('dropDownAlert.informationUpdatedSuccessfully')
     } catch (err) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
 
   const updateUserPassword = async (form: Record<string, string>) => {
     //TODO: need outside component validation
     if (!form.repeatPassword && !form.password)
-      return Helpers.DisplayDropdownWithError(
+      return DisplayDropdownWithError(
         'dropDownAlert.forgotPassword.passwordsNotFilled',
       )
     else if (form.password && form.password.length < 8) {
-      return Helpers.DisplayDropdownWithError(
+      return DisplayDropdownWithError(
         'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
       )
     } else if (form.password !== form.repeatPassword) {
-      Helpers.DisplayDropdownWithError(
-        'dropDownAlert.registration.passwordNotEqual',
-      )
-      return "passwordNotEqual"; //return error true because we dont check password match from backend
+      DisplayDropdownWithError('dropDownAlert.registration.passwordNotEqual')
+      return 'passwordNotEqual' //return error true because we dont check password match from backend
     }
     try {
       const result = await services.editPassword(
@@ -93,18 +91,16 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
         form.password,
       )
       if (result.status_code === 200 || !result.status_code) {
-        Helpers.DisplayDropdownWithSuccess('dropDownAlert.editPassword.success')
+        DisplayDropdownWithSuccess('dropDownAlert.editPassword.success')
         navigation.goBack()
       } else {
         throw new Error()
       }
     } catch (e) {
       if (e.status === 401) {
-        Helpers.DisplayDropdownWithError(
-          'dropDownAlert.editPassword.passwordNotValid',
-        )
+        DisplayDropdownWithError('dropDownAlert.editPassword.passwordNotValid')
       } else {
-        Helpers.DisplayDropdownWithError()
+        DisplayDropdownWithError()
       }
       reset()
     }

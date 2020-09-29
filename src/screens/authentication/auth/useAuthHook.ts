@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {useRef, useEffect} from 'react'
-import {TextInput} from 'react-native'
-import {useForm} from 'react-hook-form'
+import { useRef, useEffect } from 'react'
+import { TextInput } from 'react-native'
+import { useForm } from 'react-hook-form'
 
-import {Helpers, InputValidationHelpers} from 'utils'
-import {rootAction} from 'hooks/actions/rootActions'
-import {Navigation} from 'allTypes'
+import { InputValidationHelpers } from 'utils'
+import { DisplayDropdownWithError } from 'helpers/inform'
+import { rootAction } from 'hooks/actions/rootActions'
+import { Navigation } from 'allTypes'
 import services from 'services'
 
 type User = {
@@ -39,25 +40,22 @@ type InputValues = {
 export default (navigation: Navigation, dispatch: any) => {
   const phoneRef = useRef<TextInput>()
 
-  const {control, setValue, register, handleSubmit, errors, watch} = useForm({
+  const { control, setValue, register, handleSubmit, errors, watch } = useForm({
     validateCriteriaMode: 'all',
   })
 
   useEffect(() => {
     register(
-      {name: 'phone'},
-      {validate: InputValidationHelpers.phoneNumberValidation},
+      { name: 'phone' },
+      { validate: InputValidationHelpers.phoneNumberValidation },
     )
   }, [])
 
   useEffect(() => {
     if (errors.phone)
-      Helpers.DisplayDropdownWithError(
-        'dropDownAlert.error',
-        errors.phone.message,
-      )
+      DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
     else if (errors.password)
-      Helpers.DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
+      DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
   }, [errors])
 
   const buttonClickHandler = async ({
@@ -65,7 +63,7 @@ export default (navigation: Navigation, dispatch: any) => {
     password,
   }: InputValues): Promise<void> => {
     try {
-      const {access_token, user} = await services.loginUser(phone, password)
+      const { access_token, user } = await services.loginUser(phone, password)
       rootAction(
         {
           token: access_token,
@@ -76,12 +74,12 @@ export default (navigation: Navigation, dispatch: any) => {
       navigation.navigate('Home')
     } catch (error) {
       if (error.status == '406' || error?.data?.status == '406') {
-        Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+        DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       }
       if (error?.data?.error === 'User Not Found') {
-        Helpers.DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
+        DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
       }
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
       phoneRef.current?.focus()
     }
   }

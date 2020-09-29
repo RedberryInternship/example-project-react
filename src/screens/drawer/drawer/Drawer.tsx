@@ -7,24 +7,23 @@ import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
 
 import { BaseButton, BaseText } from 'components'
 
-import { Const, Colors, Helpers, Defaults } from 'utils'
+import { Const, Colors, Defaults } from 'utils'
+import { easyAlert } from 'helpers/inform'
 import AppContext from 'hooks/contexts/app'
-import HomeContext from 'hooks/contexts/home'
 import { logOut } from '../../../hooks/actions/rootActions'
-import { reset } from '../../../hooks/actions/homeActions'
 import images from 'assets/images'
 import {
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
 } from './components'
+import { isAuthenticated } from 'helpers/auth'
 import { useAsyncStorage } from '@react-native-community/async-storage'
 
 const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const { t, i18n } = useTranslation()
   const insets = useSafeAreaInsets()
   const context: AppContextType = useContext(AppContext)
-  const homeContext = useContext(HomeContext)
   const { setItem: setLocaleStorage } = useAsyncStorage('locale')
 
   let drawerContent = null
@@ -35,7 +34,7 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     i18n.changeLanguage(locale)
   }
 
-  if (!Helpers.isAuthenticated()) {
+  if (!isAuthenticated()) {
     drawerContent = (
       <>
         <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
@@ -80,7 +79,7 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     <View
       style={[styles.safeAreaViewContainer, { paddingBottom: insets.bottom }]}
     >
-      {Helpers.isAuthenticated() && (
+      {isAuthenticated() && (
         <BaseUserAvatarWithLabel
           onPress={(): void => {
             navigation.navigate('ChooseAvatar')
@@ -111,16 +110,15 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ge'}
               style={styles.localeButton}
             />
-            {Helpers.isAuthenticated() && (
+            {isAuthenticated() && (
               <TouchableOpacity
                 onPress={(): void => {
-                  Helpers.easyAlert({
+                  easyAlert({
                     title: t('dropDownAlert.areYouSureYouWantToLogOut'),
                     rightText: t('drawer.logOut'),
                     leftText: t('no'),
                     onRightClick: () => {
                       context.dispatch(logOut())
-                      homeContext.dispatch(reset())
                     },
                     onLeftClick: () => {},
                   })

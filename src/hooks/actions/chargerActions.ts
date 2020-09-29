@@ -8,7 +8,11 @@ import {
 import Defaults from 'utils/defaults'
 import NavigationActions from 'utils/navigation.service'
 import { getLocaleText } from 'utils/localization/localization'
-import Helpers from 'utils/helpers'
+import { configureChargingFinishPopup } from 'helpers/finishingPopup'
+import {
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+} from 'helpers/inform'
 import services from 'services'
 import { getAllChargers } from './rootActions'
 
@@ -42,17 +46,15 @@ export const startCharging = async (
       amount,
     )
     if (startResult.charging_status === ChargingStatus.UNPLUGGED) {
-      Helpers.DisplayDropdownWithError(
-        'dropDownAlert.pleaseSeeIfChargerIsConnected',
-      )
-      console.log("CONNECTOR_ID:",connectorTypeId);
+      DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
+      console.log('CONNECTOR_ID:', connectorTypeId)
       setLoading(false)
       return
     }
 
     const chargingStateResult = await services.chargingState()
 
-    Helpers.DisplayDropdownWithSuccess()
+    DisplayDropdownWithSuccess()
 
     dispatch(
       startChargingAction({
@@ -69,8 +71,8 @@ export const startCharging = async (
   } catch (error) {
     setLoading(false)
     if (error.data.message)
-      Helpers.DisplayDropdownWithError('', getLocaleText(error.data.message))
-    else Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError('', getLocaleText(error.data.message))
+    else DisplayDropdownWithError()
   }
 }
 
@@ -100,15 +102,15 @@ export const finishCharging = async (
   try {
     const result = await services.finishCharging(orderId)
     // console.log([ 'is_free', result ]);
-    Helpers.configureChargingFinishPopup(result, dispatch)
+    configureChargingFinishPopup(result, dispatch)
   } catch (error) {
     if (error.data?.message)
-      Helpers.DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
-    else Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
+    else DisplayDropdownWithError()
     dispatch(finishChargingAction(error, false))
   }
   //load chargers if charging is finished
-  services.getAllChargersFiltered();
+  services.getAllChargersFiltered()
 }
 
 type FinishChargingAction = {
@@ -136,7 +138,7 @@ export const chargingState = async (dispatch: any) => {
     chargerStateController(result, dispatch)
   } catch (error) {
     dispatch(chargingStateAction(error, false))
-    Helpers.DisplayDropdownWithError()
+    DisplayDropdownWithError()
   }
 }
 
@@ -146,7 +148,7 @@ export const chargerStateController = (
   dispatch: any,
 ) => {
   for (const state of result) {
-    Helpers.configureChargingFinishPopup(state, dispatch)
+    configureChargingFinishPopup(state, dispatch)
   }
 
   if (Defaults.activeRoute === 'Charging' && result.length === 0) {

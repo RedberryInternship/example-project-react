@@ -1,16 +1,12 @@
 import moment from 'moment'
 import SunCalc from 'suncalc'
-import RNLocation, {
-  Location,
-} from 'react-native-location'
+import RNLocation, { Location } from 'react-native-location'
 
 import Defaults from 'utils/defaults'
 import * as Const from 'utils/const'
-import Helpers from 'utils/helpers'
 import services from 'services'
-import {
-  isPermissionGrantedRegex,
-} from './permissionsRegex'
+import { isPermissionGrantedRegex } from './permissionsRegex'
+import { DisplayDropdownWithError } from 'helpers/inform'
 
 type RegionFrom = {
   latitude: number
@@ -67,9 +63,9 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
         timeout: 6000,
       })
       if (location !== null)
-        return {lat: location.latitude, lng: location.longitude}
+        return { lat: location.latitude, lng: location.longitude }
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
       console.log('====================================')
       console.log("can't get location by gps")
       console.log('====================================')
@@ -78,14 +74,14 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
 
   try {
     if (IPCoords === null) {
-      const {Latitude, Longitude} = await services.getCoordsByIP()
+      const { Latitude, Longitude } = await services.getCoordsByIP()
 
-      IPCoords = {lat: Latitude, lng: Longitude}
+      IPCoords = { lat: Latitude, lng: Longitude }
     }
 
     return IPCoords
   } catch (error) {
-    Helpers.DisplayDropdownWithError()
+    DisplayDropdownWithError()
     console.log('====================================')
     console.log("can't get location by ip")
     console.log('====================================')

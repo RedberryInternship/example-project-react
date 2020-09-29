@@ -1,10 +1,14 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { useRef, useEffect, useCallback } from 'react'
 import { TextInput } from 'react-native'
-
-import { Helpers, InputValidationHelpers } from 'utils'
+import { InputValidationHelpers } from 'utils'
 import { CodeRefType, SendSmsCodeStatus } from '../../@types/allTypes.d'
 import services from 'services'
+import {
+  Logger,
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+} from 'helpers/inform'
 
 type useForgotPasswordProps = {
   getValues: () => Record<string, any>
@@ -40,9 +44,7 @@ export default ({
 
   useEffect(() => {
     if (Object.keys(errors).length)
-      Helpers.DisplayDropdownWithError(
-        errors[Object.keys(errors)?.[0]]?.message,
-      )
+      DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
   }, [errors])
 
   const validatePhone = useCallback(async () => {
@@ -58,7 +60,7 @@ export default ({
 
   const receiveCodeHandler = async (formType: string): Promise<void> => {
     if (!(await triggerValidation('phone')))
-      return Helpers.DisplayDropdownWithError(
+      return DisplayDropdownWithError(
         'dropDownAlert.registration.fillPhoneNumber',
       )
     try {
@@ -69,23 +71,23 @@ export default ({
       codeRef.current?.focus()
       codeRef.current?.setDisabledInput(false)
 
-      Helpers.DisplayDropdownWithSuccess(
+      DisplayDropdownWithSuccess(
         'dropDownAlert.registration.codeSentSuccessfully',
       )
     } catch (e) {
       if (e.data.status == SendSmsCodeStatus.USER_ALREADY_EXISTS) {
-        Helpers.DisplayDropdownWithError(
+        DisplayDropdownWithError(
           'dropDownAlert.error',
           'dropDownAlert.registration.alreadyExists',
         )
       } else if (e.data.status == SendSmsCodeStatus.USER_DOES_NOT_EXISTS) {
-        Helpers.DisplayDropdownWithError(
+        DisplayDropdownWithError(
           'dropDownAlert.error',
           'dropDownAlert.forgotPassword.doesNotExist',
         )
       } else {
-        Helpers.DisplayDropdownWithError()
-        Helpers.Logger(e)
+        DisplayDropdownWithError()
+        Logger(e)
       }
     }
   }

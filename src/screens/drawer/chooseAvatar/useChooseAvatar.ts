@@ -1,6 +1,8 @@
 import { useState, useContext } from 'react'
-
-import { Helpers } from 'utils'
+import {
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+} from 'helpers/inform'
 import { Navigation, AppContextType } from 'allTypes'
 import AppContext from 'hooks/contexts/app'
 import { editUserInfo } from 'hooks/actions/rootActions'
@@ -15,11 +17,9 @@ export default (navigation: Navigation) => {
     try {
       navigation.navigate('Home')
       editUserInfo(dispatch, activeAvatar, 'avatar')
-      Helpers.DisplayDropdownWithSuccess(
-        'dropDownAlert.avatarUpdatedSuccessfully',
-      )
+      DisplayDropdownWithSuccess('dropDownAlert.avatarUpdatedSuccessfully')
     } catch (err) {
-      Helpers.DisplayDropdownWithError()
+      DisplayDropdownWithError()
     }
   }
   const onAvatarPress = (index: number): void => {
