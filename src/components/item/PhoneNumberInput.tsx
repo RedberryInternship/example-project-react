@@ -88,7 +88,6 @@ const PhoneNumberInput = React.forwardRef(
       if (pickerItemsState.length === 0) {
         try {
           const { data } = await services.getPhoneCountryCodes()
-          console.log(['Picker Items Data', data])
           const pickerItems = data
             .filter((value: PhoneCountryCode) => {
               return !!value.phone_code

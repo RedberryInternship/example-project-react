@@ -1,12 +1,5 @@
 import React, { useState, useRef, useImperativeHandle } from 'react'
-import {
-  TextInput,
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  Animated,
-} from 'react-native'
+import { TextInput, Text, View, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import MaskedView from '@react-native-community/masked-view'
 
 import { useTranslation } from 'react-i18next'
@@ -16,95 +9,86 @@ import BaseText from 'components/baseUI/BaseText'
 const CodeInputWidth = 128
 const animationDuration = 10000
 // eslint-disable-next-line react/display-name
-const receiveConfirmationCode = React.forwardRef(
-  ({ receiveCode, ...props }: any, ref: any) => {
-    // Vobi todo: no any types
-    const [animation] = useState(new Animated.Value(0))
-    const [disabled, setDisabled] = useState(false)
-    const [disabledInput, setDisabledInput] = useState(true)
-    const [showText, setShowText] = useState(false)
-    const inputRef: any = useRef(null)
-    const { t } = useTranslation()
+const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any, ref: any) => {
+  // Vobi todo: no any types
+  const [animation] = useState(new Animated.Value(0))
+  const [disabled, setDisabled] = useState(false)
+  const [disabledInput, setDisabledInput] = useState(true)
+  const [showText, setShowText] = useState(false)
+  const inputRef: any = useRef(null)
+  const { t } = useTranslation()
 
-    const codeReceiveHandler = (): void => {
-      if (disabled) return
-      setDisabled(true)
+  const codeReceiveHandler = (): void => {
+    if (disabled) return
+    setDisabled(true)
+    animation.setValue(0)
+
+    setShowText(true)
+
+    Animated.timing(animation, {
+      toValue: CodeInputWidth,
+      duration: animationDuration,
+      useNativeDriver: false,
+    }).start(() => {
+      setDisabled(false)
+    })
+  }
+
+  useImperativeHandle(ref, () => ({
+    focus: inputRef.current.focus,
+    activateButton: (): void => {
+      animation.setValue(CodeInputWidth)
+    },
+    disableActivateButton: (): void => {
       animation.setValue(0)
+      setDisabledInput(true)
+    },
+    startCodeAnimation: codeReceiveHandler,
+    setDisabledInput: setDisabledInput,
+  }))
 
-      setShowText(true)
-
-      Animated.timing(animation, {
-        toValue: CodeInputWidth,
-        duration: animationDuration,
-        useNativeDriver: false,
-      }).start(() => {
-        setDisabled(false)
-      })
-    }
-
-    useImperativeHandle(ref, () => ({
-      // ...inputRef.current,
-      focus: inputRef.current.focus,
-      activateButton: (): void => {
-        animation.setValue(CodeInputWidth)
-        // setDisabled(false)
-      },
-      disableActivateButton: (): void => {
-        animation.setValue(0)
-        // setDisabled(true)
-        setDisabledInput(true)
-      },
-      startCodeAnimation: codeReceiveHandler,
-      setDisabledInput: setDisabledInput,
-    }))
-
-    return (
-      <View style={styles.container}>
-        <BaseText style={styles.smsCodeText}>
-          {t('authentication.forgotPasswordPage.smsCode')}
-        </BaseText>
-        <View style={styles.receiveCodeBtnContainer}>
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={receiveCode}
-            disabled={disabled}
-            style={styles.receiveCodeBtnTouchable}
+  return (
+    <View style={styles.container}>
+      <BaseText style={styles.smsCodeText}>{t('authentication.forgotPasswordPage.smsCode')}</BaseText>
+      <View style={styles.receiveCodeBtnContainer}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={receiveCode}
+          disabled={disabled}
+          style={styles.receiveCodeBtnTouchable}
+        >
+          <Animated.View style={[styles.codeReceive, { width: animation }]} />
+          <MaskedView
+            style={styles.maskedView}
+            maskElement={
+              <View style={styles.receiveCodeInnerView}>
+                <Animated.Text style={[styles.codeReceiveText]}>
+                  {t('authentication.forgotPasswordPage.receiveCode')}
+                </Animated.Text>
+              </View>
+            }
           >
-            <Animated.View style={[styles.codeReceive, { width: animation }]} />
-            <MaskedView
-              style={styles.maskedView}
-              maskElement={
-                <View style={styles.receiveCodeInnerView}>
-                  <Animated.Text style={[styles.codeReceiveText]}>
-                    {t('authentication.forgotPasswordPage.receiveCode')}
-                  </Animated.Text>
-                </View>
-              }
-            >
-              <Animated.View
-                style={[styles.receiveCodeAnimatedView1, { width: animation }]}
-              />
-              <Animated.View style={styles.receiveCodeAnimatedView2} />
-            </MaskedView>
-          </TouchableOpacity>
-          <TextInput
-            style={styles.codeTextInput}
-            onSubmitEditing={receiveCode}
-            placeholderTextColor={Colors.primaryWhite}
-            allowFontScaling={false}
-            ref={inputRef}
-            pointerEvents={disabledInput ? 'none' : 'auto'}
-            keyboardType={'number-pad'}
-            {...props}
-          />
-        </View>
-        <Animated.Text style={styles.codeValidityText}>
-          {showText && t('authentication.forgotPasswordPage.codeValidity')}
-        </Animated.Text>
+            <Animated.View style={[styles.receiveCodeAnimatedView1, { width: animation }]} />
+            <Animated.View style={styles.receiveCodeAnimatedView2} />
+          </MaskedView>
+        </TouchableOpacity>
+        <TextInput
+          style={styles.codeTextInput}
+          onSubmitEditing={receiveCode}
+          placeholderTextColor={Colors.primaryWhite}
+          allowFontScaling={false}
+          ref={inputRef}
+          pointerEvents={disabledInput ? 'none' : 'auto'}
+          keyboardType={'number-pad'}
+          {...props}
+        />
       </View>
-    )
-  },
-)
+      <Animated.Text style={styles.codeValidityText}>
+        {showText && t('authentication.forgotPasswordPage.codeValidity')}
+      </Animated.Text>
+    </View>
+  )
+})
 
 export default receiveConfirmationCode
 

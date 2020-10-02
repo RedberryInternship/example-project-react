@@ -1,14 +1,8 @@
-import React, {
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-  ReactElement,
-  useCallback,
-} from 'react'
+import React, { forwardRef, useImperativeHandle, useMemo, ReactElement, useCallback } from 'react'
 import { StyleSheet, Animated, View, TouchableOpacity } from 'react-native'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
-import { Charger, MapImperativeRefObject, ChargerDetail } from 'allTypes'
+import { Charger, MapImperativeRefObject } from 'allTypes'
 
 import { HomeMainSearchInput } from 'components'
 import { useHomeMainSearch } from '../hooks'
@@ -57,11 +51,7 @@ const HomeMainSearchView = forwardRef(
               key={chargerObj.id}
               text={getLocaleText(chargerObj.name)}
               mainTitle={getLocaleText(chargerObj.location)}
-              onPress={onSearchItemClickHandler.bind(
-                HomeMainSearchView,
-                chargerObj.lat,
-                chargerObj.lng,
-              )}
+              onPress={onSearchItemClickHandler.bind(HomeMainSearchView, chargerObj.lat, chargerObj.lng)}
             />,
           )
         } else {
@@ -71,11 +61,7 @@ const HomeMainSearchView = forwardRef(
                 key={val.id + 'inside'}
                 text={getLocaleText(val.name)}
                 mainTitle={getLocaleText(val.location)}
-                onPress={onSearchItemClickHandler.bind(
-                  HomeMainSearchView,
-                  val.lat,
-                  val.lng,
-                )}
+                onPress={onSearchItemClickHandler.bind(HomeMainSearchView, val.lat, val.lng)}
               />,
             ),
           )
@@ -96,30 +82,19 @@ const HomeMainSearchView = forwardRef(
               style={styles.backgroundClose}
             />
           )}
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={() => setShowSearchContent(true)}
-            style={styles.container}
-          >
+          <TouchableOpacity activeOpacity={1} onPress={() => setShowSearchContent(true)} style={styles.container}>
             <>
               <Animated.View style={[styles.inputStyleContainer, animate]}>
                 <HomeMainSearchInput
                   showSearchContent={showSearchContent}
-                  placeholder={`${t('home.location')}/${t(
-                    'home.organization',
-                  )}`}
+                  placeholder={`${t('home.location')}/${t('home.organization')}`}
                   textHandler={textHandler}
                   InputSubmit={InputSubmit}
                   closeClick={closeClick}
                   ref={InputRef}
                 />
               </Animated.View>
-              <Animated.View
-                style={[
-                  styles.searchContent,
-                  { height: _this.current.animatedSearchContentHeight },
-                ]}
-              >
+              <Animated.View style={[styles.searchContent, { height: _this.current.animatedSearchContentHeight }]}>
                 <View
                   style={{
                     display: showSearchContent ? 'flex' : 'none',
@@ -150,14 +125,7 @@ const HomeMainSearchView = forwardRef(
           </TouchableOpacity>
         </>
       ),
-      [
-        allChargers,
-        setShowAll,
-        filteredChargers,
-        showSearchContent,
-        inputText,
-        t,
-      ],
+      [allChargers, setShowAll, filteredChargers, showSearchContent, inputText, t],
     )
   },
 )

@@ -1,21 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable no-unused-vars */
 // declare module 'react-native-hooks'
-import {
-  TextInputProps,
-  ImageSourcePropType,
-  StyleProp,
-  ImageStyle,
-  ViewStyle,
-} from 'react-native'
+import { TextInputProps, ImageSourcePropType, StyleProp, ImageStyle, ViewStyle } from 'react-native'
 import { RefObject, Ref } from 'react'
 import { Item } from 'react-native-picker-select'
 import { LocationPermissionStatus } from 'react-native-location'
-import {
-  NavigationScreenProp,
-  NavigationState,
-  NavigationParams,
-} from 'react-navigation'
+import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 import { MapViewProps } from 'react-native-maps'
 
 type LanguageType = {
@@ -118,7 +108,7 @@ type BusinessService = {
 type ChargerConnectorType = {
   id: number
   old_id: number
-  name: 'Combo 2' | 'Type 2' | 'CHadeMO'
+  name: 'Combo 2' | 'Type 2' | 'CHAdeMO'
   pivot: ChargerConnectorTypePivot
   created_at: string
   updated_at: string
@@ -259,16 +249,9 @@ export enum HomeNavigateModes {
 type MapImperativeCustomProps = {
   locate: () => void
   showRoute: (lat: number, lng: number, showRoute?: boolean) => void
-  animateToCoords: (
-    lat: number,
-    lng: number,
-    zoomLevel?: number,
-    duration?: number,
-  ) => void
+  animateToCoords: (lat: number, lng: number, zoomLevel?: number, duration?: number) => void
 }
-export type MapImperativeRefObject = RefObject<
-  MapImperativeCustomProps & MapViewProps
->
+export type MapImperativeRefObject = RefObject<MapImperativeCustomProps & MapViewProps>
 
 export type Coords = {
   lng: number
@@ -494,6 +477,7 @@ export enum ChargerMarkerColor {
   'free',
   'busy',
   'notWorking',
+  'notPresent',
 }
 
 export type CodeRefType = {

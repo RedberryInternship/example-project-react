@@ -49,7 +49,7 @@ export const configureChargingFinishPopup = (
       },
       onCloseClick: () => onModalClose(dispatch),
     }
-    console.log('CH_STAT:', charging_status)
+
     switch (charging_status) {
       case ChargingStatus.CHARGED:
         options = {

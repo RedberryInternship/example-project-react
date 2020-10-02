@@ -10,7 +10,6 @@ import mapStyles from './mapAndLocation/mapStyle'
 import mapStyle2 from './mapAndLocation/mapStyle2'
 import useFirebase from 'hooks/startUp/useFirebase'
 import Sentry from './sentry'
-import Helpers from './helpers'
 import InputValidationHelpers from './InputValidationHelpers'
 
 export {
@@ -28,6 +27,5 @@ export {
   determineTimePeriod,
   useFirebase,
   Sentry,
-  Helpers,
   InputValidationHelpers,
 }

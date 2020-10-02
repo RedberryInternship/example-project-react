@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/camelcase */
+import { useContext } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
 import {
   UserSettingEnum,
@@ -49,12 +49,12 @@ export const updateUser = async (dispatch: any) => {
       }),
     )
   } catch (error) {
+    Logger(['Error', error])
     if (error.status == '406' || error?.data?.status == '406') {
       DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       dispatch(logOut())
     } else {
       DisplayDropdownWithError()
-      Logger(['Error', error])
     }
   }
 }

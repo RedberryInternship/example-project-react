@@ -25,34 +25,52 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
 
   console.log(['Home - Layer'])
 
-  return (
-    <View style={styles.mainContainer}>
-      <MapView
-        key={Defaults?.userDetail?.mapMode}
-        ref={mapRef}
-        showAll={showAll}
-        filteredChargersOnMap={onMapFilteredChargers}
-        navigation={navigation}
-      />
-      <HomeMainComponent
-        allchargers={context?.state?.AllChargers ?? []}
-        mapRef={mapRef}
-        selectedFiltersOnMap={selectedFiltersOnMap}
-        onFilterClickOnMap={onFilterClickOnMap}
-        setShowAll={setShowAll}
-        mainInputRef={mainInputRef}
-      />
-      {context?.state?.AllChargers?.length && (
-        <BottomSheetModalize
-          ref={bottomSheetRef}
-          onFilterClick={onFilterClick}
-          selectedFilters={selectedFilters}
-          onFilteredItemClick={onFilteredItemClick}
-          filteredChargers={bottomSheetChargers}
-          textHandler={searchInputTextChangeHandler}
+  return useMemo(
+    () => (
+      <View style={styles.mainContainer}>
+        <MapView
+          key={Defaults?.userDetail?.mapMode}
+          ref={mapRef}
+          showAll={showAll}
+          filteredChargersOnMap={onMapFilteredChargers}
+          navigation={navigation}
         />
-      )}
-    </View>
+        <HomeMainComponent
+          allchargers={context?.state?.AllChargers ?? []}
+          mapRef={mapRef}
+          selectedFiltersOnMap={selectedFiltersOnMap}
+          onFilterClickOnMap={onFilterClickOnMap}
+          setShowAll={setShowAll}
+          mainInputRef={mainInputRef}
+        />
+        {context?.state?.AllChargers?.length && (
+          <BottomSheetModalize
+            ref={bottomSheetRef}
+            onFilterClick={onFilterClick}
+            selectedFilters={selectedFilters}
+            onFilteredItemClick={onFilteredItemClick}
+            filteredChargers={bottomSheetChargers}
+            textHandler={searchInputTextChangeHandler}
+          />
+        )}
+      </View>
+    ),
+    [
+      mapRef,
+      showAll,
+      onMapFilteredChargers,
+      context.state,
+      selectedFiltersOnMap,
+      onFilterClickOnMap,
+      setShowAll,
+      mainInputRef,
+      bottomSheetRef,
+      onFilterClick,
+      selectedFilters,
+      onFilteredItemClick,
+      bottomSheetChargers,
+      searchInputTextChangeHandler,
+    ],
   )
 }
 

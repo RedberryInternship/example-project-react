@@ -9,11 +9,7 @@ import { BaseHeader, BaseText } from 'components'
 
 // utils
 import { Colors, getLocaleText } from 'utils'
-import {
-  NavigationScreenProp,
-  NavigationState,
-  NavigationParams,
-} from 'react-navigation'
+import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 import { TransactionsHistoryResponseItem } from 'allTypes'
 import images from 'assets/images'
 
@@ -33,9 +29,7 @@ const DetailsItem = ({ name, value }: DetailsItemType): ReactElement => {
   )
 }
 
-const ShowTransactions = ({
-  navigation,
-}: ShowTransactionsProps): ReactElement => {
+const ShowTransactions = ({ navigation }: ShowTransactionsProps): ReactElement => {
   const { t } = useTranslation()
   const {
     charger_name,
@@ -54,15 +48,11 @@ const ShowTransactions = ({
   const chargePrice = (): string => `${charge_price ?? 0} ${t('gel')}`
   const durationInMins = (): string => `${duration ?? 0} ${t('minute')}`
 
-  const shouldNotRender = (): boolean =>
-    !duration && !penalty_fee && !charge_price
+  const shouldNotRender = (): boolean => !duration && !penalty_fee && !charge_price
 
   return (
     <View style={styles.container}>
-      <BaseHeader
-        title={'transactions.transactions'}
-        onPressLeft={navigation.goBack}
-      />
+      <BaseHeader title={'transactions.transactions'} onPressLeft={navigation.goBack} />
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
           <Image source={images.transaction} style={styles.transactionIcon} />
@@ -70,41 +60,20 @@ const ShowTransactions = ({
           <BaseText style={styles.dateAndTime}> {start_date} </BaseText>
           <BaseText style={styles.price}>{chargePrice()}</BaseText>
         </View>
-        <BaseText style={styles.detailsCopy}>
-          {' '}
-          {t('transactions.details')}{' '}
-        </BaseText>
+        <BaseText style={styles.detailsCopy}> {t('transactions.details')} </BaseText>
         {!shouldNotRender() && (
           <View style={styles.detailsContainer}>
             {/** Vobi Done: code doesn't have to be vertically aligned */}
-            {duration && (
-              <DetailsItem
-                name={t('transactions.duration')}
-                value={durationInMins()}
-              />
-            )}
-            {charge_power && (
-              <DetailsItem
-                name={t('transactions.power')}
-                value={charge_power}
-              />
-            )}
-            {penalty_fee && (
-              <DetailsItem
-                name={t('transactions.penaltyFee')}
-                value={penaltyFee()}
-              />
-            )}
+            {duration && <DetailsItem name={t('transactions.duration')} value={durationInMins()} />}
+            {charge_power && <DetailsItem name={t('transactions.power')} value={charge_power} />}
+            {penalty_fee && <DetailsItem name={t('transactions.penaltyFee')} value={penaltyFee()} />}
           </View>
         )}
         <View style={styles.addressFieldConatainer}>
           <DetailsItem name={t('transactions.address')} value={address} />
         </View>
         <View style={styles.cardDetailsContainer}>
-          <BaseText style={styles.cardNumberCopy}>
-            {' '}
-            {t('transactions.cardNumber')}{' '}
-          </BaseText>
+          <BaseText style={styles.cardNumberCopy}> {t('transactions.cardNumber')} </BaseText>
           <BaseText style={styles.cardNumber}>{user_card_pan ?? ''}</BaseText>
         </View>
       </View>

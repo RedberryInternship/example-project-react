@@ -8,10 +8,7 @@ import CustomDropdownAlert from 'components/CustomDropdownAlert'
 import ChargersContext from 'hooks/contexts/charger'
 
 const StartUpLayer = () => {
-  const {
-    setNavigationTopLevelElement,
-    dropDownInactiveBarColor,
-  } = useStartUp()
+  const { setNavigationTopLevelElement, dropDownInactiveBarColor } = useStartUp()
 
   const { state } = useContext(ChargersContext)
 
@@ -29,9 +26,7 @@ const StartUpLayer = () => {
         }}
       />
 
-      <CustomDropdownAlert
-        dropDownInactiveBarColor={dropDownInactiveBarColor}
-      />
+      <CustomDropdownAlert dropDownInactiveBarColor={dropDownInactiveBarColor} />
       <CustomModal ref={Defaults.modal} />
     </>
   )

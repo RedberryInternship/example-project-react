@@ -10,7 +10,7 @@ import {
   UserCard,
 } from '../../../../../@types/allTypes.d'
 
-import AppContext from 'hooks/contexts/app';
+import AppContext from 'hooks/contexts/app'
 import { editUserInfo } from 'hooks/actions/rootActions'
 import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
 import { useTranslation } from 'react-i18next'
@@ -41,7 +41,7 @@ export default (navigation: Navigation) => {
           _selectedItem = 'settings.automatic'
           break
       }
-      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode);
+      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode)
     }
   }, [selectedItem])
 

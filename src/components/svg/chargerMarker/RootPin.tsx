@@ -1,19 +1,7 @@
 import * as React from 'react'
-import Svg, {
-  G,
-  Path,
-  Defs,
-  Ellipse,
-  Stop,
-  LinearGradient,
-  Text,
-  ClipPath,
-} from 'react-native-svg'
+import Svg, { G, Path, Defs, Ellipse, Stop, LinearGradient, Text, ClipPath } from 'react-native-svg'
 
-import {
-  ChargerMarkerIcon,
-  ChargerMarkerColor,
-} from '../../../../@types/allTypes.d'
+import { ChargerMarkerIcon, ChargerMarkerColor } from '../../../../@types/allTypes.d'
 import { determineTimePeriod } from 'utils'
 
 const pinColorTypes = {
@@ -24,6 +12,7 @@ const pinColorTypes = {
     startColor: '#FF6F6F',
     stopColor: '#FF3B3B',
   },
+  [ChargerMarkerColor.notPresent]: { startColor: '#000000', stopColor: '#2f3337' },
 }
 function RootPin({
   width,
@@ -34,20 +23,9 @@ function RootPin({
   pinColorType,
 }: ChargerMarkerIcon): React.ReactElement {
   return (
-    <Svg
-      width={width ?? 40}
-      height={height ?? 55}
-      viewBox="0 0 58 68"
-      fill="none"
-    >
+    <Svg width={width ?? 40} height={height ?? 55} viewBox="0 0 58 68" fill="none">
       <G opacity={0.64}>
-        <Ellipse
-          cx={28.5}
-          cy={56.5}
-          rx={17.5}
-          ry={7.5}
-          fill={determineTimePeriod() ? '#00000033' : '#000'}
-        />
+        <Ellipse cx={28.5} cy={56.5} rx={17.5} ry={7.5} fill={determineTimePeriod() ? '#00000033' : '#000'} />
       </G>
       <G>
         <Path
@@ -73,10 +51,7 @@ function RootPin({
       )}
       {fastCharger && (
         <G>
-          <Path
-            d="M29.222 18L22 27h6.5l-.722 6L35 24h-6.5l.722-6z"
-            fill="url(#prefix__paint0_linear)"
-          />
+          <Path d="M29.222 18L22 27h6.5l-.722 6L35 24h-6.5l.722-6z" fill="url(#prefix__paint0_linear)" />
           <Path
             d="M29.222 18L22 27h6.5l-.722 6L35 24h-6.5l.722-6z"
             stroke="url(#prefix__paint0_linear)"
@@ -97,10 +72,7 @@ function RootPin({
           gradientUnits="userSpaceOnUse"
         >
           <Stop stopColor={pinColorTypes[pinColorType].startColor} />
-          <Stop
-            offset={0.979}
-            stopColor={pinColorTypes[pinColorType].stopColor}
-          />
+          <Stop offset={0.979} stopColor={pinColorTypes[pinColorType].stopColor} />
         </LinearGradient>
 
         <LinearGradient

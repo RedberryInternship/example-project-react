@@ -6,4 +6,5 @@ module.exports = {
   semi: false,
   jsxBracketSameLine: false,
   arrowParens: 'always',
+  printWidth: 100,
 }

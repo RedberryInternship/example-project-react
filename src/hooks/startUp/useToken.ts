@@ -15,6 +15,7 @@ const useToken = () => {
 
   const readUserToken = async (): Promise<void> => {
     const token = await getItem()
+
     let user: UserMeResponseType = null
     if (token) {
       const parsableData = await getUserDetail()

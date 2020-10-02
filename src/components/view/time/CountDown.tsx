@@ -5,10 +5,10 @@ import React, {
   useRef,
   useCallback,
 } from 'react'
-import {StyleSheet, View, Alert} from 'react-native'
+import { StyleSheet, View, Alert } from 'react-native'
 import moment from 'moment'
 
-import {Colors} from 'utils'
+import { Colors } from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 
 type CountDownProps = {
@@ -41,20 +41,15 @@ const CountDown = ({
       // return
     }
 
-    // console.log(moment().valueOf(), momentDiff, startTime, 'diff.seconds')
-
     const hour = momentDiff.hours() ? pad(momentDiff.hours()) + ':' : ''
     const countdownString = `${hour}${pad(momentDiff.minutes())}:${pad(
       momentDiff.seconds(),
     )}`
-    // console.log(startTime, countdownString, diff, time, 'fstartTime')
 
     setTime(countdownString)
   }, [time, startTime, alarm, onFinish])
 
   useEffect(() => {
-    // if (ref.current) clearTimeout(ref.current)
-
     ref.current = setTimeout(countUp, INTERVAL)
 
     return (): void => {

@@ -125,13 +125,9 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     (status: LocationPermissionStatus): void => {
       setPermissionStatus(status)
       Defaults.locationPermissionStatus = status
-      console.log(status, 'status outside')
-
       if (status.match(/notDetermined/)) {
         requestPermission()
       } else if (isPermissionGrantedRegex(status)) {
-        console.log(status, 'status')
-
         navigateToLocation()
         if (Defaults.modal.current?.state?.config?.type === 5)
           Defaults.modal.current?.customUpdate(false)

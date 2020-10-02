@@ -66,9 +66,6 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
         return { lat: location.latitude, lng: location.longitude }
     } catch (error) {
       DisplayDropdownWithError()
-      console.log('====================================')
-      console.log("can't get location by gps")
-      console.log('====================================')
     }
   }
 
@@ -82,9 +79,6 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
     return IPCoords
   } catch (error) {
     DisplayDropdownWithError()
-    console.log('====================================')
-    console.log("can't get location by ip")
-    console.log('====================================')
   }
 
   return Const.locationIfNoGPS

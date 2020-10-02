@@ -19,7 +19,6 @@ export default (navigation: Navigation) => {
   )
   useEffect(() => {
     services.getContactInfo().then((data) => setData(data))
-    console.log('CONTACT:', data)
   }, [])
 
   const sendMessage = async (): Promise<void> => {
@@ -71,7 +70,6 @@ export default (navigation: Navigation) => {
     backupUrl: string | boolean = false,
   ): Promise<void> => {
     // Vobi Todo: use async await
-    console.log('URL:', url)
     Linking.canOpenURL(url)
       .then((response) => {
         if (response) {

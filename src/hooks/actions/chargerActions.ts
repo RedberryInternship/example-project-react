@@ -47,7 +47,6 @@ export const startCharging = async (
     )
     if (startResult.charging_status === ChargingStatus.UNPLUGGED) {
       DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
-      console.log('CONNECTOR_ID:', connectorTypeId)
       setLoading(false)
       return
     }
@@ -101,7 +100,6 @@ export const finishCharging = async (
 ) => {
   try {
     const result = await services.finishCharging(orderId)
-    // console.log([ 'is_free', result ]);
     configureChargingFinishPopup(result, dispatch)
   } catch (error) {
     if (error.data?.message)

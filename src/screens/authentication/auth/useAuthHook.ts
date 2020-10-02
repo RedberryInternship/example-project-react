@@ -4,7 +4,7 @@ import { TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { InputValidationHelpers } from 'utils'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError, Logger } from 'helpers/inform'
 import { rootAction } from 'hooks/actions/rootActions'
 import { Navigation } from 'allTypes'
 import services from 'services'
@@ -64,6 +64,7 @@ export default (navigation: Navigation, dispatch: any) => {
   }: InputValues): Promise<void> => {
     try {
       const { access_token, user } = await services.loginUser(phone, password)
+
       rootAction(
         {
           token: access_token,
@@ -73,6 +74,7 @@ export default (navigation: Navigation, dispatch: any) => {
       )
       navigation.navigate('Home')
     } catch (error) {
+      Logger(error)
       if (error.status == '406' || error?.data?.status == '406') {
         DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       }

@@ -1,11 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { ReactElement } from 'react'
-import {
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-} from 'react-native'
+import { View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { Colors } from 'utils'
@@ -47,7 +42,6 @@ const ChargerModalMainWrapper = ({
   const { t } = useTranslation()
 
   const subTypeHandler = (): ReactElement => {
-    console.log(subType,ChargingFinishedPopupEnum.Bankrupt);
     switch (subType) {
       case ChargingFinishedPopupEnum.LVL2FullCharge:
         return <BeforeFineLVL2FullCharge {...data} />
@@ -76,24 +70,28 @@ const ChargerModalMainWrapper = ({
       </TouchableOpacity>
       <ScrollView bounces={false}>
         <TouchableOpacity activeOpacity={1}>
-          {
-            (ChargingFinishedPopupEnum.PaymentFailed === subType || ChargingFinishedPopupEnum.Bankrupt === subType) ?
-              <View style={{ flex: 0, marginHorizontal: 16, marginVertical: 16 }}>
-                <Image source={images.alertCircle} style={styles.checkMarkIcon} />
-                <BaseText style={styles.mainTitleStyle}>{t('dropDownAlert.error')}</BaseText>
-                <BaseText style={[styles.mainDescriptionStyle,{color: 'indianred'}]}>
-                  {t('popup.paymentFailed')}
-                </BaseText>
-              </View>
-               :
-              <View style={{ flex: 0, marginHorizontal: 16 }}>
-                <Image source={images.checkCircle} style={styles.checkMarkIcon} />
-                <BaseText style={styles.mainTitleStyle}>{t(title)}</BaseText>
-                <BaseText style={styles.mainDescriptionStyle}>
-                  {t(description)}
-                </BaseText>
-              </View>
-          }
+          {ChargingFinishedPopupEnum.PaymentFailed === subType ||
+          ChargingFinishedPopupEnum.Bankrupt === subType ? (
+            <View style={{ flex: 0, marginHorizontal: 16, marginVertical: 16 }}>
+              <Image source={images.alertCircle} style={styles.checkMarkIcon} />
+              <BaseText style={styles.mainTitleStyle}>
+                {t('dropDownAlert.error')}
+              </BaseText>
+              <BaseText
+                style={[styles.mainDescriptionStyle, { color: 'indianred' }]}
+              >
+                {t('popup.paymentFailed')}
+              </BaseText>
+            </View>
+          ) : (
+            <View style={{ flex: 0, marginHorizontal: 16 }}>
+              <Image source={images.checkCircle} style={styles.checkMarkIcon} />
+              <BaseText style={styles.mainTitleStyle}>{t(title)}</BaseText>
+              <BaseText style={styles.mainDescriptionStyle}>
+                {t(description)}
+              </BaseText>
+            </View>
+          )}
 
           <View style={styles.bottomContentContainer}>{subTypeHandler()}</View>
         </TouchableOpacity>

@@ -7,8 +7,6 @@ export default {
   },
 
   navigate: function(routeName: string, params = {}): void {
-    console.log(routeName, 'routeName')
-
     _navigator.dispatch(
       NavigationActions.navigate({
         routeName,
@@ -21,7 +19,6 @@ export default {
   },
 
   reset: function(stackKey = 'root', routeName = '', params = {}): void {
-    console.log("RESET");
     _navigator.dispatch(
       StackActions.reset({
         index: 0,

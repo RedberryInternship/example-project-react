@@ -13,10 +13,10 @@ import {
   Animated,
   Easing,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
 import FilterTextItem from './FilterTextItem'
-import {Const, Colors} from 'utils'
+import { Const, Colors } from 'utils'
 import images from 'assets/images'
 
 type HomeFilterProps = {
@@ -31,8 +31,7 @@ const HomeFilter = ({
   onFilterClickOnMap,
 }: HomeFilterProps): ReactElement => {
   const [showFilter, setShowFilter] = useState(false)
-  const {t} = useTranslation()
-  console.log("HomeFilter");
+  const { t } = useTranslation()
   const [translateX] = useState(new Animated.Value(translate))
 
   const handleFilterButton = useCallback((): void => {
@@ -49,14 +48,16 @@ const HomeFilter = ({
   }, [showFilter])
 
   const buttonImageStyle = useMemo(
-    () => (showFilter ? {width: 23, height: 23} : {width: 18, height: 18}),
+    () => (showFilter ? { width: 23, height: 23 } : { width: 18, height: 18 }),
     [showFilter],
   )
 
   // Vobi Todo: what is purpose of this useMemos everywhere in return
   return useMemo(
     () => (
-      <Animated.View style={[styles.container, {transform: [{translateX}]}]}>
+      <Animated.View
+        style={[styles.container, { transform: [{ translateX }] }]}
+      >
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContentContainer}

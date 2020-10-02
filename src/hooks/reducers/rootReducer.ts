@@ -4,7 +4,7 @@ import {
   LOG_OUT,
   GET_FAVORITE_CHARGERS,
   EDIT_USER_INFO,
-} from '../actions/rootActions'
+} from '../actionTypes/rootActions'
 import { AppState, Action } from 'allTypes'
 import initialState from 'hooks/initialStates/app'
 
