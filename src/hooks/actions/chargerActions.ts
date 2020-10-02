@@ -1,18 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import {
-  ChargingTypes,
-  ChargingStatus,
-  ChargingState,
-} from '../../../@types/allTypes.d'
+import { ChargingTypes, ChargingStatus, ChargingState } from '../../../@types/allTypes.d'
 
 import Defaults from 'utils/defaults'
 import NavigationActions from 'utils/navigation.service'
 import { getLocaleText } from 'utils/localization/localization'
 import { configureChargingFinishPopup } from 'helpers/finishingPopup'
-import {
-  DisplayDropdownWithError,
-  DisplayDropdownWithSuccess,
-} from 'helpers/inform'
+import { DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
 import services from 'services'
 import { getAllChargers } from './rootActions'
 
@@ -39,12 +32,7 @@ export const startCharging = async (
   setLoading: (bool: boolean) => void,
 ) => {
   try {
-    const startResult = await services.startCharging(
-      connectorTypeId,
-      type,
-      userCardId ?? 0,
-      amount,
-    )
+    const startResult = await services.startCharging(connectorTypeId, type, userCardId ?? 0, amount)
     if (startResult.charging_status === ChargingStatus.UNPLUGGED) {
       DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
       setLoading(false)
@@ -68,42 +56,32 @@ export const startCharging = async (
 
     NavigationActions.navigate('Charging')
   } catch (error) {
+    remoteLogger(error)
     setLoading(false)
-    if (error.data.message)
-      DisplayDropdownWithError('', getLocaleText(error.data.message))
+    if (error.data.message) DisplayDropdownWithError('', getLocaleText(error.data.message))
     else DisplayDropdownWithError()
   }
 }
 
 type StartChargingAction = {
-  type:
-    | ChargerActions.CHARGING_STARTED_SUCCESS
-    | ChargerActions.CHARGING_STARTED_FAILURE
+  type: ChargerActions.CHARGING_STARTED_SUCCESS | ChargerActions.CHARGING_STARTED_FAILURE
   payload: any
 }
 
 // START ACTION
-const startChargingAction = (
-  payload: any,
-  success = true,
-): StartChargingAction => ({
-  type: success
-    ? ChargerActions.CHARGING_STARTED_SUCCESS
-    : ChargerActions.CHARGING_STARTED_FAILURE,
+const startChargingAction = (payload: any, success = true): StartChargingAction => ({
+  type: success ? ChargerActions.CHARGING_STARTED_SUCCESS : ChargerActions.CHARGING_STARTED_FAILURE,
   payload,
 })
 
 // FINISH
-export const finishCharging = async (
-  { orderId }: { orderId: number },
-  dispatch: any,
-) => {
+export const finishCharging = async ({ orderId }: { orderId: number }, dispatch: any) => {
   try {
     const result = await services.finishCharging(orderId)
     configureChargingFinishPopup(result, dispatch)
   } catch (error) {
-    if (error.data?.message)
-      DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
+    remoteLogger(error)
+    if (error.data?.message) DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
     else DisplayDropdownWithError()
     dispatch(finishChargingAction(error, false))
   }
@@ -112,20 +90,13 @@ export const finishCharging = async (
 }
 
 type FinishChargingAction = {
-  type:
-    | ChargerActions.CHARGING_FINISHED_SUCCESS
-    | ChargerActions.CHARGING_FINISHED_FAILURE
+  type: ChargerActions.CHARGING_FINISHED_SUCCESS | ChargerActions.CHARGING_FINISHED_FAILURE
   payload: any
 }
 
 // FINISH ACTION
-const finishChargingAction = (
-  payload: any,
-  success = true,
-): FinishChargingAction => ({
-  type: success
-    ? ChargerActions.CHARGING_FINISHED_SUCCESS
-    : ChargerActions.CHARGING_FINISHED_FAILURE,
+const finishChargingAction = (payload: any, success = true): FinishChargingAction => ({
+  type: success ? ChargerActions.CHARGING_FINISHED_SUCCESS : ChargerActions.CHARGING_FINISHED_FAILURE,
   payload,
 })
 
@@ -135,16 +106,14 @@ export const chargingState = async (dispatch: any) => {
     const result = await services.chargingState()
     chargerStateController(result, dispatch)
   } catch (error) {
+    remoteLogger(error)
     dispatch(chargingStateAction(error, false))
     DisplayDropdownWithError()
   }
 }
 
 // CONTROLLER
-export const chargerStateController = (
-  result: ChargingState[],
-  dispatch: any,
-) => {
+export const chargerStateController = (result: ChargingState[], dispatch: any) => {
   for (const state of result) {
     configureChargingFinishPopup(state, dispatch)
   }
@@ -159,20 +128,13 @@ export const chargerStateController = (
 }
 
 type ChargingStateAction = {
-  type:
-    | ChargerActions.CHARGING_STATE_SUCCESS
-    | ChargerActions.CHARGING_STATE_FAILURE
+  type: ChargerActions.CHARGING_STATE_SUCCESS | ChargerActions.CHARGING_STATE_FAILURE
   payload: any
 }
 
 // STATE ACTION
-const chargingStateAction = (
-  payload: any,
-  success = true,
-): ChargingStateAction => ({
-  type: success
-    ? ChargerActions.CHARGING_STATE_SUCCESS
-    : ChargerActions.CHARGING_STATE_FAILURE,
+const chargingStateAction = (payload: any, success = true): ChargingStateAction => ({
+  type: success ? ChargerActions.CHARGING_STATE_SUCCESS : ChargerActions.CHARGING_STATE_FAILURE,
   payload,
 })
 

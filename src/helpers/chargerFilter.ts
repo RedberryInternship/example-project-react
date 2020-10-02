@@ -1,6 +1,6 @@
 import { Charger, ChargersObject } from '../../@types/allTypes.d'
 import services from 'services'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 import { ChargerFilters, ChargerStatus, ConnectorTypes } from 'utils/enums'
 
 // Vobi Done: refactor searchChargers
@@ -10,6 +10,7 @@ export const GetFilteredCharger = async (selectedFilters: boolean[], filterInput
     const { data }: ChargersObject = await services.getAllChargersFiltered()
     return !isSearchBarEmpty(filterInput) ? searchChargers(filterInput, data) : filterChargers(selectedFilters, data)
   } catch (error) {
+    remoteLogger(error)
     DisplayDropdownWithError()
     return []
   }

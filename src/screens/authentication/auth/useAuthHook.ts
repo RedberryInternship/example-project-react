@@ -4,7 +4,7 @@ import { TextInput } from 'react-native'
 import { useForm } from 'react-hook-form'
 
 import { InputValidationHelpers } from 'utils'
-import { DisplayDropdownWithError, Logger } from 'helpers/inform'
+import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 import { rootAction } from 'hooks/actions/rootActions'
 import { Navigation } from 'allTypes'
 import services from 'services'
@@ -45,23 +45,15 @@ export default (navigation: Navigation, dispatch: any) => {
   })
 
   useEffect(() => {
-    register(
-      { name: 'phone' },
-      { validate: InputValidationHelpers.phoneNumberValidation },
-    )
+    register({ name: 'phone' }, { validate: InputValidationHelpers.phoneNumberValidation })
   }, [])
 
   useEffect(() => {
-    if (errors.phone)
-      DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
-    else if (errors.password)
-      DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
+    if (errors.phone) DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
+    else if (errors.password) DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
   }, [errors])
 
-  const buttonClickHandler = async ({
-    phone,
-    password,
-  }: InputValues): Promise<void> => {
+  const buttonClickHandler = async ({ phone, password }: InputValues): Promise<void> => {
     try {
       const { access_token, user } = await services.loginUser(phone, password)
 
@@ -74,7 +66,7 @@ export default (navigation: Navigation, dispatch: any) => {
       )
       navigation.navigate('Home')
     } catch (error) {
-      Logger(error)
+      remoteLogger(error)
       if (error.status == '406' || error?.data?.status == '406') {
         DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       }

@@ -7,8 +7,9 @@ import LocationPermission from 'components/modalTypes/LocationPermission'
 import RegistrationType1 from 'components/modalTypes/RegistrationType1'
 import PrivacyPolicy from 'components/modalTypes/PrivacyPolicy'
 import LegendType2 from 'components/modalTypes/LegendType2'
-import MapPopUp from 'components/modalTypes/MapPopUp'
 import { ChargingStatus } from '../../@types/allTypes.d'
+import MapPopUp from 'components/modalTypes/MapPopUp'
+import { ModalTypes } from 'utils/enums'
 
 type Data = {
   title?: string
@@ -36,7 +37,7 @@ export interface CustomModalInterface {
 const initialState: InitialState = {
   visible: false,
   config: {
-    type: 4,
+    type: ModalTypes.MAP_POPUP,
     data: {
       title: 'popup.thankYou',
       description: 'popup.automobileChargingFinished',
@@ -91,13 +92,11 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
             styles.modalContentContainer,
             {
               justifyContent:
-                this.state.config && this.state.config.type === 3
+                this.state.config && this.state.config.type === ModalTypes.CHARGER_WRAPPER
                   ? 'flex-start'
                   : 'space-between',
               height:
-                this.state.config && this.state.config.type === 4
-                  ? 'auto'
-                  : Const.Height * 0.7,
+                this.state.config && this.state.config.type === ModalTypes.MAP_POPUP ? 'auto' : Const.Height * 0.7,
             },
           ]}
         >
@@ -108,13 +107,13 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   }
 
   renderView = (): ReactElement | undefined => {
-    // Vobi Todo: make enum types instead of numbers this.state.config.type
+    // Vobi Done: make enum types instead of numbers this.state.config.type
     switch (this.state.config.type) {
-      case 1:
+      case ModalTypes.REGISTER:
         return <RegistrationType1 onPress={this.closeModal} />
-      case 2:
+      case ModalTypes.LEGEND:
         return <LegendType2 onPress={this.closeModal} />
-      case 3:
+      case ModalTypes.CHARGER_WRAPPER:
         return (
           <ChargerModalMainWrapper
             onPress={this.closeModal}
@@ -122,18 +121,11 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
             data={this.state.config.data}
           />
         )
-      case 4:
-        return (
-          <MapPopUp close={this.closeModal} data={this.state.config.data} />
-        )
-      case 5:
-        return (
-          <LocationPermission
-            onPress={this.closeModal}
-            data={this.state.config.data}
-          />
-        )
-      case 6:
+      case ModalTypes.MAP_POPUP:
+        return <MapPopUp close={this.closeModal} data={this.state.config.data} />
+      case ModalTypes.LOCATION_PERMISSION:
+        return <LocationPermission onPress={this.closeModal} data={this.state.config.data} />
+      case ModalTypes.PRIVACY_AND_POLICY:
         return <PrivacyPolicy onPress={this.closeModal} />
       default: {
         return <></>

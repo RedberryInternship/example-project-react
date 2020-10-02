@@ -5,18 +5,14 @@ import { Defaults, Const } from 'utils'
 import { Navigation, ContactInfoResponseType } from 'allTypes'
 import services from 'services'
 import { platformIOS } from '../../../utils/const'
-import {
-  Logger,
-  DisplayDropdownWithError,
-  DisplayDropdownWithSuccess,
-} from 'helpers/inform'
+import { DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
+
+// SARU
 
 const fbPageType = platformIOS ? 'profile' : 'page'
 export default (navigation: Navigation) => {
   const [message, setMessage] = useState<string>('')
-  const [data, setData] = useState<ContactInfoResponseType | undefined>(
-    undefined,
-  )
+  const [data, setData] = useState<ContactInfoResponseType | undefined>(undefined)
   useEffect(() => {
     services.getContactInfo().then((data) => setData(data))
   }, [])
@@ -31,6 +27,7 @@ export default (navigation: Navigation) => {
       setMessage('')
       DisplayDropdownWithSuccess('contact.yourFeedbackReceived')
     } catch (error) {
+      remoteLogger(error)
       DisplayDropdownWithError()
     }
   }
@@ -50,11 +47,7 @@ export default (navigation: Navigation) => {
     },
 
     facebookPage: () => {
-      openUrl(
-        'fb://' + fbPageType + '/' + data?.fb_page_url.split('/')[3],
-        'FaceBook',
-        data?.fb_page_url,
-      )
+      openUrl('fb://' + fbPageType + '/' + data?.fb_page_url.split('/')[3], 'FaceBook', data?.fb_page_url)
     },
 
     webPage: () => {
@@ -79,11 +72,8 @@ export default (navigation: Navigation) => {
         }
       })
       .catch((error) => {
-        Logger(error)
-        if (
-          error.message.indexOf('fb://' + fbPageType) > -1 &&
-          typeof backupUrl === 'string'
-        ) {
+        remoteLogger(error)
+        if (error.message.indexOf('fb://' + fbPageType) > -1 && typeof backupUrl === 'string') {
           Linking.openURL(backupUrl)
           return
         }

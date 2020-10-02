@@ -1,13 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect, useRef, Ref } from 'react'
-import {
-  StyleSheet,
-  View,
-  Animated,
-  Platform,
-  TextInputProps,
-  StyleProp,
-} from 'react-native'
+import { StyleSheet, View, Animated, Platform, TextInputProps, StyleProp } from 'react-native'
 import { Item } from 'react-native-picker-select'
 import { PhoneCountryCode, BaseInputRefProp } from 'allTypes'
 import BasePickerSelect from 'components/baseUI/BasePickerSelect'
@@ -17,6 +10,7 @@ import { Colors } from 'utils'
 import { DisplayDropdownWithError } from 'helpers/inform'
 import { phoneNumberPlaceHolder } from 'utils/const'
 import services from 'services'
+import { remoteLogger } from 'helpers/inform'
 
 type PhoneNumberInputProps = {
   onSubmit: () => void
@@ -31,24 +25,13 @@ type PhoneNumberInputProps = {
 
 const PhoneNumberInput = React.forwardRef(
   (
-    {
-      onSubmit,
-      onBlur,
-      onFocus,
-      style,
-      codeRef,
-      onChangeText,
-      value,
-      ...props
-    }: PhoneNumberInputProps,
+    { onSubmit, onBlur, onFocus, style, codeRef, onChangeText, value, ...props }: PhoneNumberInputProps,
     ref: Ref<TextInputProps & BaseInputRefProp>,
   ) => {
     const [animation] = useState(new Animated.Value(0))
     const pickerRef = useRef(null)
     const [showSelector, setShowSelector] = useState(false)
-    const [selectedCountryCode, setSelectedCountryCode] = useState(
-      phoneNumberPlaceHolder,
-    )
+    const [selectedCountryCode, setSelectedCountryCode] = useState(phoneNumberPlaceHolder)
     const [pickerItemsState, setPickerItemsState] = useState<Item[]>([])
 
     useEffect(() => {
@@ -98,6 +81,7 @@ const PhoneNumberInput = React.forwardRef(
 
           setPickerItemsState(pickerItems)
         } catch (error) {
+          remoteLogger(error)
           DisplayDropdownWithError()
         }
       }
@@ -108,10 +92,7 @@ const PhoneNumberInput = React.forwardRef(
     }
 
     const onPickerChange = (val: string): void => {
-      if (
-        value?.slice(0, selectedCountryCode.value.length) ===
-        selectedCountryCode.value
-      )
+      if (value?.slice(0, selectedCountryCode.value.length) === selectedCountryCode.value)
         value = value.replace(selectedCountryCode.value, '')
 
       onChangeText(val + (value ?? ''))
@@ -124,8 +105,7 @@ const PhoneNumberInput = React.forwardRef(
       outputRange: [1, 0],
     })
 
-    const inputPlaceholder: string =
-      selectedCountryCode.value === '+995' ? '5XX XX XX XX' : ''
+    const inputPlaceholder: string = selectedCountryCode.value === '+995' ? '5XX XX XX XX' : ''
 
     return (
       <View style={styles.container}>
@@ -152,9 +132,7 @@ const PhoneNumberInput = React.forwardRef(
           placeholderTextColor={Colors.primaryGray}
           {...props}
         />
-        <Animated.View
-          style={[styles.modalSelectorContainer, { opacity: animation }]}
-        >
+        <Animated.View style={[styles.modalSelectorContainer, { opacity: animation }]}>
           <View style={styles.touchableStyle}>
             <BasePickerSelect
               onDone={onPickerDone}

@@ -5,32 +5,18 @@ import { useTranslation } from 'react-i18next'
 
 import AppContext from 'hooks/contexts/app'
 import ChargerContext from 'hooks/contexts/charger'
-import {
-  AppContextType,
-  Charger,
-  HomeNavigateModes,
-  LanguageType,
-} from '../../../../../@types/allTypes.d'
-import {
-  NavigationState,
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationEventPayload,
-} from 'react-navigation'
+import { AppContextType, Charger, HomeNavigateModes, LanguageType } from '../../../../../@types/allTypes.d'
+import { NavigationState, NavigationScreenProp, NavigationParams, NavigationEventPayload } from 'react-navigation'
 import { Defaults, NavigationActions, getLocaleText, Const } from 'utils'
 import { getAndRequestLocation } from 'helpers/location'
 import { easyAlert, DisplayDropdownWithError } from 'helpers/inform'
-import {
-  deleteFromFavorites,
-  addToFavorites,
-} from '../../../../hooks/actions/rootActions'
+import { deleteFromFavorites, addToFavorites } from '../../../../hooks/actions/rootActions'
 import services from 'services'
 import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
 import { isPermissionDeniedRegex } from 'utils/mapAndLocation/permissionsRegex'
+import { remoteLogger } from 'helpers/inform'
 
-export default (
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-) => {
+export default (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
   const { state, dispatch }: AppContextType = useContext(AppContext)
 
   const {
@@ -44,9 +30,9 @@ export default (
 
   const backHandlerRef = useRef<any>()
 
-  const [charger, setCharger] = useState<
-    (Charger & { from?: string }) | undefined
-  >(navigation.getParam('chargerDetails', undefined))
+  const [charger, setCharger] = useState<(Charger & { from?: string }) | undefined>(
+    navigation.getParam('chargerDetails', undefined),
+  )
 
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
   const passwordRef: React.RefObject<TextInput> = useRef(null)
@@ -55,14 +41,8 @@ export default (
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
-    const willBlur = navigation.addListener(
-      'willBlur',
-      () => backHandlerRef.current && backHandlerRef.current.remove(),
-    )
-    backHandlerRef.current = BackHandler.addEventListener(
-      'hardwareBackPress',
-      headerLeftPress,
-    )
+    const willBlur = navigation.addListener('willBlur', () => backHandlerRef.current && backHandlerRef.current.remove())
+    backHandlerRef.current = BackHandler.addEventListener('hardwareBackPress', headerLeftPress)
 
     return (): void => {
       didFocus.remove()
@@ -77,10 +57,7 @@ export default (
   }, [charger])
 
   const onScreenFocus = (payload: NavigationEventPayload): void => {
-    backHandlerRef.current = BackHandler.addEventListener(
-      'hardwareBackPress',
-      headerLeftPress,
-    )
+    backHandlerRef.current = BackHandler.addEventListener('hardwareBackPress', headerLeftPress)
     const { params } = payload.state
     if (params?.chargerDetails !== undefined) {
       setCharger(params.chargerDetails)
@@ -97,20 +74,14 @@ export default (
 
   const chargerLocationDirectionHandler = async (): Promise<void> => {
     if (
-      (Defaults.locationPermissionStatus &&
-        isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
+      (Defaults.locationPermissionStatus && isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
       !Const.platformIOS
     ) {
       const status = await getAndRequestLocation()
-      if (!status)
-        return DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
+      if (!status) return DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
     }
 
-    if (
-      !Defaults.locationPermissionStatus.match(
-        /denied|restricted|notDetermined/,
-      )
-    ) {
+    if (!Defaults.locationPermissionStatus.match(/denied|restricted|notDetermined/)) {
       navigation.navigate('Home', {
         mode: HomeNavigateModes.showRoutesToCharger,
         lat: parseFloat(charger?.lat ?? '0'),
@@ -120,8 +91,7 @@ export default (
   }
 
   const onFavoritePress = (): void => {
-    if (!Defaults.token)
-      return DisplayDropdownWithError('dropDownAlert.charging.needToLogIn')
+    if (!Defaults.token) return DisplayDropdownWithError('dropDownAlert.charging.needToLogIn')
 
     const newCharger = {
       ...charger,
@@ -165,8 +135,7 @@ export default (
       return
     } else if (
       chargingState.length > 0 &&
-      charger?.connector_types[activeChargerType]?.pivot.id ===
-        chargingState[activeChargerType]?.charger_id
+      charger?.connector_types[activeChargerType]?.pivot.id === chargingState[activeChargerType]?.charger_id
     ) {
       DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
       return
@@ -179,12 +148,7 @@ export default (
   const getDistance = async (lat: string, lng: string): Promise<any> => {
     try {
       const coords = await getCoordsAnyway()
-      const result = await services.getDistance(
-        coords.lat,
-        coords.lng,
-        lat,
-        lng,
-      )
+      const result = await services.getDistance(coords.lat, coords.lng, lat, lng)
       if (result?.data.rows?.[0].elements?.[0].status !== 'ZERO_RESULTS')
         setDistance(result?.data.rows?.[0].elements?.[0].distance.text)
       else {
@@ -192,6 +156,7 @@ export default (
         DisplayDropdownWithError('dropDownAlert.charging.noRouteFound')
       }
     } catch (error) {
+      remoteLogger(error)
       DisplayDropdownWithError()
     }
   }
@@ -208,15 +173,8 @@ export default (
     return true
   }
 
-  const onBusinessServiceClick = (
-    title: LanguageType,
-    description: LanguageType,
-  ) => {
-    Defaults.dropdown.alertWithType(
-      'info',
-      t(getLocaleText(title)),
-      t(getLocaleText(description)),
-    )
+  const onBusinessServiceClick = (title: LanguageType, description: LanguageType) => {
+    Defaults.dropdown.alertWithType('info', t(getLocaleText(title)), t(getLocaleText(description)))
   }
   return {
     loading,

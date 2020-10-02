@@ -6,13 +6,14 @@ import { DisplayDropdownWithError } from 'helpers/inform'
 import services from 'services'
 import { StyleSheet } from 'react-native'
 import { GetCardAddUrl } from 'allTypes'
+import { remoteLogger } from 'helpers/inform'
 
 type CardAddViewProps = {
   onSuccess: () => void
   onFail?: () => void
 }
 const CardAddView = ({ onSuccess, onFail }: CardAddViewProps) => {
-  const [urlData, setUrlData] = useState<GetCardAddUrl | undefined>() // Vobi Todo: useState default value is undefined
+  const [urlData, setUrlData] = useState<GetCardAddUrl>()
   const navigationStateChange = useCallback(
     (event: WebViewNavigation) => {
       if (event.url.includes(urlData?.success_url)) {
@@ -30,6 +31,7 @@ const CardAddView = ({ onSuccess, onFail }: CardAddViewProps) => {
       const data = await services.getCardAddUrl()
       setUrlData(data)
     } catch (error) {
+      remoteLogger(error)
       DisplayDropdownWithError()
     }
   }

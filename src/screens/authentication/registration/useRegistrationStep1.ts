@@ -2,23 +2,14 @@
 import { useForm } from 'react-hook-form'
 import services from 'services'
 import usePhoneVerification from 'hooks/usePhoneVerification'
-import { Logger, DisplayDropdownWithError } from 'helpers/inform'
+import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
 
 type InputValues = {
   phone: string
   code: string
 }
 export default (setActivePage: (index: number) => void) => {
-  const {
-    setValue,
-    getValues,
-    register,
-    handleSubmit,
-    errors,
-    watch,
-    reset,
-    triggerValidation,
-  } = useForm({
+  const { setValue, getValues, register, handleSubmit, errors, watch, reset, triggerValidation } = useForm({
     validateCriteriaMode: 'all',
     submitFocusError: true,
   })
@@ -31,15 +22,12 @@ export default (setActivePage: (index: number) => void) => {
     triggerValidation,
   })
 
-  const buttonClickHandler = async ({
-    phone,
-    code,
-  }: InputValues): Promise<void> => {
+  const buttonClickHandler = async ({ phone, code }: InputValues): Promise<void> => {
     try {
       await services.verifyCodeOnRegistration(phone, code)
       setActivePage(1)
     } catch (error) {
-      Logger(error)
+      remoteLogger(error)
       if (error.data?.error?.verified === false) {
         DisplayDropdownWithError('dropDownAlert.registration.incorrectCode')
       } else if (error.data.status === 409) {

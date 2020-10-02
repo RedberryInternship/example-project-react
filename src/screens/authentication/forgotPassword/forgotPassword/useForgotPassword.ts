@@ -2,7 +2,7 @@
 import { Navigation } from 'allTypes'
 import services from 'services'
 import usePhoneVerification from 'hooks/usePhoneVerification'
-import { Logger, DisplayDropdownWithError } from 'helpers/inform'
+import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
 import { useForm } from 'react-hook-form'
 
 type InputValues = {
@@ -11,15 +11,7 @@ type InputValues = {
 }
 
 export default (navigation: Navigation) => {
-  const {
-    setValue,
-    getValues,
-    register,
-    handleSubmit,
-    errors,
-    watch,
-    triggerValidation,
-  } = useForm({
+  const { setValue, getValues, register, handleSubmit, errors, watch, triggerValidation } = useForm({
     validateCriteriaMode: 'all',
     submitFocusError: true,
   })
@@ -40,7 +32,7 @@ export default (navigation: Navigation) => {
         phone,
       })
     } catch (error) {
-      Logger(error)
+      remoteLogger(error)
       switch (error.status) {
         case 401:
           DisplayDropdownWithError('dropDownAlert.forgotPassword.userNotFound')
@@ -50,14 +42,10 @@ export default (navigation: Navigation) => {
           break
 
         case 440:
-          DisplayDropdownWithError(
-            'dropDownAlert.forgotPassword.smsCodeExpired',
-          )
+          DisplayDropdownWithError('dropDownAlert.forgotPassword.smsCodeExpired')
           break
         case 403:
-          DisplayDropdownWithError(
-            'dropDownAlert.forgotPassword.verificationCodeIsIncorrect',
-          )
+          DisplayDropdownWithError('dropDownAlert.forgotPassword.verificationCodeIsIncorrect')
           break
         default:
           DisplayDropdownWithError()

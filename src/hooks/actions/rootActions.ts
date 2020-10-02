@@ -1,18 +1,10 @@
 import { useContext } from 'react'
 import AsyncStorage from '@react-native-community/async-storage'
-import {
-  UserSettingEnum,
-  RootActionArg1,
-  UserMeResponseType,
-} from '../../../@types/allTypes.d'
+import { UserSettingEnum, RootActionArg1, UserMeResponseType } from '../../../@types/allTypes.d'
 import NavigationActions from 'utils/navigation.service'
 import Defaults from 'utils/defaults'
 import services from 'services'
-import {
-  Logger,
-  DisplayDropdownWithError,
-  DisplayDropdownWithSuccess,
-} from 'helpers/inform'
+import { remoteLogger, DisplayDropdownWithError, DisplayDropdownWithSuccess } from 'helpers/inform'
 
 // Vobi Done: it is better to separate action types from actions
 import {
@@ -23,10 +15,7 @@ import {
   LOG_OUT,
 } from 'hooks/actionTypes/rootActions'
 
-export const rootAction = async (
-  data: RootActionArg1,
-  dispatch: any,
-): Promise<void> => {
+export const rootAction = async (data: RootActionArg1, dispatch: any): Promise<void> => {
   saveToken(data)
 
   if (data.token !== '') {
@@ -49,7 +38,6 @@ export const updateUser = async (dispatch: any) => {
       }),
     )
   } catch (error) {
-    Logger(['Error', error])
     if (error.status == '406' || error?.data?.status == '406') {
       DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
       dispatch(logOut())
@@ -96,6 +84,7 @@ export const getAllChargers = async (dispatch: any): Promise<void> => {
     const { data } = await services.getAllChargersFiltered()
     dispatch({ type: GET_ALL_CHARGER_SUCCESS, payload: data })
   } catch (error) {
+    remoteLogger(error)
     DisplayDropdownWithError()
   }
 }
@@ -107,6 +96,7 @@ export const getFavoriteChargers = async (dispatch: any): Promise<void> => {
 
     dispatch({ type: GET_FAVORITE_CHARGERS, payload: user_favorite_chargers })
   } catch (error) {
+    remoteLogger(error)
     DisplayDropdownWithError()
   }
 }
@@ -128,6 +118,7 @@ export const addToFavorites = async (
         throw new Error()
       }
     } catch (error) {
+      remoteLogger(error)
       DisplayDropdownWithError()
     }
   }
@@ -136,11 +127,7 @@ export const addToFavorites = async (
 // Vobi Done: what does delete to favorites mean
 // Giuna: it meant to delete charger from favorites list
 
-export const deleteFromFavorites = async (
-  payload: number,
-  dispatch: any,
-  callback?: () => void,
-): Promise<void> => {
+export const deleteFromFavorites = async (payload: number, dispatch: any, callback?: () => void): Promise<void> => {
   try {
     const { status } = await services.removeUserFavoriteCharger(payload)
     if (status) {
@@ -154,16 +141,13 @@ export const deleteFromFavorites = async (
       throw new Error()
     }
   } catch (error) {
+    remoteLogger(error)
     DisplayDropdownWithError()
   }
 }
 
 // Vobi Todo: it would be better if you had userReducer
-export const editUserInfo = (
-  dispatch: any,
-  payload: any,
-  type: UserSettingEnum | 'avatar',
-): any => {
+export const editUserInfo = (dispatch: any, payload: any, type: UserSettingEnum | 'avatar'): any => {
   if (Defaults.userDetail) Defaults.userDetail[type] = payload
 
   AsyncStorage.setItem('userDetail', JSON.stringify(Defaults.userDetail))

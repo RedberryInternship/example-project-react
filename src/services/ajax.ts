@@ -5,7 +5,7 @@ import DeviceInfo from 'react-native-device-info'
 import Defaults from 'utils/defaults'
 import Sentry from 'utils/sentry'
 import { logOut } from 'hooks/actions/rootActions'
-import { Logger } from 'helpers/inform'
+import { remoteLogger } from 'helpers/inform'
 
 type Method = 'get' | 'post'
 type Error = {
@@ -27,34 +27,33 @@ class Ajax {
   }
 
   get(uri: string): Promise<any> {
-    Logger([`Service | GET : ${uri}`])
+    console.log([`Service | GET : ${uri}`])
     return this._fetch(uri, null, 'get')
   }
   post(uri: string, payload: any): Promise<any> {
-    Logger([`Service | POST : ${uri}`])
+    console.log([`Service | POST : ${uri}`])
     return this._fetch(uri, payload, 'post')
   }
   private _fetch(uri: string, data: any, method: Method): Promise<any> {
-    const promise = new Promise(
-      (resolve: (val: any) => void, reject: (val: Error) => void) => {
-        const headers = this.headers()
-        const url = API + uri
-        axios({ method, url, headers, data })
-          .then((response) => {
-            resolve(response.data)
+    const promise = new Promise((resolve: (val: any) => void, reject: (val: Error) => void) => {
+      const headers = this.headers()
+      const url = API + uri
+      axios({ method, url, headers, data })
+        .then((response) => {
+          resolve(response.data)
+        })
+        .catch((error) => {
+          remoteLogger(error)
+          if (error.response && error.response.status === 401) {
+            logOut()
+          }
+          reject(error.response)
+          Sentry.withScope(function(scope) {
+            scope.setFingerprint([method, url, JSON.stringify(headers)])
+            Sentry.captureException(error)
           })
-          .catch((error) => {
-            if (error.response && error.response.status === 401) {
-              logOut()
-            }
-            reject(error.response)
-            Sentry.withScope(function(scope) {
-              scope.setFingerprint([method, url, JSON.stringify(headers)])
-              Sentry.captureException(error)
-            })
-          })
-      },
-    )
+        })
+    })
     return promise
   }
 }

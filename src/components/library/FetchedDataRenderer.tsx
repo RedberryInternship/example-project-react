@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Defaults } from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 import { StyleSheet } from 'react-native'
-import { Logger } from 'helpers/inform'
+import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
 
 type FetchedDataRendererProp = {
   property: string
@@ -41,11 +41,9 @@ const FetchedDataRenderer = ({
         setLocalState(dataList)
         staticData[property] = dataList
       } catch (error) {
-        Logger(error)
-        Defaults.dropdown?.alertWithType(
-          'error',
-          t('dropDownAlert.generalError'),
-        )
+        remoteLogger(error)
+        DisplayDropdownWithError()
+        Defaults.dropdown?.alertWithType('error', t('dropDownAlert.generalError'))
         staticData[property] = []
         setLocalState([])
       }
@@ -55,18 +53,12 @@ const FetchedDataRenderer = ({
   // Refetch data after logout and login
   if (!Defaults._userDetail && localState?.length > 0) {
     staticData[property] = undefined
-  } else if (
-    updateAlways &&
-    staticData[property] === undefined &&
-    Defaults._userDetail !== null
-  ) {
+  } else if (updateAlways && staticData[property] === undefined && Defaults._userDetail !== null) {
     shouldFetch()
   }
 
-  if (localState === undefined)
-    return <BaseText style={styles.text}>{t('loading')}</BaseText>
-  if (!localState?.length)
-    return <BaseText style={styles.text}>{t('notFound')}</BaseText>
+  if (localState === undefined) return <BaseText style={styles.text}>{t('loading')}</BaseText>
+  if (!localState?.length) return <BaseText style={styles.text}>{t('notFound')}</BaseText>
   return localState.map(onItemRender)
 }
 

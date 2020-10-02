@@ -6,7 +6,7 @@ import Defaults from 'utils/defaults'
 import * as Const from 'utils/const'
 import services from 'services'
 import { isPermissionGrantedRegex } from './permissionsRegex'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 
 type RegionFrom = {
   latitude: number
@@ -15,11 +15,7 @@ type RegionFrom = {
   longitudeDelta: number
 }
 
-export function regionFrom(
-  lat: number,
-  lng: number,
-  zoomLevel: number,
-): RegionFrom {
+export function regionFrom(lat: number, lng: number, zoomLevel: number): RegionFrom {
   zoomLevel = zoomLevel / 2
   const circumference = 40075
   const oneDegreeOfLatitudeInMeters = 111.32 * 1000
@@ -27,10 +23,7 @@ export function regionFrom(
 
   const latitudeDelta = zoomLevel / oneDegreeOfLatitudeInMeters
   const longitudeDelta = Math.abs(
-    Math.atan2(
-      Math.sin(angularDistance) * Math.cos(lat),
-      Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat),
-    ),
+    Math.atan2(Math.sin(angularDistance) * Math.cos(lat), Math.cos(angularDistance) - Math.sin(lat) * Math.sin(lat)),
   )
   return {
     latitude: lat,
@@ -42,8 +35,7 @@ export function regionFrom(
 
 export function determineTimePeriod() {
   if (Defaults.userDetail?.mapMode === 'settings.mapColorDark') return false
-  else if (Defaults.userDetail?.mapMode === 'settings.mapColorLight')
-    return true
+  else if (Defaults.userDetail?.mapMode === 'settings.mapColorLight') return true
   else {
     const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
     return moment(moment()).isBetween(times.sunrise, times.sunset)
@@ -62,9 +54,9 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
       const location: Location | null = await RNLocation.getLatestLocation({
         timeout: 6000,
       })
-      if (location !== null)
-        return { lat: location.latitude, lng: location.longitude }
+      if (location !== null) return { lat: location.latitude, lng: location.longitude }
     } catch (error) {
+      remoteLogger(error)
       DisplayDropdownWithError()
     }
   }
@@ -78,6 +70,7 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
 
     return IPCoords
   } catch (error) {
+    remoteLogger(error)
     DisplayDropdownWithError()
   }
 

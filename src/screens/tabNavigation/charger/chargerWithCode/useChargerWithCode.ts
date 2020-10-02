@@ -2,13 +2,9 @@
 import { useState, useRef, useContext } from 'react'
 import { TextInput } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  NavigationState,
-  NavigationScreenProp,
-  NavigationParams,
-} from 'react-navigation'
+import { NavigationState, NavigationScreenProp, NavigationParams } from 'react-navigation'
 
-import AppContext from 'hooks/contexts/app';
+import AppContext from 'hooks/contexts/app'
 import {
   AppContextType,
   Charger,
@@ -19,14 +15,14 @@ import {
 import { Defaults } from 'utils'
 import services from 'services'
 
+// SARU
+
 type _This = {
   chargeWitchCode: string
 }
 
 // Vobi todo: move this in hooks
-export default (
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>,
-) => {
+export default (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
   const context: AppContextType = useContext(AppContext)
   const [loading, SetLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
@@ -45,10 +41,7 @@ export default (
 
   const codeInputSubmit = () => {
     if (_this.current?.chargeWitchCode == '') {
-      return Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.fillCode'),
-      )
+      return Defaults.dropdown?.alertWithType('error', t('dropDownAlert.fillCode'))
     }
 
     const charger =
@@ -57,10 +50,7 @@ export default (
       }) ?? []
 
     if (charger.length == 0) {
-      return Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.chargerNotExist'),
-      )
+      return Defaults.dropdown?.alertWithType('error', t('dropDownAlert.chargerNotExist'))
     }
     navigateToChargerDetailScreen(charger[0])
   }

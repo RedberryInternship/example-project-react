@@ -3,10 +3,11 @@ import AsyncStorage from '@react-native-community/async-storage'
 import messaging from '@react-native-firebase/messaging'
 import AppContext from 'hooks/contexts/app'
 import services from 'services'
+import { remoteLogger } from 'helpers/inform'
 
 // Vobi Done: this is not util this is hook
 const useFirebase = (): void => {
-  const { state, dispatch } = useContext(AppContext)
+  const { state } = useContext(AppContext)
   const { authStatus } = state
 
   const onTokenRefreshListener = useRef<any>()
@@ -51,8 +52,8 @@ const useFirebase = (): void => {
       try {
         fcmToken = await messaging().getToken()
       } catch (error) {
-        // Vobi Todo: log this error to sentry
-        console.log('error', 'on get token')
+        // Vobi Done: log this error to sentry
+        remoteLogger(error)
       }
       if (fcmToken) {
         AsyncStorage.setItem('fcmToken', fcmToken)

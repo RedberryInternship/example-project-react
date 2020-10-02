@@ -1,5 +1,5 @@
-import React, { useState, useRef, useImperativeHandle } from 'react'
-import { TextInput, Text, View, StyleSheet, TouchableOpacity, Animated } from 'react-native'
+import React, { useState, useRef, useImperativeHandle, MutableRefObject } from 'react'
+import { TextInput, View, StyleSheet, TouchableOpacity, Animated } from 'react-native'
 import MaskedView from '@react-native-community/masked-view'
 
 import { useTranslation } from 'react-i18next'
@@ -10,12 +10,12 @@ const CodeInputWidth = 128
 const animationDuration = 10000
 // eslint-disable-next-line react/display-name
 const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any, ref: any) => {
-  // Vobi todo: no any types
+  // Vobi Done: no any types
   const [animation] = useState(new Animated.Value(0))
   const [disabled, setDisabled] = useState(false)
   const [disabledInput, setDisabledInput] = useState(true)
   const [showText, setShowText] = useState(false)
-  const inputRef: any = useRef(null)
+  const inputRef: MutableRefObject<TextInput | undefined> = useRef()
   const { t } = useTranslation()
 
   const codeReceiveHandler = (): void => {
@@ -35,7 +35,7 @@ const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any
   }
 
   useImperativeHandle(ref, () => ({
-    focus: inputRef.current.focus,
+    focus: inputRef?.current?.focus,
     activateButton: (): void => {
       animation.setValue(CodeInputWidth)
     },

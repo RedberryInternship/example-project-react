@@ -1,10 +1,5 @@
 import React, { ReactElement, useContext } from 'react'
-import {
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-  withNavigation,
-} from 'react-navigation'
+import { NavigationScreenProp, NavigationParams, NavigationState, withNavigation } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
 import CardListItem from 'components/item/CardListItem'
 import BaseAddCardButton from 'components/baseUI/BaseAddCardButton'
@@ -12,7 +7,7 @@ import { AppContextType } from 'allTypes'
 import AppContext from 'hooks/contexts/app'
 import { updateUser } from 'hooks/actions/rootActions'
 import services from 'services'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 
 type CardListViewProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
@@ -35,6 +30,7 @@ const CardListView = ({ navigation }: CardListViewProps): ReactElement => {
               val && (await services.setDefaultCard(val.id))
               updateUser(dispatch)
             } catch (error) {
+              remoteLogger(error)
               DisplayDropdownWithError()
             }
           }}

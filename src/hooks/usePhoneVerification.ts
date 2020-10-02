@@ -4,11 +4,7 @@ import { TextInput } from 'react-native'
 import { InputValidationHelpers } from 'utils'
 import { CodeRefType, SendSmsCodeStatus } from '../../@types/allTypes.d'
 import services from 'services'
-import {
-  Logger,
-  DisplayDropdownWithError,
-  DisplayDropdownWithSuccess,
-} from 'helpers/inform'
+import { Logger, DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
 
 type useForgotPasswordProps = {
   getValues: () => Record<string, any>
@@ -17,34 +13,21 @@ type useForgotPasswordProps = {
   watch: (name: string) => string
   triggerValidation: (name: string) => Promise<boolean>
 }
-export default ({
-  getValues,
-  register,
-  errors,
-  watch,
-  triggerValidation,
-}: useForgotPasswordProps) => {
+export default ({ getValues, register, errors, watch, triggerValidation }: useForgotPasswordProps) => {
   const phoneRef = useRef<TextInput>()
   const codeRef = useRef<TextInput & CodeRefType>()
 
   const phone: string = watch('phone')
 
   useEffect(() => {
-    register(
-      { name: 'phone' },
-      { validate: InputValidationHelpers.phoneNumberValidation },
-    )
+    register({ name: 'phone' }, { validate: InputValidationHelpers.phoneNumberValidation })
 
-    register(
-      { name: 'code' },
-      { validate: InputValidationHelpers.codeVerification },
-    )
+    register({ name: 'code' }, { validate: InputValidationHelpers.codeVerification })
     setTimeout(() => phoneRef.current?.focus(), 500)
   }, [])
 
   useEffect(() => {
-    if (Object.keys(errors).length)
-      DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
+    if (Object.keys(errors).length) DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
   }, [errors])
 
   const validatePhone = useCallback(async () => {
@@ -60,9 +43,7 @@ export default ({
 
   const receiveCodeHandler = async (formType: string): Promise<void> => {
     if (!(await triggerValidation('phone')))
-      return DisplayDropdownWithError(
-        'dropDownAlert.registration.fillPhoneNumber',
-      )
+      return DisplayDropdownWithError('dropDownAlert.registration.fillPhoneNumber')
     try {
       const { phone } = getValues()
       await services.sendSMSCode(phone, formType)
@@ -71,23 +52,15 @@ export default ({
       codeRef.current?.focus()
       codeRef.current?.setDisabledInput(false)
 
-      DisplayDropdownWithSuccess(
-        'dropDownAlert.registration.codeSentSuccessfully',
-      )
+      DisplayDropdownWithSuccess('dropDownAlert.registration.codeSentSuccessfully')
     } catch (e) {
+      remoteLogger(e)
       if (e.data.status == SendSmsCodeStatus.USER_ALREADY_EXISTS) {
-        DisplayDropdownWithError(
-          'dropDownAlert.error',
-          'dropDownAlert.registration.alreadyExists',
-        )
+        DisplayDropdownWithError('dropDownAlert.error', 'dropDownAlert.registration.alreadyExists')
       } else if (e.data.status == SendSmsCodeStatus.USER_DOES_NOT_EXISTS) {
-        DisplayDropdownWithError(
-          'dropDownAlert.error',
-          'dropDownAlert.forgotPassword.doesNotExist',
-        )
+        DisplayDropdownWithError('dropDownAlert.error', 'dropDownAlert.forgotPassword.doesNotExist')
       } else {
         DisplayDropdownWithError()
-        Logger(e)
       }
     }
   }
