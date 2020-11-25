@@ -1,13 +1,17 @@
-import { useEffect, useRef, useCallback, useContext } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
+import { useSelector } from 'react-redux'
+import { selectUser } from 'state/selectors'
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from '@react-native-firebase/messaging'
-import AppContext from 'hooks/contexts/app'
 import services from 'services'
 import { remoteLogger } from 'helpers/inform'
 
-// Vobi Done: this is not util this is hook
 const useFirebase = (): void => {
-  const { state } = useContext(AppContext)
+  const state = useSelector(selectUser)
   const { authStatus } = state
 
   const onTokenRefreshListener = useRef<any>()
@@ -25,12 +29,11 @@ const useFirebase = (): void => {
     onTokenRefreshListener.current = messaging().onTokenRefresh(tokenRefresh)
   }, [])
 
-  //2
+  // 2
   const requestUserPermission = useCallback(async () => {
     const FCMAuthStatus = await messaging().requestPermission()
-    const enabled =
-      FCMAuthStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-      FCMAuthStatus === messaging.AuthorizationStatus.PROVISIONAL
+    const enabled = FCMAuthStatus === messaging.AuthorizationStatus.AUTHORIZED
+      || FCMAuthStatus === messaging.AuthorizationStatus.PROVISIONAL
     if (enabled) {
       getToken()
     }
@@ -44,7 +47,7 @@ const useFirebase = (): void => {
     [services, AsyncStorage, authStatus],
   )
 
-  //3
+  // 3
   const getToken = useCallback(async (): Promise<void> => {
     let fcmToken: string | null = await AsyncStorage.getItem('fcmToken')
 

@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/camelcase */
+import Defaults from 'utils/defaults'
+import AsyncStorage from '@react-native-community/async-storage'
 import ajax from './ajax'
 import {
   GetAllChargerResponseType,
@@ -6,8 +7,6 @@ import {
   ChargingTypes,
   ChargingState,
 } from '../../@types/allTypes.d'
-import Defaults from 'utils/defaults'
-import AsyncStorage from '@react-native-community/async-storage'
 
 // Vobi Todo: you can not have business logic inside service
 export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseType> => {
@@ -29,10 +28,9 @@ export const getAllChargersFiltered = async (): Promise<GetAllChargerResponseTyp
     // Object.keys({...Defaults.location }) is same as Object.keys(Defaults.location)
     // use qs or axios params option for generating query string
     const response = await ajax.get(
-      '/chargers?' +
-        Object.keys({ ...Defaults.location })
-          .map((key) => key + '=' + { ...Defaults.location }[key])
-          .join('&'),
+      `/chargers?${Object.keys({ ...Defaults.location })
+        .map((key) => `${key}=${{ ...Defaults.location }[key]}`)
+        .join('&')}`,
     )
     AsyncStorage.setItem('storedChargers', JSON.stringify({ data: response, time: date.getTime() }))
     return response
@@ -45,17 +43,15 @@ export const startCharging = (
   charging_type: ChargingTypes,
   user_card_id: number,
   price?: number,
-): Promise<StartChargingResponseType> =>
-  ajax.post('/charging/start', {
-    charger_connector_type_id,
-    charging_type,
-    price,
-    user_card_id,
-  })
+): Promise<StartChargingResponseType> => ajax.post('/charging/start', {
+  charger_connector_type_id,
+  charging_type,
+  price,
+  user_card_id,
+})
 
-export const finishCharging = (order_id: number): Promise<ChargingState> =>
-  ajax.post('/charging/stop', {
-    order_id,
-  })
+export const finishCharging = (order_id: number): Promise<ChargingState> => ajax.post('/charging/stop', {
+  order_id,
+})
 
 export const chargingState = (): Promise<ChargingState[]> => ajax.get('/active-orders')

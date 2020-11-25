@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import {
   withNavigation,
   NavigationParams,
@@ -6,16 +6,14 @@ import {
   NavigationScreenProp,
 } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { HomeContextType, Charger, MapImperativeRefObject } from 'allTypes'
-
+import { Charger, MapImperativeRefObject } from 'allTypes'
 import { BaseButton, MultiChargingTopModal } from 'components'
 import { Defaults } from 'utils'
 import { getAndRequestLocation } from 'helpers/location'
-import HomeContext from 'hooks/contexts/home'
 import images from 'assets/images'
 import HomeMainSearchView from './HomeMainSearchView'
-import HomeFilterView from './HomeMainSearchView'
 import OnMapRoundButton from './OnMapRoundButton'
 
 type HomeMainComponentProps = {
@@ -39,22 +37,22 @@ const HomeMainComponent = ({
 }: HomeMainComponentProps): ReactElement => {
   const insets = useSafeAreaInsets()
 
-  const context: HomeContextType = useContext(HomeContext)
+  const homeState = useSelector((state) => state.home)
 
   return (
     <View
       style={[styles.container, { paddingTop: insets.top }]}
-      pointerEvents={'box-none'}
+      pointerEvents="box-none"
     >
       {Defaults.token ? null : (
         <BaseButton
           image={images.user}
           onPress={navigation?.navigate.bind(HomeMainComponent, 'Auth')}
-          text={'home.authorization'}
+          text="home.authorization"
           style={styles.authorizeBtn}
         />
       )}
-      <View style={styles.onMapRoundContainer} pointerEvents={'box-none'}>
+      <View style={styles.onMapRoundContainer} pointerEvents="box-none">
         <OnMapRoundButton
           style={styles.onMapRoundBtn}
           onPress={(): void => {
@@ -71,8 +69,8 @@ const HomeMainComponent = ({
           ref={mainInputRef}
         />
       </View>
-      <View style={styles.modalContainer} pointerEvents={'box-none'}>
-        <View style={styles.modalOnMapRoundContainer}></View>
+      <View style={styles.modalContainer} pointerEvents="box-none">
+        <View style={styles.modalOnMapRoundContainer} />
 
         <OnMapRoundButton
           style={styles.modalOnMapRound}
@@ -88,10 +86,10 @@ const HomeMainComponent = ({
               getAndRequestLocation()
             }
           }}
-          image={context?.state?.locationImageType}
+          image={homeState.locationImageType}
           imageStyle={styles.onMapRoundImage}
         />
-        <HomeFilterView
+        <HomeMainSearchView
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}
         />

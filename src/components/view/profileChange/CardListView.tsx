@@ -1,22 +1,38 @@
-import React, { ReactElement, useContext } from 'react'
-import { NavigationScreenProp, NavigationParams, NavigationState, withNavigation } from 'react-navigation'
+import React, { ReactElement } from 'react'
+import {
+  NavigationScreenProp,
+  NavigationParams,
+  NavigationState,
+  withNavigation,
+} from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUser } from 'state/selectors'
 import CardListItem from 'components/item/CardListItem'
 import BaseAddCardButton from 'components/baseUI/BaseAddCardButton'
-import { AppContextType } from 'allTypes'
-import AppContext from 'hooks/contexts/app'
-import { updateUser } from 'hooks/actions/rootActions'
+import { refreshUserData } from 'state/actions/userActions'
 import services from 'services'
-import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
 
 type CardListViewProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
 const CardListView = ({ navigation }: CardListViewProps): ReactElement => {
-  const {
-    state: { user },
-    dispatch,
-  }: AppContextType = useContext(AppContext)
+  const user = useSelector(selectUser)
+  const dispatch = useDispatch()
+
+  const updateUserHandler = async (val) => {
+    try {
+      val && (await services.setDefaultCard(val.id))
+      dispatch(refreshUserData())
+    } catch (error) {
+      remoteLogger(error)
+      DisplayDropdownWithError()
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -25,15 +41,7 @@ const CardListView = ({ navigation }: CardListViewProps): ReactElement => {
           key={val.id}
           code={val.masked_pan}
           selected={!!val.default}
-          onPress={async () => {
-            try {
-              val && (await services.setDefaultCard(val.id))
-              updateUser(dispatch)
-            } catch (error) {
-              remoteLogger(error)
-              DisplayDropdownWithError()
-            }
-          }}
+          onPress={() => updateUserHandler(val)}
         />
       ))}
       <BaseAddCardButton

@@ -9,10 +9,6 @@ import createState from 'hooks/stateManager'
  */
 const ContextLayer = (props: any) => {
   const {
-    HomeContext,
-    homeContextValue,
-    AppContext,
-    appContextValue,
     ChargerContext,
     chargerContextValue,
   } = createState()
@@ -20,13 +16,9 @@ const ContextLayer = (props: any) => {
   console.log(['Contexts - Layer'])
 
   return (
-    <AppContext.Provider value={appContextValue}>
-      <ChargerContext.Provider value={chargerContextValue}>
-        <HomeContext.Provider value={homeContextValue}>
-          {props.children}
-        </HomeContext.Provider>
-      </ChargerContext.Provider>
-    </AppContext.Provider>
+    <ChargerContext.Provider value={chargerContextValue}>
+      {props.children}
+    </ChargerContext.Provider>
   )
 }
 

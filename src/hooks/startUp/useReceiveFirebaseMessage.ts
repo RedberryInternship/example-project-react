@@ -1,21 +1,24 @@
 import { useEffect, useContext } from 'react'
-import { ChargingState, ChargingStatus } from '../../../@types/allTypes.d'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   chargingState,
   chargerStateController,
 } from 'hooks/actions/chargerActions'
+import { selectUser } from 'state/selectors'
 import messaging from '@react-native-firebase/messaging'
 import { Defaults } from 'utils'
-import { getAllChargers } from 'hooks/actions/rootActions'
-import AppContext from 'hooks/contexts/app'
+import { refreshAllChargers } from 'state/actions/userActions'
 import ChargersContext from 'hooks/contexts/charger'
+import {
+  ChargingState,
+  ChargingStatus,
+} from '../../../@types/allTypes.d'
 
 export default () => {
-  const applicationContext = useContext(AppContext)
   const chargersContext = useContext(ChargersContext)
 
-  const appState = applicationContext.state
-  const appDispatch = applicationContext.dispatch
+  const userState = useSelector(selectUser)
+  const userDispatch = useDispatch()
   const chargerState = chargersContext.state
   const chargerDispatch = chargersContext.dispatch
 
@@ -29,14 +32,14 @@ export default () => {
 
       if (state) {
         // Vobi Todo: use map instead
-        state.every((val, index) => {
+        state.every(async (val, index) => {
           if (
-            val.charging_status !== ChargingStatus.INITIATED &&
-            chargerState.chargingState[index]?.charging_status ===
-              ChargingStatus.INITIATED &&
-            val.charger_id === chargerState.chargingState[index]?.charger_id
+            val.charging_status !== ChargingStatus.INITIATED
+            && chargerState.chargingState[index]?.charging_status
+            === ChargingStatus.INITIATED
+            && val.charger_id === chargerState.chargingState[index]?.charger_id
           ) {
-            getAllChargers(appDispatch)
+            userDispatch(refreshAllChargers())
             return false
           }
         })
@@ -49,10 +52,10 @@ export default () => {
   }, [])
 
   useEffect(() => {
-    if (appState.authStatus === 'success') {
+    if (userState.authStatus === 'success') {
       chargingState(chargerDispatch)
     } else {
       Defaults.modal?.current?.customUpdate(false)
     }
-  }, [appState.authStatus])
+  }, [userState.authStatus])
 }

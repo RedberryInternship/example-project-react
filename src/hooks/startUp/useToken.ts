@@ -1,29 +1,27 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useAsyncStorage } from '@react-native-community/async-storage'
+import { saveUserAndRefresh } from 'state/actions/userActions'
 import { UserMeResponseType } from 'allTypes'
-import { rootAction } from 'hooks/actions/rootActions'
-import AppContext from 'hooks/contexts/app'
+import { useDispatch } from 'react-redux'
 
 const useToken = () => {
-  const { dispatch } = useContext(AppContext)
+  const dispatch = useDispatch()
 
   const [token, setToken] = useState<null | string>('')
-  const { getItem: getUserDetail, setItem: setUserDetail } = useAsyncStorage(
-    'userDetail',
-  )
-  const { getItem, setItem } = useAsyncStorage('token')
+  const { getItem: getUserDetail } = useAsyncStorage('userDetail')
+  const { getItem } = useAsyncStorage('token')
 
   const readUserToken = async (): Promise<void> => {
-    const token = await getItem()
+    const fetchedToken = await getItem()
 
     let user: UserMeResponseType = null
-    if (token) {
+    if (fetchedToken) {
       const parsableData = await getUserDetail()
       user = parsableData != null ? JSON.parse(parsableData) : ''
     }
 
-    rootAction({ token: token ?? '', user }, dispatch)
-    setToken(token)
+    dispatch(saveUserAndRefresh(user, fetchedToken))
+    setToken(fetchedToken)
   }
 
   return {

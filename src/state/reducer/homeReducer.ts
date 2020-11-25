@@ -1,22 +1,19 @@
-import {
-  SET_LOCATION_HANDLER,
-  SET_FILTERED_CHARGERS,
-} from '../actions/homeActions'
+import * as actionTypes from 'state/actionTypes/homeActionTypes'
 import { HomeState, Action } from 'allTypes'
-import initialState from 'hooks/initialStates/home'
+import initialState from 'state/initialStates/home'
 
 function reducer(
   state: HomeState = initialState,
   { type, payload }: Action,
 ): HomeState {
   switch (type) {
-    case SET_LOCATION_HANDLER:
+    case actionTypes.SET_LOCATION_HANDLER:
       return {
         ...state,
         loading: false,
         LocationRequestFunc: payload,
       }
-    case SET_FILTERED_CHARGERS:
+    case actionTypes.SET_FILTERED_CHARGERS:
       return {
         ...state,
         loading: false,

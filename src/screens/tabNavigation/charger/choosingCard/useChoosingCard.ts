@@ -1,22 +1,26 @@
-import { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { Animated } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import { useForm } from 'react-hook-form'
-
-import { Navigation, AppContextType } from 'allTypes'
+import { selectUser } from 'state/selectors'
+import { Navigation } from 'allTypes'
 import { startCharging } from 'hooks/actions/chargerActions'
-import AppContext from 'hooks/contexts/app'
 import ChargerContext from 'hooks/contexts/charger'
 import services from 'services'
-import { updateUser } from 'hooks/actions/rootActions'
-import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
+import { refreshUserData } from 'state/actions/userActions'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
 
 const animatedArrow = new Animated.Value(0)
 
 // Vobi todo: move this in hooks
 export default (navigation: Navigation) => {
-  const { state, dispatch }: AppContextType = useContext(AppContext)
+  const state = useSelector(selectUser)
+  const dispatch = useDispatch()
 
   const { dispatch: chargerDispatch } = useContext(ChargerContext)
 
@@ -30,7 +34,7 @@ export default (navigation: Navigation) => {
   const setActiveCard = async (id: number) => {
     try {
       await services.setDefaultCard(id)
-      updateUser(dispatch)
+      dispatch(refreshUserData())
     } catch (error) {
       remoteLogger(error)
       DisplayDropdownWithError()

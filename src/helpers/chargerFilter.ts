@@ -1,14 +1,19 @@
-import { Charger, ChargersObject } from '../../@types/allTypes.d'
 import services from 'services'
 import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 import { ChargerFilters, ChargerStatus, ConnectorTypes } from 'utils/enums'
+import { Charger, ChargersObject } from '../../@types/allTypes.d'
 
 // Vobi Done: refactor searchChargers
 
-export const GetFilteredCharger = async (selectedFilters: boolean[], filterInput = ''): Promise<Charger[]> => {
+export const GetFilteredCharger = async (
+  selectedFilters: boolean[],
+  filterInput = '',
+): Promise<Charger[]> => {
   try {
     const { data }: ChargersObject = await services.getAllChargersFiltered()
-    return !isSearchBarEmpty(filterInput) ? searchChargers(filterInput, data) : filterChargers(selectedFilters, data)
+    return !isSearchBarEmpty(filterInput)
+      ? searchChargers(filterInput, data)
+      : filterChargers(selectedFilters, data)
   } catch (error) {
     remoteLogger(error)
     DisplayDropdownWithError()
@@ -22,16 +27,12 @@ export const GetFilteredCharger = async (selectedFilters: boolean[], filterInput
  * @param text
  * @returns {boolean}
  */
-const isSearchBarEmpty = (text: string): boolean => {
-  return text == ''
-}
+const isSearchBarEmpty = (text: string): boolean => text === ''
 
-const searchChargers = (text: string, data: Charger[]) => {
-  return data.filter((charger) => {
-    const stringifiedCharger = JSON.stringify(charger).toLowerCase()
-    return stringifiedCharger.toLowerCase().includes(text.toLowerCase())
-  })
-}
+const searchChargers = (text: string, data: Charger[]) => data.filter((charger) => {
+  const stringifiedCharger = JSON.stringify(charger).toLowerCase()
+  return stringifiedCharger.toLowerCase().includes(text.toLowerCase())
+})
 
 /**
  * Filter chargers for bottom chargers filter.
@@ -39,9 +40,10 @@ const searchChargers = (text: string, data: Charger[]) => {
  * @param selectedFilters
  * @param data
  */
-const filterChargers = (selectedFilters: boolean[], data: Charger[]): Charger[] => {
-  return data.filter((charger) => shouldAppear(charger, selectedFilters))
-}
+const filterChargers = (
+  selectedFilters: boolean[],
+  data: Charger[],
+): Charger[] => data.filter((charger) => shouldAppear(charger, selectedFilters))
 
 /**
  * Determine if charger should appear in
@@ -52,6 +54,7 @@ const filterChargers = (selectedFilters: boolean[], data: Charger[]): Charger[] 
  */
 const shouldAppear = (charger: Charger, selectedFilters: boolean[]): boolean => {
   const chargerCharacteristics = determineChargerCharacteristics(charger)
+
   return chargerCharacteristics.every((value, index) => {
     const appliedFilter = selectedFilters[index]
     /**
@@ -89,24 +92,15 @@ const determineChargerCharacteristics = (charger: Charger): Array<boolean> => {
  * or is it private or public.
  */
 export const determine = {
-  isChargerFree: (charger: Charger): boolean => {
-    return charger.status === ChargerStatus.ACTIVE
-  },
-  isChargerCharging: (charger: Charger): boolean => {
-    return charger.status === ChargerStatus.CHARGING
-  },
+  isChargerFree: (charger: Charger): boolean => charger.status === ChargerStatus.ACTIVE,
+  isChargerCharging: (charger: Charger): boolean => charger.status === ChargerStatus.CHARGING,
   isChargerFast: (charger: Charger): boolean => {
     const connectorName = charger.connector_types[0].name
 
     return connectorName === ConnectorTypes.CHADEMO || connectorName === ConnectorTypes.COMBO_2
   },
-  isChargerLvl2: (charger: Charger): boolean => {
-    return charger.connector_types[0].name === ConnectorTypes.TYPE_2
-  },
-  isChargerPrivate: (charger: Charger): boolean => {
-    return !charger.public
-  },
-  isChargerPublic: (charger: Charger): boolean => {
-    return !!charger.public
-  },
+  isChargerLvl2: (charger: Charger):
+    boolean => charger.connector_types[0].name === ConnectorTypes.TYPE_2,
+  isChargerPrivate: (charger: Charger): boolean => !charger.public,
+  isChargerPublic: (charger: Charger): boolean => !!charger.public,
 }

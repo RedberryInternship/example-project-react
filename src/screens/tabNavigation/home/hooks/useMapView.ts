@@ -1,32 +1,30 @@
 import {
-  useContext,
-  Ref,
   useImperativeHandle,
+  useCallback,
   RefObject,
   useState,
-  useCallback,
+  Ref,
 } from 'react'
 import MapView from 'react-native-maps'
-
-import { AppContextType, Charger } from 'allTypes'
-
-import { getAllChargers } from 'hooks/actions/rootActions'
-import AppContext from 'hooks/contexts/app'
-import useLocation from './useLocation'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { selectUser } from 'state/selectors'
+import { Charger } from 'allTypes'
+import { getAllChargers, refreshAllChargers } from 'state/actions/userActions'
 import {
   NavigationParams,
   NavigationState,
   NavigationScreenProp,
 } from 'react-navigation'
 import { Defaults, getLocaleText } from 'utils'
+import useLocation from './useLocation'
 
 const useMapView = (
   ref: Ref<MapView>,
   mapRef: RefObject<MapView>,
   navigation: NavigationScreenProp<NavigationState, NavigationParams>,
 ) => {
-  const { state, dispatch }: AppContextType = useContext(AppContext)
+  const state = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [polyline, setPolyline] = useState([])
   const { navigateToLocation, navigateByRef, showRoute } = useLocation({
     mapRef,
@@ -34,26 +32,27 @@ const useMapView = (
     dispatch,
   })
 
-  const getChargerPins = useCallback((): void => {// Vobi todo: why callback you don't need it
-    getAllChargers(dispatch)
+  // Vobi todo: why callback you don't need it
+  const getChargerPins = useCallback(async (): Promise<void> => {
+    dispatch(refreshAllChargers())
   }, [dispatch, getAllChargers])
 
   const mapReady = useCallback((): void => {
     navigateToLocation()
-    getChargerPins() 
+    getChargerPins()
   }, [getChargerPins, navigateToLocation])
 
   useImperativeHandle(ref, (): any => ({
     animateToCoords: navigateByRef,
     locate: navigateToLocation,
-    showRoute: showRoute,
+    showRoute,
   }))
 
   const onMarkerPress = useCallback(
     (charger: Charger): void => {
       if (
-        charger.charger_group?.chargers &&
-        charger.charger_group?.chargers.length !== 0
+        charger.charger_group?.chargers
+        && charger.charger_group?.chargers.length !== 0
       ) {
         const onChargerSelect = (index: number): void => {
           navigation.navigate('ChargerDetail', {
@@ -70,7 +69,7 @@ const useMapView = (
             title: getLocaleText(charger.charger_group?.name),
             address: getLocaleText(charger.location),
             chargers: charger.charger_group?.chargers ?? [],
-            onChargerSelect: onChargerSelect,
+            onChargerSelect,
           },
         })
       } else {

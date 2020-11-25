@@ -1,29 +1,34 @@
-import React, { useContext, ReactElement, useMemo } from 'react'
-import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native'
+import React, { ReactElement } from 'react'
+import {
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { logOutAndReset } from 'state/actions/userActions'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
-
-import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
-
+import { ScreenPropsWithNavigation } from 'allTypes'
 import { BaseButton, BaseText } from 'components'
-
 import { Const, Colors, Defaults } from 'utils'
 import { easyAlert } from 'helpers/inform'
-import AppContext from 'hooks/contexts/app'
-import { logOut } from '../../../hooks/actions/rootActions'
 import images from 'assets/images'
+import { isAuthenticated } from 'helpers/auth'
+import { useAsyncStorage } from '@react-native-community/async-storage'
+import { selectUser } from 'state/selectors'
 import {
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
 } from './components'
-import { isAuthenticated } from 'helpers/auth'
-import { useAsyncStorage } from '@react-native-community/async-storage'
 
 const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const state = useSelector(selectUser)
+  const dispatch = useDispatch()
+
   const { t, i18n } = useTranslation()
   const insets = useSafeAreaInsets()
-  const context: AppContextType = useContext(AppContext)
   const { setItem: setLocaleStorage } = useAsyncStorage('locale')
 
   let drawerContent = null
@@ -41,36 +46,32 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           <BaseButton
             image={images.user}
             onPress={navigation.navigate.bind(Drawer, 'Auth')}
-            text={'home.authorization'}
+            text="home.authorization"
             style={styles.drawerAuthBtn}
           />
 
-          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => {
-            return (
-              <DrawerTextFieldItem
-                key={ind}
-                onPress={navigation.navigate.bind(Drawer, field.route)}
-                {...field}
-              />
-            )
-          })}
+          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => (
+            <DrawerTextFieldItem
+              key={ind}
+              onPress={navigation.navigate.bind(Drawer, field.route)}
+              {...field}
+            />
+          ))}
         </View>
 
-        <View style={{ justifyContent: 'flex-end' }}></View>
+        <View style={{ justifyContent: 'flex-end' }} />
       </>
     )
   } else {
     drawerContent = (
       <View>
-        {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
-          return (
-            <DrawerTextFieldItem
-              key={key}
-              onPress={navigation.navigate.bind(Drawer, field.route)}
-              {...field}
-            />
-          )
-        })}
+        {Const.DrawerFieldsAfterAuthorization.map((field, key) => (
+          <DrawerTextFieldItem
+            key={key}
+            onPress={navigation.navigate.bind(Drawer, field.route)}
+            {...field}
+          />
+        ))}
       </View>
     )
   }
@@ -84,9 +85,9 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           onPress={(): void => {
             navigation.navigate('ChooseAvatar')
           }}
-          avatar={context?.state.user?.avatar}
-          firstName={context?.state?.user?.first_name ?? ''}
-          lastName={context?.state?.user?.last_name ?? ''}
+          avatar={state.user?.avatar}
+          firstName={state?.user?.first_name ?? ''}
+          lastName={state?.user?.last_name ?? ''}
         />
       )}
       <ScrollView
@@ -101,7 +102,7 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
             onPress={(): void => {
               Defaults.modal.current?.customUpdate(true, { type: 6 })
             }}
-            text={'drawer.termsAndConditions'}
+            text="drawer.termsAndConditions"
             image={images.greenTick}
           />
           <View style={styles.localeAndLogoutWrapper}>
@@ -118,9 +119,9 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
                     rightText: t('drawer.logOut'),
                     leftText: t('no'),
                     onRightClick: () => {
-                      context.dispatch(logOut())
+                      dispatch(logOutAndReset())
                     },
-                    onLeftClick: () => {},
+                    onLeftClick: () => { },
                   })
                 }}
               >

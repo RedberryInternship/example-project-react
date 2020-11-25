@@ -1,16 +1,40 @@
-import { useContext } from 'react'
-
-import { Navigation, UserSettingEnum, AppContextType } from '../../../../../@types/allTypes.d'
-
-import AppContext from 'hooks/contexts/app'
+import { useSelector, useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import services from 'services'
-import { DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
-import { editUserInfo, updateUser } from 'hooks/actions/rootActions'
+import {
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+  remoteLogger,
+} from 'helpers/inform'
+import {
+  refreshUserData,
+  editUserInfo,
+} from 'state/actions/userActions'
+import {
+  setUserData,
+  setUserDetail,
+} from 'helpers/user'
+import { selectUser } from 'state/selectors'
+import {
+  UserSettingEnum,
+  Navigation,
+} from '../../../../../@types/allTypes.d'
 
 export default (navigation: Navigation, type: UserSettingEnum) => {
-  const { state, dispatch }: AppContextType = useContext(AppContext)
-  const { setValue, getValues, register, handleSubmit, errors, watch, reset, triggerValidation, control } = useForm({
+  const dispatch = useDispatch();
+  const state = useSelector(selectUser)
+
+  const {
+    triggerValidation,
+    handleSubmit,
+    getValues,
+    setValue,
+    register,
+    control,
+    errors,
+    watch,
+    reset,
+  } = useForm({
     validateCriteriaMode: 'all',
   })
 
@@ -30,7 +54,11 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
 
       if (result.updated === true) {
         navigation.goBack()
-        editUserInfo(dispatch, form[type], type)
+
+        setUserDetail(type, form[type])
+        setUserData()
+        dispatch(editUserInfo(form[type], type))
+
         DisplayDropdownWithSuccess('dropDownAlert.informationUpdatedSuccessfully')
       } else {
         throw new Error('Something Went Wrong...')
@@ -43,9 +71,8 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   const updateCar = async (form: Record<string, string | number>) => {
     try {
       const result = await services.addCar(+form.carModelId)
-
       navigation.goBack()
-      updateUser(dispatch)
+      dispatch(refreshUserData())
       DisplayDropdownWithSuccess('dropDownAlert.informationUpdatedSuccessfully')
     } catch (err) {
       remoteLogger(err)
@@ -54,17 +81,21 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   }
 
   const updateUserPassword = async (form: Record<string, string>) => {
-    //TODO: need outside component validation
-    if (!form.repeatPassword && !form.password)
+    // TODO: need outside component validation
+    if (!form.repeatPassword && !form.password) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.passwordsNotFilled')
-    else if (form.password && form.password.length < 8) {
+    }
+    if (form.password && form.password.length < 8) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.newPasswordIncorrectLength')
-    } else if (form.password !== form.repeatPassword) {
+    } if (form.password !== form.repeatPassword) {
       DisplayDropdownWithError('dropDownAlert.registration.passwordNotEqual')
-      return 'passwordNotEqual' //return error true because we dont check password match from backend
+      return 'passwordNotEqual'
+      // return error true because we dont check password match from backend
     }
     try {
-      const result = await services.editPassword(state?.user?.phone_number ?? '', form.currentPassword, form.password)
+      const result = await services
+        .editPassword(state?.user?.phone_number ?? '', form.currentPassword, form.password)
+
       if (result.status_code === 200 || !result.status_code) {
         DisplayDropdownWithSuccess('dropDownAlert.editPassword.success')
         navigation.goBack()

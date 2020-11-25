@@ -1,19 +1,29 @@
-import { useEffect, useState, useRef, useContext, RefObject, useCallback } from 'react'
+import {
+  useCallback,
+  RefObject,
+  useEffect,
+  useState,
+  useRef,
+} from 'react'
+import { Platform } from 'react-native'
 import MapView from 'react-native-maps'
+import { useDispatch } from 'react-redux'
 import polyline from '@mapbox/polyline'
+import { useTranslation } from 'react-i18next'
 import RNLocation, { Location, LocationPermissionStatus } from 'react-native-location'
-
-import { Coords } from 'allTypes'
 
 import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
 import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
-import { regionFrom, Defaults, locationConfig, Const } from 'utils'
-import HomeContext from 'hooks/contexts/home'
+import {
+  locationConfig,
+  regionFrom,
+  Defaults,
+  Const,
+} from 'utils'
 import services from 'services'
-import { getAllChargers } from 'hooks/actions/rootActions'
-import { Platform } from 'react-native'
-import { useTranslation } from 'react-i18next'
+import { refreshAllChargers } from 'state/actions/userActions'
 import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
+import { Coords } from 'allTypes'
 
 type ThisRef = {
   interval: number
@@ -30,7 +40,7 @@ type useLocationProps = {
 }
 
 const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
-  const context: any = useContext(HomeContext)
+  const userDispatch = useDispatch()
   const [permissionStatus, setPermissionStatus] = useState<LocationPermissionStatus | null>(null)
   const { t } = useTranslation()
   const _this = useRef<ThisRef>({
@@ -62,13 +72,15 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   )
 
   const getLatestLocation = useCallback(
-    (_location: Location | null): void => {
+    async (_location: Location | null): Promise<void> => {
       _this.current.location = _location // for testing on emulator comment out
       Defaults.location = {
         lat: _location?.latitude ?? 0,
         lng: _location?.longitude ?? 0,
       }
-      getAllChargers(dispatch)
+
+      userDispatch(refreshAllChargers())
+
       _location && navigateByRef(_location.latitude, _location.longitude)
     },
     [dispatch, navigateByRef],
@@ -108,10 +120,19 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         requestPermission()
       } else if (isPermissionGrantedRegex(status)) {
         navigateToLocation()
-        if (Defaults.modal.current?.state?.config?.type === 5) Defaults.modal.current?.customUpdate(false)
+        if (Defaults.modal.current?.state?.config?.type === 5) {
+          Defaults.modal.current?.customUpdate(false)
+        }
       }
     },
-    [permissionStatus, navigateToLocation, requestPermission, setPermissionStatus, isPermissionGrantedRegex, Defaults],
+    [
+      isPermissionGrantedRegex,
+      setPermissionStatus,
+      navigateToLocation,
+      requestPermission,
+      permissionStatus,
+      Defaults,
+    ],
   )
 
   useEffect(() => {
@@ -121,8 +142,8 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
       remoteLogger(error)
     }
 
-    let subscribedPermissionUpdate: any = null
-    ;(async () => {
+    let subscribedPermissionUpdate: any = null;
+    (async () => {
       if (Platform.OS === 'android') {
         await RNLocation.requestPermission({
           android: { detail: 'coarse' },
@@ -132,11 +153,12 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         })
       }
       RNLocation.getLatestLocation({ timeout: 6000 }).then(getLatestLocation)
-      subscribedPermissionUpdate = RNLocation.subscribeToPermissionUpdates(subscribePermissionUpdate)
+      subscribedPermissionUpdate = RNLocation
+        .subscribeToPermissionUpdates(subscribePermissionUpdate)
     })()
 
     return (): void => {
-      subscribedPermissionUpdate()
+      subscribedPermissionUpdate && subscribedPermissionUpdate()
       clearInterval(_this.current.interval)
     }
   }, [getPermissionStatus, getLatestLocation, subscribePermissionUpdate])
@@ -155,12 +177,10 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         if (res.data.status === 'ZERO_RESULTS') throw 'ZERO_RESULTS'
         if (res.data.status !== 'OK') throw 'ERROR'
         const array = polyline.decode(res.data.routes[0].overview_polyline.points)
-        const coordsBetween = array.map((point) => {
-          return {
-            latitude: point[0],
-            longitude: point[1],
-          }
-        })
+        const coordsBetween = array.map((point) => ({
+          latitude: point[0],
+          longitude: point[1],
+        }))
 
         setPolyline(coordsBetween)
         mapRef.current?.fitToCoordinates(coordsBetween, {
@@ -174,8 +194,10 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         })
       } catch (error) {
         if (error === 'ERROR') DisplayDropdownWithError()
-        else if (error === 'ZERO_RESULTS') DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
-        // Vobi Todo: log error to sentry if none matches
+        else if (error === 'ZERO_RESULTS') {
+          DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
+        }
+        // Vobi Done: log error to sentry if none matches
         else remoteLogger(error)
       }
     },
@@ -185,7 +207,6 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   return {
     _this,
     permissionStatus,
-    context,
     navigateToLocation,
     showRoute,
     navigateByRef,

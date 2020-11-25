@@ -1,4 +1,4 @@
-import React, { useContext, ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import {
   StyleSheet,
   View,
@@ -6,13 +6,13 @@ import {
   Platform,
   StatusBar,
 } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Controller } from 'react-hook-form'
 import { ScreenPropsWithNavigation } from 'allTypes'
-import AppContext from 'hooks/contexts/app'
 import images from 'assets/images'
 import { Colors } from 'utils'
 import {
@@ -25,7 +25,7 @@ import {
 import useAuthHook from './useAuthHook'
 
 const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
-  const { dispatch } = useContext(AppContext)
+  const dispatch = useDispatch()
 
   const insets = useSafeAreaInsets()
   const {
@@ -42,24 +42,24 @@ const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(Auth, 'MainDrawer')}
-        title={'authentication.authentication'}
+        title="authentication.authentication"
       />
       <KeyboardAwareScrollView
         style={styles.keyboardAwareScrollView}
         contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
-        keyboardShouldPersistTaps={'handled'}
-        enableOnAndroid={true}
-        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+        enableAutomaticScroll
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
-        enableResetScrollToCoords={true}
+        enableResetScrollToCoords
         resetScrollToCoords={{ x: 0, y: 0 }}
       >
         <PhoneNumberInput
           onChangeText={(text) => setValue('phone', text, true)}
           ref={phoneRef}
           value={watch('phone')}
-          // errorText={errors.phone}
+        // errorText={errors.phone}
         />
         <Controller
           as={BaseInput}
@@ -67,11 +67,11 @@ const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           rules={{ required: true }}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
-          title={'authentication.password'}
+          title="authentication.password"
           image={images.lock}
-          returnKeyType={'send'}
-          secure={true}
-          testID={'passwordInput'}
+          returnKeyType="send"
+          secure
+          testID="passwordInput"
         />
         <TouchableOpacity
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
@@ -94,7 +94,7 @@ const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
         </View>
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
-        behavior={'padding'}
+        behavior="padding"
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={
           Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
@@ -102,7 +102,7 @@ const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
       >
         <BaseButton
           onPress={handleSubmit(buttonClickHandler)}
-          text={'authentication.authentication'}
+          text="authentication.authentication"
           style={styles.baseButton}
         />
       </KeyboardAvoidingView>

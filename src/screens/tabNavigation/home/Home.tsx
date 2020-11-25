@@ -1,16 +1,21 @@
 import React, { useMemo, ReactElement } from 'react'
 import { StyleSheet, View } from 'react-native'
+import { useSelector } from 'react-redux'
+import { selectUser } from 'state/selectors'
 import { ScreenPropsWithNavigation } from 'allTypes'
 import { Defaults, Colors } from 'utils'
 import { useHome } from './hooks'
-import { MapView, HomeMainComponent, BottomSheetModalize } from './components'
+import {
+  BottomSheetModalize,
+  HomeMainComponent,
+  MapView,
+} from './components'
 
 const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const {
     mapRef,
     showAll,
     onMapFilteredChargers,
-    context,
     selectedFiltersOnMap,
     onFilterClickOnMap,
     setShowAll,
@@ -23,6 +28,7 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     searchInputTextChangeHandler,
   } = useHome(navigation)
 
+  const state = useSelector(selectUser)
   console.log(['Home - Layer'])
 
   return useMemo(
@@ -36,14 +42,14 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           navigation={navigation}
         />
         <HomeMainComponent
-          allchargers={context?.state?.AllChargers ?? []}
+          allchargers={state?.AllChargers ?? []}
           mapRef={mapRef}
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}
           setShowAll={setShowAll}
           mainInputRef={mainInputRef}
         />
-        {context?.state?.AllChargers?.length && (
+        {state?.AllChargers?.length && (
           <BottomSheetModalize
             ref={bottomSheetRef}
             onFilterClick={onFilterClick}
@@ -59,7 +65,7 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
       mapRef,
       showAll,
       onMapFilteredChargers,
-      context.state,
+      state,
       selectedFiltersOnMap,
       onFilterClickOnMap,
       setShowAll,

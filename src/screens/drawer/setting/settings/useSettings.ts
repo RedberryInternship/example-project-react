@@ -1,22 +1,29 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import { useState, useContext, useEffect, useCallback } from 'react'
-
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { editUserInfo } from 'state/actions/userActions'
+import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
+import { useTranslation } from 'react-i18next'
+import { selectUser } from 'state/selectors'
+import {
+  setUserData as setUserDataInStorage,
+  setUserDetail,
+} from 'helpers/user'
 import {
   Navigation,
   UserSettingsInfoType,
   SettingsListFieldType,
   UserSettingEnum,
-  AppContextType,
   UserCard,
+  UserState,
 } from '../../../../../@types/allTypes.d'
 
-import AppContext from 'hooks/contexts/app'
-import { editUserInfo } from 'hooks/actions/rootActions'
-import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
-import { useTranslation } from 'react-i18next'
-
 export default (navigation: Navigation) => {
-  const { state, dispatch }: AppContextType = useContext(AppContext)
+  const state: UserState = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [userData, setUserData] = useState<UserSettingsInfoType | null>(null)
 
   const { t } = useTranslation()
@@ -41,7 +48,10 @@ export default (navigation: Navigation) => {
           _selectedItem = 'settings.automatic'
           break
       }
-      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode)
+
+      setUserDetail(UserSettingEnum.mapMode, _selectedItem)
+      setUserDataInStorage()
+      dispatch(editUserInfo(_selectedItem, UserSettingEnum.mapMode))
     }
   }, [selectedItem])
 
@@ -78,7 +88,7 @@ export default (navigation: Navigation) => {
       const activeCard = userCards.find((val) => val.default === 1)
       if (activeCard) {
         return activeCard.masked_pan
-      } else return ''
+      } return ''
       // Vobi Todo: choose one approach
       // if() { return } else { return }
       // if() return else return
@@ -98,9 +108,11 @@ export default (navigation: Navigation) => {
         type: item.type,
         name: item.editableComponentName,
         inputName: item.name,
-        value: value,
+        value,
       })
     }
   }
-  return { userData, state, dispatch, onPressHandler }
+  return {
+    userData, state, dispatch, onPressHandler,
+  }
 }

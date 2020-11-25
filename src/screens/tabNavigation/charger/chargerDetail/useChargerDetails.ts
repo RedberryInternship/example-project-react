@@ -1,27 +1,51 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import { useState, useRef, useContext, useEffect } from 'react'
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+} from 'react'
 import { TextInput, BackHandler } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
-import AppContext from 'hooks/contexts/app'
 import ChargerContext from 'hooks/contexts/charger'
-import { AppContextType, Charger, HomeNavigateModes, LanguageType } from '../../../../../@types/allTypes.d'
-import { NavigationState, NavigationScreenProp, NavigationParams, NavigationEventPayload } from 'react-navigation'
-import { Defaults, NavigationActions, getLocaleText, Const } from 'utils'
+import {
+  NavigationEventPayload,
+  NavigationScreenProp,
+  NavigationParams,
+  NavigationState,
+} from 'react-navigation'
+import { selectUser } from 'state/selectors'
+import {
+  NavigationActions,
+  getLocaleText,
+  Defaults,
+  Const,
+} from 'utils'
 import { getAndRequestLocation } from 'helpers/location'
-import { easyAlert, DisplayDropdownWithError } from 'helpers/inform'
-import { deleteFromFavorites, addToFavorites } from '../../../../hooks/actions/rootActions'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+  easyAlert,
+} from 'helpers/inform'
 import services from 'services'
 import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
 import { isPermissionDeniedRegex } from 'utils/mapAndLocation/permissionsRegex'
-import { remoteLogger } from 'helpers/inform'
+import {
+  removeChargerFromFavorites,
+  addChargerToFavorites,
+} from 'state/actions/userActions'
+import {
+  HomeNavigateModes,
+  LanguageType,
+  Charger,
+} from '../../../../../@types/allTypes.d'
 
 export default (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
-  const { state, dispatch }: AppContextType = useContext(AppContext)
+  const state = useSelector(selectUser)
+  const dispatch = useDispatch()
 
   const {
     state: { chargingState },
-    dispatch: chargerDispatch,
   } = useContext(ChargerContext)
 
   const [loading, setLoading] = useState<boolean>(true)
@@ -31,8 +55,7 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
   const backHandlerRef = useRef<any>()
 
   const [charger, setCharger] = useState<(Charger & { from?: string }) | undefined>(
-    navigation.getParam('chargerDetails', undefined),
-  )
+    navigation.getParam('chargerDetails', undefined))
 
   const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
   const passwordRef: React.RefObject<TextInput> = useRef(null)
@@ -41,7 +64,8 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
 
   useEffect(() => {
     const didFocus = navigation.addListener('didFocus', onScreenFocus)
-    const willBlur = navigation.addListener('willBlur', () => backHandlerRef.current && backHandlerRef.current.remove())
+    const willBlur = navigation
+      .addListener('willBlur', () => backHandlerRef.current && backHandlerRef.current.remove())
     backHandlerRef.current = BackHandler.addEventListener('hardwareBackPress', headerLeftPress)
 
     return (): void => {
@@ -74,8 +98,9 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
 
   const chargerLocationDirectionHandler = async (): Promise<void> => {
     if (
-      (Defaults.locationPermissionStatus && isPermissionDeniedRegex(Defaults.locationPermissionStatus)) ||
-      !Const.platformIOS
+      (Defaults.locationPermissionStatus
+        && isPermissionDeniedRegex(Defaults.locationPermissionStatus))
+      || !Const.platformIOS
     ) {
       const status = await getAndRequestLocation()
       if (!status) return DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
@@ -90,7 +115,7 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
     }
   }
 
-  const onFavoritePress = (): void => {
+  const onFavoritePress = async (): Promise<void> => {
     if (!Defaults.token) return DisplayDropdownWithError('dropDownAlert.charging.needToLogIn')
 
     const newCharger = {
@@ -104,9 +129,11 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
     }
 
     if (charger?.is_favorite === false) {
-      addToFavorites(charger.id, dispatch, updateCharger)
+      dispatch(addChargerToFavorites(charger.id))
+      updateCharger()
     } else if (charger?.is_favorite === true) {
-      deleteFromFavorites(charger.id, dispatch, updateCharger)
+      dispatch(removeChargerFromFavorites(charger.id))
+      updateCharger()
     } else {
       DisplayDropdownWithError()
     }
@@ -120,22 +147,24 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
         onLeftClick: () => navigation.navigate('Auth'),
       })
       return
-    } else if (state.user?.user_cards.length === 0) {
+    } if (state.user?.user_cards.length === 0) {
       easyAlert({
         text: 'chargerDetail.pleaseAddCardFirst',
         leftText: 'settings.add',
         onLeftClick: () => navigation.navigate('CardAdd'),
       })
       return
-    } else if (chargingState.length > 1) {
+    } if (chargingState.length > 1) {
       DisplayDropdownWithError(t('chargerDetail.maxAllowedCarCharing'))
       return
-    } else if (activeChargerType === -1) {
+    } if (activeChargerType === -1) {
       DisplayDropdownWithError(t('chargerDetail.selectConnector'))
       return
-    } else if (
-      chargingState.length > 0 &&
-      charger?.connector_types[activeChargerType]?.pivot.id === chargingState[activeChargerType]?.charger_id
+    } if (
+      chargingState.length > 0
+      && charger
+        ?.connector_types[activeChargerType]
+        ?.pivot.id === chargingState[activeChargerType]?.charger_id
     ) {
       DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
       return
@@ -149,9 +178,9 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
     try {
       const coords = await getCoordsAnyway()
       const result = await services.getDistance(coords.lat, coords.lng, lat, lng)
-      if (result?.data.rows?.[0].elements?.[0].status !== 'ZERO_RESULTS')
+      if (result?.data.rows?.[0].elements?.[0].status !== 'ZERO_RESULTS') {
         setDistance(result?.data.rows?.[0].elements?.[0].distance.text)
-      else {
+      } else {
         setDistance('0')
         DisplayDropdownWithError('dropDownAlert.charging.noRouteFound')
       }
@@ -177,20 +206,20 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
     Defaults.dropdown.alertWithType('info', t(getLocaleText(title)), t(getLocaleText(description)))
   }
   return {
-    loading,
-    setLoading,
-    passwordRef,
-    t,
-    onFavoritePress,
-    showChargerLocationHandler,
     chargerLocationDirectionHandler,
-    chargeWitchCode,
-    activeChargerType,
-    setActiveChargerType,
+    showChargerLocationHandler,
     mainButtonClickHandler,
-    charger,
-    distance,
-    headerLeftPress,
     onBusinessServiceClick,
+    setActiveChargerType,
+    activeChargerType,
+    headerLeftPress,
+    onFavoritePress,
+    chargeWitchCode,
+    passwordRef,
+    setLoading,
+    distance,
+    loading,
+    charger,
+    t,
   }
 }

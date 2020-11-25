@@ -1,26 +1,22 @@
-import React, {ReactElement, useCallback, useContext} from 'react'
-import {View, StyleSheet} from 'react-native'
+import React, { ReactElement, useCallback } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { BaseHeader, CardAddView } from 'components'
+import { Colors } from 'utils'
+import { refreshUserData } from 'state/actions/userActions'
+import { ScreenPropsWithNavigation } from '../../../@types/allTypes'
 
-import {ScreenPropsWithNavigation} from '../../../@types/allTypes'
+const CardAdd = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const dispatch = useDispatch()
 
-import {BaseHeader, CardAddView} from 'components'
-import {Colors} from 'utils'
-
-import AppContext from 'hooks/contexts/app'
-import {AppContextType} from 'allTypes'
-import {updateUser} from 'hooks/actions/rootActions'
-
-const CardAdd = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {dispatch}: AppContextType = useContext(AppContext)
-
-  const onSuccess = useCallback(() => {
-    updateUser(dispatch)
+  const onSuccess = useCallback(async () => {
+    dispatch(refreshUserData())
     navigation.goBack()
   }, [navigation])
 
   return (
     <View style={styles.container}>
-      <BaseHeader title={'settings.addCard'} onPressLeft={navigation.goBack} />
+      <BaseHeader title="settings.addCard" onPressLeft={navigation.goBack} />
       <CardAddView onSuccess={onSuccess} />
     </View>
   )

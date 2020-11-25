@@ -1,10 +1,11 @@
-import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
+import {
+  useEffect, useState, useRef, useCallback, useMemo,
+} from 'react'
 import {
   Keyboard,
   Animated,
   Easing,
   TextInput,
-  Alert,
   BackHandler,
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

@@ -1,6 +1,6 @@
-import { ChargerActions, ChargerAction } from '../actions/chargerActions'
 import { ChargerState } from 'allTypes'
 import initialState from 'hooks/initialStates/charger'
+import { ChargerActions, ChargerAction } from '../actions/chargerActions'
 
 function reducer(
   state: ChargerState = initialState,

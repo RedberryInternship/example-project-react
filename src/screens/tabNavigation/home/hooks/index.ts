@@ -3,4 +3,6 @@ import useHomeMainSearch from './useHomeMainSearch'
 import useMapView from './useMapView'
 import useLocation from './useLocation'
 
-export {useHome, useHomeMainSearch, useMapView, useLocation}
+export {
+  useHome, useHomeMainSearch, useMapView, useLocation,
+}

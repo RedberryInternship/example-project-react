@@ -1,17 +1,11 @@
 import { useReducer } from 'react'
 /** Contexts */
-import AppContext from 'hooks/contexts/app'
-import HomeContext from 'hooks/contexts/home'
 import ChargerContext from 'hooks/contexts/charger'
 
 /** Reducers */
-import rootReducer from 'hooks/reducers/rootReducer'
-import homeReducers from 'hooks/reducers/homeReducers'
 import chargerReducer from 'hooks/reducers/chargerReducer'
 
 /** Initial states */
-import appInitialState from 'hooks/initialStates/app'
-import homeInitialState from 'hooks/initialStates/home'
 import chargerInitialState from 'hooks/initialStates/charger'
 
 /**
@@ -21,12 +15,6 @@ import chargerInitialState from 'hooks/initialStates/charger'
  * @returns {Object}
  */
 const createState = () => {
-  const [appState, appDispatch] = useReducer(rootReducer, appInitialState)
-  const appContextValue = mapDefaultKeys(appState, appDispatch)
-
-  const [homeState, homeDispatch] = useReducer(homeReducers, homeInitialState)
-  const homeContextValue = mapDefaultKeys(homeState, homeDispatch)
-
   const [chargerState, chargerDispatch] = useReducer(
     chargerReducer,
     chargerInitialState,
@@ -34,10 +22,6 @@ const createState = () => {
   const chargerContextValue = mapDefaultKeys(chargerState, chargerDispatch)
 
   return {
-    HomeContext,
-    homeContextValue,
-    AppContext,
-    appContextValue,
     ChargerContext,
     chargerContextValue,
   }
@@ -52,11 +36,9 @@ const createState = () => {
  *
  * @returns {Object}
  */
-const mapDefaultKeys = (state: any, dispatch: any) => {
-  return {
-    state: state,
-    dispatch: dispatch,
-  }
-}
+const mapDefaultKeys = (state: any, dispatch: any) => ({
+  state,
+  dispatch,
+})
 
 export default createState

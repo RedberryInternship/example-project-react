@@ -1,16 +1,17 @@
-// eslint-disable-next-line no-unused-vars
-import {useEffect, useState, useRef, useContext, useCallback} from 'react'
-
-import {Defaults} from 'utils'
-
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from 'react'
+import { BackHandler, Keyboard } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { refreshUserData } from 'state/actions/userActions'
+import { Defaults } from 'utils'
 import useRegistrationHookStep1 from './useRegistrationStep1'
 import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
 import useRegistrationHookStep4 from './useRegistrationStep4'
-
-import AppContext from 'hooks/contexts/app'
-import {BackHandler, Keyboard} from 'react-native'
-import {updateUser} from 'hooks/actions/rootActions'
 
 let userRegistrationState = 0
 
@@ -18,11 +19,9 @@ export default (navigation: any) => {
   const flatListRef: any = useRef(null)
   const backHandlerRef: any = useRef(null)
   const KeyboardAwareScrollViewRef: any = useRef(null)
-
+  const dispatch = useDispatch()
   const newPasswordRef: any = useRef(null)
   const repeatPasswordRef: any = useRef(null)
-
-  const {dispatch} = useContext(AppContext)
 
   const [activePage, setActivePage] = useState<number>(0)
 
@@ -32,7 +31,6 @@ export default (navigation: any) => {
     setActivePage,
     regStep1.getValues,
     regStep2.getValues,
-    dispatch,
   )
   const regStep4 = useRegistrationHookStep4(setActivePage)
 
@@ -43,32 +41,30 @@ export default (navigation: any) => {
     setTimeout(() => paginationClickHandler(activePage), 250)
   }, [activePage])
 
-  useEffect(() => {
-    return () => {
-      userRegistrationState = 0
-    }
+  useEffect(() => () => {
+    userRegistrationState = 0
   }, [])
 
   const paginationClickHandler = async (index: number) => {
     if (index > userRegistrationState) return
-    else if (userRegistrationState === activePage) {
-      //do nothing
+    if (userRegistrationState === activePage) {
+      // do nothing
     } else if (!(await validateAccordingActivePage())) return
 
-    flatListRef.current.scrollToIndex({index, animated: true})
+    flatListRef.current.scrollToIndex({ index, animated: true })
     setActivePage(index)
   }
 
   const validateAccordingActivePage = async () => {
     switch (activePage) {
       case 0:
-        return await regStep1.triggerValidation()
+        return regStep1.triggerValidation()
       case 1:
-        return await regStep2.triggerValidation()
+        return regStep2.triggerValidation()
       case 2:
-        return await regStep3.triggerValidation()
+        return regStep3.triggerValidation()
       case 3:
-        return true //TODO: no card service
+        return true // TODO: no card service
       default:
         return false
     }
@@ -76,8 +72,8 @@ export default (navigation: any) => {
 
   const headerRightClick = () => {
     // show modal
-    Defaults.modal.current &&
-      Defaults.modal.current.customUpdate(true, {
+    Defaults.modal.current
+      && Defaults.modal.current.customUpdate(true, {
         type: 1,
         onCloseClick: addCardSkip,
       })
@@ -115,7 +111,7 @@ export default (navigation: any) => {
   }, [backButtonClick])
 
   const onCardAddSuccess = () => {
-    updateUser(dispatch)
+    dispatch(refreshUserData())
     headerRightClick()
   }
   return {

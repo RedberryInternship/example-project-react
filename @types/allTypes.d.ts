@@ -1,12 +1,19 @@
-/* eslint-disable @typescript-eslint/camelcase */
-/* eslint-disable no-unused-vars */
-// declare module 'react-native-hooks'
-import { TextInputProps, ImageSourcePropType, StyleProp, ImageStyle, ViewStyle } from 'react-native'
+import {
+  ImageSourcePropType,
+  TextInputProps,
+  ImageStyle,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 import { RefObject, Ref } from 'react'
 import { Item } from 'react-native-picker-select'
 import { LocationPermissionStatus } from 'react-native-location'
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 import { MapViewProps } from 'react-native-maps'
+
+export type ApplicationState = {
+  user: UserState
+}
 
 type LanguageType = {
   en: string
@@ -148,13 +155,13 @@ type ChargerFastChargingPrices = {
   charger_connector_type_id: number
 }
 
-export type AppState = {
+export type UserState = {
   user: UserMeResponseType | null
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
   favoriteChargers: Favorite[] | null
-  userState: any //TODO: don't know object structure
+  userState: any // TODO: don't know object structure
 }
 
 export enum SendSmsCodeStatus {
@@ -183,11 +190,6 @@ export type ChargingState = {
 export type Action = {
   type: string
   payload: any
-}
-
-export type AppContextType = {
-  state: AppState
-  dispatch: any
 }
 
 export enum ChargingFinishedPopupEnum {
@@ -234,10 +236,10 @@ export type BasePickerSelectProp = {
 
 export type LocaleStringObject =
   | {
-      en: string
-      ka: string
-      ru: string
-    }
+    en: string
+    ka: string
+    ru: string
+  }
   | undefined
 
 export enum HomeNavigateModes {
@@ -272,12 +274,12 @@ export type HomeContextType = {
 }
 
 export type ChargerState = {
-  chargingStarted: any //TODO: don't know object structure
-  chargingStartedError: any //TODO: don't know object structure
-  chargingFinished: any //TODO: don't know object structure
-  chargingFinishedError: any //TODO: don't know object structure
+  chargingStarted: any // TODO: don't know object structure
+  chargingStartedError: any // TODO: don't know object structure
+  chargingFinished: any // TODO: don't know object structure
+  chargingFinishedError: any // TODO: don't know object structure
   chargingState: ChargingState[]
-  chargingStateError: any //TODO: don't know object structure
+  chargingStateError: any // TODO: don't know object structure
 }
 
 export type Favorite = {
@@ -504,7 +506,7 @@ export type UserMeResponseType = {
   user_cards: UserCard[]
   user_cars: any[]
   car_models: any[]
-  avatar: number //TODO:needs correct key
+  avatar: number // TODO:needs correct key
 } | null
 
 export type UserCard = {
@@ -685,7 +687,19 @@ export type GetCardAddUrl = {
   failed_url
 }
 
-export type RootActionArg1 = { user: UserMeResponseType; token: string | null }
+export type SaveUserAndRefreshAction = {
+  type: string
+  payload: SaveUserPayload
+}
+
+export type SaveUserPayload = {
+  userData: UserMeResponseType
+  token: string | null
+}
+export type FavoriteChargerAction = {
+  type: string
+  payload: number
+}
 
 export type EasyAlert = Partial<{
   title: string

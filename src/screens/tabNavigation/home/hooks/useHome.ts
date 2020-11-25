@@ -1,20 +1,27 @@
-import { useState, useEffect, useRef, RefObject, useContext, useCallback } from 'react'
-import { NavigationParams, NavigationScreenProp, NavigationState, NavigationEventPayload } from 'react-navigation'
-
-import AppContext from 'hooks/contexts/app'
+import {
+  useCallback,
+  useEffect,
+  RefObject,
+  useState,
+  useRef,
+} from 'react'
+import {
+  NavigationEventPayload,
+  NavigationScreenProp,
+  NavigationParams,
+  NavigationState,
+} from 'react-navigation'
 import { GetFilteredCharger } from 'helpers/chargerFilter'
 import { DrawerActions } from 'react-navigation-drawer'
 import { Modalize } from 'react-native-modalize'
 import {
-  HomeNavigateModes,
-  AppContextType,
-  Charger,
   MapImperativeRefObject,
+  HomeNavigateModes,
   ChargerDetail,
+  Charger,
 } from '../../../../../@types/allTypes.d'
 
 const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
-  const context: AppContextType = useContext(AppContext)
   const [loading, setLoading] = useState<boolean>(true)
 
   const [selectedFilters, setSelectedFilters] = useState<boolean[]>(Array(6).fill(false))
@@ -146,23 +153,22 @@ const useHome = (navigation: NavigationScreenProp<NavigationState, NavigationPar
   }, [selectedFiltersOnMap])
 
   return {
-    loading,
-    setLoading,
-    bottomSheetRef,
-    mapRef,
-    selectedFilters,
-    onFilterClick,
-    onFilteredItemClick,
     searchInputTextChangeHandler,
-    context,
-    showAll,
-    setShowAll,
-    onFilterClickOnMap,
-    selectedFiltersOnMap,
     setSelectedFiltersOnMap,
-    mainInputRef,
     onMapFilteredChargers,
+    selectedFiltersOnMap,
+    onFilteredItemClick,
     bottomSheetChargers,
+    onFilterClickOnMap,
+    selectedFilters,
+    bottomSheetRef,
+    onFilterClick,
+    mainInputRef,
+    setShowAll,
+    setLoading,
+    showAll,
+    loading,
+    mapRef,
   }
 }
 export default useHome

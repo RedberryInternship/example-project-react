@@ -1,13 +1,11 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import { ChargingTypes, ChargingStatus, ChargingState } from '../../../@types/allTypes.d'
-
 import Defaults from 'utils/defaults'
 import NavigationActions from 'utils/navigation.service'
 import { getLocaleText } from 'utils/localization/localization'
 import { configureChargingFinishPopup } from 'helpers/finishingPopup'
 import { DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
 import services from 'services'
-import { getAllChargers } from './rootActions'
+import { getAllChargers } from 'state/actions/userActions'
+import { ChargingTypes, ChargingStatus, ChargingState } from '../../../@types/allTypes.d'
 
 export enum ChargerActions {
   CHARGING_STARTED_SUCCESS,
@@ -27,7 +25,9 @@ type StartChargingArg = {
 
 // START
 export const startCharging = async (
-  { type, connectorTypeId, amount, userCardId }: StartChargingArg,
+  {
+    type, connectorTypeId, amount, userCardId,
+  }: StartChargingArg,
   dispatch: any,
   setLoading: (bool: boolean) => void,
 ) => {
@@ -85,7 +85,7 @@ export const finishCharging = async ({ orderId }: { orderId: number }, dispatch:
     else DisplayDropdownWithError()
     dispatch(finishChargingAction(error, false))
   }
-  //load chargers if charging is finished
+  // load chargers if charging is finished
   services.getAllChargersFiltered()
 }
 
@@ -96,7 +96,9 @@ type FinishChargingAction = {
 
 // FINISH ACTION
 const finishChargingAction = (payload: any, success = true): FinishChargingAction => ({
-  type: success ? ChargerActions.CHARGING_FINISHED_SUCCESS : ChargerActions.CHARGING_FINISHED_FAILURE,
+  type: success
+    ? ChargerActions.CHARGING_FINISHED_SUCCESS
+    : ChargerActions.CHARGING_FINISHED_FAILURE,
   payload,
 })
 

@@ -1,6 +1,6 @@
-import { AppState } from 'allTypes'
+import { UserState } from 'allTypes'
 
-const initialState: AppState = {
+const initialState: UserState = {
   user: null,
   loading: false,
   authStatus: null,

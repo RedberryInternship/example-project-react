@@ -1,11 +1,11 @@
-import React, { useContext, useMemo, useState } from 'react'
+import React, { useContext } from 'react'
 import useStartUp from 'hooks/startUp'
 import { StatusBar } from 'react-native'
-import Navigation from '../src/navigation'
 import { CustomModal } from 'components'
 import Defaults from 'utils/defaults'
 import CustomDropdownAlert from 'components/CustomDropdownAlert'
 import ChargersContext from 'hooks/contexts/charger'
+import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {
   const { setNavigationTopLevelElement, dropDownInactiveBarColor } = useStartUp()
@@ -20,7 +20,7 @@ const StartUpLayer = () => {
           token: Defaults.token,
           chargingState: state.chargingState,
         }}
-        theme={'dark'}
+        theme="dark"
         onNavigationStateChange={(_, state) => {
           StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
         }}

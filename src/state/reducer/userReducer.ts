@@ -1,17 +1,17 @@
+import { UserState, Action } from 'allTypes'
+import initialState from 'state/initialStates/user'
 import {
   SAVE_TOKEN,
   GET_ALL_CHARGER_SUCCESS,
   LOG_OUT,
   GET_FAVORITE_CHARGERS,
   EDIT_USER_INFO,
-} from '../actionTypes/rootActions'
-import { AppState, Action } from 'allTypes'
-import initialState from 'hooks/initialStates/app'
+} from 'state/actionTypes/userActionTypes'
 
 function reducer(
-  state: AppState = initialState,
+  state: UserState = initialState,
   { type, payload }: Action,
-): AppState {
+): UserState {
   switch (type) {
     case SAVE_TOKEN:
       return {

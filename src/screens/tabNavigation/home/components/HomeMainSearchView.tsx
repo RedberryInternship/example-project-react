@@ -1,12 +1,16 @@
-import React, { forwardRef, useImperativeHandle, useMemo, ReactElement, useCallback } from 'react'
-import { StyleSheet, Animated, View, TouchableOpacity } from 'react-native'
+import React, {
+  forwardRef, useImperativeHandle, useMemo, ReactElement, useCallback,
+} from 'react'
+import {
+  StyleSheet, Animated, View, TouchableOpacity,
+} from 'react-native'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
 
 import { Charger, MapImperativeRefObject } from 'allTypes'
 
 import { HomeMainSearchInput } from 'components'
-import { useHomeMainSearch } from '../hooks'
 import { Const, Colors, getLocaleText } from 'utils'
+import { useHomeMainSearch } from '../hooks'
 import MainSearchItem from './MainSearchItem'
 
 type MainInput = {
@@ -30,7 +34,7 @@ const HomeMainSearchView = forwardRef(
       InputRef,
       inputText,
     } = useHomeMainSearch(allChargers, mapRef, setShowAll)
-    const InputSubmit = (): void => {}
+    const InputSubmit = (): void => { }
 
     useImperativeHandle(ref, () => ({
       close: closeClick.bind(HomeMainSearchView, true),
@@ -55,18 +59,16 @@ const HomeMainSearchView = forwardRef(
             />,
           )
         } else {
-          chargerObj?.charger_group?.chargers?.map((val) =>
-            view.push(
-              <MainSearchItem
-                key={val.id + 'inside'}
-                text={getLocaleText(val.name)}
-                mainTitle={getLocaleText(val.location)}
-                onPress={onSearchItemClickHandler.bind(HomeMainSearchView, val.lat, val.lng)}
-              />,
-            ),
-          )
+          chargerObj?.charger_group?.chargers?.map((val) => view.push(
+            <MainSearchItem
+              key={`${val.id}inside`}
+              text={getLocaleText(val.name)}
+              mainTitle={getLocaleText(val.location)}
+              onPress={onSearchItemClickHandler.bind(HomeMainSearchView, val.lat, val.lng)}
+            />,
+          ))
         }
-        return <React.Fragment>{view}</React.Fragment>
+        return <>{view}</>
       },
       [getLocaleText, onSearchItemClickHandler],
     )
@@ -105,17 +107,17 @@ const HomeMainSearchView = forwardRef(
                   <KeyboardAwareFlatList
                     style={{ flex: 1 }}
                     contentContainerStyle={{}}
-                    keyboardShouldPersistTaps={'handled'}
-                    enableOnAndroid={true}
-                    enableAutomaticScroll={true}
+                    keyboardShouldPersistTaps="handled"
+                    enableOnAndroid
+                    enableAutomaticScroll
                     extraScrollHeight={0}
                     showsVerticalScrollIndicator={false}
-                    enableResetScrollToCoords={true}
+                    enableResetScrollToCoords
                     resetScrollToCoords={{ x: 0, y: 0 }}
-                    viewIsInsideTabBar={true}
+                    viewIsInsideTabBar
                     data={filteredChargers}
                     renderItem={searchedItems}
-                    keyExtractor={(item: Charger) => item.id + ''}
+                    keyExtractor={(item: Charger) => `${item.id}`}
                     initialNumToRender={6}
                     extraData={filteredChargers}
                   />

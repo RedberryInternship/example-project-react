@@ -28,13 +28,19 @@
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "react/jsx-filename-extension": [1, {
-            "allow": "as-needed"
+            "allow": "as-needed",
+            "extensions": [".tsx"]
         }],
+        "react/jsx-no-bind": "off",
         "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": "error",
         "max-len": ["error", {
             "code": 100
-        }]
+        }],
+        "no-use-before-define": "off",
+        "no-unused-expressions": "off",
+        "consistent-return": "off",
+        "camelcase": "off"
     },
     "settings": {
         "import/resolver": {
