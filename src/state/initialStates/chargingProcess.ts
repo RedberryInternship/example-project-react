@@ -1,4 +1,3 @@
-import { exp } from 'react-native-reanimated'
 import { ChargerState } from 'allTypes'
 
 const initialState: ChargerState = {

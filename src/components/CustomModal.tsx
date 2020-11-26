@@ -7,9 +7,8 @@ import LocationPermission from 'components/modalTypes/LocationPermission'
 import RegistrationType1 from 'components/modalTypes/RegistrationType1'
 import PrivacyPolicy from 'components/modalTypes/PrivacyPolicy'
 import LegendType2 from 'components/modalTypes/LegendType2'
-import { ChargingStatus } from '../../@types/allTypes.d'
+import { ChargingStatus, ModalTypes } from 'utils/enums'
 import MapPopUp from 'components/modalTypes/MapPopUp'
-import { ModalTypes } from 'utils/enums'
 
 type Data = {
   title?: string
@@ -49,6 +48,7 @@ const initialState: InitialState = {
 
 class CustomModal extends React.PureComponent implements CustomModalInterface {
   state = { ...initialState }
+
   ref: any = React.createRef()
 
   showModal = (): void => {
@@ -79,13 +79,13 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         ref={this.ref}
         onSwipeComplete={this.closeModal}
         swipeDirection={['down']}
-        useNativeDriver={true}
+        useNativeDriver
         onBackdropPress={this.closeModal}
         onBackButtonPress={this.closeModal}
-        hideModalContentWhileAnimating={true}
-        propagateSwipe={true}
-        coverScreen={true}
-        statusBarTranslucent={true}
+        hideModalContentWhileAnimating
+        propagateSwipe
+        coverScreen
+        statusBarTranslucent
       >
         <View
           style={[

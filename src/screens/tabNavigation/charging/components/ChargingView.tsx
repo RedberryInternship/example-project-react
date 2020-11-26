@@ -1,9 +1,12 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { ReactElement, useMemo } from 'react'
-import { View, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import {
+  View, StyleSheet, TouchableOpacity, Image,
+} from 'react-native'
 
 import { Const, Colors } from 'utils'
-import { Pulse, CountDown, BaseButton, BaseText } from 'components'
+import {
+  Pulse, CountDown, BaseButton, BaseText,
+} from 'components'
 import images from 'assets/images'
 import {
   NavigationScreenProp,
@@ -27,7 +30,9 @@ type ChargingViewProps = {
   singleCharger?: boolean
 }
 const ChargingView = ({
-  hook: { t, navigation, onFinish, setLoading, loading },
+  hook: {
+    t, navigation, onFinish, setLoading, loading,
+  },
   chargingState: {
     consumed_money,
     already_paid,
@@ -36,7 +41,6 @@ const ChargingView = ({
   },
   singleCharger,
 }: ChargingViewProps): ReactElement => {
-  
   const CircleDiameter = useMemo(
     () => Const.Width - 150 - (singleCharger ? 0 : 50),
     [singleCharger],
@@ -74,10 +78,15 @@ const ChargingView = ({
 
       <View style={styles.pricingView}>
         <BaseText style={styles.currentlyChargedPrice}>
-          {consumed_money} /{' '}
+          {consumed_money}
+          {' '}
+          /
+          {' '}
         </BaseText>
         <BaseText style={styles.finalPrice}>
-          {already_paid} {t('gel')}
+          {already_paid}
+          {' '}
+          {t('gel')}
         </BaseText>
       </View>
       <View style={styles.chargeAnotherCarContainer}>
@@ -96,7 +105,7 @@ const ChargingView = ({
 
         <BaseButton
           onPress={() => { setLoading(true); onFinish(order_id) }}
-          text={'charging.finish'}
+          text="charging.finish"
           style={styles.finishBtn}
           loading={loading}
         />

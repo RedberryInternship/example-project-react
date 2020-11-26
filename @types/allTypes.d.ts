@@ -5,14 +5,17 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native'
-import { RefObject, Ref } from 'react'
+import { RefObject } from 'react'
 import { Item } from 'react-native-picker-select'
 import { LocationPermissionStatus } from 'react-native-location'
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 import { MapViewProps } from 'react-native-maps'
+import { ChargingStatus } from 'utils/enums'
+import { Dispatch } from 'redux';
 
 export type ApplicationState = {
   user: UserState
+  chargingProcess: ChargerState
 }
 
 type LanguageType = {
@@ -35,19 +38,6 @@ export type StartChargingResponseType = {
   consumed_money: number
   refund_money: number
   user_card_id: string
-}
-export enum ChargingStatus {
-  INITIATED = 'INITIATED',
-  CHARGING = 'CHARGING',
-  CHARGED = 'CHARGED',
-  FINISHED = 'FINISHED',
-  ON_FINE = 'ON_FINE',
-  USED_UP = 'USED_UP',
-  ON_HOLD = 'ON_HOLD',
-  UNPLUGGED = 'UNPLUGGED',
-  NOT_CONFIRMED = 'NOT_CONFIRMED',
-  BANKRUPT = 'BANKRUPT',
-  PAYMENT_FAILED = 'PAYMENT_FAILED',
 }
 
 export type StandardErrorResponseType = {
@@ -709,3 +699,58 @@ export type EasyAlert = Partial<{
   onRightClick: () => void
   onLeftClick: () => void
 }>
+
+export type StartChargingArg = {
+  type: ChargingTypes
+  connectorTypeId: number
+  amount?: number
+  userCardId: number | undefined
+}
+
+export type ChargerAction = {
+  type: 'CHARGING_STARTED_SUCCESS'
+  | 'CHARGING_STARTED_FAILURE'
+  | 'CHARGING_FINISHED_SUCCESS'
+  | 'CHARGING_FINISHED_FAILURE'
+  | 'CHARGING_STATE_SUCCESS'
+  | 'CHARGING_STATE_FAILURE'
+  payload: any
+}
+
+export type ChargingStateAction = {
+  type: 'CHARGING_STATE_SUCCESS' | 'CHARGING_STATE_FAILURE'
+  payload: any
+}
+
+export type FinishChargingAction = {
+  type: 'CHARGING_FINISHED_SUCCESS' | 'CHARGING_FINISHED_FAILURE'
+  payload: any
+}
+
+export type StartChargingAction = {
+  type: 'CHARGING_STARTED_SUCCESS' | 'CHARGING_STARTED_FAILURE'
+  payload: any
+}
+
+export type StartChargingSagaAction = {
+  type: string
+  payload: {
+    config: StartChargingArg
+    setLoading: (bool: boolean) => void
+  }
+}
+
+export type FinishChargingSagaAction = {
+  type: string
+  payload: number
+}
+
+export type UpdateChargingProcessesSagaAction = {
+  type: string
+  payload: ChargingState[],
+  status: boolean,
+}
+
+export type References = {
+  reduxDispatch: Dispatch<any> | undefined,
+}

@@ -1,17 +1,16 @@
+/* eslint-disable default-case */
+/* eslint-disable import/prefer-default-export */
 import Defaults from 'utils/defaults'
-import {
-  ChargingStatus,
-  ChargingState,
-  ChargingFinishedPopupEnum,
-} from '../../@types/allTypes.d'
-import { chargingState } from 'hooks/actions/chargerActions'
+import { refreshChargingProcesses } from 'state/actions/chargingProcessActions'
 import { DisplayDropdownWithError } from 'helpers/inform'
+import { ChargingStatus } from 'utils/enums'
+import references from 'utils/references'
+import {
+  ChargingFinishedPopupEnum,
+  ChargingState,
+} from '../../@types/allTypes.d'
 
-const onModalClose = (dispatch: any) => {
-  chargingState(dispatch)
-}
-
-export const configureChargingFinishPopup = (
+const configureChargingFinishPopup = (
   {
     charging_status,
     already_paid,
@@ -19,20 +18,20 @@ export const configureChargingFinishPopup = (
     charger_type,
     refund_money,
     consumed_money,
-    charging_type,
     is_free,
   }: ChargingState,
-  dispatch: any,
 ) => {
+  const dispatch = references.reduxDispatch
+
   if (charging_status === ChargingStatus.UNPLUGGED) {
     DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
     return
   }
 
   if (
-    charging_status !== ChargingStatus.INITIATED &&
-    charging_status !== ChargingStatus.CHARGING &&
-    charging_status !== ChargingStatus.NOT_CONFIRMED
+    charging_status !== ChargingStatus.INITIATED
+    && charging_status !== ChargingStatus.CHARGING
+    && charging_status !== ChargingStatus.NOT_CONFIRMED
   ) {
     let options: any = {
       type: 3,
@@ -45,9 +44,11 @@ export const configureChargingFinishPopup = (
         time: penalty_start_time,
         consumedMoney: consumed_money,
         refundMoney: refund_money,
-        is_free: is_free,
+        is_free,
       },
-      onCloseClick: () => onModalClose(dispatch),
+      onCloseClick: () => {
+        dispatch && dispatch(refreshChargingProcesses())
+      },
     }
 
     switch (charging_status) {
@@ -59,9 +60,7 @@ export const configureChargingFinishPopup = (
             ...options.data,
             bottomDescription: 'popup.warningTextBeforeFine',
             onFine: false,
-            onFinish: () => {
-              chargingState(dispatch)
-            },
+            onFinish: () => dispatch && dispatch(refreshChargingProcesses()),
           },
         }
         break
@@ -95,7 +94,7 @@ export const configureChargingFinishPopup = (
         }
         break
       case ChargingStatus.FINISHED:
-        chargingState(dispatch)
+        dispatch && dispatch(refreshChargingProcesses())
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.FinishedCharging,
@@ -138,3 +137,5 @@ export const configureChargingFinishPopup = (
     }, 1000)
   }
 }
+
+export default configureChargingFinishPopup

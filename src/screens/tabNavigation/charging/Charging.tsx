@@ -1,31 +1,68 @@
-import React, {ReactElement, useMemo, useCallback} from 'react'
-import {StyleSheet, View, Dimensions} from 'react-native'
-import {TabView} from 'react-native-tab-view'
-
-import {ScreenPropsWithNavigation} from 'allTypes'
-
-import {Colors} from 'utils'
-import {BaseHeader} from 'components'
+import React, {
+  ReactElement,
+  useCallback,
+  useMemo,
+} from 'react'
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+} from 'react-native'
+import { useSelector } from 'react-redux'
+import { selectChargingProcess } from 'state/selectors'
+import { TabView } from 'react-native-tab-view'
+import { Colors } from 'utils'
+import { BaseHeader } from 'components'
+import { ScreenPropsWithNavigation } from 'allTypes'
 import useCharging from './useCharging'
-import {ChargingView} from './components'
+import { ChargingView } from './components'
 import RenderTabBar from './components/RenderTabBar'
 
-const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {changeActiveTab, activeTab, chargingState, ...hook} = useCharging(
-    navigation,
-  )
+const Charging = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+  const { chargingState } = useSelector(selectChargingProcess)
+  const {
+    changeActiveTab,
+    activeTab,
+    ...hook
+  } = useCharging(navigation)
 
   const renderScene = useCallback(
-    (props: any): ReactElement => {
-      return (
-        <ChargingView
-          hook={hook}
-          chargingState={props.route}
-          key={props.route.start_charging_time}
-        />
-      )
-    },
+    (props: any): ReactElement => (
+      <ChargingView
+        hook={hook}
+        chargingState={props.route}
+        key={props.route.start_charging_time}
+      />
+    ),
     [hook],
+  )
+
+  const oneChargingProcess = (
+    <ChargingView
+      hook={hook}
+      chargingState={chargingState[0]}
+      singleCharger
+    />
+  )
+
+  const twoChargingProcesses = (
+    <TabView
+      navigationState={{
+        index: activeTab,
+        routes: (chargingState ?? []) as any,
+      }}
+      renderScene={renderScene}
+      onIndexChange={changeActiveTab}
+      lazy
+      renderTabBar={(props) => (
+        <RenderTabBar
+          hook={hook}
+          changeActiveTab={changeActiveTab}
+          {...props}
+        />
+      )}
+      initialLayout={Dimensions.get('window')}
+    />
   )
 
   return useMemo(
@@ -33,33 +70,10 @@ const Charging = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       <View style={[styles.container]}>
         <BaseHeader
           onPressLeft={navigation.navigate.bind(Charging, 'ChargerWithCode')}
-          title={'charging.charge'}
+          title="charging.charge"
         />
-        {chargingState.length === 1 ? (
-          <ChargingView
-            hook={hook}
-            chargingState={chargingState[0]}
-            singleCharger={true}
-          />
-        ) : chargingState.length !== 0 && chargingState ? (
-          <TabView
-            navigationState={{
-              index: activeTab,
-              routes: (chargingState ?? []) as any,
-            }}
-            renderScene={renderScene}
-            onIndexChange={changeActiveTab}
-            lazy={true}
-            renderTabBar={(props) => (
-              <RenderTabBar
-                hook={hook}
-                changeActiveTab={changeActiveTab}
-                {...props}
-              />
-            )}
-            initialLayout={Dimensions.get('window')}
-          />
-        ) : null}
+        {chargingState.length === 1 && oneChargingProcess}
+        {chargingState.length === 2 && twoChargingProcesses}
       </View>
     ),
     [navigation, chargingState, hook, activeTab, changeActiveTab],

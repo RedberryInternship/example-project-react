@@ -1,38 +1,38 @@
-import { ChargerState } from 'allTypes'
-import initialState from 'hooks/initialStates/charger'
-import { ChargerActions, ChargerAction } from '../actions/chargerActions'
+import { ChargerState, ChargerAction } from 'allTypes'
+import initialState from 'state/initialStates/chargingProcess'
+import * as actionTypes from 'state/actionTypes/chargingProcessActionTypes'
 
 function reducer(
   state: ChargerState = initialState,
   { type, payload }: ChargerAction,
 ): ChargerState {
   switch (type) {
-    case ChargerActions.CHARGING_STARTED_SUCCESS:
+    case actionTypes.CHARGING_STARTED_SUCCESS:
       return {
         ...state,
         ...payload,
       }
-    case ChargerActions.CHARGING_STARTED_FAILURE:
+    case actionTypes.CHARGING_STARTED_FAILURE:
       return {
         ...state,
         chargingStartedError: payload,
       }
-    case ChargerActions.CHARGING_FINISHED_SUCCESS:
+    case actionTypes.CHARGING_FINISHED_SUCCESS:
       return {
         ...state,
         chargingFinished: payload,
       }
-    case ChargerActions.CHARGING_FINISHED_FAILURE:
+    case actionTypes.CHARGING_FINISHED_FAILURE:
       return {
         ...state,
         chargingFinishedError: payload,
       }
-    case ChargerActions.CHARGING_STATE_SUCCESS:
+    case actionTypes.CHARGING_STATE_SUCCESS:
       return {
         ...state,
         chargingState: payload,
       }
-    case ChargerActions.CHARGING_STATE_FAILURE:
+    case actionTypes.CHARGING_STATE_FAILURE:
       return {
         ...state,
         chargingStateError: payload,

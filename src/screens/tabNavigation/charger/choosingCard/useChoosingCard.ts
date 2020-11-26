@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
@@ -6,8 +6,7 @@ import SlidingUpPanel from 'rn-sliding-up-panel'
 import { useForm } from 'react-hook-form'
 import { selectUser } from 'state/selectors'
 import { Navigation } from 'allTypes'
-import { startCharging } from 'hooks/actions/chargerActions'
-import ChargerContext from 'hooks/contexts/charger'
+import { startChargingProcess } from 'state/actions/chargingProcessActions'
 import services from 'services'
 import { refreshUserData } from 'state/actions/userActions'
 import {
@@ -21,8 +20,6 @@ const animatedArrow = new Animated.Value(0)
 export default (navigation: Navigation) => {
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
-
-  const { dispatch: chargerDispatch } = useContext(ChargerContext)
 
   const { control, handleSubmit, errors } = useForm()
   const [loading, setLoading] = useState<boolean>(false)
@@ -42,15 +39,16 @@ export default (navigation: Navigation) => {
   }
   const submitHandler = async ({ amount }: { amount: number }) => {
     setLoading(true)
-    startCharging(
-      {
-        type: navigation.getParam('type'),
-        connectorTypeId: navigation.getParam('connectorTypeId'),
-        amount,
-        userCardId: state.user?.user_cards?.[0].id,
-      },
-      chargerDispatch,
-      setLoading,
+    dispatch(
+      startChargingProcess(
+        {
+          type: navigation.getParam('type'),
+          connectorTypeId: navigation.getParam('connectorTypeId'),
+          amount,
+          userCardId: state.user?.user_cards?.[0].id,
+        },
+        setLoading,
+      ),
     )
   }
 

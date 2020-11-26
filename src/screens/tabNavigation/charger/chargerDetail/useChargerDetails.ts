@@ -1,5 +1,4 @@
 import React, {
-  useContext,
   useEffect,
   useState,
   useRef,
@@ -7,14 +6,13 @@ import React, {
 import { TextInput, BackHandler } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import ChargerContext from 'hooks/contexts/charger'
 import {
   NavigationEventPayload,
   NavigationScreenProp,
   NavigationParams,
   NavigationState,
 } from 'react-navigation'
-import { selectUser } from 'state/selectors'
+import { selectUser, selectChargingProcess } from 'state/selectors'
 import {
   NavigationActions,
   getLocaleText,
@@ -42,11 +40,8 @@ import {
 
 export default (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
   const state = useSelector(selectUser)
+  const { chargingState } = useSelector(selectChargingProcess)
   const dispatch = useDispatch()
-
-  const {
-    state: { chargingState },
-  } = useContext(ChargerContext)
 
   const [loading, setLoading] = useState<boolean>(true)
   const [activeChargerType, setActiveChargerType] = useState<number>(0)

@@ -1,26 +1,20 @@
-import { useEffect, useContext } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  chargingState,
-  chargerStateController,
-} from 'hooks/actions/chargerActions'
-import { selectUser } from 'state/selectors'
+  refreshChargingProcesses,
+  updateChargingProcesses,
+} from 'state/actions/chargingProcessActions'
+import { selectUser, selectChargingProcess } from 'state/selectors'
 import messaging from '@react-native-firebase/messaging'
 import { Defaults } from 'utils'
 import { refreshAllChargers } from 'state/actions/userActions'
-import ChargersContext from 'hooks/contexts/charger'
-import {
-  ChargingState,
-  ChargingStatus,
-} from '../../../@types/allTypes.d'
+import { ChargingStatus } from 'utils/enums'
+import { ChargingState } from '../../../@types/allTypes.d'
 
 export default () => {
-  const chargersContext = useContext(ChargersContext)
-
   const userState = useSelector(selectUser)
-  const userDispatch = useDispatch()
-  const chargerState = chargersContext.state
-  const chargerDispatch = chargersContext.dispatch
+  const dispatch = useDispatch()
+  const chargingProcesses = useSelector(selectChargingProcess)
 
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
@@ -32,19 +26,20 @@ export default () => {
 
       if (state) {
         // Vobi Todo: use map instead
-        state.every(async (val, index) => {
+        state.every((val, index) => {
           if (
             val.charging_status !== ChargingStatus.INITIATED
-            && chargerState.chargingState[index]?.charging_status
+            && chargingProcesses.chargingState[index]?.charging_status
             === ChargingStatus.INITIATED
-            && val.charger_id === chargerState.chargingState[index]?.charger_id
+            && val.charger_id === chargingProcesses.chargingState[index]?.charger_id
           ) {
-            userDispatch(refreshAllChargers())
+            dispatch(refreshAllChargers())
             return false
           }
+          return true
         })
 
-        chargerStateController(state, chargerDispatch)
+        updateChargingProcesses(state)
       }
     })
 
@@ -53,7 +48,7 @@ export default () => {
 
   useEffect(() => {
     if (userState.authStatus === 'success') {
-      chargingState(chargerDispatch)
+      dispatch(refreshChargingProcesses())
     } else {
       Defaults.modal?.current?.customUpdate(false)
     }

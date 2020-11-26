@@ -1,7 +1,10 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import rootReducer from 'state/reducer'
 import createSagaMiddleware from 'redux-saga'
-import { userSagas } from 'state/sagas'
+import {
+  chargingProcessSagas,
+  userSagas,
+} from 'state/sagas'
 
 /**
  * Integrate react native debugger with redux.
@@ -21,4 +24,5 @@ export default createStore(rootReducer, composeEnhancers(applyMiddleware(sagaMid
 /**
  * Register sagas.
  */
+sagaMiddleware.run(chargingProcessSagas)
 sagaMiddleware.run(userSagas)

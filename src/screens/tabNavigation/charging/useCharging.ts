@@ -1,18 +1,12 @@
-import { useState, useContext, useCallback } from 'react'
+import { useState, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Alert } from 'react-native'
+import { finishChargingProcess } from 'state/actions/chargingProcessActions'
 
-import { finishCharging } from 'hooks/actions/chargerActions'
-import ChargerContext from 'hooks/contexts/charger'
-
-// Vobi todo: move this in hooks
 export default (navigation: any) => {
-  const {
-    state: { chargingState },
-    dispatch: chargerDispatch,
-  } = useContext(ChargerContext)
-
+  const dispatch = useDispatch()
   const [activeTab, setActiveTab] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(false)
   const { t } = useTranslation()
@@ -33,37 +27,36 @@ export default (navigation: any) => {
         t('dropDownAlert.charging.areUSore'),
         '',
         [
-          { text: t('no'), onPress: () => {setLoading(false); console.log('Ask me later pressed: ',loading);} },
+          {
+            text: t('no'),
+            onPress: () => {
+              setLoading(false);
+            },
+          },
           {
             text: t('yes'),
-            onPress: () =>
-              finishCharging(
-                {
-                  orderId,
-                },
-                chargerDispatch,
-              ).then(() => {
-                setLoading(false)
-              }), // Vobi Todo: what if error happens 
+            onPress: () => {
+              dispatch(finishChargingProcess(orderId))
+              setLoading(false)
+            },
             style: 'cancel',
           },
         ],
         { cancelable: false },
       )
     },
-    [t, finishCharging, chargerDispatch, setLoading, loading],
+    [t, setLoading, loading],
   )
 
   return {
+    changeActiveTab,
+    setActiveTab,
+    setLoading,
+    navigation,
+    activeTab,
+    onFinish,
+    loading,
     insets,
     t,
-    chargingState,
-    activeTab,
-    setActiveTab,
-    changeActiveTab,
-    onFinish,
-    navigation,
-    setLoading,
-    loading
   }
 }
