@@ -1,30 +1,45 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import Defaults from 'utils/defaults'
 import { useAppState } from '@react-native-community/hooks'
 import { refreshAllChargers } from 'state/actions/userActions'
 import { refreshChargingProcesses } from 'state/actions/chargingProcessActions'
+import {
+  setAppInBackground,
+  setAppInForeground,
+  isAppInBackground,
+} from 'helpers/app'
 import { UserState } from 'allTypes'
 
 const useAppLife = () => {
   const userState: UserState = useSelector(selectUser)
   const dispatch = useDispatch()
-
-  Defaults.modal = useRef(null)
   const currentAppState = useAppState()
 
   useEffect(() => {
-    if (currentAppState === 'active') {
-      if (Defaults.isForeground === false) {
-        if (userState.authStatus === 'success') {
-          dispatch(refreshChargingProcesses())
-        }
+    /**
+     * Determine if application is in active state.
+     */
+    const isApplicationActive = () => currentAppState === 'active'
+
+    /**
+     * Determine if user is authenticated.
+     */
+    const isAuthenticated = () => userState.authStatus === 'success'
+
+    /**
+     * Determine if app is in background.
+     */
+    const determineIfAppWentToBackground = () => currentAppState.match(/inactive|background/)
+
+    if (isApplicationActive()) {
+      if (isAppInBackground()) {
+        isAuthenticated() && dispatch(refreshChargingProcesses())
         dispatch(refreshAllChargers())
       }
-      Defaults.isForeground = true
-    } else if (currentAppState.match(/inactive|background/)) {
-      Defaults.isForeground = false
+      setAppInForeground()
+    } else if (determineIfAppWentToBackground()) {
+      setAppInBackground()
     }
   }, [currentAppState])
 

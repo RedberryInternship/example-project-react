@@ -13,18 +13,17 @@ const Settings = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const { userData, onPressHandler } = useSettings(navigation)
 
   const SettingsListItems = useMemo(
-    () =>
-      Const.SettingsListFields.map((item) => {
-        const value: string = userData?.[item.type] ?? ''
-        return (
-          <SettingsListItem
-            onPress={() => onPressHandler(item, value)}
-            key={item.type}
-            {...item}
-            value={value}
-          />
-        )
-      }),
+    () => Const.SettingsListFields.map((item) => {
+      const value: string = userData?.[item.type] ?? ''
+      return (
+        <SettingsListItem
+          onPress={() => onPressHandler(item, value)}
+          key={item.type}
+          {...item}
+          value={value}
+        />
+      )
+    }),
     [userData],
   )
 
@@ -32,11 +31,11 @@ const Settings = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     <View style={styles.container}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(Settings, 'MainDrawer')}
-        title={'settings.settings'}
+        title="settings.settings"
       />
       <ScrollView style={{ flex: 1 }}>
         <View style={styles.listItemsContainer}>{SettingsListItems}</View>
-        <View></View>
+        <View />
       </ScrollView>
     </View>
   )

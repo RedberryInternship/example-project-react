@@ -7,28 +7,29 @@ import Defaults from 'utils/defaults'
 import CustomDropdownAlert from 'components/CustomDropdownAlert'
 import { selectChargingProcess } from 'state/selectors'
 import references from 'utils/references'
+import { setNavigationReference, determineNavigationTheme } from 'helpers/navigation'
 import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {
   references.reduxDispatch = useDispatch()
-  const { setNavigationTopLevelElement, dropDownInactiveBarColor } = useStartUp()
+  useStartUp()
   const state = useSelector(selectChargingProcess)
 
   return (
     <>
       <Navigation
-        ref={(ref) => setNavigationTopLevelElement(ref)}
+        ref={setNavigationReference}
         screenProps={{
           token: Defaults.token,
           chargingState: state.chargingState,
         }}
         theme="dark"
-        onNavigationStateChange={(_, state) => {
-          StatusBar.setBarStyle(dropDownInactiveBarColor(), true)
+        onNavigationStateChange={() => {
+          StatusBar.setBarStyle(determineNavigationTheme(), true)
         }}
       />
 
-      <CustomDropdownAlert dropDownInactiveBarColor={dropDownInactiveBarColor} />
+      <CustomDropdownAlert dropDownInactiveBarColor={determineNavigationTheme} />
       <CustomModal ref={Defaults.modal} />
     </>
   )

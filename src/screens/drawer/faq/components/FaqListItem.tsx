@@ -1,9 +1,14 @@
-import React, {useState, useEffect, ReactElement} from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native'
+import React, { ReactElement } from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  View,
+} from 'react-native'
 
-import {Const, Colors} from 'utils'
+import { Const, Colors } from 'utils'
 import images from 'assets/images'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
 import useFaqListItem from './useFaqListItem'
 
 type FaqListItemProps = {
@@ -21,7 +26,9 @@ const FaqListItem = ({
   active,
   toggle,
 }: FaqListItemProps): ReactElement => {
-  const {onOrOff, opacity, paddingMarginValue, rotationValue} = useFaqListItem({
+  const {
+    onOrOff, opacity, paddingMarginValue, rotationValue,
+  } = useFaqListItem({
     active,
   })
 
@@ -40,7 +47,7 @@ const FaqListItem = ({
             <Animated.Image
               style={[
                 styles.arrowImage,
-                {transform: [{rotateZ: rotationValue}]},
+                { transform: [{ rotateZ: rotationValue }] },
               ]}
               source={images.arrowUp}
             />
@@ -51,7 +58,6 @@ const FaqListItem = ({
           style={[
             styles.answer,
             {
-              // height: activeFaq ? 'auto' : 0,
               display: active ? 'flex' : 'none',
               paddingVertical: paddingMarginValue,
               marginTop: paddingMarginValue,
@@ -59,7 +65,7 @@ const FaqListItem = ({
             },
           ]}
         >
-          <Animated.Text style={[styles.answerText, {opacity}]}>
+          <Animated.Text style={[styles.answerText, { opacity }]}>
             {answer}
           </Animated.Text>
         </Animated.View>

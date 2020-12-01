@@ -1,5 +1,10 @@
 import React, { ReactElement } from 'react'
-import { Text, View, Image, StyleSheet } from 'react-native'
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 

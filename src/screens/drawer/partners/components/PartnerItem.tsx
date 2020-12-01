@@ -1,23 +1,20 @@
-import React, {ReactElement} from 'react'
-import {View, Image, StyleSheet} from 'react-native'
-
-import {Colors, Const} from 'utils'
+import React, { ReactElement } from 'react'
+import { View, Image, StyleSheet } from 'react-native'
+import { Colors, Const } from 'utils'
 
 type PartnerItemProps = {
   image: string
 }
 
-const PartnerItem = ({image}: PartnerItemProps): ReactElement => {
-  return (
-    <View style={styles.partnerImageContainer}>
-      <Image
-        source={{uri: image}}
-        style={{width: 80, height: 40}}
-        resizeMode={'contain'}
-      />
-    </View>
-  )
-}
+const PartnerItem = ({ image }: PartnerItemProps): ReactElement => (
+  <View style={styles.partnerImageContainer}>
+    <Image
+      source={{ uri: image }}
+      style={{ width: 80, height: 40 }}
+      resizeMode="contain"
+    />
+  </View>
+)
 
 export default PartnerItem
 

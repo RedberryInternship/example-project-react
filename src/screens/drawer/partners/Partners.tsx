@@ -1,34 +1,30 @@
-import React, {ReactElement, useCallback} from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import {
-  View,
-  StyleSheet,
   SafeAreaView,
-  Image,
   ScrollView,
-  Text,
+  StyleSheet,
+  View,
 } from 'react-native'
-
-import {Partner, Navigation} from 'allTypes'
-
-import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Const} from 'utils'
-import PartnerItem from './components/PartnerItem'
+import { Partner, Navigation } from 'allTypes'
+import { BaseHeader, FetchedDataRenderer } from 'components'
+import { Colors } from 'utils'
 import services from 'services'
+import PartnerItem from './components/PartnerItem'
 
 type PartnersResponseType = {
   name: string
   image: string
 }
-const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
+const Partners = ({ navigation }: { navigation: Navigation }): ReactElement => {
   const getPartners = useCallback(async (): Promise<Partner[]> => {
-    const {partners} = await services.getPartners()
+    const { partners } = await services.getPartners()
     return partners
   }, [])
 
   return (
     <View style={styles.container}>
       <BaseHeader
-        title={'partners.partnerOrganizations'}
+        title="partners.partnerOrganizations"
         onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
       <ScrollView
@@ -36,12 +32,12 @@ const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
         contentContainerStyle={styles.contentContainerStyle}
       >
         <FetchedDataRenderer
-          property={'Partners'}
+          property="Partners"
           onItemRender={(val: PartnersResponseType, index): ReactElement => (
             <PartnerItem key={index} image={val.image} />
           )}
           fetchData={getPartners}
-          updateAlways={true}
+          updateAlways
         />
       </ScrollView>
       <SafeAreaView />

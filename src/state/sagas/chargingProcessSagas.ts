@@ -96,7 +96,7 @@ function* updateChargingProcesses(action: UpdateChargingProcessesSagaAction) {
   if (defaults.activeRoute === 'Charging' && data.length === 0) {
     NavigationActions.navigate('Home')
   }
-  if (data.length === 0 && defaults.modal.current?.state.config.type === 3) {
+  if (data.length === 0 && defaults.modal?.current?.state.config.type === 3) {
     defaults.modal.current?.customUpdate(false)
   }
   yield put(actions.updateChargingProcessAction(data, action.status))

@@ -1,6 +1,5 @@
 /* eslint-disable default-case */
-/* eslint-disable import/prefer-default-export */
-import Defaults from 'utils/defaults'
+import defaults from 'utils/defaults'
 import { refreshChargingProcesses } from 'state/actions/chargingProcessActions'
 import { DisplayDropdownWithError } from 'helpers/inform'
 import { ChargingStatus } from 'utils/enums'
@@ -133,7 +132,7 @@ const configureChargingFinishPopup = (
         return
     }
     setTimeout(() => {
-      Defaults.modal.current?.customUpdate(true, options)
+      defaults.modal?.current?.customUpdate(true, options)
     }, 1000)
   }
 }

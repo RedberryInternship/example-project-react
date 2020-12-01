@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
   TouchableOpacity,
   ImageSourcePropType,
@@ -11,10 +11,10 @@ import {
   Image,
   View,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 
-import {Colors} from 'utils'
-import {BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseText } from 'components'
 
 // declare text field type
 type DrawerTextFieldItemProps = {
@@ -35,7 +35,7 @@ const DrawerTextFieldItem = ({
   container,
   badge,
 }: DrawerTextFieldItemProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity

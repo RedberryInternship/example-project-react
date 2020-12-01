@@ -1,5 +1,7 @@
-import React, {ReactElement} from 'react'
-import {View, TouchableOpacity, StyleSheet, Image} from 'react-native'
+import React, { ReactElement } from 'react'
+import {
+  View, TouchableOpacity, StyleSheet, Image,
+} from 'react-native'
 
 type BusinessServiceItemProps = {
   image: string
@@ -9,15 +11,13 @@ type BusinessServiceItemProps = {
 const BusinessServiceItem = ({
   image,
   onPress,
-}: BusinessServiceItemProps): ReactElement => {
-  return (
+}: BusinessServiceItemProps): ReactElement => (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.serviceContainer}>
-        <Image source={{uri: image}} style={styles.serviceImage} />
+        <Image source={{ uri: image }} style={styles.serviceImage} />
       </View>
     </TouchableOpacity>
   )
-}
 
 export default BusinessServiceItem
 

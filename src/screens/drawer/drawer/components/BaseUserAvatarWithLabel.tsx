@@ -1,17 +1,15 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
-  Text,
   View,
   StyleSheet,
   Image,
   TouchableOpacity,
   GestureResponderEvent,
 } from 'react-native'
-
-import {Colors} from 'utils'
-import images, {Avatars} from 'assets/images'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {BaseText} from 'components'
+import { Colors } from 'utils'
+import images, { Avatars } from 'assets/images'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { BaseText } from 'components'
 
 type AvatarWithLabel = {
   onPress: (event?: GestureResponderEvent) => void | undefined
@@ -32,12 +30,14 @@ const UserAvatarWithLabel = ({
     <View
       style={[
         styles.container,
-        {paddingTop: insets.top, height: 140 + insets.top},
+        { paddingTop: insets.top, height: 140 + insets.top },
       ]}
     >
       <TouchableOpacity
         onPress={onPress}
-        hitSlop={{left: 15, top: 15, bottom: 15, right: 15}}
+        hitSlop={{
+          left: 15, top: 15, bottom: 15, right: 15,
+        }}
         style={styles.imageContainer}
       >
         <Image

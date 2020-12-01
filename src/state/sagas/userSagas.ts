@@ -2,6 +2,8 @@ import { put, takeEvery } from 'redux-saga/effects'
 import * as actions from 'state/actions/userActions'
 import * as actionTypes from 'state/actionTypes/userActionTypes'
 import {
+  getUserDetailedInformationFromStorage,
+  getUserTokenFromStorage,
   getUserFavoriteChargers,
   saveJWTTokenAndUserData,
   clearUserData,
@@ -18,6 +20,7 @@ import NavigationActions from 'utils/navigation.service'
 import {
   SaveUserAndRefreshAction,
   FavoriteChargerAction,
+  UserMeResponseType,
 } from 'allTypes'
 
 /**
@@ -126,6 +129,20 @@ function* logOutAndReset() {
 }
 
 /**
+ * Read token from storage and update redux state.
+ */
+function* readUserTokenFromStorageAndUpdateState() {
+  const fetchedToken = yield getUserTokenFromStorage()
+
+  let user: UserMeResponseType = null
+  if (fetchedToken) {
+    user = yield getUserDetailedInformationFromStorage()
+  }
+
+  yield put(actions.saveUserAndRefresh(user, fetchedToken))
+}
+
+/**
  * Bundle and watch all the user sagas.
  */
 export default function* userSagas() {
@@ -136,4 +153,8 @@ export default function* userSagas() {
   yield takeEvery(actionTypes.ADD_CHARGER_TO_FAVORITES_SAGA, addChargerToFavorites)
   yield takeEvery(actionTypes.REMOVE_CHARGER_FROM_FAVORITES_SAGA, removeChargerFromFavorites)
   yield takeEvery(actionTypes.LOG_OUT_AND_RESET_SAGA, logOutAndReset)
+  yield takeEvery(
+    actionTypes.READ_TOKEN_AND_UPDATE_STATE_SAGA,
+    readUserTokenFromStorageAndUpdateState,
+  )
 }

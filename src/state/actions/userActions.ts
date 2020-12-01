@@ -139,3 +139,13 @@ export const logOutAndReset = () => (
 export const logOut = () => ({
   type: actionTypes.LOG_OUT,
 })
+
+/**
+ * Saga action for reading token from
+ * storage and updating state.
+ */
+export const readTokenFromStorageAndUpdateState = () => (
+  {
+    type: actionTypes.READ_TOKEN_AND_UPDATE_STATE_SAGA,
+  }
+)

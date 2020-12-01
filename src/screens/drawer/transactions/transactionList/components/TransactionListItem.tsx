@@ -1,8 +1,10 @@
-import React, {ReactElement} from 'react'
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native'
-import {Colors} from 'utils'
+import React, { ReactElement } from 'react'
+import {
+  View, Image, StyleSheet, TouchableOpacity,
+} from 'react-native'
+import { Colors } from 'utils'
 import images from 'assets/images'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
 
 type TransactionItemProps = {
   charger_name: string
@@ -17,7 +19,6 @@ const TransactionListItem = ({
   charge_price,
   onPress,
 }: TransactionItemProps): ReactElement => {
-  
   const chargePrice = charge_price ? `${charge_price} ₾` : '0 ₾';
   // const chargePrice = `${charge_price ?? 0} ₾`
 
@@ -31,7 +32,10 @@ const TransactionListItem = ({
             <BaseText style={styles.dateAndTime}>{start_date}</BaseText>
           </View>
         </View>
-        <BaseText style={styles.price}>{chargePrice} </BaseText>
+        <BaseText style={styles.price}>
+          {chargePrice}
+          {' '}
+        </BaseText>
       </View>
     </TouchableOpacity>
   )

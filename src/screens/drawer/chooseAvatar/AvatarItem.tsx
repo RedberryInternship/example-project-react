@@ -1,6 +1,5 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
-  Text,
   View,
   StyleSheet,
   Image,
@@ -8,9 +7,10 @@ import {
   ImageSourcePropType,
 } from 'react-native'
 
-import {Colors} from 'utils'
+import { Colors } from 'utils'
 import images from 'assets/images'
-import {BaseNativeTouchable} from 'components'
+import { BaseNativeTouchable } from 'components'
+
 type AvatarItemProps = {
   onPress: () => void
   image: ImageSourcePropType
@@ -20,21 +20,22 @@ const AvatarItem = ({
   onPress,
   image,
   active,
-}: AvatarItemProps): ReactElement => {
-  return (
+}: AvatarItemProps): ReactElement => (
     <View style={styles.imageContainer}>
       <View>
         <BaseNativeTouchable
           onPress={onPress}
           style={[
             styles.selectAvatar,
-            {backgroundColor: active ? '#4CD96433' : '#0199F033'},
+            { backgroundColor: active ? '#4CD96433' : '#0199F033' },
           ]}
-          hitSlop={{left: 10, top: 10, bottom: 10, right: 10}}
+          hitSlop={{
+            left: 10, top: 10, bottom: 10, right: 10,
+          }}
         >
           <Image
             source={image}
-            style={[styles.image, {tintColor: active ? '#4CD964' : '#0199F0'}]}
+            style={[styles.image, { tintColor: active ? '#4CD964' : '#0199F0' }]}
           />
         </BaseNativeTouchable>
         <View style={styles.editButtonImageContainer}>
@@ -46,7 +47,6 @@ const AvatarItem = ({
       </View>
     </View>
   )
-}
 
 export default AvatarItem
 

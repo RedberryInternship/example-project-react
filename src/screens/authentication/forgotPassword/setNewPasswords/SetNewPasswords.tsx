@@ -1,14 +1,21 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-
-import {ScreenPropsWithNavigation} from 'allTypes'
-
-import {BaseHeader, BaseButton, PasswordConfirmationView} from 'components'
-import {Colors} from 'utils'
-import useSetNewPassword from './useSetNewPassword'
+import React, { ReactElement } from 'react'
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Platform,
+  View,
+} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import {
+  PasswordConfirmationView,
+  BaseHeader,
+  BaseButton,
+} from 'components'
+import { Colors } from 'utils'
 import images from 'assets/images'
+import { ScreenPropsWithNavigation } from 'allTypes'
+import useSetNewPassword from './useSetNewPassword'
 
 const SetNewPasswords = ({
   navigation,
@@ -24,17 +31,17 @@ const SetNewPasswords = ({
   const insets = useSafeAreaInsets()
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
         onPressLeft={navigation.goBack}
-        title={'authentication.forgotPasswordPage.recoverPassword'}
+        title="authentication.forgotPasswordPage.recoverPassword"
       />
       <KeyboardAwareScrollView
         style={styles.keyboardAwareScrollView}
         contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
-        keyboardShouldPersistTaps={'handled'}
-        enableOnAndroid={true}
-        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+        enableAutomaticScroll
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
@@ -46,13 +53,13 @@ const SetNewPasswords = ({
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
-        behavior={'padding'}
+        behavior="padding"
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}
       >
         <BaseButton
           onPress={handleSubmit(onClickSubmitButton)}
-          text={'enter'}
+          text="enter"
           image={images.lock}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}

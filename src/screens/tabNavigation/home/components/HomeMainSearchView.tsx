@@ -1,13 +1,18 @@
 import React, {
-  forwardRef, useImperativeHandle, useMemo, ReactElement, useCallback,
+  useImperativeHandle,
+  ReactElement,
+  useCallback,
+  forwardRef,
+  useMemo,
 } from 'react'
 import {
-  StyleSheet, Animated, View, TouchableOpacity,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  View,
 } from 'react-native'
 import { KeyboardAwareFlatList } from 'react-native-keyboard-aware-scroll-view'
-
 import { Charger, MapImperativeRefObject } from 'allTypes'
-
 import { HomeMainSearchInput } from 'components'
 import { Const, Colors, getLocaleText } from 'utils'
 import { useHomeMainSearch } from '../hooks'
@@ -20,19 +25,24 @@ type MainInput = {
 }
 
 const HomeMainSearchView = forwardRef(
-  ({ allChargers, mapRef, setShowAll }: MainInput, ref: any): ReactElement => {
+  (
+    {
+      allChargers,
+      mapRef,
+      setShowAll,
+    }: MainInput, ref: any): ReactElement => {
     const {
-      _this,
-      closeClick,
-      setShowSearchContent,
-      filteredChargers,
       onSearchItemClickHandler,
+      setShowSearchContent,
       showSearchContent,
-      animate,
+      filteredChargers,
+      closeClick,
       textHandler,
-      t,
-      InputRef,
       inputText,
+      animate,
+      InputRef,
+      _this,
+      t,
     } = useHomeMainSearch(allChargers, mapRef, setShowAll)
     const InputSubmit = (): void => { }
 

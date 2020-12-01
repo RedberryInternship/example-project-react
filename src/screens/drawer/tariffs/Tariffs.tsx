@@ -1,40 +1,33 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet, Text} from 'react-native'
-
-// components
-import {BaseHeader, BaseText} from 'components'
-
-// utils
-import {Colors} from 'utils'
-
-import {ScreenPropsWithNavigation} from 'allTypes'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { BaseHeader, BaseText } from 'components'
+import { Colors } from 'utils'
+import { ScreenPropsWithNavigation } from 'allTypes'
+import { ScrollView } from 'react-native-gesture-handler'
 import TariffListItem from './components/TariffListItem'
 import TariffDetail from './components/TariffDetail'
-import {ScrollView} from 'react-native-gesture-handler'
 
-const Tarrifs = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  return (
-    <View style={styles.container}>
-      <BaseHeader
-        title={'tariffs.tariffs'}
-        onPressLeft={navigation.navigate.bind(Tarrifs, 'MainDrawer')}
+const Tarrifs = ({ navigation }: ScreenPropsWithNavigation): ReactElement => (
+  <View style={styles.container}>
+    <BaseHeader
+      title="tariffs.tariffs"
+      onPressLeft={navigation.navigate.bind(Tarrifs, 'MainDrawer')}
+    />
+    <ScrollView>
+      <TariffDetail
+        title="30 წუთი - 2ლ"
+        description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
       />
-      <ScrollView>
-        <TariffDetail
-          title="30 წუთი - 2ლ"
-          description="დატენვის დასრულებიდან 20 წუთში ჩაირთვება საჯარიმო ტარიფები"
-        />
-        <BaseText style={styles.note}>
-          ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
-        </BaseText>
-        {/* TODO: need to connect to backend */}
-        {tariffsInfo.map((el) => (
-          <TariffListItem key={el.company} {...el} />
-        ))}
-      </ScrollView>
-    </View>
-  )
-}
+      <BaseText style={styles.note}>
+        ტარიფები მაქსიმალურად მიახლოებულია რეალურთან
+      </BaseText>
+      {/* TODO: need to connect to backend */}
+      {tariffsInfo.map((el) => (
+        <TariffListItem key={el.company} {...el} />
+      ))}
+    </ScrollView>
+  </View>
+)
 
 export default Tarrifs
 

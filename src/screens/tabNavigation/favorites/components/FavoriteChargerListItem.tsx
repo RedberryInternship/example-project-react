@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react'
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
-import {BaseButton, BaseText} from 'components'
-import {Colors} from 'utils'
+import { BaseButton, BaseText } from 'components'
+import { Colors } from 'utils'
 import images from 'assets/images'
 
 type FavoriteChargerItemProps = {
@@ -40,9 +40,9 @@ const FavoriteChargerListItem = ({
           onPress={turnon}
           text={'turnOn'}
           style={styles.customizedBaseButton}
-          imageStyle={{tintColor: Colors.primaryBlue}}
+          imageStyle={{ tintColor: Colors.primaryBlue }}
           image={images.arrowRight}
-          textStyle={{color: Colors.primaryBlue}}
+          textStyle={{ color: Colors.primaryBlue }}
         />
       </View>
     </View>

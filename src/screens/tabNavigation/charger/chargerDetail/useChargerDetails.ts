@@ -93,15 +93,15 @@ export default (navigation: NavigationScreenProp<NavigationState, NavigationPara
 
   const chargerLocationDirectionHandler = async (): Promise<void> => {
     if (
-      (Defaults.locationPermissionStatus
-        && isPermissionDeniedRegex(Defaults.locationPermissionStatus))
+      (Defaults.locationPermission
+        && isPermissionDeniedRegex(Defaults.locationPermission))
       || !Const.platformIOS
     ) {
       const status = await getAndRequestLocation()
       if (!status) return DisplayDropdownWithError('dropDownAlert.pleaseAllowLocation')
     }
 
-    if (!Defaults.locationPermissionStatus.match(/denied|restricted|notDetermined/)) {
+    if (!Defaults.locationPermission.match(/denied|restricted|notDetermined/)) {
       navigation.navigate('Home', {
         mode: HomeNavigateModes.showRoutesToCharger,
         lat: parseFloat(charger?.lat ?? '0'),

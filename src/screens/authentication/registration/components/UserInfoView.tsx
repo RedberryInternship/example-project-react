@@ -24,10 +24,10 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
         imageStyle={{ tintColor: Colors.primaryBlue }}
-        returnKeyType={'next'}
-        testID={'nameInput'}
-        title={'authentication.registration.name'}
-        required={true}
+        returnKeyType="next"
+        testID="nameInput"
+        title="authentication.registration.name"
+        required
         errorText={errors?.name ? 'dropDownAlert.registration.fillName' : ''}
       />
       <Controller
@@ -38,12 +38,12 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
         imageStyle={{ tintColor: Colors.primaryBlue }}
-        returnKeyType={'next'}
-        title={'authentication.registration.surname'}
+        returnKeyType="next"
+        title="authentication.registration.surname"
         errorText={
           errors?.surname ? 'dropDownAlert.registration.fillSurname' : ''
         }
-        required={true}
+        required
       />
 
       <Controller
@@ -56,9 +56,9 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
         imageStyle={{ tintColor: Colors.primaryBlue }}
-        returnKeyType={'go'}
-        title={'authentication.registration.email'}
-        keyboardType={'email-address'}
+        returnKeyType="go"
+        title="authentication.registration.email"
+        keyboardType="email-address"
         errorText={errors?.email ? errors?.email.message : ''}
       />
     </View>
@@ -68,6 +68,5 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
 // Vobi Done: use memo on bottom or while defining component (keep same syntax)
 export default React.memo(
   UserInfoView,
-  ({ activePage }, { activePage: nextActivePage }) =>
-    activePage !== 1 && nextActivePage !== 1,
+  ({ activePage }, { activePage: nextActivePage }) => activePage !== 1 && nextActivePage !== 1,
 )

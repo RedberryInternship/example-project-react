@@ -1,28 +1,26 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import React, {ReactElement} from 'react'
-import {Text, View, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { Text, View, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {Colors} from 'utils'
-import {ChargerConnectorType} from 'allTypes'
-import {BaseText} from 'components'
+import { Colors } from 'utils'
+import { ChargerConnectorType } from 'allTypes'
+import { BaseText } from 'components'
 
 type CurrentTariffsProps = {
   connector?: ChargerConnectorType
 }
 
-const CurrentTariffs = ({connector}: CurrentTariffsProps): ReactElement => {
-  const {t} = useTranslation()
+const CurrentTariffs = ({ connector }: CurrentTariffsProps): ReactElement => {
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
         <BaseText style={styles.currentPriceText}>
           {
-            connector?.pivot?.connector_type_id === 2 ? 
-            t('chargerDetail.minutes')
-            :
-            t('chargerDetail.kw')
-            }
+            connector?.pivot?.connector_type_id === 2
+              ? t('chargerDetail.minutes')
+              : t('chargerDetail.kw')
+          }
         </BaseText>
         <BaseText style={styles.currentPrice2Text}>
           {t('chargerDetail.tariffs')}
@@ -57,8 +55,9 @@ type RowProps = {
   col2: string
   col3: string
 }
-const Row = ({col1, col2, col3, col4}: RowProps): ReactElement => {
-  return (
+const Row = ({
+  col1, col2, col3, col4,
+}: RowProps): ReactElement => (
     <View style={styles.rowContainer}>
       <BaseText style={styles.rowCol1}>{col1}</BaseText>
       <BaseText style={styles.rowCol2}>{col2}</BaseText>
@@ -66,7 +65,6 @@ const Row = ({col1, col2, col3, col4}: RowProps): ReactElement => {
       <BaseText style={styles.rowCol4}>{col4}</BaseText>
     </View>
   )
-}
 
 const styles = StyleSheet.create({
   container: {

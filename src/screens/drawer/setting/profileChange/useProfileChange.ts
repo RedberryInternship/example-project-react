@@ -70,7 +70,7 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   }
   const updateCar = async (form: Record<string, string | number>) => {
     try {
-      const result = await services.addCar(+form.carModelId)
+      await services.addCar(+form.carModelId)
       navigation.goBack()
       dispatch(refreshUserData())
       DisplayDropdownWithSuccess('dropDownAlert.informationUpdatedSuccessfully')

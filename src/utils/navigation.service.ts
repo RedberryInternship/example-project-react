@@ -1,12 +1,13 @@
 import { NavigationActions, StackActions } from 'react-navigation'
+
 let _navigator: any = null
 
 export default {
-  setTopLevelNavigator: function(navigatorRef: any): void {
+  setTopLevelNavigator(navigatorRef: any): void {
     _navigator = navigatorRef
   },
 
-  navigate: function(routeName: string, params = {}): void {
+  navigate(routeName: string, params = {}): void {
     _navigator.dispatch(
       NavigationActions.navigate({
         routeName,
@@ -14,11 +15,11 @@ export default {
       }),
     )
   },
-  back: function(routeName: string, params = {}): void {
+  back(routeName: string, params = {}): void {
     _navigator.dispatch(NavigationActions.back({}))
   },
 
-  reset: function(stackKey = 'root', routeName = '', params = {}): void {
+  reset(stackKey = 'root', routeName = '', params = {}): void {
     _navigator.dispatch(
       StackActions.reset({
         index: 0,

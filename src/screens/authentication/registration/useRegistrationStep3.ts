@@ -1,20 +1,13 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
-import {
-  refreshFavoriteChargers,
-  saveUserAndRefresh,
-  refreshUserData,
-} from 'state/actions/userActions'
+import { saveUserAndRefresh } from 'state/actions/userActions'
 import services from 'services'
 import { RegisterResponseType } from 'allTypes'
 import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
-import {
-  saveJWTTokenAndUserData,
-} from 'helpers/user'
 import { InputValidationHelpers } from 'utils'
 
 type RegisterError = {
@@ -137,7 +130,7 @@ export default (
   // }
 
   const onSuccessRegistration = (data: RegisterResponseType) => {
-    saveUserAndRefresh(data.user, data.token)
+    dispatch(saveUserAndRefresh(data.user, data.token))
     setActivePage(3)
   }
 

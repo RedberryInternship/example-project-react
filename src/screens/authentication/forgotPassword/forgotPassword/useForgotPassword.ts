@@ -1,4 +1,3 @@
-// Vobi Done: remove unused imports
 import { Navigation } from 'allTypes'
 import services from 'services'
 import usePhoneVerification from 'hooks/usePhoneVerification'
@@ -11,7 +10,15 @@ type InputValues = {
 }
 
 export default (navigation: Navigation) => {
-  const { setValue, getValues, register, handleSubmit, errors, watch, triggerValidation } = useForm({
+  const {
+    triggerValidation,
+    handleSubmit,
+    getValues,
+    setValue,
+    register,
+    errors,
+    watch,
+  } = useForm({
     validateCriteriaMode: 'all',
     submitFocusError: true,
   })

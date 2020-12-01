@@ -1,20 +1,16 @@
 import React, { ReactElement } from 'react'
 import {
   View,
-  Text,
   StyleSheet,
   TextInput,
   Image,
   KeyboardAvoidingView,
   Platform,
-  StatusBar,
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
 import { ScreenPropsWithNavigation } from 'allTypes'
-
 import { BaseHeader, BaseButton, BaseText } from 'components'
 import { Colors, Const } from 'utils'
 import images from 'assets/images'
@@ -41,33 +37,31 @@ const Contact = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     data?.web_page ?? '',
   ]
 
-  const listItems = Const.ContactListFields.map((el, key) => {
-    return (
-      <ContactListItem
-        key={el.type}
-        image={el.image}
-        name={el.name}
-        value={contactInfos[key]}
-        onPress={outgoingLinkMethods[el.type]}
-      />
-    )
-  })
+  const listItems = Const.ContactListFields.map((el, key) => (
+    <ContactListItem
+      key={el.type}
+      image={el.image}
+      name={el.name}
+      value={contactInfos[key]}
+      onPress={outgoingLinkMethods[el.type]}
+    />
+  ))
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom }]}>
       <BaseHeader
-        title={'contact.contact'}
+        title="contact.contact"
         onPressLeft={navigation.navigate.bind(Contact, 'MainDrawer')}
       />
 
       <KeyboardAwareScrollView
         keyboardShouldPersistTaps="handled"
-        enableAutomaticScroll={true}
+        enableAutomaticScroll
         extraScrollHeight={Platform.select({ ios: -300, android: 150 })}
         showsVerticalScrollIndicator={false}
-        enableResetScrollToCoords={true}
+        enableResetScrollToCoords
         contentContainerStyle={styles.keyboardScrollViewContentContainer}
-        overScrollMode={'always'}
+        overScrollMode="always"
         extraHeight={Platform.select({ ios: 500, android: 75 })}
         resetScrollToCoords={{ x: 0, y: 0 }}
       >
@@ -96,7 +90,7 @@ const Contact = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
         />
       </KeyboardAwareScrollView>
 
-      <KeyboardAvoidingView behavior="padding"></KeyboardAvoidingView>
+      <KeyboardAvoidingView behavior="padding" />
     </View>
   )
 }

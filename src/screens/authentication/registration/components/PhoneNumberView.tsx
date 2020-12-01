@@ -10,16 +10,13 @@ type PhoneNumberViewProps = {
 
 const PhoneNumberView = ({
   hook,
-}: PhoneNumberViewProps): React.ReactElement => {
-  return (
+}: PhoneNumberViewProps): React.ReactElement => (
     <View style={{ width: Const.Width, paddingHorizontal: 16 }}>
       <PhoneVerificationView {...hook} formType="registers" />
     </View>
   )
-}
 
 export default React.memo(
   PhoneNumberView,
-  ({ activePage }, { activePage: nextActivePage }) =>
-    nextActivePage != 0 && activePage != 0,
+  ({ activePage }, { activePage: nextActivePage }) => nextActivePage !== 0 && activePage !== 0,
 )

@@ -12,6 +12,7 @@ import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-n
 import { MapViewProps } from 'react-native-maps'
 import { ChargingStatus } from 'utils/enums'
 import { Dispatch } from 'redux';
+import BottomSheetBehavior from 'reanimated-bottom-sheet'
 
 export type ApplicationState = {
   user: UserState
@@ -753,4 +754,47 @@ export type UpdateChargingProcessesSagaAction = {
 
 export type References = {
   reduxDispatch: Dispatch<any> | undefined,
+}
+
+export type Defaults = {
+  dropdown: any
+  token: string | null
+  FCMToken: string | null
+  activeRoute: string | null
+  locale: Locale
+  location: null | {
+    lng: number;
+    lat: number
+  }
+  locationPermission: LocationPermissionStatus
+  modal: RefObject<CustomModalInterface> | null
+  bottomSheet: RefObject<BottomSheetBehavior> | null
+  userDetail: UserMeResponseType | null
+  internetConnected: boolean | null
+  isForeground: boolean | null
+}
+
+export type Locale = 'en' | 'ka' | 'ru' | '' | null
+
+type Data = {
+  title?: string
+  description?: string
+  bottomDescription?: string
+  price?: number
+}
+type Config = {
+  type: number
+  onCloseClick?: () => void
+  subType?: ChargingStatus
+  data?: Data & any
+}
+
+export type InitialState = {
+  visible: boolean
+  config: Config
+}
+
+export interface CustomModalInterface {
+  customUpdate: (visible: boolean, config?: Config) => void
+  state: InitialState
 }

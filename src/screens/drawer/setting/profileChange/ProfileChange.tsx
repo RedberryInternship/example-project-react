@@ -1,12 +1,11 @@
 import React, { ReactElement, useCallback } from 'react'
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
 import {
-  ScreenPropsWithNavigation,
-  UserSettingEnum,
-} from '../../../../../@types/allTypes.d'
-
+  KeyboardAvoidingView,
+  StyleSheet,
+  Platform,
+  View,
+} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {
   BaseHeader,
   BaseButton,
@@ -17,6 +16,10 @@ import {
   SingleInputView,
 } from 'components'
 import { Colors, InputValidationHelpers } from 'utils'
+import {
+  ScreenPropsWithNavigation,
+  UserSettingEnum,
+} from '../../../../../@types/allTypes.d'
 import useProfileChange from './useProfileChange'
 
 const ProfileChange = ({
@@ -76,14 +79,14 @@ const ProfileChange = ({
 
         <KeyboardAwareScrollView
           style={styles.keyboardAwareScrollView}
-          bounces={true}
-          enableOnAndroid={true}
+          bounces
+          enableOnAndroid
           enableAutomaticScroll={false}
           extraHeight={0}
           extraScrollHeight={-150}
-          enableResetScrollToCoords={true}
-          keyboardShouldPersistTaps={'always'}
-          keyboardDismissMode={'on-drag'}
+          enableResetScrollToCoords
+          keyboardShouldPersistTaps="always"
+          keyboardDismissMode="on-drag"
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
           {renderInputs()}

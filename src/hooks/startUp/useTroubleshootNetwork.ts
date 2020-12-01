@@ -1,30 +1,30 @@
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { useNetInfo } from '@react-native-community/netinfo'
-import Defaults from 'utils/defaults'
+import { readTokenFromStorageAndUpdateState } from 'state/actions/userActions'
+import defaults from 'utils/defaults'
 import { DisplayDropdownWithError } from 'helpers/inform'
 
-const troubleshootNetwork = (readUserToken: () => Promise<void>) => {
+const troubleshootNetwork = () => {
+  const dispatch = useDispatch()
   const networkState = useNetInfo()
+
   useEffect(() => {
     if (networkState.isConnected) {
-      if (Defaults.internetConnected === false) {
-        readUserToken()
+      if (defaults.internetConnected === false) {
+        dispatch(readTokenFromStorageAndUpdateState())
       }
 
-      Defaults.internetConnected = true
-    } else if (
-      !networkState.isConnected &&
-      Defaults.internetConnected !== null
-    ) {
+      defaults.internetConnected = true
+    } else if (!networkState.isConnected && defaults.internetConnected !== null) {
       DisplayDropdownWithError(
         'dropDownAlert.error',
         'dropDownAlert.needInternetConnection',
       )
-      Defaults.internetConnected = false
+
+      defaults.internetConnected = false
     }
   }, [networkState])
-
-  return networkState
 }
 
 export default troubleshootNetwork

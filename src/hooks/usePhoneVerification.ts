@@ -1,10 +1,16 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useRef, useEffect, useCallback } from 'react'
 import { TextInput } from 'react-native'
 import { InputValidationHelpers } from 'utils'
-import { CodeRefType, SendSmsCodeStatus } from '../../@types/allTypes.d'
 import services from 'services'
-import { Logger, DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
+import {
+  DisplayDropdownWithError,
+  DisplayDropdownWithSuccess,
+  remoteLogger,
+} from 'helpers/inform'
+import {
+  SendSmsCodeStatus,
+  CodeRefType,
+} from '../../@types/allTypes.d'
 
 type useForgotPasswordProps = {
   getValues: () => Record<string, any>
@@ -13,7 +19,13 @@ type useForgotPasswordProps = {
   watch: (name: string) => string
   triggerValidation: (name: string) => Promise<boolean>
 }
-export default ({ getValues, register, errors, watch, triggerValidation }: useForgotPasswordProps) => {
+export default ({
+  triggerValidation,
+  getValues,
+  register,
+  errors,
+  watch,
+}: useForgotPasswordProps) => {
   const phoneRef = useRef<TextInput>()
   const codeRef = useRef<TextInput & CodeRefType>()
 
@@ -27,7 +39,9 @@ export default ({ getValues, register, errors, watch, triggerValidation }: useFo
   }, [])
 
   useEffect(() => {
-    if (Object.keys(errors).length) DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
+    if (Object.keys(errors).length) {
+      DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
+    }
   }, [errors])
 
   const validatePhone = useCallback(async () => {
@@ -42,8 +56,9 @@ export default ({ getValues, register, errors, watch, triggerValidation }: useFo
   }, [phone])
 
   const receiveCodeHandler = async (formType: string): Promise<void> => {
-    if (!(await triggerValidation('phone')))
+    if (!(await triggerValidation('phone'))) {
       return DisplayDropdownWithError('dropDownAlert.registration.fillPhoneNumber')
+    }
     try {
       const { phone } = getValues()
       await services.sendSMSCode(phone, formType)
@@ -55,9 +70,9 @@ export default ({ getValues, register, errors, watch, triggerValidation }: useFo
       DisplayDropdownWithSuccess('dropDownAlert.registration.codeSentSuccessfully')
     } catch (e) {
       remoteLogger(e)
-      if (e.data.status == SendSmsCodeStatus.USER_ALREADY_EXISTS) {
+      if (e.data.status === SendSmsCodeStatus.USER_ALREADY_EXISTS) {
         DisplayDropdownWithError('dropDownAlert.error', 'dropDownAlert.registration.alreadyExists')
-      } else if (e.data.status == SendSmsCodeStatus.USER_DOES_NOT_EXISTS) {
+      } else if (e.data.status === SendSmsCodeStatus.USER_DOES_NOT_EXISTS) {
         DisplayDropdownWithError('dropDownAlert.error', 'dropDownAlert.forgotPassword.doesNotExist')
       } else {
         DisplayDropdownWithError()

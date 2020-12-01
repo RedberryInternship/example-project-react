@@ -1,9 +1,9 @@
-import React, {ReactElement} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
-import {Colors} from 'utils'
-import {BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseText } from 'components'
 
 type TariffItemProps = {
   company: string
@@ -18,7 +18,7 @@ const TariffListItem = ({
   chargerType,
   title,
 }: TariffItemProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <View style={styles.container}>

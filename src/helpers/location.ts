@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { Alert, Linking, Platform } from 'react-native'
 import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
 import locationConfig from 'utils/mapAndLocation/location'
@@ -6,12 +7,12 @@ import i18next from 'i18next'
 
 export const getAndRequestLocation = async (): Promise<boolean> => {
   if (
-    !isPermissionGrantedRegex(Defaults.locationPermissionStatus) &&
-    Platform.OS === 'ios'
+    !isPermissionGrantedRegex(Defaults.locationPermission)
+    && Platform.OS === 'ios'
   ) {
     onLocationAccessDenied()
     return true
-  } else if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
+  } if (!isPermissionGrantedRegex(Defaults.locationPermission)) {
     const status = await locationConfig.requestPermission()
 
     if (!status) return false

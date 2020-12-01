@@ -1,47 +1,52 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import React, { ReactElement } from 'react'
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Platform,
+  View,
+} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import {ScreenPropsWithNavigation} from 'allTypes'
+import { ScreenPropsWithNavigation } from 'allTypes'
 
-import {BaseHeader, BaseButton, PhoneVerificationView} from 'components'
-import {Colors} from 'utils'
+import { BaseHeader, BaseButton, PhoneVerificationView } from 'components'
+import { Colors } from 'utils'
 import images from 'assets/images'
 import useForgotPassword from './useForgotPassword'
 
 const ForgotPassword = ({
   navigation,
 }: ScreenPropsWithNavigation): ReactElement => {
-  const {handleSubmit, onButtonClick, ...hook} = useForgotPassword(navigation)
+  const { handleSubmit, onButtonClick, ...hook } = useForgotPassword(navigation)
   const insets = useSafeAreaInsets()
-  
+
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(ForgotPassword, 'Auth')}
-        title={'authentication.forgotPasswordPage.recoverPassword'}
+        title="authentication.forgotPasswordPage.recoverPassword"
       />
       <KeyboardAwareScrollView
         style={styles.keyboardAwareScrollView}
         contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
-        keyboardShouldPersistTaps={'handled'}
-        enableOnAndroid={true}
-        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+        enableAutomaticScroll
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
         automaticallyAdjustContentInsets={false}
       >
-        <PhoneVerificationView {...hook} formType='password_reset'/>
+        <PhoneVerificationView {...hook} formType="password_reset" />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
-        behavior={'padding'}
+        behavior="padding"
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 41}
       >
         <BaseButton
           onPress={handleSubmit(onButtonClick)}
-          text={'enter'}
+          text="enter"
           image={images.arrowRight}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}

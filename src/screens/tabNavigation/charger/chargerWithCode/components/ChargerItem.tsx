@@ -1,8 +1,12 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
+import React, { ReactElement } from 'react'
+import {
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
 
-import {Colors} from 'utils'
-import {BaseButton, BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseButton, BaseText } from 'components'
 import images from 'assets/images'
 
 type ChargerItemProps = {
@@ -15,11 +19,13 @@ const ChargerItem = ({
   code,
   onPress,
   address,
-}: ChargerItemProps): ReactElement => {
-  return (
+}: ChargerItemProps): ReactElement => (
     <View style={styles.container}>
       <View style={styles.codeTextContainer}>
-        <BaseText style={styles.codeText}>#{code}</BaseText>
+        <BaseText style={styles.codeText}>
+          #
+        {code}
+        </BaseText>
         <View style={styles.addressContainer}>
           <Image source={images.mapPin} style={styles.addressImage} />
           <BaseText style={styles.addressText} numberOfLines={1}>
@@ -29,15 +35,14 @@ const ChargerItem = ({
       </View>
       <BaseButton
         onPress={onPress}
-        text={'next'}
+        text="next"
         style={styles.buttonStyle}
-        imageStyle={{tintColor: Colors.primaryBlue}}
+        imageStyle={{ tintColor: Colors.primaryBlue }}
         image={images.arrowRight}
-        textStyle={{color: Colors.primaryBlue}}
+        textStyle={{ color: Colors.primaryBlue }}
       />
     </View>
   )
-}
 
 export default ChargerItem
 

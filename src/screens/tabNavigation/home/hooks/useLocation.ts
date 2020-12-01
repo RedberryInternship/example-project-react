@@ -61,7 +61,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
     (status: LocationPermissionStatus): void => {
       setPermissionStatus(status)
       _this.current.permissionStatus = status
-      Defaults.locationPermissionStatus = status
+      Defaults.locationPermission = status
       if (!status.match(/denied|restricted|notDetermined/)) {
         navigateToLocation()
       } else {
@@ -91,7 +91,7 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
       if (location) navigateByRef(location.lat, location.lng)
       else {
         try {
-          if (!isPermissionGrantedRegex(Defaults.locationPermissionStatus) || !Const.platformIOS) {
+          if (!isPermissionGrantedRegex(Defaults.locationPermission) || !Const.platformIOS) {
             const status = await locationConfig.requestPermission()
             if (!status) return
           }
@@ -115,12 +115,12 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
   const subscribePermissionUpdate = useCallback(
     (status: LocationPermissionStatus): void => {
       setPermissionStatus(status)
-      Defaults.locationPermissionStatus = status
+      Defaults.locationPermission = status
       if (status.match(/notDetermined/)) {
         requestPermission()
       } else if (isPermissionGrantedRegex(status)) {
         navigateToLocation()
-        if (Defaults.modal.current?.state?.config?.type === 5) {
+        if (Defaults.modal?.current?.state?.config?.type === 5) {
           Defaults.modal.current?.customUpdate(false)
         }
       }
@@ -174,8 +174,12 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
       try {
         const res = await services.getDirection(coords.lat, coords.lng, finishLat, finishLng)
 
-        if (res.data.status === 'ZERO_RESULTS') throw 'ZERO_RESULTS'
-        if (res.data.status !== 'OK') throw 'ERROR'
+        if (res.data.status === 'ZERO_RESULTS') {
+          throw 'ZERO_RESULTS'
+        }
+        if (res.data.status !== 'OK') {
+          throw 'ERROR'
+        }
         const array = polyline.decode(res.data.routes[0].overview_polyline.points)
         const coordsBetween = array.map((point) => ({
           latitude: point[0],
@@ -196,9 +200,9 @@ const useLocation = ({ mapRef, setPolyline, dispatch }: useLocationProps) => {
         if (error === 'ERROR') DisplayDropdownWithError()
         else if (error === 'ZERO_RESULTS') {
           DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
+        } else {
+          remoteLogger(error)
         }
-        // Vobi Done: log error to sentry if none matches
-        else remoteLogger(error)
       }
     },
     [mapRef, polyline],

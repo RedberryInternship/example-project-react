@@ -1,15 +1,18 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { ReactElement } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  Image,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaView } from 'react-navigation'
-
-// components
+import {
+  NavigationScreenProp,
+  NavigationState,
+  NavigationParams,
+  SafeAreaView,
+} from 'react-navigation'
 import { BaseHeader, BaseText } from 'components'
-
-// utils
-import { Colors, getLocaleText } from 'utils'
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
+import { Colors } from 'utils'
 import { TransactionsHistoryResponseItem } from 'allTypes'
 import images from 'assets/images'
 
@@ -20,14 +23,16 @@ type DetailsItemType = {
 type ShowTransactionsProps = {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>
 }
-const DetailsItem = ({ name, value }: DetailsItemType): ReactElement => {
-  return (
-    <View style={styles.detailsItem}>
-      <BaseText style={styles.detailsItemName}>{name}: </BaseText>
-      <BaseText style={styles.detailsItemValue}>{value ?? ''}</BaseText>
-    </View>
-  )
-}
+const DetailsItem = ({ name, value }: DetailsItemType): ReactElement => (
+  <View style={styles.detailsItem}>
+    <BaseText style={styles.detailsItemName}>
+      {name}
+      :
+      {' '}
+    </BaseText>
+    <BaseText style={styles.detailsItemValue}>{value ?? ''}</BaseText>
+  </View>
+)
 
 const ShowTransactions = ({ navigation }: ShowTransactionsProps): ReactElement => {
   const { t } = useTranslation()
@@ -42,28 +47,36 @@ const ShowTransactions = ({ navigation }: ShowTransactionsProps): ReactElement =
     user_card_pan,
   }: TransactionsHistoryResponseItem = navigation.getParam('order', [])
 
-  // Vobi Todo: const penaltyFee = () => use normal function syntax
-  // - why?
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
   const chargePrice = (): string => `${charge_price ?? 0} ${t('gel')}`
   const durationInMins = (): string => `${duration ?? 0} ${t('minute')}`
-
   const shouldNotRender = (): boolean => !duration && !penalty_fee && !charge_price
 
   return (
     <View style={styles.container}>
-      <BaseHeader title={'transactions.transactions'} onPressLeft={navigation.goBack} />
+      <BaseHeader title="transactions.transactions" onPressLeft={navigation.goBack} />
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
           <Image source={images.transaction} style={styles.transactionIcon} />
-          <BaseText style={styles.title}> {charger_name} </BaseText>
-          <BaseText style={styles.dateAndTime}> {start_date} </BaseText>
+          <BaseText style={styles.title}>
+            {' '}
+            {charger_name}
+            {' '}
+          </BaseText>
+          <BaseText style={styles.dateAndTime}>
+            {' '}
+            {start_date}
+            {' '}
+          </BaseText>
           <BaseText style={styles.price}>{chargePrice()}</BaseText>
         </View>
-        <BaseText style={styles.detailsCopy}> {t('transactions.details')} </BaseText>
+        <BaseText style={styles.detailsCopy}>
+          {' '}
+          {t('transactions.details')}
+          {' '}
+        </BaseText>
         {!shouldNotRender() && (
           <View style={styles.detailsContainer}>
-            {/** Vobi Done: code doesn't have to be vertically aligned */}
             {duration && <DetailsItem name={t('transactions.duration')} value={durationInMins()} />}
             {charge_power && <DetailsItem name={t('transactions.power')} value={charge_power} />}
             {penalty_fee && <DetailsItem name={t('transactions.penaltyFee')} value={penaltyFee()} />}
@@ -73,7 +86,11 @@ const ShowTransactions = ({ navigation }: ShowTransactionsProps): ReactElement =
           <DetailsItem name={t('transactions.address')} value={address} />
         </View>
         <View style={styles.cardDetailsContainer}>
-          <BaseText style={styles.cardNumberCopy}> {t('transactions.cardNumber')} </BaseText>
+          <BaseText style={styles.cardNumberCopy}>
+            {' '}
+            {t('transactions.cardNumber')}
+            {' '}
+          </BaseText>
           <BaseText style={styles.cardNumber}>{user_card_pan ?? ''}</BaseText>
         </View>
       </View>

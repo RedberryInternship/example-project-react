@@ -1,9 +1,13 @@
-import React, {ReactElement} from 'react'
-import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
-import {useTranslation} from 'react-i18next'
-
-import {Colors} from 'utils'
-import {BaseCheckbox, BaseText} from 'components'
+import React, { ReactElement } from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { Colors } from 'utils'
+import { BaseCheckbox, BaseText } from 'components'
 import images from 'assets/images'
 
 type ChargerTypesItemProps = {
@@ -19,7 +23,7 @@ const ChargerTypesItem = ({
   active,
   onPress,
 }: ChargerTypesItemProps): ReactElement => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -30,7 +34,7 @@ const ChargerTypesItem = ({
         <View style={styles.powerAndTypeTextContainer}>
           <BaseText style={styles.typeText}>{type}</BaseText>
           <BaseText style={styles.powerText}>
-            {t('chargerDetail.powerOfChargerType', {power})}
+            {t('chargerDetail.powerOfChargerType', { power })}
           </BaseText>
         </View>
         <BaseCheckbox active={active} />

@@ -1,15 +1,17 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, ScrollView, View, Image} from 'react-native'
-
-import {ScreenPropsWithNavigation, BusinessService} from 'allTypes'
-
+import React, { ReactElement } from 'react'
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+} from 'react-native'
+import { ScreenPropsWithNavigation, BusinessService } from 'allTypes'
 import {
   BaseHeader,
   TitleTopLeftContainer,
   BaseButton,
 } from 'components'
-import {Colors, Const } from 'utils'
-import {getLocaleText} from 'utils/localization/localization'
+import { Colors, Const } from 'utils'
+import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
 import {
   CurrentTariffs,
@@ -56,8 +58,8 @@ const ChargerDetail = ({
           connector={charger?.connector_types[activeChargerType]}
         />
         <TitleTopLeftContainer
-          direction={'column'}
-          title={'chargerDetail.connectors'}
+          direction="column"
+          title="chargerDetail.connectors"
           data={charger?.connector_types ?? []}
           onRenderItem={(val, index): ReactElement => (
             <ChargerTypesItem
@@ -72,15 +74,13 @@ const ChargerDetail = ({
         />
         {!!charger?.business_services?.length && (
           <TitleTopLeftContainer
-            title={'chargerDetail.additionalServices'}
-            direction={'row'}
+            title="chargerDetail.additionalServices"
+            direction="row"
             data={charger?.business_services}
             onRenderItem={(val: BusinessService): ReactElement => (
               <BusinessServiceItem
                 key={val.id}
-                onPress={() =>
-                  onBusinessServiceClick(val.title, val.description)
-                }
+                onPress={() => onBusinessServiceClick(val.title, val.description)}
                 image={val.image_path}
               />
             )}
@@ -89,7 +89,7 @@ const ChargerDetail = ({
       </ScrollView>
       <BaseButton
         onPress={mainButtonClickHandler}
-        text={'charger.turnOn'}
+        text="charger.turnOn"
         style={styles.baseButton}
         image={images.charge}
         imageStyle={styles.baseButtonImageStyle}

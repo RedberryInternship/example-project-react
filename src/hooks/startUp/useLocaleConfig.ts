@@ -1,35 +1,23 @@
-import { useState } from 'react'
-import { useAsyncStorage } from '@react-native-community/async-storage'
-import Defaults from 'utils/defaults'
-import { locale } from 'locale'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import defaults from 'utils/defaults'
+import { Locale } from 'allTypes'
+import { getLocale } from 'helpers/locale'
 
-const configureLocale = () => {
-  const [locale, setLocale] = useState<locale>('ka')
+/**
+ * Retrieve locale from storage
+ * and configure i18n translator.
+ */
+const configureLocale = async () => {
   const { i18n } = useTranslation()
-  const {
-    getItem: getLocaleStorage,
-    setItem: setLocaleStorage,
-  } = useAsyncStorage('locale')
 
-  const readUserLocale = async (): Promise<void> => {
-    let locale: locale = await getLocaleStorage()
-    if (locale === null) {
-      locale = 'ka'
-      setLocaleStorage('ka')
-    } else {
-      i18n.changeLanguage(locale)
-    }
-
-    Defaults.locale = locale
-    setLocale(locale)
-  }
-
-  return {
-    readUserLocale,
-    locale,
-    setLocale,
-  }
+  useEffect(() => {
+    (async () => {
+      const locale: Locale = await getLocale()
+      locale && i18n.changeLanguage(locale)
+      defaults.locale = locale
+    })()
+  }, [])
 }
 
 export default configureLocale

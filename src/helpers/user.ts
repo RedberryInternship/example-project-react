@@ -1,13 +1,11 @@
-/* eslint-disable camelcase */
-/* eslint-disable import/prefer-default-export */
 import AsyncStorage from '@react-native-community/async-storage'
-import { UserMeResponseType } from 'allTypes'
 import defaults from 'utils/defaults'
 import services from 'services'
 import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
+import { UserMeResponseType } from 'allTypes'
 
 /**
  * Save jwt token and user data in async storage.
@@ -80,5 +78,34 @@ export const getUserFavoriteChargers = async () => {
   } catch (error) {
     remoteLogger(error)
     DisplayDropdownWithError()
+  }
+}
+
+/**
+ * Get user detailed information from storage.
+ */
+export const getUserDetailedInformationFromStorage = async () => {
+  try {
+    const rawUserDetailedInformation = await AsyncStorage.getItem('userDetail')
+
+    return rawUserDetailedInformation
+      ? JSON.parse(rawUserDetailedInformation)
+      : ''
+  } catch (error) {
+    DisplayDropdownWithError()
+    remoteLogger(error)
+  }
+}
+
+/**
+ * Get user token from storage.
+ */
+export const getUserTokenFromStorage = async () => {
+  try {
+    return await AsyncStorage.getItem('token')
+  } catch (error) {
+    DisplayDropdownWithError()
+    remoteLogger(error)
+    return ''
   }
 }

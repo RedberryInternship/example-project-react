@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet} from 'react-native'
+import React, { ReactElement } from 'react'
+import { View, StyleSheet } from 'react-native'
 
-import {Const} from 'utils'
-import {CardAddView} from 'components'
+import { Const } from 'utils'
+import { CardAddView } from 'components'
 
 type CardAddContainerProps = {
   activePage: number
@@ -11,18 +11,15 @@ type CardAddContainerProps = {
 const CardAddContainer = ({
   activePage,
   onSuccess,
-}: CardAddContainerProps): ReactElement => {
-  return (
+}: CardAddContainerProps): ReactElement => (
     <View style={styles.container}>
       {activePage === 3 && <CardAddView onSuccess={onSuccess} />}
     </View>
   )
-}
 
 export default React.memo(
   CardAddContainer,
-  ({activePage}, {activePage: nextActivePage}) =>
-    nextActivePage != 3 && activePage != 3,
+  ({ activePage }, { activePage: nextActivePage }) => nextActivePage !== 3 && activePage !== 3,
 )
 
 const styles = StyleSheet.create({

@@ -14,6 +14,7 @@ import { Defaults } from 'utils'
 import { getAndRequestLocation } from 'helpers/location'
 import images from 'assets/images'
 import HomeMainSearchView from './HomeMainSearchView'
+import HomeBottomSearchView from './HomeMainSearchView'
 import OnMapRoundButton from './OnMapRoundButton'
 
 type HomeMainComponentProps = {
@@ -77,7 +78,7 @@ const HomeMainComponent = ({
           onPress={(): void => {
             if (
               // Vobi Todo: this must be declared as function and validation in validationHelpers
-              !Defaults.locationPermissionStatus.match(
+              !Defaults.locationPermission.match(
                 /denied|restricted|notDetermined/,
               )
             ) {
@@ -89,7 +90,7 @@ const HomeMainComponent = ({
           image={homeState.locationImageType}
           imageStyle={styles.onMapRoundImage}
         />
-        <HomeMainSearchView
+        <HomeBottomSearchView
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}
         />

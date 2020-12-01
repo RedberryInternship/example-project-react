@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { Linking } from 'react-native'
-
 import { Defaults, Const } from 'utils'
 import { Navigation, ContactInfoResponseType } from 'allTypes'
 import services from 'services'
+import {
+  DisplayDropdownWithSuccess,
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
 import { platformIOS } from '../../../utils/const'
-import { DisplayDropdownWithError, DisplayDropdownWithSuccess, remoteLogger } from 'helpers/inform'
-
-// SARU
 
 const fbPageType = platformIOS ? 'profile' : 'page'
 export default (navigation: Navigation) => {
@@ -47,7 +48,7 @@ export default (navigation: Navigation) => {
     },
 
     facebookPage: () => {
-      openUrl('fb://' + fbPageType + '/' + data?.fb_page_url.split('/')[3], 'FaceBook', data?.fb_page_url)
+      openUrl(`fb://${fbPageType}/${data?.fb_page_url.split('/')[3]}`, 'FaceBook', data?.fb_page_url)
     },
 
     webPage: () => {
@@ -73,7 +74,7 @@ export default (navigation: Navigation) => {
       })
       .catch((error) => {
         remoteLogger(error)
-        if (error.message.indexOf('fb://' + fbPageType) > -1 && typeof backupUrl === 'string') {
+        if (error.message.indexOf(`fb://${fbPageType}`) > -1 && typeof backupUrl === 'string') {
           Linking.openURL(backupUrl)
           return
         }

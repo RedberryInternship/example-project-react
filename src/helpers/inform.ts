@@ -17,9 +17,6 @@ export const Logger = (data: any): void => {
 
 /**
  * Send logs remotely for debugging.
- *
- * @param data
- * @param type
  */
 export const remoteLogger = (data: any, type: 'Error' | 'Message' = 'Error') => {
   if (__DEV__) {
@@ -38,9 +35,6 @@ export const remoteLogger = (data: any, type: 'Error' | 'Message' = 'Error') => 
 
 /**
  * Display error alert.
- *
- * @param title
- * @param text
  */
 export const DisplayDropdownWithError = (
   title: string | undefined = undefined,
@@ -54,28 +48,31 @@ export const DisplayDropdownWithError = (
 
 /**
  * Display success alert.
- *
- * @param title
- * @param text
  */
 export const DisplayDropdownWithSuccess = (
   title: string | undefined = undefined,
   text: string | undefined = undefined,
 ): void => {
-  Defaults.dropdown?.alertWithType('success', i18next.t(title ?? 'dropDownAlert.generalSuccess'), i18next.t(text ?? ''))
+  Defaults.dropdown?.alertWithType(
+    'success',
+    i18next.t(title ?? 'dropDownAlert.generalSuccess'),
+    i18next.t(text ?? ''),
+  )
 }
 
 /**
  * Display highly configurable alert.
- *
- * @param {string} title
- * @param {string} text
- * @param {string} rightText
- * @param {string} leftText
- * @param {Function} onRightClick
- * @param {Function} onLeftClick
  */
-export const easyAlert = ({ title, text, rightText, leftText, onRightClick, onLeftClick }: EasyAlert) => {
+export const easyAlert = (config: EasyAlert) => {
+  const {
+    onRightClick,
+    onLeftClick,
+    rightText,
+    leftText,
+    title,
+    text,
+  } = config
+
   Alert.alert(
     i18next.t(title ?? ''),
     i18next.t(text ?? ''),

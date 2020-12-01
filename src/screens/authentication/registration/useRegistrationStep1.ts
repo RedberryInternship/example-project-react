@@ -9,12 +9,27 @@ type InputValues = {
   code: string
 }
 export default (setActivePage: (index: number) => void) => {
-  const { setValue, getValues, register, handleSubmit, errors, watch, reset, triggerValidation } = useForm({
-    validateCriteriaMode: 'all',
-    submitFocusError: true,
-  })
+  const {
+    triggerValidation,
+    handleSubmit,
+    getValues,
+    setValue,
+    register,
+    errors,
+    watch,
+    reset,
+  } = useForm(
+    {
+      validateCriteriaMode: 'all',
+      submitFocusError: true,
+    },
+  )
 
-  const { phoneRef, codeRef, receiveCodeHandler } = usePhoneVerification({
+  const {
+    receiveCodeHandler,
+    phoneRef,
+    codeRef,
+  } = usePhoneVerification({
     getValues,
     register,
     errors,

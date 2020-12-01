@@ -3,8 +3,6 @@ import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 import { ChargerFilters, ChargerStatus, ConnectorTypes } from 'utils/enums'
 import { Charger, ChargersObject } from '../../@types/allTypes.d'
 
-// Vobi Done: refactor searchChargers
-
 export const GetFilteredCharger = async (
   selectedFilters: boolean[],
   filterInput = '',

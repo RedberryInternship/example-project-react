@@ -21,6 +21,6 @@ i18n.use(initReactI18next)
 
 export default i18n
 
-export const getLocaleText = (stringObj: LocaleStringObject): string => {
-  return stringObj ? stringObj[i18n.language] ?? '' : ''
-}
+export const getLocaleText = (
+  stringObj: LocaleStringObject,
+): string => (stringObj ? stringObj[i18n.language] ?? '' : '')

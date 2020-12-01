@@ -7,31 +7,9 @@ import LocationPermission from 'components/modalTypes/LocationPermission'
 import RegistrationType1 from 'components/modalTypes/RegistrationType1'
 import PrivacyPolicy from 'components/modalTypes/PrivacyPolicy'
 import LegendType2 from 'components/modalTypes/LegendType2'
-import { ChargingStatus, ModalTypes } from 'utils/enums'
+import { ModalTypes } from 'utils/enums'
 import MapPopUp from 'components/modalTypes/MapPopUp'
-
-type Data = {
-  title?: string
-  description?: string
-  bottomDescription?: string
-  price?: number
-}
-type Config = {
-  type: number
-  onCloseClick?: () => void
-  subType?: ChargingStatus
-  data?: Data & any
-}
-
-type InitialState = {
-  visible: boolean
-  config: Config
-}
-
-export interface CustomModalInterface {
-  customUpdate: (visible: boolean, config?: Config) => void
-  state: InitialState
-}
+import { InitialState, CustomModalInterface, Config } from 'allTypes'
 
 const initialState: InitialState = {
   visible: false,
@@ -72,40 +50,6 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  render(): ReactElement {
-    return (
-      <Modal
-        isVisible={this.state.visible}
-        ref={this.ref}
-        onSwipeComplete={this.closeModal}
-        swipeDirection={['down']}
-        useNativeDriver
-        onBackdropPress={this.closeModal}
-        onBackButtonPress={this.closeModal}
-        hideModalContentWhileAnimating
-        propagateSwipe
-        coverScreen
-        statusBarTranslucent
-      >
-        <View
-          style={[
-            styles.modalContentContainer,
-            {
-              justifyContent:
-                this.state.config && this.state.config.type === ModalTypes.CHARGER_WRAPPER
-                  ? 'flex-start'
-                  : 'space-between',
-              height:
-                this.state.config && this.state.config.type === ModalTypes.MAP_POPUP ? 'auto' : Const.Height * 0.7,
-            },
-          ]}
-        >
-          {this.renderView()}
-        </View>
-      </Modal>
-    )
-  }
-
   renderView = (): ReactElement | undefined => {
     // Vobi Done: make enum types instead of numbers this.state.config.type
     switch (this.state.config.type) {
@@ -131,6 +75,43 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         return <></>
       }
     }
+  }
+
+  render(): ReactElement {
+    return (
+      <Modal
+        isVisible={this.state.visible}
+        ref={this.ref}
+        onSwipeComplete={this.closeModal}
+        swipeDirection={['down']}
+        useNativeDriver
+        onBackdropPress={this.closeModal}
+        onBackButtonPress={this.closeModal}
+        hideModalContentWhileAnimating
+        propagateSwipe
+        coverScreen
+        statusBarTranslucent
+      >
+        <View
+          style={[
+            styles.modalContentContainer,
+            {
+              justifyContent:
+                this.state.config && this.state.config.type === ModalTypes.CHARGER_WRAPPER
+                  ? 'flex-start'
+                  : 'space-between',
+              height:
+                this.state.config
+                  && this.state.config.type === ModalTypes.MAP_POPUP
+                  ? 'auto'
+                  : Const.Height * 0.7,
+            },
+          ]}
+        >
+          {this.renderView()}
+        </View>
+      </Modal>
+    )
   }
 }
 

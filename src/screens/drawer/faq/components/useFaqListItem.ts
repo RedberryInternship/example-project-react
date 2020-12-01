@@ -1,11 +1,11 @@
-import {useState, useEffect} from 'react'
-import {Animated} from 'react-native'
+import { useState, useEffect } from 'react'
+import { Animated } from 'react-native'
 
 type MyAnimProps = {
   active: boolean
 }
 
-const useFaqListItem = ({active}: MyAnimProps) => {
+const useFaqListItem = ({ active }: MyAnimProps) => {
   const [toggleAnswerAnim] = useState(new Animated.Value(0))
 
   useEffect(() => {
@@ -17,8 +17,8 @@ const useFaqListItem = ({active}: MyAnimProps) => {
     }
 
     Animated.timing(toggleAnswerAnim, {
-      toValue: toValue,
-      duration: duration,
+      toValue,
+      duration,
       useNativeDriver: false,
     }).start()
   }, [active])
