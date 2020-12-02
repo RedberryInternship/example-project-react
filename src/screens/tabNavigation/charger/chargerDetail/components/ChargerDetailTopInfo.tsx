@@ -7,7 +7,6 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { BaseText } from 'components'
@@ -15,7 +14,7 @@ import { BaseText } from 'components'
 type ChargerDetailTopInfoProps = {
   chargerLocationDirectionPress: () => void
   showChargerLocationPress: () => void
-  favouritePress: () => void
+  favoritePress: () => void
   code: string | number | undefined
   name: string
   location: string
@@ -26,7 +25,7 @@ type ChargerDetailTopInfoProps = {
 const ChargerDetailTopInfo = ({
   chargerLocationDirectionPress,
   showChargerLocationPress,
-  favouritePress,
+  favoritePress,
   code,
   name,
   location,
@@ -45,7 +44,7 @@ const ChargerDetailTopInfo = ({
         </View>
         <View>
           <TouchableOpacity
-            onPress={favouritePress}
+            onPress={favoritePress}
             style={styles.favIconContainer}
           >
             <Image
@@ -84,7 +83,6 @@ const ChargerDetailTopInfo = ({
             <Image source={images.cornerUpRight} style={styles.distanceIcon} />
             <BaseText style={styles.distanceText} numberOfLines={1}>
               {distance}
-              {/* {t('km')} */}
             </BaseText>
           </TouchableOpacity>
         </View>

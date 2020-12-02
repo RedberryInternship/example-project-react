@@ -1,15 +1,15 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { BaseHeader, CardAddView } from 'components'
-import { Colors } from 'utils'
+import colors from 'utils/colors'
 import { refreshUserData } from 'state/actions/userActions'
-import { ScreenPropsWithNavigation } from '../../../@types/allTypes'
+import { FCWithNavigation } from 'allTypes'
 
-const CardAdd = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+const CardAdd: FCWithNavigation = ({ navigation }) => {
   const dispatch = useDispatch()
 
-  const onSuccess = useCallback(async () => {
+  const onSuccess = useCallback(() => {
     dispatch(refreshUserData())
     navigation.goBack()
   }, [navigation])
@@ -28,17 +28,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 30,
-    backgroundColor: Colors.primaryBackground,
-  },
-  innherContainer: {
-    flex: 1,
-  },
-  keyboardAwareScrollView: {
-    flex: 1,
-    backgroundColor: Colors.primaryBackground,
-  },
-  keyboardAvoidingViewContainer: {
-    backgroundColor: Colors.primaryBackground,
-    justifyContent: 'space-between',
+    backgroundColor: colors.primaryBackground,
   },
 })

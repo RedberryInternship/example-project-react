@@ -1,5 +1,7 @@
 import React, { ReactElement, useMemo } from 'react'
-import { StyleSheet, Platform, TouchableOpacity, View } from 'react-native'
+import {
+  StyleSheet, Platform, TouchableOpacity, View,
+} from 'react-native'
 
 import { Colors } from 'utils'
 import { BaseNativeTouchable, BaseText } from 'components'
@@ -42,13 +44,12 @@ const BottomSheetFilterItem = ({
 
   if (Platform.OS === 'ios') {
     return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
-  } else {
-    return (
-      <BaseNativeTouchable borderless={false} onPress={onPress}>
-        {child}
-      </BaseNativeTouchable>
-    )
   }
+  return (
+    <BaseNativeTouchable borderless={false} onPress={onPress}>
+      {child}
+    </BaseNativeTouchable>
+  )
 }
 
 export default React.memo(BottomSheetFilterItem)

@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback } from 'react'
+import React, { useMemo } from 'react'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -16,15 +16,13 @@ import {
   SingleInputView,
 } from 'components'
 import { Colors, InputValidationHelpers } from 'utils'
+import useProfileChange from './useProfileChange'
 import {
-  ScreenPropsWithNavigation,
+  FCWithNavigation,
   UserSettingEnum,
 } from '../../../../../@types/allTypes.d'
-import useProfileChange from './useProfileChange'
 
-const ProfileChange = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ProfileChange: FCWithNavigation = ({ navigation }) => {
   const headerName = navigation.getParam('name')
   const type: UserSettingEnum = navigation.getParam('type')
   const value = navigation.getParam('value')
@@ -32,8 +30,7 @@ const ProfileChange = ({
 
   const { submit, ...form } = useProfileChange(navigation, type)
 
-  // Vobi todo: why not memo
-  const renderInputs = useCallback(() => {
+  const renderInputs = useMemo(() => {
     switch (type) {
       case UserSettingEnum.firstName:
       case UserSettingEnum.lastName:
@@ -89,7 +86,7 @@ const ProfileChange = ({
           keyboardDismissMode="on-drag"
           resetScrollToCoords={{ x: 0, y: 0 }}
         >
-          {renderInputs()}
+          {renderInputs}
         </KeyboardAwareScrollView>
       </View>
 

@@ -1,5 +1,7 @@
 import React, { ReactElement } from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import {
+  View, Image, StyleSheet, TouchableOpacity,
+} from 'react-native'
 
 import { BaseButton, BaseText } from 'components'
 import { Colors } from 'utils'
@@ -17,8 +19,7 @@ const FavoriteChargerListItem = ({
   address,
   turnon,
   deleteItem,
-}: FavoriteChargerItemProps): ReactElement => {
-  return (
+}: FavoriteChargerItemProps): ReactElement => (
     <View style={styles.container}>
       <View style={styles.innerLeftContainer}>
         <TouchableOpacity onPress={deleteItem}>
@@ -38,7 +39,7 @@ const FavoriteChargerListItem = ({
       <View style={styles.customizedBaseButtonContainer}>
         <BaseButton
           onPress={turnon}
-          text={'turnOn'}
+          text="turnOn"
           style={styles.customizedBaseButton}
           imageStyle={{ tintColor: Colors.primaryBlue }}
           image={images.arrowRight}
@@ -47,7 +48,6 @@ const FavoriteChargerListItem = ({
       </View>
     </View>
   )
-}
 
 export default FavoriteChargerListItem
 

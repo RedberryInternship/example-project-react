@@ -13,18 +13,18 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   BackHandler,
+  TextInput,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {TextInput} from 'react-native-gesture-handler'
+import { useTranslation } from 'react-i18next'
 import BottomSheet from 'reanimated-bottom-sheet'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import {Charger, ChargerDetail} from 'allTypes'
-import {Const, Colors, getLocaleText} from 'utils'
+import { Charger, ChargerDetail } from 'allTypes'
+import { Const, Colors, getLocaleText } from 'utils'
 import images from 'assets/images'
+import { BaseText } from 'components'
 import BottomSheetFilterItem from './BottomSheetFilterItem'
 import MainSearchItem from './MainSearchItem'
-import {BaseText} from 'components'
 
 type _This = {
   text: string
@@ -55,8 +55,8 @@ const BottomSheetReanimated = forwardRef(
     // Vobi Todo: do not use ref's instead of state
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
-    const {t} = useTranslation()
-    const height = useWindowDimensions().height
+    const { t } = useTranslation()
+    const { height } = useWindowDimensions()
 
     const insets = useSafeAreaInsets()
 
@@ -99,21 +99,23 @@ const BottomSheetReanimated = forwardRef(
             <TextInput
               style={styles.textInput}
               placeholder={`${t('home.location')}/${t('home.organization')}`}
-              keyboardType={'default'}
+              keyboardType="default"
               onChangeText={onTextChange}
-              onSubmitEditing={() => {}}
+              onSubmitEditing={() => { }}
               placeholderTextColor={Colors.primaryWhite}
               allowFontScaling={false}
               ref={inputRef}
               autoCorrect={false}
-              editable={true}
-              autoCapitalize={'none'}
-              returnKeyType={'go'}
-              testID={'mainInput'}
+              editable
+              autoCapitalize="none"
+              returnKeyType="go"
+              testID="mainInput"
             />
             <TouchableWithoutFeedback
               onPress={closeClick}
-              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+              hitSlop={{
+                top: 15, bottom: 15, left: 15, right: 15,
+              }}
               style={styles.closeTouchable}
             >
               <Image source={images.delete} style={styles.deleteIcon} />
@@ -124,58 +126,54 @@ const BottomSheetReanimated = forwardRef(
       [t],
     )
 
-    const renderContent = (): ReactElement => {
-      return (
-        <View style={styles.bodyContainer}>
-          <View style={styles.filterContainer}>
-            {Const.FilterTypes.map((val: string, index: number) => (
-              <BottomSheetFilterItem
-                key={index}
-                text={t(val)}
-                onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
-                active={!!selectedFilters[index]}
-              />
-            ))}
-          </View>
-
-          {filteredChargers?.map((chargerObj: Charger, index: number) => {
-            const view = []
-            if (chargerObj.charger_group?.chargers?.length !== 0) {
-              view.push(
-                <MainSearchItem
-                  key={chargerObj.id + getLocaleText(chargerObj.name) + index}
-                  text={getLocaleText(chargerObj.location)}
-                  mainTitle={getLocaleText(chargerObj.name)}
-                  onPress={onFilteredItemClick?.bind(
-                    BottomSheetReanimated,
-                    chargerObj,
-                  )}
-                />,
-              )
-            } else {
-              chargerObj.charger_group?.chargers?.map((val, index: number) =>
-                view.push(
-                  <MainSearchItem
-                    key={val.id + getLocaleText(val.name) + index}
-                    text={getLocaleText(val.location)}
-                    mainTitle={getLocaleText(val.name)}
-                    onPress={onFilteredItemClick?.bind(
-                      BottomSheetReanimated,
-                      val,
-                    )}
-                  />,
-                ),
-              )
-            }
-            return view
-          })}
-          <KeyboardSpacer />
+    const renderContent = (): ReactElement => (
+      <View style={styles.bodyContainer}>
+        <View style={styles.filterContainer}>
+          {Const.FilterTypes.map((val: string, index: number) => (
+            <BottomSheetFilterItem
+              key={index}
+              text={t(val)}
+              onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
+              active={!!selectedFilters[index]}
+            />
+          ))}
         </View>
-      )
-    }
+
+        {filteredChargers?.map((chargerObj: Charger, index: number) => {
+          const view = []
+          if (chargerObj.charger_group?.chargers?.length !== 0) {
+            view.push(
+              <MainSearchItem
+                key={chargerObj.id + getLocaleText(chargerObj.name) + index}
+                text={getLocaleText(chargerObj.location)}
+                mainTitle={getLocaleText(chargerObj.name)}
+                onPress={onFilteredItemClick?.bind(
+                  BottomSheetReanimated,
+                  chargerObj,
+                )}
+              />,
+            )
+          } else {
+            chargerObj.charger_group?.chargers?.map((val, index: number) => view.push(
+              <MainSearchItem
+                key={val.id + getLocaleText(val.name) + index}
+                text={getLocaleText(val.location)}
+                mainTitle={getLocaleText(val.name)}
+                onPress={onFilteredItemClick?.bind(
+                  BottomSheetReanimated,
+                  val,
+                )}
+              />,
+            ))
+          }
+          return view
+        })}
+        <KeyboardSpacer />
+      </View>
+    )
 
     return (
-      <View style={styles.container} pointerEvents={'box-none'}>
+      <View style={styles.container} pointerEvents="box-none">
         <BottomSheet
           ref={ref}
           snapPoints={[55, height - insets.top - insets.bottom - 65 - 12]}
@@ -255,7 +253,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  closeTouchable: {backgroundColor: 'red'},
+  closeTouchable: { backgroundColor: 'red' },
   searchContent: {
     width: Const.Width - 48,
     backgroundColor: Colors.primaryBackground,

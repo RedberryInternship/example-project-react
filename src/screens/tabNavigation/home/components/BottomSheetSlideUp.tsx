@@ -15,20 +15,20 @@ import {
   Keyboard,
   BackHandler,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {TextInput, FlatList} from 'react-native-gesture-handler'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
+import { TextInput, FlatList } from 'react-native-gesture-handler'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 
-import {Charger, ChargerDetail} from 'allTypes'
+import { Charger, ChargerDetail } from 'allTypes'
 
-import {Const, Colors, getLocaleText} from 'utils'
+import { Const, Colors, getLocaleText } from 'utils'
 import images from 'assets/images'
-import BottomSheetFilterItem from './BottomSheetFilterItem';
-import MainSearchItem from './MainSearchItem'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
 import SlidingUpPanel from 'rn-sliding-up-panel'
-import {Width} from 'utils/const'
+import { Width } from 'utils/const'
+import MainSearchItem from './MainSearchItem'
+import BottomSheetFilterItem from './BottomSheetFilterItem';
 
 type _This = {
   text: string
@@ -58,10 +58,10 @@ const BottomSheetReanimated = forwardRef(
     })
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
-    const {t} = useTranslation()
-    const height = useWindowDimensions().height
+    const { t } = useTranslation()
+    const { height } = useWindowDimensions()
 
-    const {top, bottom} = useSafeAreaInsets()
+    const { top, bottom } = useSafeAreaInsets()
 
     const closeClick = (): void => {
       if (_this.current.text !== '') {
@@ -88,9 +88,7 @@ const BottomSheetReanimated = forwardRef(
       )
     }, [])
 
-    const handleAndroidBack = useCallback(() => {
-      return false
-    }, [])
+    const handleAndroidBack = useCallback(() => false, [])
 
     const draggableRange = useMemo(
       () => ({
@@ -112,21 +110,23 @@ const BottomSheetReanimated = forwardRef(
             <TextInput
               style={styles.textInput}
               placeholder={`${t('home.location')}/${t('home.organization')}`}
-              keyboardType={'default'}
+              keyboardType="default"
               onChangeText={onTextChange}
-              onSubmitEditing={() => {}}
+              onSubmitEditing={() => { }}
               placeholderTextColor={Colors.primaryWhite}
               allowFontScaling={false}
               ref={inputRef}
               autoCorrect={false}
-              editable={true}
-              autoCapitalize={'none'}
-              returnKeyType={'go'}
-              testID={'mainInput'}
+              editable
+              autoCapitalize="none"
+              returnKeyType="go"
+              testID="mainInput"
             />
             <TouchableWithoutFeedback
               onPress={closeClick}
-              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
+              hitSlop={{
+                top: 15, bottom: 15, left: 15, right: 15,
+              }}
               style={styles.closeTouchable}
             >
               <Image source={images.delete} style={styles.deleteIcon} />
@@ -137,67 +137,63 @@ const BottomSheetReanimated = forwardRef(
       [t],
     )
 
-    const renderContent = (): ReactElement => {
-      return (
-        <View style={styles.bodyContainer}>
-          <View style={styles.filterContainer}>
-            {Const.FilterTypes.map((val: string, index: number) => (
-              <BottomSheetFilterItem
-                key={index}
-                text={t(val)}
-                onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
-                active={!!selectedFilters[index]}
-              />
-            ))}
-          </View>
-          <FlatList
-            keyboardShouldPersistTaps={'handled'}
-            data={filteredChargers}
-            keyExtractor={(item: Charger) => item.id + ''}
-            initialNumToRender={6}
-            extraData={filteredChargers}
-            renderItem={({item: chargerObj, index}) => {
-              const view = []
-              if (chargerObj.charger_group?.chargers?.length !== 0) {
-                view.push(
-                  <MainSearchItem
-                    key={chargerObj.id + getLocaleText(chargerObj.name) + index}
-                    text={getLocaleText(chargerObj.location)}
-                    mainTitle={getLocaleText(chargerObj.name)}
-                    onPress={onFilteredItemClick?.bind(
-                      BottomSheetReanimated,
-                      chargerObj,
-                    )}
-                  />,
-                )
-              } else {
-                chargerObj.charger_group?.chargers?.map((val, index: number) =>
-                  view.push(
-                    <MainSearchItem
-                      key={val.id + getLocaleText(val.name) + index}
-                      text={getLocaleText(val.location)}
-                      mainTitle={getLocaleText(val.name)}
-                      onPress={onFilteredItemClick?.bind(
-                        BottomSheetReanimated,
-                        val,
-                      )}
-                    />,
-                  ),
-                )
-              }
-              return view
-            }}
-          />
-          <KeyboardSpacer />
+    const renderContent = (): ReactElement => (
+      <View style={styles.bodyContainer}>
+        <View style={styles.filterContainer}>
+          {Const.FilterTypes.map((val: string, index: number) => (
+            <BottomSheetFilterItem
+              key={index}
+              text={t(val)}
+              onPress={onFilterClick?.bind(BottomSheetReanimated, index)}
+              active={!!selectedFilters[index]}
+            />
+          ))}
         </View>
-      )
-    }
+        <FlatList
+          keyboardShouldPersistTaps="handled"
+          data={filteredChargers}
+          keyExtractor={(item: Charger) => `${item.id}`}
+          initialNumToRender={6}
+          extraData={filteredChargers}
+          renderItem={({ item: chargerObj, index }) => {
+            const view = []
+            if (chargerObj.charger_group?.chargers?.length !== 0) {
+              view.push(
+                <MainSearchItem
+                  key={chargerObj.id + getLocaleText(chargerObj.name) + index}
+                  text={getLocaleText(chargerObj.location)}
+                  mainTitle={getLocaleText(chargerObj.name)}
+                  onPress={onFilteredItemClick?.bind(
+                    BottomSheetReanimated,
+                    chargerObj,
+                  )}
+                />,
+              )
+            } else {
+              chargerObj.charger_group?.chargers?.map((val, index: number) => view.push(
+                <MainSearchItem
+                  key={val.id + getLocaleText(val.name) + index}
+                  text={getLocaleText(val.location)}
+                  mainTitle={getLocaleText(val.name)}
+                  onPress={onFilteredItemClick?.bind(
+                    BottomSheetReanimated,
+                    val,
+                  )}
+                />,
+              ))
+            }
+            return view
+          }}
+        />
+        <KeyboardSpacer />
+      </View>
+    )
 
     return (
-      <View style={styles.container} pointerEvents={'box-none'}>
+      <View style={styles.container} pointerEvents="box-none">
         <SlidingUpPanel
           ref={backHandlerRef}
-          draggableRange={{...draggableRange}}
+          draggableRange={{ ...draggableRange }}
           snappingPoints={[draggableRange.top]}
           friction={0.5}
           minimumDistanceThreshold={20}
@@ -304,7 +300,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  closeTouchable: {backgroundColor: 'red'},
+  closeTouchable: { backgroundColor: 'red' },
   searchContent: {
     width: Const.Width - 48,
     backgroundColor: Colors.primaryBackground,

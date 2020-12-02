@@ -1,13 +1,15 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useForm } from 'react-hook-form'
 import services from 'services'
 import usePhoneVerification from 'hooks/usePhoneVerification'
-import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
+import { EnterPhoneAndCode } from './types'
 
-type InputValues = {
-  phone: string
-  code: string
-}
+/**
+ * Registration first step hook.
+ */
 export default (setActivePage: (index: number) => void) => {
   const {
     triggerValidation,
@@ -37,7 +39,10 @@ export default (setActivePage: (index: number) => void) => {
     triggerValidation,
   })
 
-  const buttonClickHandler = async ({ phone, code }: InputValues): Promise<void> => {
+  /**
+   * Verify code and go to next page.
+   */
+  const buttonClickHandler: EnterPhoneAndCode = async ({ phone, code }) => {
     try {
       await services.verifyCodeOnRegistration(phone, code)
       setActivePage(1)
@@ -54,17 +59,17 @@ export default (setActivePage: (index: number) => void) => {
   }
 
   return {
-    phoneRef,
-    codeRef,
     buttonClickHandler,
-    setValue,
+    receiveCodeHandler,
+    triggerValidation,
+    handleSubmit,
     getValues,
     register,
-    handleSubmit,
+    setValue,
+    phoneRef,
+    codeRef,
     errors,
     watch,
     reset,
-    triggerValidation,
-    receiveCodeHandler,
   }
 }

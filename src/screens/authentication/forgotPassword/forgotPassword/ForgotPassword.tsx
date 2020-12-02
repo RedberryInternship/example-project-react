@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -7,17 +7,17 @@ import {
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-import { ScreenPropsWithNavigation } from 'allTypes'
-
-import { BaseHeader, BaseButton, PhoneVerificationView } from 'components'
+import {
+  PhoneVerificationView,
+  BaseHeader,
+  BaseButton,
+} from 'components'
 import { Colors } from 'utils'
 import images from 'assets/images'
 import useForgotPassword from './useForgotPassword'
+import { FCWithNavigation } from 'allTypes'
 
-const ForgotPassword = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ForgotPassword: FCWithNavigation = ({ navigation }) => {
   const { handleSubmit, onButtonClick, ...hook } = useForgotPassword(navigation)
   const insets = useSafeAreaInsets()
 

@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   ScrollView,
   View,
 } from 'react-native'
-import { ScreenPropsWithNavigation, BusinessService } from 'allTypes'
+import { FCWithNavigation, BusinessService } from 'allTypes'
 import {
   BaseHeader,
   TitleTopLeftContainer,
@@ -21,9 +21,7 @@ import {
 import useChargerDetails from './useChargerDetails'
 import BusinessServiceItem from './components/BusinessServiceItem'
 
-const ChargerDetail = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   const {
     headerLeftPress,
     chargerLocationDirectionHandler,
@@ -47,7 +45,7 @@ const ChargerDetail = ({
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={chargerLocationDirectionHandler}
           showChargerLocationPress={showChargerLocationHandler}
-          favouritePress={onFavoritePress}
+          favoritePress={onFavoritePress}
           favorite={charger?.is_favorite}
           code={charger?.code}
           name={getLocaleText(charger?.name)}
@@ -61,23 +59,27 @@ const ChargerDetail = ({
           direction="column"
           title="chargerDetail.connectors"
           data={charger?.connector_types ?? []}
-          onRenderItem={(val, index): ReactElement => (
-            <ChargerTypesItem
-              key={index}
-              active={activeChargerType === index}
-              onPress={setActiveChargerType.bind(ChargerDetail, index)}
-              type={val.name}
-              power={Const.connectorTypeChargePowers[val.name]}
-            />
-
-          )}
+          onRenderItem={(val, index) => {
+            const power = Const
+              .connectorTypeChargePowers[val.name as Const.ConnectorTypes]
+              .toString()
+            return (
+              <ChargerTypesItem
+                key={index}
+                active={activeChargerType === index}
+                onPress={setActiveChargerType.bind(ChargerDetail, index)}
+                type={val.name}
+                power={power}
+              />
+            )
+          }}
         />
         {!!charger?.business_services?.length && (
           <TitleTopLeftContainer
             title="chargerDetail.additionalServices"
             direction="row"
             data={charger?.business_services}
-            onRenderItem={(val: BusinessService): ReactElement => (
+            onRenderItem={(val: BusinessService) => (
               <BusinessServiceItem
                 key={val.id}
                 onPress={() => onBusinessServiceClick(val.title, val.description)}

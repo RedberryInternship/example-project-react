@@ -156,7 +156,15 @@ export const eSpaceLocationOnMapInfo = {
   label: 'E-space',
 }
 
-export const connectorTypeChargePowers = {
+export type ConnectorTypeChargePowers = {
+  'Combo 2': number,
+  CHAdeMO: number,
+  'Type 2': number,
+}
+
+export type ConnectorTypes = keyof ConnectorTypeChargePowers
+
+export const connectorTypeChargePowers: ConnectorTypeChargePowers = {
   'Combo 2': 50,
   CHAdeMO: 50,
   'Type 2': 22,

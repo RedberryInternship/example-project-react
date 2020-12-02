@@ -1,16 +1,25 @@
-import React, { useState, useRef, useImperativeHandle, MutableRefObject } from 'react'
-import { TextInput, View, StyleSheet, TouchableOpacity, Animated } from 'react-native'
+import React, {
+  useImperativeHandle,
+  MutableRefObject,
+  useState,
+  useRef,
+} from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
+  Animated,
+  View,
+} from 'react-native'
 import MaskedView from '@react-native-community/masked-view'
-
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
 import BaseText from 'components/baseUI/BaseText'
 
 const CodeInputWidth = 128
 const animationDuration = 10000
-// eslint-disable-next-line react/display-name
+
 const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any, ref: any) => {
-  // Vobi Done: no any types
   const [animation] = useState(new Animated.Value(0))
   const [disabled, setDisabled] = useState(false)
   const [disabledInput, setDisabledInput] = useState(true)

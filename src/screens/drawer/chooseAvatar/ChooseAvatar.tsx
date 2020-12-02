@@ -3,16 +3,17 @@ import { View, StyleSheet } from 'react-native'
 import { BaseHeader, BaseButton } from 'components'
 import { Colors } from 'utils'
 import images, { Avatars } from 'assets/images'
-import { ScreenPropsWithNavigation } from 'allTypes'
 import AvatarItem from './AvatarItem'
 import useChooseAvatar from './useChooseAvatar'
+import { FCWithNavigation } from 'allTypes'
 
-const ChooseAvatar = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
-  const { updateAvatar, activeAvatar, onAvatarPress } = useChooseAvatar(
-    navigation,
-  )
+const ChooseAvatar: FCWithNavigation = ({ navigation }) => {
+  const {
+    updateAvatar,
+    activeAvatar,
+    onAvatarPress,
+  } = useChooseAvatar(navigation)
+
   return (
     <View style={styles.container}>
       <BaseHeader

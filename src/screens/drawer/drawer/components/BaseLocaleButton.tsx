@@ -1,27 +1,23 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   StyleSheet,
-  ViewStyle,
-  TextStyle,
   View,
 } from 'react-native'
+import colors from 'utils/colors'
+import {
+  BaseNativeTouchable,
+  BaseText,
+} from 'components'
+import { LocaleButtonItemFC } from 'screens/drawer/drawer/types'
 
-import { Colors } from 'utils'
-import { BaseNativeTouchable, BaseText } from 'components'
-
-type LocaleButton = {
-  onPress: () => void
-  text: string
-  style?: ViewStyle
-  textStyle?: TextStyle
-}
-
-const BaseLocaleButton = ({
-  onPress,
-  style,
-  text,
-  textStyle,
-}: LocaleButton): ReactElement => (
+const BaseLocaleButton: LocaleButtonItemFC = (
+  {
+    textStyle,
+    onPress,
+    style,
+    text,
+  }
+) => (
     <View style={[styles.container, style]}>
       <BaseNativeTouchable onPress={onPress}>
         <View style={[styles.localeUiContainer]}>
@@ -40,12 +36,12 @@ const styles = StyleSheet.create({
   localeUiContainer: {
     width: 50,
     height: 50,
-    backgroundColor: Colors.primaryBlue,
+    backgroundColor: colors.primaryBlue,
     borderRadius: 25,
     alignItems: 'center',
     justifyContent: 'center',
   },
   localeText: {
-    color: Colors.primaryWhite,
+    color: colors.primaryWhite,
   },
 })

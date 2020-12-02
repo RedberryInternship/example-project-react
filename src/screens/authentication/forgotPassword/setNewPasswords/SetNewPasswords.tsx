@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -14,12 +14,10 @@ import {
 } from 'components'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { ScreenPropsWithNavigation } from 'allTypes'
 import useSetNewPassword from './useSetNewPassword'
+import { FCWithNavigation } from 'allTypes'
 
-const SetNewPasswords = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const SetNewPasswords: FCWithNavigation = ({ navigation }) => {
   const {
     control,
     onClickSubmitButton,

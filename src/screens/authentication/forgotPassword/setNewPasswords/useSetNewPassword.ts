@@ -1,4 +1,3 @@
-import { Navigation } from 'allTypes'
 import { useForm } from 'react-hook-form'
 import services from 'services'
 import {
@@ -6,28 +5,33 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
-
-type InputValueTypes = {
-  password: string
-  repeatPassword: string
-}
+import { Navigation } from 'allTypes'
+import { SetNewPassword } from './types'
 
 export default (navigation: Navigation) => {
   const {
-    control, handleSubmit, errors, watch, reset,
-  } = useForm({
-    validateCriteriaMode: 'all',
-    submitFocusError: true,
-  })
+    handleSubmit,
+    control,
+    errors,
+    watch,
+    reset,
+  } = useForm(
+    {
+      validateCriteriaMode: 'all',
+      submitFocusError: true,
+    }
+  )
 
-  const onClickSubmitButton = async (
+  /**
+   * Try setting new password.
+   */
+  const onClickSubmitButton: SetNewPassword = async (
     {
       password,
       repeatPassword,
-    }: InputValueTypes,
-  )
-    : Promise<void> => {
-    // TODO: need outside component validation
+    }
+  ) => {
+
     if (!repeatPassword && !password) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.passwordsNotFilled')
     }

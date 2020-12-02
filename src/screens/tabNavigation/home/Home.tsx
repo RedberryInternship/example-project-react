@@ -13,19 +13,19 @@ import {
 
 const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
   const {
-    mapRef,
-    showAll,
+    searchInputTextChangeHandler,
     onMapFilteredChargers,
     selectedFiltersOnMap,
-    onFilterClickOnMap,
-    setShowAll,
-    mainInputRef,
-    bottomSheetRef,
-    onFilterClick,
-    selectedFilters,
     onFilteredItemClick,
     bottomSheetChargers,
-    searchInputTextChangeHandler,
+    onFilterClickOnMap,
+    selectedFilters,
+    bottomSheetRef,
+    onFilterClick,
+    mainInputRef,
+    setShowAll,
+    showAll,
+    mapRef,
   } = useHome(navigation)
 
   const state = useSelector(selectUser)
@@ -42,7 +42,7 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           navigation={navigation}
         />
         <HomeMainComponent
-          allchargers={state?.AllChargers ?? []}
+          allChargers={state?.AllChargers ?? []}
           mapRef={mapRef}
           selectedFiltersOnMap={selectedFiltersOnMap}
           onFilterClickOnMap={onFilterClickOnMap}

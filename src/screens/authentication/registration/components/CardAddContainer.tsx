@@ -1,17 +1,15 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { View, StyleSheet } from 'react-native'
-
-import { Const } from 'utils'
+import * as Const from 'utils/const'
 import { CardAddView } from 'components'
+import { CardAddContainerFC } from 'screens/authentication/registration/types'
 
-type CardAddContainerProps = {
-  activePage: number
-  onSuccess: () => void
-}
-const CardAddContainer = ({
-  activePage,
-  onSuccess,
-}: CardAddContainerProps): ReactElement => (
+const CardAddContainer: CardAddContainerFC = (
+  {
+    activePage,
+    onSuccess,
+  }
+) => (
     <View style={styles.container}>
       {activePage === 3 && <CardAddView onSuccess={onSuccess} />}
     </View>
@@ -19,7 +17,14 @@ const CardAddContainer = ({
 
 export default React.memo(
   CardAddContainer,
-  ({ activePage }, { activePage: nextActivePage }) => nextActivePage !== 3 && activePage !== 3,
+  (
+    {
+      activePage
+    },
+    {
+      activePage: nextActivePage
+    }
+  ) => nextActivePage !== 3 && activePage !== 3,
 )
 
 const styles = StyleSheet.create({

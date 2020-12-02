@@ -10,7 +10,6 @@ import {
 import { Colors, Const } from 'utils'
 import images from 'assets/images'
 
-// eslint-disable-next-line react/display-name
 const HomeMainSearchInput = React.forwardRef(
   (
     {

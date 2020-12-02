@@ -1,6 +1,9 @@
-// Vobi Done: remove unused vars
 import { useForm } from 'react-hook-form'
+import { GoToNextPage } from 'screens/authentication/registration/types'
 
+/**
+ * Registration second step hook.
+ */
 export default (setActivePage: any) => {
   const {
     control,
@@ -8,12 +11,17 @@ export default (setActivePage: any) => {
     getValues,
     errors,
     triggerValidation,
-  } = useForm({
-    validateCriteriaMode: 'all',
-    submitFocusError: true,
-  })
+  } = useForm(
+    {
+      validateCriteriaMode: 'all',
+      submitFocusError: true,
+    }
+  )
 
-  const buttonClickHandler = async (): Promise<void> => {
+  /**
+   * Go to next page.
+   */
+  const buttonClickHandler: GoToNextPage = async () => {
     setActivePage(2)
   }
 

@@ -1,8 +1,8 @@
-import React, {ReactElement, useCallback} from 'react'
-import {Text, TextProps, StyleSheet} from 'react-native'
+import React, { ReactElement, useCallback } from 'react'
+import { Text, TextProps, StyleSheet } from 'react-native'
 import i18next from 'i18next'
-
-import {Colors, GNOME, Const} from 'utils'
+import { Locale } from 'allTypes'
+import { Colors, GNOME, Const } from 'utils'
 
 interface BaseTextPropType extends TextProps {
   children: string | Element
@@ -18,23 +18,19 @@ const BaseText = ({
     | undefined => {
     style = StyleSheet.flatten(style)
 
-    let fontSize = style?.fontSize ?? 13,
-      lineHeight = style?.lineHeight ?? style?.fontSize ?? 13,
-      fontFamily = GNOME.HELV_NORM,
-      letterSpacing = style?.letterSpacing ?? 0.2
-    const lang: 'ka' | 'ru' | 'en' = i18next.language
+    let fontSize = style?.fontSize ?? 13;
+    let lineHeight = style?.lineHeight ?? style?.fontSize ?? 13;
+    let fontFamily = GNOME.HELV_NORM;
+    let letterSpacing = style?.letterSpacing ?? 0.2
+    const lang: Locale = i18next.language as Locale
     lineHeight += Const.platformIOS ? 0 : 4
 
     if (style && 'fontFamily' in style) {
       fontFamily = style.fontFamily as string
 
       if (lang === 'en') {
-        // fontSize = style?.fontSize ?? 13 + 1
-        fontFamily =
-          style.fontFamily == GNOME.HELV_HVEX ? GNOME.HELV_MED : GNOME.HELV_NORM
+        fontFamily = style.fontFamily === GNOME.HELV_HVEX ? GNOME.HELV_MED : GNOME.HELV_NORM
       }
-      //  else if (lang === 'ru') {
-      // }
     }
     if (lang === 'en') {
       fontSize = (style?.fontSize ?? 13) + 1

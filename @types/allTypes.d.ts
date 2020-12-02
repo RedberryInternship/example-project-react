@@ -5,7 +5,7 @@ import {
   StyleProp,
   ViewStyle,
 } from 'react-native'
-import { RefObject } from 'react'
+import { ReactElement, RefObject } from 'react'
 import { Item } from 'react-native-picker-select'
 import { LocationPermissionStatus } from 'react-native-location'
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
@@ -417,6 +417,8 @@ export type ScreenPropsWithNavigation = {
   navigation: Navigation
 }
 
+export type FCWithNavigation = (params: ScreenPropsWithNavigation) => ReactElement
+
 type LastUsedChargerResponseObject = {
   data: Charger[]
 }
@@ -498,6 +500,7 @@ export type UserMeResponseType = {
   user_cars: any[]
   car_models: any[]
   avatar: number // TODO:needs correct key
+  mapMode: 'settings.mapColorLight' | 'settings.mapColorDark' | 'settings.automatic'
 } | null
 
 export type UserCard = {
@@ -611,7 +614,7 @@ export type PasswordChangedResponseType = {
 }
 
 export type RegisterResponseType = {
-  json_status: string
+  json_status?: string
   user: UserMeResponseType
   token: string
 }

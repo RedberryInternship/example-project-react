@@ -297,6 +297,13 @@ export default {
         verificationCodeIsIncorrect: 'Verification code is incorrect',
         doesNotExist: 'Such user does not exists!',
       },
+      contact: {
+        Address: 'Something went wrong while opening map...',
+        Facebook: 'Something went wrong while opening facebook...',
+        Mail: 'Something went wrong while opening mail...',
+        Phone: 'Something went wrong while calling...',
+        Web: 'Something went wrong while opening website...'
+      },
       charging: {
         areUSore: 'Are you sure you want to finish?',
         needToLogIn: 'You need to log in ',

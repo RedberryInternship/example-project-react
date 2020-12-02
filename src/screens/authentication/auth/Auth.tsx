@@ -6,13 +6,11 @@ import {
   Platform,
   StatusBar,
 } from 'react-native'
-import { useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Controller } from 'react-hook-form'
-import { ScreenPropsWithNavigation } from 'allTypes'
 import images from 'assets/images'
 import { Colors } from 'utils'
 import {
@@ -23,19 +21,18 @@ import {
   BaseText,
 } from 'components'
 import useAuthHook from './useAuthHook'
+import { FCWithNavigation } from 'allTypes'
 
-const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
-  const dispatch = useDispatch()
-
+const Auth: FCWithNavigation = ({ navigation }) => {
   const insets = useSafeAreaInsets()
   const {
     buttonClickHandler,
+    handleSubmit,
+    setValue,
     phoneRef,
     control,
-    setValue,
-    handleSubmit,
     watch,
-  } = useAuthHook(navigation, dispatch)
+  } = useAuthHook(navigation)
   const { t } = useTranslation()
 
   return (
@@ -59,7 +56,6 @@ const Auth = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
           onChangeText={(text) => setValue('phone', text, true)}
           ref={phoneRef}
           value={watch('phone')}
-        // errorText={errors.phone}
         />
         <Controller
           as={BaseInput}

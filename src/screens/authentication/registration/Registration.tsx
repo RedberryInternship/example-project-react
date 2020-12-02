@@ -1,42 +1,42 @@
 import React, { ReactElement } from 'react'
 import {
-  StyleSheet,
-  View,
   KeyboardAvoidingView,
+  StyleSheet,
   Platform,
   FlatList,
+  View,
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-
-import { ScreenPropsWithNavigation } from 'allTypes'
-
 import images from 'assets/images'
 import { Colors } from 'utils'
-import { BaseHeader, BaseButton, RegistrationPagination } from 'components'
+import {
+  RegistrationPagination,
+  BaseHeader,
+  BaseButton,
+} from 'components'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'
 import PasswordView from './components/PasswordView'
 import CardAddContainer from './components/CardAddContainer'
 import useRegistration from './useRegistration'
+import { FCWithNavigation } from 'allTypes'
 
-const Registration = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const Registration: FCWithNavigation = ({ navigation }) => {
   const insets = useSafeAreaInsets()
 
   const {
-    flatListRef,
-    paginationClickHandler,
     KeyboardAwareScrollViewRef,
-    activePage,
-    headerRightClick,
     registrationStepHandler,
+    paginationClickHandler,
+    headerRightClick,
+    onCardAddSuccess,
+    backButtonClick,
+    flatListRef,
+    activePage,
     regStep1,
     regStep2,
     regStep3,
-    onCardAddSuccess,
-    backButtonClick,
   } = useRegistration(navigation)
 
   const pages = [
@@ -53,9 +53,7 @@ const Registration = ({
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
-        onPressLeft={() => {
-          backButtonClick()
-        }}
+        onPressLeft={backButtonClick}
         title="authentication.registration.registration"
         titleRight="authentication.registration.skip"
         onPressRight={activePage === 3 ? headerRightClick : undefined}

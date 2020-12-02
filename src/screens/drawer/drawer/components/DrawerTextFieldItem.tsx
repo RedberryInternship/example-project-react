@@ -1,40 +1,25 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   TouchableOpacity,
-  ImageSourcePropType,
-  TextProperties,
-  ImageStyle,
-  ViewStyle,
-  StyleProp,
-  Text,
   StyleSheet,
   Image,
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-
 import { Colors } from 'utils'
 import { BaseText } from 'components'
+import { DrawerTextFieldItemFC } from 'screens/drawer/drawer/types'
 
-// declare text field type
-type DrawerTextFieldItemProps = {
-  onPress: () => void
-  text: string
-  textProps?: TextProperties
-  image: ImageSourcePropType
-  imageStyle?: ImageStyle
-  container?: StyleProp<ViewStyle>
-  badge?: number
-}
-
-const DrawerTextFieldItem = ({
-  onPress,
-  text,
-  image,
-  imageStyle,
-  container,
-  badge,
-}: DrawerTextFieldItemProps): ReactElement => {
+const DrawerTextFieldItem: DrawerTextFieldItemFC = (
+  {
+    onPress,
+    text,
+    image,
+    imageStyle,
+    container,
+    badge,
+  }
+) => {
   const { t } = useTranslation()
 
   return (
@@ -48,7 +33,7 @@ const DrawerTextFieldItem = ({
       </View>
       {!!badge && (
         <View style={styles.textFieldBadge}>
-          <View style={styles.badgeConatainer}>
+          <View style={styles.badgeContainer}>
             <BaseText style={styles.badgeCounter}>{badge}</BaseText>
           </View>
         </View>
@@ -83,7 +68,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     resizeMode: 'contain',
   },
-  badgeConatainer: {
+  badgeContainer: {
     flex: 0,
     width: 27,
     height: 27,

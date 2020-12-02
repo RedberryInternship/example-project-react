@@ -1,17 +1,15 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 import { Controller } from 'react-hook-form'
-
-import { Colors, Const, InputValidationHelpers } from 'utils'
+import colors from 'utils/colors'
+import * as Const from 'utils/const'
+import InputValidationHelpers from 'utils/InputValidationHelpers'
 import { BaseInput } from 'components'
 import images from 'assets/images'
+import { UserInfoViewFC } from 'screens/authentication/registration/types'
 
-type UserInfoViewProps = {
-  hook: Record<string, any>
-  activePage: number
-}
-// eslint-disable-next-line react/display-name
-const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
+
+const UserInfoView: UserInfoViewFC = ({ hook }) => {
   const { control, errors } = hook
 
   return (
@@ -23,7 +21,7 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
-        imageStyle={{ tintColor: Colors.primaryBlue }}
+        imageStyle={{ tintColor: colors.primaryBlue }}
         returnKeyType="next"
         testID="nameInput"
         title="authentication.registration.name"
@@ -37,7 +35,7 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
-        imageStyle={{ tintColor: Colors.primaryBlue }}
+        imageStyle={{ tintColor: colors.primaryBlue }}
         returnKeyType="next"
         title="authentication.registration.surname"
         errorText={
@@ -55,7 +53,7 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
-        imageStyle={{ tintColor: Colors.primaryBlue }}
+        imageStyle={{ tintColor: colors.primaryBlue }}
         returnKeyType="go"
         title="authentication.registration.email"
         keyboardType="email-address"
@@ -65,8 +63,14 @@ const UserInfoView = ({ hook }: UserInfoViewProps): ReactElement => {
   )
 }
 
-// Vobi Done: use memo on bottom or while defining component (keep same syntax)
 export default React.memo(
   UserInfoView,
-  ({ activePage }, { activePage: nextActivePage }) => activePage !== 1 && nextActivePage !== 1,
+  (
+    {
+      activePage
+    },
+    {
+      activePage: nextActivePage
+    }
+  ) => activePage !== 1 && nextActivePage !== 1,
 )

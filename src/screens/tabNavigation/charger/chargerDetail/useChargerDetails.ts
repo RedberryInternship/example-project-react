@@ -6,12 +6,7 @@ import React, {
 import { TextInput, BackHandler } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import {
-  NavigationEventPayload,
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-} from 'react-navigation'
+import { NavigationEventPayload } from 'react-navigation'
 import { selectUser, selectChargingProcess } from 'state/selectors'
 import {
   NavigationActions,
@@ -35,10 +30,11 @@ import {
 import {
   HomeNavigateModes,
   LanguageType,
+  Navigation,
   Charger,
 } from '../../../../../@types/allTypes.d'
 
-export default (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
+export default (navigation: Navigation) => {
   const state = useSelector(selectUser)
   const { chargingState } = useSelector(selectChargingProcess)
   const dispatch = useDispatch()

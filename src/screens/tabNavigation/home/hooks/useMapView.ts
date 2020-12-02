@@ -63,7 +63,7 @@ const useMapView = (
           })
         }
 
-        Defaults.modal.current?.customUpdate(true, {
+        Defaults.modal?.current?.customUpdate(true, {
           type: 4,
           data: {
             title: getLocaleText(charger.charger_group?.name),

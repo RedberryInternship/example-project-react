@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import ReceiveCode from 'components/UI/ReceiveCode'
 import PhoneNumberInput from 'components/item/PhoneNumberInput'
 
@@ -25,12 +25,12 @@ const PhoneVerificationView = ({
         onChangeText={(text: string) => setValue('phone', text, true)}
         ref={phoneRef}
         value={watch('phone')}
-        onSubmit={() => {}}
+        onSubmit={() => { }}
       />
       <ReceiveCode
         ref={codeRef}
         onChangeText={(text: string) => setValue('code', text, true)}
-        receiveCode={() => {receiveCodeHandler(formType)}}
+        receiveCode={() => { receiveCodeHandler(formType) }}
       />
     </>
   )

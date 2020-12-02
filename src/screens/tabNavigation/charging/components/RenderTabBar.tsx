@@ -59,7 +59,6 @@ const RenderTabBar = ({ hook, changeActiveTab, ...props }: any) => {
 
           return (
             <Animated.View
-              key={i}
               style={[
                 styles.tabItem,
                 {

@@ -1,4 +1,4 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
   StyleSheet,
   Image,
@@ -21,13 +21,12 @@ const OnMapRoundButton = ({
   style,
   image,
   imageStyle,
-}: OnMapRoundButtonProps): ReactElement => {
-  return (
+}: OnMapRoundButtonProps):
+  ReactElement => (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
       <Image source={image} style={[styles.image, imageStyle]} />
     </TouchableOpacity>
   )
-}
 
 export default React.memo(OnMapRoundButton)
 

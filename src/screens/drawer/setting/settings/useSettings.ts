@@ -1,5 +1,4 @@
 import {
-  useCallback,
   useEffect,
   useState,
 } from 'react'
@@ -28,40 +27,60 @@ export default (navigation: Navigation) => {
 
   const { t } = useTranslation()
 
+  /**
+   * Map mode and map mode picker setters.
+   */
   const [selectedItem, renderPicker] = useBaseActionSheetPicker({
     cancelText: t('cancel'),
     title: t('settings.chooseMapMode'),
   })
 
+  /**
+   * Map mode update handler.
+   */
   useEffect(() => {
     if (selectedItem) {
-      let _selectedItem = ''
+      let newSelectedItem = ''
       switch (selectedItem) {
         case t('settings.mapColorLight'):
-          _selectedItem = 'settings.mapColorLight'
+          newSelectedItem = 'settings.mapColorLight'
           break
         case t('settings.mapColorDark'):
-          _selectedItem = 'settings.mapColorDark'
+          newSelectedItem = 'settings.mapColorDark'
           break
 
         default:
-          _selectedItem = 'settings.automatic'
+          newSelectedItem = 'settings.automatic'
           break
       }
 
-      setUserDetail(UserSettingEnum.mapMode, _selectedItem)
+      setUserDetail(UserSettingEnum.mapMode, newSelectedItem)
       setUserDataInStorage()
-      dispatch(editUserInfo(_selectedItem, UserSettingEnum.mapMode))
+      dispatch(editUserInfo(newSelectedItem, UserSettingEnum.mapMode))
     }
   }, [selectedItem])
 
+  /**
+   * Set user data on local state, whenever
+   * state change happens.
+   */
   useEffect(() => {
-    structureSettingsInfoObj()
-  }, [state])
+    /**
+     * Select default user card.
+     */
+    const selectDefaultUserCard = (userCards: UserCard[]): string => {
+      const activeCard = userCards.find((val) => val.default === 1)
+      if (activeCard) {
+        return activeCard.masked_pan
+      }
 
-  // Vobi Todo: what is purpose of this function if it is only used in useEffect
-  const structureSettingsInfoObj = (): void => {
-    if (state?.user) {
+      return ''
+    }
+
+    if (state.user) {
+      /**
+       * Destructure user state.
+       */
       const {
         first_name,
         last_name,
@@ -70,32 +89,30 @@ export default (navigation: Navigation) => {
         user_cards,
         mapMode,
       } = state.user
-      setUserData({
-        first_name,
-        last_name,
-        email: email ?? '',
-        phone_number,
-        password: '',
-        activeCard: userCard(user_cards),
-        mapMode: mapMode ?? 'settings.automatic',
-        user_cars: '',
-      })
-    } else setUserData(null)
-  }
 
-  const userCard = useCallback(
-    (userCards: UserCard[]): string => {
-      const activeCard = userCards.find((val) => val.default === 1)
-      if (activeCard) {
-        return activeCard.masked_pan
-      } return ''
-      // Vobi Todo: choose one approach
-      // if() { return } else { return }
-      // if() return else return
-    },
-    [state],
-  )
+      /**
+       * Set user state.
+       */
+      setUserData(
+        {
+          first_name,
+          last_name,
+          email: email ?? '',
+          phone_number,
+          password: '',
+          activeCard: selectDefaultUserCard(user_cards),
+          mapMode: mapMode ?? 'settings.automatic',
+          user_cars: '',
+        },
+      )
+    } else {
+      setUserData(null)
+    }
+  }, [state])
 
+  /**
+   * Go to change specific setting page.
+   */
   const onPressHandler = (item: SettingsListFieldType, value: string): void => {
     if (item.type === UserSettingEnum.mapMode) {
       renderPicker([
@@ -112,7 +129,9 @@ export default (navigation: Navigation) => {
       })
     }
   }
+
   return {
-    userData, state, dispatch, onPressHandler,
+    onPressHandler,
+    userData,
   }
 }

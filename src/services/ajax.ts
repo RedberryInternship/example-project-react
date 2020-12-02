@@ -1,5 +1,3 @@
-/* eslint-disable class-methods-use-this */
-/* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import { API } from 'utils/const'
 import { Platform } from 'react-native'
@@ -10,11 +8,7 @@ import { remoteLogger } from 'helpers/inform'
 import { clearUserData } from 'helpers/user'
 import NavigationActions from 'utils/navigation.service'
 
-type Method = 'get' | 'post'
-type Error = {
-  error: boolean
-  status: number
-}
+
 class Ajax {
   headers(): Record<string, string | number> {
     return {
@@ -29,42 +23,58 @@ class Ajax {
     }
   }
 
-  get(uri: string): Promise<any> {
+  get(uri: string, params: object = {}): Promise<any> {
     console.log([`Service | GET : ${uri}`])
-    return this._fetch(uri, null, 'get')
+    return this.fetch(uri, null, 'get', params)
   }
 
   post(uri: string, payload: any): Promise<any> {
     console.log([`Service | POST : ${uri}`])
-    return this._fetch(uri, payload, 'post')
+    return this.fetch(uri, payload, 'post', {})
   }
 
-  private _fetch(uri: string, data: any, method: Method): Promise<any> {
-    const promise = new Promise((resolve: (val: any) => void, reject: (val: Error) => void) => {
-      const headers = this.headers()
-      const url = API + uri
-      axios({
-        method, url, headers, data,
-      })
-        .then((response) => {
-          resolve(response.data)
-        })
-        .catch((error) => {
-          remoteLogger(error)
-          if (error.response && error.response.status === 401) {
-            /** logOut(): start */
-            clearUserData()
-            NavigationActions.navigate('Home')
-            /** logOut(): end */
+  private fetch(uri: string, data: any, method: Method, params: any) {
+    const promise = new Promise(
+      (
+        resolve: (val: any) => void,
+        reject: (val: Error) => void,
+      ) => {
+        const headers = this.headers()
+        const url = API + uri
+
+        axios(
+          {
+            headers,
+            method,
+            params,
+            data,
+            url,
           }
-          reject(error.response)
-          Sentry.withScope((scope) => {
-            scope.setFingerprint([method, url, JSON.stringify(headers)])
-            Sentry.captureException(error)
+        )
+          .then(response => resolve(response.data))
+          .catch((error) => {
+            remoteLogger(error)
+            if (error.response && error.response.status === 401) {
+              clearUserData()
+              NavigationActions.navigate('Home')
+            }
+
+            reject(error.response)
+            Sentry.withScope((scope) => {
+              scope.setFingerprint([method, url, JSON.stringify(headers)])
+              Sentry.captureException(error)
+            })
           })
-        })
-    })
+      })
     return promise
   }
 }
+
 export default new Ajax()
+
+type Method = 'get' | 'post'
+
+type Error = {
+  error: boolean
+  status: number
+}

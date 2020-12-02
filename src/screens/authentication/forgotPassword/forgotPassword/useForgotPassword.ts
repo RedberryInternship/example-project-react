@@ -1,13 +1,12 @@
-import { Navigation } from 'allTypes'
-import services from 'services'
-import usePhoneVerification from 'hooks/usePhoneVerification'
-import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
 import { useForm } from 'react-hook-form'
-
-type InputValues = {
-  phone: string
-  code: string
-}
+import usePhoneVerification from 'hooks/usePhoneVerification'
+import services from 'services'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
+import { Navigation } from 'allTypes'
+import { ForgotPassword } from './types'
 
 export default (navigation: Navigation) => {
   const {
@@ -31,13 +30,13 @@ export default (navigation: Navigation) => {
     triggerValidation,
   })
 
-  const onButtonClick = async ({ phone, code }: InputValues): Promise<void> => {
+  /**
+   * Try recovering password.
+   */
+  const onButtonClick: ForgotPassword = async ({ phone, code }) => {
     try {
       await services.forgotPasswordRecovery(phone, code)
-
-      navigation.navigate('SetNewPasswords', {
-        phone,
-      })
+      navigation.navigate('SetNewPasswords', { phone })
     } catch (error) {
       remoteLogger(error)
       switch (error.status) {

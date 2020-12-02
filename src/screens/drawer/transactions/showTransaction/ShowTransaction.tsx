@@ -1,40 +1,18 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View,
   Image,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  NavigationScreenProp,
-  NavigationState,
-  NavigationParams,
-  SafeAreaView,
-} from 'react-navigation'
+import { SafeAreaView } from 'react-navigation'
 import { BaseHeader, BaseText } from 'components'
 import { Colors } from 'utils'
-import { TransactionsHistoryResponseItem } from 'allTypes'
+import { TransactionsHistoryResponseItem, FCWithNavigation } from 'allTypes'
 import images from 'assets/images'
+import DetailsItem from './components/TransactionDetailsItem'
 
-type DetailsItemType = {
-  name: string
-  value: string | null
-}
-type ShowTransactionsProps = {
-  navigation: NavigationScreenProp<NavigationState, NavigationParams>
-}
-const DetailsItem = ({ name, value }: DetailsItemType): ReactElement => (
-  <View style={styles.detailsItem}>
-    <BaseText style={styles.detailsItemName}>
-      {name}
-      :
-      {' '}
-    </BaseText>
-    <BaseText style={styles.detailsItemValue}>{value ?? ''}</BaseText>
-  </View>
-)
-
-const ShowTransactions = ({ navigation }: ShowTransactionsProps): ReactElement => {
+const ShowTransactions: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
   const {
     charger_name,
@@ -77,12 +55,21 @@ const ShowTransactions = ({ navigation }: ShowTransactionsProps): ReactElement =
         </BaseText>
         {!shouldNotRender() && (
           <View style={styles.detailsContainer}>
-            {duration && <DetailsItem name={t('transactions.duration')} value={durationInMins()} />}
-            {charge_power && <DetailsItem name={t('transactions.power')} value={charge_power} />}
-            {penalty_fee && <DetailsItem name={t('transactions.penaltyFee')} value={penaltyFee()} />}
+            {
+              duration
+              && <DetailsItem name={t('transactions.duration')} value={durationInMins()} />
+            }
+            {
+              charge_power
+              && <DetailsItem name={t('transactions.power')} value={charge_power} />
+            }
+            {
+              penalty_fee
+              && <DetailsItem name={t('transactions.penaltyFee')} value={penaltyFee()} />
+            }
           </View>
         )}
-        <View style={styles.addressFieldConatainer}>
+        <View style={styles.addressFieldContainer}>
           <DetailsItem name={t('transactions.address')} value={address} />
         </View>
         <View style={styles.cardDetailsContainer}>
@@ -159,21 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     paddingVertical: 8,
   },
-  detailsItem: {
-    flexDirection: 'row',
-    marginVertical: 12,
-  },
-  detailsItemName: {
-    fontSize: 13,
-    letterSpacing: 0.2,
-    color: Colors.primaryGray,
-  },
-  detailsItemValue: {
-    fontSize: 13,
-    letterSpacing: 0.2,
-    color: Colors.primaryBackground,
-  },
-  addressFieldConatainer: {
+  addressFieldContainer: {
     borderBottomWidth: 1,
     borderBottomColor: Colors.primaryLightGrey,
     paddingLeft: 32,

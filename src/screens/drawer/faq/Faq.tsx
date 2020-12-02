@@ -1,19 +1,13 @@
 import React, { useState, ReactElement } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
-
-import { LocaleStringObject, ScreenPropsWithNavigation } from 'allTypes'
-
 import { BaseHeader, FetchedDataRenderer } from 'components'
 import { Colors, getLocaleText } from 'utils'
 import services from 'services'
 import FaqListItem from './components/FaqListItem'
+import { FCWithNavigation } from 'allTypes'
+import { FAQResponseType } from './types'
 
-type FAQResponseType = {
-  question: LocaleStringObject
-  answer: LocaleStringObject
-}
-
-const Faq = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+const Faq: FCWithNavigation = ({ navigation }) => {
   const [activeFaq, setActiveFaq] = useState<number>(1)
 
   const getFAQ = async (): Promise<any> => {

@@ -7,14 +7,16 @@ import {
 import { BackHandler, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { refreshUserData } from 'state/actions/userActions'
-import { Defaults } from 'utils'
+import defaults from 'utils/defaults'
 import useRegistrationHookStep1 from './useRegistrationStep1'
 import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
-import useRegistrationHookStep4 from './useRegistrationStep4'
 
 let userRegistrationState = 0
 
+/**
+ * Registration hook.
+ */
 export default (navigation: any) => {
   const flatListRef: any = useRef(null)
   const backHandlerRef: any = useRef(null)
@@ -32,7 +34,6 @@ export default (navigation: any) => {
     regStep1.getValues,
     regStep2.getValues,
   )
-  const regStep4 = useRegistrationHookStep4(setActivePage)
 
   useEffect(() => {
     userRegistrationState = Math.max(activePage, userRegistrationState)
@@ -41,21 +42,30 @@ export default (navigation: any) => {
     setTimeout(() => paginationClickHandler(activePage), 250)
   }, [activePage])
 
-  useEffect(() => () => {
-    userRegistrationState = 0
-  }, [])
 
+  /**
+   * Pagination controller.
+   */
   const paginationClickHandler = async (index: number) => {
-    if (index > userRegistrationState) return
-    if (userRegistrationState === activePage) {
-      // do nothing
-    } else if (!(await validateAccordingActivePage())) return
+    if (index > userRegistrationState) {
+      return
+    }
+
+    if (userRegistrationState !== activePage) {
+      const validationResult = await validateAccordingActivePage()
+      if (!validationResult) {
+        return
+      }
+    }
 
     flatListRef.current.scrollToIndex({ index, animated: true })
     setActivePage(index)
   }
 
-  const validateAccordingActivePage = async () => {
+  /**
+   * Make active page validation.
+   */
+  const validateAccordingActivePage = () => {
     switch (activePage) {
       case 0:
         return regStep1.triggerValidation()
@@ -70,33 +80,46 @@ export default (navigation: any) => {
     }
   }
 
+  /**
+   * Assign skipping credit card addition.
+   */
   const headerRightClick = () => {
-    // show modal
-    Defaults.modal.current
-      && Defaults.modal.current.customUpdate(true, {
-        type: 1,
-        onCloseClick: addCardSkip,
-      })
+    if (defaults.modal?.current) {
+      defaults.modal?.current.customUpdate(true,
+        {
+          type: 1,
+          onCloseClick: addCardSkip,
+        }
+      )
+    }
   }
 
+  /**
+   * Skip credit card addition.
+   */
   const addCardSkip = (): void => {
     navigation.navigate('Home')
   }
 
+  /**
+   * Registration steps validation array.
+   */
   const registrationStepHandler: (() => Promise<void>)[] = [
     regStep1.handleSubmit(regStep1.buttonClickHandler),
     regStep2.handleSubmit(regStep2.buttonClickHandler),
     regStep3.handleSubmit(regStep3.buttonClickHandler),
-    // regStep4.handleSubmit(regStep4.buttonClickHandler)
   ]
 
+  /**
+   * Go back action.
+   */
   const backButtonClick = useCallback(() => {
-    // navigation.navigate('Auth')
     if (activePage) {
       paginationClickHandler(activePage - 1)
     } else {
       navigation.navigate('Auth')
     }
+
     return true
   }, [activePage, paginationClickHandler])
 
@@ -110,24 +133,28 @@ export default (navigation: any) => {
     }
   }, [backButtonClick])
 
+  /**
+   * Upon successfully adding credit card,
+   * refresh user data and go to home page.
+   */
   const onCardAddSuccess = () => {
     dispatch(refreshUserData())
     headerRightClick()
   }
+
   return {
-    flatListRef,
-    paginationClickHandler,
     KeyboardAwareScrollViewRef,
-    newPasswordRef,
-    repeatPasswordRef,
-    activePage,
-    headerRightClick,
     registrationStepHandler,
+    paginationClickHandler,
+    repeatPasswordRef,
+    headerRightClick,
+    onCardAddSuccess,
     backButtonClick,
+    newPasswordRef,
+    flatListRef,
+    activePage,
     regStep1,
     regStep2,
     regStep3,
-    regStep4,
-    onCardAddSuccess,
   }
 }

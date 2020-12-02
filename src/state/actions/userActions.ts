@@ -11,15 +11,15 @@ import {
  * Saga action for saving user and
  * refreshing state aftermath.
  */
-export const saveUserAndRefresh = (userData: UserMeResponseType, token: string | null) => (
-  {
+export const saveUserAndRefresh = (userData: UserMeResponseType, token: string | null) => {
+  return {
     type: actionTypes.SAVE_USER_AND_REFRESH_SAGA,
     payload: {
       userData,
       token,
     },
   }
-)
+}
 
 /**
  * Saga action for refreshing user information

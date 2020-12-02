@@ -1,3 +1,3 @@
 import SettingsListItem from './SettingsListItem'
 
-export {SettingsListItem}
+export { SettingsListItem }

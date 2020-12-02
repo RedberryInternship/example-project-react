@@ -15,9 +15,9 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
-import FilterTextItem from './FilterTextItem'
 import { Const, Colors } from 'utils'
 import images from 'assets/images'
+import FilterTextItem from './FilterTextItem'
 
 type HomeFilterProps = {
   selectedFiltersOnMap: number[]
@@ -62,7 +62,7 @@ const HomeFilter = ({
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContentContainer}
           horizontal
-          pointerEvents={'box-none'}
+          pointerEvents="box-none"
           showsHorizontalScrollIndicator={false}
           scrollEnabled={showFilter}
         >

@@ -9,17 +9,11 @@ import {
   remoteLogger,
 } from 'helpers/inform'
 import { InputValidationHelpers } from 'utils'
+import { RegisterError, RepeatPassword } from './types'
 
-type RegisterError = {
-  email: Array<string>
-  phone_number: Array<string>
-}
-
-type InputValueTypes = {
-  password: string
-  repeatPassword: string
-}
-
+/**
+ * Registration third step hook.
+ */
 export default (
   setActivePage: (index: number) => void,
   getValues1: () => Record<string, string>,
@@ -39,6 +33,9 @@ export default (
   } = useForm({ validateCriteriaMode: 'all' })
 
   useEffect(() => {
+    /**
+     * Display react-hook-form error.
+     */
     if (Object.keys(errors).length) {
       DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
     }
@@ -51,9 +48,10 @@ export default (
     )
   }, [])
 
-  const buttonClickHandler = async ({ password, repeatPassword }: InputValueTypes)
-    : Promise<void> => {
-    // TODO: need outside component validation
+  /**
+   * Repeat password, validate and go to next page.
+   */
+  const buttonClickHandler: RepeatPassword = async ({ password, repeatPassword }) => {
     if (!repeatPassword && !password) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.passwordsNotFilled')
     }
@@ -83,22 +81,12 @@ export default (
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)
 
-        if (Object.prototype.hasOwnProperty.call(data, 'email')) {
-          // Vobi Todo: can't you do if(data.email)
-          if (data.email[0] === 'The email has already been taken.') {
-            DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
-            setActivePage(1)
-          } else {
-            DisplayDropdownWithError()
-          }
-        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {
-          // Vobi Todo: can't you do if(data.phone_number)
-          if (data.phone_number[0] === 'The phone number has already been taken.') {
-            DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
-            setActivePage(0)
-          } else {
-            DisplayDropdownWithError()
-          }
+        if (data.email && isEmailAlreadyTaken(data.email)) {
+          DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
+          setActivePage(1)
+        } else if (data.phone_number && isPhoneNumberAlreadyTaken(data.phone_number)) {
+          DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
+          setActivePage(0)
         } else {
           DisplayDropdownWithError()
         }
@@ -107,28 +95,25 @@ export default (
       }
     }
   }
-  // Vobi Todo:
-  // catch (error) {
-  //   if (typeof error.data === 'string') {
-  //     const data: RegisterError = JSON.parse(error.data)
 
-  //     if (Object.prototype.hasOwnProperty.call(data, 'email')
-  //          && data.email[0] == 'The email has already been taken.') {
-  //           Vobi Todo: can't you do if(data.email)
-  //       // Vobi Todo: move this error constant and use strict equality
-  //         Helpers.DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
-  //         return setActivePage(1)
-  //     } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')
-  //                  && data.phone_number[0] == 'The phone number has already been taken.') {
-  //              Vobi Todo: can't you do if(data.phone_number)
-  //       // Vobi Todo: move this error constant and use strict equality
-  //         Helpers.DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
-  //         return setActivePage(0)
-  //     }
-  //   }
-  //   Helpers.DisplayDropdownWithError()
-  // }
+  /**
+   * Determine if email is already taken.
+   */
+  const isEmailAlreadyTaken = (error: string[]) => {
+    return error[0] === 'The email has already been taken.'
+  }
 
+  /**
+   * Determine if phone number is already taken.
+   */
+  const isPhoneNumberAlreadyTaken = (error: string[]) => {
+    return error[0] === 'The phone number has already been taken.'
+  }
+
+  /**
+   * Upon successful registration save user data 
+   * in state and go to next page.
+   */
   const onSuccessRegistration = (data: RegisterResponseType) => {
     dispatch(saveUserAndRefresh(data.user, data.token))
     setActivePage(3)
@@ -136,12 +121,12 @@ export default (
 
   return {
     buttonClickHandler,
-    control,
+    triggerValidation,
     handleSubmit,
+    setValue,
+    control,
     errors,
     watch,
     reset,
-    triggerValidation,
-    setValue,
   }
 }

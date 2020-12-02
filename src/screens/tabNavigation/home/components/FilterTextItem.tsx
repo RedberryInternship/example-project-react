@@ -1,9 +1,9 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, Text} from 'react-native'
+import React, { ReactElement } from 'react'
+import { StyleSheet } from 'react-native'
 
-import {Colors} from 'utils'
-import {BaseText} from 'components'
-import {TouchableOpacity} from 'react-native-gesture-handler'
+import { Colors } from 'utils'
+import { BaseText } from 'components'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 type FilterTextItemProps = {
   text: string
@@ -14,23 +14,21 @@ const FilterTextItem = ({
   text,
   onPress,
   active,
-}: FilterTextItemProps): ReactElement => {
-  return (
+}: FilterTextItemProps): ReactElement => (
     <TouchableOpacity
       style={[
         styles.container,
-        {backgroundColor: active ? '#008AEE' : 'white'},
+        { backgroundColor: active ? '#008AEE' : 'white' },
       ]}
       onPress={onPress}
     >
       <BaseText
-        style={[styles.text, {color: active ? 'white' : Colors.primaryDark}]}
+        style={[styles.text, { color: active ? 'white' : Colors.primaryDark }]}
       >
         {text}
       </BaseText>
     </TouchableOpacity>
   )
-}
 
 export default React.memo(FilterTextItem)
 

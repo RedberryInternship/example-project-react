@@ -1,25 +1,26 @@
-import React, { ReactElement } from 'react'
-import { View, Text, ImageSourcePropType, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import React from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
-
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { UserSettingEnum } from '../../../../../../@types//allTypes.d'
 import { BaseText } from 'components'
+import { SettingsListItemFC } from 'screens/drawer/setting/settings/types'
 
-// SARU
-
-type SettingsListItemProps = {
-  onPress: () => void
-  image: ImageSourcePropType
-  name: string
-  value: string
-  type: UserSettingEnum
-  onEmptyText?: string
-  color?: string
-}
-
-const SettingsListItem = ({ onPress, image, name, value, onEmptyText, color }: SettingsListItemProps): ReactElement => {
+const SettingsListItem: SettingsListItemFC = (
+  {
+    onEmptyText,
+    onPress,
+    image,
+    value,
+    color,
+    name,
+  },
+) => {
   const { t } = useTranslation()
 
   return (
@@ -29,11 +30,12 @@ const SettingsListItem = ({ onPress, image, name, value, onEmptyText, color }: S
           <Image source={image} style={styles.image} />
           <BaseText style={styles.name}>{t(name)}</BaseText>
         </View>
-
         <View style={styles.valueAndArrow}>
-          <BaseText style={[styles.value, { color: value ? Colors.primaryWhite : color }]} numberOfLines={1}>
-            {/** Vobi Todo: why value.toString() if it is already string */}
-            {value ? t(value.toString()) : t(onEmptyText ?? '')}
+          <BaseText
+            style={[styles.value, { color: value ? Colors.primaryWhite : color }]}
+            numberOfLines={1}
+          >
+            {value ? t(value) : t(onEmptyText ?? '')}
           </BaseText>
           <Image source={images.chervonRight} style={styles.arrow} />
         </View>

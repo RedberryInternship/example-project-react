@@ -1,13 +1,28 @@
-import React, { useMemo, RefObject, forwardRef, Ref, useRef } from 'react'
-import { StyleSheet, View, StatusBar } from 'react-native'
-import Map, { PROVIDER_GOOGLE, Polyline } from 'react-native-maps'
-import { NavigationParams, NavigationState, NavigationScreenProp } from 'react-navigation'
-
+import React, {
+  forwardRef,
+  RefObject,
+  useMemo,
+  useRef,
+  Ref,
+} from 'react'
+import { StyleSheet, View } from 'react-native'
+import Map, {
+  PROVIDER_GOOGLE,
+  Polyline,
+} from 'react-native-maps'
+import {
+  NavigationParams,
+  NavigationState,
+  NavigationScreenProp,
+} from 'react-navigation'
 import { Charger } from 'allTypes'
-
-import { mapStyles, mapStyle2, Colors } from 'utils'
+import {
+  determineTimePeriod,
+  mapStyles,
+  mapStyle2,
+  Colors,
+} from 'utils'
 import { MapMarkerItem } from 'components'
-import { determineTimePeriod } from 'utils'
 import { useMapView } from '../hooks'
 
 type MapViewProps = {
@@ -17,15 +32,23 @@ type MapViewProps = {
 }
 
 // eslint-disable-next-line react/display-name
-const MapView = forwardRef(({ showAll, filteredChargersOnMap, navigation }: MapViewProps, ref: Ref<Map>) => {
-  const mapRef: RefObject<Map> = useRef(null)
+const MapView = forwardRef(
+  (
+    {
+      showAll,
+      filteredChargersOnMap,
+      navigation,
+    }: MapViewProps, ref: Ref<Map>,
+  ) => {
+    const mapRef: RefObject<Map> = useRef(null)
 
-  const { state, onMarkerPress, polyline, mapReady } = useMapView(ref, mapRef, navigation)
+    const {
+      state, onMarkerPress, polyline, mapReady,
+    } = useMapView(ref, mapRef, navigation)
 
-  // Vobi todo: move this as separate component and wrap it in React.memo
-  const pins = useMemo(
-    () =>
-      (showAll ? state?.AllChargers : filteredChargersOnMap)?.map((charger: Charger) => (
+    // Vobi todo: move this as separate component and wrap it in React.memo
+    const pins = useMemo(
+      () => (showAll ? state?.AllChargers : filteredChargersOnMap)?.map((charger: Charger) => (
         <MapMarkerItem
           key={charger.id}
           lat={parseFloat(charger.lat.toString())}
@@ -40,13 +63,12 @@ const MapView = forwardRef(({ showAll, filteredChargersOnMap, navigation }: MapV
         />
       )),
 
-    [state?.AllChargers, showAll, filteredChargersOnMap],
-  )
+      [state?.AllChargers, showAll, filteredChargersOnMap],
+    )
 
-  // Vobi todo: move this as separate component and wrap it in React.memo
-  const polylineRoute = useMemo(
-    () =>
-      !!polyline.length && (
+    // Vobi todo: move this as separate component and wrap it in React.memo
+    const polylineRoute = useMemo(
+      () => !!polyline.length && (
         <>
           <Polyline
             key={1.4}
@@ -54,7 +76,7 @@ const MapView = forwardRef(({ showAll, filteredChargersOnMap, navigation }: MapV
             strokeWidth={8}
             strokeColor={Colors.primaryGreen}
             zIndex={Number.MAX_VALUE}
-            geodesic={true}
+            geodesic
           />
           <Polyline
             key={1}
@@ -65,11 +87,10 @@ const MapView = forwardRef(({ showAll, filteredChargersOnMap, navigation }: MapV
           />
         </>
       ),
-    [polyline],
-  )
+      [polyline],
+    )
 
-  return useMemo(() => {
-    return (
+    return useMemo(() => (
       <View style={styles.mapContainer}>
         <Map
           provider={PROVIDER_GOOGLE}
@@ -94,9 +115,9 @@ const MapView = forwardRef(({ showAll, filteredChargersOnMap, navigation }: MapV
           {polylineRoute}
         </Map>
       </View>
-    )
-  }, [pins, polylineRoute, mapReady, mapRef])
-})
+    ), [pins, polylineRoute, mapReady, mapRef])
+  },
+)
 
 export default React.memo(MapView)
 

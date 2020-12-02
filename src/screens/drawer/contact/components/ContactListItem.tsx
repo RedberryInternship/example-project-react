@@ -1,34 +1,25 @@
-import React, {ReactElement} from 'react'
+import React from 'react'
 import {
   View,
   Text,
   Image,
-  ImageSourcePropType,
   StyleSheet,
-  StyleProp,
-  ViewStyle,
   TouchableOpacity,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { Colors, GNOME } from 'utils'
+import { BaseText } from 'components'
+import { ContactListItemFC } from 'screens/drawer/contact/types'
 
-import {Colors, GNOME} from 'utils'
-import {BaseText} from 'components'
-
-type ContactItemProps = {
-  image: ImageSourcePropType
-  name: string
-  value: string
-  onPress: () => void
-  style?: StyleProp<ViewStyle>
-}
-
-const ContactListItem = ({
-  image,
-  name,
-  value,
-  onPress,
-}: ContactItemProps): ReactElement => {
-  const {t} = useTranslation()
+const ContactListItem: ContactListItemFC = (
+  {
+    image,
+    name,
+    value,
+    onPress,
+  }
+) => {
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>

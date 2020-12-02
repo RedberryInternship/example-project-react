@@ -16,7 +16,7 @@ import {
   BackHandler,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { TextInput, FlatList } from 'react-native-gesture-handler'
+import { TextInput } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import { Modalize } from 'react-native-modalize'
@@ -24,10 +24,10 @@ import { Modalize } from 'react-native-modalize'
 import { Charger, ChargerDetail } from 'allTypes'
 
 import { Const, Colors, getLocaleText } from 'utils'
-import BottomSheetFilterItem from './BottomSheetFilterItem'
-import MainSearchItem from './MainSearchItem'
 import { BaseText } from 'components'
 import images from 'assets/images'
+import BottomSheetFilterItem from './BottomSheetFilterItem'
+import MainSearchItem from './MainSearchItem'
 
 type _This = {
   text: string
@@ -58,7 +58,7 @@ const BottomSheetReanimated = forwardRef(
     const inputRef = useRef<TextInput>(null)
     const backHandlerRef = useRef<any>(null)
     const { t } = useTranslation()
-    const height = useWindowDimensions().height
+    const { height } = useWindowDimensions()
 
     const { top, bottom } = useSafeAreaInsets()
 
@@ -85,9 +85,7 @@ const BottomSheetReanimated = forwardRef(
       )
     }, [])
 
-    const handleAndroidBack = useCallback(() => {
-      return false
-    }, [])
+    const handleAndroidBack = useCallback(() => false, [])
 
     const renderHeaderComponent = useCallback(
       (): ReactElement => (
@@ -101,21 +99,23 @@ const BottomSheetReanimated = forwardRef(
             <TextInput
               style={styles.textInput}
               placeholder={`${t('home.location')}/${t('home.organization')}`}
-              keyboardType={'default'}
+              keyboardType="default"
               onChangeText={onTextChange}
-              onSubmitEditing={() => {}}
+              onSubmitEditing={() => { }}
               placeholderTextColor={Colors.primaryWhite}
               allowFontScaling={false}
               ref={inputRef}
               autoCorrect={false}
-              editable={true}
-              autoCapitalize={'none'}
-              returnKeyType={'go'}
-              testID={'mainInput'}
+              editable
+              autoCapitalize="none"
+              returnKeyType="go"
+              testID="mainInput"
             />
             <TouchableWithoutFeedback
               onPress={closeClick}
-              hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+              hitSlop={{
+                top: 15, bottom: 15, left: 15, right: 15,
+              }}
               style={styles.closeTouchable}
             >
               <Image source={images.delete} style={styles.deleteIcon} />
@@ -136,9 +136,9 @@ const BottomSheetReanimated = forwardRef(
       [t, selectedFilters, textHandler],
     )
 
-    const renderContent = (): ReactElement => {
+    const renderContent = (): ReactElement =>
       // Vobi done: remove this comments if it is not used anymore
-      return (
+      (
         <View style={styles.bodyContainer}>
           {filteredChargers?.map((chargerObj: Charger, index: number) => {
             const view = []
@@ -155,30 +155,27 @@ const BottomSheetReanimated = forwardRef(
                 />,
               )
             } else {
-              chargerObj.charger_group?.chargers?.map((val, index: number) =>
-                view.push(
-                  <MainSearchItem
-                    key={val.id + getLocaleText(val.name) + index}
-                    text={getLocaleText(val.location)}
-                    mainTitle={getLocaleText(val.name)}
-                    onPress={onFilteredItemClick?.bind(
-                      BottomSheetReanimated,
-                      val,
-                    )}
-                  />,
-                ),
-              )
+              chargerObj.charger_group?.chargers?.map((val, index: number) => view.push(
+                <MainSearchItem
+                  key={val.id + getLocaleText(val.name) + index}
+                  text={getLocaleText(val.location)}
+                  mainTitle={getLocaleText(val.name)}
+                  onPress={onFilteredItemClick?.bind(
+                    BottomSheetReanimated,
+                    val,
+                  )}
+                />,
+              ))
             }
             return view
           })}
           <KeyboardSpacer />
         </View>
       )
-    }
 
     return useMemo(
       () => (
-        <View style={styles.container} pointerEvents={'box-none'}>
+        <View style={styles.container} pointerEvents="box-none">
           <Modalize
             ref={ref}
             HeaderComponent={renderHeaderComponent}
@@ -186,7 +183,7 @@ const BottomSheetReanimated = forwardRef(
             modalHeight={height - top - bottom - 65 - 12}
             alwaysOpen={55}
             rootStyle={{ elevation: 22, zIndex: 34 }}
-            avoidKeyboardLikeIOS={true}
+            avoidKeyboardLikeIOS
             onPositionChange={(position) => {
               if (position === 'initial') {
                 Keyboard.dismiss()
@@ -210,9 +207,9 @@ const BottomSheetReanimated = forwardRef(
               borderTopRightRadius: 20,
             }}
             withHandle={false}
-            panGestureComponentEnabled={true}
-            panGestureEnabled={true}
-            closeOnOverlayTap={true}
+            panGestureComponentEnabled
+            panGestureEnabled
+            closeOnOverlayTap
           >
             {renderContent()}
           </Modalize>

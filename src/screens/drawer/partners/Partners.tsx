@@ -5,18 +5,15 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { Partner, Navigation } from 'allTypes'
 import { BaseHeader, FetchedDataRenderer } from 'components'
-import { Colors } from 'utils'
+import colors from 'utils/colors'
 import services from 'services'
 import PartnerItem from './components/PartnerItem'
+import { FCWithNavigation } from 'allTypes'
+import { PartnersResponseType } from './types'
 
-type PartnersResponseType = {
-  name: string
-  image: string
-}
-const Partners = ({ navigation }: { navigation: Navigation }): ReactElement => {
-  const getPartners = useCallback(async (): Promise<Partner[]> => {
+const Partners: FCWithNavigation = ({ navigation }) => {
+  const getPartners = useCallback(async () => {
     const { partners } = await services.getPartners()
     return partners
   }, [])
@@ -50,11 +47,11 @@ export default Partners
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
   partnersInnerContainer: {
     flex: 1,
-    backgroundColor: Colors.secondaryGrey,
+    backgroundColor: colors.secondaryGrey,
     marginTop: 32,
     marginHorizontal: 16,
     marginBottom: 16,

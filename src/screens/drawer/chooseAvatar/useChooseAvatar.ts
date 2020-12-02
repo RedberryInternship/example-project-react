@@ -19,7 +19,10 @@ export default (navigation: Navigation) => {
   // - It is just static image which you can choose
   //   as your avatar
 
-  const updateAvatar = async () => {
+  /**
+   * Update avatar.
+   */
+  const updateAvatar = () => {
     try {
       navigation.navigate('Home')
 
@@ -33,9 +36,17 @@ export default (navigation: Navigation) => {
       DisplayDropdownWithError()
     }
   }
+
+  /**
+   * Select avatar.
+   */
   const onAvatarPress = (index: number): void => {
-    if (index === activeAvatar) setActiveAvatar(undefined)
-    else setActiveAvatar(index)
+    if (index === activeAvatar) {
+      setActiveAvatar(undefined)
+    }
+    else {
+      setActiveAvatar(index)
+    }
   }
 
   return {

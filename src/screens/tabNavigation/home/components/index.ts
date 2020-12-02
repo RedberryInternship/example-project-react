@@ -23,4 +23,3 @@ export {
   BottomSheetSlideUp,
   BottomSheetModalize,
 }
-

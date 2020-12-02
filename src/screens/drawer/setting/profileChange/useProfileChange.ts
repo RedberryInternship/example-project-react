@@ -38,6 +38,9 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
     validateCriteriaMode: 'all',
   })
 
+  /**
+   * Submit profile change button.
+   */
   const submit = async (form: Record<string, string>) => {
     if (type === UserSettingEnum.phone) {
       updateUserInfo({ [type]: form.phone })
@@ -48,6 +51,10 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
     } else updateUserInfo(form)
   }
 
+  /**
+   * Update user info in database,
+   * local storage and also in redux state.
+   */
   const updateUserInfo = async (form: Record<string, string>) => {
     try {
       const result = await services.updateUserInfo({ [type]: form[type] })
@@ -68,6 +75,11 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
       DisplayDropdownWithError()
     }
   }
+
+  /**
+   * Update car in database and also
+   * in redux state.
+   */
   const updateCar = async (form: Record<string, string | number>) => {
     try {
       await services.addCar(+form.carModelId)
@@ -80,21 +92,42 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
     }
   }
 
+  /**
+   * Update user password with validation.
+   */
   const updateUserPassword = async (form: Record<string, string>) => {
-    // TODO: need outside component validation
+
+    /**
+     * Check that password inputs are filled.
+     */
     if (!form.repeatPassword && !form.password) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.passwordsNotFilled')
     }
+
+    /**
+     * Match passwords length.
+     */
     if (form.password && form.password.length < 8) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.newPasswordIncorrectLength')
-    } if (form.password !== form.repeatPassword) {
+    }
+
+    /**
+     * Check passwords equality.
+     */
+    if (form.password !== form.repeatPassword) {
       DisplayDropdownWithError('dropDownAlert.registration.passwordNotEqual')
       return 'passwordNotEqual'
-      // return error true because we dont check password match from backend
     }
+
+    /**
+     * Upon validation check update password.
+     */
     try {
       const result = await services
-        .editPassword(state?.user?.phone_number ?? '', form.currentPassword, form.password)
+        .editPassword(
+          state?.user?.phone_number ?? '',
+          form.currentPassword, form.password
+        )
 
       if (result.status_code === 200 || !result.status_code) {
         DisplayDropdownWithSuccess('dropDownAlert.editPassword.success')

@@ -19,7 +19,7 @@ import OnMapRoundButton from './OnMapRoundButton'
 
 type HomeMainComponentProps = {
   navigation?: NavigationScreenProp<NavigationState, NavigationParams>
-  allchargers: Charger[]
+  allChargers: Charger[]
   mapRef: MapImperativeRefObject
   selectedFiltersOnMap: number[]
   onFilterClickOnMap: (index: number) => void
@@ -29,7 +29,7 @@ type HomeMainComponentProps = {
 
 const HomeMainComponent = ({
   navigation,
-  allchargers,
+  allChargers,
   mapRef,
   selectedFiltersOnMap,
   onFilterClickOnMap,
@@ -64,7 +64,7 @@ const HomeMainComponent = ({
           image={images.alertCircle2}
         />
         <HomeMainSearchView
-          allChargers={allchargers}
+          allChargers={allChargers}
           mapRef={mapRef}
           setShowAll={setShowAll}
           ref={mainInputRef}

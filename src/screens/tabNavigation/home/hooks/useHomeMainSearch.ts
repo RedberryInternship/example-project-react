@@ -1,5 +1,9 @@
 import {
-  useEffect, useState, useRef, useCallback, useMemo,
+  useCallback,
+  useEffect,
+  useState,
+  useMemo,
+  useRef,
 } from 'react'
 import {
   Keyboard,
@@ -10,9 +14,7 @@ import {
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
-
 import { Charger, MapImperativeRefObject } from 'allTypes'
-
 import { Const } from 'utils'
 import { GetFilteredCharger } from 'helpers/chargerFilter'
 

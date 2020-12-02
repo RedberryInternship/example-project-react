@@ -1,20 +1,15 @@
 import React from 'react'
-import { View, Alert } from 'react-native'
-import { Const } from 'utils'
+import { View } from 'react-native'
+import * as Const from 'utils/const'
 import { PhoneVerificationView } from 'components'
+import { PhoneNumberViewFC } from 'screens/authentication/registration/types'
 
-type PhoneNumberViewProps = {
-  hook: Record<string, any>
-  activePage: number
-}
 
-const PhoneNumberView = ({
-  hook,
-}: PhoneNumberViewProps): React.ReactElement => (
-    <View style={{ width: Const.Width, paddingHorizontal: 16 }}>
-      <PhoneVerificationView {...hook} formType="registers" />
-    </View>
-  )
+const PhoneNumberView: PhoneNumberViewFC = ({ hook }) => (
+  <View style={{ width: Const.Width, paddingHorizontal: 16 }}>
+    <PhoneVerificationView {...hook} formType="registers" />
+  </View>
+)
 
 export default React.memo(
   PhoneNumberView,

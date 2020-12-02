@@ -30,7 +30,8 @@ const HomeMainSearchView = forwardRef(
       allChargers,
       mapRef,
       setShowAll,
-    }: MainInput, ref: any): ReactElement => {
+    }: MainInput, ref: any,
+  ): ReactElement => {
     const {
       onSearchItemClickHandler,
       setShowSearchContent,

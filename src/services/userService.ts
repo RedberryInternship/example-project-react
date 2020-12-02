@@ -12,6 +12,7 @@ import {
   ContactInfoResponseType,
   GetCardAddUrl,
 } from 'allTypes';
+
 import ajax from './ajax';
 
 export const getUserData = (): Promise<UserMeResponseType> => ajax.get('/me')

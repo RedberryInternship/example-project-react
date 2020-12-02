@@ -1,10 +1,14 @@
-import { useRef, useEffect, useCallback } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
 import { TextInput } from 'react-native'
 import { InputValidationHelpers } from 'utils'
 import services from 'services'
 import {
-  DisplayDropdownWithError,
   DisplayDropdownWithSuccess,
+  DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
 import {
@@ -12,20 +16,22 @@ import {
   CodeRefType,
 } from '../../@types/allTypes.d'
 
-type useForgotPasswordProps = {
+type ForgotPasswordHook = {
   getValues: () => Record<string, any>
   register: (name: any, options: any) => void
   errors: Record<string, any>
   watch: (name: string) => string
   triggerValidation: (name: string) => Promise<boolean>
 }
-export default ({
-  triggerValidation,
-  getValues,
-  register,
-  errors,
-  watch,
-}: useForgotPasswordProps) => {
+
+export default (
+  {
+    triggerValidation,
+    getValues,
+    register,
+    errors,
+    watch,
+  }: ForgotPasswordHook) => {
   const phoneRef = useRef<TextInput>()
   const codeRef = useRef<TextInput & CodeRefType>()
 
@@ -33,7 +39,6 @@ export default ({
 
   useEffect(() => {
     register({ name: 'phone' }, { validate: InputValidationHelpers.phoneNumberValidation })
-
     register({ name: 'code' }, { validate: InputValidationHelpers.codeVerification })
     setTimeout(() => phoneRef.current?.focus(), 500)
   }, [])
@@ -44,21 +49,36 @@ export default ({
     }
   }, [errors])
 
+  /**
+   * Validate phone and handle 'Receive Code' button.
+   */
   const validatePhone = useCallback(async () => {
     const isValid = await triggerValidation('phone')
 
-    if (isValid) codeRef.current?.activateButton()
-    else codeRef.current?.disableActivateButton()
+    if (isValid) {
+      codeRef.current?.activateButton()
+    }
+    else {
+      codeRef.current?.disableActivateButton()
+    }
   }, [phone])
 
+  /**
+   * Validate phone upon phone number change.
+   */
   useEffect(() => {
     validatePhone()
   }, [phone])
 
+  /**
+   * Handle 'Receive Code' click.
+   */
   const receiveCodeHandler = async (formType: string): Promise<void> => {
-    if (!(await triggerValidation('phone'))) {
+    const validationStatus = await triggerValidation('phone')
+    if (!validationStatus) {
       return DisplayDropdownWithError('dropDownAlert.registration.fillPhoneNumber')
     }
+
     try {
       const { phone } = getValues()
       await services.sendSMSCode(phone, formType)
@@ -81,8 +101,8 @@ export default ({
   }
 
   return {
+    receiveCodeHandler,
     phoneRef,
     codeRef,
-    receiveCodeHandler,
   }
 }

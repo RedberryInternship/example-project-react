@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects'
+import { put, takeEvery, takeLatest } from 'redux-saga/effects'
 import * as actions from 'state/actions/userActions'
 import * as actionTypes from 'state/actionTypes/userActionTypes'
 import {
@@ -56,9 +56,10 @@ function* refreshUserInformation() {
  * from the back and refreshing state.
  */
 function* refreshAllChargers() {
+
   try {
     const { data } = yield services.getAllChargersFiltered()
-    put(actions.getAllChargers(data))
+    yield put(actions.getAllChargers(data))
   } catch (error) {
     remoteLogger(error)
     DisplayDropdownWithError()
@@ -72,7 +73,6 @@ function* refreshAllChargers() {
 function* saveUserAndRefresh(action: SaveUserAndRefreshAction) {
   const { userData, token } = action.payload
   yield saveJWTTokenAndUserData(userData, token)
-
   if (token) {
     yield put(actions.refreshUserData())
     yield put(actions.refreshFavoriteChargers())
@@ -148,7 +148,7 @@ function* readUserTokenFromStorageAndUpdateState() {
 export default function* userSagas() {
   yield takeEvery(actionTypes.REFRESH_FAVORITE_CHARGERS_SAGA, refreshFavoriteChargers)
   yield takeEvery(actionTypes.REFRESH_USER_INFORMATION_SAGA, refreshUserInformation)
-  yield takeEvery(actionTypes.REFRESH_ALL_CHARGERS_SAGA, refreshAllChargers)
+  yield takeLatest(actionTypes.REFRESH_ALL_CHARGERS_SAGA, refreshAllChargers)
   yield takeEvery(actionTypes.SAVE_USER_AND_REFRESH_SAGA, saveUserAndRefresh)
   yield takeEvery(actionTypes.ADD_CHARGER_TO_FAVORITES_SAGA, addChargerToFavorites)
   yield takeEvery(actionTypes.REMOVE_CHARGER_FROM_FAVORITES_SAGA, removeChargerFromFavorites)

@@ -1,8 +1,10 @@
-import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet} from 'react-native'
+import React, { ReactElement } from 'react'
+import {
+  View, Image, StyleSheet,
+} from 'react-native'
 
-import {Colors} from 'utils'
-import {BaseCheckbox, BaseNativeTouchable, BaseText} from 'components'
+import { Colors } from 'utils'
+import { BaseCheckbox, BaseNativeTouchable, BaseText } from 'components'
 import images from 'assets/images'
 
 type ChooseCardOnChargingProps = {
@@ -14,8 +16,8 @@ const ChooseCardOnCharging = ({
   lastDigits,
   active,
   onPress,
-}: ChooseCardOnChargingProps): ReactElement => {
-  return (
+}: ChooseCardOnChargingProps)
+  : ReactElement => (
     <BaseNativeTouchable onPress={onPress} borderless={false}>
       <View style={styles.container}>
         <Image source={images.creditCard} style={styles.cardImage} />
@@ -24,7 +26,6 @@ const ChooseCardOnCharging = ({
       </View>
     </BaseNativeTouchable>
   )
-}
 
 export default ChooseCardOnCharging
 

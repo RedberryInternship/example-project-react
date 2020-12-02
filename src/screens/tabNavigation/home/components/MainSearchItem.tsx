@@ -1,4 +1,4 @@
-import React, {ReactElement, useMemo} from 'react'
+import React, { ReactElement, useMemo } from 'react'
 import {
   StyleSheet,
   Platform,
@@ -8,8 +8,8 @@ import {
   Image,
 } from 'react-native'
 
-import {Colors, Const} from 'utils'
-import {BaseNativeTouchable, BaseText} from 'components'
+import { Colors, Const } from 'utils'
+import { BaseNativeTouchable, BaseText } from 'components'
 import images from 'assets/images'
 
 type MainSearchItemProps = {
@@ -39,8 +39,7 @@ const MainSearchItem = ({
     [mainTitle, text],
   )
 
-  if (Const.platformIOS)
-    return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
+  if (Const.platformIOS) { return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity> }
   return (
     <BaseNativeTouchable onPress={onPress} borderless={false}>
       {child}
@@ -54,12 +53,10 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    // elevation: 1,
     backgroundColor: 'transparent',
     marginHorizontal: 16,
     marginTop: 16,
     paddingBottom: 16,
-    // height: 45,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#1C3748',

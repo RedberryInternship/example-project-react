@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   View,
   StyleSheet,
@@ -10,14 +10,15 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { ScreenPropsWithNavigation } from 'allTypes'
 import { BaseHeader, BaseButton, BaseText } from 'components'
-import { Colors, Const } from 'utils'
+import colors from 'utils/colors'
+import * as Const from 'utils/const'
 import images from 'assets/images'
 import ContactListItem from './components/ContactListItem'
 import useContact from './useContact'
+import { FCWithNavigation } from 'allTypes'
 
-const Contact = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+const Contact: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
   const insets = useSafeAreaInsets()
   const {
@@ -26,9 +27,8 @@ const Contact = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     setMessage,
     sendMessage,
     message,
-  } = useContact(navigation)
+  } = useContact()
 
-  // Dummy Info Before we connect App to Back-End
   const contactInfos = [
     data?.address ?? '',
     data?.phone ?? '',
@@ -100,7 +100,7 @@ export default Contact
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
   keyboardScrollViewContentContainer: {
     flex: 0,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   contactItemsContainer: {
-    backgroundColor: Colors.secondaryGray,
+    backgroundColor: colors.secondaryGray,
     marginHorizontal: 16,
     borderRadius: 8,
     padding: 16,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   messageTitle: {
-    color: Colors.primaryGray,
+    color: colors.primaryGray,
     marginBottom: 16,
   },
   messageIcon: {
@@ -133,9 +133,9 @@ const styles = StyleSheet.create({
   },
   message: {
     height: 200,
-    backgroundColor: Colors.black,
+    backgroundColor: colors.black,
     borderRadius: 8,
-    color: Colors.primaryWhite,
+    color: colors.primaryWhite,
     fontSize: 13,
     lineHeight: 16,
     paddingLeft: 40,

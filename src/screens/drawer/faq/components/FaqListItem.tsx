@@ -1,36 +1,32 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   TouchableOpacity,
   StyleSheet,
   Animated,
   View,
 } from 'react-native'
-
-import { Const, Colors } from 'utils'
+import * as Const from 'utils/const'
+import colors from 'utils/colors'
 import images from 'assets/images'
 import { BaseText } from 'components'
 import useFaqListItem from './useFaqListItem'
+import { FaqListItemFC } from 'screens/drawer/faq/types'
 
-type FaqListItemProps = {
-  number: number
-  question: string
-  answer: string
-  active: boolean
-  toggle: (index: boolean) => void
-}
-
-const FaqListItem = ({
-  number,
-  question,
-  answer,
-  active,
-  toggle,
-}: FaqListItemProps): ReactElement => {
-  const {
-    onOrOff, opacity, paddingMarginValue, rotationValue,
-  } = useFaqListItem({
+const FaqListItem: FaqListItemFC = (
+  {
+    question,
+    number,
+    answer,
     active,
-  })
+    toggle,
+  }
+) => {
+  const {
+    paddingMarginValue,
+    rotationValue,
+    onOrOff,
+    opacity,
+  } = useFaqListItem({ active })
 
   return (
     <TouchableOpacity onPress={() => toggle(true)} activeOpacity={0.9}>
@@ -85,7 +81,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 16,
     borderRadius: 8,
-    backgroundColor: Colors.primaryWhite,
+    backgroundColor: colors.primaryWhite,
   },
 
   innerContainer: {
@@ -95,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   number: {
-    color: Colors.primaryBlue,
+    color: colors.primaryBlue,
     fontSize: 18,
   },
   question: {
@@ -103,7 +99,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   questionsText: {
-    color: Colors.black,
+    color: colors.black,
     fontSize: 13,
     fontWeight: 'bold',
   },
@@ -111,7 +107,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'rgba(22, 27, 28, 0.1)',
   },
   answerText: {
-    color: Colors.faqBlue,
+    color: colors.faqBlue,
   },
   arrowBackground: {
     backgroundColor: 'rgba(0, 138, 238, 0.2)',
