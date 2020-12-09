@@ -10,7 +10,7 @@ import {
   BaseText,
 } from 'components'
 import { Colors, NavigationActions } from 'utils'
-import { HomeNavigateModes } from '../../../../../@types/allTypes'
+import { HomeNavigateModes } from '../../../../../@types/allTypes.d'
 import { UsedUpFastFC } from './types'
 
 const UsedUpFast: UsedUpFastFC = (

@@ -20,8 +20,8 @@ import {
   PhoneNumberInput,
   BaseText,
 } from 'components'
-import useAuthHook from './useAuthHook'
 import { FCWithNavigation } from 'allTypes'
+import useAuthHook from './useAuthHook'
 
 const Auth: FCWithNavigation = ({ navigation }) => {
   const insets = useSafeAreaInsets()

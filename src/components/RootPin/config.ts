@@ -1,4 +1,4 @@
-import { ChargerMarkerColor } from 'allTypes'
+import { ChargerMarkerColor } from '../../../@types/allTypes.d'
 
 export const pinColorTypes = {
   [ChargerMarkerColor.group]: { startColor: '#019AF0', stopColor: '#1066E4' },

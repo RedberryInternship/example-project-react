@@ -31,7 +31,7 @@ export default (navigation: Navigation) => {
   useEffect(() => {
     register(
       { name: 'phone' },
-      { validate: InputValidationHelpers.phoneNumberValidation }
+      { validate: InputValidationHelpers.phoneNumberValidation },
     )
   }, [])
 
@@ -42,9 +42,7 @@ export default (navigation: Navigation) => {
 
     if (errors.phone) {
       DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
-    }
-
-    else if (errors.password) {
+    } else if (errors.password) {
       DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
     }
   }, [errors])
@@ -54,6 +52,7 @@ export default (navigation: Navigation) => {
    */
   const buttonClickHandler: Authenticate = async ({ phone, password }) => {
     try {
+      console.log([phone, password])
       const { access_token, user } = await services.loginUser(phone, password)
       dispatch(saveUserAndRefresh(user, access_token))
       navigation.navigate('Home')
@@ -63,11 +62,13 @@ export default (navigation: Navigation) => {
       /** determine if user is blocked. */
       if (error.status === '406' || error?.data?.status === '406') {
         DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+        return
       }
 
       /** determine if user not found. */
       if (error?.data?.error === 'User Not Found') {
         DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
+        return
       }
 
       /** Alert general error and focus on phone input. */
@@ -78,11 +79,11 @@ export default (navigation: Navigation) => {
 
   return {
     buttonClickHandler,
+    handleSubmit,
     phoneRef,
     control,
     setValue,
     register,
-    handleSubmit,
     errors,
     watch,
   }

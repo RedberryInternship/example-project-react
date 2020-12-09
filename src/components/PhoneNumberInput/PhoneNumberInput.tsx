@@ -29,6 +29,7 @@ const PhoneNumberInput = React.forwardRef(
       phoneTextHandler,
       onPickerChange,
       onPickerDone,
+      animation,
       pickerRef,
       onSubmit,
       onChange,
@@ -58,7 +59,6 @@ const PhoneNumberInput = React.forwardRef(
           returnKeyType="send"
           placeholder={inputPlaceholder}
           placeholderTextColor={Colors.primaryGray}
-          {...props}
         />
         <Animated.View style={[styles.modalSelectorContainer, { opacity: animation }]}>
           <View style={styles.touchableStyle}>

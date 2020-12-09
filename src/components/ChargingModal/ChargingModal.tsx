@@ -10,7 +10,7 @@ import { Colors } from 'utils'
 import { BaseText } from 'components'
 import images from 'assets/images'
 import { ScrollView } from 'react-native-gesture-handler'
-import { ChargingFinishedPopupEnum } from 'allTypes'
+import { ChargingFinishedPopupEnum } from '../../../@types/allTypes.d'
 import {
   BeforeFineLVL2FullCharge,
   UsedUpFast,
