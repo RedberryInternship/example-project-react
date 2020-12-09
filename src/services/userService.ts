@@ -1,23 +1,24 @@
 import {
-  UserMeResponseType,
   UserFavoriteChargersResponseType,
-  RequestStandardResponseType,
-  FAQResponseType,
-  PartnersResponseType,
   TransactionsHistoryResponseType,
   UserLastChargersResponseType,
+  RequestStandardResponseType,
+  CarMarkAndModelResponseType,
   UserInfoUpdateResponseType,
   EditPasswordResponseType,
-  CarMarkAndModelResponseType,
   ContactInfoResponseType,
+  PartnersResponseType,
+  UserMeResponseType,
+  FAQResponseType,
   GetCardAddUrl,
 } from 'allTypes';
 
-import ajax from './ajax';
+import ajax from './axios';
 
 export const getUserData = (): Promise<UserMeResponseType> => ajax.get('/me')
 
-export const getUserFavoriteChargers = (): Promise<UserFavoriteChargersResponseType> => ajax.get('/user-favorites');
+export const getUserFavoriteChargers = ()
+  : Promise<UserFavoriteChargersResponseType> => ajax.get('/user-favorites');
 
 export const addUserFavoriteCharger = (
   charger_id: number,
@@ -27,7 +28,8 @@ export const editPassword = (
   phone_number: string,
   old_password: string,
   new_password: string,
-): Promise<EditPasswordResponseType> => ajax.post('/edit-password', { phone_number, old_password, new_password });
+): Promise<EditPasswordResponseType> => ajax
+  .post('/edit-password', { phone_number, old_password, new_password });
 
 export const removeUserFavoriteCharger = (
   charger_id: number,
@@ -41,22 +43,30 @@ export const getFAQ = (): Promise<FAQResponseType> => ajax.get('/faq');
 
 export const getPartners = (): Promise<PartnersResponseType> => ajax.get('/partners');
 
-export const getTransactionsHistory = (): Promise<TransactionsHistoryResponseType> => ajax.get('/transactions-history');
+export const getTransactionsHistory = (): Promise<TransactionsHistoryResponseType> => ajax
+  .get('/transactions-history');
 
-export const getUserChargers = (): Promise<UserLastChargersResponseType> => ajax.get('/user-chargers');
+export const getUserChargers = (): Promise<UserLastChargersResponseType> => ajax
+  .get('/user-chargers');
 
 export const getUserState = (): Promise<any> => ajax.get('/user-state');
 
-export const sendFeedback = (message: string): Promise<any> => ajax.post('/contact-message', { message });
+export const sendFeedback = (message: string): Promise<any> => ajax
+  .post('/contact-message', { message });
 
-export const getCarAndMarksList = (): Promise<CarMarkAndModelResponseType> => ajax.get('/get-models-and-marks');
+export const getCarAndMarksList = (): Promise<CarMarkAndModelResponseType> => ajax
+  .get('/get-models-and-marks');
 
-export const addCar = (car_model_id: number): Promise<any> => ajax.post('/add-user-car', { car_model_id });
+export const addCar = (car_model_id: number): Promise<any> => ajax
+  .post('/add-user-car', { car_model_id });
 
-export const getContactInfo = (): Promise<ContactInfoResponseType> => ajax.get('/contact');
+export const getContactInfo = (): Promise<ContactInfoResponseType> => ajax
+  .get('/contact');
 
 export const getCardAddUrl = (): Promise<GetCardAddUrl> => ajax.get('/save-card-url');
 
-export const setDefaultCard = (user_card_id: number): Promise<GetCardAddUrl> => ajax.post('/user-card/set-default', { user_card_id });
+export const setDefaultCard = (user_card_id: number): Promise<GetCardAddUrl> => ajax
+  .post('/user-card/set-default', { user_card_id });
 
-export const setUserFirebaseToken = (firebase_token: string): Promise<any> => ajax.post('/update-firebase-token', { firebase_token });
+export const setUserFirebaseToken = (firebase_token: string): Promise<any> => ajax
+  .post('/update-firebase-token', { firebase_token });

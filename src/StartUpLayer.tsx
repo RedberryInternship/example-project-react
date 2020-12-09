@@ -1,6 +1,15 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import useStartUp from 'hooks/startUp'
+import {
+  useReceiveFirebaseMessage,
+  useTroubleshootNetwork,
+  useLocaleConfig,
+  useReadToken,
+  useStatusBar,
+  useFirebase,
+  useAppLife,
+  useReady,
+} from 'hooks'
 import { StatusBar } from 'react-native'
 import { CustomModal, CustomDropdownAlert } from 'components'
 import defaults from 'utils/defaults'
@@ -11,7 +20,16 @@ import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {
   references.reduxDispatch = useDispatch()
-  useStartUp()
+
+  useFirebase()
+  useLocaleConfig()
+  useReadToken()
+  useReceiveFirebaseMessage()
+  useAppLife()
+  useStatusBar()
+  useTroubleshootNetwork()
+  useReady()
+
   const state = useSelector(selectChargingProcess)
 
   return (

@@ -8,6 +8,7 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
+import { refreshAndCacheChargers } from 'helpers/chargerFilter'
 import services from 'services'
 import { getLocaleText } from 'utils/localization/localization'
 import configureChargingFinishPopup from 'helpers/finishingPopup'
@@ -83,7 +84,7 @@ function* finishChargingProcess(action: FinishChargingSagaAction) {
     yield put((actions.finishChargingAction(error, false)))
   }
 
-  services.getAllChargersFiltered()
+  yield refreshAndCacheChargers()
 }
 
 /**

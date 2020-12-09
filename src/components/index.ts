@@ -1,104 +1,57 @@
-// SVG
-import RootPin from './RootPin'
-import MarkerController from './MarkerController'
-
 // View
-import TitleTopLeftContainer from './TitleTopLeftContainer'
-import CountDown from './CountDown'
-
-import SingleInputView from './SingleInputView'
-import AddCar from './AddCar'
-import CardListView from './CardListView'
-import PhoneChangeView from './PhoneChangeView'
-import PasswordChangeView from './PasswordChangeView'
-import FooterTabNavigation from './FooterTabNavigationView'
-import PhoneVerificationView from './PhoneVerificationView'
-import PasswordConfirmationView from './PasswordConfirmationView'
-import CardAddView from './CardAddView'
+export { default as PasswordConfirmationView } from './PasswordConfirmationView'
+export { default as TitleTopLeftContainer } from './TitleTopLeftContainer'
+export { default as PhoneVerificationView } from './PhoneVerificationView'
+export { default as FooterTabNavigation } from './FooterTabNavigationView'
+export { default as PasswordChangeView } from './PasswordChangeView'
+export { default as PhoneChangeView } from './PhoneChangeView'
+export { default as SingleInputView } from './SingleInputView'
+export { default as CardListView } from './CardListView'
+export { default as CardAddView } from './CardAddView'
+export { default as CountDown } from './CountDown'
+export { default as AddCar } from './AddCar'
 // ./
-import CustomModal from './CustomModal'
-import CustomDropdownAlert from './CustomDropdownAlert'
+export { default as CustomDropdownAlert } from './CustomDropdownAlert'
+export { default as CustomModal } from './CustomModal'
 
 // library
-import Pulse from './Pulse'
-import FetchedDataRenderer from './FetchedDataRenderer'
+export { default as FetchedDataRenderer } from './FetchedDataRenderer'
+export { default as Pulse } from './Pulse'
 
 // Item
-import TabNavigationButtons from './TabNavigationButtonsItem'
-import PhoneNumberInput from './PhoneNumberInput'
-import LegendItem from './LegendItem'
-import LegendColorItem from './LegendColorItem'
-import CardListItem from './CardListItem'
-import ModalPopupChargerItem from './ModalPopupChargerItem'
-import MapMarkerItem from './MapMarkerItem'
-import ChargerGroupPopupItem from './ChargerGroupPopupItem'
-import AutoCompleteDropdown from './AutoCompleteDropdown'
+export { default as TabNavigationButtons } from './TabNavigationButtonsItem'
+export { default as ModalPopupChargerItem } from './ModalPopupChargerItem'
+export { default as ChargerGroupPopupItem } from './ChargerGroupPopupItem'
+export { default as AutoCompleteDropdown } from './AutoCompleteDropdown'
+export { default as PhoneNumberInput } from './PhoneNumberInput'
+export { default as LegendColorItem } from './LegendColorItem'
+export { default as MapMarkerItem } from './MapMarkerItem'
+export { default as CardListItem } from './CardListItem'
+export { default as LegendItem } from './LegendItem'
 
 // BaseUI
-import BaseInput from './BaseInput'
-import BaseHeader from './BaseHeader'
-import BaseButton from './BaseButton'
-import BaseAddCardButton from './BaseAddCardButton'
-import BaseNativeTouchable from './BaseNativeTouchable'
-import BasePickerSelect from './BasePickerSelect'
-import BaseText from './BaseText'
-import BaseCheckbox from './BaseCheckbox'
+export { default as BaseNativeTouchable } from './BaseNativeTouchable'
+export { default as BaseAddCardButton } from './BaseAddCardButton'
+export { default as BasePickerSelect } from './BasePickerSelect'
+export { default as BaseCheckbox } from './BaseCheckbox'
+export { default as BaseButton } from './BaseButton'
+export { default as BaseHeader } from './BaseHeader'
+export { default as BaseInput } from './BaseInput'
+export { default as BaseText } from './BaseText'
 
 // UI
-import ReceiveCode from './ReceiveCode'
-import RegistrationPagination from './RegistrationPagination'
-import PopUpCountDown from './PopUpCountDown'
+export { default as RegistrationPagination } from './RegistrationPagination'
+export { default as PopUpCountDown } from './PopUpCountDown'
+export { default as ReceiveCode } from './ReceiveCode'
 
 // modalTypes
-import RegistrationType1 from './RegistrationType1'
-import LegendType2 from './LegendType2'
-import ChargingModal from './ChargingModal'
-import MapPopUp from './MapPopUp'
-import LocationPermission from './LocationPermission'
-import PrivacyPolicy from './PrivacyPolicy'
+export { default as RegistrationType1 } from './RegistrationType1'
+export { default as LocationPermission } from './LocationPermission'
+export { default as ChargingModal } from './ChargingModal'
+export { default as PrivacyPolicy } from './PrivacyPolicy'
+export { default as LegendType2 } from './LegendType2'
+export { default as MapPopUp } from './MapPopUp'
 
-export {
-  TabNavigationButtons,
-  BaseButton,
-  BaseInput,
-  BaseHeader,
-  PhoneNumberInput,
-  ReceiveCode,
-  RegistrationPagination,
-  CustomModal,
-  RegistrationType1,
-  LegendItem,
-  LegendType2,
-  LegendColorItem,
-  CardListView,
-  PhoneChangeView,
-  PasswordChangeView,
-  CardListItem,
-  BaseAddCardButton,
-  TitleTopLeftContainer,
-  Pulse,
-  CountDown,
-  ChargingModal,
-  PopUpCountDown,
-  ModalPopupChargerItem,
-  BasePickerSelect,
-  MapPopUp,
-  ChargerGroupPopupItem,
-  BaseNativeTouchable,
-  BaseText,
-  BaseCheckbox,
-  FooterTabNavigation,
-  LocationPermission,
-  FetchedDataRenderer,
-  MapMarkerItem,
-  SingleInputView,
-  PhoneVerificationView,
-  PasswordConfirmationView,
-  AddCar,
-  PrivacyPolicy,
-  AutoCompleteDropdown,
-  CardAddView,
-  MarkerController,
-  CustomDropdownAlert,
-  RootPin,
-}
+// SVG
+export { default as MarkerController } from './MarkerController'
+export { default as RootPin } from './RootPin'

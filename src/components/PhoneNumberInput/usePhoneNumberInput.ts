@@ -50,7 +50,6 @@ const usePhoneNumberInput = (
 
   const phoneTextHandler = (text: string): void => {
     if (text !== '') {
-      console.log(['selectedCountryCode.value', selectedCountryCode.value])
       codeRef && codeRef.current && codeRef.current.activateButton()
       onChangeText(selectedCountryCode.value + text)
     } else {

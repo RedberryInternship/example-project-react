@@ -14,6 +14,7 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
+import { refreshAndCacheChargers } from 'helpers/chargerFilter'
 import defaults from 'utils/defaults'
 import services from 'services'
 import NavigationActions from 'utils/navigation.service'
@@ -57,7 +58,7 @@ function* refreshUserInformation() {
  */
 function* refreshAllChargers() {
   try {
-    const { data } = yield services.getAllChargersFiltered()
+    const { data } = yield refreshAndCacheChargers()
     yield put(actions.getAllChargers(data))
   } catch (error) {
     remoteLogger(error)

@@ -58,6 +58,11 @@ export interface Charger extends ChargerDetail {
   charger_group: ChargerGroup | null
 }
 
+export type ChargersResponseWithTime = {
+  data: Charger[]
+  time: number
+}
+
 type ChargerGroup = {
   id: number
   name: string

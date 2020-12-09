@@ -24,12 +24,11 @@
     /* Base directory to resolve non-absolute module names. */
     "paths": {
       "*": ["src/*", "@types/*", "*"],
-      "tests": ["tests/*"]
     },
     /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     "typeRoots": [
       "./node_modules/@types",
-      "./@types"
+      "./@types",
     ],
     /* List of folders to include type definitions from. */
     "allowSyntheticDefaultImports": true,

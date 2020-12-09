@@ -7,7 +7,7 @@ import {
 import { selectUser } from 'state/selectors'
 import messaging from '@react-native-firebase/messaging'
 import defaults from 'utils/defaults'
-import { ChargingState } from '../../../@types/allTypes.d'
+import { ChargingState } from '../../@types/allTypes.d'
 
 /**
  * Take care of firebase messages upon
