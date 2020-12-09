@@ -1,1 +1,1 @@
-export {default as ShowTransaction} from './ShowTransaction'
+export { default as ShowTransaction } from './ShowTransaction'

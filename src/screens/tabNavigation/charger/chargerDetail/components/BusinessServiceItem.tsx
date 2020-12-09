@@ -1,23 +1,19 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
-  View, TouchableOpacity, StyleSheet, Image,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
 } from 'react-native'
+import { BusinessServiceItemFC } from 'screens/tabNavigation/charger/chargerDetail/types'
 
-type BusinessServiceItemProps = {
-  image: string
-  onPress: () => void
-}
-
-const BusinessServiceItem = ({
-  image,
-  onPress,
-}: BusinessServiceItemProps): ReactElement => (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.serviceContainer}>
-        <Image source={{ uri: image }} style={styles.serviceImage} />
-      </View>
-    </TouchableOpacity>
-  )
+const BusinessServiceItem: BusinessServiceItemFC = ({ image, onPress }) => (
+  <TouchableOpacity onPress={onPress}>
+    <View style={styles.serviceContainer}>
+      <Image source={{ uri: image }} style={styles.serviceImage} />
+    </View>
+  </TouchableOpacity>
+)
 
 export default BusinessServiceItem
 

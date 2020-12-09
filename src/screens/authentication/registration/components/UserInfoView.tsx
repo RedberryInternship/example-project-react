@@ -8,7 +8,6 @@ import { BaseInput } from 'components'
 import images from 'assets/images'
 import { UserInfoViewFC } from 'screens/authentication/registration/types'
 
-
 const UserInfoView: UserInfoViewFC = ({ hook }) => {
   const { control, errors } = hook
 
@@ -67,10 +66,10 @@ export default React.memo(
   UserInfoView,
   (
     {
-      activePage
+      activePage,
     },
     {
-      activePage: nextActivePage
-    }
+      activePage: nextActivePage,
+    },
   ) => activePage !== 1 && nextActivePage !== 1,
 )

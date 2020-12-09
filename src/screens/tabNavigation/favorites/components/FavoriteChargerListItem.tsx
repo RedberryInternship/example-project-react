@@ -1,25 +1,23 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
-  View, Image, StyleSheet, TouchableOpacity,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
 } from 'react-native'
-
 import { BaseButton, BaseText } from 'components'
 import { Colors } from 'utils'
 import images from 'assets/images'
+import { FavoriteChargerItemFC } from 'screens/tabNavigation/favorites/types'
 
-type FavoriteChargerItemProps = {
-  title: string
-  address: string
-  turnon: () => void | undefined
-  deleteItem: () => void | undefined
-}
-
-const FavoriteChargerListItem = ({
-  title,
-  address,
-  turnon,
-  deleteItem,
-}: FavoriteChargerItemProps): ReactElement => (
+const FavoriteChargerListItem: FavoriteChargerItemFC = (
+  {
+    title,
+    address,
+    turnon,
+    deleteItem,
+  },
+) => (
     <View style={styles.container}>
       <View style={styles.innerLeftContainer}>
         <TouchableOpacity onPress={deleteItem}>

@@ -17,13 +17,14 @@ import { easyAlert } from 'helpers/inform'
 import images from 'assets/images'
 import { isAuthenticated } from 'helpers/auth'
 import { selectUser } from 'state/selectors'
+import { FCWithNavigation, Locale } from 'allTypes'
+import { setLocale } from 'helpers/locale'
 import {
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
 } from './components'
-import { FCWithNavigation, Locale } from 'allTypes'
-import { setLocale } from 'helpers/locale'
+
 const Drawer: FCWithNavigation = ({ navigation }) => {
   const state = useSelector(selectUser)
   const dispatch = useDispatch()

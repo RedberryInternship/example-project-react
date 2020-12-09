@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { BaseHeader, BaseButton } from 'components'
 import { Colors } from 'utils'
 import images, { Avatars } from 'assets/images'
+import { FCWithNavigation } from 'allTypes'
 import AvatarItem from './AvatarItem'
 import useChooseAvatar from './useChooseAvatar'
-import { FCWithNavigation } from 'allTypes'
 
 const ChooseAvatar: FCWithNavigation = ({ navigation }) => {
   const {

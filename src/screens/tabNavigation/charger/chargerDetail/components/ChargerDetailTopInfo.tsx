@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   Image,
@@ -10,32 +10,24 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { BaseText } from 'components'
+import { ChargerDetailTopInfoFC } from 'screens/tabNavigation/charger/chargerDetail/types'
 
-type ChargerDetailTopInfoProps = {
-  chargerLocationDirectionPress: () => void
-  showChargerLocationPress: () => void
-  favoritePress: () => void
-  code: string | number | undefined
-  name: string
-  location: string
-  favorite: boolean | null | undefined
-  distance: string
-}
-
-const ChargerDetailTopInfo = ({
-  chargerLocationDirectionPress,
-  showChargerLocationPress,
-  favoritePress,
-  code,
-  name,
-  location,
-  distance,
-  favorite,
-}: ChargerDetailTopInfoProps): ReactElement => {
+const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
+  {
+    chargerLocationDirectionPress,
+    showChargerLocationPress,
+    favoritePress,
+    code,
+    name,
+    location,
+    distance,
+    favorite,
+  },
+) => {
   const { t } = useTranslation()
   return (
     <View style={styles.container}>
-      <View style={styles.nameAndfavIconContainer}>
+      <View style={styles.nameAndFavoriteIconContainer}>
         <View style={styles.nameAndCodeContainer}>
           <BaseText style={styles.nameText}>{name}</BaseText>
           <BaseText style={styles.codeContainer}>
@@ -102,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 152,
   },
-  nameAndfavIconContainer: {
+  nameAndFavoriteIconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,

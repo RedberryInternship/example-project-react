@@ -56,7 +56,6 @@ function* refreshUserInformation() {
  * from the back and refreshing state.
  */
 function* refreshAllChargers() {
-
   try {
     const { data } = yield services.getAllChargersFiltered()
     yield put(actions.getAllChargers(data))

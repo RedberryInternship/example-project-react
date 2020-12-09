@@ -3,6 +3,10 @@ import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
 import { ChargerFilters, ChargerStatus, ConnectorTypes } from 'utils/enums'
 import { Charger, ChargersObject } from '../../@types/allTypes.d'
 
+/**
+ * Get chargers from server and filter
+ * based on input text.
+ */
 export const GetFilteredCharger = async (
   selectedFilters: boolean[],
   filterInput = '',
@@ -21,12 +25,13 @@ export const GetFilteredCharger = async (
 
 /**
  * determine if search bar is empty.
- *
- * @param text
- * @returns {boolean}
  */
 const isSearchBarEmpty = (text: string): boolean => text === ''
 
+/**
+ * Search charger based on input
+ * text on retrieved chargers.
+ */
 const searchChargers = (text: string, data: Charger[]) => data.filter((charger) => {
   const stringifiedCharger = JSON.stringify(charger).toLowerCase()
   return stringifiedCharger.toLowerCase().includes(text.toLowerCase())
@@ -34,9 +39,6 @@ const searchChargers = (text: string, data: Charger[]) => data.filter((charger) 
 
 /**
  * Filter chargers for bottom chargers filter.
- *
- * @param selectedFilters
- * @param data
  */
 const filterChargers = (
   selectedFilters: boolean[],
@@ -46,9 +48,6 @@ const filterChargers = (
 /**
  * Determine if charger should appear in
  * search result.
- *
- * @param charger
- * @returns {boolean}
  */
 const shouldAppear = (charger: Charger, selectedFilters: boolean[]): boolean => {
   const chargerCharacteristics = determineChargerCharacteristics(charger)
@@ -67,9 +66,6 @@ const shouldAppear = (charger: Charger, selectedFilters: boolean[]): boolean => 
 /**
  * determine charger characteristics
  * appropriate to filter.
- *
- * @param charger
- * @returns {Array<boolean>}
  */
 const determineChargerCharacteristics = (charger: Charger): Array<boolean> => {
   const characteristics = Array(6).fill(false)

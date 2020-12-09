@@ -14,25 +14,25 @@ import { Colors, Const } from 'utils'
 import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
 import {
-  CurrentTariffs,
   ChargerDetailTopInfo,
   ChargerTypesItem,
+  CurrentTariffs,
 } from './components'
 import useChargerDetails from './useChargerDetails'
 import BusinessServiceItem from './components/BusinessServiceItem'
 
 const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   const {
-    headerLeftPress,
     chargerLocationDirectionHandler,
-    onFavoritePress,
     showChargerLocationHandler,
-    charger,
-    distance,
-    activeChargerType,
-    setActiveChargerType,
-    mainButtonClickHandler,
     onBusinessServiceClick,
+    startChargingHandler,
+    setActiveChargerType,
+    activeChargerType,
+    headerLeftPress,
+    onFavoritePress,
+    distance,
+    charger,
   } = useChargerDetails(navigation)
 
   return (
@@ -90,7 +90,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
         )}
       </ScrollView>
       <BaseButton
-        onPress={mainButtonClickHandler}
+        onPress={startChargingHandler}
         text="charger.turnOn"
         style={styles.baseButton}
         image={images.charge}

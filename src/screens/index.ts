@@ -19,7 +19,6 @@ import { ProfileChange } from './drawer/setting/profileChange'
 
 import { Favorites } from './tabNavigation/favorites'
 import { Faq } from './drawer/faq'
-import { Tariffs } from './drawer/tariffs'
 import { Contact } from './drawer/contact'
 import { ChooseAvatar } from './drawer/chooseAvatar'
 
@@ -48,7 +47,6 @@ export {
   Faq,
   ChoosingCard,
   Contact,
-  Tariffs,
   TransactionList,
   ShowTransaction,
   Partners,

@@ -1,23 +1,16 @@
-import React, {ReactElement} from 'react'
+import React from 'react'
 import {
   View,
   StyleSheet,
   TouchableOpacity,
-  StyleProp,
-  ViewStyle,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { Colors } from 'utils'
+import { BaseText } from 'components'
+import { AddCardButtonFC } from 'screens/tabNavigation/charger/choosingCard/types'
 
-import {Colors} from 'utils'
-import {BaseText} from 'components'
-
-type AddCard = {
-  onPress: () => void | null
-  style?: StyleProp<ViewStyle>
-}
-
-const BaseAddCardButton = ({onPress, style}: AddCard): ReactElement => {
-  const {t} = useTranslation()
+const BaseAddCardButton: AddCardButtonFC = ({ onPress, style }) => {
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>

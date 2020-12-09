@@ -9,8 +9,8 @@ import * as Const from 'utils/const'
 import colors from 'utils/colors'
 import images from 'assets/images'
 import { BaseText } from 'components'
-import useFaqListItem from './useFaqListItem'
 import { FaqListItemFC } from 'screens/drawer/faq/types'
+import useFaqListItem from './useFaqListItem'
 
 const FaqListItem: FaqListItemFC = (
   {
@@ -19,7 +19,7 @@ const FaqListItem: FaqListItemFC = (
     answer,
     active,
     toggle,
-  }
+  },
 ) => {
   const {
     paddingMarginValue,

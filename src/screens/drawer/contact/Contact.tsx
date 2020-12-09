@@ -14,9 +14,9 @@ import { BaseHeader, BaseButton, BaseText } from 'components'
 import colors from 'utils/colors'
 import * as Const from 'utils/const'
 import images from 'assets/images'
+import { FCWithNavigation } from 'allTypes'
 import ContactListItem from './components/ContactListItem'
 import useContact from './useContact'
-import { FCWithNavigation } from 'allTypes'
 
 const Contact: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()

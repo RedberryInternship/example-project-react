@@ -15,9 +15,9 @@ const PasswordView: PasswordViewFC = (
     hook: {
       control,
       watch,
-      setValue
+      setValue,
     },
-  }
+  },
 ) => {
   const { t } = useTranslation()
 

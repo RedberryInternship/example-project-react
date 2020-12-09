@@ -8,7 +8,7 @@ const CardAddContainer: CardAddContainerFC = (
   {
     activePage,
     onSuccess,
-  }
+  },
 ) => (
     <View style={styles.container}>
       {activePage === 3 && <CardAddView onSuccess={onSuccess} />}
@@ -19,11 +19,11 @@ export default React.memo(
   CardAddContainer,
   (
     {
-      activePage
+      activePage,
     },
     {
-      activePage: nextActivePage
-    }
+      activePage: nextActivePage,
+    },
   ) => nextActivePage !== 3 && activePage !== 3,
 )
 

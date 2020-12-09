@@ -1,16 +1,11 @@
-import React, { ReactElement } from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-
-import { Colors } from 'utils'
-import { ChargerConnectorType } from 'allTypes'
 import { BaseText } from 'components'
+import { CurrentTariffsFC } from 'screens/tabNavigation/charger/chargerDetail/types'
+import Row from './CurrentTariffsRow'
 
-type CurrentTariffsProps = {
-  connector?: ChargerConnectorType
-}
-
-const CurrentTariffs = ({ connector }: CurrentTariffsProps): ReactElement => {
+const CurrentTariffs: CurrentTariffsFC = ({ connector }) => {
   const { t } = useTranslation()
   return (
     <View style={styles.container}>
@@ -26,18 +21,18 @@ const CurrentTariffs = ({ connector }: CurrentTariffsProps): ReactElement => {
           {t('chargerDetail.tariffs')}
         </BaseText>
       </View>
-      {connector?.charging_prices?.map((val, ind: number) => (
+      {connector?.charging_prices?.map((val) => (
         <Row
-          key={ind}
+          key={val.id}
           col1={`${val.min_kwt} ${t('kwh')}`}
           col2="-"
           col3={`${val.max_kwt} ${t('kwh')}`}
           col4={val.price}
         />
       ))}
-      {connector?.fast_charging_prices?.map((val, ind: number) => (
+      {connector?.fast_charging_prices?.map((val) => (
         <Row
-          key={ind}
+          key={val.id}
           col1={`${val.start_minutes} ${t('minute')}`}
           col2="-"
           col3={`${val.end_minutes} ${t('minute')}`}
@@ -49,22 +44,6 @@ const CurrentTariffs = ({ connector }: CurrentTariffsProps): ReactElement => {
 }
 
 export default CurrentTariffs
-
-type RowProps = {
-  col1: string
-  col2: string
-  col3: string
-}
-const Row = ({
-  col1, col2, col3, col4,
-}: RowProps): ReactElement => (
-    <View style={styles.rowContainer}>
-      <BaseText style={styles.rowCol1}>{col1}</BaseText>
-      <BaseText style={styles.rowCol2}>{col2}</BaseText>
-      <BaseText style={styles.rowCol3}>{col3}</BaseText>
-      <BaseText style={styles.rowCol4}>{col4}</BaseText>
-    </View>
-  )
 
 const styles = StyleSheet.create({
   container: {
@@ -87,38 +66,5 @@ const styles = StyleSheet.create({
   currentPrice2Text: {
     fontSize: 11,
     color: '#A1A8AB',
-  },
-  rowContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    height: 44,
-    borderTopColor: '#11222D',
-    borderTopWidth: 1,
-  },
-  rowCol1: {
-    flex: 0.7,
-    alignSelf: 'center',
-    color: Colors.primaryWhite,
-    fontSize: 11,
-  },
-  rowCol2: {
-    flex: 0.3,
-    alignSelf: 'center',
-    color: Colors.primaryWhite,
-    fontSize: 11,
-  },
-  rowCol3: {
-    flex: 1.2,
-    alignSelf: 'center',
-    color: Colors.primaryWhite,
-    fontSize: 11,
-    flexWrap: 'nowrap',
-  },
-  rowCol4: {
-    flex: 0.8,
-    alignSelf: 'center',
-    color: Colors.primaryWhite,
-    fontSize: 11,
-    textAlign: 'center',
   },
 })

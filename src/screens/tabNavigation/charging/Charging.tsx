@@ -1,5 +1,4 @@
 import React, {
-  ReactElement,
   useCallback,
   useMemo,
 } from 'react'
@@ -13,21 +12,21 @@ import { selectChargingProcess } from 'state/selectors'
 import { TabView } from 'react-native-tab-view'
 import { Colors } from 'utils'
 import { BaseHeader } from 'components'
-import { ScreenPropsWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'allTypes'
 import useCharging from './useCharging'
 import { ChargingView } from './components'
 import RenderTabBar from './components/RenderTabBar'
 
-const Charging = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+const Charging: FCWithNavigation = ({ navigation }) => {
   const { chargingState } = useSelector(selectChargingProcess)
   const {
-    changeActiveTab,
+    setActiveTab,
     activeTab,
     ...hook
   } = useCharging(navigation)
 
   const renderScene = useCallback(
-    (props: any): ReactElement => (
+    (props: any) => (
       <ChargingView
         hook={hook}
         chargingState={props.route}
@@ -52,12 +51,12 @@ const Charging = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
         routes: (chargingState ?? []) as any,
       }}
       renderScene={renderScene}
-      onIndexChange={changeActiveTab}
+      onIndexChange={setActiveTab}
       lazy
       renderTabBar={(props) => (
         <RenderTabBar
           hook={hook}
-          changeActiveTab={changeActiveTab}
+          setActiveTab={setActiveTab}
           {...props}
         />
       )}
@@ -76,9 +75,11 @@ const Charging = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
         {chargingState.length === 2 && twoChargingProcesses}
       </View>
     ),
-    [navigation, chargingState, hook, activeTab, changeActiveTab],
+    [navigation, chargingState, hook, activeTab, setActiveTab],
   )
 }
+
+export default Charging
 
 const styles = StyleSheet.create({
   container: {
@@ -104,5 +105,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 })
-
-export default Charging

@@ -1,9 +1,6 @@
-import React, { useState, useRef } from 'react'
+import { useState, useMemo } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import SlidingUpPanel from 'rn-sliding-up-panel'
-import { useForm } from 'react-hook-form'
 import { selectUser } from 'state/selectors'
 import { Navigation } from 'allTypes'
 import { startChargingProcess } from 'state/actions/chargingProcessActions'
@@ -13,21 +10,20 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'helpers/inform'
+import * as Const from 'utils/const'
 
 const animatedArrow = new Animated.Value(0)
 
-// Vobi todo: move this in hooks
 export default (navigation: Navigation) => {
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
 
-  const { control, handleSubmit, errors } = useForm()
   const [loading, setLoading] = useState<boolean>(false)
 
-  const slideUpPanelRef: React.RefObject<SlidingUpPanel> = useRef(null)
-
-  const { t } = useTranslation()
-
+  /**
+   * Set active card and also update database
+   * this card to become default.
+   */
   const setActiveCard = async (id: number) => {
     try {
       await services.setDefaultCard(id)
@@ -37,7 +33,11 @@ export default (navigation: Navigation) => {
       DisplayDropdownWithError()
     }
   }
-  const submitHandler = async ({ amount }: { amount: number }) => {
+
+  /**
+   * Start charging process.
+   */
+  const startChargingHandler = async ({ amount }: { amount: number }) => {
     setLoading(true)
     dispatch(
       startChargingProcess(
@@ -52,15 +52,39 @@ export default (navigation: Navigation) => {
     )
   }
 
+  /**
+   * Draggable range animation properties
+   */
+  const draggableRange = useMemo(
+    () => ({
+      bottom: Const.platformIOS ? 160 : 200,
+      top:
+        (Const.platformIOS ? 160 : 200)
+        + ((state.user?.user_cards?.length ?? 0) + 1) * 50,
+    }),
+    [state],
+  )
+
+  /**
+   * Slide up transformation animation properties.
+   */
+  const slidingUpTransformation = {
+    transform: [
+      {
+        rotateX: animatedArrow.interpolate({
+          inputRange: [draggableRange.bottom, draggableRange.top],
+          outputRange: ['0deg', '180deg'],
+        }),
+      },
+    ],
+  }
+
   return {
-    t,
+    slidingUpTransformation,
+    startChargingHandler,
+    draggableRange,
     setActiveCard,
-    slideUpPanelRef,
     animatedArrow,
-    control,
-    handleSubmit,
-    submitHandler,
-    errors,
     loading,
     state,
   }

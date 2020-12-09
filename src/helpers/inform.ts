@@ -4,6 +4,9 @@ import { EasyAlert } from 'allTypes.d'
 import i18next from 'i18next'
 import Sentry from 'utils/sentry'
 
+// eslint-disable-next-line no-underscore-dangle
+declare const __DEV__: boolean
+
 /**
  * Log data when in development mode.
  *

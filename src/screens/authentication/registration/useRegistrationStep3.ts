@@ -99,19 +99,17 @@ export default (
   /**
    * Determine if email is already taken.
    */
-  const isEmailAlreadyTaken = (error: string[]) => {
-    return error[0] === 'The email has already been taken.'
-  }
+  const isEmailAlreadyTaken = (error: string[]) => error[0] === 'The email has already been taken.'
 
   /**
    * Determine if phone number is already taken.
    */
-  const isPhoneNumberAlreadyTaken = (error: string[]) => {
-    return error[0] === 'The phone number has already been taken.'
-  }
+  const isPhoneNumberAlreadyTaken = (
+    error: string[],
+  ) => error[0] === 'The phone number has already been taken.'
 
   /**
-   * Upon successful registration save user data 
+   * Upon successful registration save user data
    * in state and go to next page.
    */
   const onSuccessRegistration = (data: RegisterResponseType) => {

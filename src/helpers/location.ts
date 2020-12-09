@@ -1,21 +1,26 @@
 /* eslint-disable import/prefer-default-export */
 import { Alert, Linking, Platform } from 'react-native'
-import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
+import {
+  isPermissionGrantedRegex,
+  isPermissionDeniedRegex,
+} from 'utils/mapAndLocation/permissionsRegex'
 import locationConfig from 'utils/mapAndLocation/location'
-import Defaults from 'utils/defaults'
+import defaults from 'utils/defaults'
 import i18next from 'i18next'
 
 export const getAndRequestLocation = async (): Promise<boolean> => {
   if (
-    !isPermissionGrantedRegex(Defaults.locationPermission)
+    !isPermissionGrantedRegex(defaults.locationPermission)
     && Platform.OS === 'ios'
   ) {
     onLocationAccessDenied()
     return true
-  } if (!isPermissionGrantedRegex(Defaults.locationPermission)) {
+  } if (!isPermissionGrantedRegex(defaults.locationPermission)) {
     const status = await locationConfig.requestPermission()
 
-    if (!status) return false
+    if (!status) {
+      return false
+    }
   }
   return true
 }
@@ -43,3 +48,18 @@ const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
     { cancelable: true },
   )
 }
+
+/**
+ * Determine if location is enabled.
+ */
+export const isLocationEnabled = () => (
+  defaults.locationPermission
+  && isPermissionDeniedRegex(defaults.locationPermission)
+)
+
+/**
+ * Determine if location is not determined.
+ */
+export const isLocationNotDetermined = () => (
+  defaults.locationPermission.match(/notDetermined/)
+)

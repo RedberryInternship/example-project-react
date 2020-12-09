@@ -1,50 +1,42 @@
-import React, { ReactElement, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import {
-  View, StyleSheet, TouchableOpacity, Image,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
 } from 'react-native'
-
 import { Const, Colors } from 'utils'
 import {
-  Pulse, CountDown, BaseButton, BaseText,
+  BaseButton,
+  CountDown,
+  BaseText,
+  Pulse,
 } from 'components'
 import images from 'assets/images'
-import {
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-} from 'react-navigation'
-import {
-  ChargingState,
-  HomeNavigateModes,
-} from '../../../../../@types/allTypes.d'
+import { ChargingViewFC } from 'screens/tabNavigation/charging/types'
+import { HomeNavigateModes } from '../../../../../@types/allTypes.d'
 
-type ChargingViewProps = {
-  hook: {
-    t: any
-    navigation: NavigationScreenProp<NavigationState, NavigationParams>
-    onFinish: (charger_connector_type_id: number) => void
-    setLoading: (loading: boolean) => void
-    loading: boolean
-  }
-  chargingState: ChargingState
-  singleCharger?: boolean
-}
-const ChargingView = ({
-  hook: {
-    t, navigation, onFinish, setLoading, loading,
+const ChargingView: ChargingViewFC = (
+  {
+    hook: {
+      t, navigation, onFinish, setLoading, loading,
+    },
+    chargingState: {
+      consumed_money,
+      already_paid,
+      order_id,
+      start_charging_time,
+    },
+    singleCharger,
   },
-  chargingState: {
-    consumed_money,
-    already_paid,
-    order_id,
-    start_charging_time,
-  },
-  singleCharger,
-}: ChargingViewProps): ReactElement => {
+) => {
   const CircleDiameter = useMemo(
     () => Const.Width - 150 - (singleCharger ? 0 : 50),
     [singleCharger],
   )
+
+  const { navigate } = navigation
+
   return (
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
       <View style={styles.MainChargerCircleContainer}>
@@ -92,7 +84,7 @@ const ChargingView = ({
       <View style={styles.chargeAnotherCarContainer}>
         {singleCharger && (
           <TouchableOpacity
-            onPress={navigation.navigate.bind(ChargingView, 'Home', {
+            onPress={() => navigate('Home', {
               mode: HomeNavigateModes.showAllChargers,
             })}
             style={styles.chargeAnotherCarTouchable}

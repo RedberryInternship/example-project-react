@@ -96,7 +96,6 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
    * Update user password with validation.
    */
   const updateUserPassword = async (form: Record<string, string>) => {
-
     /**
      * Check that password inputs are filled.
      */
@@ -126,7 +125,7 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
       const result = await services
         .editPassword(
           state?.user?.phone_number ?? '',
-          form.currentPassword, form.password
+          form.currentPassword, form.password,
         )
 
       if (result.status_code === 200 || !result.status_code) {
@@ -147,17 +146,17 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
   }
 
   return {
-    state,
+    triggerValidation,
+    handleSubmit,
+    getValues,
     dispatch,
     setValue,
-    getValues,
     register,
-    handleSubmit,
+    control,
     errors,
+    submit,
     watch,
     reset,
-    triggerValidation,
-    control,
-    submit,
+    state,
   }
 }

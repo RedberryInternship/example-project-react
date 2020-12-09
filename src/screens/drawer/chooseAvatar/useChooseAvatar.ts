@@ -43,8 +43,7 @@ export default (navigation: Navigation) => {
   const onAvatarPress = (index: number): void => {
     if (index === activeAvatar) {
       setActiveAvatar(undefined)
-    }
-    else {
+    } else {
       setActiveAvatar(index)
     }
   }

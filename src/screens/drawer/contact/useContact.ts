@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Linking } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import * as Const from 'utils/const'
 import { ContactInfoResponseType } from 'allTypes'
 import services from 'services'
@@ -20,7 +19,6 @@ const fbPageType = platformIOS ? 'profile' : 'page'
 export default () => {
   const [message, setMessage] = useState<string>('')
   const [data, setData] = useState<ContactInfoResponseType | undefined>()
-  const { t } = useTranslation()
 
   /**
    * Get contact information and set state.
@@ -79,7 +77,6 @@ export default () => {
       openUrl(data?.web_page_url ?? '', 'Web')
     },
   }
-
 
   const openUrl: OpenUrl = async (url, errorMsgType, backupUrl = false) => {
     try {

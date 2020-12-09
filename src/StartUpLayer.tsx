@@ -2,9 +2,8 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useStartUp from 'hooks/startUp'
 import { StatusBar } from 'react-native'
-import { CustomModal } from 'components'
-import Defaults from 'utils/defaults'
-import CustomDropdownAlert from 'components/CustomDropdownAlert'
+import { CustomModal, CustomDropdownAlert } from 'components'
+import defaults from 'utils/defaults'
 import { selectChargingProcess } from 'state/selectors'
 import references from 'utils/references'
 import { setNavigationReference, determineNavigationTheme } from 'helpers/navigation'
@@ -20,7 +19,7 @@ const StartUpLayer = () => {
       <Navigation
         ref={setNavigationReference}
         screenProps={{
-          token: Defaults.token,
+          token: defaults.token,
           chargingState: state.chargingState,
         }}
         theme="dark"
@@ -30,7 +29,7 @@ const StartUpLayer = () => {
       />
 
       <CustomDropdownAlert dropDownInactiveBarColor={determineNavigationTheme} />
-      <CustomModal ref={Defaults.modal} />
+      <CustomModal ref={defaults.modal} />
     </>
   )
 }

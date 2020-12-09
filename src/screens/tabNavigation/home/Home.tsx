@@ -1,24 +1,24 @@
-import React, { useMemo, ReactElement } from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { ScreenPropsWithNavigation } from 'allTypes'
-import { Defaults, Colors } from 'utils'
-import { useHome } from './hooks'
+import { FCWithNavigation } from 'allTypes'
+import colors from 'utils/colors'
+import defaults from 'utils/defaults'
+import useHome from './useHome'
 import {
-  BottomSheetModalize,
+  BottomSearchPanel,
   HomeMainComponent,
   MapView,
 } from './components'
 
-const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+const Home: FCWithNavigation = ({ navigation }) => {
   const {
-    searchInputTextChangeHandler,
+    setBottomPanelSearchInputText,
+    bottomSearchPanelChargers,
     onMapFilteredChargers,
     selectedFiltersOnMap,
     onFilteredItemClick,
-    bottomSheetChargers,
-    onFilterClickOnMap,
     selectedFilters,
     bottomSheetRef,
     onFilterClick,
@@ -35,47 +35,41 @@ const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     () => (
       <View style={styles.mainContainer}>
         <MapView
-          key={Defaults?.userDetail?.mapMode}
-          ref={mapRef}
+          key={defaults?.userDetail?.mapMode}
           showAll={showAll}
           filteredChargersOnMap={onMapFilteredChargers}
           navigation={navigation}
+          ref={mapRef}
         />
         <HomeMainComponent
           allChargers={state?.AllChargers ?? []}
           mapRef={mapRef}
-          selectedFiltersOnMap={selectedFiltersOnMap}
-          onFilterClickOnMap={onFilterClickOnMap}
           setShowAll={setShowAll}
           mainInputRef={mainInputRef}
         />
         {state?.AllChargers?.length && (
-          <BottomSheetModalize
+          <BottomSearchPanel
             ref={bottomSheetRef}
             onFilterClick={onFilterClick}
             selectedFilters={selectedFilters}
             onFilteredItemClick={onFilteredItemClick}
-            filteredChargers={bottomSheetChargers}
-            textHandler={searchInputTextChangeHandler}
+            filteredChargers={bottomSearchPanelChargers}
+            textHandler={setBottomPanelSearchInputText}
           />
         )}
       </View>
     ),
     [
-      mapRef,
-      showAll,
+      bottomSearchPanelChargers,
       onMapFilteredChargers,
-      state,
       selectedFiltersOnMap,
-      onFilterClickOnMap,
-      setShowAll,
-      mainInputRef,
-      bottomSheetRef,
-      onFilterClick,
-      selectedFilters,
       onFilteredItemClick,
-      bottomSheetChargers,
-      searchInputTextChangeHandler,
+      selectedFilters,
+      onFilterClick,
+      mainInputRef,
+      setShowAll,
+      showAll,
+      state,
     ],
   )
 }
@@ -84,7 +78,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     position: 'relative',
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
 })
 

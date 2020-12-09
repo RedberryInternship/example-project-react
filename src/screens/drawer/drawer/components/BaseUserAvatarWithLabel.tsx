@@ -17,7 +17,7 @@ const UserAvatarWithLabel: AvatarWithLabelFC = (
     lastName,
     onPress,
     avatar,
-  }
+  },
 ) => {
   const insets = useSafeAreaInsets()
 

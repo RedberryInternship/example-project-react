@@ -5,9 +5,8 @@ import {
   View,
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
-import { ScreenPropsWithNavigation, Charger } from 'allTypes'
-
+import { useTranslation } from 'react-i18next'
+import { FCWithNavigation, Charger } from 'allTypes'
 import {
   BaseInput,
   BaseHeader,
@@ -18,21 +17,18 @@ import {
 } from 'components'
 import { Const, Colors, getLocaleText } from 'utils'
 import images from 'assets/images'
+import { recentlyUsedChargers } from './helpers'
 import { ChargerItem } from './components'
 import useChargerWithCode from './useChargerWithCode'
 
-const ChargerWithCode = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ChargerWithCode: FCWithNavigation = ({ navigation }) => {
   const {
-    codeTextHandler,
-    chargeWitchCode,
-    codeInputSubmit,
-    allChargerHandler,
-    t,
     navigateToChargerDetailScreen,
-    lastUsed,
+    setChargerWithCode,
+    allChargerHandler,
+    findCharger,
   } = useChargerWithCode(navigation)
+  const { t } = useTranslation()
 
   return (
     <View style={styles.container}>
@@ -41,14 +37,12 @@ const ChargerWithCode = ({
         <BaseInput
           image={images.lock}
           keyboardType="email-address"
-          onChangeText={codeTextHandler}
-          onSubmit={codeInputSubmit}
-          ref={chargeWitchCode}
-          testID="codeSumit"
+          onChangeText={setChargerWithCode}
+          onSubmit={findCharger}
           title="charger.enterCode"
         />
         <BaseButton
-          onPress={codeInputSubmit}
+          onPress={findCharger}
           text="next"
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
@@ -72,15 +66,15 @@ const ChargerWithCode = ({
             <FetchedDataRenderer
               property="lastUsedCharger"
               key={val}
-              onItemRender={(val: Charger, index): ReactElement => (
+              onItemRender={(item: Charger, index): ReactElement => (
                 <ChargerItem
                   key={index}
-                  onPress={() => navigateToChargerDetailScreen(val)}
-                  address={getLocaleText(val.location)}
-                  code={val.code}
+                  onPress={() => navigateToChargerDetailScreen(item)}
+                  address={getLocaleText(item.location)}
+                  code={item.code}
                 />
               )}
-              fetchData={lastUsed}
+              fetchData={recentlyUsedChargers}
               updateAlways
             />
           )}

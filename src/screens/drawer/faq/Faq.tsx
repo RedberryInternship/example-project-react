@@ -3,8 +3,8 @@ import { View, StyleSheet, ScrollView } from 'react-native'
 import { BaseHeader, FetchedDataRenderer } from 'components'
 import { Colors, getLocaleText } from 'utils'
 import services from 'services'
-import FaqListItem from './components/FaqListItem'
 import { FCWithNavigation } from 'allTypes'
+import FaqListItem from './components/FaqListItem'
 import { FAQResponseType } from './types'
 
 const Faq: FCWithNavigation = ({ navigation }) => {

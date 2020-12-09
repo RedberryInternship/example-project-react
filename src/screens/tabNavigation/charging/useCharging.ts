@@ -13,14 +13,9 @@ export default (navigation: any) => {
 
   const insets = useSafeAreaInsets()
 
-  // Vobi Todo: this function does literally nothing
-  const changeActiveTab = useCallback(
-    (index: number) => {
-      setActiveTab(index)
-    },
-    [setActiveTab],
-  )
-
+  /**
+   * Handle finish charging button click.
+   */
   const onFinish = useCallback(
     (orderId: number) => {
       Alert.alert(
@@ -45,11 +40,10 @@ export default (navigation: any) => {
         { cancelable: false },
       )
     },
-    [t, setLoading, loading],
+    [loading],
   )
 
   return {
-    changeActiveTab,
     setActiveTab,
     setLoading,
     navigation,

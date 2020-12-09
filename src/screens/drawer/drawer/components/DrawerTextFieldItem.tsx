@@ -18,7 +18,7 @@ const DrawerTextFieldItem: DrawerTextFieldItemFC = (
     imageStyle,
     container,
     badge,
-  }
+  },
 ) => {
   const { t } = useTranslation()
 

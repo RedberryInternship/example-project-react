@@ -24,6 +24,7 @@ export default {
     locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
     navigateToSettings: 'პარამეტრებში გადასვლა',
     chargerString: 'დამტენი',
+    welcome: 'მოგესალმებით!',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -46,6 +47,7 @@ export default {
         password: 'პაროლი',
         repeatPassword: 'გაიმეორეთ პაროლი',
         skip: '  გამოტოვება',
+        success: 'თქვენ წარმატებკით დარეგისტრირდით, შეგიძლიათ დატენოთ მანაქანა!',
       },
     },
     home: {
@@ -293,7 +295,7 @@ export default {
         Facebook: 'დაფიქსირდა შეცდომა facebook-ის გახსნისას...',
         Mail: 'დაფიქსირდა შეცდომა მეილის გახსნისას...',
         Phone: 'დაფიქსირდა შეცდომა ზარის განხორციელებისას...',
-        Web: 'დაფიქსირდა შეცდომა ვებგვერდის გახსნისას...'
+        Web: 'დაფიქსირდა შეცდომა ვებგვერდის გახსნისას...',
       },
       charging: {
         areUSore: 'დარწმუნებული ხართ, რომ გინდათ დასრულება?',
@@ -315,6 +317,6 @@ export default {
       public: 'საჯარო',
       notPublic: 'არასაჯარო',
     },
-    privacyPolicy: privacyPolicy,
+    privacyPolicy,
   },
 };

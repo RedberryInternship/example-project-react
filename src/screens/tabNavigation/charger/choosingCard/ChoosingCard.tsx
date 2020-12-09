@@ -1,8 +1,7 @@
-import React, { ReactElement, useMemo } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View,
-  Text,
   Image,
   Animated,
   KeyboardAvoidingView,
@@ -22,51 +21,32 @@ import {
 } from 'components'
 import images from 'assets/images'
 import { Const, Colors } from 'utils'
-import { Controller } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import useChoosingCard from './useChoosingCard'
 import { ChooseCardOnCharging, BaseAddCardButton } from './components'
 import {
-  ScreenPropsWithNavigation,
-  UserCard,
+  FCWithNavigation,
   ChargingTypes,
+  UserCard,
 } from '../../../../../@types/allTypes.d'
 
-const ChoosingCard = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ChoosingCard: FCWithNavigation = ({ navigation }) => {
   const {
-    control,
+    slidingUpTransformation,
+    startChargingHandler,
+    draggableRange,
     animatedArrow,
-    slideUpPanelRef,
     setActiveCard,
-    handleSubmit,
-    submitHandler,
-    errors,
-    t,
     loading,
     state,
   } = useChoosingCard(navigation)
-
-  const draggableRange = useMemo(
-    () => ({
-      bottom: Const.platformIOS ? 160 : 200,
-      top:
-        (Const.platformIOS ? 160 : 200)
-        + ((state.user?.user_cards?.length ?? 0) + 1) * 50,
-    }),
-    [state],
-  )
-
-  const slidingUpTransformation = {
-    transform: [
-      {
-        rotateX: animatedArrow.interpolate({
-          inputRange: [draggableRange.bottom, draggableRange.top],
-          outputRange: ['0deg', '180deg'],
-        }),
-      },
-    ],
-  }
+  const { t } = useTranslation()
+  const {
+    handleSubmit,
+    control,
+    errors,
+  } = useForm()
 
   return (
     <>
@@ -79,11 +59,11 @@ const ChoosingCard = ({
           colors={['#009AF022', '#1065E322']}
           start={{ x: 0, y: 1 }}
           end={{ x: 1, y: 0 }}
-          style={styles.gradinetContainer}
+          style={styles.gradientContainer}
         >
           <ScrollView bounces={false}>
             {navigation.getParam('type', ChargingTypes.fullCharge)
-              == ChargingTypes.fullCharge ? (
+              === ChargingTypes.fullCharge ? (
                 <View style={styles.contentsView}>
                   <Image
                     source={images.checkCircle}
@@ -104,13 +84,13 @@ const ChoosingCard = ({
                     returnKeyType="send"
                     errorText={errors.amount ? 'dropDownAlert.fillAmount' : ''}
                     keyboardType="number-pad"
+                    onSubmit={() => null}
                   />
                 </View>
               )}
           </ScrollView>
         </LinearGradient>
         <SlidingUpPanel
-          ref={slideUpPanelRef}
           draggableRange={{ ...draggableRange }}
           snappingPoints={[draggableRange.top]}
           friction={0.5}
@@ -128,8 +108,8 @@ const ChoosingCard = ({
             <TitleTopLeftContainer
               direction="column"
               title=""
-              data={state.user?.user_cards.sort((a, b) => (a.default !== 1 ? 1 : -1))}
-              onRenderItem={(val: UserCard, index) => (
+              data={state.user?.user_cards.sort((a) => (a.default !== 1 ? 1 : -1))}
+              onRenderItem={(val: UserCard) => (
                 <ChooseCardOnCharging
                   key={val.id}
                   active={val.default === 1}
@@ -151,7 +131,7 @@ const ChoosingCard = ({
           style={styles.keyboardAvoidingView}
         >
           <BaseButton
-            onPress={handleSubmit(submitHandler)}
+            onPress={handleSubmit(startChargingHandler)}
             style={styles.turnOnBtn}
             text="charger.turnOn"
             imageStyle={{ tintColor: 'white' }}
@@ -194,7 +174,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondaryDark,
     flex: 1,
   },
-  gradinetContainer: {
+  gradientContainer: {
     flex: 1,
     marginHorizontal: 16,
     marginTop: 32,

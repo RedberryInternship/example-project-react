@@ -16,7 +16,7 @@ const BaseLocaleButton: LocaleButtonItemFC = (
     onPress,
     style,
     text,
-  }
+  },
 ) => (
     <View style={[styles.container, style]}>
       <BaseNativeTouchable onPress={onPress}>

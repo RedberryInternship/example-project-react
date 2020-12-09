@@ -8,8 +8,8 @@ import {
 import { BaseHeader, FetchedDataRenderer } from 'components'
 import colors from 'utils/colors'
 import services from 'services'
-import PartnerItem from './components/PartnerItem'
 import { FCWithNavigation } from 'allTypes'
+import PartnerItem from './components/PartnerItem'
 import { PartnersResponseType } from './types'
 
 const Partners: FCWithNavigation = ({ navigation }) => {

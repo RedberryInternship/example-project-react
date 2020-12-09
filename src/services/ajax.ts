@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import axios from 'axios'
 import { API } from 'utils/const'
 import { Platform } from 'react-native'
@@ -7,7 +8,6 @@ import Sentry from 'utils/sentry'
 import { remoteLogger } from 'helpers/inform'
 import { clearUserData } from 'helpers/user'
 import NavigationActions from 'utils/navigation.service'
-
 
 class Ajax {
   headers(): Record<string, string | number> {
@@ -46,12 +46,12 @@ class Ajax {
           {
             headers,
             method,
-            params,
             data,
             url,
-          }
+            params,
+          },
         )
-          .then(response => resolve(response.data))
+          .then((response) => resolve(response.data))
           .catch((error) => {
             remoteLogger(error)
             if (error.response && error.response.status === 401) {
@@ -65,7 +65,8 @@ class Ajax {
               Sentry.captureException(error)
             })
           })
-      })
+      },
+    )
     return promise
   }
 }

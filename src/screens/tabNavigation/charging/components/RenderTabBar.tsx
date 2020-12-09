@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 import { Colors } from 'utils'
 
-const RenderTabBar = ({ hook, changeActiveTab, ...props }: any) => {
+const RenderTabBar = ({ hook, setActiveTab, ...props }: any) => {
   const inputRange = props.navigationState.routes.map((_: any, i: number) => i)
 
   return useMemo(
@@ -68,7 +68,7 @@ const RenderTabBar = ({ hook, changeActiveTab, ...props }: any) => {
                 },
               ]}
             >
-              <TouchableOpacity onPress={() => changeActiveTab(i)}>
+              <TouchableOpacity onPress={() => setActiveTab(i)}>
                 <Animated.Text style={{ color }}>
                   {hook.t('chargerString')}
                   {' '}
@@ -80,7 +80,7 @@ const RenderTabBar = ({ hook, changeActiveTab, ...props }: any) => {
         })}
       </Animated.View>
     ),
-    [hook, props, changeActiveTab],
+    [hook, props, setActiveTab],
   )
 }
 

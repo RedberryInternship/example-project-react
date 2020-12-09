@@ -1,17 +1,15 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
 import { BaseHeader, BaseButton, BaseText } from 'components'
 import { Const, Colors } from 'utils'
 import {
-  ScreenPropsWithNavigation,
+  FCWithNavigation,
   ChargingTypes,
 } from '../../../../../@types/allTypes.d'
 
-const ChargerDetail = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
   return (
     <View style={styles.container}>

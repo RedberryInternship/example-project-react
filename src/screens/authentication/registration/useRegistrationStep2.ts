@@ -15,7 +15,7 @@ export default (setActivePage: any) => {
     {
       validateCriteriaMode: 'all',
       submitFocusError: true,
-    }
+    },
   )
 
   /**

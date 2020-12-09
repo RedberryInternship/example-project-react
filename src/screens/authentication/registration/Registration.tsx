@@ -15,12 +15,12 @@ import {
   BaseHeader,
   BaseButton,
 } from 'components'
+import { FCWithNavigation } from 'allTypes'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'
 import PasswordView from './components/PasswordView'
 import CardAddContainer from './components/CardAddContainer'
 import useRegistration from './useRegistration'
-import { FCWithNavigation } from 'allTypes'
 
 const Registration: FCWithNavigation = ({ navigation }) => {
   const insets = useSafeAreaInsets()

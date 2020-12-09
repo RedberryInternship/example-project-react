@@ -42,7 +42,6 @@ export default (navigation: any) => {
     setTimeout(() => paginationClickHandler(activePage), 250)
   }, [activePage])
 
-
   /**
    * Pagination controller.
    */
@@ -89,8 +88,7 @@ export default (navigation: any) => {
         {
           type: 1,
           onCloseClick: addCardSkip,
-        }
-      )
+        })
     }
   }
 

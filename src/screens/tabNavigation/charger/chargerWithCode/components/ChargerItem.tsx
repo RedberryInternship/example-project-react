@@ -1,35 +1,32 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   Image,
   View,
 } from 'react-native'
-
 import { Colors } from 'utils'
 import { BaseButton, BaseText } from 'components'
 import images from 'assets/images'
+import { ChargerItemFC } from 'screens/tabNavigation/charger/chargerWithCode/types'
 
-type ChargerItemProps = {
-  code: string | number | undefined
-  address: string | undefined
-  onPress: () => void | undefined
-}
-
-const ChargerItem = ({
-  code,
-  onPress,
-  address,
-}: ChargerItemProps): ReactElement => (
+const ChargerItem: ChargerItemFC = (
+  {
+    code,
+    onPress,
+    address,
+  },
+) => (
+    // eslint-disable-next-line react/jsx-indent
     <View style={styles.container}>
       <View style={styles.codeTextContainer}>
         <BaseText style={styles.codeText}>
           #
-        {code}
+          {code}
         </BaseText>
         <View style={styles.addressContainer}>
           <Image source={images.mapPin} style={styles.addressImage} />
           <BaseText style={styles.addressText} numberOfLines={1}>
-            {address}
+            {address ?? ''}
           </BaseText>
         </View>
       </View>

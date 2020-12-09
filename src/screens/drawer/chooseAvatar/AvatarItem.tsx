@@ -15,7 +15,7 @@ const AvatarItem: AvatarItemFC = (
     onPress,
     image,
     active,
-  }
+  },
 ) => (
     <View style={styles.imageContainer}>
       <View>

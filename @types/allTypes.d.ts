@@ -1,18 +1,14 @@
 import {
   ImageSourcePropType,
-  TextInputProps,
-  ImageStyle,
-  StyleProp,
-  ViewStyle,
 } from 'react-native'
-import { ReactElement, RefObject } from 'react'
-import { Item } from 'react-native-picker-select'
+import { ReactElement, RefObject, Ref } from 'react'
 import { LocationPermissionStatus } from 'react-native-location'
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 import { MapViewProps } from 'react-native-maps'
 import { ChargingStatus } from 'utils/enums'
 import { Dispatch } from 'redux';
 import BottomSheetBehavior from 'reanimated-bottom-sheet'
+import { CustomModalInterface } from 'components/CustomModal/types'
 
 export type ApplicationState = {
   user: UserState
@@ -190,21 +186,6 @@ export enum ChargingFinishedPopupEnum {
   Bankrupt,
   PaymentFailed,
 }
-export interface BaseInputProps extends TextInputProps {
-  title: string
-  errorText?: string | null
-  image?: ImageSourcePropType
-  paddingLeft?: number
-  required?: boolean
-  secure?: boolean
-  imageStyle?: ImageStyle
-}
-
-export interface BaseInputRefProp {
-  errorText: (text: string) => void
-}
-
-export type BaseInputRefObject = RefObject<TextInputProps | BaseInputRefProp>
 
 export type PhoneCountryCode = {
   id: number
@@ -214,15 +195,6 @@ export type PhoneCountryCode = {
 
 export type PhoneCountryCodesData = {
   data: PhoneCountryCode[]
-}
-export type BasePickerSelectProp = {
-  style?: StyleProp<ViewStyle>
-  placeholder?: Item
-  items: Item[]
-  onDone: () => void
-  onOpen?: () => void
-  onChange: (value: any, index: number) => void
-  value?: Item
 }
 
 export type LocaleStringObject =
@@ -244,7 +216,7 @@ type MapImperativeCustomProps = {
   showRoute: (lat: number, lng: number, showRoute?: boolean) => void
   animateToCoords: (lat: number, lng: number, zoomLevel?: number, duration?: number) => void
 }
-export type MapImperativeRefObject = RefObject<MapImperativeCustomProps & MapViewProps>
+export type MapImperativeRefObject = Ref<MapImperativeCustomProps & MapViewProps>
 
 export type Coords = {
   lng: number
@@ -409,6 +381,9 @@ export type ProfileFieldChange = {
   control: any
   type: UserSettingEnum
   validator?: Record<string, any>
+  register: any
+  watch: any
+  setValue: any
 }
 
 export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
@@ -435,19 +410,9 @@ export type ChargersObject = {
   data: Charger[]
 }
 
-export type ChargerMarkerIconControllerType = {
-  active: boolean
-  status: string
-  groupChargerCount?: number
-  privateCharger: boolean
-  fastCharger: boolean
-  free: boolean
-  width?: number
-  height?: number
-}
 export type ChargerMarkerIconRendererType = {
   type: ChargerMarkerType
-  status: ChargerMarkerStatus
+  status: any
   width?: number
   height?: number
 }
@@ -770,7 +735,7 @@ export type Defaults = {
     lat: number
   }
   locationPermission: LocationPermissionStatus
-  modal: RefObject<CustomModalInterface> | null
+  modal: RefObject<CustomModalInterface>
   bottomSheet: RefObject<BottomSheetBehavior> | null
   userDetail: UserMeResponseType | null
   internetConnected: boolean | null
@@ -778,26 +743,3 @@ export type Defaults = {
 }
 
 export type Locale = 'en' | 'ka' | 'ru' | '' | null
-
-type Data = {
-  title?: string
-  description?: string
-  bottomDescription?: string
-  price?: number
-}
-type Config = {
-  type: number
-  onCloseClick?: () => void
-  subType?: ChargingStatus
-  data?: Data & any
-}
-
-export type InitialState = {
-  visible: boolean
-  config: Config
-}
-
-export interface CustomModalInterface {
-  customUpdate: (visible: boolean, config?: Config) => void
-  state: InitialState
-}

@@ -1,1 +1,1 @@
-export {default as ProfileChange} from './ProfileChange'
+export { default as ProfileChange } from './ProfileChange'

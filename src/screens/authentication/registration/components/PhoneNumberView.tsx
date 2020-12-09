@@ -4,7 +4,6 @@ import * as Const from 'utils/const'
 import { PhoneVerificationView } from 'components'
 import { PhoneNumberViewFC } from 'screens/authentication/registration/types'
 
-
 const PhoneNumberView: PhoneNumberViewFC = ({ hook }) => (
   <View style={{ width: Const.Width, paddingHorizontal: 16 }}>
     <PhoneVerificationView {...hook} formType="registers" />

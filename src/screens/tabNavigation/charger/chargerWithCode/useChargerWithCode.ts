@@ -1,93 +1,62 @@
-import React, { useState, useRef } from 'react'
-import { TextInput } from 'react-native'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-import {
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-} from 'react-navigation'
 import { selectUser } from 'state/selectors'
-import Defaults from 'utils/defaults'
-import services from 'services'
+import { DisplayDropdownWithError } from 'helpers/inform'
 import {
-  LastUsedChargerResponseObject,
   HomeNavigateModes,
-  LastUsedCharger,
+  Navigation,
   Charger,
 } from '../../../../../@types/allTypes.d'
 
-// SARU
-
-type _This = {
-  chargeWitchCode: string
-}
-
-// Vobi todo: move this in hooks
-export default (navigation: NavigationScreenProp<NavigationState, NavigationParams>) => {
+export default (navigation: Navigation) => {
   const state = useSelector(selectUser)
-  const [loading, SetLoading] = useState<boolean>(true)
-  const [activeChargerType, setActiveChargerType] = useState<number>(0)
+  const [chargerWithCode, setChargerWithCode] = useState<string>('')
 
-  // Vobi Todo: _this is not React's practice why do you need it
-  const _this: React.RefObject<_This> = useRef({ chargeWitchCode: '' })
-
-  // Vobi Todo: move this as state
-  const chargeWitchCode: React.RefObject<TextInput> = useRef(null)
-  const passwordRef: any = useRef(null)
-
-  const { t } = useTranslation()
-
-  const codeTextHandler = (val: string) => {
-    _this.current!.chargeWitchCode = val
-    // Ajax.get()
-  }
-
-  const codeInputSubmit = () => {
-    if (_this.current?.chargeWitchCode === '') {
-      return Defaults.dropdown?.alertWithType('error', t('dropDownAlert.fillCode'))
+  /**
+   * Select charger handler upon
+   * charger search by code.
+   */
+  const findCharger = () => {
+    /**
+     * Warn on empty input click.
+     */
+    if (chargerWithCode === '') {
+      return DisplayDropdownWithError('dropDownAlert.fillCode')
     }
 
+    /**
+     * Find charger.
+     */
     const charger = state
       .AllChargers
-      ?.filter((val: Charger) => val.code == _this.current?.chargeWitchCode) ?? []
+      ?.find(
+        (val: Charger) => val.code.toString() === chargerWithCode,
+      )
 
-    if (charger.length === 0) {
-      return Defaults.dropdown?.alertWithType('error', t('dropDownAlert.chargerNotExist'))
+    if (!charger) {
+      return DisplayDropdownWithError('dropDownAlert.chargerNotExist')
     }
-    navigateToChargerDetailScreen(charger[0])
+    navigateToChargerDetailScreen(charger)
   }
 
+  /**
+   * Navigate to chargers detail screen.
+   */
   const navigateToChargerDetailScreen = (charger: Charger): void => {
     navigation.navigate('ChargerDetail', { chargerDetails: charger })
   }
 
-  const lastUsed = async (): Promise<LastUsedCharger[]> => {
-    if (Defaults.token !== '') {
-      const res: LastUsedChargerResponseObject = await services.getUserChargers()
-      // charger_connector_type
-      return res.data
-    }
-    return []
-  }
-
+  /**
+   * Navigate to home and display chargers listing.
+   */
   const allChargerHandler = (): void => {
     navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
   }
 
   return {
-    loading,
-    SetLoading,
-    codeTextHandler,
-    codeInputSubmit,
-    _this,
-    passwordRef,
-    t,
-    chargeWitchCode,
-    lastUsed,
-    allChargerHandler,
-    activeChargerType,
-    setActiveChargerType,
     navigateToChargerDetailScreen,
+    setChargerWithCode,
+    allChargerHandler,
+    findCharger,
   }
 }
