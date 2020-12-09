@@ -1,24 +1,24 @@
-import React, {ReactElement} from 'react'
-import {View, Image, StyleSheet, TouchableOpacity} from 'react-native'
-import {Colors} from 'utils'
+import React from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
+import { Colors } from 'utils'
 import images from 'assets/images'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
+import { TransactionItemFC } from 'screens/drawer/transactions/transactionList/types'
 
-type TransactionItemProps = {
-  charger_name: string
-  start_date: string
-  charge_price: string
-  onPress: () => void
-}
-
-const TransactionListItem = ({
-  charger_name,
-  start_date,
-  charge_price,
-  onPress,
-}: TransactionItemProps): ReactElement => {
-  
-  const chargePrice = charge_price ? `${charge_price} ₾` : '0 ₾';
+const TransactionListItem: TransactionItemFC = (
+  {
+    charger_name,
+    start_date,
+    charge_price,
+    onPress,
+  },
+) => {
+  const chargePrice = `${charge_price ?? 0} ₾`
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -30,7 +30,10 @@ const TransactionListItem = ({
             <BaseText style={styles.dateAndTime}>{start_date}</BaseText>
           </View>
         </View>
-        <BaseText style={styles.price}>{chargePrice} </BaseText>
+        <BaseText style={styles.price}>
+          {chargePrice}
+          {' '}
+        </BaseText>
       </View>
     </TouchableOpacity>
   )

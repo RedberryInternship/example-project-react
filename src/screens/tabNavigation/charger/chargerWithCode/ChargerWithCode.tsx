@@ -1,9 +1,12 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, ScrollView, View, Text} from 'react-native'
-import {TouchableOpacity} from 'react-native-gesture-handler'
-
-import {ScreenPropsWithNavigation, Charger} from 'allTypes'
-
+import React, { ReactElement } from 'react'
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useTranslation } from 'react-i18next'
+import { FCWithNavigation, Charger } from 'allTypes'
 import {
   BaseInput,
   BaseHeader,
@@ -12,40 +15,35 @@ import {
   FetchedDataRenderer,
   BaseText,
 } from 'components'
-import {Const, Colors, getLocaleText} from 'utils'
+import { Const, Colors, getLocaleText } from 'utils'
 import images from 'assets/images'
-import {ChargerItem} from './components'
+import { recentlyUsedChargers } from './helpers'
+import { ChargerItem } from './components'
 import useChargerWithCode from './useChargerWithCode'
 
-const ChargerWithCode = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ChargerWithCode: FCWithNavigation = ({ navigation }) => {
   const {
-    codeTextHandler,
-    chargeWitchCode,
-    codeInputSubmit,
-    allChargerHandler,
-    t,
     navigateToChargerDetailScreen,
-    lastUsed,
+    setChargerWithCode,
+    allChargerHandler,
+    findCharger,
   } = useChargerWithCode(navigation)
-  
+  const { t } = useTranslation()
+
   return (
     <View style={styles.container}>
-      <BaseHeader title={'charger.chargeWitchCode'} />
+      <BaseHeader title="charger.chargeWitchCode" />
       <ScrollView style={styles.scrollView}>
         <BaseInput
           image={images.lock}
-          keyboardType={'email-address'}
-          onChangeText={codeTextHandler}
-          onSubmit={codeInputSubmit}
-          ref={chargeWitchCode}
-          testID={'codeSumit'}
-          title={'charger.enterCode'}
+          keyboardType="email-address"
+          onChangeText={setChargerWithCode}
+          onSubmit={findCharger}
+          title="charger.enterCode"
         />
         <BaseButton
-          onPress={codeInputSubmit}
-          text={'next'}
+          onPress={findCharger}
+          text="next"
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
           image={images.arrowRight}
@@ -59,25 +57,25 @@ const ChargerWithCode = ({
             {t('charger.allChargerList')}
           </BaseText>
         </TouchableOpacity>
-        <View style={{height: 32}} />
+        <View style={{ height: 32 }} />
         <TitleTopLeftContainer
-          title={'charger.lastUsed'}
-          direction={'column'}
+          title="charger.lastUsed"
+          direction="column"
           data={['oneRender']}
           onRenderItem={(val: string): ReactElement => (
             <FetchedDataRenderer
-              property={'lastUsedCharger'}
+              property="lastUsedCharger"
               key={val}
-              onItemRender={(val: Charger,index): ReactElement => (
+              onItemRender={(item: Charger, index): ReactElement => (
                 <ChargerItem
                   key={index}
-                  onPress={() => navigateToChargerDetailScreen(val)}
-                  address={getLocaleText(val.location)}
-                  code={val.code}
+                  onPress={() => navigateToChargerDetailScreen(item)}
+                  address={getLocaleText(item.location)}
+                  code={item.code}
                 />
               )}
-              fetchData={lastUsed}
-              updateAlways={true}
+              fetchData={recentlyUsedChargers}
+              updateAlways
             />
           )}
         />

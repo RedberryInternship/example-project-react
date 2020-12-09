@@ -1,26 +1,27 @@
-/* eslint-disable no-unused-vars */ // Vobi Todo: remove unused vars
-import {useEffect} from 'react'
-import {useForm} from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { GoToNextPage } from 'screens/authentication/registration/types'
 
-type InputValues = {
-  name: string
-  surname: string
-  email: string | undefined
-}
-
+/**
+ * Registration second step hook.
+ */
 export default (setActivePage: any) => {
-  const {control, handleSubmit, getValues, errors, triggerValidation} = useForm(
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    errors,
+    triggerValidation,
+  } = useForm(
     {
       validateCriteriaMode: 'all',
       submitFocusError: true,
     },
   )
 
-  const buttonClickHandler = async ({
-    name,
-    surname,
-    email,
-  }: InputValues): Promise<void> => {
+  /**
+   * Go to next page.
+   */
+  const buttonClickHandler: GoToNextPage = async () => {
     setActivePage(2)
   }
 

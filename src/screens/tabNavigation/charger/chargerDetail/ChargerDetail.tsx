@@ -1,38 +1,38 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, ScrollView, View, Image} from 'react-native'
-
-import {ScreenPropsWithNavigation, BusinessService} from 'allTypes'
-
+import React from 'react'
+import {
+  StyleSheet,
+  ScrollView,
+  View,
+} from 'react-native'
+import { FCWithNavigation, BusinessService } from 'allTypes'
 import {
   BaseHeader,
   TitleTopLeftContainer,
   BaseButton,
 } from 'components'
-import {Colors, Const } from 'utils'
-import {getLocaleText} from 'utils/localization/localization'
+import { Colors, Const } from 'utils'
+import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
 import {
-  CurrentTariffs,
   ChargerDetailTopInfo,
   ChargerTypesItem,
+  CurrentTariffs,
 } from './components'
 import useChargerDetails from './useChargerDetails'
 import BusinessServiceItem from './components/BusinessServiceItem'
 
-const ChargerDetail = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   const {
-    headerLeftPress,
     chargerLocationDirectionHandler,
-    onFavoritePress,
     showChargerLocationHandler,
-    charger,
-    distance,
-    activeChargerType,
-    setActiveChargerType,
-    mainButtonClickHandler,
     onBusinessServiceClick,
+    startChargingHandler,
+    setActiveChargerType,
+    activeChargerType,
+    headerLeftPress,
+    onFavoritePress,
+    distance,
+    charger,
   } = useChargerDetails(navigation)
 
   return (
@@ -45,7 +45,7 @@ const ChargerDetail = ({
         <ChargerDetailTopInfo
           chargerLocationDirectionPress={chargerLocationDirectionHandler}
           showChargerLocationPress={showChargerLocationHandler}
-          favouritePress={onFavoritePress}
+          favoritePress={onFavoritePress}
           favorite={charger?.is_favorite}
           code={charger?.code}
           name={getLocaleText(charger?.name)}
@@ -56,31 +56,33 @@ const ChargerDetail = ({
           connector={charger?.connector_types[activeChargerType]}
         />
         <TitleTopLeftContainer
-          direction={'column'}
-          title={'chargerDetail.connectors'}
+          direction="column"
+          title="chargerDetail.connectors"
           data={charger?.connector_types ?? []}
-          onRenderItem={(val, index): ReactElement => (
-            <ChargerTypesItem
-              key={index}
-              active={activeChargerType === index}
-              onPress={setActiveChargerType.bind(ChargerDetail, index)}
-              type={val.name}
-              power={Const.connectorTypeChargePowers[val.name]}
-            />
-
-          )}
+          onRenderItem={(val, index) => {
+            const power = Const
+              .connectorTypeChargePowers[val.name as Const.ConnectorTypes]
+              .toString()
+            return (
+              <ChargerTypesItem
+                key={index}
+                active={activeChargerType === index}
+                onPress={setActiveChargerType.bind(ChargerDetail, index)}
+                type={val.name}
+                power={power}
+              />
+            )
+          }}
         />
         {!!charger?.business_services?.length && (
           <TitleTopLeftContainer
-            title={'chargerDetail.additionalServices'}
-            direction={'row'}
+            title="chargerDetail.additionalServices"
+            direction="row"
             data={charger?.business_services}
-            onRenderItem={(val: BusinessService): ReactElement => (
+            onRenderItem={(val: BusinessService) => (
               <BusinessServiceItem
                 key={val.id}
-                onPress={() =>
-                  onBusinessServiceClick(val.title, val.description)
-                }
+                onPress={() => onBusinessServiceClick(val.title, val.description)}
                 image={val.image_path}
               />
             )}
@@ -88,8 +90,8 @@ const ChargerDetail = ({
         )}
       </ScrollView>
       <BaseButton
-        onPress={mainButtonClickHandler}
-        text={'charger.turnOn'}
+        onPress={startChargingHandler}
+        text="charger.turnOn"
         style={styles.baseButton}
         image={images.charge}
         imageStyle={styles.baseButtonImageStyle}

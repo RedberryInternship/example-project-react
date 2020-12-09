@@ -1,12 +1,11 @@
-import React, { ReactElement, useCallback } from 'react'
-import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import React, { useMemo } from 'react'
 import {
-  ScreenPropsWithNavigation,
-  UserSettingEnum,
-} from '../../../../../@types/allTypes.d'
-
+  KeyboardAvoidingView,
+  StyleSheet,
+  Platform,
+  View,
+} from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import {
   BaseHeader,
   BaseButton,
@@ -16,13 +15,14 @@ import {
   AddCar,
   SingleInputView,
 } from 'components'
-import { Colors, Helpers, InputValidationHelpers } from 'utils'
-import images from 'assets/images'
+import { Colors, InputValidationHelpers } from 'utils'
 import useProfileChange from './useProfileChange'
+import {
+  FCWithNavigation,
+  UserSettingEnum,
+} from '../../../../../@types/allTypes.d'
 
-const ProfileChange = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const ProfileChange: FCWithNavigation = ({ navigation }) => {
   const headerName = navigation.getParam('name')
   const type: UserSettingEnum = navigation.getParam('type')
   const value = navigation.getParam('value')
@@ -30,7 +30,7 @@ const ProfileChange = ({
 
   const { submit, ...form } = useProfileChange(navigation, type)
 
-  const renderInputs = useCallback(() => {
+  const renderInputs = useMemo(() => {
     switch (type) {
       case UserSettingEnum.firstName:
       case UserSettingEnum.lastName:
@@ -68,7 +68,7 @@ const ProfileChange = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.innherContainer}>
+      <View style={styles.innerContainer}>
         <BaseHeader
           title={headerName}
           onPressLeft={navigation.navigate.bind(ProfileChange, 'Settings')}
@@ -76,18 +76,17 @@ const ProfileChange = ({
 
         <KeyboardAwareScrollView
           style={styles.keyboardAwareScrollView}
-          bounces={true}
-          enableOnAndroid={true}
+          bounces
+          enableOnAndroid
           enableAutomaticScroll={false}
           extraHeight={0}
           extraScrollHeight={-150}
-          enableResetScrollToCoords={true}
-          keyboardShouldPersistTaps={'always'}
-          keyboardDismissMode={'on-drag'}
+          enableResetScrollToCoords
+          keyboardShouldPersistTaps="always"
+          keyboardDismissMode="on-drag"
           resetScrollToCoords={{ x: 0, y: 0 }}
-          // scrollEnabled={false}
         >
-          {renderInputs()}
+          {renderInputs}
         </KeyboardAwareScrollView>
       </View>
 
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     backgroundColor: Colors.primaryBackground,
   },
-  innherContainer: {
+  innerContainer: {
     flex: 1,
   },
   keyboardAwareScrollView: {

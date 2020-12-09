@@ -1,21 +1,25 @@
-import React, {ReactElement} from 'react'
-import {Text, View, Image, StyleSheet} from 'react-native'
-
-import {Colors} from 'utils'
-import {BaseCheckbox, BaseNativeTouchable, BaseText} from 'components'
+import React from 'react'
+import {
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
+import colors from 'utils/colors'
+import {
+  BaseNativeTouchable,
+  BaseCheckbox,
+  BaseText,
+} from 'components'
 import images from 'assets/images'
+import { ChooseCardOnChargingFC } from 'screens/tabNavigation/charger/choosingCard/types'
 
-type ChooseCardOnChargingProps = {
-  lastDigits: string
-  active: boolean
-  onPress: () => void
-}
-const ChooseCardOnCharging = ({
-  lastDigits,
-  active,
-  onPress,
-}: ChooseCardOnChargingProps): ReactElement => {
-  return (
+const ChooseCardOnCharging: ChooseCardOnChargingFC = (
+  {
+    lastDigits,
+    active,
+    onPress,
+  },
+) => (
     <BaseNativeTouchable onPress={onPress} borderless={false}>
       <View style={styles.container}>
         <Image source={images.creditCard} style={styles.cardImage} />
@@ -24,7 +28,6 @@ const ChooseCardOnCharging = ({
       </View>
     </BaseNativeTouchable>
   )
-}
 
 export default ChooseCardOnCharging
 
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
   },
   cardLastDigitText: {
     fontSize: 13,
-    color: Colors.primaryWhite,
+    color: colors.primaryWhite,
     textTransform: 'uppercase',
   },
 })

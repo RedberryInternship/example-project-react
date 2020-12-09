@@ -1,98 +1,89 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import {useRef, useEffect} from 'react'
-import {TextInput} from 'react-native'
-import {useForm} from 'react-hook-form'
-
-import {Helpers, InputValidationHelpers} from 'utils'
-import {rootAction} from 'hooks/actions/rootActions'
-import {Navigation} from 'allTypes'
+import { useRef, useEffect } from 'react'
+import { TextInput } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { saveUserAndRefresh } from 'state/actions/userActions'
+import { InputValidationHelpers } from 'utils'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
+import { Navigation } from 'allTypes'
 import services from 'services'
+import { Authenticate } from './types'
 
-type User = {
-  id: number
-  old_id: number | string
-  role: number
-  phone_number: string
-  first_name: string
-  last_name: string
-  email: string
-  active: number
-  verified: number
-  email_verified_at: string
-  temp_password: string
-  created_at: Date
-  updated_at: Date
-}
-
-type UserDataType = {
-  access_token: string
-  user: User
-  token_type: string
-  expires_in: number
-}
-
-type InputValues = {
-  phone: string
-  password: string
-}
-
-export default (navigation: Navigation, dispatch: any) => {
+/**
+ * Authorization hook.
+ */
+export default (navigation: Navigation) => {
+  const dispatch = useDispatch()
   const phoneRef = useRef<TextInput>()
 
-  const {control, setValue, register, handleSubmit, errors, watch} = useForm({
-    validateCriteriaMode: 'all',
-  })
+  const {
+    handleSubmit,
+    setValue,
+    register,
+    control,
+    errors,
+    watch,
+  } = useForm({ validateCriteriaMode: 'all' })
 
   useEffect(() => {
     register(
-      {name: 'phone'},
-      {validate: InputValidationHelpers.phoneNumberValidation},
+      { name: 'phone' },
+      { validate: InputValidationHelpers.phoneNumberValidation },
     )
   }, [])
 
   useEffect(() => {
-    if (errors.phone)
-      Helpers.DisplayDropdownWithError(
-        'dropDownAlert.error',
-        errors.phone.message,
-      )
-    else if (errors.password)
-      Helpers.DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
+    /**
+     * Display alerts on errors.
+     */
+
+    if (errors.phone) {
+      DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
+    } else if (errors.password) {
+      DisplayDropdownWithError('dropDownAlert.auth.passwordNotEmpty')
+    }
   }, [errors])
 
-  const buttonClickHandler = async ({
-    phone,
-    password,
-  }: InputValues): Promise<void> => {
+  /**
+   * Try authenticating user into account.
+   */
+  const buttonClickHandler: Authenticate = async ({ phone, password }) => {
     try {
-      const {access_token, user} = await services.loginUser(phone, password)
-      rootAction(
-        {
-          token: access_token,
-          user: user,
-        },
-        dispatch,
-      )
+      console.log([phone, password])
+      const { access_token, user } = await services.loginUser(phone, password)
+      dispatch(saveUserAndRefresh(user, access_token))
       navigation.navigate('Home')
     } catch (error) {
-      if (error.status == '406' || error?.data?.status == '406') {
-        Helpers.DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+      remoteLogger(error)
+
+      /** determine if user is blocked. */
+      if (error.status === '406' || error?.data?.status === '406') {
+        DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
+        return
       }
+
+      /** determine if user not found. */
       if (error?.data?.error === 'User Not Found') {
-        Helpers.DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
+        DisplayDropdownWithError('dropDownAlert.auth.userNotFound')
+        return
       }
-      Helpers.DisplayDropdownWithError()
+
+      /** Alert general error and focus on phone input. */
+      DisplayDropdownWithError()
       phoneRef.current?.focus()
     }
   }
 
   return {
     buttonClickHandler,
+    handleSubmit,
     phoneRef,
     control,
     setValue,
     register,
-    handleSubmit,
     errors,
     watch,
   }

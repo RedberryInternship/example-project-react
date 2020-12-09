@@ -1,9 +1,9 @@
 import Animated from 'react-native-reanimated'
-import React, {useMemo} from 'react'
-import {StyleSheet, TouchableOpacity} from 'react-native'
-import {Colors} from 'utils'
+import React, { useMemo } from 'react'
+import { StyleSheet, TouchableOpacity } from 'react-native'
+import { Colors } from 'utils'
 
-const RenderTabBar = ({hook, changeActiveTab, ...props}: any) => {
+const RenderTabBar = ({ hook, setActiveTab, ...props }: any) => {
   const inputRange = props.navigationState.routes.map((_: any, i: number) => i)
 
   return useMemo(
@@ -14,27 +14,21 @@ const RenderTabBar = ({hook, changeActiveTab, ...props}: any) => {
             Animated.round(
               Animated.interpolate(props.position, {
                 inputRange,
-                outputRange: inputRange.map((inputIndex: number) =>
-                  inputIndex === i ? 255 : 155,
-                ),
+                outputRange: inputRange.map((inputIndex: number) => (inputIndex === i ? 255 : 155)),
                 extrapolate: Animated.Extrapolate.CLAMP,
               }),
             ),
             Animated.round(
               Animated.interpolate(props.position, {
                 inputRange,
-                outputRange: inputRange.map((inputIndex: number) =>
-                  inputIndex === i ? 255 : 155,
-                ),
+                outputRange: inputRange.map((inputIndex: number) => (inputIndex === i ? 255 : 155)),
                 extrapolate: Animated.Extrapolate.CLAMP,
               }),
             ),
             Animated.round(
               Animated.interpolate(props.position, {
                 inputRange,
-                outputRange: inputRange.map((inputIndex: number) =>
-                  inputIndex === i ? 255 : 155,
-                ),
+                outputRange: inputRange.map((inputIndex: number) => (inputIndex === i ? 255 : 155)),
                 extrapolate: Animated.Extrapolate.CLAMP,
               }),
             ),
@@ -43,27 +37,21 @@ const RenderTabBar = ({hook, changeActiveTab, ...props}: any) => {
             Animated.round(
               Animated.interpolate(props.position, {
                 inputRange,
-                outputRange: inputRange.map((inputIndex: number) =>
-                  inputIndex === i ? 1 : 17,
-                ),
+                outputRange: inputRange.map((inputIndex: number) => (inputIndex === i ? 1 : 17)),
                 extrapolate: Animated.Extrapolate.CLAMP,
               }),
             ),
             Animated.round(
               Animated.interpolate(props.position, {
                 inputRange,
-                outputRange: inputRange.map((inputIndex: number) =>
-                  inputIndex === i ? 154 : 34,
-                ),
+                outputRange: inputRange.map((inputIndex: number) => (inputIndex === i ? 154 : 34)),
                 extrapolate: Animated.Extrapolate.CLAMP,
               }),
             ),
             Animated.round(
               Animated.interpolate(props.position, {
                 inputRange,
-                outputRange: inputRange.map((inputIndex: number) =>
-                  inputIndex === i ? 240 : 45,
-                ),
+                outputRange: inputRange.map((inputIndex: number) => (inputIndex === i ? 240 : 45)),
                 extrapolate: Animated.Extrapolate.CLAMP,
               }),
             ),
@@ -71,7 +59,6 @@ const RenderTabBar = ({hook, changeActiveTab, ...props}: any) => {
 
           return (
             <Animated.View
-              key={i}
               style={[
                 styles.tabItem,
                 {
@@ -81,9 +68,11 @@ const RenderTabBar = ({hook, changeActiveTab, ...props}: any) => {
                 },
               ]}
             >
-              <TouchableOpacity onPress={() => changeActiveTab(i)}>
-                <Animated.Text style={{color}}>
-                  {hook.t('chargerString')} {route.charger_code}
+              <TouchableOpacity onPress={() => setActiveTab(i)}>
+                <Animated.Text style={{ color }}>
+                  {hook.t('chargerString')}
+                  {' '}
+                  {route.charger_code}
                 </Animated.Text>
               </TouchableOpacity>
             </Animated.View>
@@ -91,7 +80,7 @@ const RenderTabBar = ({hook, changeActiveTab, ...props}: any) => {
         })}
       </Animated.View>
     ),
-    [hook, props, changeActiveTab],
+    [hook, props, setActiveTab],
   )
 }
 

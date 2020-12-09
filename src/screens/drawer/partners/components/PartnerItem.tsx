@@ -1,43 +1,32 @@
-import React, {ReactElement} from 'react'
-import {View, Image, StyleSheet} from 'react-native'
+import React from 'react'
+import { View, Image, StyleSheet } from 'react-native'
+import * as Const from 'utils/const'
+import { PartnerItemFC } from 'screens/drawer/partners/types'
 
-import {Colors, Const} from 'utils'
-
-type PartnerItemProps = {
-  image: string
-}
-
-const PartnerItem = ({image}: PartnerItemProps): ReactElement => {
-  return (
-    <View style={styles.partnerImageContainer}>
-      <Image
-        source={{uri: image}}
-        style={{width: 80, height: 40}}
-        resizeMode={'contain'}
-      />
-    </View>
-  )
-}
+const PartnerItem: PartnerItemFC = ({ image }) => (
+  <View style={styles.partnerImageContainer}>
+    <Image
+      source={{ uri: image }}
+      style={styles.image}
+      resizeMode="contain"
+    />
+  </View>
+)
 
 export default PartnerItem
 
-const styles = StyleSheet.create({
-  partnersInnerContainer: {
-    flex: 1,
-    backgroundColor: Colors.secondaryGrey,
-    marginTop: 32,
-    marginHorizontal: 16,
-    marginBottom: 16,
-    borderRadius: 10,
-    padding: 32,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+const styles = StyleSheet.create(
+  {
+    partnerImageContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: 32,
+      width: (Const.Width - 64) / 3,
+      height: 80,
+    },
+    image: {
+      width: 80,
+      height: 40,
+    },
   },
-  partnerImageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 32,
-    width: (Const.Width - 64) / 3,
-    height: 80,
-  },
-})
+)

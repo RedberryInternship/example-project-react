@@ -1,49 +1,41 @@
-import React, {ReactElement} from 'react'
-import {ScrollView, View, StyleSheet} from 'react-native'
-import {SafeAreaView} from 'react-navigation'
-
-import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, getLocaleText} from 'utils'
+import React, { ReactElement } from 'react'
+import { ScrollView, View, StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-navigation'
+import { BaseHeader, FetchedDataRenderer } from 'components'
+import { Colors } from 'utils'
+import { TransactionsHistoryResponseItem } from 'allTypes'
 import TransactionListItem from './components/TransactionListItem'
-import services from 'services'
-import {TransactionsHistoryResponseItem} from 'allTypes'
+import { getTransactionsHistory } from './helpers'
 
-const TransactionList = ({navigation}: any): ReactElement => {
-  const getTransactionsHistory = async (): Promise<any> => {
-    const res = await services.getTransactionsHistory()
-    return res.data
-  }
-
-  return (
-    <View style={styles.container}>
-      <BaseHeader
-        title={'transactions.transactions'}
-        onPressLeft={navigation.navigate.bind(TransactionList, 'MainDrawer')}
+const TransactionList = ({ navigation }: any): ReactElement => (
+  <View style={styles.container}>
+    <BaseHeader
+      title="transactions.transactions"
+      onPressLeft={navigation.navigate.bind(TransactionList, 'MainDrawer')}
+    />
+    <ScrollView style={styles.transactionsContainer}>
+      <FetchedDataRenderer
+        property="Partners"
+        onItemRender={(val: TransactionsHistoryResponseItem) => (
+          <TransactionListItem
+            key={val.id}
+            onPress={navigation.navigate.bind(
+              TransactionList,
+              'ShowTransaction',
+              { order: val },
+            )}
+            charger_name={val.charger_name}
+            start_date={val.start_date}
+            charge_price={val.charge_price}
+          />
+        )}
+        updateAlways
+        fetchData={getTransactionsHistory}
       />
-      <ScrollView style={styles.transactionsContainer}>
-        <FetchedDataRenderer
-          property={'Partners'}
-          onItemRender={(val: TransactionsHistoryResponseItem ): ReactElement => (
-            <TransactionListItem
-              key={val.id}
-              onPress={navigation.navigate.bind(
-                TransactionList,
-                'ShowTransaction',
-                {order: val},
-              )}
-              charger_name={val.charger_name}
-              start_date={val.start_date}
-              charge_price={val.charge_price}
-            />
-          )}
-          updateAlways={true}
-          fetchData={getTransactionsHistory}
-        />
-      </ScrollView>
-      <SafeAreaView />
-    </View>
-  )
-}
+    </ScrollView>
+    <SafeAreaView />
+  </View>
+)
 
 export default TransactionList
 

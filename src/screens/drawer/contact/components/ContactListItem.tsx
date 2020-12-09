@@ -1,34 +1,25 @@
-import React, {ReactElement} from 'react'
+import React from 'react'
 import {
   View,
   Text,
   Image,
-  ImageSourcePropType,
   StyleSheet,
-  StyleProp,
-  ViewStyle,
   TouchableOpacity,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import { Colors, GNOME } from 'utils'
+import { BaseText } from 'components'
+import { ContactListItemFC } from 'screens/drawer/contact/types'
 
-import {Colors, GNOME} from 'utils'
-import {BaseText} from 'components'
-
-type ContactItemProps = {
-  image: ImageSourcePropType
-  name: string
-  value: string
-  onPress: () => void
-  style?: StyleProp<ViewStyle>
-}
-
-const ContactListItem = ({
-  image,
-  name,
-  value,
-  onPress,
-}: ContactItemProps): ReactElement => {
-  const {t} = useTranslation()
+const ContactListItem: ContactListItemFC = (
+  {
+    image,
+    name,
+    value,
+    onPress,
+  },
+) => {
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -52,7 +43,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 0.5,
     borderBottomColor: 'rgba(22, 27, 28, 0.1)',
-    minHeight: 50
+    minHeight: 50,
   },
   innerLeftContainer: {
     flexDirection: 'row',
@@ -72,6 +63,6 @@ const styles = StyleSheet.create({
     color: Colors.faqBlue,
     fontSize: 14,
     flex: 0.8,
-    textAlign: 'right'
+    textAlign: 'right',
   },
 })

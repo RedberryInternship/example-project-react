@@ -1,16 +1,12 @@
 import moment from 'moment'
 import SunCalc from 'suncalc'
-import RNLocation, {
-  Location,
-} from 'react-native-location'
+import RNLocation, { Location } from 'react-native-location'
 
 import Defaults from 'utils/defaults'
 import * as Const from 'utils/const'
-import Helpers from 'utils/helpers'
 import services from 'services'
-import {
-  isPermissionGrantedRegex,
-} from './permissionsRegex'
+import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
+import { isPermissionGrantedRegex } from './permissionsRegex'
 
 type RegionFrom = {
   latitude: number
@@ -19,12 +15,8 @@ type RegionFrom = {
   longitudeDelta: number
 }
 
-export function regionFrom(
-  lat: number,
-  lng: number,
-  zoomLevel: number,
-): RegionFrom {
-  zoomLevel = zoomLevel / 2
+export function regionFrom(lat: number, lng: number, zoomLevel: number): RegionFrom {
+  zoomLevel /= 2
   const circumference = 40075
   const oneDegreeOfLatitudeInMeters = 111.32 * 1000
   const angularDistance = zoomLevel / circumference
@@ -45,13 +37,16 @@ export function regionFrom(
 }
 
 export function determineTimePeriod() {
-  if (Defaults.userDetail?.mapMode === 'settings.mapColorDark') return false
-  else if (Defaults.userDetail?.mapMode === 'settings.mapColorLight')
-    return true
-  else {
-    const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
-    return moment(moment()).isBetween(times.sunrise, times.sunset)
+  if (Defaults.userDetail?.mapMode === 'settings.mapColorDark') {
+    return false
   }
+
+  if (Defaults.userDetail?.mapMode === 'settings.mapColorLight') {
+    return true
+  }
+
+  const times = SunCalc.getTimes(new Date(), 41.716667, 44.783333)
+  return moment(moment()).isBetween(times.sunrise, times.sunset)
 }
 
 type getCoordsAnywayType = {
@@ -61,34 +56,29 @@ type getCoordsAnywayType = {
 let IPCoords: any = null
 
 export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
-  if (isPermissionGrantedRegex(Defaults.locationPermissionStatus)) {
+  if (isPermissionGrantedRegex(Defaults.locationPermission)) {
     try {
       const location: Location | null = await RNLocation.getLatestLocation({
         timeout: 6000,
       })
-      if (location !== null)
-        return {lat: location.latitude, lng: location.longitude}
+      if (location !== null) return { lat: location.latitude, lng: location.longitude }
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
-      console.log('====================================')
-      console.log("can't get location by gps")
-      console.log('====================================')
+      remoteLogger(error)
+      DisplayDropdownWithError()
     }
   }
 
   try {
     if (IPCoords === null) {
-      const {Latitude, Longitude} = await services.getCoordsByIP()
+      const { Latitude, Longitude } = await services.getCoordsByIP()
 
-      IPCoords = {lat: Latitude, lng: Longitude}
+      IPCoords = { lat: Latitude, lng: Longitude }
     }
 
     return IPCoords
   } catch (error) {
-    Helpers.DisplayDropdownWithError()
-    console.log('====================================')
-    console.log("can't get location by ip")
-    console.log('====================================')
+    remoteLogger(error)
+    DisplayDropdownWithError()
   }
 
   return Const.locationIfNoGPS

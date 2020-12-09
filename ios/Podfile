@@ -85,7 +85,6 @@ target 'Espace' do
   pod 'ReactCommon/callinvoker', :path => "../node_modules/react-native/ReactCommon"
   pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
   pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga', :modular_headers => true
-  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
 
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
@@ -98,7 +97,6 @@ target 'Espace' do
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
 
-  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
   target 'EspaceTests' do
     inherit! :complete

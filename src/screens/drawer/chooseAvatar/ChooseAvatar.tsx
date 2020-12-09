@@ -1,23 +1,23 @@
-import React, {ReactElement, useCallback} from 'react'
-import {View, StyleSheet, Image, Platform} from 'react-native'
-
-import {BaseHeader, BaseButton} from 'components'
-import {Colors} from 'utils'
-import images, {Avatars} from 'assets/images'
-import {ScreenPropsWithNavigation} from 'allTypes'
+import React from 'react'
+import { View, StyleSheet } from 'react-native'
+import { BaseHeader, BaseButton } from 'components'
+import { Colors } from 'utils'
+import images, { Avatars } from 'assets/images'
+import { FCWithNavigation } from 'allTypes'
 import AvatarItem from './AvatarItem'
 import useChooseAvatar from './useChooseAvatar'
 
-const ChooseAvatar = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
-  const {updateAvatar, activeAvatar, onAvatarPress} = useChooseAvatar(
-    navigation,
-  )
+const ChooseAvatar: FCWithNavigation = ({ navigation }) => {
+  const {
+    updateAvatar,
+    activeAvatar,
+    onAvatarPress,
+  } = useChooseAvatar(navigation)
+
   return (
     <View style={styles.container}>
       <BaseHeader
-        title={'drawer.changeAvatar'}
+        title="drawer.changeAvatar"
         onPressLeft={navigation.navigate.bind(ChooseAvatar, 'Home')}
       />
       <View style={styles.avatarsWrapper}>

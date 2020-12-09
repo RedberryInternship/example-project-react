@@ -1,56 +1,86 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import { useState, useContext, useEffect, useCallback } from 'react'
-
+import {
+  useEffect,
+  useState,
+} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { editUserInfo } from 'state/actions/userActions'
+import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
+import { useTranslation } from 'react-i18next'
+import { selectUser } from 'state/selectors'
+import {
+  setUserData as setUserDataInStorage,
+  setUserDetail,
+} from 'helpers/user'
 import {
   Navigation,
   UserSettingsInfoType,
   SettingsListFieldType,
   UserSettingEnum,
-  AppContextType,
   UserCard,
+  UserState,
 } from '../../../../../@types/allTypes.d'
 
-import AppContext from 'hooks/contexts/app';
-import { editUserInfo } from 'hooks/actions/rootActions'
-import useBaseActionSheetPicker from 'react-native-platform-specific-hook-selector'
-import { useTranslation } from 'react-i18next'
-
 export default (navigation: Navigation) => {
-  const { state, dispatch }: AppContextType = useContext(AppContext)
+  const state: UserState = useSelector(selectUser)
+  const dispatch = useDispatch()
   const [userData, setUserData] = useState<UserSettingsInfoType | null>(null)
 
   const { t } = useTranslation()
 
+  /**
+   * Map mode and map mode picker setters.
+   */
   const [selectedItem, renderPicker] = useBaseActionSheetPicker({
     cancelText: t('cancel'),
     title: t('settings.chooseMapMode'),
   })
 
+  /**
+   * Map mode update handler.
+   */
   useEffect(() => {
     if (selectedItem) {
-      let _selectedItem = ''
+      let newSelectedItem = ''
       switch (selectedItem) {
         case t('settings.mapColorLight'):
-          _selectedItem = 'settings.mapColorLight'
+          newSelectedItem = 'settings.mapColorLight'
           break
         case t('settings.mapColorDark'):
-          _selectedItem = 'settings.mapColorDark'
+          newSelectedItem = 'settings.mapColorDark'
           break
 
         default:
-          _selectedItem = 'settings.automatic'
+          newSelectedItem = 'settings.automatic'
           break
       }
-      editUserInfo(dispatch, _selectedItem, UserSettingEnum.mapMode);
+
+      setUserDetail(UserSettingEnum.mapMode, newSelectedItem)
+      setUserDataInStorage()
+      dispatch(editUserInfo(newSelectedItem, UserSettingEnum.mapMode))
     }
   }, [selectedItem])
 
+  /**
+   * Set user data on local state, whenever
+   * state change happens.
+   */
   useEffect(() => {
-    structureSettingsInfoObj()
-  }, [state])
+    /**
+     * Select default user card.
+     */
+    const selectDefaultUserCard = (userCards: UserCard[]): string => {
+      const activeCard = userCards.find((val) => val.default === 1)
+      if (activeCard) {
+        return activeCard.masked_pan
+      }
 
-  const structureSettingsInfoObj = (): void => {
-    if (state?.user) {
+      return ''
+    }
+
+    if (state.user) {
+      /**
+       * Destructure user state.
+       */
       const {
         first_name,
         last_name,
@@ -59,29 +89,30 @@ export default (navigation: Navigation) => {
         user_cards,
         mapMode,
       } = state.user
-      setUserData({
-        first_name,
-        last_name,
-        email: email ?? '',
-        phone_number,
-        password: '',
-        activeCard: userCard(user_cards),
-        mapMode: mapMode ?? 'settings.automatic',
-        user_cars: '',
-      })
-    } else setUserData(null)
-  }
 
-  const userCard = useCallback(
-    (userCards: UserCard[]): string => {
-      const activeCard = userCards.find((val) => val.default === 1)
-      if (activeCard) {
-        return activeCard.masked_pan
-      } else return ''
-    },
-    [state],
-  )
+      /**
+       * Set user state.
+       */
+      setUserData(
+        {
+          first_name,
+          last_name,
+          email: email ?? '',
+          phone_number,
+          password: '',
+          activeCard: selectDefaultUserCard(user_cards),
+          mapMode: mapMode ?? 'settings.automatic',
+          user_cars: '',
+        },
+      )
+    } else {
+      setUserData(null)
+    }
+  }, [state])
 
+  /**
+   * Go to change specific setting page.
+   */
   const onPressHandler = (item: SettingsListFieldType, value: string): void => {
     if (item.type === UserSettingEnum.mapMode) {
       renderPicker([
@@ -94,9 +125,13 @@ export default (navigation: Navigation) => {
         type: item.type,
         name: item.editableComponentName,
         inputName: item.name,
-        value: value,
+        value,
       })
     }
   }
-  return { userData, state, dispatch, onPressHandler }
+
+  return {
+    onPressHandler,
+    userData,
+  }
 }

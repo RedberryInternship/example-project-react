@@ -1,0 +1,60 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "semi": "off",
+        "import/no-unresolved": "off",
+        "import/extensions": "off",
+        "import/prefer-default-export": "off",
+        "react/jsx-filename-extension": [1, {
+            "allow": "as-needed",
+            "extensions": [".tsx"]
+        }],
+        "react/jsx-no-bind": "off",
+        "react/jsx-indent": "off",
+        "indent": "off",
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error",
+        "max-len": ["error", {
+            "code": 100
+        }],
+        "no-use-before-define": "off",
+        "no-unused-expressions": "off",
+        "consistent-return": "off",
+        "camelcase": "off",
+        "import/no-mutable-exports": "off",
+        "no-console": "off",
+        "no-shadow": "off"
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"]
+            }
+        }
+    }
+}

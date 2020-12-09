@@ -1,43 +1,42 @@
-import React, {ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
-  StyleSheet,
-  View,
   KeyboardAvoidingView,
+  StyleSheet,
   Platform,
   FlatList,
+  View,
 } from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-
-import {ScreenPropsWithNavigation} from 'allTypes'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import images from 'assets/images'
-import {Colors} from 'utils'
-import {BaseHeader, BaseButton, RegistrationPagination} from 'components'
+import { Colors } from 'utils'
+import {
+  RegistrationPagination,
+  BaseHeader,
+  BaseButton,
+} from 'components'
+import { FCWithNavigation } from 'allTypes'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'
 import PasswordView from './components/PasswordView'
 import CardAddContainer from './components/CardAddContainer'
 import useRegistration from './useRegistration'
 
-const Registration = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
+const Registration: FCWithNavigation = ({ navigation }) => {
   const insets = useSafeAreaInsets()
 
   const {
-    flatListRef,
-    paginationClickHandler,
     KeyboardAwareScrollViewRef,
-    activePage,
-    headerRightClick,
     registrationStepHandler,
+    paginationClickHandler,
+    headerRightClick,
+    onCardAddSuccess,
+    backButtonClick,
+    flatListRef,
+    activePage,
     regStep1,
     regStep2,
     regStep3,
-    regStep4,
-    onCardAddSuccess,
-    backButtonClick,
   } = useRegistration(navigation)
 
   const pages = [
@@ -52,13 +51,11 @@ const Registration = ({
   ]
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
-        onPressLeft={() => {
-          backButtonClick()
-        }}
-        title={'authentication.registration.registration'}
-        titleRight={'authentication.registration.skip'}
+        onPressLeft={backButtonClick}
+        title="authentication.registration.registration"
+        titleRight="authentication.registration.skip"
         onPressRight={activePage === 3 ? headerRightClick : undefined}
       />
       <RegistrationPagination
@@ -68,38 +65,38 @@ const Registration = ({
       <KeyboardAwareScrollView
         style={styles.keyboardAwareScrollView}
         contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
-        keyboardShouldPersistTaps={'handled'}
-        enableOnAndroid={true}
-        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+        enableAutomaticScroll
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
-        enableResetScrollToCoords={true}
-        resetScrollToCoords={{x: 0, y: 0}}
-        extraHeight={Platform.select({ios: -500, android: 0})}
+        enableResetScrollToCoords
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        extraHeight={Platform.select({ ios: -500, android: 0 })}
         ref={KeyboardAwareScrollViewRef}
       >
         <FlatList
-          pagingEnabled={true}
+          pagingEnabled
           style={styles.flatList}
-          horizontal={true}
+          horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.flatListContentContainer}
           ref={flatListRef}
-          keyboardShouldPersistTaps={'handled'}
+          keyboardShouldPersistTaps="handled"
           scrollEnabled={false}
           data={pages}
-          renderItem={({item}): ReactElement => item}
+          renderItem={({ item }): ReactElement => item}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
-        behavior={'padding'}
+        behavior="padding"
         contentContainerStyle={styles.keyboardAvoidingView}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 16 : 16}
       >
         {activePage < 3 && (
           <BaseButton
             onPress={registrationStepHandler[activePage]}
-            text={'next'}
+            text="next"
             image={images.arrowRight}
             style={styles.baseButton}
             imageStyle={styles.baseButtonImageStyle}

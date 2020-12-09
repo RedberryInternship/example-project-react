@@ -1,36 +1,36 @@
-import React, {ReactElement} from 'react'
-import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native'
-import {useTranslation} from 'react-i18next'
-
-import {Colors} from 'utils'
-import {BaseCheckbox, BaseText} from 'components'
+import React from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { Colors } from 'utils'
+import { BaseCheckbox, BaseText } from 'components'
 import images from 'assets/images'
+import { ChargerTypeItemFC } from 'screens/tabNavigation/charger/chargerDetail/types'
 
-type ChargerTypesItemProps = {
-  type: 'Combo 2' | 'Type 2' | 'CHAdeMO'
-  power: string
-  active: boolean
-  onPress: () => void
-}
-
-const ChargerTypesItem = ({
-  type,
-  power,
-  active,
-  onPress,
-}: ChargerTypesItemProps): ReactElement => {
-  const {t} = useTranslation()
+const ChargerTypesItem: ChargerTypeItemFC = (
+  {
+    type,
+    power,
+    active,
+    onPress,
+  },
+) => {
+  const { t } = useTranslation()
 
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.indexTextContainer}>
-          <Image source={images[type]} style={styles.connetctorsIcon} />
+          <Image source={images[type]} style={styles.connectorsIcon} />
         </View>
         <View style={styles.powerAndTypeTextContainer}>
           <BaseText style={styles.typeText}>{type}</BaseText>
           <BaseText style={styles.powerText}>
-            {t('chargerDetail.powerOfChargerType', {power})}
+            {t('chargerDetail.powerOfChargerType', { power })}
           </BaseText>
         </View>
         <BaseCheckbox active={active} />
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: Colors.primaryGray,
   },
-  connetctorsIcon: {
+  connectorsIcon: {
     height: 20,
     resizeMode: 'contain',
   },

@@ -1,75 +1,78 @@
-import React, { useContext, ReactElement, useMemo } from 'react'
-import { StyleSheet, ScrollView, View, TouchableOpacity } from 'react-native'
+import React from 'react'
+import {
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { logOutAndReset } from 'state/actions/userActions'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
-
-import { AppContextType, ScreenPropsWithNavigation } from 'allTypes'
-
 import { BaseButton, BaseText } from 'components'
-
-import { Const, Colors, Helpers, Defaults } from 'utils'
-import AppContext from 'hooks/contexts/app';
-import { logOut } from '../../../hooks/actions/rootActions'
+import * as Const from 'utils/const'
+import colors from 'utils/colors'
+import defaults from 'utils/defaults'
+import { easyAlert } from 'helpers/inform'
 import images from 'assets/images'
+import { isAuthenticated } from 'helpers/auth'
+import { selectUser } from 'state/selectors'
+import { FCWithNavigation, Locale } from 'allTypes'
+import { setLocale } from 'helpers/locale'
 import {
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,
   BaseLocaleButton,
 } from './components'
-import { useAsyncStorage } from '@react-native-community/async-storage'
 
-const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
+const Drawer: FCWithNavigation = ({ navigation }) => {
+  const state = useSelector(selectUser)
+  const dispatch = useDispatch()
+
   const { t, i18n } = useTranslation()
   const insets = useSafeAreaInsets()
-  const context: AppContextType = useContext(AppContext)
-  const { setItem: setLocaleStorage } = useAsyncStorage('locale')
 
   let drawerContent = null
 
   const toggleLanguage = (): void => {
-    const locale: 'en' | 'ka' | 'ru' = i18n.language === 'ka' ? 'en' : 'ka'
-    setLocaleStorage(locale)
+    const locale: Locale = i18n.language === 'ka' ? 'en' : 'ka'
+    setLocale(locale)
     i18n.changeLanguage(locale)
   }
 
-  if (!Helpers.isAuthenticated()) {
+  if (!isAuthenticated()) {
     drawerContent = (
       <>
         <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
           <BaseButton
             image={images.user}
             onPress={navigation.navigate.bind(Drawer, 'Auth')}
-            text={'home.authorization'}
+            text="home.authorization"
             style={styles.drawerAuthBtn}
           />
 
-          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => {
-            return (
-              <DrawerTextFieldItem
-                key={ind}
-                onPress={navigation.navigate.bind(Drawer, field.route)}
-                {...field}
-              />
-            )
-          })}
+          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => (
+            <DrawerTextFieldItem
+              key={ind}
+              onPress={navigation.navigate.bind(Drawer, field.route)}
+              {...field}
+            />
+          ))}
         </View>
 
-        <View style={{ justifyContent: 'flex-end' }}></View>
+        <View style={{ justifyContent: 'flex-end' }} />
       </>
     )
   } else {
     drawerContent = (
       <View>
-        {Const.DrawerFieldsAfterAuthorization.map((field, key) => {
-          return (
-            <DrawerTextFieldItem
-              key={key}
-              onPress={navigation.navigate.bind(Drawer, field.route)}
-              badge={field.route === 'notifications' ? 1 : 0}
-              {...field}
-            />
-          )
-        })}
+        {Const.DrawerFieldsAfterAuthorization.map((field, key) => (
+          <DrawerTextFieldItem
+            key={key}
+            onPress={navigation.navigate.bind(Drawer, field.route)}
+            {...field}
+          />
+        ))}
       </View>
     )
   }
@@ -78,14 +81,14 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
     <View
       style={[styles.safeAreaViewContainer, { paddingBottom: insets.bottom }]}
     >
-      {Helpers.isAuthenticated() && (
+      {isAuthenticated() && (
         <BaseUserAvatarWithLabel
           onPress={(): void => {
             navigation.navigate('ChooseAvatar')
           }}
-          avatar={context?.state.user?.avatar}
-          firstName={context?.state?.user?.first_name ?? ''}
-          lastName={context?.state?.user?.last_name ?? ''}
+          avatar={state.user?.avatar}
+          firstName={state?.user?.first_name ?? ''}
+          lastName={state?.user?.last_name ?? ''}
         />
       )}
       <ScrollView
@@ -98,9 +101,9 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
         <View>
           <DrawerTextFieldItem
             onPress={(): void => {
-              Defaults.modal.current?.customUpdate(true, { type: 6 })
+              defaults.modal?.current?.customUpdate(true, { type: 6 })
             }}
-            text={'drawer.termsAndConditions'}
+            text="drawer.termsAndConditions"
             image={images.greenTick}
           />
           <View style={styles.localeAndLogoutWrapper}>
@@ -109,14 +112,16 @@ const Drawer = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
               text={i18n.language === 'ka' ? 'Eng' : 'Ge'}
               style={styles.localeButton}
             />
-            {Helpers.isAuthenticated() && (
+            {isAuthenticated() && (
               <TouchableOpacity
                 onPress={(): void => {
-                  Helpers.easyAlert({
+                  easyAlert({
                     title: t('dropDownAlert.areYouSureYouWantToLogOut'),
                     rightText: t('drawer.logOut'),
                     leftText: t('no'),
-                    onRightClick: () => context.dispatch(logOut()),
+                    onRightClick: () => {
+                      dispatch(logOutAndReset())
+                    },
                     onLeftClick: () => { },
                   })
                 }}
@@ -138,7 +143,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderBottomLeftRadius: 24,
     borderTopLeftRadius: 24,
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
   scrollViewStyle: {},
   scrollViewContentContainerStyle: {
@@ -149,7 +154,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
   drawerAuthBtn: {
     width: '90%',

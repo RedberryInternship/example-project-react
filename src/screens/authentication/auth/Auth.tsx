@@ -1,4 +1,4 @@
-import React, {useContext, ReactElement} from 'react'
+import React, { ReactElement } from 'react'
 import {
   StyleSheet,
   View,
@@ -6,15 +6,13 @@ import {
   Platform,
   StatusBar,
 } from 'react-native'
-import {useTranslation} from 'react-i18next'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
-import {TouchableOpacity} from 'react-native-gesture-handler'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {Controller} from 'react-hook-form'
-import {ScreenPropsWithNavigation} from 'allTypes'
-import AppContext from 'hooks/contexts/app'
+import { useTranslation } from 'react-i18next'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Controller } from 'react-hook-form'
 import images from 'assets/images'
-import {Colors} from 'utils'
+import { Colors } from 'utils'
 import {
   BaseHeader,
   BaseInput,
@@ -22,56 +20,54 @@ import {
   PhoneNumberInput,
   BaseText,
 } from 'components'
+import { FCWithNavigation } from 'allTypes'
 import useAuthHook from './useAuthHook'
 
-const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {dispatch} = useContext(AppContext)
-
+const Auth: FCWithNavigation = ({ navigation }) => {
   const insets = useSafeAreaInsets()
   const {
     buttonClickHandler,
+    handleSubmit,
+    setValue,
     phoneRef,
     control,
-    setValue,
-    handleSubmit,
     watch,
-  } = useAuthHook(navigation, dispatch)
-  const {t} = useTranslation()
+  } = useAuthHook(navigation)
+  const { t } = useTranslation()
 
   return (
-    <View style={[styles.container, {paddingBottom: insets.bottom + 16}]}>
+    <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
         onPressLeft={navigation.navigate.bind(Auth, 'MainDrawer')}
-        title={'authentication.authentication'}
+        title="authentication.authentication"
       />
       <KeyboardAwareScrollView
         style={styles.keyboardAwareScrollView}
         contentContainerStyle={styles.keyboardAwareScrollViewContentContainer}
-        keyboardShouldPersistTaps={'handled'}
-        enableOnAndroid={true}
-        enableAutomaticScroll={true}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid
+        enableAutomaticScroll
         extraScrollHeight={-150}
         showsVerticalScrollIndicator={false}
-        enableResetScrollToCoords={true}
-        resetScrollToCoords={{x: 0, y: 0}}
+        enableResetScrollToCoords
+        resetScrollToCoords={{ x: 0, y: 0 }}
       >
         <PhoneNumberInput
           onChangeText={(text) => setValue('phone', text, true)}
           ref={phoneRef}
           value={watch('phone')}
-          // errorText={errors.phone}
         />
         <Controller
           as={BaseInput}
           name="password"
-          rules={{required: true}}
+          rules={{ required: true }}
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
-          title={'authentication.password'}
+          title="authentication.password"
           image={images.lock}
-          returnKeyType={'send'}
-          secure={true}
-          testID={'passwordInput'}
+          returnKeyType="send"
+          secure
+          testID="passwordInput"
         />
         <TouchableOpacity
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
@@ -94,7 +90,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
         </View>
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
-        behavior={'padding'}
+        behavior="padding"
         contentContainerStyle={styles.keyboardAvoidingViewContentContainer}
         keyboardVerticalOffset={
           Platform.OS === 'ios' ? 16 : StatusBar.currentHeight
@@ -102,7 +98,7 @@ const Auth = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
       >
         <BaseButton
           onPress={handleSubmit(buttonClickHandler)}
-          text={'authentication.authentication'}
+          text="authentication.authentication"
           style={styles.baseButton}
         />
       </KeyboardAvoidingView>

@@ -1,35 +1,57 @@
 import { useState, useEffect } from 'react'
 import { Linking } from 'react-native'
-
-import { Defaults, Const, Helpers } from 'utils'
-import { Navigation, ContactInfoResponseType } from 'allTypes'
+import * as Const from 'utils/const'
+import { ContactInfoResponseType } from 'allTypes'
 import services from 'services'
-import {platformIOS} from '../../../utils/const';
+import {
+  DisplayDropdownWithSuccess,
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
+import { platformIOS } from 'utils/const'
+import { OpenUrl } from './types'
 
-const { Logger } = Helpers
-const fbPageType = platformIOS ? 'profile' : 'page';
-export default (navigation: Navigation) => {
+const fbPageType = platformIOS ? 'profile' : 'page'
+
+/**
+ * Contact page hook.
+ */
+export default () => {
   const [message, setMessage] = useState<string>('')
-  const [data, setData] = useState<ContactInfoResponseType | undefined>(
-    undefined,
-  )
-  useEffect(() => {
-    services.getContactInfo().then((data) => setData(data))
-    console.log("CONTACT:",data);
+  const [data, setData] = useState<ContactInfoResponseType | undefined>()
 
+  /**
+   * Get contact information and set state.
+   */
+  useEffect(() => {
+    const getContactInfoData = async () => {
+      try {
+        const data = await services.getContactInfo()
+        setData(data)
+      } catch (error) {
+        DisplayDropdownWithError()
+        remoteLogger(error)
+      }
+    }
+
+    getContactInfoData()
   }, [])
 
-  const sendMessage = async (): Promise<void> => {
+  /**
+   * Send message handler.
+   */
+  const sendMessage = async () => {
     if (!message) {
-      Helpers.DisplayDropdownWithError('pleaseFillInput')
+      DisplayDropdownWithError('pleaseFillInput')
       return
     }
     try {
       await services.sendFeedback(message)
       setMessage('')
-      Helpers.DisplayDropdownWithSuccess('contact.yourFeedbackReceived')
+      DisplayDropdownWithSuccess('contact.yourFeedbackReceived')
     } catch (error) {
-      Helpers.DisplayDropdownWithError()
+      remoteLogger(error)
+      DisplayDropdownWithError()
     }
   }
 
@@ -48,11 +70,7 @@ export default (navigation: Navigation) => {
     },
 
     facebookPage: () => {
-      openUrl(
-        'fb://'+fbPageType+'/'+data?.fb_page_url.split('/')[3],
-        'FaceBook',
-        data?.fb_page_url,
-      )
+      openUrl(`fb://${fbPageType}/${data?.fb_page_url.split('/')[3]}`, 'Facebook', data?.fb_page_url)
     },
 
     webPage: () => {
@@ -60,57 +78,25 @@ export default (navigation: Navigation) => {
     },
   }
 
-  type ErrorMessageType = 'Address' | 'Phone' | 'Mail' | 'FaceBook' | 'Web'
+  const openUrl: OpenUrl = async (url, errorMsgType, backupUrl = false) => {
+    try {
+      const response = await Linking.canOpenURL(url)
 
-  const openUrl = async (
-    url: string,
-    errorMsgType: ErrorMessageType,
-    backupUrl: string | boolean = false,
-  ): Promise<void> => {
-    console.log("URL:",url);
-    Linking.canOpenURL(url)
-    .then(response => {
-      if(response){
-        Linking.openURL(url);
-      }else{
-        Linking.openURL(backupUrl.toString());
+      if (response) {
+        Linking.openURL(url)
+      } else {
+        Linking.openURL(backupUrl.toString())
       }
-    }).catch(error => {
-      Logger(error)
-      if(error.message.indexOf('fb://'+fbPageType) > -1 && typeof backupUrl === 'string'){
-        Linking.openURL(backupUrl);
-        return;
-      }
-      let msg = ''
-      // Vobi todo: move this as util
-      // Vobi Todo: you can do something like this
-      // Vobi Todo: errors = {
-      // Facebook: 'Something Went Wrong While Opening FaceBook...',
-      // Address: 'Something Went Wrong While Opening Map...',
-      // }
-      // and here const msg = errors[errorMsgType]
-      switch (errorMsgType) {
-        case 'Address':
-          msg = 'Something Went Wrong While Opening Map...'
-          break
-        case 'FaceBook':
-          msg = 'Something Went Wrong While Opening FaceBook...'
-          break
-        case 'Mail':
-          msg = 'Something Went Wrong While Opening Mail...'
-          break
-        case 'Phone':
-          msg = 'Something Went Wrong While Calling...'
-          break
-        case 'Web':
-          msg = 'Something Went Wrong While Opening website...'
-          break
-        default:
-          msg = 'Something Went Wrong...'
+    } catch (error) {
+      remoteLogger(error)
+      if (error.message.indexOf(`fb://${fbPageType}`) > -1 && typeof backupUrl === 'string') {
+        Linking.openURL(backupUrl)
+        return
       }
 
-      Defaults.dropdown?.alertWithType('error', 'Error', msg)
-    })
+      const errorMessage = `dropDownAlert.contact.${errorMsgType}`
+      DisplayDropdownWithError(errorMessage)
+    }
   }
 
   return {

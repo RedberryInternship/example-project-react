@@ -1,37 +1,33 @@
-import React, { ReactElement } from 'react'
-import { Text, View, Image, StyleSheet } from 'react-native'
+import React from 'react'
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { BaseText } from 'components'
+import { ChargerDetailTopInfoFC } from 'screens/tabNavigation/charger/chargerDetail/types'
 
-type ChargerDetailTopInfoProps = {
-  chargerLocationDirectionPress: () => void
-  showChargerLocationPress: () => void
-  favouritePress: () => void
-  code: string | number | undefined
-  name: string
-  location: string
-  favorite: boolean | null | undefined
-  distance: string
-}
-
-const ChargerDetailTopInfo = ({
-  chargerLocationDirectionPress,
-  showChargerLocationPress,
-  favouritePress,
-  code,
-  name,
-  location,
-  distance,
-  favorite,
-}: ChargerDetailTopInfoProps): ReactElement => {
+const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
+  {
+    chargerLocationDirectionPress,
+    showChargerLocationPress,
+    favoritePress,
+    code,
+    name,
+    location,
+    distance,
+    favorite,
+  },
+) => {
   const { t } = useTranslation()
   return (
     <View style={styles.container}>
-      <View style={styles.nameAndfavIconContainer}>
+      <View style={styles.nameAndFavoriteIconContainer}>
         <View style={styles.nameAndCodeContainer}>
           <BaseText style={styles.nameText}>{name}</BaseText>
           <BaseText style={styles.codeContainer}>
@@ -40,7 +36,7 @@ const ChargerDetailTopInfo = ({
         </View>
         <View>
           <TouchableOpacity
-            onPress={favouritePress}
+            onPress={favoritePress}
             style={styles.favIconContainer}
           >
             <Image
@@ -79,7 +75,6 @@ const ChargerDetailTopInfo = ({
             <Image source={images.cornerUpRight} style={styles.distanceIcon} />
             <BaseText style={styles.distanceText} numberOfLines={1}>
               {distance}
-              {/* {t('km')} */}
             </BaseText>
           </TouchableOpacity>
         </View>
@@ -99,7 +94,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 152,
   },
-  nameAndfavIconContainer: {
+  nameAndFavoriteIconContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 1,

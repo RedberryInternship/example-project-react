@@ -1,40 +1,35 @@
-import React, {ReactElement} from 'react'
+import React from 'react'
 import {
-  Text,
-  View,
+  Dimensions,
   StyleSheet,
   Image,
-  Dimensions,
-  ImageSourcePropType,
+  View,
 } from 'react-native'
-
-import {Colors} from 'utils'
+import colors from 'utils/colors'
 import images from 'assets/images'
-import {BaseNativeTouchable} from 'components'
-type AvatarItemProps = {
-  onPress: () => void
-  image: ImageSourcePropType
-  active: boolean
-}
-const AvatarItem = ({
-  onPress,
-  image,
-  active,
-}: AvatarItemProps): ReactElement => {
-  return (
+import { BaseNativeTouchable } from 'components'
+import { AvatarItemFC } from './types'
+
+const AvatarItem: AvatarItemFC = (
+  {
+    onPress,
+    image,
+    active,
+  },
+) => (
     <View style={styles.imageContainer}>
       <View>
         <BaseNativeTouchable
           onPress={onPress}
           style={[
             styles.selectAvatar,
-            {backgroundColor: active ? '#4CD96433' : '#0199F033'},
+            { backgroundColor: active ? '#4CD96433' : '#0199F033' },
           ]}
-          hitSlop={{left: 10, top: 10, bottom: 10, right: 10}}
+          hitSlop={styles.hitSlop}
         >
           <Image
             source={image}
-            style={[styles.image, {tintColor: active ? '#4CD964' : '#0199F0'}]}
+            style={[styles.image, { tintColor: active ? '#4CD964' : '#0199F0' }]}
           />
         </BaseNativeTouchable>
         <View style={styles.editButtonImageContainer}>
@@ -46,7 +41,6 @@ const AvatarItem = ({
       </View>
     </View>
   )
-}
 
 export default AvatarItem
 
@@ -70,6 +64,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#0199F020',
   },
+  hitSlop: {
+    bottom: 10,
+    right: 10,
+    left: 10,
+    top: 10,
+  },
   editButtonImageContainer: {
     width: 28,
     height: 28,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: -4,
     top: -6,
-    backgroundColor: Colors.primaryDark,
+    backgroundColor: colors.primaryDark,
     borderRadius: 14,
     borderWidth: 1,
     borderColor: '#0199F0',

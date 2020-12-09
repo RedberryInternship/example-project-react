@@ -1,25 +1,31 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, View, Text, Image} from 'react-native'
+import React from 'react'
+import {
+  StyleSheet,
+  View,
+  Image,
+} from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import {useTranslation} from 'react-i18next'
-import {TouchableOpacity} from 'react-native-gesture-handler'
-
+import { useTranslation } from 'react-i18next'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import images from 'assets/images'
+import * as Const from 'utils/const'
+import colors from 'utils/colors'
+import {
+  BaseHeader,
+  BaseButton,
+  BaseText,
+} from 'components'
 import {
   HomeNavigateModes,
-  ScreenPropsWithNavigation,
+  FCWithNavigation,
 } from '../../../../@types/allTypes.d'
 
-import images from 'assets/images'
-import {Const, Colors} from 'utils'
-import {BaseHeader, BaseButton, BaseText} from 'components'
-
-const NotAuthorized = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
-  const {t} = useTranslation()
+const NotAuthorized: FCWithNavigation = ({ navigation }) => {
+  const { t } = useTranslation()
+  const { navigate } = navigation
   return (
     <View style={styles.container}>
-      <BaseHeader title={'charger.chargeWitchCode'} />
+      <BaseHeader title="charger.chargeWitchCode" />
       <View style={styles.innerContainer}>
         <LinearGradient
           colors={['#009AF033', '#1065E333']}
@@ -31,14 +37,14 @@ const NotAuthorized = ({
           </BaseText>
         </LinearGradient>
         <BaseButton
-          onPress={navigation.navigate.bind(NotAuthorized, 'Auth')}
-          text={'home.authorization'}
+          onPress={() => navigate('Auth')}
+          text="home.authorization"
           style={styles.authBtn}
           image={images.user}
           imageStyle={styles.authBtnImg}
         />
         <TouchableOpacity
-          onPress={navigation.navigate.bind(NotAuthorized, 'Home', {
+          onPress={() => navigate('Home', {
             mode: HomeNavigateModes.showAllChargers,
           })}
           style={styles.allChargersTextWrapper}
@@ -52,11 +58,13 @@ const NotAuthorized = ({
   )
 }
 
+export default NotAuthorized
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-start',
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
   innerContainer: {
     justifyContent: 'center',
@@ -98,9 +106,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   allChargersText: {
-    color: Colors.primaryGreen,
+    color: colors.primaryGreen,
     fontSize: 13,
   },
 })
-
-export default NotAuthorized

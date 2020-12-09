@@ -1,19 +1,13 @@
-import React, {useState, ReactElement} from 'react'
-import {View, StyleSheet, ScrollView} from 'react-native'
-
-import {LocaleStringObject, ScreenPropsWithNavigation} from 'allTypes'
-
-import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, getLocaleText} from 'utils'
-import FaqListItem from './components/FaqListItem'
+import React, { useState, ReactElement } from 'react'
+import { View, StyleSheet, ScrollView } from 'react-native'
+import { BaseHeader, FetchedDataRenderer } from 'components'
+import { Colors, getLocaleText } from 'utils'
 import services from 'services'
+import { FCWithNavigation } from 'allTypes'
+import FaqListItem from './components/FaqListItem'
+import { FAQResponseType } from './types'
 
-type FAQResponseType = {
-  question: LocaleStringObject
-  answer: LocaleStringObject
-}
-
-const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
+const Faq: FCWithNavigation = ({ navigation }) => {
   const [activeFaq, setActiveFaq] = useState<number>(1)
 
   const getFAQ = async (): Promise<any> => {
@@ -24,17 +18,16 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
   return (
     <View style={styles.container}>
       <BaseHeader
-        title={'faq.frequentlyAskedQuestions'}
+        title="faq.frequentlyAskedQuestions"
         onPressLeft={navigation.navigate.bind(Faq, 'MainDrawer')}
       />
       <ScrollView style={styles.scrollViewStyle}>
-        {
-          <FetchedDataRenderer
-            property={'Faq'}
-            onItemRender={(
-              val: FAQResponseType,
-              index: number,
-            ): ReactElement => (
+        <FetchedDataRenderer
+          property="Faq"
+          onItemRender={(
+            val: FAQResponseType,
+            index: number,
+          ): ReactElement => (
               <FaqListItem
                 key={index}
                 number={index + 1}
@@ -44,10 +37,9 @@ const Faq = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
                 toggle={(open = true) => setActiveFaq(open ? index : -1)}
               />
             )}
-            fetchData={getFAQ}
-            updateAlways={true}
-          />
-        }
+          fetchData={getFAQ}
+          updateAlways
+        />
       </ScrollView>
     </View>
   )

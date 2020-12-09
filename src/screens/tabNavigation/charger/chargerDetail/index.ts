@@ -1,1 +1,1 @@
-export {default as ChargerDetail} from './ChargerDetail'
+export { default as ChargerDetail } from './ChargerDetail'

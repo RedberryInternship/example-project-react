@@ -1,47 +1,40 @@
-import React, {ReactElement} from 'react'
+import React from 'react'
 import {
-  Text,
   View,
   StyleSheet,
   Image,
   TouchableOpacity,
-  GestureResponderEvent,
 } from 'react-native'
+import { Colors } from 'utils'
+import images, { Avatars } from 'assets/images'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { BaseText } from 'components'
+import { AvatarWithLabelFC } from 'screens/drawer/drawer/types'
 
-import {Colors} from 'utils'
-import images, {Avatars} from 'assets/images'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
-import {BaseText} from 'components'
-
-type AvatarWithLabel = {
-  onPress: (event?: GestureResponderEvent) => void | undefined
-  firstName: string
-  lastName: string
-  avatar: number | undefined
-}
-
-const UserAvatarWithLabel = ({
-  onPress,
-  firstName,
-  lastName,
-  avatar,
-}: AvatarWithLabel): ReactElement => {
+const UserAvatarWithLabel: AvatarWithLabelFC = (
+  {
+    firstName,
+    lastName,
+    onPress,
+    avatar,
+  },
+) => {
   const insets = useSafeAreaInsets()
 
   return (
     <View
       style={[
         styles.container,
-        {paddingTop: insets.top, height: 140 + insets.top},
+        { paddingTop: insets.top, height: 140 + insets.top },
       ]}
     >
       <TouchableOpacity
         onPress={onPress}
-        hitSlop={{left: 15, top: 15, bottom: 15, right: 15}}
+        hitSlop={styles.imageHitSlop}
         style={styles.imageContainer}
       >
         <Image
-          source={(avatar > -1) ? Avatars[avatar] : images.greenUser}
+          source={(avatar! > -1) ? Avatars[avatar!] : images.greenUser}
           style={styles.image}
         />
       </TouchableOpacity>
@@ -73,6 +66,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     position: 'relative',
     marginLeft: 16,
+  },
+  imageHitSlop: {
+    bottom: 15,
+    right: 15,
+    left: 15,
+    top: 15,
   },
   image: {
     width: 44,

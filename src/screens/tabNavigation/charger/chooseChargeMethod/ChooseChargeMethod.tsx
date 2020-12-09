@@ -1,24 +1,21 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, View, Text} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
+import { BaseHeader, BaseButton, BaseText } from 'components'
+import { Const, Colors } from 'utils'
 import {
-  ScreenPropsWithNavigation,
+  FCWithNavigation,
   ChargingTypes,
 } from '../../../../../@types/allTypes.d'
 
-import {BaseHeader, BaseButton, BaseText} from 'components'
-import {Const, Colors} from 'utils'
-
-const ChargerDetail = ({
-  navigation,
-}: ScreenPropsWithNavigation): ReactElement => {
-  const {t} = useTranslation()
+const ChargerDetail: FCWithNavigation = ({ navigation }) => {
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <BaseHeader
         onPressLeft={() => navigation.goBack()}
-        title={'chooseChargeMethod.choose'}
+        title="chooseChargeMethod.choose"
       />
       <View style={styles.innerContainer}>
         <BaseText style={styles.topInfoText}>
@@ -34,7 +31,7 @@ const ChargerDetail = ({
                 undefined,
               ),
             })}
-            text={'chooseChargeMethod.untilTurnOff'}
+            text="chooseChargeMethod.untilTurnOff"
             style={styles.untilTurnOffBtn}
           />
           <BaseText style={styles.orText}>
@@ -48,7 +45,7 @@ const ChargerDetail = ({
                 undefined,
               ),
             })}
-            text={'chooseChargeMethod.withEnteringPrice'}
+            text="chooseChargeMethod.withEnteringPrice"
             style={styles.withEnteringPriceBtn}
           />
         </View>

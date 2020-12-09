@@ -1,62 +1,39 @@
-import React, {useContext, ReactElement, useEffect} from 'react'
-import {ScrollView, View, StyleSheet} from 'react-native'
-import {useTranslation} from 'react-i18next'
+import React from 'react'
+import { ScrollView, View, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
+import { FCWithNavigation } from 'allTypes'
+import { BaseHeader, FetchedDataRenderer } from 'components'
+import colors from 'utils/colors'
+import { getLocaleText } from 'utils/localization/localization'
+import { selectUser } from 'state/selectors'
+import { FavoriteChargerListItem } from './components'
+import useFavorites from './useFavorites'
 
-import {ScreenPropsWithNavigation, AppContextType, Charger} from 'allTypes'
-
-import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Defaults} from 'utils'
-import {deleteToFavorites, getFavoriteChargers} from 'hooks/actions/rootActions'
-import AppContext from 'hooks/contexts/app'
-import {getLocaleText} from 'utils/localization/localization'
-import {FavoriteChargerListItem} from './components'
-
-const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
-  const {t} = useTranslation()
-  const context: AppContextType = useContext(AppContext)
-
-  useEffect(() => {
-    getFavoriteChargers(context.dispatch)
-  }, [])
-
-  const deleteFavoriteCharger = (chargerId: number): void => {
-    deleteToFavorites(chargerId, context.dispatch)
-  }
-
-  const turnOnOnHandler = (id: number): void => {
-    const charger =
-      context.state.AllChargers?.filter((val: Charger) => val.id == id) ?? []
-
-    if (charger.length !== 0) {
-      navigation.navigate('ChargerDetail', {chargerDetails: charger[0]})
-    } else {
-      return Defaults.dropdown?.alertWithType(
-        'error',
-        t('dropDownAlert.chargerNotExist'),
-      )
-    }
-  }
+const Favorites: FCWithNavigation = ({ navigation }) => {
+  const {
+    deleteFavoriteCharger,
+    turnOnOnHandler,
+  } = useFavorites(navigation)
+  const state = useSelector(selectUser)
 
   return (
     <View style={styles.mainContainer}>
-      <BaseHeader title={'favourites.favourites'} />
+      <BaseHeader title="favourites.favourites" />
       <ScrollView style={styles.container}>
-        {
-          <FetchedDataRenderer
-            property={'Favourites'}
-            onItemRender={(val): ReactElement => (
-              <FavoriteChargerListItem
-                key={val.id}
-                title={getLocaleText(val.name)}
-                address={getLocaleText(val.location)}
-                turnon={turnOnOnHandler.bind(Favorites, val.id)}
-                deleteItem={deleteFavoriteCharger.bind(Favorites, val.id)}
-              />
-            )}
-            fetchData={() => Promise.resolve(context.state.favoriteChargers)}
-            data={context.state.favoriteChargers}
-          />
-        }
+        <FetchedDataRenderer
+          property="Favourites"
+          onItemRender={(val) => (
+            <FavoriteChargerListItem
+              key={val.id}
+              title={getLocaleText(val.name)}
+              address={getLocaleText(val.location)}
+              turnon={turnOnOnHandler.bind(Favorites, val.id)}
+              deleteItem={deleteFavoriteCharger.bind(Favorites, val.id)}
+            />
+          )}
+          fetchData={() => Promise.resolve(state?.favoriteChargers)}
+          data={state?.favoriteChargers}
+        />
       </ScrollView>
     </View>
   )
@@ -65,7 +42,7 @@ const Favorites = ({navigation}: ScreenPropsWithNavigation): ReactElement => {
 export default Favorites
 
 const styles = StyleSheet.create({
-  mainContainer: {flex: 1, backgroundColor: Colors.primaryBackground},
+  mainContainer: { flex: 1, backgroundColor: colors.primaryBackground },
   container: {
     paddingVertical: 32,
   },

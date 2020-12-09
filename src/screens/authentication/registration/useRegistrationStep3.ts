@@ -1,151 +1,130 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import {useRef, useEffect} from 'react'
-
-import {Helpers, InputValidationHelpers} from 'utils'
-import {rootAction} from 'hooks/actions/rootActions'
-import {useForm} from 'react-hook-form'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import { saveUserAndRefresh } from 'state/actions/userActions'
 import services from 'services'
-import {RegisterResponseType} from 'allTypes'
+import { RegisterResponseType } from 'allTypes'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
+import { InputValidationHelpers } from 'utils'
+import { RegisterError, RepeatPassword } from './types'
 
-type RegisterError = {
-  email: Array<string>
-  phone_number: Array<string>
-}
-
-type InputValueTypes = {
-  password: string
-  repeatPassword: string
-}
-
+/**
+ * Registration third step hook.
+ */
 export default (
   setActivePage: (index: number) => void,
   getValues1: () => Record<string, string>,
   getValues2: () => Record<string, string>,
-  dispatch: (arg0: Function) => void,
 ) => {
+  const dispatch = useDispatch()
+
   const {
-    control,
+    triggerValidation,
     handleSubmit,
+    setValue,
+    register,
+    control,
     errors,
     watch,
     reset,
-    triggerValidation,
-    setValue,
-    register,
-  } = useForm({
-    validateCriteriaMode: 'all',
-  })
+  } = useForm({ validateCriteriaMode: 'all' })
 
   useEffect(() => {
-    if (Object.keys(errors).length)
-      Helpers.DisplayDropdownWithError(
-        errors[Object.keys(errors)?.[0]]?.message,
-      )
+    /**
+     * Display react-hook-form error.
+     */
+    if (Object.keys(errors).length) {
+      DisplayDropdownWithError(errors[Object.keys(errors)?.[0]]?.message)
+    }
   }, [errors])
 
   useEffect(() => {
     register(
-      {name: 'termsAndConditions'},
-      {validate: InputValidationHelpers.checkboxValidation},
+      { name: 'termsAndConditions' },
+      { validate: InputValidationHelpers.checkboxValidation },
     )
   }, [])
 
-  const buttonClickHandler = async ({
-    password,
-    repeatPassword,
-  }: InputValueTypes): Promise<void> => {
-    //TODO: need outside component validation
-    if (!repeatPassword && !password)
-      return Helpers.DisplayDropdownWithError(
-        'dropDownAlert.forgotPassword.passwordsNotFilled',
-      )
-    else if (password && password.length < 8) {
-      return Helpers.DisplayDropdownWithError(
-        'dropDownAlert.forgotPassword.newPasswordIncorrectLength',
-      )
-    } else if (password !== repeatPassword) {
-      return Helpers.DisplayDropdownWithError(
-        'dropDownAlert.registration.passwordNotEqual',
-      )
+  /**
+   * Repeat password, validate and go to next page.
+   */
+  const buttonClickHandler: RepeatPassword = async ({ password, repeatPassword }) => {
+    if (!repeatPassword && !password) {
+      return DisplayDropdownWithError('dropDownAlert.forgotPassword.passwordsNotFilled')
     }
 
-    const {phone: phone_number} = getValues1()
-    const {name: first_name, surname: last_name, email} = getValues2()
+    if (password && password.length < 8) {
+      return DisplayDropdownWithError('dropDownAlert.forgotPassword.newPasswordIncorrectLength')
+    }
+
+    if (password !== repeatPassword) {
+      return DisplayDropdownWithError('dropDownAlert.registration.passwordNotEqual')
+    }
+
+    const { phone: phone_number } = getValues1()
+    const { name: first_name, surname: last_name, email } = getValues2()
 
     try {
-      const {user, token} = await services.register({
+      const { user, token } = await services.register({
         first_name,
         last_name,
         phone_number,
         email,
         password,
       })
-      onSuccessRegistration({user, token})
+      onSuccessRegistration({ user, token })
     } catch (error) {
+      remoteLogger(error)
       if (typeof error.data === 'string') {
         const data: RegisterError = JSON.parse(error.data)
 
-        if (Object.prototype.hasOwnProperty.call(data, 'email')) {
-          // Vobi Todo: can't you do if(data.email)
-          if (data.email[0] == 'The email has already been taken.') {
-            Helpers.DisplayDropdownWithError(
-              'dropDownAlert.registration.emailAlreadyToken',
-            )
-            setActivePage(1)
-          } else {
-            Helpers.DisplayDropdownWithError()
-          }
-        } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number')) {
-          // Vobi Todo: can't you do if(data.phone_number)
-          if (
-            data.phone_number[0] == 'The phone number has already been taken.'
-          ) {
-            Helpers.DisplayDropdownWithError(
-              'dropDownAlert.registration.emailAlreadyToken',
-            )
-            setActivePage(0)
-          } else {
-            Helpers.DisplayDropdownWithError()
-          }
+        if (data.email && isEmailAlreadyTaken(data.email)) {
+          DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
+          setActivePage(1)
+        } else if (data.phone_number && isPhoneNumberAlreadyTaken(data.phone_number)) {
+          DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
+          setActivePage(0)
         } else {
-          Helpers.DisplayDropdownWithError()
+          DisplayDropdownWithError()
         }
       } else {
-        Helpers.DisplayDropdownWithError()
+        DisplayDropdownWithError()
       }
     }
   }
-  // Vobi Todo:
-  // catch (error) {
-  //   if (typeof error.data === 'string') {
-  //     const data: RegisterError = JSON.parse(error.data)
 
-  //     if (Object.prototype.hasOwnProperty.call(data, 'email') && data.email[0] == 'The email has already been taken.') { // Vobi Todo: can't you do if(data.email)
-  //       // Vobi Todo: move this error constant and use strict equality
-  //         Helpers.DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
-  //         return setActivePage(1)
-  //     } else if (Object.prototype.hasOwnProperty.call(data, 'phone_number') && data.phone_number[0] == 'The phone number has already been taken.') {// Vobi Todo: can't you do if(data.phone_number)
-  //       // Vobi Todo: move this error constant and use strict equality
-  //         Helpers.DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
-  //         return setActivePage(0)
-  //     }
-  //   }
-  //   Helpers.DisplayDropdownWithError()
-  // }
+  /**
+   * Determine if email is already taken.
+   */
+  const isEmailAlreadyTaken = (error: string[]) => error[0] === 'The email has already been taken.'
 
-  const onSuccessRegistration = async (data: RegisterResponseType) => {
-    rootAction(data, dispatch)
+  /**
+   * Determine if phone number is already taken.
+   */
+  const isPhoneNumberAlreadyTaken = (
+    error: string[],
+  ) => error[0] === 'The phone number has already been taken.'
+
+  /**
+   * Upon successful registration save user data
+   * in state and go to next page.
+   */
+  const onSuccessRegistration = (data: RegisterResponseType) => {
+    dispatch(saveUserAndRefresh(data.user, data.token))
     setActivePage(3)
   }
 
   return {
     buttonClickHandler,
-    control,
+    triggerValidation,
     handleSubmit,
+    setValue,
+    control,
     errors,
     watch,
     reset,
-    triggerValidation,
-    setValue,
   }
 }

@@ -1,63 +1,54 @@
-import React, {ReactElement} from 'react'
-import {View, StyleSheet, Image} from 'react-native'
-import {Controller} from 'react-hook-form'
-
-import {Colors, Const, InputValidationHelpers, Defaults} from 'utils'
-import {BaseInput, BaseText} from 'components'
+import React from 'react'
+import { View, StyleSheet, Image } from 'react-native'
+import { Controller } from 'react-hook-form'
+import * as Const from 'utils/const'
+import defaults from 'utils/defaults'
+import colors from 'utils/colors'
+import { BaseInput, BaseText } from 'components'
 import images from 'assets/images'
-import {TouchableOpacity} from 'react-native-gesture-handler'
-import {useTranslation} from 'react-i18next'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useTranslation } from 'react-i18next'
+import { PasswordViewFC } from 'screens/authentication/registration/types'
 
-type PasswordViewProps = {
-  hook: Record<string, any>
-  activePage: number
-}
-// eslint-disable-next-line react/display-name
-const PasswordView = ({
-  hook: {control, watch, setValue},
-}: PasswordViewProps): ReactElement => {
-  const {t} = useTranslation()
+const PasswordView: PasswordViewFC = (
+  {
+    hook: {
+      control,
+      watch,
+      setValue,
+    },
+  },
+) => {
+  const { t } = useTranslation()
 
   return (
     <View style={styles.container}>
       <Controller
         as={BaseInput}
         name="password"
-        // rules={{
-        //   validate: InputValidationHelpers.passwordConfirmValidation(
-        //     repeatPassword,
-        //   ),
-        // }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        testID={'passwordInput'}
-        secure={true}
-        title={'authentication.registration.password'}
+        imageStyle={{ tintColor: colors.primaryBlue }}
+        testID="passwordInput"
+        secure
+        title="authentication.registration.password"
       />
       <Controller
         as={BaseInput}
         name="repeatPassword"
-        // rules={{
-        //   validate: InputValidationHelpers.passwordConfirmValidation(
-        //     password,
-        //   ),
-        // }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
-        imageStyle={{tintColor: Colors.primaryBlue}}
-        returnKeyType={'send'}
-        testID={'RepeatpasswordInput'}
-        secure={true}
-        title={'authentication.registration.repeatPassword'}
+        imageStyle={{ tintColor: colors.primaryBlue }}
+        returnKeyType="send"
+        testID="RepeatpasswordInput"
+        secure
+        title="authentication.registration.repeatPassword"
       />
       <View style={styles.termsContainer}>
         <TouchableOpacity
-          onPress={() =>
-            setValue('termsAndConditions', !watch('termsAndConditions'))
-          }
+          onPress={() => setValue('termsAndConditions', !watch('termsAndConditions'))}
           style={styles.checkboxImageContainer}
         >
           <Image
@@ -69,7 +60,7 @@ const PasswordView = ({
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            Defaults.modal.current?.customUpdate(true, {type: 6})
+            defaults.modal?.current?.customUpdate(true, { type: 6 })
           }}
         >
           <BaseText style={styles.textField}>
@@ -83,8 +74,7 @@ const PasswordView = ({
 
 export default React.memo(
   PasswordView,
-  ({activePage}, {activePage: nextActivePage}) =>
-    nextActivePage != 2 && activePage != 2,
+  ({ activePage }, { activePage: nextActivePage }) => nextActivePage != 2 && activePage != 2,
 )
 
 const styles = StyleSheet.create({
@@ -110,7 +100,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   textField: {
-    color: Colors.primaryGreyishWhite,
+    color: colors.primaryGreyishWhite,
     marginLeft: 16,
     flex: 1,
     fontSize: 14,

@@ -1,43 +1,45 @@
-import React, {ReactElement} from 'react'
-import {StyleSheet, Text, View, Image} from 'react-native'
-
-import {Colors} from 'utils'
-import {BaseButton, BaseText} from 'components'
+import React from 'react'
+import {
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
+import { Colors } from 'utils'
+import { BaseButton, BaseText } from 'components'
 import images from 'assets/images'
+import { ChargerItemFC } from 'screens/tabNavigation/charger/chargerWithCode/types'
 
-type ChargerItemProps = {
-  code: string | number | undefined
-  address: string | undefined
-  onPress: () => void | undefined
-}
-
-const ChargerItem = ({
-  code,
-  onPress,
-  address,
-}: ChargerItemProps): ReactElement => {
-  return (
+const ChargerItem: ChargerItemFC = (
+  {
+    code,
+    onPress,
+    address,
+  },
+) => (
+    // eslint-disable-next-line react/jsx-indent
     <View style={styles.container}>
       <View style={styles.codeTextContainer}>
-        <BaseText style={styles.codeText}>#{code}</BaseText>
+        <BaseText style={styles.codeText}>
+          #
+          {code}
+        </BaseText>
         <View style={styles.addressContainer}>
           <Image source={images.mapPin} style={styles.addressImage} />
           <BaseText style={styles.addressText} numberOfLines={1}>
-            {address}
+            {address ?? ''}
           </BaseText>
         </View>
       </View>
       <BaseButton
         onPress={onPress}
-        text={'next'}
+        text="next"
         style={styles.buttonStyle}
-        imageStyle={{tintColor: Colors.primaryBlue}}
+        imageStyle={{ tintColor: Colors.primaryBlue }}
         image={images.arrowRight}
-        textStyle={{color: Colors.primaryBlue}}
+        textStyle={{ color: Colors.primaryBlue }}
       />
     </View>
   )
-}
 
 export default ChargerItem
 

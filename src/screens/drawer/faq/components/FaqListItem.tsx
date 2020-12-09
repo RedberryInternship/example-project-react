@@ -1,29 +1,32 @@
-import React, {useState, useEffect, ReactElement} from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, Animated} from 'react-native'
-
-import {Const, Colors} from 'utils'
+import React from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  View,
+} from 'react-native'
+import * as Const from 'utils/const'
+import colors from 'utils/colors'
 import images from 'assets/images'
-import {BaseText} from 'components'
+import { BaseText } from 'components'
+import { FaqListItemFC } from 'screens/drawer/faq/types'
 import useFaqListItem from './useFaqListItem'
 
-type FaqListItemProps = {
-  number: number
-  question: string
-  answer: string
-  active: boolean
-  toggle: (index: boolean) => void
-}
-
-const FaqListItem = ({
-  number,
-  question,
-  answer,
-  active,
-  toggle,
-}: FaqListItemProps): ReactElement => {
-  const {onOrOff, opacity, paddingMarginValue, rotationValue} = useFaqListItem({
+const FaqListItem: FaqListItemFC = (
+  {
+    question,
+    number,
+    answer,
     active,
-  })
+    toggle,
+  },
+) => {
+  const {
+    paddingMarginValue,
+    rotationValue,
+    onOrOff,
+    opacity,
+  } = useFaqListItem({ active })
 
   return (
     <TouchableOpacity onPress={() => toggle(true)} activeOpacity={0.9}>
@@ -40,7 +43,7 @@ const FaqListItem = ({
             <Animated.Image
               style={[
                 styles.arrowImage,
-                {transform: [{rotateZ: rotationValue}]},
+                { transform: [{ rotateZ: rotationValue }] },
               ]}
               source={images.arrowUp}
             />
@@ -51,7 +54,6 @@ const FaqListItem = ({
           style={[
             styles.answer,
             {
-              // height: activeFaq ? 'auto' : 0,
               display: active ? 'flex' : 'none',
               paddingVertical: paddingMarginValue,
               marginTop: paddingMarginValue,
@@ -59,7 +61,7 @@ const FaqListItem = ({
             },
           ]}
         >
-          <Animated.Text style={[styles.answerText, {opacity}]}>
+          <Animated.Text style={[styles.answerText, { opacity }]}>
             {answer}
           </Animated.Text>
         </Animated.View>
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 16,
     borderRadius: 8,
-    backgroundColor: Colors.primaryWhite,
+    backgroundColor: colors.primaryWhite,
   },
 
   innerContainer: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   number: {
-    color: Colors.primaryBlue,
+    color: colors.primaryBlue,
     fontSize: 18,
   },
   question: {
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   questionsText: {
-    color: Colors.black,
+    color: colors.black,
     fontSize: 13,
     fontWeight: 'bold',
   },
@@ -105,7 +107,7 @@ const styles = StyleSheet.create({
     borderTopColor: 'rgba(22, 27, 28, 0.1)',
   },
   answerText: {
-    color: Colors.faqBlue,
+    color: colors.faqBlue,
   },
   arrowBackground: {
     backgroundColor: 'rgba(0, 138, 238, 0.2)',

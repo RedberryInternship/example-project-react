@@ -1,30 +1,37 @@
-/* eslint-disable @typescript-eslint/camelcase */
-import {useForm} from 'react-hook-form'
-
-import {Helpers} from 'utils'
+import { useForm } from 'react-hook-form'
 import services from 'services'
-import {usePhoneVerification} from 'hooks'
+import usePhoneVerification from 'hooks/usePhoneVerification'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'helpers/inform'
+import { EnterPhoneAndCode } from './types'
 
-type InputValues = {
-  phone: string
-  code: string
-}
+/**
+ * Registration first step hook.
+ */
 export default (setActivePage: (index: number) => void) => {
   const {
-    setValue,
-    getValues,
-    register,
+    triggerValidation,
     handleSubmit,
+    getValues,
+    setValue,
+    register,
     errors,
     watch,
     reset,
-    triggerValidation,
-  } = useForm({
-    validateCriteriaMode: 'all',
-    submitFocusError: true,
-  })
+  } = useForm(
+    {
+      validateCriteriaMode: 'all',
+      submitFocusError: true,
+    },
+  )
 
-  const {phoneRef, codeRef, receiveCodeHandler} = usePhoneVerification({
+  const {
+    receiveCodeHandler,
+    phoneRef,
+    codeRef,
+  } = usePhoneVerification({
     getValues,
     register,
     errors,
@@ -32,49 +39,37 @@ export default (setActivePage: (index: number) => void) => {
     triggerValidation,
   })
 
-  const buttonClickHandler = async ({
-    phone,
-    code,
-  }: InputValues): Promise<void> => {
+  /**
+   * Verify code and go to next page.
+   */
+  const buttonClickHandler: EnterPhoneAndCode = async ({ phone, code }) => {
     try {
       await services.verifyCodeOnRegistration(phone, code)
       setActivePage(1)
     } catch (error) {
-      Helpers.Logger(error)
+      remoteLogger(error)
       if (error.data?.error?.verified === false) {
-        Helpers.DisplayDropdownWithError(
-          'dropDownAlert.registration.incorrectCode',
-        )
+        DisplayDropdownWithError('dropDownAlert.registration.incorrectCode')
       } else if (error.data.status === 409) {
-        Helpers.DisplayDropdownWithError(
-          'dropDownAlert.registration.phoneAlreadyToken',
-        )
+        DisplayDropdownWithError('dropDownAlert.registration.phoneAlreadyToken')
       } else {
-        Helpers.DisplayDropdownWithError()
+        DisplayDropdownWithError()
       }
-
-      // phoneRef.current?.setNativeProps({
-      //   text: '',
-      // })
-      // codeRef.current?.setNativeProps({
-      //   text: '',
-      // })
-      // reset()
     }
   }
 
   return {
-    phoneRef,
-    codeRef,
     buttonClickHandler,
-    setValue,
+    receiveCodeHandler,
+    triggerValidation,
+    handleSubmit,
     getValues,
     register,
-    handleSubmit,
+    setValue,
+    phoneRef,
+    codeRef,
     errors,
     watch,
     reset,
-    triggerValidation,
-    receiveCodeHandler,
   }
 }

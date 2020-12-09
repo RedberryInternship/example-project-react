@@ -1,34 +1,27 @@
-import React, {ReactElement, useCallback} from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import {
-  View,
-  StyleSheet,
   SafeAreaView,
-  Image,
   ScrollView,
-  Text,
+  StyleSheet,
+  View,
 } from 'react-native'
-
-import {Partner, Navigation} from 'allTypes'
-
-import {BaseHeader, FetchedDataRenderer} from 'components'
-import {Colors, Const} from 'utils'
-import PartnerItem from './components/PartnerItem'
+import { BaseHeader, FetchedDataRenderer } from 'components'
+import colors from 'utils/colors'
 import services from 'services'
+import { FCWithNavigation } from 'allTypes'
+import PartnerItem from './components/PartnerItem'
+import { PartnersResponseType } from './types'
 
-type PartnersResponseType = {
-  name: string
-  image: string
-}
-const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
-  const getPartners = useCallback(async (): Promise<Partner[]> => {
-    const {partners} = await services.getPartners()
+const Partners: FCWithNavigation = ({ navigation }) => {
+  const getPartners = useCallback(async () => {
+    const { partners } = await services.getPartners()
     return partners
   }, [])
 
   return (
     <View style={styles.container}>
       <BaseHeader
-        title={'partners.partnerOrganizations'}
+        title="partners.partnerOrganizations"
         onPressLeft={navigation.navigate.bind(Partners, 'MainDrawer')}
       />
       <ScrollView
@@ -36,12 +29,12 @@ const Partners = ({navigation}: {navigation: Navigation}): ReactElement => {
         contentContainerStyle={styles.contentContainerStyle}
       >
         <FetchedDataRenderer
-          property={'Partners'}
+          property="Partners"
           onItemRender={(val: PartnersResponseType, index): ReactElement => (
             <PartnerItem key={index} image={val.image} />
           )}
           fetchData={getPartners}
-          updateAlways={true}
+          updateAlways
         />
       </ScrollView>
       <SafeAreaView />
@@ -54,11 +47,11 @@ export default Partners
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
   partnersInnerContainer: {
     flex: 1,
-    backgroundColor: Colors.secondaryGrey,
+    backgroundColor: colors.secondaryGrey,
     marginTop: 32,
     marginHorizontal: 16,
     marginBottom: 16,

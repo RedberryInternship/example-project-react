@@ -1,24 +1,23 @@
-import React, {ReactElement} from 'react'
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
-
-import {BaseButton, BaseText} from 'components'
-import {Colors} from 'utils'
+import React from 'react'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  View,
+} from 'react-native'
+import { BaseButton, BaseText } from 'components'
+import { Colors } from 'utils'
 import images from 'assets/images'
+import { FavoriteChargerItemFC } from 'screens/tabNavigation/favorites/types'
 
-type FavoriteChargerItemProps = {
-  title: string
-  address: string
-  turnon: () => void | undefined
-  deleteItem: () => void | undefined
-}
-
-const FavoriteChargerListItem = ({
-  title,
-  address,
-  turnon,
-  deleteItem,
-}: FavoriteChargerItemProps): ReactElement => {
-  return (
+const FavoriteChargerListItem: FavoriteChargerItemFC = (
+  {
+    title,
+    address,
+    turnon,
+    deleteItem,
+  },
+) => (
     <View style={styles.container}>
       <View style={styles.innerLeftContainer}>
         <TouchableOpacity onPress={deleteItem}>
@@ -38,16 +37,15 @@ const FavoriteChargerListItem = ({
       <View style={styles.customizedBaseButtonContainer}>
         <BaseButton
           onPress={turnon}
-          text={'turnOn'}
+          text="turnOn"
           style={styles.customizedBaseButton}
-          imageStyle={{tintColor: Colors.primaryBlue}}
+          imageStyle={{ tintColor: Colors.primaryBlue }}
           image={images.arrowRight}
-          textStyle={{color: Colors.primaryBlue}}
+          textStyle={{ color: Colors.primaryBlue }}
         />
       </View>
     </View>
   )
-}
 
 export default FavoriteChargerListItem
 

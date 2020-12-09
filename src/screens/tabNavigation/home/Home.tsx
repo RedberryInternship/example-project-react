@@ -1,88 +1,75 @@
-import React, { useReducer, useMemo, ReactElement } from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
-
-import { ScreenPropsWithNavigation } from 'allTypes'
-
-import { Defaults, Colors } from 'utils'
-import reducer, { initialState } from 'hooks/reducers/homeReducers'
-import { useHome } from './hooks'
+import { useSelector } from 'react-redux'
+import { selectUser } from 'state/selectors'
+import { FCWithNavigation } from 'allTypes'
+import colors from 'utils/colors'
+import defaults from 'utils/defaults'
+import useHome from './useHome'
 import {
-  MapView,
+  BottomSearchPanel,
   HomeMainComponent,
-  BottomSheetModalize,
+  MapView,
 } from './components'
-import HomeContext from 'hooks/contexts/home'
 
-const Home = ({ navigation }: ScreenPropsWithNavigation): ReactElement => {
-  const [state, dispatch] = useReducer(reducer, initialState)
-
+const Home: FCWithNavigation = ({ navigation }) => {
   const {
-    mapRef,
-    showAll,
+    setBottomPanelSearchInputText,
+    bottomSearchPanelChargers,
     onMapFilteredChargers,
-    context,
     selectedFiltersOnMap,
-    onFilterClickOnMap,
-    setShowAll,
-    mainInputRef,
+    onFilteredItemClick,
+    selectedFilters,
     bottomSheetRef,
     onFilterClick,
-    selectedFilters,
-    onFilteredItemClick,
-    bottomSheetChargers,
-    searchInputTextChangeHandler,
+    mainInputRef,
+    setShowAll,
+    showAll,
+    mapRef,
   } = useHome(navigation)
+
+  const state = useSelector(selectUser)
+  console.log(['Home - Layer'])
 
   return useMemo(
     () => (
-      <HomeContext.Provider value={{ state, dispatch }}>
-        <View style={styles.mainContainer}>
-          <MapView
-            key={Defaults?.userDetail?.mapMode}
-            ref={mapRef}
-            showAll={showAll}
-            filteredChargersOnMap={onMapFilteredChargers}
-            navigation={navigation}
+      <View style={styles.mainContainer}>
+        <MapView
+          key={defaults?.userDetail?.mapMode}
+          showAll={showAll}
+          filteredChargersOnMap={onMapFilteredChargers}
+          navigation={navigation}
+          ref={mapRef}
+        />
+        <HomeMainComponent
+          allChargers={state?.AllChargers ?? []}
+          mapRef={mapRef}
+          setShowAll={setShowAll}
+          mainInputRef={mainInputRef}
+        />
+        {state?.AllChargers?.length && (
+          <BottomSearchPanel
+            ref={bottomSheetRef}
+            onFilterClick={onFilterClick}
+            selectedFilters={selectedFilters}
+            onFilteredItemClick={onFilteredItemClick}
+            filteredChargers={bottomSearchPanelChargers}
+            textHandler={setBottomPanelSearchInputText}
           />
-          <HomeMainComponent
-            allchargers={context?.state.AllChargers ?? []}
-            mapRef={mapRef}
-            selectedFiltersOnMap={selectedFiltersOnMap}
-            onFilterClickOnMap={onFilterClickOnMap}
-            setShowAll={setShowAll}
-            mainInputRef={mainInputRef}
-          />
-          {
-            context?.state.AllChargers?.length &&
-            <BottomSheetModalize
-              ref={bottomSheetRef}
-              onFilterClick={onFilterClick}
-              selectedFilters={selectedFilters}
-              onFilteredItemClick={onFilteredItemClick}
-              filteredChargers={
-                bottomSheetChargers
-              }
-              textHandler={searchInputTextChangeHandler}
-            />
-          }
-        </View>
-      </HomeContext.Provider>
+        )}
+      </View>
     ),
     [
-      mapRef,
-      showAll,
+      bottomSearchPanelChargers,
       onMapFilteredChargers,
-      context,
       selectedFiltersOnMap,
-      onFilterClickOnMap,
-      setShowAll,
-      mainInputRef,
-      bottomSheetRef,
-      onFilterClick,
-      selectedFilters,
       onFilteredItemClick,
-      bottomSheetChargers,
-      searchInputTextChangeHandler,
+      selectedFilters,
+      onFilterClick,
+      mainInputRef,
+      setShowAll,
+      showAll,
+      state,
     ],
   )
 }
@@ -91,8 +78,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     position: 'relative',
-    backgroundColor: Colors.primaryBackground,
+    backgroundColor: colors.primaryBackground,
   },
 })
 
-export default React.memo(Home)
+export default Home

@@ -1,22 +1,19 @@
-/* eslint-disable @typescript-eslint/camelcase */
-/* eslint-disable no-unused-vars */
-// declare module 'react-native-hooks'
 import {
-  TextInputProps,
   ImageSourcePropType,
-  StyleProp,
-  ImageStyle,
-  ViewStyle,
 } from 'react-native'
-import { RefObject, Ref } from 'react'
-import { Item } from 'react-native-picker-select'
+import { ReactElement, RefObject, Ref } from 'react'
 import { LocationPermissionStatus } from 'react-native-location'
-import {
-  NavigationScreenProp,
-  NavigationState,
-  NavigationParams,
-} from 'react-navigation'
+import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 import { MapViewProps } from 'react-native-maps'
+import { ChargingStatus } from 'utils/enums'
+import { Dispatch } from 'redux';
+import BottomSheetBehavior from 'reanimated-bottom-sheet'
+import { CustomModalInterface } from 'components/CustomModal/types'
+
+export type ApplicationState = {
+  user: UserState
+  chargingProcess: ChargerState
+}
 
 type LanguageType = {
   en: string
@@ -39,19 +36,6 @@ export type StartChargingResponseType = {
   refund_money: number
   user_card_id: string
 }
-export enum ChargingStatus {
-  INITIATED = 'INITIATED',
-  CHARGING = 'CHARGING',
-  CHARGED = 'CHARGED',
-  FINISHED = 'FINISHED',
-  ON_FINE = 'ON_FINE',
-  USED_UP = 'USED_UP',
-  ON_HOLD = 'ON_HOLD',
-  UNPLUGGED = 'UNPLUGGED',
-  NOT_CONFIRMED = 'NOT_CONFIRMED',
-  BANKRUPT = 'BANKRUPT',
-  PAYMENT_FAILED = 'PAYMENT_FAILED',
-}
 
 export type StandardErrorResponseType = {
   status_code: number
@@ -72,6 +56,11 @@ export enum ChargerTypes {
 export interface Charger extends ChargerDetail {
   charger_group_id: number | null
   charger_group: ChargerGroup | null
+}
+
+export type ChargersResponseWithTime = {
+  data: Charger[]
+  time: number
 }
 
 type ChargerGroup = {
@@ -118,7 +107,7 @@ type BusinessService = {
 type ChargerConnectorType = {
   id: number
   old_id: number
-  name: 'Combo 2' | 'Type 2' | 'CHadeMO'
+  name: 'Combo 2' | 'Type 2' | 'CHAdeMO'
   pivot: ChargerConnectorTypePivot
   created_at: string
   updated_at: string
@@ -158,18 +147,18 @@ type ChargerFastChargingPrices = {
   charger_connector_type_id: number
 }
 
-export type AppState = {
+export type UserState = {
   user: UserMeResponseType | null
   loading: boolean
   AllChargers: Charger[] | null
   authStatus: 'failed' | 'success' | null
   favoriteChargers: Favorite[] | null
-  userState: any //TODO: don't know object structure
+  userState: any // TODO: don't know object structure
 }
 
 export enum SendSmsCodeStatus {
-  USER_ALREADY_EXISTS  = 'USER_ALREADY_EXISTS',
-  USER_DOES_NOT_EXISTS = 'USER_DOES_NOT_EXISTS'
+  USER_ALREADY_EXISTS = 'USER_ALREADY_EXISTS',
+  USER_DOES_NOT_EXISTS = 'USER_DOES_NOT_EXISTS',
 }
 
 export type ChargingState = {
@@ -195,33 +184,13 @@ export type Action = {
   payload: any
 }
 
-export type AppContextType = {
-  state: AppState
-  dispatch: any
-}
-
 export enum ChargingFinishedPopupEnum {
   LVL2FullCharge,
   UsedUpFastProps,
   FinishedCharging,
   Bankrupt,
-  PaymentFailed
+  PaymentFailed,
 }
-export interface BaseInputProps extends TextInputProps {
-  title: string
-  errorText?: string | null
-  image?: ImageSourcePropType
-  paddingLeft?: number
-  required?: boolean
-  secure?: boolean
-  imageStyle?: ImageStyle
-}
-
-export interface BaseInputRefProp {
-  errorText: (text: string) => void
-}
-
-export type BaseInputRefObject = RefObject<TextInputProps | BaseInputRefProp>
 
 export type PhoneCountryCode = {
   id: number
@@ -232,22 +201,13 @@ export type PhoneCountryCode = {
 export type PhoneCountryCodesData = {
   data: PhoneCountryCode[]
 }
-export type BasePickerSelectProp = {
-  style?: StyleProp<ViewStyle>
-  placeholder?: Item
-  items: Item[]
-  onDone: () => void
-  onOpen?: () => void
-  onChange: (value: any, index: number) => void
-  value?: Item
-}
 
 export type LocaleStringObject =
   | {
-      en: string
-      ka: string
-      ru: string
-    }
+    en: string
+    ka: string
+    ru: string
+  }
   | undefined
 
 export enum HomeNavigateModes {
@@ -259,16 +219,9 @@ export enum HomeNavigateModes {
 type MapImperativeCustomProps = {
   locate: () => void
   showRoute: (lat: number, lng: number, showRoute?: boolean) => void
-  animateToCoords: (
-    lat: number,
-    lng: number,
-    zoomLevel?: number,
-    duration?: number,
-  ) => void
+  animateToCoords: (lat: number, lng: number, zoomLevel?: number, duration?: number) => void
 }
-export type MapImperativeRefObject = RefObject<
-  MapImperativeCustomProps & MapViewProps
->
+export type MapImperativeRefObject = Ref<MapImperativeCustomProps & MapViewProps>
 
 export type Coords = {
   lng: number
@@ -284,17 +237,17 @@ export type HomeState = {
 }
 
 export type HomeContextType = {
-  state: HomeState
-  dispatch: (val: any) => void
+  state: HomeState | null
+  dispatch: ((val: any) => void) | null
 }
 
 export type ChargerState = {
-  chargingStarted: any //TODO: don't know object structure
-  chargingStartedError: any //TODO: don't know object structure
-  chargingFinished: any //TODO: don't know object structure
-  chargingFinishedError: any //TODO: don't know object structure
+  chargingStarted: any // TODO: don't know object structure
+  chargingStartedError: any // TODO: don't know object structure
+  chargingFinished: any // TODO: don't know object structure
+  chargingFinishedError: any // TODO: don't know object structure
   chargingState: ChargingState[]
-  chargingStateError: any //TODO: don't know object structure
+  chargingStateError: any // TODO: don't know object structure
 }
 
 export type Favorite = {
@@ -433,6 +386,9 @@ export type ProfileFieldChange = {
   control: any
   type: UserSettingEnum
   validator?: Record<string, any>
+  register: any
+  watch: any
+  setValue: any
 }
 
 export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
@@ -440,6 +396,8 @@ export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
 export type ScreenPropsWithNavigation = {
   navigation: Navigation
 }
+
+export type FCWithNavigation = (params: ScreenPropsWithNavigation) => ReactElement
 
 type LastUsedChargerResponseObject = {
   data: Charger[]
@@ -457,19 +415,9 @@ export type ChargersObject = {
   data: Charger[]
 }
 
-export type ChargerMarkerIconControllerType = {
-  active: boolean
-  status: string
-  groupChargerCount?: number
-  privateCharger: boolean
-  fastCharger: boolean
-  free: boolean
-  width?: number
-  height?: number
-}
 export type ChargerMarkerIconRendererType = {
   type: ChargerMarkerType
-  status: ChargerMarkerStatus
+  status: any
   width?: number
   height?: number
 }
@@ -494,6 +442,7 @@ export enum ChargerMarkerColor {
   'free',
   'busy',
   'notWorking',
+  'notPresent',
 }
 
 export type CodeRefType = {
@@ -520,8 +469,9 @@ export type UserMeResponseType = {
   user_cards: UserCard[]
   user_cars: any[]
   car_models: any[]
-  avatar: number //TODO:needs correct key
-}
+  avatar: number // TODO:needs correct key
+  mapMode: 'settings.mapColorLight' | 'settings.mapColorDark' | 'settings.automatic'
+} | null
 
 export type UserCard = {
   active: number
@@ -582,7 +532,7 @@ export type TransactionsHistoryResponseItem = {
   charger_name: string
   address: string
   duration: string
-  penalty_fee: null|string
+  penalty_fee: null | string
   charge_power: null | string
   start_date: string
   charge_price: string
@@ -612,16 +562,6 @@ export type getCoordsByIPResponseType = {
   Longitude: number
 }
 
-export type CountryPhoneCodesResponseType = {
-  data: CountryPhoneCode[]
-}
-
-export type CountryPhoneCode = {
-  id: number
-  country_code: string
-  phone_code: number
-}
-
 export type SendSMSCodeResponseType = {
   json_status: string
 }
@@ -644,7 +584,7 @@ export type PasswordChangedResponseType = {
 }
 
 export type RegisterResponseType = {
-  json_status: string
+  json_status?: string
   user: UserMeResponseType
   token: string
 }
@@ -711,4 +651,100 @@ export type GetCardAddUrl = {
   failed_url
 }
 
-export type RootActionArg1 = { user: UserMeResponseType; token: string | null }
+export type SaveUserAndRefreshAction = {
+  type: string
+  payload: SaveUserPayload
+}
+
+export type SaveUserPayload = {
+  userData: UserMeResponseType
+  token: string | null
+}
+export type FavoriteChargerAction = {
+  type: string
+  payload: number
+}
+
+export type EasyAlert = Partial<{
+  title: string
+  text: string
+  rightText: string
+  leftText: string
+  onRightClick: () => void
+  onLeftClick: () => void
+}>
+
+export type StartChargingArg = {
+  type: ChargingTypes
+  connectorTypeId: number
+  amount?: number
+  userCardId: number | undefined
+}
+
+export type ChargerAction = {
+  type: 'CHARGING_STARTED_SUCCESS'
+  | 'CHARGING_STARTED_FAILURE'
+  | 'CHARGING_FINISHED_SUCCESS'
+  | 'CHARGING_FINISHED_FAILURE'
+  | 'CHARGING_STATE_SUCCESS'
+  | 'CHARGING_STATE_FAILURE'
+  payload: any
+}
+
+export type ChargingStateAction = {
+  type: 'CHARGING_STATE_SUCCESS' | 'CHARGING_STATE_FAILURE'
+  payload: any
+}
+
+export type FinishChargingAction = {
+  type: 'CHARGING_FINISHED_SUCCESS' | 'CHARGING_FINISHED_FAILURE'
+  payload: any
+}
+
+export type StartChargingAction = {
+  type: 'CHARGING_STARTED_SUCCESS' | 'CHARGING_STARTED_FAILURE'
+  payload: any
+}
+
+export type StartChargingSagaAction = {
+  type: string
+  payload: {
+    config: StartChargingArg
+    setLoading: (bool: boolean) => void
+  }
+}
+
+export type FinishChargingSagaAction = {
+  type: string
+  payload: number
+}
+
+export type UpdateChargingProcessesSagaAction = {
+  type: string
+  payload: ChargingState[],
+  status: boolean,
+}
+
+export type References = {
+  reduxDispatch: Dispatch<any> | undefined,
+}
+
+export type Defaults = {
+  dropdown: any
+  token: string | null
+  FCMToken: string | null
+  activeRoute: string | null
+  locale: Locale
+  location: null | {
+    lng: number;
+    lat: number
+  }
+  locationPermission: LocationPermissionStatus
+  modal: RefObject<CustomModalInterface>
+  bottomSheet: RefObject<BottomSheetBehavior> | null
+  userDetail: UserMeResponseType | null
+  internetConnected: boolean | null
+  isForeground: boolean | null
+}
+
+export type Locale = 'en' | 'ka' | 'ru' | '' | null
