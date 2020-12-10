@@ -1,4 +1,4 @@
-import { ModalTypes } from 'utils/enums'
+import { ModalTypes } from 'types'
 import { InitialState } from './types'
 
 export const initialState: InitialState = {

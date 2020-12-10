@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { Navigation, Charger } from 'allTypes'
+import { Navigation, Charger } from 'types'
 import {
   removeChargerFromFavorites,
   refreshFavoriteChargers,
 } from 'state/actions/userActions'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError } from 'utils/inform'
 
 const useFavorites = ({ navigate }: Navigation) => {
   const state = useSelector(selectUser)

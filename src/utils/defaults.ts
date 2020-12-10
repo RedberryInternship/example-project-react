@@ -1,4 +1,4 @@
-import { Defaults } from 'allTypes'
+import { Defaults } from 'types'
 import { createRef } from 'react'
 
 const defaults: Defaults = {

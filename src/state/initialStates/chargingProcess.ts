@@ -1,4 +1,4 @@
-import { ChargerState } from 'allTypes'
+import { ChargerState } from 'types'
 
 const initialState: ChargerState = {
   chargingStarted: null,

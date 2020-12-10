@@ -14,7 +14,7 @@ import {
 } from 'components'
 import images from 'assets/images'
 import { ChargingViewFC } from 'screens/tabNavigation/charging/types'
-import { HomeNavigateModes } from '../../../../../@types/allTypes.d'
+import { HomeNavigateModes } from 'types'
 
 const ChargingView: ChargingViewFC = (
   {

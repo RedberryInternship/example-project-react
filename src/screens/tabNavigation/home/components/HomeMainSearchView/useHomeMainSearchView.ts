@@ -13,7 +13,7 @@ import {
   BackHandler,
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Charger } from 'allTypes'
+import { Charger } from 'types'
 import * as Const from 'utils/const'
 import { GetFilteredCharger } from 'helpers/chargerFilter'
 import { UseHomeMainSearchViewProps } from './types'

@@ -4,7 +4,7 @@ import usePhoneVerification from 'hooks/usePhoneVerification'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
 import { EnterPhoneAndCode } from './types'
 
 /**

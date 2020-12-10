@@ -8,7 +8,7 @@ import { Defaults } from 'utils'
 import {
   getAndRequestLocation,
   isLocationEnabled,
-} from 'helpers/location'
+} from 'utils/location'
 import images from 'assets/images'
 import {
   HomeMainSearchView,

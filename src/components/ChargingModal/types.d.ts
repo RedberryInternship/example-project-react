@@ -1,4 +1,4 @@
-import { ChargingFinishedPopupEnum } from 'allTypes'
+import { ChargingFinishedPopupEnum } from 'types'
 import { ReactElement } from 'react'
 
 type Data = {

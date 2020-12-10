@@ -1,5 +1,6 @@
 import { platformIOS } from 'utils/const'
-export const GNOME = {
+
+export const Font = {
   HELV_NORM: platformIOS ? 'HelveticaNeue' : 'HelveticaNeueLTStd-Ex',
   HELV_MED: platformIOS
     ? 'HelveticaNeue-Medium'
@@ -9,4 +10,4 @@ export const GNOME = {
     : 'HelveticaNeueLTStd-HvEx',
 }
 
-export default GNOME
+export default Font

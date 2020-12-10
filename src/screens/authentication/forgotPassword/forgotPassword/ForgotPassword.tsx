@@ -14,8 +14,8 @@ import {
 } from 'components'
 import { Colors } from 'utils'
 import images from 'assets/images'
+import { FCWithNavigation } from 'types'
 import useForgotPassword from './useForgotPassword'
-import { FCWithNavigation } from 'allTypes'
 
 const ForgotPassword: FCWithNavigation = ({ navigation }) => {
   const { handleSubmit, onButtonClick, ...hook } = useForgotPassword(navigation)

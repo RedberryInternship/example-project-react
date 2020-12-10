@@ -12,13 +12,13 @@ import {
   setUserDetail,
 } from 'helpers/user'
 import {
-  Navigation,
-  UserSettingsInfoType,
   SettingsListFieldType,
+  UserSettingsInfoType,
   UserSettingEnum,
-  UserCard,
+  Navigation,
   UserState,
-} from '../../../../../@types/allTypes.d'
+  UserCard,
+} from 'types'
 
 export default (navigation: Navigation) => {
   const state: UserState = useSelector(selectUser)

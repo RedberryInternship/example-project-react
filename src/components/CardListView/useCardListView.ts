@@ -5,7 +5,7 @@ import services from 'services'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
 
 const useCardListView = () => {
   const user = useSelector(selectUser)

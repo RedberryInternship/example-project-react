@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { Colors, GNOME } from 'utils'
+import { Colors, Font } from 'utils'
 import { BaseText } from 'components'
 import { ContactListItemFC } from 'screens/drawer/contact/types'
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   name: {
     color: Colors.primaryGray,
     marginLeft: 10,
-    fontFamily: GNOME.HELV_MED,
+    fontFamily: Font.HELV_MED,
   },
   value: {
     color: Colors.faqBlue,

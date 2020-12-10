@@ -1,8 +1,8 @@
 import { MAP_URL, locationIfNoGPS, MAP_API } from 'utils/const';
-import mergeCoords from 'utils/mapAndLocation/mergeCoords'
+import { mergeCoords } from 'utils/map'
 import i18next from 'i18next';
 import axiosRequest from 'axios';
-import { getCoordsByIPResponseType } from 'allTypes';
+import { getCoordsByIPResponseType } from 'types';
 import axios from './axios';
 
 export const getDistance = (

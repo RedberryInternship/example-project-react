@@ -10,8 +10,8 @@ import Svg, {
   Text,
   G,
 } from 'react-native-svg'
-import { determineTimePeriod } from 'utils'
-import { ChargerMarkerIcon, ChargerMarkerColor } from '../../../@types/allTypes.d'
+import { determineTimePeriod } from 'utils/map'
+import { ChargerMarkerIcon, ChargerMarkerColor } from 'types'
 import { pinColorTypes } from './config'
 
 const RootPin = (

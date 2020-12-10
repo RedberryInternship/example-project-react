@@ -1,4 +1,4 @@
-import { UserState } from 'allTypes'
+import { UserState } from 'types'
 
 const initialState: UserState = {
   user: null,

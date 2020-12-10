@@ -1,4 +1,4 @@
-import { UserState, Action } from 'allTypes'
+import { UserState, Action } from 'types'
 import initialState from 'state/initialStates/user'
 import * as actionTypes from 'state/actionTypes/userActionTypes'
 

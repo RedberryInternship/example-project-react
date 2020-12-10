@@ -15,7 +15,7 @@ import { CustomModal, CustomDropdownAlert } from 'components'
 import defaults from 'utils/defaults'
 import { selectChargingProcess } from 'state/selectors'
 import references from 'utils/references'
-import { setNavigationReference, determineNavigationTheme } from 'helpers/navigation'
+import { setNavigationReference, determineNavigationTheme } from 'utils/navigation'
 import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {

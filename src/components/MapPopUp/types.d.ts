@@ -1,4 +1,4 @@
-import { ChargerDetail } from 'allTypes'
+import { ChargerDetail } from 'types'
 import { ReactElement } from 'react'
 
 type Data = {

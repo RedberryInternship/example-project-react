@@ -5,7 +5,7 @@ import {
   Keyboard,
 } from 'react-native'
 
-import { ProfileFieldChange } from 'allTypes'
+import { ProfileFieldChange } from 'types'
 import { AutoCompleteDropdown } from 'components'
 import { Controller } from 'react-hook-form'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'

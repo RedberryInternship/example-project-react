@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { Text, StyleSheet } from 'react-native'
 import i18next from 'i18next'
-import { Locale } from 'allTypes'
-import { Colors, GNOME, Const } from 'utils'
+import { Locale } from 'types'
+import { Colors, Font, Const } from 'utils'
 import { BaseTextFC, SetStyle } from './types'
 
 const BaseText: BaseTextFC = (
@@ -17,7 +17,7 @@ const BaseText: BaseTextFC = (
 
     let fontSize = flattenedStyle?.fontSize ?? 13;
     let lineHeight = flattenedStyle?.lineHeight ?? style?.fontSize ?? 13;
-    let fontFamily = GNOME.HELV_NORM;
+    let fontFamily = Font.HELV_NORM;
     let letterSpacing = flattenedStyle?.letterSpacing ?? 0.2
     const lang: Locale = i18next.language as Locale
     lineHeight += Const.platformIOS ? 0 : 4
@@ -26,9 +26,9 @@ const BaseText: BaseTextFC = (
       fontFamily = flattenedStyle.fontFamily as string
 
       if (lang === 'en') {
-        fontFamily = flattenedStyle.fontFamily === GNOME.HELV_HVEX
-          ? GNOME.HELV_MED
-          : GNOME.HELV_NORM
+        fontFamily = flattenedStyle.fontFamily === Font.HELV_HVEX
+          ? Font.HELV_MED
+          : Font.HELV_NORM
       }
     }
     if (lang === 'en') {

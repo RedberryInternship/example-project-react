@@ -1,4 +1,4 @@
-import { ChargerState, ChargerAction } from 'allTypes'
+import { ChargerState, ChargerAction } from 'types'
 import initialState from 'state/initialStates/chargingProcess'
 import * as actionTypes from 'state/actionTypes/chargingProcessActionTypes'
 

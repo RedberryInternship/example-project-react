@@ -1,13 +1,13 @@
 /* eslint-disable default-case */
 import defaults from 'utils/defaults'
 import { refreshChargingProcesses } from 'state/actions/chargingProcessActions'
-import { DisplayDropdownWithError } from 'helpers/inform'
-import { ChargingStatus } from 'utils/enums'
-import references from 'utils/references'
+import { DisplayDropdownWithError } from 'utils/inform'
 import {
   ChargingFinishedPopupEnum,
+  ChargingStatus,
   ChargingState,
-} from '../../@types/allTypes.d'
+} from 'types'
+import references from 'utils/references'
 
 const configureChargingFinishPopup = (
   {

@@ -1,11 +1,11 @@
 import images from 'assets/images'
-import { HomeState } from 'allTypes'
+import { HomeState } from 'types'
 
 const initialState: HomeState = {
   PermissionStatus: null,
   locationImageType: images.location,
   loading: false,
-  LocationRequestFunc: () => {},
+  LocationRequestFunc: () => { },
   filteredChargers: null,
 }
 

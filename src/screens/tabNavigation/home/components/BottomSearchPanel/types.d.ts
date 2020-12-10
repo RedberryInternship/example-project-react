@@ -1,4 +1,4 @@
-import { Charger, ChargerDetail } from 'allTypes'
+import { Charger, ChargerDetail } from 'types'
 
 type BottomSearchPanelProps = {
   onFilterClick: (index: number) => void

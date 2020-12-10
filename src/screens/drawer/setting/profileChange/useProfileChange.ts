@@ -5,7 +5,7 @@ import {
   DisplayDropdownWithError,
   DisplayDropdownWithSuccess,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
 import {
   refreshUserData,
   editUserInfo,
@@ -18,7 +18,7 @@ import { selectUser } from 'state/selectors'
 import {
   UserSettingEnum,
   Navigation,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
 
 export default (navigation: Navigation, type: UserSettingEnum) => {
   const dispatch = useDispatch();

@@ -3,7 +3,7 @@ import {
   MapImperativeRefObject,
   Navigation,
   Charger,
-} from 'allTypes'
+} from 'types'
 
 type HomeMainComponentProps = {
   navigation?: Navigation

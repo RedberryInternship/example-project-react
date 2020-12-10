@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Charger, MapImperativeRefObject } from 'allTypes'
+import { Charger, MapImperativeRefObject } from 'types'
 
 export type HomeMainSearchViewProps = {
   allChargers: Charger[]

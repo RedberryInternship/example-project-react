@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import defaults from 'utils/defaults'
-import { Locale } from 'allTypes'
-import { getLocale } from 'helpers/locale'
+import { Locale } from 'types'
+import { getLocale } from 'utils/locale'
 
 /**
  * Retrieve locale from storage

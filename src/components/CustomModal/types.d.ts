@@ -1,4 +1,4 @@
-import { ChargingStatus } from 'utils/enums'
+import { ChargingStatus } from 'types'
 
 type Data = {
   title?: string

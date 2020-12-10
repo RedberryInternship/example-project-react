@@ -2,7 +2,7 @@ import React from 'react'
 import { withNavigation } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
 import { CardListItem, BaseAddCardButton } from 'components'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import useCardListView from './useCardListView'
 
 const CardListView: FCWithNavigation = ({ navigation }) => {

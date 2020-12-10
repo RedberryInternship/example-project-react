@@ -15,7 +15,7 @@ import {
   Navigation,
   ChargerDetail,
   Charger,
-} from '../../../../@types/allTypes.d'
+} from 'types'
 
 const useHome = (navigation: Navigation) => {
   const [selectedFilters, setSelectedFilters] = useState<boolean[]>(Array(6).fill(false))

@@ -13,12 +13,12 @@ import { BaseButton, BaseText } from 'components'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
 import defaults from 'utils/defaults'
-import { easyAlert } from 'helpers/inform'
+import { easyAlert } from 'utils/inform'
 import images from 'assets/images'
-import { isAuthenticated } from 'helpers/auth'
+import { isAuthenticated } from 'helpers/user'
 import { selectUser } from 'state/selectors'
-import { FCWithNavigation, Locale } from 'allTypes'
-import { setLocale } from 'helpers/locale'
+import { FCWithNavigation, Locale } from 'types'
+import { setLocale } from 'utils/locale'
 import {
   DrawerTextFieldItem,
   BaseUserAvatarWithLabel,

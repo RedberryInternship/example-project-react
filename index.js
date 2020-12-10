@@ -5,7 +5,7 @@ import { name as appName } from './app.json'
 import App from './App'
 import 'react-i18next'
 import './src/utils/localization/localization'
-import './src/utils/mapAndLocation/location'
+import './src/utils/location'
 
 enableScreens()
 

@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Controller } from 'react-hook-form'
 import colors from 'utils/colors'
 import * as Const from 'utils/const'
-import InputValidationHelpers from 'utils/InputValidationHelpers'
+import { InputValidation } from 'utils'
 import { BaseInput } from 'components'
 import images from 'assets/images'
 import { UserInfoViewFC } from 'screens/authentication/registration/types'
@@ -16,7 +16,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
       <Controller
         as={BaseInput}
         name="name"
-        rules={InputValidationHelpers.inputString}
+        rules={InputValidation.inputString}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
@@ -30,7 +30,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
       <Controller
         as={BaseInput}
         name="surname"
-        rules={InputValidationHelpers.inputString}
+        rules={InputValidation.inputString}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
         image={images.user}
@@ -47,7 +47,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
         as={BaseInput}
         name="email"
         rules={{
-          validate: InputValidationHelpers.emailValidation,
+          validate: InputValidation.emailValidation,
         }}
         control={control}
         onChange={(args) => args[0].nativeEvent.text}

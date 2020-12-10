@@ -1,6 +1,6 @@
 import { Alert } from 'react-native'
 import Defaults from 'utils/defaults'
-import { EasyAlert } from 'allTypes.d'
+import { EasyAlert } from 'types'
 import i18next from 'i18next'
 import Sentry from 'utils/sentry'
 

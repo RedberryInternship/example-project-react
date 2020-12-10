@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
-import NavigationActions from 'utils/navigation.service'
+import Navigation from 'utils/navigation'
 
 /**
  * Upon configuration ending, go to home screen.
  */
 const useAppReady = () => {
   useEffect(() => {
-    NavigationActions.navigate('MainDrawer')
+    Navigation.navigate('MainDrawer')
   }, [])
 }
 

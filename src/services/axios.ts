@@ -4,9 +4,9 @@ import { Platform } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import Defaults from 'utils/defaults'
 import Sentry from 'utils/sentry'
-import { remoteLogger } from 'helpers/inform'
+import { remoteLogger } from 'utils/inform'
 import { clearUserData } from 'helpers/user'
-import NavigationActions from 'utils/navigation.service'
+import Navigation from 'utils/navigation'
 import { Fetch, Axios } from 'types/customAxios'
 
 /**
@@ -51,7 +51,7 @@ const fetch: Fetch = (uri, data, method, params) => {
           remoteLogger(error)
           if (error.response && error.response.status === 401) {
             clearUserData()
-            NavigationActions.navigate('Home')
+            Navigation.navigate('Home')
           }
 
           reject(error.response)

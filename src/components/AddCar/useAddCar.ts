@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import services from 'services'
-import { CarMarkAndModelTypes } from 'allTypes'
+import { CarMarkAndModelTypes } from 'types'
 import { UseAddCarProps } from './types'
 
 const useAddCar = ({ register, setValue, watch }: UseAddCarProps) => {

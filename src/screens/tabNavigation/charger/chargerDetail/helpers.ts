@@ -1,13 +1,12 @@
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
 import defaults from 'utils/defaults'
 import services from 'services'
 import * as Const from 'utils/const'
-import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
-import { isPermissionDeniedRegex } from 'utils/mapAndLocation/permissionsRegex'
-import { getAndRequestLocation } from 'helpers/location'
+import { getCoordsAnyway } from 'utils/map'
+import { isPermissionDenied, getAndRequestLocation } from 'utils/location'
 
 /**
  * Calculate distance to charger.
@@ -34,7 +33,7 @@ export const getDistance = async (lat: string, lng: string): Promise<any> => {
  */
 export const isLocationEnabled = () => (
   defaults.locationPermission
-  && isPermissionDeniedRegex(defaults.locationPermission)
+  && isPermissionDenied(defaults.locationPermission)
 )
 
 /**

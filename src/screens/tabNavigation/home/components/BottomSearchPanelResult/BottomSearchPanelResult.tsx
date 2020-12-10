@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
-import { Charger, ChargerDetail } from 'allTypes'
+import { Charger, ChargerDetail } from 'types'
 import { getLocaleText } from 'utils'
 import { MainSearchItem } from '../index'
 import { BottomSearchPanelResultFC } from './types'

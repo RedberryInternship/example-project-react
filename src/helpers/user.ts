@@ -4,8 +4,13 @@ import services from 'services'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { UserMeResponseType } from 'allTypes'
+} from 'utils/inform'
+import { UserMeResponseType } from 'types'
+
+/**
+ * Determine if user is authenticated.
+ */
+export const isAuthenticated = (): boolean => !!defaults.token
 
 /**
  * Save jwt token and user data in async storage.

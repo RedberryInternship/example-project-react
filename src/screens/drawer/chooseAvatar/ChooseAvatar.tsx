@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { BaseHeader, BaseButton } from 'components'
 import { Colors } from 'utils'
 import images, { Avatars } from 'assets/images'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import AvatarItem from './AvatarItem'
 import useChooseAvatar from './useChooseAvatar'
 

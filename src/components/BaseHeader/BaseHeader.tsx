@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Colors, GNOME } from 'utils'
+import { Colors, Font } from 'utils'
 import {
   BaseNativeTouchable,
   BaseText,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontSize: 17,
     textAlign: 'center',
-    fontFamily: GNOME.HELV_HVEX,
+    fontFamily: Font.HELV_HVEX,
   },
   renderRightConatainer: {
     justifyContent: 'center',

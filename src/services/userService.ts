@@ -11,7 +11,7 @@ import {
   UserMeResponseType,
   FAQResponseType,
   GetCardAddUrl,
-} from 'allTypes';
+} from 'types';
 
 import ajax from './axios';
 

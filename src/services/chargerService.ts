@@ -1,11 +1,11 @@
 import defaults from 'utils/defaults'
-import axios from './axios'
 import {
   GetAllChargerResponseType,
   StartChargingResponseType,
   ChargingTypes,
   ChargingState,
-} from '../../@types/allTypes.d'
+} from 'types'
+import axios from './axios'
 
 export const getChargers = async (): Promise<GetAllChargerResponseType> => {
   /**

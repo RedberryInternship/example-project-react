@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   View,
@@ -20,7 +20,7 @@ import {
   PhoneNumberInput,
   BaseText,
 } from 'components'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import useAuthHook from './useAuthHook'
 
 const Auth: FCWithNavigation = ({ navigation }) => {

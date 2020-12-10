@@ -8,7 +8,10 @@ import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-navigation'
 import { BaseHeader, BaseText } from 'components'
 import { Colors } from 'utils'
-import { TransactionsHistoryResponseItem, FCWithNavigation } from 'allTypes'
+import {
+  TransactionsHistoryResponseItem,
+  FCWithNavigation,
+} from 'types'
 import images from 'assets/images'
 import DetailsItem from './components/TransactionDetailsItem'
 

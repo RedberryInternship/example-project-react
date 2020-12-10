@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { NavigationEventPayload } from 'react-navigation'
 import { selectUser, selectChargingProcess } from 'state/selectors'
 import {
-  NavigationActions,
+  Navigation,
   getLocaleText,
 } from 'utils'
 import defaults from 'utils/defaults'
@@ -17,17 +17,17 @@ import defaults from 'utils/defaults'
 import {
   DisplayDropdownWithError,
   easyAlert,
-} from 'helpers/inform'
+} from 'utils/inform'
 import {
   removeChargerFromFavorites,
   addChargerToFavorites,
 } from 'state/actions/userActions'
 import {
+  Navigation as NavigationType,
   Charger as BaseCharger,
   HomeNavigateModes,
   LanguageType,
-  Navigation,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
 import {
   askForLocationIfNotEnabled,
   isLocationEnabled,
@@ -35,7 +35,7 @@ import {
 } from './helpers'
 import { Charger } from './types'
 
-export default (navigation: Navigation) => {
+export default (navigation: NavigationType) => {
   const state = useSelector(selectUser)
   const { chargingState } = useSelector(selectChargingProcess)
   const dispatch = useDispatch()
@@ -83,7 +83,7 @@ export default (navigation: Navigation) => {
    */
   const headerLeftPress = (): boolean => {
     if (charger?.from === 'Home') {
-      NavigationActions.reset('ChargerStack', 'ChargerWithCode')
+      Navigation.reset('ChargerStack', 'ChargerWithCode')
       navigation.navigate('Home')
     } else if (defaults.token !== '') {
       navigation.goBack()

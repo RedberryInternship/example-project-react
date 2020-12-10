@@ -1,12 +1,14 @@
 import moment from 'moment'
 import SunCalc from 'suncalc'
 import RNLocation, { Location } from 'react-native-location'
-
 import Defaults from 'utils/defaults'
 import * as Const from 'utils/const'
 import services from 'services'
-import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
-import { isPermissionGrantedRegex } from './permissionsRegex'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'utils/inform'
+import { isPermissionGranted } from 'utils/location'
 
 type RegionFrom = {
   latitude: number
@@ -15,8 +17,8 @@ type RegionFrom = {
   longitudeDelta: number
 }
 
-export function regionFrom(lat: number, lng: number, zoomLevel: number): RegionFrom {
-  zoomLevel /= 2
+export function regionFrom(lat: number, lng: number, zoomingLevel: number): RegionFrom {
+  const zoomLevel = zoomingLevel / 2
   const circumference = 40075
   const oneDegreeOfLatitudeInMeters = 111.32 * 1000
   const angularDistance = zoomLevel / circumference
@@ -56,7 +58,7 @@ type getCoordsAnywayType = {
 let IPCoords: any = null
 
 export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
-  if (isPermissionGrantedRegex(Defaults.locationPermission)) {
+  if (isPermissionGranted(Defaults.locationPermission)) {
     try {
       const location: Location | null = await RNLocation.getLatestLocation({
         timeout: 6000,
@@ -83,3 +85,5 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
 
   return Const.locationIfNoGPS
 }
+
+export const mergeCoords = (lat: number | string, lng: number | string): string => `${lat},${lng}`

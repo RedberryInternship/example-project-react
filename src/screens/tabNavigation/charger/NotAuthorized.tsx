@@ -18,7 +18,7 @@ import {
 import {
   HomeNavigateModes,
   FCWithNavigation,
-} from '../../../../@types/allTypes.d'
+} from 'types'
 
 const NotAuthorized: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()

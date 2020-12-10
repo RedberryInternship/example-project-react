@@ -13,16 +13,16 @@ import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { refreshAndCacheChargers } from 'helpers/chargerFilter'
+} from 'utils/inform'
+import { refreshAndCacheChargers } from 'helpers/chargers'
 import defaults from 'utils/defaults'
 import services from 'services'
-import NavigationActions from 'utils/navigation.service'
+import Navigation from 'utils/navigation'
 import {
   SaveUserAndRefreshAction,
   FavoriteChargerAction,
   UserMeResponseType,
-} from 'allTypes'
+} from 'types'
 
 /**
  * Saga for the fetching favorite chargers from
@@ -124,7 +124,7 @@ function* removeChargerFromFavorites(action: FavoriteChargerAction) {
  */
 function* logOutAndReset() {
   yield clearUserData()
-  yield NavigationActions.navigate('Home')
+  yield Navigation.navigate('Home')
   yield put(actions.logOut())
 }
 

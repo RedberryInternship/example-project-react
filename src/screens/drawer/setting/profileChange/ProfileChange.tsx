@@ -15,12 +15,12 @@ import {
   AddCar,
   SingleInputView,
 } from 'components'
-import { Colors, InputValidationHelpers } from 'utils'
-import useProfileChange from './useProfileChange'
+import { Colors, InputValidation } from 'utils'
 import {
   FCWithNavigation,
   UserSettingEnum,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
+import useProfileChange from './useProfileChange'
 
 const ProfileChange: FCWithNavigation = ({ navigation }) => {
   const headerName = navigation.getParam('name')
@@ -49,7 +49,7 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
             {...form}
             type={type}
             inputName={inputName}
-            validator={InputValidationHelpers.emailValidation}
+            validator={InputValidation.emailValidation}
           />
         )
 

@@ -5,7 +5,7 @@ import {
   VerifyCodeResponseType,
   PasswordChangedResponseType,
   RegisterResponseType,
-} from 'allTypes'
+} from 'types'
 import axios from './axios'
 
 export const getPhoneCountryCodes = (): Promise<PhoneCountryCodesData> => axios.get('/phone-codes')

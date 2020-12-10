@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
 import { BaseText, RootPin } from 'components'
-import { ChargerMarkerColor } from '../../../@types/allTypes.d'
+import { ChargerMarkerColor } from 'types'
 import { LegendItemFC } from './types'
 
 const LegendItem: LegendItemFC = ({ text, ...props }) => {

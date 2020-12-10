@@ -5,10 +5,13 @@ import {
 } from 'react'
 import { Platform, Animated } from 'react-native'
 import { Item } from 'react-native-picker-select'
-import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'utils/inform'
 import services from 'services'
 import { phoneNumberPlaceHolder } from 'utils/const'
-import { PhoneCountryCode } from 'allTypes'
+import { PhoneCountryCode } from 'types'
 import {
   PhoneNumberInputProps,
   Reference,

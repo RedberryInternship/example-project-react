@@ -3,10 +3,10 @@ import { View, StatusBar, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
 import { TabNavigationButtons } from 'components'
-import { determineTimePeriod } from 'utils/mapAndLocation/mapFunctions'
-import { isAuthenticated } from 'helpers/auth'
+import { determineTimePeriod } from 'utils/map'
+import { isAuthenticated } from 'helpers/user'
 import images from 'assets/images'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import { zoomOut } from './config'
 
 const FooterTabNavigator: FCWithNavigation = (props) => {
