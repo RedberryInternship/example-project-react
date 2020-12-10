@@ -1,8 +1,9 @@
-import { StatusBarStyle } from 'react-native'
+import { StatusBarStyle, StatusBar } from 'react-native'
 import {
   NavigationContainerComponent,
   NavigationActions,
   StackActions,
+  NavigationState,
 } from 'react-navigation'
 import { determineTimePeriod } from 'utils/map'
 import defaults from 'utils/defaults'
@@ -53,6 +54,17 @@ export const setNavigationReference = (navigatorRef: NavigationContainerComponen
 }
 
 /**
+ * Do things on routes change.
+ */
+export const onNavigationStateChange = (
+  _: NavigationState,
+  currentNavigationState: NavigationState,
+) => {
+  defaults.activeRoute = getCurrentRouteName(currentNavigationState)
+  StatusBar.setBarStyle(determineNavigationTheme(), true)
+}
+
+/**
  * Determine navigation theme.
  */
 export const determineNavigationTheme = (): StatusBarStyle => {
@@ -60,4 +72,15 @@ export const determineNavigationTheme = (): StatusBarStyle => {
     return 'light-content'
   }
   return determineTimePeriod() ? 'dark-content' : 'light-content'
+}
+
+/**
+ * Get current route name.
+ */
+export const getCurrentRouteName = (state: NavigationState | any): string => {
+  if ('index' in state) {
+    return getCurrentRouteName(state.routes[state.index])
+  }
+
+  return state.routeName
 }
