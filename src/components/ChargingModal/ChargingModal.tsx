@@ -30,16 +30,11 @@ const ChargingModal: ChargingModalFC = (
 
   const subTypeHandler = (): ReactElement => {
     switch (subType) {
-      case ChargingFinishedPopupEnum.LVL2FullCharge:
-        return <BeforeFineLVL2FullCharge {...data} />
-      case ChargingFinishedPopupEnum.UsedUpFastProps:
-        return <UsedUpFast {...data} />
-      case ChargingFinishedPopupEnum.FinishedCharging:
-        return <Finished {...data} />
-      case ChargingFinishedPopupEnum.Bankrupt:
-        return <Bankrupt {...data} />
-      case ChargingFinishedPopupEnum.PaymentFailed:
-        return <Bankrupt {...data} />
+      case ChargingFinishedPopupEnum.LVL2FullCharge: return <BeforeFineLVL2FullCharge {...data} />
+      case ChargingFinishedPopupEnum.UsedUpFastProps: return <UsedUpFast {...data} />
+      case ChargingFinishedPopupEnum.FinishedCharging: return <Finished {...data} />
+      case ChargingFinishedPopupEnum.Bankrupt: return <Bankrupt {...data} />
+      case ChargingFinishedPopupEnum.PaymentFailed: return <Bankrupt {...data} />
 
       default:
         return (

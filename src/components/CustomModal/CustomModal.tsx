@@ -32,6 +32,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     this.setState({
       visible: false,
     })
+
     this.state.config.onCloseClick && this.state.config.onCloseClick()
   }
 

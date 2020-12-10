@@ -20,5 +20,5 @@ export type InitialState = {
 
 export interface CustomModalInterface {
   customUpdate: (visible: boolean, config?: Config) => void
-  state: InitialState
+  state: InitialState | any
 }
