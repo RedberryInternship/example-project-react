@@ -1,12 +1,18 @@
-import * as Sentry from '@sentry/react-native'
+import { setUser } from '@sentry/react-native'
+import { UserMeResponseType } from 'types'
 
-Sentry.init(
-  {
-    dsn: 'https://5e553025d2f54d69a6dca90c51af95a0@sentry.io/2970574',
-    maxBreadcrumbs: 100,
-    debug: __DEV__,
-    attachStacktrace: true,
-  },
-)
-
-export default Sentry
+/**
+ * Remember user for sentry.
+ */
+export const rememberUser = (user: UserMeResponseType) => {
+  user
+    ? setUser(
+      {
+        id: `${user.id}`,
+        username: `${user.first_name} ${user.last_name}`,
+        email: user.email ?? '',
+        phone_number: user.phone_number,
+      },
+    )
+    : setUser(null)
+}

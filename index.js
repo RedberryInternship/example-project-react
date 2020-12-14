@@ -4,8 +4,8 @@ import { AppRegistry } from 'react-native'
 import { name as appName } from './app.json'
 import App from './App'
 import 'react-i18next'
-import './src/utils/localization/localization'
-import './src/utils/location'
+import './src/utils/localization'
+import './src/libraries/sentry'
 
 enableScreens()
 

@@ -16,6 +16,7 @@ import {
 } from 'utils/inform'
 import { refreshAndCacheChargers } from 'helpers/chargers'
 import defaults from 'utils/defaults'
+import { rememberUser } from 'utils/sentry'
 import services from 'services'
 import Navigation from 'utils/navigation'
 import {
@@ -46,6 +47,7 @@ function* refreshFavoriteChargers() {
  */
 function* refreshUserInformation() {
   const userData = yield getUserData();
+  rememberUser(userData)
   if (userData) {
     yield saveJWTTokenAndUserData(userData, defaults.token)
     yield put(actions.updateUser(userData, defaults.token))
@@ -72,6 +74,7 @@ function* refreshAllChargers() {
  */
 function* saveUserAndRefresh(action: SaveUserAndRefreshAction) {
   const { userData, token } = action.payload
+  rememberUser(userData)
   yield saveJWTTokenAndUserData(userData, token)
   if (token) {
     yield put(actions.refreshUserData())
@@ -126,6 +129,7 @@ function* logOutAndReset() {
   yield clearUserData()
   yield Navigation.navigate('Home')
   yield put(actions.logOut())
+  yield rememberUser(null)
 }
 
 /**
@@ -137,6 +141,7 @@ function* readUserTokenFromStorageAndUpdateState() {
   let user: UserMeResponseType = null
   if (fetchedToken) {
     user = yield getUserDetailedInformationFromStorage()
+    yield rememberUser(user)
   }
 
   yield put(actions.saveUserAndRefresh(user, fetchedToken))

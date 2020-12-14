@@ -2,7 +2,10 @@ import { Alert } from 'react-native'
 import Defaults from 'utils/defaults'
 import { EasyAlert } from 'types'
 import i18next from 'i18next'
-import Sentry from 'utils/sentry'
+import {
+  captureException,
+  captureMessage,
+} from '@sentry/react-native'
 
 // eslint-disable-next-line no-underscore-dangle
 declare const __DEV__: boolean
@@ -27,12 +30,9 @@ export const remoteLogger = (data: any, type: 'Error' | 'Message' = 'Error') => 
   }
 
   switch (type) {
-    case 'Error':
-      return Sentry.captureException(data)
-    case 'Message':
-      return Sentry.captureMessage(data)
-    default:
-      Sentry.captureException(data)
+    case 'Error': return captureException(data)
+    case 'Message': return captureMessage(data)
+    default: captureException(data)
   }
 }
 

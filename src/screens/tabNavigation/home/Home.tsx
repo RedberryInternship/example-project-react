@@ -5,6 +5,7 @@ import { selectUser } from 'state/selectors'
 import { FCWithNavigation } from 'types'
 import colors from 'utils/colors'
 import defaults from 'utils/defaults'
+import { captureException } from '@sentry/react-native'
 import useHome from './useHome'
 import {
   BottomSearchPanel,
@@ -17,7 +18,6 @@ const Home: FCWithNavigation = ({ navigation }) => {
     setBottomPanelSearchInputText,
     bottomSearchPanelChargers,
     onMapFilteredChargers,
-    selectedFiltersOnMap,
     onFilteredItemClick,
     selectedFilters,
     bottomSheetRef,
@@ -30,6 +30,8 @@ const Home: FCWithNavigation = ({ navigation }) => {
 
   const state = useSelector(selectUser)
   console.log(['Home - Layer'])
+  const err = new Error('დაააათვ ი!')
+  captureException(err)
 
   return useMemo(
     () => (
@@ -60,15 +62,18 @@ const Home: FCWithNavigation = ({ navigation }) => {
       </View>
     ),
     [
+      setBottomPanelSearchInputText,
       bottomSearchPanelChargers,
       onMapFilteredChargers,
-      selectedFiltersOnMap,
       onFilteredItemClick,
       selectedFilters,
+      bottomSheetRef,
       onFilterClick,
       mainInputRef,
       setShowAll,
+      navigation,
       showAll,
+      mapRef,
       state,
     ],
   )

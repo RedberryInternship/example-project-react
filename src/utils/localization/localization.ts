@@ -5,6 +5,9 @@ import { LocaleStringObject } from 'types'
 import en from './en'
 import ka from './ka'
 
+// eslint-disable-next-line no-underscore-dangle
+declare const __DEV__: boolean
+
 i18n.use(initReactI18next)
   .init(
     {

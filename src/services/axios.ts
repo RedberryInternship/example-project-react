@@ -3,7 +3,6 @@ import { API } from 'utils/const'
 import { Platform } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import Defaults from 'utils/defaults'
-import Sentry from 'utils/sentry'
 import { remoteLogger } from 'utils/inform'
 import { clearUserData } from 'helpers/user'
 import Navigation from 'utils/navigation'
@@ -55,10 +54,6 @@ const fetch: Fetch = (uri, data, method, params) => {
           }
 
           reject(error.response)
-          Sentry.withScope((scope) => {
-            scope.setFingerprint([method, url, JSON.stringify(headers)])
-            Sentry.captureException(error)
-          })
         })
     },
   )

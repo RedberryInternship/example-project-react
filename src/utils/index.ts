@@ -5,13 +5,13 @@ import Font from './font'
 import Navigation from './navigation'
 import i18n, { getLocaleText } from './localization'
 import * as Map from './map'
-import Sentry from './sentry'
 import InputValidation from './InputValidation'
-import * as App from './app'
 import * as Inform from './inform'
 import * as Locale from './locale'
 import * as Location from './location'
 import References from './references'
+import * as Sentry from './sentry'
+import * as App from './app'
 
 export {
   InputValidation,

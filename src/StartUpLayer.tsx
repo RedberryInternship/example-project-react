@@ -19,6 +19,7 @@ import {
   onNavigationStateChange,
   setNavigationReference,
 } from 'utils/navigation'
+
 import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {
