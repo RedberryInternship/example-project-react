@@ -1,0 +1,6 @@
+[defaults]
+org=redberry-ltd
+project=espace
+
+[auth]
+token=0ad0c0045da34b85b382ae05d4abb448cc355cc9f637486581342e4a219af004
