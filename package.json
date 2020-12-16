@@ -6,8 +6,11 @@
     "android": "npx react-native run-android",
     "ios": "npx react-native run-ios",
     "start": "react-native start",
-    "build": "./build.sh",
-    "upload-sourcemaps": "./build/upload-sourcemaps.sh",
+    "generate-apk": "./scripts/generate-apk.sh",
+    "bundle-android": "./scripts/bundle.sh android",
+    "bundle-ios": "./scripts/bundle.sh ios",
+    "upload-android-sourcemaps": "./scripts/upload-sourcemaps.sh android",
+    "upload-ios-sourcemaps": "./scripts/upload-sourcemaps.sh ios",
     "postinstall": "yarn run cjk-textinput-patch",
     "postuninstall": "yarn run cjk-textinput-patch"
   },
