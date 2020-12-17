@@ -5,7 +5,6 @@ import { selectUser } from 'state/selectors'
 import { FCWithNavigation } from 'types'
 import colors from 'utils/colors'
 import defaults from 'utils/defaults'
-import { captureException } from '@sentry/react-native'
 import useHome from './useHome'
 import {
   BottomSearchPanel,
@@ -29,9 +28,6 @@ const Home: FCWithNavigation = ({ navigation }) => {
   } = useHome(navigation)
 
   const state = useSelector(selectUser)
-  console.log(['Home - Layer'])
-  const err = new Error('დაააათვ ი!')
-  captureException(err)
 
   return useMemo(
     () => (

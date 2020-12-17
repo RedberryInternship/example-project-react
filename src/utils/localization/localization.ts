@@ -5,14 +5,11 @@ import { LocaleStringObject } from 'types'
 import en from './en'
 import ka from './ka'
 
-// eslint-disable-next-line no-underscore-dangle
-declare const __DEV__: boolean
-
 i18n.use(initReactI18next)
   .init(
     {
       fallbackLng: 'ka',
-      debug: __DEV__,
+      debug: false,
       lng: 'ka',
       interpolation: {
         escapeValue: false,

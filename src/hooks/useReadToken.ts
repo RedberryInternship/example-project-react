@@ -9,7 +9,7 @@ const useReadToken = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(readTokenFromStorageAndUpdateState())
-  }, [])
+  }, [dispatch])
 }
 
 export default useReadToken

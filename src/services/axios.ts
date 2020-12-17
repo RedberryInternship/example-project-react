@@ -2,7 +2,7 @@ import axiosRequest from 'axios'
 import { API } from 'utils/const'
 import { Platform } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
-import Defaults from 'utils/defaults'
+import defaults from 'utils/defaults'
 import { remoteLogger } from 'utils/inform'
 import { clearUserData } from 'helpers/user'
 import Navigation from 'utils/navigation'
@@ -11,16 +11,18 @@ import { Fetch, Axios } from 'types/customAxios'
 /**
  * Configured Headers.
  */
-const headers = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  Authorization: `Bearer ${Defaults.token}`,
-  'App-Custom-Version': '2.5',
-  'App-Version': DeviceInfo.getVersion(),
-  Device: Platform.OS,
-  'Device-OS-Version': Platform.Version,
-}
+const headers = () => (
+  {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    Authorization: `Bearer ${defaults.token}`,
+    'App-Custom-Version': '2.5',
+    'App-Version': DeviceInfo.getVersion(),
+    Device: Platform.OS,
+    'Device-OS-Version': Platform.Version,
+  }
+)
 
 /**
  * Configurable axios request.
@@ -35,15 +37,14 @@ const fetch: Fetch = (uri, data, method, params) => {
 
       axiosRequest(
         {
-          headers,
+          headers: headers(),
+          params,
           method,
           data,
           url,
-          params,
         },
       )
         .then((response) => {
-          console.log(['Response', response])
           resolve(response.data)
         })
         .catch((error) => {
@@ -65,12 +66,24 @@ const fetch: Fetch = (uri, data, method, params) => {
  */
 const axios: Axios = {
   get: (uri, params = {}) => {
-    console.log([`Service | GET : ${uri}`])
+    const info = { uri, method: 'GET', ...headers() }
+    console.groupCollapsed(`Service - ${uri}`)
+    console.table(info)
+    console.groupEnd()
     return fetch(uri, null, 'get', params)
   },
 
   post: (uri, payload) => {
-    console.log([`Service | POST : ${uri}`])
+    const info = {
+      uri,
+      method: 'POST',
+      ...headers(),
+    }
+
+    console.groupCollapsed(`Service - ${uri}`)
+    console.table(info)
+    console.info({ payload })
+    console.groupEnd()
     return fetch(uri, payload, 'post', {})
   },
 }

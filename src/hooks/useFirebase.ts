@@ -69,7 +69,7 @@ const useFirebase = (): void => {
     await requestUserPermission()
 
     onTokenRefreshListener.current = messaging().onTokenRefresh(tokenRefresh)
-  }, [])
+  }, [requestUserPermission, tokenRefresh])
 
   /**
    * Connect with firebase.
@@ -79,7 +79,7 @@ const useFirebase = (): void => {
     return () => {
       onTokenRefreshListener.current()
     }
-  }, [])
+  }, [initialRun])
 
   /**
    * Upon authorization update user's firebase token.

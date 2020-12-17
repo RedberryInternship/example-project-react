@@ -8,7 +8,7 @@ import { getLocale } from 'utils/locale'
  * Retrieve locale from storage
  * and configure i18n translator.
  */
-const configureLocale = async () => {
+const useConfigureLocale = async () => {
   const { i18n } = useTranslation()
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const configureLocale = async () => {
       locale && i18n.changeLanguage(locale)
       defaults.locale = locale
     })()
-  }, [])
+  }, [i18n])
 }
 
-export default configureLocale
+export default useConfigureLocale

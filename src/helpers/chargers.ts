@@ -1,6 +1,6 @@
 // import services from 'services'
 import services from 'services'
-import AsyncStorage from '@react-native-community/async-storage'
+import defaults from 'utils/defaults'
 import { ChargersResponseWithTime } from 'types'
 
 /**
@@ -8,7 +8,7 @@ import { ChargersResponseWithTime } from 'types'
  * or else cache and return fresh ones.
  */
 export const refreshAndCacheChargers = async () => {
-  const haveExpired = await haveLocalChargersExpired()
+  const haveExpired = haveLocalChargersExpired()
 
   if (haveExpired) {
     const retrievedChargers = await services.getChargers()
@@ -17,21 +17,20 @@ export const refreshAndCacheChargers = async () => {
       data: retrievedChargers,
       time: now,
     }
-
-    AsyncStorage.setItem('storedChargers', JSON.stringify(dataToCache))
+    defaults.chargers = dataToCache as unknown as ChargersResponseWithTime
     return retrievedChargers
   }
 
-  const cachedChargers = await getCachedChargers()
+  const cachedChargers = getCachedChargers()
   return cachedChargers?.data
 }
 
 /**
  * Determine if cached chargers are expired.
  */
-export const haveLocalChargersExpired = async () => {
+export const haveLocalChargersExpired = () => {
   const date = new Date()
-  const cachedChargers = await getCachedChargers()
+  const cachedChargers = getCachedChargers()
 
   if (cachedChargers) {
     const millisecondsDifference = date.getTime() - cachedChargers.time
@@ -48,10 +47,4 @@ export const haveLocalChargersExpired = async () => {
 /**
  * Retrieve cached chargers.
  */
-export const getCachedChargers = async () => {
-  const storedChargers = await AsyncStorage.getItem('storedChargers')
-  if (storedChargers) {
-    return JSON.parse(storedChargers) as ChargersResponseWithTime
-  }
-  return null
-}
+export const getCachedChargers = () => defaults.chargers

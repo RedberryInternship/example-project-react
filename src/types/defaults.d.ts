@@ -4,6 +4,7 @@ import { CustomModalInterface } from 'components/CustomModal/types'
 import { UserMeResponseType } from 'types/services'
 import { LocationPermissionStatus } from 'react-native-location'
 import { Locale } from 'types/general'
+import { ChargersResponseWithTime } from 'types/chargers'
 
 export type Defaults = {
   dropdown: any
@@ -21,4 +22,5 @@ export type Defaults = {
   userDetail: UserMeResponseType | null
   internetConnected: boolean | null
   isForeground: boolean | null
+  chargers: ChargersResponseWithTime | null
 }

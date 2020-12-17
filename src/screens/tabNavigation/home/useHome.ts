@@ -141,9 +141,13 @@ const useHome = (navigation: Navigation) => {
   )
 
   useEffect(() => {
-    GetFilteredCharger(selectedFilters, bottomPanelSearchInputText).then((data) => {
+    const filterData = async () => {
+      const data = await GetFilteredCharger(selectedFilters, bottomPanelSearchInputText)
+
       setBottomSearchPanelChargers(data ?? [])
-    })
+    }
+
+    filterData()
   }, [selectedFilters, bottomPanelSearchInputText])
 
   /**
@@ -159,7 +163,9 @@ const useHome = (navigation: Navigation) => {
   )
 
   useEffect(() => {
-    GetFilteredCharger(selectedFiltersOnMap, bottomPanelSearchInputText).then((data) => {
+    const filterData = async () => {
+      const data = await GetFilteredCharger(selectedFiltersOnMap, bottomPanelSearchInputText)
+
       if (data) {
         setShowAll(false)
         setOnMapFilteredChargers(data)
@@ -167,8 +173,10 @@ const useHome = (navigation: Navigation) => {
         setShowAll(true)
         setOnMapFilteredChargers([])
       }
-    })
-  }, [selectedFiltersOnMap])
+    }
+
+    filterData()
+  }, [selectedFiltersOnMap, bottomPanelSearchInputText])
 
   return {
     setBottomPanelSearchInputText,

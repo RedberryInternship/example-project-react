@@ -59,6 +59,7 @@ export const setUserDetail = (type: string, value: any) => {
 export const getUserData = async () => {
   try {
     const result = await services.getUserData()
+
     const userData = {
       ...defaults.userDetail,
       ...result,

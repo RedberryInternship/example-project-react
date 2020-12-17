@@ -7,8 +7,12 @@ declare const __DEV__: boolean
 const version = `ge.e-space.api-${getVersion()}`
 const buildNumber = getBuildNumber()
 
-console.log(['APP_VERSION', version])
-console.log(['APP_BUILD_NUMBER', buildNumber])
+console.table(
+  {
+    APP_VERSION: version,
+    APP_BUILD_NUMBER: buildNumber,
+  },
+)
 
 init(
   {

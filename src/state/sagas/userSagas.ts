@@ -74,6 +74,7 @@ function* refreshAllChargers() {
  */
 function* saveUserAndRefresh(action: SaveUserAndRefreshAction) {
   const { userData, token } = action.payload
+
   rememberUser(userData)
   yield saveJWTTokenAndUserData(userData, token)
   if (token) {
@@ -137,10 +138,10 @@ function* logOutAndReset() {
  */
 function* readUserTokenFromStorageAndUpdateState() {
   const fetchedToken = yield getUserTokenFromStorage()
-
   let user: UserMeResponseType = null
   if (fetchedToken) {
     user = yield getUserDetailedInformationFromStorage()
+
     yield rememberUser(user)
   }
 
