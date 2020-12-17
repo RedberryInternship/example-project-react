@@ -90,3 +90,8 @@ Then you should be good to go
 18. Please Describe how deploy in test flight and production in Deploy.md and add link in main README.md https://cln.sh/NXS6rU
 19. Please Describe TechStack - https://cln.sh/gw2sqw
 20. Please Describe - Prerequisites https://cln.sh/ZR9O6H
+21. Test at least main components, which run before production:
+for example: https://jestjs.io/docs/en/tutorial-react-native
+https://reactnative.dev/docs/testing-overview
+https://www.smashingmagazine.com/2020/09/unit-testing-react-native-applications/
+https://medium.com/@hdsenevi/unit-testing-in-react-native-with-jest-and-enzyme-40cd7dabb6f1
