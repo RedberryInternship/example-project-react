@@ -6,6 +6,7 @@ type Data = {
   bottomDescription?: string
   price?: number
 }
+
 type Config = {
   type: number
   onCloseClick?: () => void

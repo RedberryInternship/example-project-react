@@ -39,7 +39,6 @@ export default (navigation: Navigation) => {
     /**
      * Display alerts on errors.
      */
-
     if (errors.phone) {
       DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
     } else if (errors.password) {
