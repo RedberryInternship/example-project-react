@@ -22,13 +22,19 @@ const AddCar = (
     setValue,
   }: ProfileFieldChange,
 ) => {
-  const { data } = useAddCar(
+  const {
+    data,
+    setModel,
+    selectedModels,
+    setManufacturer,
+  } = useAddCar(
     {
       register,
       setValue,
       watch,
     },
   )
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -38,11 +44,14 @@ const AddCar = (
             name="manufacturer"
             rules={{ required: true, minLength: 3 }}
             control={control}
-            onChange={(text) => text}
-            title={'settings.model' ?? ''}
+            onChange={(text) => {
+              setManufacturer(text?.[0] ?? '')
+              return text
+            }}
+            title={'settings.manufacturer' ?? ''}
             image={images.addCarInput}
             dropdownIcon={images.caretDown}
-            data={[...data.map((val) => val.name)]}
+            data={data.map((val) => val.name)}
             errorText={
               errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
             }
@@ -54,15 +63,14 @@ const AddCar = (
               name="model"
               rules={{ required: true, minLength: 3 }}
               control={control}
-              onChange={(text) => text}
-              title={'settings.manufacturer' ?? ''}
+              onChange={(text) => {
+                setModel(text?.[0] ?? '')
+                return text;
+              }}
+              title={'settings.model' ?? ''}
               image={images.addCarInput}
               dropdownIcon={images.caretDown}
-              data={
-                data
-                  .find((val) => val.name === watch('manufacturer'))
-                  ?.models?.map((val) => val.name) ?? []
-              }
+              data={selectedModels}
               errorText={
                 errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
               }

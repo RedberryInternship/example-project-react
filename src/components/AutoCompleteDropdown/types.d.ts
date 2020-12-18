@@ -10,6 +10,7 @@ type AutoCompleteDropdownProps = {
   image: ImageSourcePropType,
   dropdownIcon: ImageSourcePropType
   zIndex: number
+  value: any
 }
 
 export type AutoCompleteDropdownFC = (props: AutoCompleteDropdownProps) => ReactElement
