@@ -18,6 +18,8 @@ const Home: FCWithNavigation = ({ navigation }) => {
     bottomSearchPanelChargers,
     onMapFilteredChargers,
     onFilteredItemClick,
+    selectedFiltersOnMap,
+    handleMapFilterClick,
     selectedFilters,
     bottomSheetRef,
     onFilterClick,
@@ -44,6 +46,8 @@ const Home: FCWithNavigation = ({ navigation }) => {
           mapRef={mapRef}
           setShowAll={setShowAll}
           mainInputRef={mainInputRef}
+          selectedFiltersOnMap={selectedFiltersOnMap}
+          handleMapFilterClick={handleMapFilterClick}
         />
         {state?.AllChargers?.length && (
           <BottomSearchPanel
@@ -61,6 +65,8 @@ const Home: FCWithNavigation = ({ navigation }) => {
       setBottomPanelSearchInputText,
       bottomSearchPanelChargers,
       onMapFilteredChargers,
+      selectedFiltersOnMap,
+      handleMapFilterClick,
       onFilteredItemClick,
       selectedFilters,
       bottomSheetRef,

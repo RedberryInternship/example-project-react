@@ -140,6 +140,18 @@ const useHome = (navigation: Navigation) => {
     [selectedFilters],
   )
 
+  /**
+   * Handle map filter clicks.
+   */
+  const handleMapFilterClick = useCallback(
+    (index: number): void => {
+      const newSelectedFilters: boolean[] = [...selectedFiltersOnMap];
+      newSelectedFilters[index] = !selectedFiltersOnMap[index]
+      setSelectedFiltersOnMap(newSelectedFilters)
+    },
+    [selectedFiltersOnMap, setSelectedFiltersOnMap],
+  )
+
   useEffect(() => {
     const filterData = async () => {
       const data = await GetFilteredCharger(selectedFilters, bottomPanelSearchInputText)
@@ -183,6 +195,7 @@ const useHome = (navigation: Navigation) => {
     bottomSearchPanelChargers,
     onMapFilteredChargers,
     selectedFiltersOnMap,
+    handleMapFilterClick,
     onFilteredItemClick,
     selectedFilters,
     bottomSheetRef,
