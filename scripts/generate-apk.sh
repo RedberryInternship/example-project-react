@@ -31,7 +31,11 @@ fi
 # temporary now date
 temp_now=$(date +'%Y-%m-%d')
 
-# Copy apk out/apk folder
-cp $baseDir/android/app/build/outputs/apk/release/app-release.apk $baseDir/out/apk/espace_$temp_now.apk
+apk=$baseDir/android/app/build/outputs/apk/release/app-release.apk
 
-echo "\n\n${blue} Build files created!${white}"
+if [ -f "$apk" ]; then
+  # Copy apk out/apk folder
+  cp $apk $baseDir/out/apk/espace_$temp_now.apk
+
+  echo "\n\n${blue} Build files created!${white}"
+fi

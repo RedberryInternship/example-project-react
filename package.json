@@ -24,6 +24,7 @@
     "@react-native-community/netinfo": "^5.9.2",
     "@react-native-firebase/app": "^8.1.0",
     "@react-native-firebase/messaging": "^7.4.1",
+    "@react-native-picker/picker": "^1.9.5",
     "@sentry/react-native": "^2.1.0",
     "@sentry/tracing": "^5.29.0",
     "@types/i18n-js": "^3.0.2",
