@@ -30,7 +30,7 @@ export default (navigation: Navigation) => {
     const charger = state
       .AllChargers
       ?.find(
-        (val: Charger) => val.code.toString() === chargerWithCode,
+        (val: Charger) => val.code?.toString() === chargerWithCode,
       )
 
     if (!charger) {
