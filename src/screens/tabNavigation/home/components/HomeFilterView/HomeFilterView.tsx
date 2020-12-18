@@ -23,7 +23,7 @@ const translate = Const.Width - 98
 const HomeFilter: HomeFilterFC = (
   {
     selectedFiltersOnMap,
-    onFilterClickOnMap,
+    handleMapFilterClick,
   },
 ) => {
   const [showFilter, setShowFilter] = useState(false)
@@ -86,7 +86,7 @@ const HomeFilter: HomeFilterFC = (
               text={t(val)}
               key={val}
               active={!!selectedFiltersOnMap[index]}
-              onPress={() => onFilterClickOnMap(index)}
+              onPress={() => handleMapFilterClick(index)}
             />
           ))}
         </ScrollView>
@@ -94,7 +94,7 @@ const HomeFilter: HomeFilterFC = (
     ),
     [
       selectedFiltersOnMap,
-      onFilterClickOnMap,
+      handleMapFilterClick,
       handleFilterButton,
       buttonImageStyle,
       showFilter,

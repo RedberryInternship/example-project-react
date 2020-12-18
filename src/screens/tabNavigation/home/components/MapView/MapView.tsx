@@ -67,7 +67,14 @@ const MapView = forwardRef<Map, MapViewProps>(
           <Polyline polyline={polyline} />
         </Map>
       </View>
-    ), [mapReady, mapRef])
+    ), [
+      filteredChargersOnMap,
+      onMarkerPress,
+      mapReady,
+      polyline,
+      showAll,
+      mapRef,
+    ])
   },
 )
 

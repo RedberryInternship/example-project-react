@@ -20,7 +20,6 @@ export const GetFilteredCharger = async (
   filterInput = '',
 ): Promise<Charger[]> => {
   try {
-    // console.log(['CHARGER -> CALL'])
     const { data } = await refreshAndCacheChargers() as GetAllChargerResponseType
     return !isSearchBarEmpty(filterInput)
       ? searchChargers(filterInput, data)

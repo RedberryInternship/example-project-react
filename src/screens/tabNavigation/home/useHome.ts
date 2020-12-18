@@ -60,7 +60,7 @@ const useHome = (navigation: Navigation) => {
    */
   useEffect(() => {
     if (showAll) {
-      setSelectedFiltersOnMap(Array(6).fill(0))
+      setSelectedFiltersOnMap(Array(6).fill(false))
       setOnMapFilteredChargers([])
     } else {
       setBottomPanelSearchInputText('')
