@@ -1,4 +1,4 @@
-import { References } from 'allTypes'
+import { References } from 'types'
 
 const references: References = {
   reduxDispatch: undefined,

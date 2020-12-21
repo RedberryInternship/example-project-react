@@ -11,16 +11,17 @@ import { BaseText } from 'components'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { AutoCompleteDropdownFC } from './types'
 
-const AutoCompleteDropdown: AutoCompleteDropdownFC = ({
-  title,
-  data,
-  onChange,
-  image,
-  errorText,
-  zIndex,
-  dropdownIcon,
-  ...props
-}) => {
+const AutoCompleteDropdown: AutoCompleteDropdownFC = (props) => {
+  const {
+    title,
+    data,
+    onChange,
+    image,
+    errorText,
+    zIndex,
+    dropdownIcon,
+    value,
+  } = props
   const { t } = useTranslation()
   const [filteredMarks, setFilteredMarks] = useState<string[]>(data)
   const [hideResults, setHideResults] = useState<boolean>(true)
@@ -35,6 +36,7 @@ const AutoCompleteDropdown: AutoCompleteDropdownFC = ({
     }
     setHideResults(false)
   }
+
   return (
     <View style={[styles.container, { zIndex }]}>
       <BaseText style={styles.title}>{t(title)}</BaseText>
@@ -48,9 +50,8 @@ const AutoCompleteDropdown: AutoCompleteDropdownFC = ({
             />
           )}
           <Autocomplete
-            {...props}
             data={filteredMarks}
-            defaultValue={props.value?.[0]}
+            defaultValue={value?.[0] ?? ''}
             autoCapitalize="none"
             autoCorrect={false}
             onChangeText={onTextChange}
@@ -58,7 +59,8 @@ const AutoCompleteDropdown: AutoCompleteDropdownFC = ({
             keyExtractor={(item, i) => item + i}
             flatListProps={{}}
             onFocus={() => {
-              onTextChange(props.value?.[0] ?? '')
+              console.log(['value', value])
+              onTextChange(value?.[0] ?? '')
               setHideResults(false)
             }}
             onBlur={() => setHideResults(true)}
@@ -66,7 +68,7 @@ const AutoCompleteDropdown: AutoCompleteDropdownFC = ({
             inputContainerStyle={[styles.autoCompleteInputContainer, { zIndex }]}
             listContainerStyle={[styles.autoCompleteListContainer, { zIndex: zIndex + 1 }]}
             listStyle={[styles.autoCompleteList, { zIndex: zIndex + 2 }]}
-            renderItem={({ item }: { item: string }) => (
+            renderItem={({ item }) => (
               <TouchableOpacity
                 style={[styles.listItemStyle, { zIndex }]}
                 onPress={() => {

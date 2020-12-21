@@ -1,6 +1,7 @@
 module.exports = {
   presets: ['module:metro-react-native-babel-preset'],
   plugins: [
+    ['transform-remove-console'],
     ['babel-plugin-root-import'],
     [
       'module-resolver',
@@ -10,7 +11,6 @@ module.exports = {
         alias: {
           'test/*': ['./test/'],
           'assets/*': ['./assets/'],
-          '@types/*': ['./@types/'],
         },
       },
     ],

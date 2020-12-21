@@ -10,22 +10,23 @@ import RNLocation, {
   LocationPermissionStatus,
   Location,
 } from 'react-native-location'
-import { isPermissionGrantedRegex } from 'utils/mapAndLocation/permissionsRegex'
-import { getCoordsAnyway } from 'utils/mapAndLocation/mapFunctions'
 import {
-  locationConfig,
-  regionFrom,
-} from 'utils'
+  requestPermission as locationRequestPermission,
+  isLocationNotDetermined,
+  isPermissionGranted,
+  isLocationEnabled,
+} from 'utils/location'
 import defaults from 'utils/defaults'
 import * as Const from 'utils/const'
-import { isLocationEnabled, isLocationNotDetermined } from 'helpers/location'
+
 import services from 'services'
 import { refreshAllChargers } from 'state/actions/userActions'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { Coords } from 'allTypes'
+} from 'utils/inform'
+import { Coords } from 'types'
+import { regionFrom, getCoordsAnyway } from 'utils/map'
 import {
   UseLocationProps,
   LocationOptions,
@@ -80,12 +81,13 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
         navigateByRef(location.lat, location.lng)
       } else {
         try {
-          if (!isPermissionGrantedRegex(defaults.locationPermission) || !Const.platformIOS) {
-            const status = await locationConfig.requestPermission()
+          if (!isPermissionGranted(defaults.locationPermission) || !Const.platformIOS) {
+            const status = await locationRequestPermission()
             if (!status) {
               return
             }
           }
+
           const coords = await getCoordsAnyway()
           navigateByRef(coords.lat, coords.lng)
         } catch (error) {
@@ -98,7 +100,7 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
   )
 
   const requestPermission = useCallback(async (): Promise<any> => {
-    const status = await locationConfig.requestPermission()
+    const status = await locationRequestPermission()
     if (status) navigateToLocation()
   }, [navigateToLocation])
 
@@ -108,7 +110,7 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
       defaults.locationPermission = status
       if (isLocationNotDetermined()) {
         requestPermission()
-      } else if (isPermissionGrantedRegex(status)) {
+      } else if (isPermissionGranted(status)) {
         navigateToLocation()
         if (defaults.modal?.current?.state?.config?.type === 5) {
           defaults.modal.current?.customUpdate(false)
@@ -116,7 +118,6 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
       }
     },
     [
-      isPermissionGrantedRegex,
       setPermissionStatus,
       navigateToLocation,
       requestPermission,

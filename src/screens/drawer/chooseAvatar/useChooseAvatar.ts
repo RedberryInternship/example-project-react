@@ -5,8 +5,8 @@ import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { Navigation, UserState } from 'allTypes'
+} from 'utils/inform'
+import { Navigation, UserState } from 'types'
 import { editUserInfo } from 'state/actions/userActions'
 import { setUserData, setUserDetail } from 'helpers/user'
 

@@ -10,7 +10,7 @@ import { Colors } from 'utils'
 import { BaseText } from 'components'
 import images from 'assets/images'
 import { ScrollView } from 'react-native-gesture-handler'
-import { ChargingFinishedPopupEnum } from '../../../@types/allTypes.d'
+import { ChargingFinishedPopupEnum } from 'types'
 import {
   BeforeFineLVL2FullCharge,
   UsedUpFast,
@@ -30,16 +30,11 @@ const ChargingModal: ChargingModalFC = (
 
   const subTypeHandler = (): ReactElement => {
     switch (subType) {
-      case ChargingFinishedPopupEnum.LVL2FullCharge:
-        return <BeforeFineLVL2FullCharge {...data} />
-      case ChargingFinishedPopupEnum.UsedUpFastProps:
-        return <UsedUpFast {...data} />
-      case ChargingFinishedPopupEnum.FinishedCharging:
-        return <Finished {...data} />
-      case ChargingFinishedPopupEnum.Bankrupt:
-        return <Bankrupt {...data} />
-      case ChargingFinishedPopupEnum.PaymentFailed:
-        return <Bankrupt {...data} />
+      case ChargingFinishedPopupEnum.LVL2FullCharge: return <BeforeFineLVL2FullCharge {...data} />
+      case ChargingFinishedPopupEnum.UsedUpFastProps: return <UsedUpFast {...data} />
+      case ChargingFinishedPopupEnum.FinishedCharging: return <Finished {...data} />
+      case ChargingFinishedPopupEnum.Bankrupt: return <Bankrupt {...data} />
+      case ChargingFinishedPopupEnum.PaymentFailed: return <Bankrupt {...data} />
 
       default:
         return (

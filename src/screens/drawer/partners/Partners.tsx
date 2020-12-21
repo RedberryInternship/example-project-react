@@ -8,7 +8,7 @@ import {
 import { BaseHeader, FetchedDataRenderer } from 'components'
 import colors from 'utils/colors'
 import services from 'services'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import PartnerItem from './components/PartnerItem'
 import { PartnersResponseType } from './types'
 

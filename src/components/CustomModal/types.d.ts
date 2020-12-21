@@ -1,4 +1,4 @@
-import { ChargingStatus } from 'utils/enums'
+import { ChargingStatus } from 'types'
 
 type Data = {
   title?: string
@@ -6,6 +6,7 @@ type Data = {
   bottomDescription?: string
   price?: number
 }
+
 type Config = {
   type: number
   onCloseClick?: () => void
@@ -20,5 +21,5 @@ export type InitialState = {
 
 export interface CustomModalInterface {
   customUpdate: (visible: boolean, config?: Config) => void
-  state: InitialState
+  state: InitialState | any
 }

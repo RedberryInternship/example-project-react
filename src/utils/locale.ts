@@ -1,6 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage'
-import { Locale } from 'allTypes'
-import { DisplayDropdownWithError, remoteLogger } from './inform'
+import { Locale } from 'types'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from './inform'
 
 /**
  * Default locale.

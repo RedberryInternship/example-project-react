@@ -13,16 +13,17 @@ import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { refreshAndCacheChargers } from 'helpers/chargerFilter'
+} from 'utils/inform'
+import { refreshAndCacheChargers } from 'helpers/chargers'
 import defaults from 'utils/defaults'
+import { rememberUser } from 'utils/sentry'
 import services from 'services'
-import NavigationActions from 'utils/navigation.service'
+import Navigation from 'utils/navigation'
 import {
   SaveUserAndRefreshAction,
   FavoriteChargerAction,
   UserMeResponseType,
-} from 'allTypes'
+} from 'types'
 
 /**
  * Saga for the fetching favorite chargers from
@@ -46,6 +47,7 @@ function* refreshFavoriteChargers() {
  */
 function* refreshUserInformation() {
   const userData = yield getUserData();
+  rememberUser(userData)
   if (userData) {
     yield saveJWTTokenAndUserData(userData, defaults.token)
     yield put(actions.updateUser(userData, defaults.token))
@@ -72,6 +74,8 @@ function* refreshAllChargers() {
  */
 function* saveUserAndRefresh(action: SaveUserAndRefreshAction) {
   const { userData, token } = action.payload
+
+  rememberUser(userData)
   yield saveJWTTokenAndUserData(userData, token)
   if (token) {
     yield put(actions.refreshUserData())
@@ -124,8 +128,9 @@ function* removeChargerFromFavorites(action: FavoriteChargerAction) {
  */
 function* logOutAndReset() {
   yield clearUserData()
-  yield NavigationActions.navigate('Home')
+  yield Navigation.navigate('Home')
   yield put(actions.logOut())
+  yield rememberUser(null)
 }
 
 /**
@@ -133,10 +138,11 @@ function* logOutAndReset() {
  */
 function* readUserTokenFromStorageAndUpdateState() {
   const fetchedToken = yield getUserTokenFromStorage()
-
   let user: UserMeResponseType = null
   if (fetchedToken) {
     user = yield getUserDetailedInformationFromStorage()
+
+    yield rememberUser(user)
   }
 
   yield put(actions.saveUserAndRefresh(user, fetchedToken))

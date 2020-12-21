@@ -1,4 +1,4 @@
-import { LocaleStringObject } from 'allTypes'
+import { LocaleStringObject } from 'types'
 import { ReactElement } from 'react'
 
 export type FAQResponseType = {

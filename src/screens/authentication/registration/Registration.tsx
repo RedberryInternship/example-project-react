@@ -15,7 +15,7 @@ import {
   BaseHeader,
   BaseButton,
 } from 'components'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'
 import PasswordView from './components/PasswordView'

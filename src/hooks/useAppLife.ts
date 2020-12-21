@@ -8,8 +8,8 @@ import {
   setAppInBackground,
   setAppInForeground,
   isAppInBackground,
-} from 'helpers/app'
-import { UserState } from 'allTypes'
+} from 'utils/app'
+import { UserState } from 'types'
 
 const useAppLife = () => {
   const userState: UserState = useSelector(selectUser)

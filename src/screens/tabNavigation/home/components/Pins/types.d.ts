@@ -1,4 +1,4 @@
-import { Charger } from 'allTypes'
+import { Charger } from 'types'
 import { ReactElement } from 'react'
 
 type PinsProps = {

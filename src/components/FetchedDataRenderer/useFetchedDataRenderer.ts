@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { remoteLogger, DisplayDropdownWithError } from 'helpers/inform'
+import { remoteLogger, DisplayDropdownWithError } from 'utils/inform'
 import { UseFetchedDataRendererProps } from './types'
 
 const staticData: any = {}

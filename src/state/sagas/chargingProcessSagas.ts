@@ -2,13 +2,13 @@ import { takeEvery, put } from 'redux-saga/effects'
 import * as actions from 'state/actions/chargingProcessActions'
 import { refreshAllChargers } from 'state/actions/userActions'
 import * as actionTypes from 'state/actionTypes/chargingProcessActionTypes'
-import NavigationActions from 'utils/navigation.service'
+import Navigation from 'utils/navigation'
 import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { refreshAndCacheChargers } from 'helpers/chargerFilter'
+} from 'utils/inform'
+import { refreshAndCacheChargers } from 'helpers/chargers'
 import services from 'services'
 import { getLocaleText } from 'utils/localization/localization'
 import configureChargingFinishPopup from 'helpers/finishingPopup'
@@ -16,8 +16,9 @@ import {
   UpdateChargingProcessesSagaAction,
   FinishChargingSagaAction,
   StartChargingSagaAction,
-} from 'allTypes'
-import { ChargingStatus } from 'utils/enums'
+  ChargingStatus,
+} from 'types'
+
 import defaults from 'utils/defaults'
 
 /**
@@ -53,8 +54,8 @@ function* startChargingProcess(action: StartChargingSagaAction) {
     yield put(refreshAllChargers())
     setLoading(false)
 
-    NavigationActions.reset('ChargerStack', 'ChargerWithCode')
-    NavigationActions.navigate('Charging')
+    Navigation.reset('ChargerStack', 'ChargerWithCode')
+    Navigation.navigate('Charging')
   } catch (error) {
     remoteLogger(error)
     setLoading(false)
@@ -95,7 +96,7 @@ function* updateChargingProcesses(action: UpdateChargingProcessesSagaAction) {
   yield data.forEach((state) => configureChargingFinishPopup(state))
 
   if (defaults.activeRoute === 'Charging' && data.length === 0) {
-    NavigationActions.navigate('Home')
+    Navigation.navigate('Home')
   }
   if (data.length === 0 && defaults.modal?.current?.state.config.type === 3) {
     defaults.modal.current?.customUpdate(false)

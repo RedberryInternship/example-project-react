@@ -76,7 +76,7 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+    enableHermes: false,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -130,8 +130,8 @@ android {
         applicationId "com.boxwood.espaceboxwoodrelease"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 207
-        versionName "2.0.7"
+        versionCode 209
+        versionName "2.1.0" 
         multiDexEnabled true
 
     }

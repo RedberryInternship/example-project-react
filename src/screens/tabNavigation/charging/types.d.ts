@@ -1,5 +1,8 @@
 import { ReactElement } from 'react'
-import { Navigation, ChargingState } from 'allTypes'
+import {
+  ChargingState,
+  Navigation,
+} from 'types'
 
 type ChargingViewProps = {
   hook: {

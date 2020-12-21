@@ -1,8 +1,8 @@
 import { useCallback, useState, useEffect } from 'react'
 import { WebViewNavigation } from 'react-native-webview'
-import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
+import { DisplayDropdownWithError, remoteLogger } from 'utils/inform'
 import services from 'services'
-import { GetCardAddUrl } from 'allTypes'
+import { GetCardAddUrl } from 'types'
 import { UseCardAddViewProps } from './types'
 
 const useCardAddView = ({ onSuccess, onFail }: UseCardAddViewProps) => {

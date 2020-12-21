@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { BaseHeader } from 'components'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import useSettings from './useSettings'
 import { SettingsListItem } from './components'
 

@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Charger } from 'allTypes'
+import { Charger } from 'types'
 
 type HomeMainSearchResultProps = {
   item: Charger

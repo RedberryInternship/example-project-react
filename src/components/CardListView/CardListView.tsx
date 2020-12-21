@@ -1,15 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
+import { selectUser } from 'state/selectors'
 import { CardListItem, BaseAddCardButton } from 'components'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 import useCardListView from './useCardListView'
 
 const CardListView: FCWithNavigation = ({ navigation }) => {
-  const {
-    updateUserHandler,
-    user,
-  } = useCardListView()
+  const { updateUserHandler } = useCardListView()
+  const { user } = useSelector(selectUser)
 
   return (
     <View style={styles.container}>

@@ -23,13 +23,16 @@ import images from 'assets/images'
 import { Const, Colors } from 'utils'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import useChoosingCard from './useChoosingCard'
-import { ChooseCardOnCharging, BaseAddCardButton } from './components'
 import {
   FCWithNavigation,
   ChargingTypes,
   UserCard,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
+import useChoosingCard from './useChoosingCard'
+import {
+  ChooseCardOnCharging,
+  BaseAddCardButton,
+} from './components'
 
 const ChoosingCard: FCWithNavigation = ({ navigation }) => {
   const {

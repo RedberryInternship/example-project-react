@@ -1,5 +1,5 @@
 import * as actionTypes from 'state/actionTypes/homeActionTypes'
-import { HomeState, Action } from 'allTypes'
+import { HomeState, Action } from 'types'
 import initialState from 'state/initialStates/home'
 
 function reducer(

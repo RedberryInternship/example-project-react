@@ -14,8 +14,8 @@ import {
 } from 'components'
 import { Colors } from 'utils'
 import images from 'assets/images'
+import { FCWithNavigation } from 'types'
 import useSetNewPassword from './useSetNewPassword'
-import { FCWithNavigation } from 'allTypes'
 
 const SetNewPasswords: FCWithNavigation = ({ navigation }) => {
   const {

@@ -5,7 +5,7 @@ import {
   UserSettingEnum,
   Favorite,
   Charger,
-} from '../../../@types/allTypes.d'
+} from 'types'
 
 /**
  * Saga action for saving user and

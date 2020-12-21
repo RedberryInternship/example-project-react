@@ -6,16 +6,20 @@ import {
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-import { FCWithNavigation, Charger } from 'allTypes'
+import { FCWithNavigation, Charger } from 'types'
 import {
-  BaseInput,
-  BaseHeader,
-  BaseButton,
   TitleTopLeftContainer,
   FetchedDataRenderer,
+  BaseButton,
+  BaseHeader,
+  BaseInput,
   BaseText,
 } from 'components'
-import { Const, Colors, getLocaleText } from 'utils'
+import {
+  getLocaleText,
+  Colors,
+  Const,
+} from 'utils'
 import images from 'assets/images'
 import { recentlyUsedChargers } from './helpers'
 import { ChargerItem } from './components'

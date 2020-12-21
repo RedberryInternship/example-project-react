@@ -5,7 +5,7 @@ import {
   StartChargingAction,
   StartChargingArg,
   ChargingState,
-} from 'allTypes'
+} from 'types'
 
 /**
  * Saga action for start charging.

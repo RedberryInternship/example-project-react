@@ -8,7 +8,10 @@ import { selectUser } from 'state/selectors'
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from '@react-native-firebase/messaging'
 import services from 'services'
-import { DisplayDropdownWithError, remoteLogger } from 'helpers/inform'
+import {
+  DisplayDropdownWithError,
+  remoteLogger,
+} from 'utils/inform'
 
 const useFirebase = (): void => {
   const { authStatus } = useSelector(selectUser)
@@ -66,7 +69,7 @@ const useFirebase = (): void => {
     await requestUserPermission()
 
     onTokenRefreshListener.current = messaging().onTokenRefresh(tokenRefresh)
-  }, [])
+  }, [requestUserPermission, tokenRefresh])
 
   /**
    * Connect with firebase.
@@ -76,7 +79,7 @@ const useFirebase = (): void => {
     return () => {
       onTokenRefreshListener.current()
     }
-  }, [])
+  }, [initialRun])
 
   /**
    * Upon authorization update user's firebase token.

@@ -3,12 +3,12 @@ import { TextInput } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { saveUserAndRefresh } from 'state/actions/userActions'
-import { InputValidationHelpers } from 'utils'
+import { InputValidation } from 'utils'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { Navigation } from 'allTypes'
+} from 'utils/inform'
+import { Navigation } from 'types'
 import services from 'services'
 import { Authenticate } from './types'
 
@@ -31,7 +31,7 @@ export default (navigation: Navigation) => {
   useEffect(() => {
     register(
       { name: 'phone' },
-      { validate: InputValidationHelpers.phoneNumberValidation },
+      { validate: InputValidation.phoneNumberValidation },
     )
   }, [])
 
@@ -39,7 +39,6 @@ export default (navigation: Navigation) => {
     /**
      * Display alerts on errors.
      */
-
     if (errors.phone) {
       DisplayDropdownWithError('dropDownAlert.error', errors.phone.message)
     } else if (errors.password) {

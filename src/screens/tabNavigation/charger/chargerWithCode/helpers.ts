@@ -3,7 +3,7 @@ import services from 'services'
 import {
   LastUsedChargerResponseObject,
   LastUsedCharger,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
 
 /**
   * Get recently used chargers.

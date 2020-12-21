@@ -7,7 +7,7 @@ import { Const, Colors } from 'utils'
 import {
   FCWithNavigation,
   ChargingTypes,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
 
 const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()

@@ -9,8 +9,8 @@ import {
   ModalPopupChargerItem,
   BaseText,
 } from 'components'
-import { Colors, NavigationActions } from 'utils'
-import { HomeNavigateModes } from '../../../../../@types/allTypes.d'
+import { Colors, Navigation } from 'utils'
+import { HomeNavigateModes } from 'types'
 import { UsedUpFastFC } from './types'
 
 const UsedUpFast: UsedUpFastFC = (
@@ -32,7 +32,7 @@ const UsedUpFast: UsedUpFastFC = (
         <View style={styles.lineView} />
         <TouchableOpacity
           onPress={(): void => {
-            NavigationActions.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
+            Navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
           }}
           style={styles.subtype2Touchable}
         >

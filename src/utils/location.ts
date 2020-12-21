@@ -1,22 +1,50 @@
-/* eslint-disable import/prefer-default-export */
 import { Alert, Linking, Platform } from 'react-native'
-import {
-  isPermissionGrantedRegex,
-  isPermissionDeniedRegex,
-} from 'utils/mapAndLocation/permissionsRegex'
-import locationConfig from 'utils/mapAndLocation/location'
+import RNLocation, { LocationPermissionStatus } from 'react-native-location'
 import defaults from 'utils/defaults'
 import i18next from 'i18next'
 
+/**
+ * Determine if permission is granted.
+ */
+export const isPermissionGranted = (
+  status: LocationPermissionStatus,
+) => status.match(
+  /authorizedAlways|authorizedWhenInUse|authorizedFine|authorizedCoarse/,
+)
+
+/**
+ * Determine if permission is denied.
+ */
+export const isPermissionDenied = (
+  status: LocationPermissionStatus,
+) => status.match(/denied|restricted|notDetermined/)
+
+/**
+ * Request location permission.
+ */
+export const requestPermission = async (): Promise<boolean> => {
+  const res = await RNLocation.requestPermission({
+    ios: 'always',
+    android: {
+      detail: 'fine',
+    },
+  })
+
+  return res
+}
+
+/**
+ * Get and request location.
+ */
 export const getAndRequestLocation = async (): Promise<boolean> => {
   if (
-    !isPermissionGrantedRegex(defaults.locationPermission)
+    !isPermissionGranted(defaults.locationPermission)
     && Platform.OS === 'ios'
   ) {
     onLocationAccessDenied()
     return true
-  } if (!isPermissionGrantedRegex(defaults.locationPermission)) {
-    const status = await locationConfig.requestPermission()
+  } if (!isPermissionGranted(defaults.locationPermission)) {
+    const status = await requestPermission()
 
     if (!status) {
       return false
@@ -25,6 +53,9 @@ export const getAndRequestLocation = async (): Promise<boolean> => {
   return true
 }
 
+/**
+ * Upon location request denied display alert.
+ */
 const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
   Alert.alert(
     i18next.t('needLocation'),
@@ -54,7 +85,7 @@ const onLocationAccessDenied = (cb?: (status: boolean) => void) => {
  */
 export const isLocationEnabled = () => (
   defaults.locationPermission
-  && isPermissionDeniedRegex(defaults.locationPermission)
+  && isPermissionDenied(defaults.locationPermission)
 )
 
 /**

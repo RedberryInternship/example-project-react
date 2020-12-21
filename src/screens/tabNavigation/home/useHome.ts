@@ -15,7 +15,7 @@ import {
   Navigation,
   ChargerDetail,
   Charger,
-} from '../../../../@types/allTypes.d'
+} from 'types'
 
 const useHome = (navigation: Navigation) => {
   const [selectedFilters, setSelectedFilters] = useState<boolean[]>(Array(6).fill(false))
@@ -60,7 +60,7 @@ const useHome = (navigation: Navigation) => {
    */
   useEffect(() => {
     if (showAll) {
-      setSelectedFiltersOnMap(Array(6).fill(0))
+      setSelectedFiltersOnMap(Array(6).fill(false))
       setOnMapFilteredChargers([])
     } else {
       setBottomPanelSearchInputText('')
@@ -140,10 +140,26 @@ const useHome = (navigation: Navigation) => {
     [selectedFilters],
   )
 
+  /**
+   * Handle map filter clicks.
+   */
+  const handleMapFilterClick = useCallback(
+    (index: number): void => {
+      const newSelectedFilters: boolean[] = [...selectedFiltersOnMap];
+      newSelectedFilters[index] = !selectedFiltersOnMap[index]
+      setSelectedFiltersOnMap(newSelectedFilters)
+    },
+    [selectedFiltersOnMap, setSelectedFiltersOnMap],
+  )
+
   useEffect(() => {
-    GetFilteredCharger(selectedFilters, bottomPanelSearchInputText).then((data) => {
+    const filterData = async () => {
+      const data = await GetFilteredCharger(selectedFilters, bottomPanelSearchInputText)
+
       setBottomSearchPanelChargers(data ?? [])
-    })
+    }
+
+    filterData()
   }, [selectedFilters, bottomPanelSearchInputText])
 
   /**
@@ -159,7 +175,9 @@ const useHome = (navigation: Navigation) => {
   )
 
   useEffect(() => {
-    GetFilteredCharger(selectedFiltersOnMap, bottomPanelSearchInputText).then((data) => {
+    const filterData = async () => {
+      const data = await GetFilteredCharger(selectedFiltersOnMap, bottomPanelSearchInputText)
+
       if (data) {
         setShowAll(false)
         setOnMapFilteredChargers(data)
@@ -167,14 +185,17 @@ const useHome = (navigation: Navigation) => {
         setShowAll(true)
         setOnMapFilteredChargers([])
       }
-    })
-  }, [selectedFiltersOnMap])
+    }
+
+    filterData()
+  }, [selectedFiltersOnMap, bottomPanelSearchInputText])
 
   return {
     setBottomPanelSearchInputText,
     bottomSearchPanelChargers,
     onMapFilteredChargers,
     selectedFiltersOnMap,
+    handleMapFilterClick,
     onFilteredItemClick,
     selectedFilters,
     bottomSheetRef,

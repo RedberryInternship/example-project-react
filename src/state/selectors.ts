@@ -1,4 +1,4 @@
-import { ApplicationState } from 'allTypes'
+import { ApplicationState } from 'types'
 
 export const selectUser = ({ user }: ApplicationState) => user
 

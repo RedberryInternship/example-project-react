@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Linking } from 'react-native'
 import * as Const from 'utils/const'
-import { ContactInfoResponseType } from 'allTypes'
+import { ContactInfoResponseType } from 'types'
 import services from 'services'
 import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
 import { platformIOS } from 'utils/const'
 import { OpenUrl } from './types'
 

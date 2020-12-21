@@ -10,16 +10,12 @@ import StartUpLayer from 'StartUpLayer'
 
 console.disableYellowBox = true
 
-const App = (): React.ReactElement => {
-  console.log(['App - Layer'])
-
-  return (
-    <Provider store={store}>
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <StartUpLayer />
-      </SafeAreaProvider>
-    </Provider>
-  )
-}
+const App = (): React.ReactElement => (
+  <Provider store={store}>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <StartUpLayer />
+    </SafeAreaProvider>
+  </Provider>
+)
 
 export default App

@@ -2,14 +2,14 @@ import { useState, useMemo } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { Navigation } from 'allTypes'
+import { Navigation } from 'types'
 import { startChargingProcess } from 'state/actions/chargingProcessActions'
 import services from 'services'
 import { refreshUserData } from 'state/actions/userActions'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
 import * as Const from 'utils/const'
 
 const animatedArrow = new Animated.Value(0)

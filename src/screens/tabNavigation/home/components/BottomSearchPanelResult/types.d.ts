@@ -1,4 +1,4 @@
-import { Charger, ChargerDetail } from 'allTypes'
+import { Charger, ChargerDetail } from 'types'
 import { ReactElement } from 'react'
 
 type BottomSearchPanelResultProps = {

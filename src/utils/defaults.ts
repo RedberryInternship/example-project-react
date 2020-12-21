@@ -1,4 +1,4 @@
-import { Defaults } from 'allTypes'
+import { Defaults } from 'types'
 import { createRef } from 'react'
 
 const defaults: Defaults = {
@@ -14,6 +14,7 @@ const defaults: Defaults = {
   userDetail: null,
   internetConnected: null,
   isForeground: null,
+  chargers: null,
 }
 
 export default defaults

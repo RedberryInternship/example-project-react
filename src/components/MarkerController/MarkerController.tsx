@@ -1,6 +1,6 @@
 import React from 'react'
 import { RootPin } from 'components'
-import { ChargerMarkerColor } from '../../../@types/allTypes.d'
+import { ChargerMarkerColor } from 'types'
 import { MarkerControllerFC } from './types'
 
 const MarkerController: MarkerControllerFC = ({ status, ...props }) => {

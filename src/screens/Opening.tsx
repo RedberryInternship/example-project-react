@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { Colors, GNOME } from 'utils'
+import { Colors, Font } from 'utils'
 import { BaseText } from 'components'
 
 const Opening = () => (
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primaryBackground,
   },
   text: {
-    fontFamily: GNOME.HELV_HVEX,
+    fontFamily: Font.HELV_HVEX,
   },
 })
 

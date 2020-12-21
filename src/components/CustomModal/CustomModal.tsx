@@ -10,14 +10,17 @@ import {
   LegendType2,
   MapPopUp,
 } from 'components'
-import { ModalTypes } from 'utils/enums'
+import { ModalTypes } from 'types'
 import { CustomModalInterface, Config } from './types'
 import { initialState } from './config'
 
 class CustomModal extends React.PureComponent implements CustomModalInterface {
-  state = { ...initialState }
-
   ref: any = React.createRef()
+
+  constructor(props: any) {
+    super(props)
+    this.state = { ...initialState }
+  }
 
   showModal = (): void => {
     this.setState({
@@ -29,6 +32,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     this.setState({
       visible: false,
     })
+
     this.state.config.onCloseClick && this.state.config.onCloseClick()
   }
 

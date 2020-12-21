@@ -8,21 +8,24 @@ import { Defaults } from 'utils'
 import {
   getAndRequestLocation,
   isLocationEnabled,
-} from 'helpers/location'
+} from 'utils/location'
 import images from 'assets/images'
 import {
   HomeMainSearchView,
   OnMapRoundButton,
+  HomeFilterView,
 } from '../index'
 import { HomeMainFC } from './types'
 
 const HomeMainComponent: HomeMainFC = (
   {
-    navigation,
+    handleMapFilterClick,
+    selectedFiltersOnMap,
     allChargers,
-    mapRef,
+    navigation,
     setShowAll,
     mainInputRef,
+    mapRef,
   },
 ) => {
   const insets = useSafeAreaInsets()
@@ -72,6 +75,10 @@ const HomeMainComponent: HomeMainFC = (
           }}
           image={homeState.locationImageType}
           imageStyle={styles.onMapRoundImage}
+        />
+        <HomeFilterView
+          selectedFiltersOnMap={selectedFiltersOnMap}
+          handleMapFilterClick={handleMapFilterClick}
         />
       </View>
     </View>

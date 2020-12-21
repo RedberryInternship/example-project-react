@@ -1,17 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { selectUser } from 'state/selectors'
+import { useDispatch } from 'react-redux'
 import { refreshUserData } from 'state/actions/userActions'
 import services from 'services'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
+} from 'utils/inform'
+import { UserCard } from 'types'
 
 const useCardListView = () => {
-  const user = useSelector(selectUser)
   const dispatch = useDispatch()
 
-  const updateUserHandler = async (val) => {
+  const updateUserHandler = async (val: UserCard) => {
     try {
       val && (await services.setDefaultCard(val.id))
       dispatch(refreshUserData())
@@ -23,7 +22,6 @@ const useCardListView = () => {
 
   return {
     updateUserHandler,
-    user,
   }
 }
 

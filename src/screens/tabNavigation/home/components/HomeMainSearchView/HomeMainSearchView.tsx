@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import {
   KeyboardAwareFlatList,
 } from 'react-native-keyboard-aware-scroll-view'
-import { Charger } from 'allTypes'
+import { Charger } from 'types'
 import { Const, Colors } from 'utils'
 import { HomeMainSearchInput, HomeMainSearchResult } from '../index'
 import useHomeMainSearchView from './useHomeMainSearchView'

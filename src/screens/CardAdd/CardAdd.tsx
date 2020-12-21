@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { BaseHeader, CardAddView } from 'components'
 import colors from 'utils/colors'
 import { refreshUserData } from 'state/actions/userActions'
-import { FCWithNavigation } from 'allTypes'
+import { FCWithNavigation } from 'types'
 
 const CardAdd: FCWithNavigation = ({ navigation }) => {
   const dispatch = useDispatch()

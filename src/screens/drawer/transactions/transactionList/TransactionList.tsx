@@ -3,7 +3,7 @@ import { ScrollView, View, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import { BaseHeader, FetchedDataRenderer } from 'components'
 import { Colors } from 'utils'
-import { TransactionsHistoryResponseItem } from 'allTypes'
+import { TransactionsHistoryResponseItem } from 'types'
 import TransactionListItem from './components/TransactionListItem'
 import { getTransactionsHistory } from './helpers'
 

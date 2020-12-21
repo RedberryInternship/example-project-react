@@ -1,5 +1,8 @@
 import { ReactElement } from 'react'
-import { Charger as BaseCharger, ChargerConnectorType } from 'allTypes'
+import {
+  Charger as BaseCharger,
+  ChargerConnectorType,
+} from 'types'
 
 export type Charger = (BaseCharger & { from?: string }) | undefined
 

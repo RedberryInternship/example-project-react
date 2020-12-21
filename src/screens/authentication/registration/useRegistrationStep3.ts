@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { saveUserAndRefresh } from 'state/actions/userActions'
 import services from 'services'
-import { RegisterResponseType } from 'allTypes'
+import { RegisterResponseType } from 'types'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { InputValidationHelpers } from 'utils'
+} from 'utils/inform'
+import { InputValidation } from 'utils'
 import { RegisterError, RepeatPassword } from './types'
 
 /**
@@ -44,7 +44,7 @@ export default (
   useEffect(() => {
     register(
       { name: 'termsAndConditions' },
-      { validate: InputValidationHelpers.checkboxValidation },
+      { validate: InputValidation.checkboxValidation },
     )
   }, [])
 

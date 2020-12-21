@@ -10,12 +10,16 @@ import {
   useAppLife,
   useReady,
 } from 'hooks'
-import { StatusBar } from 'react-native'
 import { CustomModal, CustomDropdownAlert } from 'components'
 import defaults from 'utils/defaults'
 import { selectChargingProcess } from 'state/selectors'
 import references from 'utils/references'
-import { setNavigationReference, determineNavigationTheme } from 'helpers/navigation'
+import {
+  determineNavigationTheme,
+  onNavigationStateChange,
+  setNavigationReference,
+} from 'utils/navigation'
+
 import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {
@@ -30,22 +34,18 @@ const StartUpLayer = () => {
   useTroubleshootNetwork()
   useReady()
 
-  const state = useSelector(selectChargingProcess)
+  const { chargingState } = useSelector(selectChargingProcess)
+  const { token } = defaults
+  const screenProps = { chargingState, token }
 
   return (
     <>
       <Navigation
         ref={setNavigationReference}
-        screenProps={{
-          token: defaults.token,
-          chargingState: state.chargingState,
-        }}
+        screenProps={screenProps}
         theme="dark"
-        onNavigationStateChange={() => {
-          StatusBar.setBarStyle(determineNavigationTheme(), true)
-        }}
+        onNavigationStateChange={onNavigationStateChange}
       />
-
       <CustomDropdownAlert dropDownInactiveBarColor={determineNavigationTheme} />
       <CustomModal ref={defaults.modal} />
     </>

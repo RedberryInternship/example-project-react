@@ -4,7 +4,7 @@ import {
   ScrollView,
   View,
 } from 'react-native'
-import { FCWithNavigation, BusinessService } from 'allTypes'
+import { FCWithNavigation, BusinessService } from 'types'
 import {
   BaseHeader,
   TitleTopLeftContainer,

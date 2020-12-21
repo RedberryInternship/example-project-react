@@ -1,29 +1,32 @@
 import Defaults from './defaults'
 import Colors from './colors'
 import * as Const from './const'
-import GNOME from './GNOME'
-import NavigationActions from './navigation.service'
-import i18n, { getLocaleText } from './localization/localization'
-import locationConfig from './mapAndLocation/location'
-import { regionFrom, determineTimePeriod } from './mapAndLocation/mapFunctions'
-import mapStyles from './mapAndLocation/mapStyle'
-import mapStyle2 from './mapAndLocation/mapStyle2'
-import Sentry from './sentry'
-import InputValidationHelpers from './InputValidationHelpers'
+import Font from './font'
+import Navigation from './navigation'
+import i18n, { getLocaleText } from './localization'
+import * as Map from './map'
+import InputValidation from './InputValidation'
+import * as Inform from './inform'
+import * as Locale from './locale'
+import * as Location from './location'
+import References from './references'
+import * as Sentry from './sentry'
+import * as App from './app'
 
 export {
-  Defaults,
-  Colors,
-  GNOME,
-  NavigationActions,
-  i18n,
+  InputValidation,
   getLocaleText,
-  locationConfig,
-  regionFrom,
-  Const,
-  mapStyles,
-  mapStyle2,
-  determineTimePeriod,
+  Navigation,
+  References,
+  Location,
+  Defaults,
   Sentry,
-  InputValidationHelpers,
+  Colors,
+  Inform,
+  Locale,
+  Const,
+  Font,
+  i18n,
+  Map,
+  App,
 }

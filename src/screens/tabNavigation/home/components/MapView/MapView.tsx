@@ -8,12 +8,9 @@ import { StyleSheet, View } from 'react-native'
 import Map, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps'
-import {
-  determineTimePeriod,
-  mapStyles,
-  mapStyle2,
-  Colors,
-} from 'utils'
+import { Colors } from 'utils'
+import { determineTimePeriod } from 'utils/map'
+import { darkMode, lightMode } from './mapStyles'
 import { MapViewProps } from './types'
 import { Pins, Polyline } from '../index'
 import useMapView from './useMapView'
@@ -56,7 +53,7 @@ const MapView = forwardRef<Map, MapViewProps>(
           showsUserLocation
           showsPointsOfInterest={false}
           showsTraffic={false}
-          customMapStyle={determineTimePeriod() ? mapStyle2 : mapStyles}
+          customMapStyle={determineTimePeriod() ? darkMode : lightMode}
           ref={mapRef}
           showsCompass={false}
           loadingBackgroundColor={determineTimePeriod() ? Colors.primaryBackground : 'white'}
@@ -70,7 +67,14 @@ const MapView = forwardRef<Map, MapViewProps>(
           <Polyline polyline={polyline} />
         </Map>
       </View>
-    ), [mapReady, mapRef])
+    ), [
+      filteredChargersOnMap,
+      onMarkerPress,
+      mapReady,
+      polyline,
+      showAll,
+      mapRef,
+    ])
   },
 )
 

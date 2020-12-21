@@ -1,17 +1,16 @@
 import { Dimensions, Platform } from 'react-native'
 import images from 'assets/images'
-import { UserSettingEnum, SettingsListFieldType } from '../../@types/allTypes.d'
+import { UserSettingEnum, SettingsListFieldType } from 'types'
 import Colors from './colors'
 
-export const API = 'https://api-dev.e-space.ge/api/app/V1' // dev
+// export const API = 'https://api-dev.e-space.ge/api/app/V1' // dev
 // export const API = 'http://espace.test/api/app/V1' // local dev
-// export const API = 'https://app.e-space.ge/api/app/V1' // prod
+export const API = 'https://app.e-space.ge/api/app/V1' // prod
 
 // google maps api
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'
 export const MAP_URL = 'https://maps.googleapis.com/maps/api'
 
-// Vobi Todo: move this as config
 export const Width = Dimensions.get('window').width
 export const Height = Dimensions.get('window').height
 

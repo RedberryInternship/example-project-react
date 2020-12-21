@@ -4,8 +4,8 @@ import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { Navigation } from 'allTypes'
+} from 'utils/inform'
+import { Navigation } from 'types'
 import { SetNewPassword } from './types'
 
 export default (navigation: Navigation) => {
@@ -19,7 +19,7 @@ export default (navigation: Navigation) => {
     {
       validateCriteriaMode: 'all',
       submitFocusError: true,
-    }
+    },
   )
 
   /**
@@ -29,9 +29,8 @@ export default (navigation: Navigation) => {
     {
       password,
       repeatPassword,
-    }
+    },
   ) => {
-
     if (!repeatPassword && !password) {
       return DisplayDropdownWithError('dropDownAlert.forgotPassword.passwordsNotFilled')
     }

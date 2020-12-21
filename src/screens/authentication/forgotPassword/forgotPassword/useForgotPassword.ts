@@ -4,8 +4,8 @@ import services from 'services'
 import {
   DisplayDropdownWithError,
   remoteLogger,
-} from 'helpers/inform'
-import { Navigation } from 'allTypes'
+} from 'utils/inform'
+import { Navigation } from 'types'
 import { ForgotPassword } from './types'
 
 export default (navigation: Navigation) => {

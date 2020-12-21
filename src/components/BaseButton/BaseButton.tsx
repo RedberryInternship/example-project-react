@@ -11,7 +11,7 @@ import {
   BaseNativeTouchable,
   BaseText,
 } from 'components'
-import { Const, Colors, GNOME } from 'utils'
+import { Const, Colors, Font } from 'utils'
 import { BaseButtonFC } from './types'
 
 const BaseButton: BaseButtonFC = (
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     textAlignVertical: 'bottom',
     fontWeight: 'bold',
-    fontFamily: GNOME.HELV_HVEX,
+    fontFamily: Font.HELV_HVEX,
     marginHorizontal: 4,
     textAlign: 'center',
     alignSelf: 'center',

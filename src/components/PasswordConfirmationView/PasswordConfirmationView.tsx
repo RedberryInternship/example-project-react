@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 import { Colors } from 'utils'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError } from 'utils/inform'
 import { BaseInput } from 'components'
 import images from 'assets/images'
 import { PasswordConfirmationViewFC } from './types'

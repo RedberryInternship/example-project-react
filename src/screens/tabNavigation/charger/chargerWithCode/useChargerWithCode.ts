@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { DisplayDropdownWithError } from 'helpers/inform'
+import { DisplayDropdownWithError } from 'utils/inform'
 import {
   HomeNavigateModes,
   Navigation,
   Charger,
-} from '../../../../../@types/allTypes.d'
+} from 'types'
 
 export default (navigation: Navigation) => {
   const state = useSelector(selectUser)
@@ -30,7 +30,7 @@ export default (navigation: Navigation) => {
     const charger = state
       .AllChargers
       ?.find(
-        (val: Charger) => val.code.toString() === chargerWithCode,
+        (val: Charger) => val.code?.toString() === chargerWithCode,
       )
 
     if (!charger) {

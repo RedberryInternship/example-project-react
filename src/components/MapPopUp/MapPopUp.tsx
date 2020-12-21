@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { View, Image, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { ChargerDetail } from 'allTypes'
+import { ChargerDetail } from 'types'
 import images from 'assets/images'
 import { BaseText, ChargerGroupPopupItem } from 'components'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
