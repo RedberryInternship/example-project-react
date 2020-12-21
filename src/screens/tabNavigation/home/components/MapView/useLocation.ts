@@ -87,6 +87,7 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
               return
             }
           }
+
           const coords = await getCoordsAnyway()
           navigateByRef(coords.lat, coords.lng)
         } catch (error) {

@@ -28,7 +28,7 @@ const HomeFilter: HomeFilterFC = (
 ) => {
   const [showFilter, setShowFilter] = useState(false)
   const { t } = useTranslation()
-  console.log('HomeFilter');
+
   const [translateX] = useState(new Animated.Value(translate))
 
   const handleFilterButton = useCallback((): void => {

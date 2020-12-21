@@ -63,7 +63,12 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
       const location: Location | null = await RNLocation.getLatestLocation({
         timeout: 6000,
       })
-      if (location !== null) return { lat: location.latitude, lng: location.longitude }
+      if (location !== null) {
+        return {
+          lat: location.latitude,
+          lng: location.longitude,
+        }
+      }
     } catch (error) {
       remoteLogger(error)
       DisplayDropdownWithError()

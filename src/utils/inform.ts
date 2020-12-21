@@ -26,7 +26,9 @@ export const Logger = (data: any): void => {
  */
 export const remoteLogger = (data: any, type: 'Error' | 'Message' = 'Error') => {
   if (__DEV__) {
-    console.log([`RemoteLogger - ${type}`, data])
+    console.groupCollapsed('Error')
+    console.error(data)
+    console.groupEnd()
   }
 
   switch (type) {
