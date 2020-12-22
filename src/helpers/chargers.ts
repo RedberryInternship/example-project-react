@@ -12,6 +12,11 @@ export const refreshAndCacheChargers = async () => {
 
   if (haveExpired) {
     const retrievedChargers = await services.getChargers()
+
+    console.groupCollapsed('Chargers')
+    console.log(retrievedChargers)
+    console.groupEnd()
+
     const now = new Date().getTime()
     const dataToCache = {
       data: retrievedChargers,

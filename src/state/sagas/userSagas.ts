@@ -80,6 +80,8 @@ function* saveUserAndRefresh(action: SaveUserAndRefreshAction) {
   if (token) {
     yield put(actions.refreshUserData())
     yield put(actions.refreshFavoriteChargers())
+  } else {
+    yield put(actions.userIsNotAuthorized())
   }
 }
 

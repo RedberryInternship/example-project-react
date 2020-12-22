@@ -11,23 +11,12 @@ import {
 declare const __DEV__: boolean
 
 /**
- * Log data when in development mode.
- *
- * @param data
- */
-export const Logger = (data: any): void => {
-  if (__DEV__) {
-    console.log(data)
-  }
-}
-
-/**
  * Send logs remotely for debugging.
  */
 export const remoteLogger = (data: any, type: 'Error' | 'Message' = 'Error') => {
   if (__DEV__) {
     console.groupCollapsed('Error')
-    console.error(data)
+    console.log(data)
     console.groupEnd()
   }
 

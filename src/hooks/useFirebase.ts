@@ -75,11 +75,13 @@ const useFirebase = (): void => {
    * Connect with firebase.
    */
   useEffect(() => {
-    initialRun()
-    return () => {
-      onTokenRefreshListener.current()
+    if (authStatus === 'success') {
+      initialRun()
+      return () => {
+        onTokenRefreshListener.current()
+      }
     }
-  }, [initialRun])
+  }, [initialRun, authStatus])
 
   /**
    * Upon authorization update user's firebase token.

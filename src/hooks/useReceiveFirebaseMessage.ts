@@ -20,13 +20,17 @@ const useReceiveFirebaseMessage = () => {
   useEffect(() => {
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       const firebaseMSG = JSON.parse(remoteMessage.data?.data ?? '')
-      console.log(['FirebaseMSG', firebaseMSG])
+
+      console.groupCollapsed('FirebaseMSG')
+      console.info(firebaseMSG)
+      console.groupEnd()
+
       const state = firebaseMSG as ChargingState[] | undefined
       state && dispatch(updateChargingProcesses(state))
     })
 
     return () => unsubscribe()
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     if (authStatus === 'success') {
@@ -34,7 +38,7 @@ const useReceiveFirebaseMessage = () => {
     } else {
       defaults.modal?.current?.customUpdate(false)
     }
-  }, [authStatus])
+  }, [authStatus, dispatch])
 }
 
 export default useReceiveFirebaseMessage
