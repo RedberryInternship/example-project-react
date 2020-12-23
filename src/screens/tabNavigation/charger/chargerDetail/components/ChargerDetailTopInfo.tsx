@@ -17,10 +17,10 @@ const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
     chargerLocationDirectionPress,
     showChargerLocationPress,
     favoritePress,
-    code,
     location,
     distance,
     favorite,
+    code,
   },
 ) => {
   const { t } = useTranslation()

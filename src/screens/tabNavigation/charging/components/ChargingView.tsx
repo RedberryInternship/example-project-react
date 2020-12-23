@@ -26,6 +26,7 @@ const ChargingView: ChargingViewFC = (
       already_paid,
       order_id,
       start_charging_time,
+      consumed_kilowatts,
     },
     singleCharger,
   },
@@ -68,19 +69,32 @@ const ChargingView: ChargingViewFC = (
         </View>
       </View>
 
-      <View style={styles.pricingView}>
-        <BaseText style={styles.currentlyChargedPrice}>
-          {consumed_money}
-          {' '}
-          /
-          {' '}
-        </BaseText>
-        <BaseText style={styles.finalPrice}>
-          {already_paid}
-          {' '}
-          {t('gel')}
-        </BaseText>
+      <View style={styles.informationPanel}>
+        <View style={styles.pricingView}>
+          <BaseText style={styles.currentlyChargedPrice}>
+            {consumed_money}
+            {' '}
+            /
+            {' '}
+          </BaseText>
+          <BaseText style={styles.finalPrice}>
+            {already_paid}
+            {' '}
+            {t('gel')}
+          </BaseText>
+        </View>
+        <View style={styles.dividerWrapper}>
+          <View style={styles.divider} />
+        </View>
+        <View style={styles.kilowattsWrapper}>
+          <BaseText style={styles.kilowatts}>
+            {consumed_kilowatts}
+            {' '}
+            კვტ.
+          </BaseText>
+        </View>
       </View>
+
       <View style={styles.chargeAnotherCarContainer}>
         {singleCharger && (
           <TouchableOpacity
@@ -108,88 +122,112 @@ const ChargingView: ChargingViewFC = (
 
 export default ChargingView
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: Colors.primaryBackground,
+const styles = StyleSheet.create(
+  {
+    container: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      backgroundColor: Colors.primaryBackground,
+    },
+    infoLinearGradient: {
+      paddingHorizontal: 48,
+      paddingVertical: 48,
+      marginHorizontal: 44,
+      borderRadius: 10,
+      marginBottom: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    MainChargerCircleContainer: {
+      position: 'relative',
+      flex: 2,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginVertical: 32,
+    },
+    MainChargerCircle: {
+      position: 'absolute',
+      alignSelf: 'center',
+      backgroundColor: Colors.primaryBackground,
+      borderWidth: 4,
+      borderColor: Colors.primaryGreen,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    infoText: {
+      lineHeight: 18,
+      fontSize: 13,
+      letterSpacing: 0.21,
+      color: 'white',
+      textAlign: 'center',
+    },
+    pulseStyle: {
+      borderColor: Colors.primaryGreen,
+      borderWidth: 2,
+    },
+    chargerImage: {
+      width: 55,
+      height: 55,
+      resizeMode: 'contain',
+      tintColor: Colors.primaryGreen,
+    },
+    informationPanel: {
+      marginBottom: 100,
+    },
+    pricingView: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    currentlyChargedPrice: {
+      color: Colors.primaryWhite,
+      fontSize: 22,
+      lineHeight: 36,
+    },
+    finalPrice: {
+      color: Colors.primaryBlue,
+      fontSize: 16,
+      marginTop: 6,
+    },
+    dividerWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    divider: {
+      width: 200,
+      borderBottomWidth: 1,
+      borderBottomColor: Colors.primaryGray,
+      marginTop: 20,
+      marginBottom: 20,
+    },
+    kilowattsWrapper: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    kilowatts: {
+      fontSize: 17,
+      color: Colors.primaryBlue,
+    },
+    chargeAnotherCarContainer: {
+      flex: 0,
+      justifyContent: 'flex-end',
+    },
+    chargeAnotherCarTouchable: {
+      marginVertical: 16,
+      alignItems: 'center',
+    },
+    chargeAnotherCarText: {
+      color: Colors.primaryGreen,
+      fontSize: 13,
+    },
+    finishBtn: {
+      marginTop: 16,
+      marginVertical: 16,
+      marginHorizontal: 0,
+      alignSelf: 'center',
+      width: Const.Width - 32,
+    },
+    isChargerConnected: {},
   },
-  infoLinearGradient: {
-    paddingHorizontal: 48,
-    paddingVertical: 48,
-    marginHorizontal: 44,
-    borderRadius: 10,
-    marginBottom: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  MainChargerCircleContainer: {
-    position: 'relative',
-    flex: 2,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 32,
-  },
-  MainChargerCircle: {
-    position: 'absolute',
-    alignSelf: 'center',
-
-    backgroundColor: Colors.primaryBackground,
-    borderWidth: 4,
-    borderColor: '#18a0fb',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  infoText: {
-    lineHeight: 18,
-    fontSize: 13,
-    letterSpacing: 0.21,
-    color: 'white',
-    textAlign: 'center',
-  },
-  pulseStyle: {
-    borderColor: '#18a0fb',
-    borderWidth: 2,
-  },
-  chargerImage: {
-    width: 55,
-    height: 55,
-    resizeMode: 'contain',
-    tintColor: Colors.primaryBlue,
-  },
-  pricingView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  currentlyChargedPrice: {
-    color: Colors.primaryWhite,
-    fontSize: 22,
-    lineHeight: 36,
-  },
-  finalPrice: {
-    color: Colors.primaryBlue,
-    fontSize: 16,
-  },
-  chargeAnotherCarContainer: {
-    flex: 0,
-    justifyContent: 'flex-end',
-  },
-  chargeAnotherCarTouchable: {
-    marginVertical: 16,
-    alignItems: 'center',
-  },
-  chargeAnotherCarText: {
-    color: Colors.primaryGreen,
-    fontSize: 13,
-  },
-  finishBtn: {
-    marginTop: 16,
-    marginVertical: 16,
-    marginHorizontal: 0,
-    alignSelf: 'center',
-    width: Const.Width - 32,
-  },
-  isChargerConnected: {},
-})
+)

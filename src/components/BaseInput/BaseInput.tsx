@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     flex: 0,
     width: '100%',
     fontSize: 13,
-    color: Colors.primaryGray,
+    color: Colors.primaryLightGrey,
     marginBottom: 8,
   },
   Input: {

@@ -75,7 +75,15 @@ const Charging: FCWithNavigation = ({ navigation }) => {
         {chargingState.length === 2 && twoChargingProcesses}
       </View>
     ),
-    [navigation, chargingState, hook, activeTab, setActiveTab],
+    [
+      twoChargingProcesses,
+      oneChargingProcess,
+      chargingState,
+      setActiveTab,
+      navigation,
+      activeTab,
+      hook,
+    ],
   )
 }
 

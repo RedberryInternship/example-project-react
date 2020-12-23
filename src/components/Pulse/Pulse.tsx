@@ -1,21 +1,13 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable no-plusplus */
+/* eslint-disable no-loop-func */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/static-property-placement */
+/* eslint-disable react/sort-comp */
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { View, Image, StyleSheet } from 'react-native'
 
 export default class Pulse extends Component {
-  static propTypes = {
-    color: PropTypes.string,
-    diameter: PropTypes.number,
-    duration: PropTypes.number,
-    image: PropTypes.object,
-    initialDiameter: PropTypes.number,
-    numPulses: PropTypes.number,
-    pulseStyle: PropTypes.object,
-    speed: PropTypes.number,
-    style: PropTypes.object,
-    distance: PropTypes.number,
-  }
-
   static defaultProps = {
     color: 'blue',
     diameter: 400,
@@ -81,7 +73,7 @@ export default class Pulse extends Component {
 
   createPulse = (pKey) => {
     if (this.mounted) {
-      const pulses = this.state.pulses
+      const { pulses } = this.state
 
       const pulse = {
         pulseKey: pulses.length + 1,
@@ -99,9 +91,8 @@ export default class Pulse extends Component {
   updatePulse = () => {
     if (this.mounted) {
       const pulses = this.state.pulses.map((p, i) => {
-        const maxDiameter = this.state.maxDiameter
-        const newDiameter =
-          p.diameter > maxDiameter ? this.props.initialDiameter : p.diameter + 1
+        const { maxDiameter } = this.state
+        const newDiameter = p.diameter > maxDiameter ? this.props.initialDiameter : p.diameter + 1
         const centerOffset = (maxDiameter - newDiameter) / 2
         const opacity = Math.abs(
           (this.state.maxDiameter - newDiameter) / this.state.distance,
@@ -109,8 +100,8 @@ export default class Pulse extends Component {
         const pulse = {
           pulseKey: i + 1,
           diameter: newDiameter,
-          opacity: opacity,
-          centerOffset: centerOffset,
+          opacity,
+          centerOffset,
         }
 
         return pulse

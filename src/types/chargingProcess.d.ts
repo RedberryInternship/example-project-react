@@ -17,6 +17,7 @@ export type ChargingState = {
   already_paid: number
   consumed_money: number
   refund_money: number
+  consumed_kilowatts: number
   charging_status: ChargingStatus
   charger_connector_type_id: number
   charger_id: number
