@@ -11,6 +11,7 @@ export type Favorite = {
   location: LanguageType
   public: number
   active: number
+  hidden: number
   lat: string
   lng: string
   iban: string
@@ -57,6 +58,7 @@ export type ChargerDetail = {
   public: number
   active: number
   status: string
+  hidden: number
   lat: string
   lng: string
   iban: string
@@ -67,9 +69,16 @@ export type ChargerDetail = {
   tags: string[]
   connector_types: ChargerConnectorType[]
   charger_types: ChargerChargerTypes[]
+  whitelist: WhitelistMember[]
   is_favorite: boolean | null
   is_free: boolean
   business_services?: BusinessService[]
+}
+
+type WhitelistMember = {
+  id: number
+  charger_id: number
+  phone: string
 }
 
 type ChargerChargerTypes = {

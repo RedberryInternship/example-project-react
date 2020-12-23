@@ -2,6 +2,7 @@
 import services from 'services'
 import defaults from 'utils/defaults'
 import { ChargersResponseWithTime } from 'types'
+import { hideWhitelistedChargers } from 'helpers/chargerFilter'
 
 /**
  * If cached chargers are expired refresh them and return,
@@ -12,6 +13,7 @@ export const refreshAndCacheChargers = async () => {
 
   if (haveExpired) {
     const retrievedChargers = await services.getChargers()
+    retrievedChargers.data = hideWhitelistedChargers(retrievedChargers.data)
 
     console.groupCollapsed('Chargers')
     console.log(retrievedChargers)

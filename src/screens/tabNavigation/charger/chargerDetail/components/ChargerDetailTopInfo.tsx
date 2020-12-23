@@ -18,7 +18,6 @@ const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
     showChargerLocationPress,
     favoritePress,
     code,
-    name,
     location,
     distance,
     favorite,
@@ -29,7 +28,6 @@ const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
     <View style={styles.container}>
       <View style={styles.nameAndFavoriteIconContainer}>
         <View style={styles.nameAndCodeContainer}>
-          <BaseText style={styles.nameText}>{name}</BaseText>
           <BaseText style={styles.codeContainer}>
             {t('chargerDetail.code', { code })}
           </BaseText>
@@ -111,6 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
     color: 'white',
+    marginTop: 10,
   },
   favIconContainer: {
     width: 50,

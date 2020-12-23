@@ -48,7 +48,6 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
           favoritePress={onFavoritePress}
           favorite={charger?.is_favorite}
           code={charger?.code}
-          name={getLocaleText(charger?.name)}
           location={getLocaleText(charger?.location)}
           distance={distance}
         />

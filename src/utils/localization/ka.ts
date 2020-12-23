@@ -61,7 +61,7 @@ export default {
     drawer: {
       tariff: 'ტარიფები',
       contact: 'კონტაქტი',
-      faq: 'ხდკ',
+      faq: 'FAQ',
       partners: 'პარტნიორები',
       termsAndConditions: 'წესები და პირობები',
       settings: 'პარამეტრები',
