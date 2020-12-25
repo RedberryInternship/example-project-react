@@ -12,6 +12,7 @@ type Config = {
   onCloseClick?: () => void
   subType?: ChargingStatus
   data?: Data & any
+  shouldAgree?: boolean
 }
 
 export type InitialState = {

@@ -17,7 +17,7 @@ import { easyAlert } from 'utils/inform'
 import images from 'assets/images'
 import { isAuthenticated } from 'helpers/user'
 import { selectUser } from 'state/selectors'
-import { FCWithNavigation, Locale } from 'types'
+import { FCWithNavigation, Locale, ModalTypes } from 'types'
 import { setLocale } from 'utils/locale'
 import {
   DrawerTextFieldItem,
@@ -101,7 +101,10 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
         <View>
           <DrawerTextFieldItem
             onPress={(): void => {
-              defaults.modal?.current?.customUpdate(true, { type: 6 })
+              defaults.modal?.current?.customUpdate(true, {
+                type: ModalTypes.PRIVACY_AND_POLICY,
+                shouldAgree: false,
+              })
             }}
             text="drawer.termsAndConditions"
             image={images.greenTick}

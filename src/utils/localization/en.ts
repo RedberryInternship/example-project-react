@@ -25,6 +25,7 @@ export default {
     locationIsDenied: 'Access on location is denied',
     navigateToSettings: 'Navigate to settings',
     chargerString: 'Charger',
+    IAgree: 'I Agree',
     welcome: 'Welcome!',
     authentication: {
       authentication: 'Authentication',

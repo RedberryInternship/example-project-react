@@ -1,5 +1,5 @@
 import axiosRequest from 'axios'
-import { API } from 'utils/const'
+import { API, BUILD_NUMBER } from 'utils/const'
 import { Platform } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import defaults from 'utils/defaults'
@@ -17,7 +17,7 @@ const headers = () => (
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     Authorization: `Bearer ${defaults.token}`,
-    'App-Custom-Version': '2.5',
+    'Build-Number': BUILD_NUMBER,
     'App-Version': DeviceInfo.getVersion(),
     Device: Platform.OS,
     'Device-OS-Version': Platform.Version,

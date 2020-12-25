@@ -9,11 +9,11 @@ import {
 import HTML from 'react-native-render-html'
 import { useTranslation } from 'react-i18next'
 import images from 'assets/images'
-import { BaseText } from 'components'
+import { BaseText, BaseButton } from 'components'
 import { Colors } from 'utils'
 import { PrivacyPolicyFC } from './types'
 
-const PrivacyPolicy: PrivacyPolicyFC = ({ onPress }) => {
+const PrivacyPolicy: PrivacyPolicyFC = ({ onPress, shouldAgree }) => {
   const { t } = useTranslation()
 
   return (
@@ -25,9 +25,15 @@ const PrivacyPolicy: PrivacyPolicyFC = ({ onPress }) => {
         </TouchableOpacity>
       </ScrollView>
       <View style={styles.closeButtonView}>
-        <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
-          <Image source={images.close} style={styles.closeButtonImage} />
-        </TouchableOpacity>
+        {
+          shouldAgree
+            ? <BaseButton onPress={onPress} text="IAgree" style={{ width: '50%' }} />
+            : (
+              <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
+                <Image source={images.close} style={styles.closeButtonImage} />
+              </TouchableOpacity>
+            )
+        }
       </View>
     </View>
   );
@@ -58,7 +64,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   closeButtonView: {
-    alignItems: 'stretch',
+    display: 'flex',
+    alignItems: 'center',
   },
   closeButtonTouchable: {
     borderRadius: 25,

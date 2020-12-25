@@ -26,6 +26,7 @@ export default {
     locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
     navigateToSettings: 'პარამეტრებში გადასვლა',
     chargerString: 'დამტენი',
+    IAgree: 'ვეთანხმები',
     welcome: 'მოგესალმებით!',
     authentication: {
       authentication: 'ავტორიზაცია',

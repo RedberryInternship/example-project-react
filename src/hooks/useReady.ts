@@ -3,7 +3,10 @@ import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
 import Navigation from 'utils/navigation'
 import { refreshAndCacheChargers } from 'helpers/chargers'
-import { preparePrivacyAndPolicyPopUp } from 'helpers/privacyAndPolicy'
+import {
+  preparePrivacyAndPolicyPopUp,
+  hasAgreedToPrivacyAndPolicy,
+} from 'helpers/privacyAndPolicy'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
 /**
@@ -43,9 +46,25 @@ const useAppReady = () => {
      * Make sure that app is ready when auth status is
      * determined and chargers are loaded.
      */
-    if (authStatus !== null && chargers !== undefined) {
-      preparePrivacyAndPolicyPopUp(startApp)
-    }
+
+    (async () => {
+      if (authStatus !== null && chargers !== undefined) {
+        /**
+         * Determine if user has already agreed privacy and policy.
+         */
+        const hasAgreed = await hasAgreedToPrivacyAndPolicy()
+
+        /**
+         * If user is authenticated and hasn't yet agreed
+         * to privacy and policy then give him/her the pop up.
+         */
+        if (authStatus === 'success' && !hasAgreed) {
+          preparePrivacyAndPolicyPopUp(startApp)
+        } else {
+          startApp();
+        }
+      }
+    })()
   }, [authStatus, chargers, startApp])
 }
 
