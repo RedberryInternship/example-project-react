@@ -12,6 +12,7 @@ export default {
     turnOn: 'Turn On',
     km: 'km',
     kwh: 'kw/h',
+    kw: 'kw',
     from: '-from',
     till: '-till',
     yes: 'Yes',

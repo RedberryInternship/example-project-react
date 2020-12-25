@@ -90,7 +90,7 @@ const ChargingView: ChargingViewFC = (
           <BaseText style={styles.kilowatts}>
             {consumed_kilowatts}
             {' '}
-            კვტ.
+            {t('kw')}
           </BaseText>
         </View>
       </View>

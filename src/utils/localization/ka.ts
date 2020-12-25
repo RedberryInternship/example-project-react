@@ -13,6 +13,7 @@ export default {
     turnOn: 'ჩართვა',
     km: 'კმ',
     kwh: 'კვტ/სთ',
+    kw: 'კვტ.',
     from: '-დან',
     till: '-მდე',
     yes: 'დიახ',
