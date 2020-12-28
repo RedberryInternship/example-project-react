@@ -1,15 +1,18 @@
 import React from 'react'
 import {
-  View,
-  StyleSheet,
   TouchableOpacity,
-  Image,
+  StyleSheet,
   ScrollView,
+  Image,
+  View,
 } from 'react-native'
 import HTML from 'react-native-render-html'
 import { useTranslation } from 'react-i18next'
 import images from 'assets/images'
-import { BaseText, BaseButton } from 'components'
+import {
+  PrivacyAndPolicyButton,
+  BaseText,
+} from 'components'
 import { Colors } from 'utils'
 import { PrivacyPolicyFC } from './types'
 
@@ -27,7 +30,7 @@ const PrivacyPolicy: PrivacyPolicyFC = ({ onPress, shouldAgree }) => {
       <View style={styles.closeButtonView}>
         {
           shouldAgree
-            ? <BaseButton onPress={onPress} text="IAgree" style={{ width: '50%' }} />
+            ? (<PrivacyAndPolicyButton onPress={onPress} />)
             : (
               <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
                 <Image source={images.close} style={styles.closeButtonImage} />
@@ -66,6 +69,10 @@ const styles = StyleSheet.create({
   closeButtonView: {
     display: 'flex',
     alignItems: 'center',
+  },
+  iAgreeButton: {
+    width: 180,
+    zIndex: 1000,
   },
   closeButtonTouchable: {
     borderRadius: 25,

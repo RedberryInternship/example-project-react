@@ -9,6 +9,7 @@ import {
 } from 'helpers/privacyAndPolicy'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
+
 /**
  * Upon configuration ending, go to home screen.
  */

@@ -96,12 +96,6 @@ target 'Espace' do
 
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
-
-
-  target 'EspaceTests' do
-    inherit! :complete
-    # Pods for testing
-  end
   
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path
@@ -118,15 +112,5 @@ target 'Espace' do
   post_install do |installer|
     flipper_post_install(installer)
   end
-end
-
-target 'Espace-tvOS' do
-  # Pods for Espace-tvOS
-
-  target 'Espace-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
 

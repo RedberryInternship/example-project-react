@@ -1,8 +1,9 @@
 // import services from 'services'
 import services from 'services'
 import defaults from 'utils/defaults'
-import { ChargersResponseWithTime } from 'types'
+import { ChargersResponseWithTime, GetAllChargerResponseType, Charger } from 'types'
 import { hideWhitelistedChargers } from 'helpers/chargerFilter'
+import { remoteLogger } from 'utils/inform'
 
 /**
  * If cached chargers are expired refresh them and return,
@@ -12,7 +13,7 @@ export const refreshAndCacheChargers = async () => {
   const haveExpired = haveLocalChargersExpired()
 
   if (haveExpired) {
-    const retrievedChargers = await services.getChargers()
+    const retrievedChargers = await retrieveChargers()
     retrievedChargers.data = hideWhitelistedChargers(retrievedChargers.data)
 
     console.groupCollapsed('Chargers')
@@ -55,3 +56,14 @@ export const haveLocalChargersExpired = () => {
  * Retrieve cached chargers.
  */
 export const getCachedChargers = () => defaults.chargers
+
+const retrieveChargers = async () => {
+  try {
+    return await services.getChargers();
+  } catch (e) {
+    remoteLogger(e)
+    return {
+      data: [] as Charger[],
+    } as GetAllChargerResponseType;
+  }
+}

@@ -45,7 +45,7 @@ const BaseButton: BaseButtonFC = (
       end={{ x: 1, y: 0 }}
       style={[styles.style, style]}
     >
-      <View style={{ flex: 1, backgroundColor: '#ffffff00' }}>
+      <View style={styles.innerContainer}>
         <BaseNativeTouchable
           onPress={onPress}
           borderless={false}
@@ -84,6 +84,10 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     elevation: 1,
     marginHorizontal: 24,
+  },
+  innerContainer: {
+    flex: 1,
+    backgroundColor: '#ffffff00',
   },
   touchableStyle: {
     justifyContent: 'center',

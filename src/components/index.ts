@@ -30,6 +30,7 @@ export { default as CardListItem } from './CardListItem'
 export { default as LegendItem } from './LegendItem'
 
 // BaseUI
+export { default as PrivacyAndPolicyButton } from './PrivacyAndPolicyButton'
 export { default as BaseNativeTouchable } from './BaseNativeTouchable'
 export { default as BaseAddCardButton } from './BaseAddCardButton'
 export { default as BasePickerSelect } from './BasePickerSelect'

@@ -35,6 +35,7 @@
         }],
         "react/jsx-no-bind": "off",
         "react/jsx-indent": "off",
+        "react/prefer-stateless-function": "off",
         "indent": "off",
         "react/prop-types": "off",
         "react/require-default-props": "off",

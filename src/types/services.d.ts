@@ -14,7 +14,6 @@ export type LastUsedChargerResponseObject = {
 
 export type GetAllChargerResponseType = {
   data: Charger[]
-  current_hour: string
 }
 
 export type StartChargingResponseType = {
