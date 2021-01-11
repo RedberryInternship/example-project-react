@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
-  View,
   StyleSheet,
   Keyboard,
+  View,
 } from 'react-native'
-
 import { ProfileFieldChange } from 'types'
-import { AutoCompleteDropdown } from 'components'
+import { AutoCompleteDropdown, CarListItem } from 'components'
 import { Controller } from 'react-hook-form'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import images from 'assets/images'
@@ -25,6 +24,7 @@ const AddCar = (
   const {
     data,
     setModel,
+    userCars,
     selectedModels,
     setManufacturer,
   } = useAddCar(
@@ -34,6 +34,10 @@ const AddCar = (
       watch,
     },
   )
+
+  useEffect(() => {
+    console.log(userCars)
+  }, [userCars])
 
   return (
     <View style={styles.container}>
@@ -77,10 +81,13 @@ const AddCar = (
               zIndex={12}
             />
           </View>
-
-          <View style={{ height: 164, zIndex: -1 }} />
+          <View style={{ height: 140, zIndex: -1 }} />
         </>
       </TouchableWithoutFeedback>
+
+      <View style={styles.userCarsContainer}>
+        {userCars.map(() => <CarListItem />)}
+      </View>
     </View>
   )
 }
@@ -89,7 +96,11 @@ export default AddCar
 
 const styles = StyleSheet.create({
   container: {
+    display: 'flex',
     paddingHorizontal: 15,
     paddingTop: 80,
+  },
+  userCarsContainer: {
+    flex: 1,
   },
 })

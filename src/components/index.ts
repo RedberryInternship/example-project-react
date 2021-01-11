@@ -27,6 +27,7 @@ export { default as PhoneNumberInput } from './PhoneNumberInput'
 export { default as LegendColorItem } from './LegendColorItem'
 export { default as MapMarkerItem } from './MapMarkerItem'
 export { default as CardListItem } from './CardListItem'
+export { default as CarListItem } from './CarListItem'
 export { default as LegendItem } from './LegendItem'
 
 // BaseUI

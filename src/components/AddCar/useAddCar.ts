@@ -1,19 +1,29 @@
 import { useState, useEffect } from 'react'
 import services from 'services'
-import { CarMarkAndModelTypes } from 'types'
+import { CarMarkAndModelTypes, UserCar } from 'types'
 import { UseAddCarProps } from './types'
 
 const useAddCar = ({ register, setValue }: UseAddCarProps) => {
   const [data, setData] = useState<CarMarkAndModelTypes[]>([])
+  const [userCars, setUserCars] = useState<UserCar[]>([])
   const [model, setModel] = useState<string>('')
   const [manufacturer, setManufacturer] = useState<string>('')
   const [selectedModels, setSelectedModels] = useState<string[]>([''])
 
   useEffect(() => {
     (async () => {
+      /**
+       * Fetch all the car and mark lists.
+       */
       const { data } = await services.getCarAndMarksList()
       setData(data)
       register('carModelId')
+
+      /**
+       * Fetch user cars data.
+       */
+      const { user_cars } = await services.getCars()
+      setUserCars(user_cars)
     })()
   }, [register])
 
@@ -46,6 +56,7 @@ const useAddCar = ({ register, setValue }: UseAddCarProps) => {
   return {
     data,
     setModel,
+    userCars,
     selectedModels,
     setManufacturer,
   }

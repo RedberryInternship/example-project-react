@@ -1,10 +1,12 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 import { Colors, Font } from 'utils'
 import { BaseText } from 'components'
+import images from 'assets/images'
 
 const Opening = () => (
   <View style={styles.container}>
+    <Image source={images.logo} style={styles.image} resizeMode="contain" />
     <BaseText style={styles.text}>Welcome to E-Space</BaseText>
   </View>
 )
@@ -16,8 +18,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.primaryBackground,
   },
+  image: {
+    width: 100,
+  },
   text: {
     fontFamily: Font.HELV_HVEX,
+    marginBottom: 50,
   },
 })
 

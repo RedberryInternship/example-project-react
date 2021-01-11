@@ -10,15 +10,12 @@ import {
   BaseText,
 } from 'components'
 import images from 'assets/images'
-import { CardListItemFC } from './types'
+import { CarListItemFC } from './types'
 
-const CardListItem: CardListItemFC = (
-  {
-    code,
-    onPress,
-    selected = false,
-  },
-) => {
+const CarListItem: CarListItemFC = () => {
+  const selected = true;
+  const code = '0000000000000000000'
+
   const selectedStatus = selected
     ? (
       <Image source={images.greenTick} style={styles.selectedCardCircle} />
@@ -28,7 +25,7 @@ const CardListItem: CardListItemFC = (
     )
 
   return (
-    <BaseNativeTouchable onPress={onPress}>
+    <BaseNativeTouchable onPress={() => { }}>
       <View style={styles.container}>
         <View style={styles.innerLeftContainer}>
           <Image source={images.creditCard} style={styles.image} resizeMode="contain" />
@@ -49,7 +46,7 @@ const CardListItem: CardListItemFC = (
   )
 }
 
-export default CardListItem
+export default CarListItem
 
 const styles = StyleSheet.create({
   container: {
@@ -61,11 +58,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 10,
   },
+
   innerLeftContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+
   image: {
     width: 23,
     height: 23,

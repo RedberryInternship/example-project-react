@@ -6,7 +6,7 @@ import {
 import { Charger, Favorite } from 'types/chargers'
 import { ChargingStatus } from 'types/enums'
 import { TransactionsHistoryResponseItem } from 'types/transactions'
-import { UserCard } from 'types/user'
+import { UserCard, UserCar } from 'types/user'
 
 export type LastUsedChargerResponseObject = {
   data: Charger[]
@@ -118,6 +118,10 @@ export type UserMeResponseType = {
   avatar: number
   mapMode: 'settings.mapColorLight' | 'settings.mapColorDark' | 'settings.automatic'
 } | null
+
+export type UserCarsResponseType = {
+  user_cars: UserCar[]
+}
 
 export type UserFavoriteChargersResponseType = {
   user_favorite_chargers: Favorite[]

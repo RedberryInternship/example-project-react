@@ -7,6 +7,7 @@ import {
   UserInfoUpdateResponseType,
   EditPasswordResponseType,
   ContactInfoResponseType,
+  UserCarsResponseType,
   PartnersResponseType,
   UserMeResponseType,
   FAQResponseType,
@@ -57,8 +58,12 @@ export const sendFeedback = (message: string): Promise<any> => ajax
 export const getCarAndMarksList = (): Promise<CarMarkAndModelResponseType> => ajax
   .get('/get-models-and-marks');
 
+export const getCars = (): Promise<UserCarsResponseType> => ajax.get('/get-user-cars');
+
 export const addCar = (car_model_id: number): Promise<any> => ajax
   .post('/add-user-car', { car_model_id });
+
+export const removeCar = (): Promise<any> => ajax.post('', []);
 
 export const getContactInfo = (): Promise<ContactInfoResponseType> => ajax
   .get('/contact');

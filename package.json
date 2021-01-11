@@ -37,6 +37,7 @@
     "i18next": "^19.4.4",
     "jetifier": "^1.6.6",
     "moment": "^2.26.0",
+    "native-base": "^2.15.2",
     "react": "16.11.0",
     "react-hook-form": "^5.7.2",
     "react-i18next": "^11.4.0",

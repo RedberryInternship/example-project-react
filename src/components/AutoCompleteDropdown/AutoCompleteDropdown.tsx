@@ -59,7 +59,6 @@ const AutoCompleteDropdown: AutoCompleteDropdownFC = (props) => {
             keyExtractor={(item, i) => item + i}
             flatListProps={{}}
             onFocus={() => {
-              console.log(['value', value])
               onTextChange(value?.[0] ?? '')
               setHideResults(false)
             }}
