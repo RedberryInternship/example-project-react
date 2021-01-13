@@ -63,7 +63,8 @@ export const getCars = (): Promise<UserCarsResponseType> => ajax.get('/get-user-
 export const addCar = (car_model_id: number): Promise<any> => ajax
   .post('/add-user-car', { car_model_id });
 
-export const removeCar = (): Promise<any> => ajax.post('', []);
+export const removeCar = (car_model_id: number): Promise<any> => ajax
+  .post('/delete-user-car', { car_model_id });
 
 export const getContactInfo = (): Promise<ContactInfoResponseType> => ajax
   .get('/contact');

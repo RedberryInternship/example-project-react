@@ -1,32 +1,34 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   StyleSheet,
-  Keyboard,
   View,
 } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { ProfileFieldChange } from 'types'
-import { AutoCompleteDropdown, CarListItem } from 'components'
+import { BaseText, CarListItem, Select } from 'components'
 import { Controller } from 'react-hook-form'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import images from 'assets/images'
 import useAddCar from './useAddCar'
+import { onConfirm } from './helpers'
 
 const AddCar = (
   {
-    errors,
-    control,
-    type,
     register,
-    watch,
     setValue,
+    control,
+    watch,
   }: ProfileFieldChange,
 ) => {
   const {
     data,
-    setModel,
+    model,
     userCars,
+    manufacturer,
+    onModelChange,
+    deleteUserCar,
     selectedModels,
-    setManufacturer,
+    onManufacturerChange,
+    notAllowedSelectingModelsWithoutManufacturers,
   } = useAddCar(
     {
       register,
@@ -34,60 +36,58 @@ const AddCar = (
       watch,
     },
   )
-
-  useEffect(() => {
-    console.log(userCars)
-  }, [userCars])
+  const { t } = useTranslation()
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <>
+      <>
+        <Controller
+          as={Select}
+          name="manufacturer"
+          rules={{ required: true }}
+          control={control}
+          onChange={onManufacturerChange}
+          title={'settings.manufacturer' ?? ''}
+          image={images.addCarInput}
+          dropdownIcon={images.caretDown}
+          data={data.map((val) => val.name)}
+          selectedValue={manufacturer}
+          value=""
+        />
+        <View style={styles.divider}>
           <Controller
-            as={AutoCompleteDropdown}
-            name="manufacturer"
-            rules={{ required: true, minLength: 3 }}
+            as={Select}
+            name="model"
+            rules={{ required: true }}
             control={control}
-            onChange={(text) => {
-              setManufacturer(text?.[0] ?? '')
-              return text
-            }}
-            title={'settings.manufacturer' ?? ''}
+            onChange={onModelChange}
+            title={'settings.model' ?? ''}
             image={images.addCarInput}
             dropdownIcon={images.caretDown}
-            data={data.map((val) => val.name)}
-            errorText={
-              errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
-            }
-            zIndex={20}
+            data={selectedModels}
+            selectedValue={model}
+            value=""
+            disabled={manufacturer === ''}
+            onPress={notAllowedSelectingModelsWithoutManufacturers}
           />
-          <View>
-            <Controller
-              as={AutoCompleteDropdown}
-              name="model"
-              rules={{ required: true, minLength: 3 }}
-              control={control}
-              onChange={(text) => {
-                setModel(text?.[0] ?? '')
-                return text;
-              }}
-              title={'settings.model' ?? ''}
-              image={images.addCarInput}
-              dropdownIcon={images.caretDown}
-              data={selectedModels}
-              errorText={
-                errors?.[type] ? 'dropDownAlert.editFirstname.minSize' : ''
-              }
-              zIndex={12}
-            />
-          </View>
-          <View style={{ height: 140, zIndex: -1 }} />
-        </>
-      </TouchableWithoutFeedback>
+        </View>
+      </>
 
-      <View style={styles.userCarsContainer}>
-        {userCars.map(() => <CarListItem />)}
+      <View style={styles.addedCars}>
+        <BaseText>{t('addCar.addedCars')}</BaseText>
+        <View style={styles.userCarsContainer}>
+          {userCars.map((el) => (
+            <CarListItem
+              key={el.user_car.model_id}
+              data={el}
+              onDeletePress={() => {
+                onConfirm(() => { deleteUserCar(el.user_car.model_id) }, t)
+              }}
+            />
+          ))}
+        </View>
       </View>
+
     </View>
   )
 }
@@ -102,5 +102,12 @@ const styles = StyleSheet.create({
   },
   userCarsContainer: {
     flex: 1,
+    marginTop: 20,
+  },
+  divider: {
+    marginTop: 20,
+  },
+  addedCars: {
+    marginTop: 40,
   },
 })

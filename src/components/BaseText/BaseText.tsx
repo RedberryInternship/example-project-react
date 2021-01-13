@@ -42,7 +42,7 @@ const BaseText: BaseTextFC = (
       lineHeight,
       letterSpacing,
     }
-  }, [style, i18next.language])
+  }, [style])
 
   return (
     <Text

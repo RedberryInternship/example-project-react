@@ -306,6 +306,14 @@ export default {
       home: {
         noRouteFound: 'მარშრუტი ვერ მოიძებნა',
       },
+      addCar: {
+        firstManufacturer: 'გთხოვთ, პირველ რიგში მწარმოებელი აირჩიოთ...',
+        uSureToDelete: 'ნამდვილად გსურთ ავტომობილის წაშლა?',
+      },
+    },
+    addCar: {
+      addedCars: 'დამატებული ავტომობილები',
+      youHaveNoCars: 'თქვენ ჯერ არ გაქვთ დამატებული ავტომობილი...',
     },
     partners: {
       partnerOrganizations: 'პარტნიორი ორგანიზაციები',

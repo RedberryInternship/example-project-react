@@ -40,6 +40,7 @@ export { default as BaseButton } from './BaseButton'
 export { default as BaseHeader } from './BaseHeader'
 export { default as BaseInput } from './BaseInput'
 export { default as BaseText } from './BaseText'
+export { default as Select } from './Select'
 
 // UI
 export { default as RegistrationPagination } from './RegistrationPagination'

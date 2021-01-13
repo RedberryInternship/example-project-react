@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import services from 'services'
 import { CarMarkAndModelTypes, UserCar } from 'types'
+import {
+  DisplayDropdownWithError,
+  DisplayDropdownWithWarning,
+  remoteLogger,
+} from 'utils/inform'
 import { UseAddCarProps } from './types'
 
 const useAddCar = ({ register, setValue }: UseAddCarProps) => {
@@ -9,6 +14,55 @@ const useAddCar = ({ register, setValue }: UseAddCarProps) => {
   const [model, setModel] = useState<string>('')
   const [manufacturer, setManufacturer] = useState<string>('')
   const [selectedModels, setSelectedModels] = useState<string[]>([''])
+
+  /**
+   * Refresh user cars.
+   */
+  const refreshUserCars = useCallback(async () => {
+    const { user_cars } = await services.getCars()
+    setUserCars(user_cars)
+  }, [])
+
+  /**
+   * Delete user car.
+   */
+  const deleteUserCar = useCallback(async (modelId: number) => {
+    try {
+      await services.removeCar(modelId)
+      refreshUserCars()
+    } catch (e) {
+      remoteLogger(e)
+      DisplayDropdownWithError()
+    }
+  }, [refreshUserCars])
+
+  /**
+   * Validate selecting the manufacturer first.
+   */
+  const notAllowedSelectingModelsWithoutManufacturers = useCallback(() => {
+    if (manufacturer === '') {
+      DisplayDropdownWithWarning('dropDownAlert.addCar.firstManufacturer')
+    }
+  }, [manufacturer])
+
+  /**
+   * onChange function for manufacturers.
+   */
+  const onManufacturerChange = useCallback((manufacturers: string[]) => {
+    const newManufacturer = manufacturers?.[0] ?? ''
+    setManufacturer(newManufacturer)
+    setModel('')
+    return newManufacturer
+  }, [])
+
+  /**
+   * onChange function for models.
+   */
+  const onModelChange = useCallback((models: string[]): string => {
+    const newModel = models?.[0] ?? ''
+    setModel(newModel)
+    return newModel
+  }, [])
 
   useEffect(() => {
     (async () => {
@@ -22,10 +76,9 @@ const useAddCar = ({ register, setValue }: UseAddCarProps) => {
       /**
        * Fetch user cars data.
        */
-      const { user_cars } = await services.getCars()
-      setUserCars(user_cars)
+      await refreshUserCars()
     })()
-  }, [register])
+  }, [register, refreshUserCars])
 
   useEffect(() => {
     const models = data
@@ -55,10 +108,14 @@ const useAddCar = ({ register, setValue }: UseAddCarProps) => {
 
   return {
     data,
-    setModel,
+    model,
     userCars,
+    manufacturer,
+    onModelChange,
+    deleteUserCar,
     selectedModels,
-    setManufacturer,
+    onManufacturerChange,
+    notAllowedSelectingModelsWithoutManufacturers,
   }
 }
 

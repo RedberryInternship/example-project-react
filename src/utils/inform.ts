@@ -55,6 +55,20 @@ export const DisplayDropdownWithSuccess = (
 }
 
 /**
+ * Display warning alert.
+ */
+export const DisplayDropdownWithWarning = (
+  title: string | undefined = undefined,
+  text: string | undefined = undefined,
+): void => {
+  Defaults.dropdown?.alertWithType(
+    'warn',
+    i18next.t(title ?? 'dropDownAlert.warning'),
+    i18next.t(text ?? ''),
+  )
+}
+
+/**
  * Display highly configurable alert.
  */
 export const easyAlert = (config: EasyAlert) => {

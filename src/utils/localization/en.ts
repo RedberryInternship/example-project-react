@@ -225,6 +225,7 @@ export default {
       error: 'Error',
       generalError: 'Error encountered',
       generalSuccess: 'Order completed successfully',
+      warning: 'Something went wrong',
       pleaseAllowLocation:
         'Please allow access to device location to make route',
       fillCode: 'Please, enter charger code',
@@ -316,6 +317,14 @@ export default {
       home: {
         noRouteFound: 'No route found',
       },
+      addCar: {
+        firstManufacturer: 'Please, select manufacturer...',
+        uSureToDelete: 'Are you sure to remove car?',
+      },
+    },
+    addCar: {
+      addedCars: 'Added Cars',
+      youHaveNoCars: 'You have no cars added...',
     },
     partners: {
       partnersOrganizations: 'Partner Organizations',

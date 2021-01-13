@@ -12,7 +12,7 @@ const CardAdd: FCWithNavigation = ({ navigation }) => {
   const onSuccess = useCallback(() => {
     dispatch(refreshUserData())
     navigation.goBack()
-  }, [navigation])
+  }, [navigation, dispatch])
 
   return (
     <View style={styles.container}>
