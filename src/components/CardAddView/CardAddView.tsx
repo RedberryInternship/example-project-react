@@ -15,6 +15,7 @@ const CardAddView: CardAddViewFC = ({ onSuccess, onFail }) => {
       onFail,
     },
   )
+
   return (
     <WebView
       source={{

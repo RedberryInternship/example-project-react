@@ -26,7 +26,7 @@ const Settings: FCWithNavigation = ({ navigation }) => {
         />
       )
     }),
-    [userData],
+    [userData, onPressHandler],
   )
 
   return (

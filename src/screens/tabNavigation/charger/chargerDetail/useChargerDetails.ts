@@ -43,7 +43,7 @@ export default (navigation: NavigationType) => {
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
 
-  const backHandlerRef = useRef<any>()
+  // const backHandlerRef = useRef<any>()
 
   const [charger, setCharger] = useState<Charger>(
     navigation.getParam('chargerDetails', undefined),
@@ -52,45 +52,17 @@ export default (navigation: NavigationType) => {
   const { t } = useTranslation()
 
   /**
-   * Handle back press action with listening events.
+   * Go back handler.
    */
-  useEffect(() => {
-    const onScreenFocus = (payload: NavigationEventPayload): void => {
-      backHandlerRef.current = BackHandler.addEventListener('hardwareBackPress', headerLeftPress)
-      const { params } = payload.state
-      if (params?.chargerDetails !== undefined) {
-        setCharger(params.chargerDetails)
-      }
-    }
+  const goBackHandler = () => {
+    const from = navigation.getParam('from')
 
-    const didFocus = navigation.addListener('didFocus', () => onScreenFocus)
-    const willBlur = navigation.addListener(
-      'willBlur',
-      () => backHandlerRef.current && backHandlerRef.current.remove(),
-    )
-    backHandlerRef.current = BackHandler.addEventListener('hardwareBackPress', headerLeftPress)
-
-    return (): void => {
-      didFocus.remove()
-      willBlur.remove()
-      backHandlerRef.current && backHandlerRef.current.remove()
-    }
-  }, [])
-
-  /**
-   * Go back to specific screen considering
-   * where you came from.
-   */
-  const headerLeftPress = (): boolean => {
-    if (charger?.from === 'Home') {
-      Navigation.reset('ChargerStack', 'ChargerWithCode')
-      navigation.navigate('Home')
-    } else if (defaults.token !== '') {
+    if (from === 'ChargerWithCode') {
       navigation.goBack()
     } else {
-      navigation.navigate('NotAuthorized')
+      Navigation.reset('ChargerStack', 'ChargerWithCode')
+      navigation.navigate('Home')
     }
-    return true
   }
 
   /**
@@ -98,11 +70,18 @@ export default (navigation: NavigationType) => {
    * and set active charger type.
    */
   useEffect(() => {
+    let shouldUpdate = true;
     (async () => {
       const calculatedDistance = await getDistance(charger?.lat ?? '0', charger?.lng ?? '0')
-      setDistance(calculatedDistance)
-      setActiveChargerType(charger?.connector_types.length !== 1 ? -1 : 0)
+      if (shouldUpdate) {
+        setDistance(calculatedDistance)
+        setActiveChargerType(charger?.connector_types.length !== 1 ? -1 : 0)
+      }
     })()
+
+    return () => {
+      shouldUpdate = false
+    }
   }, [charger])
 
   /**
@@ -259,7 +238,7 @@ export default (navigation: NavigationType) => {
     setActiveChargerType,
     startChargingHandler,
     activeChargerType,
-    headerLeftPress,
+    goBackHandler,
     onFavoritePress,
     distance,
     charger,

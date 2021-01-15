@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { ProfileFieldChange } from 'types'
-import { BaseText, CarListItem, Select } from 'components'
+import { BaseText, CarListItem, SelectCar } from 'components'
 import { Controller } from 'react-hook-form'
 import images from 'assets/images'
 import useAddCar from './useAddCar'
@@ -42,7 +42,7 @@ const AddCar = (
     <View style={styles.container}>
       <>
         <Controller
-          as={Select}
+          as={SelectCar}
           name="manufacturer"
           rules={{ required: true }}
           control={control}
@@ -56,7 +56,7 @@ const AddCar = (
         />
         <View style={styles.divider}>
           <Controller
-            as={Select}
+            as={SelectCar}
             name="model"
             rules={{ required: true }}
             control={control}

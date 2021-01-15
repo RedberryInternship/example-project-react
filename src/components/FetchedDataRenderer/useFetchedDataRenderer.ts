@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { remoteLogger, DisplayDropdownWithError } from 'utils/inform'
 import { UseFetchedDataRendererProps } from './types'
 
@@ -14,16 +14,7 @@ const useFetchedDataRenderer = (
 ) => {
   const [localState, setLocalState] = useState(staticData[property])
 
-  useEffect(() => {
-    if (data !== undefined) setLocalState(data ?? [])
-    else shouldFetch()
-  }, [])
-
-  useEffect(() => {
-    if (data) setLocalState(data ?? [])
-  }, [data])
-
-  const shouldFetch = async (): Promise<void> => {
+  const shouldFetch = useCallback(async (): Promise<void> => {
     if (staticData[property] === undefined || updateAlways) {
       try {
         const dataList = await fetchData()
@@ -36,7 +27,16 @@ const useFetchedDataRenderer = (
         setLocalState([])
       }
     }
-  }
+  }, [fetchData, property, updateAlways])
+
+  useEffect(() => {
+    if (data !== undefined) setLocalState(data ?? [])
+    else shouldFetch()
+  }, [data, shouldFetch])
+
+  useEffect(() => {
+    if (data) setLocalState(data ?? [])
+  }, [data])
 
   return {
     shouldFetch,

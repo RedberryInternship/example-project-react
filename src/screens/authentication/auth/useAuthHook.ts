@@ -33,7 +33,7 @@ export default (navigation: Navigation) => {
       { name: 'phone' },
       { validate: InputValidation.phoneNumberValidation },
     )
-  }, [])
+  }, [register])
 
   useEffect(() => {
     /**

@@ -168,7 +168,7 @@ const useHome = (navigation: Navigation) => {
   const onFilteredItemClick = useCallback(
     (charger: ChargerDetail): void => {
       navigation.navigate('ChargerDetail', {
-        chargerDetails: { ...charger, from: 'Home' },
+        chargerDetails: charger,
       })
     },
     [navigation],

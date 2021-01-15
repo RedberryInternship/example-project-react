@@ -13,7 +13,7 @@ import { withTranslation } from 'react-i18next'
 import { ListItem } from './components'
 import { State, Props } from './types'
 
-class BaseModal extends React.Component<Props, State> {
+class SelectCar extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
@@ -97,7 +97,7 @@ class BaseModal extends React.Component<Props, State> {
   }
 }
 
-export default withTranslation()(BaseModal)
+export default withTranslation()(SelectCar)
 
 const styles = StyleSheet.create(
   {

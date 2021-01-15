@@ -9,6 +9,7 @@ import {
 } from 'helpers/privacyAndPolicy'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
+import { userSagas } from 'state/sagas'
 
 /**
  * Upon configuration ending, go to home screen.
@@ -54,6 +55,14 @@ const useAppReady = () => {
          * Determine if user has already agreed privacy and policy.
          */
         const hasAgreed = await hasAgreedToPrivacyAndPolicy()
+
+        /**
+         * if current route is Registration thus user is trying
+         * to register and we should change route.
+         */
+        if (defaults.activeRoute === 'Registration') {
+          return
+        }
 
         /**
          * If user is authenticated and hasn't yet agreed

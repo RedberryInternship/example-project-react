@@ -6,11 +6,13 @@ import {
 } from 'react'
 import { BackHandler, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import { refreshUserData } from 'state/actions/userActions'
 import defaults from 'utils/defaults'
 import useRegistrationHookStep1 from './useRegistrationStep1'
 import useRegistrationHookStep2 from './useRegistrationStep2'
 import useRegistrationHookStep3 from './useRegistrationStep3'
+import { youCanAddCar } from './helpers'
 
 let userRegistrationState = 0
 
@@ -35,17 +37,30 @@ export default (navigation: any) => {
     regStep2.getValues,
   )
 
-  useEffect(() => {
-    userRegistrationState = Math.max(activePage, userRegistrationState)
-    KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
-    Keyboard.dismiss()
-    setTimeout(() => paginationClickHandler(activePage), 250)
+  const { t } = useTranslation()
+
+  /**
+   * Make active page validation.
+   */
+  const validateAccordingActivePage = useCallback(() => {
+    switch (activePage) {
+      case 0:
+        return regStep1.triggerValidation()
+      case 1:
+        return regStep2.triggerValidation()
+      case 2:
+        return regStep3.triggerValidation()
+      case 3:
+        return true // TODO: no card service
+      default:
+        return false
+    }
   }, [activePage])
 
   /**
    * Pagination controller.
    */
-  const paginationClickHandler = async (index: number) => {
+  const paginationClickHandler = useCallback(async (index: number) => {
     if (index > userRegistrationState) {
       return
     }
@@ -59,25 +74,7 @@ export default (navigation: any) => {
 
     flatListRef.current.scrollToIndex({ index, animated: true })
     setActivePage(index)
-  }
-
-  /**
-   * Make active page validation.
-   */
-  const validateAccordingActivePage = () => {
-    switch (activePage) {
-      case 0:
-        return regStep1.triggerValidation()
-      case 1:
-        return regStep2.triggerValidation()
-      case 2:
-        return regStep3.triggerValidation()
-      case 3:
-        return true // TODO: no card service
-      default:
-        return false
-    }
-  }
+  }, [activePage, validateAccordingActivePage])
 
   /**
    * Assign skipping credit card addition.
@@ -87,8 +84,13 @@ export default (navigation: any) => {
       defaults.modal?.current.customUpdate(true,
         {
           type: 1,
-          onCloseClick: addCardSkip,
+          onCloseClick: () => {
+            addCardSkip()
+            setTimeout(() => youCanAddCar(t), 1000)
+          },
         })
+    } else {
+      setTimeout(() => youCanAddCar(t), 1000)
     }
   }
 
@@ -119,7 +121,7 @@ export default (navigation: any) => {
     }
 
     return true
-  }, [activePage, paginationClickHandler])
+  }, [activePage, paginationClickHandler, navigation])
 
   useEffect(() => {
     backHandlerRef.current = BackHandler.addEventListener(
@@ -139,6 +141,13 @@ export default (navigation: any) => {
     dispatch(refreshUserData())
     headerRightClick()
   }
+
+  useEffect(() => {
+    userRegistrationState = Math.max(activePage, userRegistrationState)
+    KeyboardAwareScrollViewRef.current.scrollToPosition(0, 0)
+    Keyboard.dismiss()
+    setTimeout(() => paginationClickHandler(activePage), 250)
+  }, [activePage, paginationClickHandler])
 
   return {
     KeyboardAwareScrollViewRef,

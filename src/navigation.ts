@@ -34,16 +34,16 @@ import { Colors } from 'utils'
 
 const ChargerStack = createStackNavigator(
   {
+    ChooseChargeMethod,
     ChargerWithCode,
     ChargerDetail,
-    ChooseChargeMethod,
     ChoosingCard,
   },
   {
     defaultNavigationOptions: {
       headerShown: false,
-      gestureEnabled: true,
-      gestureDirection: 'horizontal',
+      gestureEnabled: false,
+      // gestureDirection: 'horizontal',
       cardStyle: {
         backgroundColor: 'transparent',
         opacity: 1,

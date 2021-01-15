@@ -19,7 +19,7 @@ export const preparePrivacyAndPolicyPopUp = (onClose: () => void) => {
 /**
  * Agree to privacy and policy.
  */
-const agreeToPrivacyAndPolicy = () => AsyncStorage
+export const agreeToPrivacyAndPolicy = () => AsyncStorage
   .setItem('agreedToPrivacyAndPolicy', true.toString())
 
 /**

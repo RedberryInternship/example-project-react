@@ -74,7 +74,7 @@ const PasswordView: PasswordViewFC = (
 
 export default React.memo(
   PasswordView,
-  ({ activePage }, { activePage: nextActivePage }) => nextActivePage != 2 && activePage != 2,
+  ({ activePage }, { activePage: nextActivePage }) => nextActivePage !== 2 && activePage !== 2,
 )
 
 const styles = StyleSheet.create({

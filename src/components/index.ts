@@ -17,12 +17,12 @@ export { default as CustomModal } from './CustomModal'
 // library
 export { default as FetchedDataRenderer } from './FetchedDataRenderer'
 export { default as Pulse } from './Pulse'
+export { default as Swipe } from './Swipe'
 
 // Item
 export { default as TabNavigationButtons } from './TabNavigationButtonsItem'
 export { default as ModalPopupChargerItem } from './ModalPopupChargerItem'
 export { default as ChargerGroupPopupItem } from './ChargerGroupPopupItem'
-export { default as AutoCompleteDropdown } from './AutoCompleteDropdown'
 export { default as PhoneNumberInput } from './PhoneNumberInput'
 export { default as LegendColorItem } from './LegendColorItem'
 export { default as MapMarkerItem } from './MapMarkerItem'
@@ -40,7 +40,7 @@ export { default as BaseButton } from './BaseButton'
 export { default as BaseHeader } from './BaseHeader'
 export { default as BaseInput } from './BaseInput'
 export { default as BaseText } from './BaseText'
-export { default as Select } from './Select'
+export { default as SelectCar } from './SelectCar'
 
 // UI
 export { default as RegistrationPagination } from './RegistrationPagination'

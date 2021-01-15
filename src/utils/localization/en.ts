@@ -320,6 +320,7 @@ export default {
       addCar: {
         firstManufacturer: 'Please, select manufacturer...',
         uSureToDelete: 'Are you sure to remove car?',
+        youCanAddCar: 'Currently, you have no cars, would you like to add one?',
       },
     },
     addCar: {

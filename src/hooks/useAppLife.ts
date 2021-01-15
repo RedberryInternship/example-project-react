@@ -41,7 +41,7 @@ const useAppLife = () => {
     } else if (determineIfAppWentToBackground()) {
       setAppInBackground()
     }
-  }, [currentAppState])
+  }, [currentAppState, dispatch, userState.authStatus])
 
   return {
     currentAppState,

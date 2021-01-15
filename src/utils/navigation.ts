@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { StatusBarStyle, StatusBar } from 'react-native'
 import {
   NavigationContainerComponent,

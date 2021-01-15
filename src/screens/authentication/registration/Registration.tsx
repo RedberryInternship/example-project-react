@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -45,8 +45,8 @@ const Registration: FCWithNavigation = ({ navigation }) => {
     <PasswordView hook={regStep3} key={3} activePage={activePage} />,
     <CardAddContainer
       onSuccess={onCardAddSuccess}
-      key={4}
       activePage={activePage}
+      key={4}
     />,
   ]
 
@@ -85,7 +85,7 @@ const Registration: FCWithNavigation = ({ navigation }) => {
           keyboardShouldPersistTaps="handled"
           scrollEnabled={false}
           data={pages}
-          renderItem={({ item }): ReactElement => item}
+          renderItem={({ item }) => item}
         />
       </KeyboardAwareScrollView>
       <KeyboardAvoidingView
