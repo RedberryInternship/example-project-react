@@ -12,6 +12,7 @@ import {
   UserMeResponseType,
   FAQResponseType,
   GetCardAddUrl,
+  SimpleResponse,
 } from 'types';
 
 import ajax from './axios';
@@ -73,6 +74,11 @@ export const getCardAddUrl = (): Promise<GetCardAddUrl> => ajax.get('/save-card-
 
 export const setDefaultCard = (user_card_id: number): Promise<GetCardAddUrl> => ajax
   .post('/user-card/set-default', { user_card_id });
+
+export const removeCard = (user_card_id: number): Promise<SimpleResponse> => ajax
+  .post('/user-card/remove-card', {
+    user_card_id,
+  })
 
 export const setUserFirebaseToken = (firebase_token: string): Promise<any> => ajax
   .post('/update-firebase-token', { firebase_token });

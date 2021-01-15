@@ -16,6 +16,10 @@ export type GetAllChargerResponseType = {
   data: Charger[]
 }
 
+export type SimpleResponse = {
+  success: boolean
+}
+
 export type StartChargingResponseType = {
   already_paid: number
   charger_connector_type_id: number

@@ -18,9 +18,11 @@ export default {
     till: '-მდე',
     yes: 'დიახ',
     no: 'არა',
+    done: 'კარგი',
     minute: 'წთ',
     loading: 'იტვირთება ...',
     cancel: 'გაუქმება',
+    update: 'შესწორება',
     pleaseFillInput: 'გთხოვთ შეავსოთ ველი',
     needLocation: 'საჭიროა წვდომა ლოკაციაზე',
     locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
@@ -315,6 +317,9 @@ export default {
     addCar: {
       addedCars: 'დამატებული ავტომობილები',
       youHaveNoCars: 'თქვენ ჯერ არ გაქვთ დამატებული ავტომობილი...',
+    },
+    creditCards: {
+      uSureToDelete: 'დარწმუნებული ხართ, რომ ბარათის წაშლა გსურთ?',
     },
     partners: {
       partnerOrganizations: 'პარტნიორი ორგანიზაციები',

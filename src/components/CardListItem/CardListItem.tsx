@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   StyleSheet,
   Image,
@@ -14,38 +14,54 @@ import { CardListItemFC } from './types'
 
 const CardListItem: CardListItemFC = (
   {
-    code,
-    onPress,
+    selectDefaultCreditCard,
+    deleteCreditCard,
+    inUpdateMode,
     selected = false,
+    code,
   },
 ) => {
-  const selectedStatus = selected
-    ? (
-      <Image source={images.greenTick} style={styles.selectedCardCircle} />
-    )
-    : (
-      <View style={styles.selectableCardCircle} />
-    )
+  const selectedStatus = useMemo(() => (
+    <BaseNativeTouchable onPress={selectDefaultCreditCard}>
+      {
+        selected
+          ? (
+            <Image source={images.greenTick} style={styles.selectedCardCircle} />
+          )
+          : (
+            <View style={styles.selectableCardCircle} />
+          )
+      }
+    </BaseNativeTouchable>
+  ), [selectDefaultCreditCard, selected])
+
+  const deleteButton = useMemo(() => (
+    <BaseNativeTouchable onPress={deleteCreditCard}>
+      <Image source={images.deleteAction} style={styles.selectedCardCircle} />
+    </BaseNativeTouchable>
+  ), [deleteCreditCard])
 
   return (
-    <BaseNativeTouchable onPress={onPress}>
-      <View style={styles.container}>
-        <View style={styles.innerLeftContainer}>
-          <Image source={images.creditCard} style={styles.image} resizeMode="contain" />
-          <BaseText style={{ color: Colors.primaryGray }}>
-            {'xxxx xxxx xxxx '}
-          </BaseText>
-          <BaseText
-            style={{
-              color: selected ? Colors.primaryWhite : Colors.primaryGray,
-            }}
-          >
-            {code.slice(12, 16)}
-          </BaseText>
-        </View>
-        {selectedStatus}
+    <View style={styles.container}>
+      <View style={styles.innerLeftContainer}>
+        <Image source={images.creditCard} style={styles.image} resizeMode="contain" />
+        <BaseText style={{ color: Colors.primaryGray }}>
+          {'xxxx xxxx xxxx '}
+        </BaseText>
+        <BaseText
+          style={{
+            color: selected ? Colors.primaryWhite : Colors.primaryGray,
+          }}
+        >
+          {code.slice(12, 16)}
+        </BaseText>
       </View>
-    </BaseNativeTouchable>
+      {
+        inUpdateMode
+          ? deleteButton
+          : selectedStatus
+      }
+    </View>
   )
 }
 

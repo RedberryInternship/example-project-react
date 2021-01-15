@@ -17,9 +17,11 @@ export default {
     till: '-till',
     yes: 'Yes',
     no: 'No',
+    done: 'Done',
     minute: 'mins',
     loading: 'Loading ...',
     cancel: 'Cancel',
+    update: 'Update',
     pleaseFillInput: 'Please fill input',
     needLocation: 'Need access to location service',
     locationIsDenied: 'Access on location is denied',
@@ -326,6 +328,9 @@ export default {
     addCar: {
       addedCars: 'Added Cars',
       youHaveNoCars: 'You have no cars added...',
+    },
+    creditCards: {
+      uSureToDelete: 'Are you sure, you want to delete your credit card?',
     },
     partners: {
       partnersOrganizations: 'Partner Organizations',
