@@ -15,12 +15,12 @@ type Config = {
   shouldAgree?: boolean
 }
 
-export type InitialState = {
+export type State = {
   visible: boolean
   config: Config
 }
 
 export interface CustomModalInterface {
   customUpdate: (visible: boolean, config?: Config) => void
-  state: InitialState | any
+  state: State | any
 }

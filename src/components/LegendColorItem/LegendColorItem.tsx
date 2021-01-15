@@ -8,8 +8,8 @@ const LegendColorItem: LegendColorItemFC = ({ text, color }) => {
   const { t } = useTranslation()
   return (
     <View style={styles.container}>
-      <BaseText style={styles.text}>{t(text)}</BaseText>
       <View style={[styles.backgrondView, { backgroundColor: color }]} />
+      <BaseText style={styles.text}>{t(text)}</BaseText>
     </View>
   )
 }
@@ -19,15 +19,15 @@ export default LegendColorItem
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     marginVertical: 8,
-    paddingLeft: 32,
     width: '50%',
   },
   text: {
     color: '#436880',
     fontSize: 12,
+    marginLeft: 15,
   },
   backgrondView: {
     width: 12,

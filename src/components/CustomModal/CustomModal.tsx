@@ -11,10 +11,10 @@ import {
   MapPopUp,
 } from 'components'
 import { ModalTypes } from 'types'
-import { CustomModalInterface, Config } from './types'
+import { CustomModalInterface, Config, State } from './types'
 import { initialState } from './config'
 
-class CustomModal extends React.PureComponent implements CustomModalInterface {
+class CustomModal extends React.PureComponent<{}, State> implements CustomModalInterface {
   ref: any = React.createRef()
 
   constructor(props: any) {
@@ -29,7 +29,8 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   }
 
   closeModal = (): void => {
-    const { onCloseClick } = this.state.config
+    const { config } = this.state
+    const { onCloseClick } = config
 
     this.setState({
       visible: false,
@@ -46,13 +47,15 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  renderView = (): ReactElement | undefined => {
+  renderView = () => {
+    const { config } = this.state
+
     const {
       shouldAgree,
       subType,
       type,
       data,
-    } = this.state.config
+    } = config
 
     switch (type) {
       case ModalTypes.REGISTER:
@@ -72,7 +75,7 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
       case ModalTypes.LOCATION_PERMISSION:
         return <LocationPermission onPress={this.closeModal} data={data} />
       case ModalTypes.PRIVACY_AND_POLICY:
-        return <PrivacyPolicy onPress={this.closeModal} shouldAgree={shouldAgree} />
+        return <PrivacyPolicy onPress={this.closeModal} shouldAgree={!!shouldAgree} />
       default: {
         return <></>
       }
