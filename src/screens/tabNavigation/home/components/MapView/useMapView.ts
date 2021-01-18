@@ -5,10 +5,8 @@ import {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { Charger, LocaleStringObject } from 'types'
+import { Charger } from 'types'
 import { refreshAllChargers } from 'state/actions/userActions'
-import { getLocaleText } from 'utils'
-import defaults from 'utils/defaults'
 import useLocation from './useLocation'
 import { UseMapView } from './types'
 

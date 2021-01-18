@@ -1,16 +1,16 @@
 import { MAP_URL, locationIfNoGPS, MAP_API } from 'utils/const';
 import { mergeCoords } from 'utils/map'
 import i18next from 'i18next';
-import axiosRequest from 'axios';
 import { getCoordsByIPResponseType } from 'types';
-import axios from './axios';
+import Axios from 'axios'
+import customAxios from './axios'
 
 export const getDistance = (
   originLat: number,
   originLng: number,
   destinationLat: string,
   destinationLng: string,
-): Promise<any> => axiosRequest.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
+): Promise<any> => Axios.get(`${MAP_URL}/distancematrix/json?origins=${mergeCoords(
   originLat ?? locationIfNoGPS.lat,
   originLng ?? locationIfNoGPS.lng,
 )}
@@ -25,7 +25,7 @@ export const getDirection = (
   originLng: number,
   destinationLat: number,
   destinationLng: number,
-): Promise<any> => axios.get(
+): Promise<any> => Axios.get(
   `https://maps.googleapis.com/maps/api/directions/json?origin=${mergeCoords(
     originLat ?? locationIfNoGPS.lat,
     originLng ?? locationIfNoGPS.lng,
@@ -35,4 +35,4 @@ export const getDirection = (
   )}&mode=driving&key=${MAP_API}`,
 );
 
-export const getCoordsByIP = (): Promise<getCoordsByIPResponseType> => axios.get('/geo-ip');
+export const getCoordsByIP = (): Promise<getCoordsByIPResponseType> => customAxios.get('/geo-ip');

@@ -9,7 +9,6 @@ import {
 } from 'helpers/privacyAndPolicy'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
-import { userSagas } from 'state/sagas'
 
 /**
  * Upon configuration ending, go to home screen.
