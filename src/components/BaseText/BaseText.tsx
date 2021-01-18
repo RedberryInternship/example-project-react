@@ -46,10 +46,10 @@ const BaseText: BaseTextFC = (
 
   return (
     <Text
+      numberOfLines={1}
       {...props}
       allowFontScaling={false}
       style={[styles.text, style, setStyle()]}
-      numberOfLines={1}
     >
       {children}
     </Text>
