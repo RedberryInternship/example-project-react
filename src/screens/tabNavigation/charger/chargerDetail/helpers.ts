@@ -7,7 +7,6 @@ import services from 'services'
 import * as Const from 'utils/const'
 import { getCoordsAnyway } from 'utils/map'
 import { isPermissionDenied, getAndRequestLocation } from 'utils/location'
-import RNLocation from 'react-native-location'
 
 /**
  * Calculate distance to charger.
