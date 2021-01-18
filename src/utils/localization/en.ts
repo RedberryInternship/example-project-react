@@ -29,6 +29,7 @@ export default {
     chargerString: 'Charger',
     IAgree: 'I Agree',
     welcome: 'Welcome!',
+    phoneCodes: 'Phone codes',
     authentication: {
       authentication: 'Authentication',
       number: 'Number',

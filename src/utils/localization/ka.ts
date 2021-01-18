@@ -30,6 +30,7 @@ export default {
     chargerString: 'დამტენი',
     IAgree: 'ვეთანხმები',
     welcome: 'მოგესალმებით!',
+    phoneCodes: 'ტელეფონის კოდები',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',

@@ -4,13 +4,13 @@ import {
   Animated,
   View,
 } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import {
-  BasePickerSelect,
+  SelectPhoneCode,
   BaseInput,
 } from 'components'
 import images from 'assets/images'
 import { Colors } from 'utils'
-import { phoneNumberPlaceHolder } from 'utils/const'
 import {
   PhoneNumberInputProps,
   Reference,
@@ -24,18 +24,17 @@ const PhoneNumberInput = React.forwardRef(
   ) => {
     const {
       imageAnimatedOpacity,
+      selectedCountryCode,
       pickerItemsState,
       inputPlaceholder,
       phoneTextHandler,
       onPickerChange,
-      onPickerDone,
       animation,
-      pickerRef,
       onSubmit,
       onChange,
       style,
-    } = usePhoneNumberInput(props, ref)
-
+    } = usePhoneNumberInput(props)
+    const { t } = useTranslation()
     return (
       <View style={styles.container}>
         <View pointerEvents="none" style={styles.imageContainer}>
@@ -62,12 +61,11 @@ const PhoneNumberInput = React.forwardRef(
         />
         <Animated.View style={[styles.modalSelectorContainer, { opacity: animation }]}>
           <View style={styles.touchableStyle}>
-            <BasePickerSelect
-              onDone={onPickerDone}
+            <SelectPhoneCode
+              data={pickerItemsState}
               onChange={onPickerChange}
-              items={pickerItemsState}
-              placeholder={phoneNumberPlaceHolder}
-              ref={pickerRef}
+              title={t('phoneCodes')}
+              selectedValue={selectedCountryCode.value}
             />
           </View>
         </Animated.View>
