@@ -53,7 +53,7 @@ const FooterTabNavigator: FCWithNavigation = (props) => {
           FooterTabNavigator,
           isAuthenticated() ? 'ChargerStack' : 'NotAuthorized',
         )}
-        image={images.charge}
+        image={images.chargeWithCode}
       />
       {props.screenProps.chargingState.length > 0 && isAuthenticated() && (
         <Animatable.View

@@ -23,4 +23,5 @@ export type Defaults = {
   internetConnected: boolean | null
   isForeground: boolean | null
   chargers: ChargersResponseWithTime | null
+  authStatus: 'success' | 'failed' | null
 }

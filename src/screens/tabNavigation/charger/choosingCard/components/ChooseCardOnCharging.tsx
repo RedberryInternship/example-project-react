@@ -12,6 +12,7 @@ import {
 } from 'components'
 import images from 'assets/images'
 import { ChooseCardOnChargingFC } from 'screens/tabNavigation/charger/choosingCard/types'
+import { formatCreditCardDigits } from './helper'
 
 const ChooseCardOnCharging: ChooseCardOnChargingFC = (
   {
@@ -20,14 +21,14 @@ const ChooseCardOnCharging: ChooseCardOnChargingFC = (
     onPress,
   },
 ) => (
-    <BaseNativeTouchable onPress={onPress} borderless={false}>
-      <View style={styles.container}>
-        <Image source={images.creditCard} style={styles.cardImage} />
-        <BaseText style={styles.cardLastDigitText}>{lastDigits}</BaseText>
-        <BaseCheckbox active={active} />
-      </View>
-    </BaseNativeTouchable>
-  )
+  <BaseNativeTouchable onPress={onPress} borderless={false}>
+    <View style={styles.container}>
+      <Image source={images.creditCard} style={styles.cardImage} />
+      <BaseText style={styles.cardLastDigitText}>{formatCreditCardDigits(lastDigits)}</BaseText>
+      <BaseCheckbox active={active} />
+    </View>
+  </BaseNativeTouchable>
+)
 
 export default ChooseCardOnCharging
 

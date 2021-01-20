@@ -20,6 +20,15 @@ export const saveUserAndRefresh = (userData: UserMeResponseType, token: string |
 })
 
 /**
+ * Remember that user is not authorized.
+ */
+export const userIsNotAuthorized = () => (
+  {
+    type: actionTypes.NOT_AUTHORIZED,
+  }
+)
+
+/**
  * Saga action for refreshing user information
  * from backend.
  */

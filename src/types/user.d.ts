@@ -24,3 +24,13 @@ export type UserCard = {
   user_id: number
   user_old_id: null | number
 }
+
+export type UserCar = {
+  user_id: number
+  user_car: {
+    model_id: number
+    model_name: string
+    mark_id: 5
+    mark_name: string
+  }
+}

@@ -64,7 +64,7 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
       default:
         return <></>
     }
-  }, [form.errors])
+  }, [inputName, type, form, value])
 
   return (
     <View style={styles.container}>

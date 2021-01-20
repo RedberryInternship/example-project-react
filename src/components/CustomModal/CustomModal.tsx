@@ -11,10 +11,10 @@ import {
   MapPopUp,
 } from 'components'
 import { ModalTypes } from 'types'
-import { CustomModalInterface, Config } from './types'
+import { CustomModalInterface, Config, State } from './types'
 import { initialState } from './config'
 
-class CustomModal extends React.PureComponent implements CustomModalInterface {
+class CustomModal extends React.PureComponent<{}, State> implements CustomModalInterface {
   ref: any = React.createRef()
 
   constructor(props: any) {
@@ -29,11 +29,14 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   }
 
   closeModal = (): void => {
+    const { config } = this.state
+    const { onCloseClick } = config
+
     this.setState({
       visible: false,
     })
 
-    this.state.config.onCloseClick && this.state.config.onCloseClick()
+    onCloseClick && onCloseClick()
   }
 
   customUpdate = (visible: boolean, config?: Config): void => {
@@ -44,8 +47,17 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
     })
   }
 
-  renderView = (): ReactElement | undefined => {
-    switch (this.state.config.type) {
+  renderView = () => {
+    const { config } = this.state
+
+    const {
+      shouldAgree,
+      subType,
+      type,
+      data,
+    } = config
+
+    switch (type) {
       case ModalTypes.REGISTER:
         return <RegistrationType1 onPress={this.closeModal} />
       case ModalTypes.LEGEND:
@@ -54,16 +66,16 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
         return (
           <ChargingModal
             onPress={this.closeModal}
-            subType={this.state.config.subType}
-            data={this.state.config.data}
+            subType={subType}
+            data={data}
           />
         )
       case ModalTypes.MAP_POPUP:
-        return <MapPopUp close={this.closeModal} data={this.state.config.data} />
+        return <MapPopUp close={this.closeModal} data={data} />
       case ModalTypes.LOCATION_PERMISSION:
-        return <LocationPermission onPress={this.closeModal} data={this.state.config.data} />
+        return <LocationPermission onPress={this.closeModal} data={data} />
       case ModalTypes.PRIVACY_AND_POLICY:
-        return <PrivacyPolicy onPress={this.closeModal} />
+        return <PrivacyPolicy onPress={this.closeModal} shouldAgree={!!shouldAgree} />
       default: {
         return <></>
       }
@@ -71,15 +83,20 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
   }
 
   render(): ReactElement {
+    const { visible, config } = this.state
+    const { type, shouldAgree } = config
+
+    shouldAgree as boolean
+
     return (
       <Modal
-        isVisible={this.state.visible}
+        isVisible={visible}
         ref={this.ref}
-        onSwipeComplete={this.closeModal}
+        onSwipeComplete={!shouldAgree ? this.closeModal : undefined}
         swipeDirection={['down']}
         useNativeDriver
-        onBackdropPress={this.closeModal}
-        onBackButtonPress={this.closeModal}
+        onBackdropPress={!shouldAgree ? this.closeModal : undefined}
+        onBackButtonPress={!shouldAgree ? this.closeModal : undefined}
         hideModalContentWhileAnimating
         propagateSwipe
         coverScreen
@@ -90,12 +107,12 @@ class CustomModal extends React.PureComponent implements CustomModalInterface {
             styles.modalContentContainer,
             {
               justifyContent:
-                this.state.config && this.state.config.type === ModalTypes.CHARGER_WRAPPER
+                config && type === ModalTypes.CHARGER_WRAPPER
                   ? 'flex-start'
                   : 'space-between',
               height:
-                this.state.config
-                  && this.state.config.type === ModalTypes.MAP_POPUP
+                config
+                  && type === ModalTypes.MAP_POPUP
                   ? 'auto'
                   : Const.Height * 0.7,
             },

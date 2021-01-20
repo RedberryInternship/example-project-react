@@ -26,14 +26,23 @@ const LegendType2: LegendType2FC = ({ onPress }) => {
       <View style={styles.container}>
         <BaseText style={styles.legendText}>{t('popup.legend')}</BaseText>
         {legendTypes
-          && legendTypes.map((val) => <LegendItem key={val.text} {...val} />)}
-        <View style={styles.gapView}>
-          <View style={styles.gapInnerView} />
-        </View>
+          && legendTypes.map(({ text, fastCharger, privateCharger }) => (
+            <LegendItem
+              key={text}
+              fastCharger={fastCharger}
+              privateCharger={privateCharger}
+              text={text}
+            />
+          ))}
+        <View style={styles.gapView} />
         <View style={styles.legendTypesContainer}>
           {legendColorTypes
-            && legendColorTypes.map((val) => (
-              <LegendColorItem key={val.text} {...val} />
+            && legendColorTypes.map(({ color, text }) => (
+              <LegendColorItem
+                key={text}
+                color={color}
+                text={text}
+              />
             ))}
         </View>
       </View>
@@ -65,19 +74,15 @@ const styles = StyleSheet.create({
     marginVertical: 24,
     marginTop: 0,
   },
-  gapInnerView: {
-    borderBottomWidth: 1,
-    opacity: 0.1,
-    height: 0,
-    borderBottomColor: Colors.primaryBackground,
-    width: '100%',
-  },
   legendTypesContainer: {
     flex: 0,
     flexDirection: 'row',
-    marginRight: 32,
+    marginHorizontal: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
     flexWrap: 'wrap',
     borderRadius: 25,
+    backgroundColor: 'rgba(144,163,173,0.1)',
   },
   closeButtonView: {
     alignItems: 'stretch',

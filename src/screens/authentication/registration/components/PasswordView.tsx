@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form'
 import * as Const from 'utils/const'
 import defaults from 'utils/defaults'
 import colors from 'utils/colors'
-import { BaseInput, BaseText } from 'components'
+import { BaseInput, BaseText, PasswordRulesLabel } from 'components'
 import images from 'assets/images'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
@@ -34,6 +34,7 @@ const PasswordView: PasswordViewFC = (
         secure
         title="authentication.registration.password"
       />
+      <PasswordRulesLabel />
       <Controller
         as={BaseInput}
         name="repeatPassword"
@@ -74,7 +75,7 @@ const PasswordView: PasswordViewFC = (
 
 export default React.memo(
   PasswordView,
-  ({ activePage }, { activePage: nextActivePage }) => nextActivePage != 2 && activePage != 2,
+  ({ activePage }, { activePage: nextActivePage }) => nextActivePage !== 2 && activePage !== 2,
 )
 
 const styles = StyleSheet.create({

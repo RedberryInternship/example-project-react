@@ -10,6 +10,7 @@ import {
   GetAllChargerResponseType,
   Charger,
 } from 'types'
+import defaults from 'utils/defaults'
 
 /**
  * Get chargers from server and filter
@@ -106,3 +107,41 @@ export const determine = {
   isChargerPrivate: (charger: Charger): boolean => !charger.public,
   isChargerPublic: (charger: Charger): boolean => !!charger.public,
 }
+
+/**
+ * Filter whitelisted chargers.
+ */
+export const hideWhitelistedChargers = (chargers: Charger[]) => chargers.filter((charger) => {
+  /**
+   * if charger is not hidden show it to the user.
+   */
+  if (!charger.hidden) {
+    return true;
+  }
+
+  /**
+   * If user is not authenticated and
+   * charger is hidden, don't show.
+   */
+  if (defaults.authStatus === 'failed') {
+    return false;
+  }
+
+  /**
+   * If user is authenticated and charger is hidden
+   * with user's phone_number in its whitelist,
+   * in that case show charger.
+   */
+  const notIn = charger.whitelist.every(({ phone }) => phone !== defaults.userDetail?.phone_number)
+
+  if (notIn) {
+    return false;
+  }
+
+  /**
+   * If it happens that user's phone number is in the
+   * charger's whitelist then let the user
+   * see this charger.
+   */
+  return true
+})

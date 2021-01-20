@@ -130,8 +130,8 @@ android {
         applicationId "com.boxwood.espaceboxwoodrelease"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 209
-        versionName "2.1.0" 
+        versionCode 211
+        versionName "2.1.2" 
         multiDexEnabled true
 
     }

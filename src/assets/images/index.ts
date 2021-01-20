@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 export default {
   alertCircle: require('./icons/alert-circle.png'),
   iosBack: require('./icons/ios_back.png'),
@@ -12,9 +13,11 @@ export default {
   mapPin: require('./icons/ic_map_pin.png'),
   mapPin2: require('./icons/map-pin.png'),
   orangeTrash: require('./icons/orange-trash.png'),
+  deleteAction: require('./icons/delete-action.png'),
   lock: require('./icons/lock.png'),
   alertCircle2: require('./icons/ic_alert-circle.png'),
   charge: require('./icons/ic_charge.png'),
+  chargeWithCode: require('./icons/charge_with_code.png'),
   checkCircle: require('./icons/check-circle.png'),
   briefCase: require('./icons/briefcase.png'),
   chevronUp: require('./icons/chevron-up.png'),
@@ -45,11 +48,12 @@ export default {
   facebook: require('./icons/facebook.png'),
   internet: require('./icons/internet.png'),
   'Combo 2': require('./icons/combo2Connector.png'),
-  'CHAdeMO': require('./icons/chademoConnector.png'),
+  CHAdeMO: require('./icons/chademoConnector.png'),
   'Type 2': require('./icons/type2Connector.png'),
   checkmark: require('./icons/checkmark.png'),
   addCarInput: require('./icons/addCarInput.png'),
   caretDown: require('./icons/caret-down.png'),
+  logo: require('./logo.png'),
 }
 
 export const Partners = {

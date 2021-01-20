@@ -33,7 +33,7 @@ export default (navigation: Navigation) => {
       { name: 'phone' },
       { validate: InputValidation.phoneNumberValidation },
     )
-  }, [])
+  }, [register])
 
   useEffect(() => {
     /**
@@ -51,7 +51,6 @@ export default (navigation: Navigation) => {
    */
   const buttonClickHandler: Authenticate = async ({ phone, password }) => {
     try {
-      console.log([phone, password])
       const { access_token, user } = await services.loginUser(phone, password)
       dispatch(saveUserAndRefresh(user, access_token))
       navigation.navigate('Home')

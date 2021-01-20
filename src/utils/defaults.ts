@@ -15,6 +15,7 @@ const defaults: Defaults = {
   internetConnected: null,
   isForeground: null,
   chargers: null,
+  authStatus: null,
 }
 
 export default defaults

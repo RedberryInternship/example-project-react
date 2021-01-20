@@ -9,6 +9,7 @@ import {
   remoteLogger,
 } from 'utils/inform'
 import { InputValidation } from 'utils'
+import { agreeToPrivacyAndPolicy } from 'helpers/privacyAndPolicy'
 import { RegisterError, RepeatPassword } from './types'
 
 /**
@@ -46,7 +47,7 @@ export default (
       { name: 'termsAndConditions' },
       { validate: InputValidation.checkboxValidation },
     )
-  }, [])
+  }, [register])
 
   /**
    * Repeat password, validate and go to next page.
@@ -112,7 +113,8 @@ export default (
    * Upon successful registration save user data
    * in state and go to next page.
    */
-  const onSuccessRegistration = (data: RegisterResponseType) => {
+  const onSuccessRegistration = async (data: RegisterResponseType) => {
+    await agreeToPrivacyAndPolicy()
     dispatch(saveUserAndRefresh(data.user, data.token))
     setActivePage(3)
   }

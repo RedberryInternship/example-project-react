@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import privacyPolicy from './privacyPolicyKa';
 
 export default {
@@ -12,19 +13,24 @@ export default {
     turnOn: 'ჩართვა',
     km: 'კმ',
     kwh: 'კვტ/სთ',
+    kw: 'კვტ.',
     from: '-დან',
     till: '-მდე',
     yes: 'დიახ',
     no: 'არა',
+    done: 'კარგი',
     minute: 'წთ',
     loading: 'იტვირთება ...',
     cancel: 'გაუქმება',
+    update: 'შესწორება',
     pleaseFillInput: 'გთხოვთ შეავსოთ ველი',
     needLocation: 'საჭიროა წვდომა ლოკაციაზე',
     locationIsDenied: 'ლოკაციაზე წვდომა აკრძალულია',
     navigateToSettings: 'პარამეტრებში გადასვლა',
     chargerString: 'დამტენი',
+    IAgree: 'ვეთანხმები',
     welcome: 'მოგესალმებით!',
+    phoneCodes: 'ტელეფონის კოდები',
     authentication: {
       authentication: 'ავტორიზაცია',
       number: 'ნომერი',
@@ -47,7 +53,7 @@ export default {
         password: 'პაროლი',
         repeatPassword: 'გაიმეორეთ პაროლი',
         skip: '  გამოტოვება',
-        success: 'თქვენ წარმატებკით დარეგისტრირდით, შეგიძლიათ დატენოთ მანაქანა!',
+        success: 'თქვენ წარმატებკით დარეგისტრირდით, შეგიძლიათ დამუხტოთ მანაქანა!',
       },
     },
     home: {
@@ -61,7 +67,7 @@ export default {
     drawer: {
       tariff: 'ტარიფები',
       contact: 'კონტაქტი',
-      faq: 'ხდკ',
+      faq: 'FAQ',
       partners: 'პარტნიორები',
       termsAndConditions: 'წესები და პირობები',
       settings: 'პარამეტრები',
@@ -115,22 +121,20 @@ export default {
       notWorking: 'არ მუშაობს',
       free: 'თავისუფალი',
       thankYou: 'მადლობა',
-      automobileChargingFinished: 'ავტომობილის დატენვა დასრულებულია',
-      chargingFinishedWarning:
-        'თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
+      automobileChargingFinished: 'ავტომობილის დამუხტვა დასრულებულია',
+      chargingFinishedWarning: 'თუ 20 წუთის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       chargeOff: 'ჩამოგეჭრათ',
       returned: 'დაგიბრუნდათ',
-      continueCharging: 'დატენვის გაგრძელება',
-      finishedChargingOfAutomobile: 'დატენვის პროცესი დასრულებულია',
-      warningTextBeforeFine:
-        'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
+      continueCharging: 'დამუხტვის გაგრძელება',
+      finishedChargingOfAutomobile: 'დამუხტვის პროცესი დასრულებულია',
+      warningTextBeforeFine: 'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
       bankrupt: 'არასაკმარისი თანხა',
       paymentFailed: 'ბარათით გადახდა ვერ განხორციელდა.',
       processFailed: 'პროცესი წარუმატებლად დასრულდა',
     },
     charger: {
-      chargeWitchCode: 'დატენვა კოდით',
+      chargeWitchCode: 'დამუხტვა კოდით',
       enterCode: 'ჩაწერეთ კოდი',
       turnOn: 'ჩართვა',
       allChargerList: 'დამტენების სრული სია',
@@ -148,30 +152,30 @@ export default {
       powerOfChargerType: 'სიმძლავრე {{power}}კვტ/სთ',
       code: 'კოდი:#{{code}}',
       pleaseAddCardFirst: 'საჭიროა ბარათის დამატება',
-      maxAllowedCarCharing: 'შესაძლებელია მაქსიმუმ 2 ავტომობილის დატენვა',
+      maxAllowedCarCharing: 'შესაძლებელია მაქსიმუმ 2 ავტომობილის დამუხტვა',
       selectConnector: 'გთხოვთ აირჩიოთ შესაერთებელი',
       chargerIsBusy: 'დამტენი დაკავებულია',
       minutes: 'წუთები',
     },
     notAuthorized: {
-      notAuthorizedText: 'დატენვის დასაწყებად, გაიარეთ ავტორიზაცია',
+      notAuthorizedText: 'დამუხტვის დასაწყებად, გაიარეთ ავტორიზაცია',
     },
     chooseChargeMethod: {
       choose: 'აირჩიეთ',
-      chooseChargeMethod: 'აირჩიეთ დატენვის სასურველი მეთოდი',
+      chooseChargeMethod: 'აირჩიეთ დამუხტვის სასურველი მეთოდი',
       or: 'ან',
-      untilTurnOff: 'სრულად დატენვამდე',
+      untilTurnOff: 'სრულად დამუხტვამდე',
       withEnteringPrice: 'თანხის მითითებით',
     },
     charging: {
-      charge: 'დატენვა',
-      chargeAnotherCar: 'სხვა ავტომობილის დატენვა',
+      charge: 'დამუხტვა',
+      chargeAnotherCar: 'სხვა ავტომობილის დამუხტვა',
       finish: 'დასრულება',
     },
     chooseCard: {
       chooseCard: 'ბარათის არჩევა',
       enterPrice: 'გთხოვთ მიუთითეთ თანხის ოდენობა',
-      chargingUntilPlugOff: 'სრულად დატენვამდე',
+      chargingUntilPlugOff: 'სრულად დამუხტვამდე',
     },
     favourites: {
       favourites: 'ფავორიტები',
@@ -240,6 +244,7 @@ export default {
         phoneAlreadyToken: 'ეს ნომერი ბაზაში უკვე არსებობს',
         passwordNotEqual: 'პაროლები ერთმანეთს არ ემთხვევა',
         minPasswordTextLength: 'პაროლი უნდა შეიცავდეს მინ. 8 სიმბოლოს',
+        minPasswordLength: 'მინიმუმ 8 სიმბოლო',
         needsCardAddOrPleaseSkip: 'საჭიროა ბარათის დამატება, ან გამოტოვეთ',
         pleaseSelectTermsAndConditions: 'გთხოვთ დაეთანხმოთ წესებს და პირობებს',
         alreadyExists: 'მომხმარებელი ასეთი ნომერით უკვე დარეგისტრირებულია!',
@@ -305,6 +310,18 @@ export default {
       home: {
         noRouteFound: 'მარშრუტი ვერ მოიძებნა',
       },
+      addCar: {
+        firstManufacturer: 'გთხოვთ, პირველ რიგში მწარმოებელი აირჩიოთ...',
+        uSureToDelete: 'ნამდვილად გსურთ ავტომობილის წაშლა?',
+        youCanAddCar: 'ამჟამათ თქვენ ავტომობილი დამატებული არ გაქვთ, გსურთ დაამატოთ?',
+      },
+    },
+    addCar: {
+      addedCars: 'დამატებული ავტომობილები',
+      youHaveNoCars: 'თქვენ ჯერ არ გაქვთ დამატებული ავტომობილი...',
+    },
+    creditCards: {
+      uSureToDelete: 'დარწმუნებული ხართ, რომ ბარათის წაშლა გსურთ?',
     },
     partners: {
       partnerOrganizations: 'პარტნიორი ორგანიზაციები',

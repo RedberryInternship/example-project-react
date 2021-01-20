@@ -9,18 +9,18 @@ const CustomDropdownAlert: CustomDropDownFC = (
     dropDownInactiveBarColor,
   },
 ) => (
-    <DropdownAlert
-      translucent
-      useNativeDriver
-      inactiveStatusBarBackgroundColor="transparent"
-      onClose={() => StatusBar.setBarStyle(dropDownInactiveBarColor(), true)}
-      ref={(ref) => { defaults.dropdown = ref }}
-      testID="dropdownAlert"
-      titleStyle={styles.dropdownAlertTitleStyle}
-      imageStyle={styles.dropdownAlertImageStyle}
-      titleNumOfLines={2}
-    />
-  )
+  <DropdownAlert
+    translucent
+    useNativeDriver
+    inactiveStatusBarBackgroundColor="transparent"
+    onClose={() => StatusBar.setBarStyle(dropDownInactiveBarColor(), true)}
+    ref={(ref) => { defaults.dropdown = ref }}
+    testID="dropdownAlert"
+    titleStyle={styles.dropdownAlertTitleStyle}
+    imageStyle={styles.dropdownAlertImageStyle}
+    titleNumOfLines={2}
+  />
+)
 
 export default CustomDropdownAlert
 

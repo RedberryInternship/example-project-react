@@ -38,7 +38,7 @@ const Auth: FCWithNavigation = ({ navigation }) => {
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(Auth, 'MainDrawer')}
+        onPressLeft={() => navigation.navigate('MainDrawer')}
         title="authentication.authentication"
       />
       <KeyboardAwareScrollView

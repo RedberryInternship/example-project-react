@@ -1,19 +1,22 @@
 import React from 'react'
 import {
-  View,
-  StyleSheet,
   TouchableOpacity,
-  Image,
+  StyleSheet,
   ScrollView,
+  Image,
+  View,
 } from 'react-native'
 import HTML from 'react-native-render-html'
 import { useTranslation } from 'react-i18next'
 import images from 'assets/images'
-import { BaseText } from 'components'
+import {
+  PrivacyAndPolicyButton,
+  BaseText,
+} from 'components'
 import { Colors } from 'utils'
 import { PrivacyPolicyFC } from './types'
 
-const PrivacyPolicy: PrivacyPolicyFC = ({ onPress }) => {
+const PrivacyPolicy: PrivacyPolicyFC = ({ onPress, shouldAgree }) => {
   const { t } = useTranslation()
 
   return (
@@ -25,9 +28,15 @@ const PrivacyPolicy: PrivacyPolicyFC = ({ onPress }) => {
         </TouchableOpacity>
       </ScrollView>
       <View style={styles.closeButtonView}>
-        <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
-          <Image source={images.close} style={styles.closeButtonImage} />
-        </TouchableOpacity>
+        {
+          shouldAgree
+            ? (<PrivacyAndPolicyButton onPress={onPress} />)
+            : (
+              <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
+                <Image source={images.close} style={styles.closeButtonImage} />
+              </TouchableOpacity>
+            )
+        }
       </View>
     </View>
   );
@@ -58,7 +67,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   closeButtonView: {
-    alignItems: 'stretch',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  iAgreeButton: {
+    width: 180,
+    zIndex: 1000,
   },
   closeButtonTouchable: {
     borderRadius: 25,

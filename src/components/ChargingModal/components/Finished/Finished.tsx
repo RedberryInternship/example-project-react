@@ -1,42 +1,32 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import {
   ModalPopupChargerItem,
-  BaseText,
 } from 'components'
 import { Colors } from 'utils'
 import { FinishedFC } from './types'
 
 const Finished: FinishedFC = (
   {
-    bottomDescription,
     price,
     consumedMoney,
     refundMoney,
   },
-) => {
-  const { t } = useTranslation()
-
-  return (
-    <>
-      <BaseText style={styles.bottomContentDescriptionType2}>
-        {t(bottomDescription)}
-      </BaseText>
+) => (
+  <>
+    <View style={styles.lineView} />
+    <View style={{ marginVertical: 12 }}>
+      {price !== null && <ModalPopupChargerItem val={price} type={0} />}
+      {consumedMoney !== null && (
+        <ModalPopupChargerItem val={consumedMoney} type={1} />
+      )}
+      {refundMoney !== null && (
+        <ModalPopupChargerItem val={refundMoney} type={2} />
+      )}
       <View style={styles.lineView} />
-      <View style={{ marginVertical: 12 }}>
-        {price !== null && <ModalPopupChargerItem val={price} type={0} />}
-        {consumedMoney !== null && (
-          <ModalPopupChargerItem val={consumedMoney} type={1} />
-        )}
-        {refundMoney !== null && (
-          <ModalPopupChargerItem val={refundMoney} type={2} />
-        )}
-        <View style={styles.lineView} />
-      </View>
-    </>
-  )
-}
+    </View>
+  </>
+)
 
 export default Finished
 

@@ -11,23 +11,12 @@ import {
 declare const __DEV__: boolean
 
 /**
- * Log data when in development mode.
- *
- * @param data
- */
-export const Logger = (data: any): void => {
-  if (__DEV__) {
-    console.log(data)
-  }
-}
-
-/**
  * Send logs remotely for debugging.
  */
 export const remoteLogger = (data: any, type: 'Error' | 'Message' = 'Error') => {
   if (__DEV__) {
     console.groupCollapsed('Error')
-    console.error(data)
+    console.log(data)
     console.groupEnd()
   }
 
@@ -61,6 +50,20 @@ export const DisplayDropdownWithSuccess = (
   Defaults.dropdown?.alertWithType(
     'success',
     i18next.t(title ?? 'dropDownAlert.generalSuccess'),
+    i18next.t(text ?? ''),
+  )
+}
+
+/**
+ * Display warning alert.
+ */
+export const DisplayDropdownWithWarning = (
+  title: string | undefined = undefined,
+  text: string | undefined = undefined,
+): void => {
+  Defaults.dropdown?.alertWithType(
+    'warn',
+    i18next.t(title ?? 'dropDownAlert.warning'),
     i18next.t(text ?? ''),
   )
 }

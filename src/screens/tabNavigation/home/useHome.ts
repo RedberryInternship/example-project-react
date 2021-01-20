@@ -30,44 +30,6 @@ const useHome = (navigation: Navigation) => {
   const mapRef: MapImperativeRefObject = useRef(null)
   const mainInputRef: any = useRef(null)
 
-  useEffect(() => {
-    /**
-     * Setup navigation listeners.
-     */
-    const didFocus = navigation.addListener('didFocus', onScreenFocus)
-    const willBlur = navigation.addListener(
-      'willBlur',
-      () => mapRef.current && mapRef.current.showRoute(0, 0, false) && navigation.setParams({}),
-    )
-
-    /**
-     * On map navigate close drawer and close bottom search panel.
-     */
-    navigation.dispatch(DrawerActions.closeDrawer())
-    handleBottomSearchModal(false)
-
-    /**
-     * Remove subscriptions at unmount.
-     */
-    return (): void => {
-      didFocus.remove()
-      willBlur.remove()
-    }
-  }, [])
-
-  /**
-   * Manage all show or all discard chargers action.
-   */
-  useEffect(() => {
-    if (showAll) {
-      setSelectedFiltersOnMap(Array(6).fill(false))
-      setOnMapFilteredChargers([])
-    } else {
-      setBottomPanelSearchInputText('')
-      setSelectedFilters(Array(6).fill(0))
-    }
-  }, [showAll])
-
   /**
    * Mange bottom search panel,
    * close or open.
@@ -125,8 +87,46 @@ const useHome = (navigation: Navigation) => {
         }, 500)
       }
     },
-    [mapRef],
+    [mapRef, handleBottomSearchModal],
   )
+
+  useEffect(() => {
+    /**
+     * Setup navigation listeners.
+     */
+    const didFocus = navigation.addListener('didFocus', onScreenFocus)
+    const willBlur = navigation.addListener(
+      'willBlur',
+      () => mapRef.current && mapRef.current.showRoute(0, 0, false) && navigation.setParams({}),
+    )
+
+    /**
+     * On map navigate close drawer and close bottom search panel.
+     */
+    navigation.dispatch(DrawerActions.closeDrawer())
+    handleBottomSearchModal(false)
+
+    /**
+     * Remove subscriptions at unmount.
+     */
+    return (): void => {
+      didFocus.remove()
+      willBlur.remove()
+    }
+  }, [handleBottomSearchModal, navigation, onScreenFocus])
+
+  /**
+   * Manage all show or all discard chargers action.
+   */
+  useEffect(() => {
+    if (showAll) {
+      setSelectedFiltersOnMap(Array(6).fill(false))
+      setOnMapFilteredChargers([])
+    } else {
+      setBottomPanelSearchInputText('')
+      setSelectedFilters(Array(6).fill(0))
+    }
+  }, [showAll])
 
   /**
    * Manage filter clicks.
@@ -168,7 +168,7 @@ const useHome = (navigation: Navigation) => {
   const onFilteredItemClick = useCallback(
     (charger: ChargerDetail): void => {
       navigation.navigate('ChargerDetail', {
-        chargerDetails: { ...charger, from: 'Home' },
+        chargerDetails: charger,
       })
     },
     [navigation],

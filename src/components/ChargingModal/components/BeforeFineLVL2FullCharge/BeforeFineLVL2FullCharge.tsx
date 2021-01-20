@@ -24,7 +24,7 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
 
   return (
     <>
-      <BaseText style={styles.bottomContentDescriptionType2}>
+      <BaseText style={styles.bottomContentDescriptionType2} numberOfLines={undefined}>
         {t(bottomDescription)}
       </BaseText>
       <PopUpCountDown

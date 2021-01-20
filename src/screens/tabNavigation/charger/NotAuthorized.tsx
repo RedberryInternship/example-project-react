@@ -32,7 +32,7 @@ const NotAuthorized: FCWithNavigation = ({ navigation }) => {
           style={styles.infoLinearGradient}
         >
           <Image source={images.alertCircle} style={styles.alertCircle} />
-          <BaseText style={styles.infoText}>
+          <BaseText style={styles.infoText} numberOfLines={undefined}>
             {t('notAuthorized.notAuthorizedText')}
           </BaseText>
         </LinearGradient>

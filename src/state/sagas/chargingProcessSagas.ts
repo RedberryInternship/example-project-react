@@ -110,6 +110,11 @@ function* updateChargingProcesses(action: UpdateChargingProcessesSagaAction) {
 function* refreshChargingProcesses() {
   try {
     const data = yield services.chargingState()
+
+    console.groupCollapsed('Active Orders')
+    console.log(data)
+    console.groupEnd()
+
     yield put(actions.updateChargingProcesses(data))
   } catch (error) {
     remoteLogger(error)

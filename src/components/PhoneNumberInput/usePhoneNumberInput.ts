@@ -1,10 +1,9 @@
 import {
   useEffect,
   useState,
-  useRef,
+  useCallback,
 } from 'react'
-import { Platform, Animated } from 'react-native'
-import { Item } from 'react-native-picker-select'
+import { Animated } from 'react-native'
 import {
   DisplayDropdownWithError,
   remoteLogger,
@@ -14,7 +13,6 @@ import { phoneNumberPlaceHolder } from 'utils/const'
 import { PhoneCountryCode } from 'types'
 import {
   PhoneNumberInputProps,
-  Reference,
 } from './types'
 
 const usePhoneNumberInput = (
@@ -27,16 +25,36 @@ const usePhoneNumberInput = (
     style,
     value,
   }: PhoneNumberInputProps,
-  ref: Reference,
 ) => {
   const [animation] = useState(new Animated.Value(0))
-  const pickerRef = useRef(null)
   const [selectedCountryCode, setSelectedCountryCode] = useState(phoneNumberPlaceHolder)
-  const [pickerItemsState, setPickerItemsState] = useState<Item[]>([])
+  const [pickerItemsState, setPickerItemsState] = useState<string[]>([])
+
+  const fetchPhoneCountryCodes = useCallback(async (): Promise<void> => {
+    if (pickerItemsState.length === 0) {
+      try {
+        const { data } = await services.getPhoneCountryCodes()
+        const pickerItems = data
+          .filter((value: PhoneCountryCode) => !!value.phone_code.trim())
+          .map(({ phone_code }: PhoneCountryCode) => (
+            phone_code.charAt(0) !== '+'
+              ? `+${phone_code}`
+              : phone_code
+          ))
+          .filter((value, index, self) => self.indexOf(value) === index)
+
+        const georgianAtTopPickerItems = ['+995', ...pickerItems.filter((el) => el !== '+995')]
+        setPickerItemsState(georgianAtTopPickerItems)
+      } catch (error) {
+        remoteLogger(error)
+        DisplayDropdownWithError()
+      }
+    }
+  }, [pickerItemsState.length])
 
   useEffect(() => {
     fetchPhoneCountryCodes()
-  }, [])
+  }, [fetchPhoneCountryCodes])
 
   const onChange = (show = true): void => {
     show ? onFocus && onFocus() : onBlur && onBlur()
@@ -61,26 +79,6 @@ const usePhoneNumberInput = (
     }
   }
 
-  const fetchPhoneCountryCodes = async (): Promise<void> => {
-    if (pickerItemsState.length === 0) {
-      try {
-        const { data } = await services.getPhoneCountryCodes()
-        const pickerItems = data
-          .filter((value: PhoneCountryCode) => !!value.phone_code)
-          .map((value: PhoneCountryCode) => ({ value: value.phone_code, label: value.phone_code }))
-
-        setPickerItemsState(pickerItems)
-      } catch (error) {
-        remoteLogger(error)
-        DisplayDropdownWithError()
-      }
-    }
-  }
-
-  const onPickerDone = (): void => {
-    ref?.current?.focus()
-  }
-
   const onPickerChange = (val: string): void => {
     if (value?.slice(0, selectedCountryCode.value.length) === selectedCountryCode.value) {
       value = value.replace(selectedCountryCode.value, '')
@@ -88,9 +86,6 @@ const usePhoneNumberInput = (
 
     onChangeText(val + (value ?? ''))
     setSelectedCountryCode({ label: val, value: val })
-    if (Platform.OS === 'android') {
-      ref?.current.focus()
-    }
   }
 
   const imageAnimatedOpacity = animation.interpolate({
@@ -101,16 +96,15 @@ const usePhoneNumberInput = (
   const inputPlaceholder: string = selectedCountryCode.value === '+995' ? '5XX XX XX XX' : ''
 
   return {
-    inputPlaceholder,
     imageAnimatedOpacity,
+    selectedCountryCode,
+    inputPlaceholder,
     pickerItemsState,
     phoneTextHandler,
     onPickerChange,
-    onPickerDone,
     animation,
     onChange,
     onSubmit,
-    pickerRef,
     style,
   }
 }

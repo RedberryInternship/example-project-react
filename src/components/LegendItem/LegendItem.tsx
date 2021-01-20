@@ -6,18 +6,19 @@ import { BaseText, RootPin } from 'components'
 import { ChargerMarkerColor } from 'types'
 import { LegendItemFC } from './types'
 
-const LegendItem: LegendItemFC = ({ text, ...props }) => {
+const LegendItem: LegendItemFC = ({ text, fastCharger, privateCharger }) => {
   const { t } = useTranslation()
 
   return (
     <View style={styles.container}>
-      <BaseText style={styles.text}>{t(text)}</BaseText>
       <RootPin
         pinColorType={ChargerMarkerColor.group}
         width={30}
         height={38}
-        {...props}
+        fastCharger={fastCharger}
+        privateCharger={privateCharger}
       />
+      <BaseText style={styles.text}>{t(text)}</BaseText>
     </View>
   )
 }
@@ -29,14 +30,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: 16,
     paddingHorizontal: 16,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingVertical: 8,
-    borderTopColor: Colors.primaryBackground.concat('22'),
-    borderTopWidth: 1,
+    borderBottomColor: Colors.primaryBackground.concat('22'),
+    borderBottomWidth: 1,
   },
   text: {
     color: '#436880',
     fontSize: 13,
+    marginLeft: 20,
   },
 })

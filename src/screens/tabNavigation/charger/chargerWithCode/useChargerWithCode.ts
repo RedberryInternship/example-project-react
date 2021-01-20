@@ -43,7 +43,7 @@ export default (navigation: Navigation) => {
    * Navigate to chargers detail screen.
    */
   const navigateToChargerDetailScreen = (charger: Charger): void => {
-    navigation.navigate('ChargerDetail', { chargerDetails: charger })
+    navigation.navigate('ChargerDetail', { chargerDetails: charger, from: 'ChargerWithCode' })
   }
 
   /**

@@ -7,16 +7,24 @@ import { UseCardAddViewProps } from './types'
 
 const useCardAddView = ({ onSuccess, onFail }: UseCardAddViewProps) => {
   const [urlData, setUrlData] = useState<GetCardAddUrl>()
+  const [loading, setLoading] = useState<boolean>(true)
+
   const navigationStateChange = useCallback(
-    (event: WebViewNavigation) => {
-      if (event.url.includes(urlData?.success_url)) {
+    ({ url, title }: WebViewNavigation) => {
+      if (title === '') {
+        setLoading(true)
+      } else {
+        setLoading(false)
+      }
+
+      if (url.includes(urlData?.success_url)) {
         onSuccess()
-      } else if (event.url.includes(urlData?.failed_url)) {
+      } else if (url.includes(urlData?.failed_url)) {
         onFail && onFail()
         getCardAddUrl()
       }
     },
-    [urlData],
+    [urlData, onFail, onSuccess],
   )
 
   const getCardAddUrl = async () => {
@@ -35,6 +43,8 @@ const useCardAddView = ({ onSuccess, onFail }: UseCardAddViewProps) => {
 
   return {
     navigationStateChange,
+    setLoading,
+    loading,
     urlData,
   }
 }

@@ -11,5 +11,6 @@ export const initialState: InitialState = {
       bottomDescription: 'popup.chargingFinishedWarning',
       address: '#1',
     },
+    shouldAgree: false,
   },
 }

@@ -14,6 +14,11 @@ function reducer(
         user: payload.user,
         authStatus: typeof payload.token === 'string' ? 'success' : 'failed',
       }
+    case actionTypes.NOT_AUTHORIZED:
+      return {
+        ...state,
+        authStatus: 'failed',
+      }
     case actionTypes.LOG_OUT:
       return {
         ...initialState,

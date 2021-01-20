@@ -36,15 +36,15 @@ const Charging: FCWithNavigation = ({ navigation }) => {
     [hook],
   )
 
-  const oneChargingProcess = (
+  const oneChargingProcess = useMemo(() => (
     <ChargingView
       hook={hook}
       chargingState={chargingState[0]}
       singleCharger
     />
-  )
+  ), [chargingState, hook])
 
-  const twoChargingProcesses = (
+  const twoChargingProcesses = useMemo(() => (
     <TabView
       navigationState={{
         index: activeTab,
@@ -62,7 +62,7 @@ const Charging: FCWithNavigation = ({ navigation }) => {
       )}
       initialLayout={Dimensions.get('window')}
     />
-  )
+  ), [activeTab, chargingState, hook, renderScene, setActiveTab])
 
   return useMemo(
     () => (
@@ -75,7 +75,12 @@ const Charging: FCWithNavigation = ({ navigation }) => {
         {chargingState.length === 2 && twoChargingProcesses}
       </View>
     ),
-    [navigation, chargingState, hook, activeTab, setActiveTab],
+    [
+      twoChargingProcesses,
+      oneChargingProcess,
+      chargingState,
+      navigation,
+    ],
   )
 }
 

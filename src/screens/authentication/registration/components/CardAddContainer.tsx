@@ -10,10 +10,10 @@ const CardAddContainer: CardAddContainerFC = (
     onSuccess,
   },
 ) => (
-    <View style={styles.container}>
-      {activePage === 3 && <CardAddView onSuccess={onSuccess} />}
-    </View>
-  )
+  <View style={styles.container}>
+    {activePage === 3 && <CardAddView onSuccess={onSuccess} />}
+  </View>
+)
 
 export default React.memo(
   CardAddContainer,

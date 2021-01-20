@@ -1,20 +1,86 @@
-import { useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
 import Navigation from 'utils/navigation'
+import { refreshAndCacheChargers } from 'helpers/chargers'
+import {
+  preparePrivacyAndPolicyPopUp,
+  hasAgreedToPrivacyAndPolicy,
+} from 'helpers/privacyAndPolicy'
+import { GetAllChargerResponseType, Charger } from 'types'
+import defaults from 'utils/defaults'
+import { retrieveLocation } from 'utils/location'
 
 /**
  * Upon configuration ending, go to home screen.
  */
 const useAppReady = () => {
-  const userData = useSelector(selectUser)
-  // useEffect(() => {
-  // console.log(['auth-status', authStatus])
-  // }, [authStatus])
+  const { authStatus } = useSelector(selectUser)
+  const [chargers, setChargers] = useState<GetAllChargerResponseType | Charger[] | undefined>()
 
   useEffect(() => {
-    Navigation.navigate('MainDrawer')
+    /**
+     * Update defaults authStatus.
+     */
+    defaults.authStatus = authStatus
+  }, [authStatus])
+
+  useEffect(() => {
+    /**
+     * Retrieve chargers before start up.
+     */
+    (async () => {
+      /**
+       * Retrieve user location to calculate distance to each charger.
+       */
+      await retrieveLocation()
+
+      const retrievedChargers = await refreshAndCacheChargers()
+      setChargers(retrievedChargers)
+    })()
   }, [])
+
+  /**
+   * Start app by loading map screen.
+   */
+  const startApp = useCallback(() => {
+    defaults.authStatus = authStatus
+    Navigation.navigate('MainDrawer')
+  }, [authStatus])
+
+  useEffect(() => {
+    /**
+     * Make sure that app is ready when auth status is
+     * determined and chargers are loaded.
+     */
+
+    (async () => {
+      if (authStatus !== null && chargers !== undefined) {
+        /**
+         * Determine if user has already agreed privacy and policy.
+         */
+        const hasAgreed = await hasAgreedToPrivacyAndPolicy()
+
+        /**
+         * if current route is Registration thus user is trying
+         * to register and we should change route.
+         */
+        if (defaults.activeRoute === 'Registration') {
+          return
+        }
+
+        /**
+         * If user is authenticated and hasn't yet agreed
+         * to privacy and policy then give him/her the pop up.
+         */
+        if (authStatus === 'success' && !hasAgreed) {
+          preparePrivacyAndPolicyPopUp(startApp)
+        } else {
+          startApp();
+        }
+      }
+    })()
+  }, [authStatus, chargers, startApp])
 }
 
 export default useAppReady

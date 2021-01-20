@@ -2,6 +2,7 @@ import React from 'react'
 import { withNavigation } from 'react-navigation'
 import { View, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
+import { selectUser } from 'state/selectors'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { BaseButton } from 'components'
 import { Defaults } from 'utils'
@@ -30,13 +31,14 @@ const HomeMainComponent: HomeMainFC = (
 ) => {
   const insets = useSafeAreaInsets()
   const homeState = useSelector((state) => state.home)
+  const { authStatus } = useSelector(selectUser)
 
   return (
     <View
       style={[styles.container, { paddingTop: insets.top }]}
       pointerEvents="box-none"
     >
-      {Defaults.token ? null : (
+      {authStatus === 'success' ? null : (
         <BaseButton
           image={images.user}
           onPress={() => navigation?.navigate('Auth')}

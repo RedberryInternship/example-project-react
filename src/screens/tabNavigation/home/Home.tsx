@@ -49,16 +49,20 @@ const Home: FCWithNavigation = ({ navigation }) => {
           selectedFiltersOnMap={selectedFiltersOnMap}
           handleMapFilterClick={handleMapFilterClick}
         />
-        {state?.AllChargers?.length && (
-          <BottomSearchPanel
-            ref={bottomSheetRef}
-            onFilterClick={onFilterClick}
-            selectedFilters={selectedFilters}
-            onFilteredItemClick={onFilteredItemClick}
-            filteredChargers={bottomSearchPanelChargers}
-            textHandler={setBottomPanelSearchInputText}
-          />
-        )}
+        {
+          state?.AllChargers?.length
+            ? (
+              <BottomSearchPanel
+                ref={bottomSheetRef}
+                onFilterClick={onFilterClick}
+                selectedFilters={selectedFilters}
+                onFilteredItemClick={onFilteredItemClick}
+                filteredChargers={bottomSearchPanelChargers}
+                textHandler={setBottomPanelSearchInputText}
+              />
+            )
+            : null
+        }
       </View>
     ),
     [
@@ -77,6 +81,7 @@ const Home: FCWithNavigation = ({ navigation }) => {
       showAll,
       mapRef,
       state,
+
     ],
   )
 }

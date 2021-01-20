@@ -1,7 +1,6 @@
 import {
   useCallback,
   useEffect,
-  useState,
 } from 'react'
 import { Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
@@ -44,7 +43,6 @@ const locationOptions: LocationOptions = {
 
 const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
   const dispatch = useDispatch()
-  const [permissionStatus, setPermissionStatus] = useState<LocationPermissionStatus | null>(null)
 
   /**
    * Handle navigation by reference.
@@ -65,8 +63,8 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
     async (location: Location | null): Promise<void> => {
       locationOptions.location = location // for testing on emulator comment out
       defaults.location = {
-        lat: location?.latitude ?? 0,
-        lng: location?.longitude ?? 0,
+        lat: location?.latitude ?? Const.locationIfNoGPS.lat,
+        lng: location?.longitude ?? Const.locationIfNoGPS.lng,
       }
 
       dispatch(refreshAllChargers())
@@ -106,7 +104,6 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
 
   const subscribePermissionUpdate = useCallback(
     (status: LocationPermissionStatus): void => {
-      setPermissionStatus(status)
       defaults.locationPermission = status
       if (isLocationNotDetermined()) {
         requestPermission()
@@ -118,10 +115,8 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
       }
     },
     [
-      setPermissionStatus,
       navigateToLocation,
       requestPermission,
-      permissionStatus,
     ],
   )
 
@@ -130,7 +125,6 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
    */
   const getPermissionStatus = useCallback(
     (status: LocationPermissionStatus): void => {
-      setPermissionStatus(status)
       locationOptions.permissionStatus = status
       defaults.locationPermission = status
       if (isLocationEnabled()) {
@@ -139,7 +133,7 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
         requestPermission()
       }
     },
-    [permissionStatus],
+    [navigateToLocation, requestPermission],
   )
 
   useEffect(() => {
@@ -248,7 +242,7 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
         remoteLogger(error)
       }
     },
-    [mapRef, polyline],
+    [mapRef, setPolyline],
   )
 
   return {

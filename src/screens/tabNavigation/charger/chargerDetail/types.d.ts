@@ -18,7 +18,6 @@ type ChargerDetailTopInfoProps = {
   showChargerLocationPress: () => void
   favoritePress: () => void
   code: string | number | undefined
-  name: string
   location: string
   favorite: boolean | null | undefined
   distance: string

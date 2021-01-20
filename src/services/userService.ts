@@ -7,10 +7,12 @@ import {
   UserInfoUpdateResponseType,
   EditPasswordResponseType,
   ContactInfoResponseType,
+  UserCarsResponseType,
   PartnersResponseType,
   UserMeResponseType,
   FAQResponseType,
   GetCardAddUrl,
+  SimpleResponse,
 } from 'types';
 
 import ajax from './axios';
@@ -57,8 +59,13 @@ export const sendFeedback = (message: string): Promise<any> => ajax
 export const getCarAndMarksList = (): Promise<CarMarkAndModelResponseType> => ajax
   .get('/get-models-and-marks');
 
+export const getCars = (): Promise<UserCarsResponseType> => ajax.get('/get-user-cars');
+
 export const addCar = (car_model_id: number): Promise<any> => ajax
   .post('/add-user-car', { car_model_id });
+
+export const removeCar = (car_model_id: number): Promise<any> => ajax
+  .post('/delete-user-car', { car_model_id });
 
 export const getContactInfo = (): Promise<ContactInfoResponseType> => ajax
   .get('/contact');
@@ -67,6 +74,11 @@ export const getCardAddUrl = (): Promise<GetCardAddUrl> => ajax.get('/save-card-
 
 export const setDefaultCard = (user_card_id: number): Promise<GetCardAddUrl> => ajax
   .post('/user-card/set-default', { user_card_id });
+
+export const removeCard = (user_card_id: number): Promise<SimpleResponse> => ajax
+  .post('/user-card/remove-card', {
+    user_card_id,
+  })
 
 export const setUserFirebaseToken = (firebase_token: string): Promise<any> => ajax
   .post('/update-firebase-token', { firebase_token });
