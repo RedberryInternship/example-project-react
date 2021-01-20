@@ -9,6 +9,7 @@ import {
 } from 'helpers/privacyAndPolicy'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
+import { retrieveLocation } from 'utils/location'
 
 /**
  * Upon configuration ending, go to home screen.
@@ -29,6 +30,11 @@ const useAppReady = () => {
      * Retrieve chargers before start up.
      */
     (async () => {
+      /**
+       * Retrieve user location to calculate distance to each charger.
+       */
+      await retrieveLocation()
+
       const retrievedChargers = await refreshAndCacheChargers()
       setChargers(retrievedChargers)
     })()

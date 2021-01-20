@@ -2,6 +2,8 @@ import { Alert, Linking, Platform } from 'react-native'
 import RNLocation, { LocationPermissionStatus } from 'react-native-location'
 import defaults from 'utils/defaults'
 import i18next from 'i18next'
+import * as Const from 'utils/const'
+import { remoteLogger } from './inform'
 
 /**
  * Determine if permission is granted.
@@ -94,3 +96,27 @@ export const isLocationEnabled = () => (
 export const isLocationNotDetermined = () => (
   defaults.locationPermission.match(/notDetermined/)
 )
+
+/**
+ * Update current location.
+ */
+export const retrieveLocation = async () => {
+  if (defaults.location?.lat && defaults.location?.lng) {
+    return
+  }
+
+  try {
+    const currentLocation = await RNLocation.getLatestLocation({ timeout: 3000 })
+
+    defaults.location = {
+      lat: currentLocation?.latitude ?? Const.locationIfNoGPS.lat,
+      lng: currentLocation?.longitude ?? Const.locationIfNoGPS.lng,
+    }
+  } catch (e) {
+    remoteLogger(e)
+    defaults.location = {
+      lat: Const.locationIfNoGPS.lat,
+      lng: Const.locationIfNoGPS.lng,
+    }
+  }
+}

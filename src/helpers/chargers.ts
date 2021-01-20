@@ -1,4 +1,3 @@
-// import services from 'services'
 import services from 'services'
 import defaults from 'utils/defaults'
 import { ChargersResponseWithTime, GetAllChargerResponseType, Charger } from 'types'
@@ -15,6 +14,8 @@ export const refreshAndCacheChargers = async () => {
   if (haveExpired) {
     const retrievedChargers = await retrieveChargers()
     retrievedChargers.data = hideWhitelistedChargers(retrievedChargers.data)
+    retrievedChargers.data = retrievedChargers.data.map(addDistanceField)
+    retrievedChargers.data = retrievedChargers.data.sort(sortByDistance)
 
     console.groupCollapsed('Chargers')
     console.log(retrievedChargers)
@@ -67,3 +68,32 @@ const retrieveChargers = async () => {
     } as GetAllChargerResponseType;
   }
 }
+
+/**
+ * Calculate distance.
+ */
+export const calculateDistance = (lat: number, lng: number): number => {
+  const myLat = defaults.location?.lat
+  const myLng = defaults.location?.lng
+
+  if (typeof (myLat) === 'number' && typeof (myLng) === 'number') {
+    return Math.sqrt((myLat - +lat) ** 2 + (myLng - +lng) ** 2)
+  }
+
+  return 1000
+}
+
+/**
+ * Calculate distance callback for map.
+ */
+export const addDistanceField = (el: Charger) => (
+  {
+    ...el,
+    distance: calculateDistance(+el.lat, +el.lng),
+  }
+)
+
+/**
+ * Sort function for sorting by distance.
+ */
+export const sortByDistance = (a: Charger, b: Charger) => a.distance! - b.distance!

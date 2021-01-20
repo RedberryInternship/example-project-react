@@ -73,6 +73,7 @@ export type ChargerDetail = {
   is_favorite: boolean | null
   is_free: boolean
   business_services?: BusinessService[]
+  distance?: number
 }
 
 type WhitelistMember = {

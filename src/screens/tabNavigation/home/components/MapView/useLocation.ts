@@ -63,8 +63,8 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
     async (location: Location | null): Promise<void> => {
       locationOptions.location = location // for testing on emulator comment out
       defaults.location = {
-        lat: location?.latitude ?? 0,
-        lng: location?.longitude ?? 0,
+        lat: location?.latitude ?? Const.locationIfNoGPS.lat,
+        lng: location?.longitude ?? Const.locationIfNoGPS.lng,
       }
 
       dispatch(refreshAllChargers())
