@@ -18,7 +18,7 @@ const Bankrupt: BankruptFC = (
 
   return (
     <>
-      <BaseText style={styles.bottomContentDescriptionType2}>
+      <BaseText style={styles.bottomContentDescriptionType2} numberOfLines={undefined}>
         {t(bottomDescription)}
       </BaseText>
       <View style={styles.lineView} />
