@@ -41,6 +41,7 @@ export { default as BaseHeader } from './BaseHeader'
 export { default as BaseInput } from './BaseInput'
 export { default as BaseText } from './BaseText'
 export { default as SelectCar } from './SelectCar'
+export { default as PasswordRulesLabel } from './PasswordRulesLabel'
 
 // UI
 export { default as RegistrationPagination } from './RegistrationPagination'

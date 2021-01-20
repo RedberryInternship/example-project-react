@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Controller } from 'react-hook-form'
 import { Colors } from 'utils'
 import { DisplayDropdownWithError } from 'utils/inform'
-import { BaseInput } from 'components'
+import { BaseInput, PasswordRulesLabel } from 'components'
 import images from 'assets/images'
 import { PasswordConfirmationViewFC } from './types'
 
@@ -31,6 +31,7 @@ const PasswordConfirmationView: PasswordConfirmationViewFC = (
         secure
         title="authentication.registration.password"
       />
+      <PasswordRulesLabel />
       <Controller
         as={BaseInput}
         name="repeatPassword"

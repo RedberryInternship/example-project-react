@@ -16,4 +16,5 @@ export default {
   faqBlue: '#436880',
   secondaryBlue: '#008AEE',
   primaryGreyishWhite: '#E6E4EA',
+  primaryGold: '#FF9500',
 }

@@ -255,6 +255,8 @@ export default {
         emailAlreadyToken: 'The email has already been taken',
         phoneAlreadyToken: 'The phone number has already been taken.',
         passwordNotEqual: "Passwords don't match",
+        minPasswordTextLength: 'Password should contain at leas 8 letters',
+        minPasswordLength: 'At least 8 letters',
         needsCardAddOrPleaseSkip: 'Card required, or skip',
         alreadyExists: 'User with this number already exists!',
       },

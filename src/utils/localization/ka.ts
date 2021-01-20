@@ -244,6 +244,7 @@ export default {
         phoneAlreadyToken: 'ეს ნომერი ბაზაში უკვე არსებობს',
         passwordNotEqual: 'პაროლები ერთმანეთს არ ემთხვევა',
         minPasswordTextLength: 'პაროლი უნდა შეიცავდეს მინ. 8 სიმბოლოს',
+        minPasswordLength: 'მინიმუმ 8 სიმბოლო',
         needsCardAddOrPleaseSkip: 'საჭიროა ბარათის დამატება, ან გამოტოვეთ',
         pleaseSelectTermsAndConditions: 'გთხოვთ დაეთანხმოთ წესებს და პირობებს',
         alreadyExists: 'მომხმარებელი ასეთი ნომერით უკვე დარეგისტრირებულია!',
