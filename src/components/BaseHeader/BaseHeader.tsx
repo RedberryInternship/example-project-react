@@ -22,6 +22,9 @@ const BaseHeader: BaseHeaderFC = (
     title,
     onPressRight,
     titleRight,
+    colorless,
+    noInset,
+    style,
   },
 ) => {
   const { t } = useTranslation()
@@ -57,9 +60,7 @@ const BaseHeader: BaseHeaderFC = (
         <TouchableOpacity
           onPress={onPressRight}
           style={styles.renderRightTouchable}
-          hitSlop={{
-            top: 15, bottom: 15, left: 15, right: 15,
-          }}
+          hitSlop={styles.hitSlop}
         >
           <BaseText style={styles.renderRightText}>
             {t(titleRight ?? '')}
@@ -71,8 +72,15 @@ const BaseHeader: BaseHeaderFC = (
   ), [t, titleRight, onPressRight])
 
   return (
-    <View style={[styles.mainContainer, { paddingTop: insets.top }]}>
-      <View style={[styles.container]}>
+    <View style={[
+      styles.mainContainer, {
+        paddingTop: !noInset ? insets.top : undefined,
+        backgroundColor: !colorless ? Colors.primaryBackground : undefined,
+      },
+      style ?? {},
+    ]}
+    >
+      <View style={styles.container}>
         {renderMiddle()}
         {renderLeft()}
         {renderRight()}
@@ -86,7 +94,6 @@ export default React.memo(BaseHeader)
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 0,
-    backgroundColor: Colors.primaryBackground,
     width: '100%',
   },
   container: {
@@ -161,5 +168,11 @@ const styles = StyleSheet.create({
     color: '#FF9500',
     fontSize: 13,
     letterSpacing: 0.2,
+  },
+  hitSlop: {
+    top: 15,
+    bottom: 15,
+    left: 15,
+    right: 15,
   },
 })

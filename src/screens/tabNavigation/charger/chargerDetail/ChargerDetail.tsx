@@ -3,6 +3,7 @@ import {
   StyleSheet,
   ScrollView,
   View,
+  Image,
 } from 'react-native'
 import { FCWithNavigation, BusinessService } from 'types'
 import {
@@ -14,6 +15,7 @@ import {
 import { Colors, Const } from 'utils'
 import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
   ChargerDetailTopInfo,
   ChargerTypesItem,
@@ -36,10 +38,23 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
     charger,
   } = useChargerDetails(navigation)
 
+  const insets = useSafeAreaInsets()
+
+  const defaultImage = 'https://img.drivemag.net/media/default/0001/39'
+    + '/1970-Dodge-Charger-SOLO-2-4114-default-large.jpeg'
+
   return (
     <Swipe left={goBackHandler}>
       <View style={styles.container}>
-        <BaseHeader onPressLeft={goBackHandler} />
+        <View style={[styles.imageContainer, { marginTop: insets.top }]}>
+          <BaseHeader
+            onPressLeft={goBackHandler}
+            style={styles.baseHeader}
+            colorless
+            noInset
+          />
+          <Image source={{ uri: defaultImage }} style={styles.image} />
+        </View>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContentContainer}
@@ -107,6 +122,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground,
+  },
+  baseHeader: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+  },
+  imageContainer: {
+    height: 180,
+    position: 'relative',
+    backgroundColor: 'black',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    zIndex: 0,
   },
   scrollView: {
     paddingHorizontal: 16,
