@@ -58,7 +58,7 @@ export default (navigation: Navigation) => {
       setUserDataInStorage()
       dispatch(editUserInfo(newSelectedItem, UserSettingEnum.mapMode))
     }
-  }, [selectedItem])
+  }, [selectedItem, dispatch, t])
 
   /**
    * Set user data on local state, whenever
