@@ -3,8 +3,8 @@ import images from 'assets/images'
 import { UserSettingEnum, SettingsListFieldType } from 'types'
 import Colors from './colors'
 
-export const domain = 'https://api-dev.e-space.ge'
-// export const domain = 'https://app.e-space.ge' // prod
+// export const domain = 'https://api-dev.e-space.ge'
+export const domain = 'https://app.e-space.ge' // prod
 
 export const API = `${domain}/api/app/V1`
 
