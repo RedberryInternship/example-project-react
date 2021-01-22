@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   StyleSheet,
   ScrollView,
@@ -16,13 +16,14 @@ import { Colors, Const } from 'utils'
 import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { getImage } from 'helpers/chargers'
 import {
   ChargerDetailTopInfo,
   ChargerTypesItem,
   CurrentTariffs,
 } from './components'
 import useChargerDetails from './useChargerDetails'
-import BusinessServiceItem from './components/BusinessServiceItem'
+import BusinessServiceItem from './components/BusinessServiceItem/BusinessServiceItem'
 
 const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   const {
@@ -39,9 +40,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   } = useChargerDetails(navigation)
 
   const insets = useSafeAreaInsets()
-
-  const defaultImage = 'https://img.drivemag.net/media/default/0001/39'
-    + '/1970-Dodge-Charger-SOLO-2-4114-default-large.jpeg'
+  const image = useMemo(() => getImage(charger?.image ?? null), [charger])
 
   return (
     <Swipe left={goBackHandler}>
@@ -53,7 +52,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
             colorless
             noInset
           />
-          <Image source={{ uri: defaultImage }} style={styles.image} />
+          <Image source={image} style={styles.image} />
         </View>
         <ScrollView
           style={styles.scrollView}
@@ -83,7 +82,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
                 <ChargerTypesItem
                   key={index}
                   active={activeChargerType === index}
-                  onPress={setActiveChargerType.bind(ChargerDetail, index)}
+                  onPress={() => setActiveChargerType(index)}
                   type={val.name}
                   power={power}
                 />
@@ -133,6 +132,7 @@ const styles = StyleSheet.create({
     height: 180,
     position: 'relative',
     backgroundColor: 'black',
+    marginBottom: 10,
   },
   image: {
     width: '100%',

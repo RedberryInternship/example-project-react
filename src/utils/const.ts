@@ -3,9 +3,10 @@ import images from 'assets/images'
 import { UserSettingEnum, SettingsListFieldType } from 'types'
 import Colors from './colors'
 
-export const API = 'https://api-dev.e-space.ge/api/app/V1' // dev
-// export const API = 'http://espace.test/api/app/V1' // local dev
-// export const API = 'https://app.e-space.ge/api/app/V1' // prod
+export const domain = 'https://api-dev.e-space.ge'
+// export const domain = 'https://app.e-space.ge' // prod
+
+export const API = `${domain}/api/app/V1`
 
 /**
  * App custom build number

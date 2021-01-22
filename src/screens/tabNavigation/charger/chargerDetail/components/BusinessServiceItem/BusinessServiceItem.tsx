@@ -5,7 +5,7 @@ import {
   Image,
   View,
 } from 'react-native'
-import { BusinessServiceItemFC } from 'screens/tabNavigation/charger/chargerDetail/types'
+import { BusinessServiceItemFC } from './types'
 
 const BusinessServiceItem: BusinessServiceItemFC = ({ image, onPress }) => (
   <TouchableOpacity onPress={onPress}>

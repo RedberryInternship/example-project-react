@@ -9,6 +9,7 @@ export type Favorite = {
   description: string | null
   user_id: string | null
   location: LanguageType
+  image: null | string
   public: number
   active: number
   hidden: number
@@ -55,6 +56,7 @@ export type ChargerDetail = {
   description: string
   user_id: number
   location: LanguageType
+  image: null | string
   public: number
   active: number
   status: string

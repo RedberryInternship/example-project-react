@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
 import { BaseCheckbox, BaseText } from 'components'
 import images from 'assets/images'
-import { ChargerTypeItemFC } from 'screens/tabNavigation/charger/chargerDetail/types'
+import { ChargerTypeItemFC } from './types'
 
 const ChargerTypesItem: ChargerTypeItemFC = (
   {

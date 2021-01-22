@@ -3,6 +3,8 @@ import defaults from 'utils/defaults'
 import { ChargersResponseWithTime, GetAllChargerResponseType, Charger } from 'types'
 import { hideWhitelistedChargers } from 'helpers/chargerFilter'
 import { remoteLogger } from 'utils/inform'
+import images from 'assets/images'
+import { domain } from 'utils/const'
 
 /**
  * If cached chargers are expired refresh them and return,
@@ -97,3 +99,16 @@ export const addDistanceField = (el: Charger) => (
  * Sort function for sorting by distance.
  */
 export const sortByDistance = (a: Charger, b: Charger) => a.distance! - b.distance!
+
+/**
+ * Get image for chargers.
+ */
+export const getImage = (image: string | null) => {
+  if (image === null) {
+    return images.defaultCharger
+  }
+
+  return {
+    uri: `${domain}/storage/${image}`,
+  }
+}

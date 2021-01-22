@@ -1,12 +1,9 @@
 import {
   useEffect,
   useState,
-  useRef,
 } from 'react'
-import { BackHandler } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { NavigationEventPayload } from 'react-navigation'
 import { selectUser, selectChargingProcess } from 'state/selectors'
 import {
   Navigation,
@@ -42,8 +39,6 @@ export default (navigation: NavigationType) => {
 
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
-
-  // const backHandlerRef = useRef<any>()
 
   const [charger, setCharger] = useState<Charger>(
     navigation.getParam('chargerDetails', undefined),
