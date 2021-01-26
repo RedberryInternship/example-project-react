@@ -18,7 +18,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
         title="chooseChargeMethod.choose"
       />
       <View style={styles.innerContainer}>
-        <BaseText style={styles.topInfoText}>
+        <BaseText style={styles.topInfoText} numberOfLines={undefined}>
           {t('chooseChargeMethod.chooseChargeMethod')}
         </BaseText>
 
