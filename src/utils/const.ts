@@ -12,7 +12,7 @@ export const API = `${domain}/api/app/V1`
  * App custom build number
  * for back-end.
  */
-export const BUILD_NUMBER = 211
+export const BUILD_NUMBER = 212
 
 // google maps api
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'

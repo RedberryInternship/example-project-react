@@ -29,6 +29,7 @@ const usePhoneNumberInput = (
   const [animation] = useState(new Animated.Value(0))
   const [selectedCountryCode, setSelectedCountryCode] = useState(phoneNumberPlaceHolder)
   const [pickerItemsState, setPickerItemsState] = useState<string[]>([])
+  const [pickerItemsLabel, setPickerItemsLabel] = useState<string[]>([])
 
   const fetchPhoneCountryCodes = useCallback(async (): Promise<void> => {
     if (pickerItemsState.length === 0) {
@@ -36,15 +37,25 @@ const usePhoneNumberInput = (
         const { data } = await services.getPhoneCountryCodes()
         const pickerItems = data
           .filter((value: PhoneCountryCode) => !!value.phone_code.trim())
-          .map(({ phone_code }: PhoneCountryCode) => (
-            phone_code.charAt(0) !== '+'
+          .map(({ phone_code, country_code }: PhoneCountryCode) => {
+            const code = phone_code.charAt(0) !== '+'
               ? `+${phone_code}`
               : phone_code
-          ))
-          .filter((value, index, self) => self.indexOf(value) === index)
 
-        const georgianAtTopPickerItems = ['+995', ...pickerItems.filter((el) => el !== '+995')]
+            return {
+              code,
+              label: country_code,
+            }
+          })
+          .filter((value, index, self) => self.findIndex((el) => el.code === value.code) === index)
+
+        const values = pickerItems.map(({ code }) => code)
+        const labels = pickerItems.map(({ label }) => label)
+
+        const georgianAtTopPickerItems = ['+995', ...values.filter((el) => el !== '+995')]
+        const georgianAtTopPickerLabels = ['GE', ...labels.filter((el) => el !== 'GE')]
         setPickerItemsState(georgianAtTopPickerItems)
+        setPickerItemsLabel(georgianAtTopPickerLabels)
       } catch (error) {
         remoteLogger(error)
         DisplayDropdownWithError()
@@ -100,6 +111,7 @@ const usePhoneNumberInput = (
     selectedCountryCode,
     inputPlaceholder,
     pickerItemsState,
+    pickerItemsLabel,
     phoneTextHandler,
     onPickerChange,
     animation,

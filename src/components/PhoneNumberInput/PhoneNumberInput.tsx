@@ -26,6 +26,7 @@ const PhoneNumberInput = React.forwardRef(
       imageAnimatedOpacity,
       selectedCountryCode,
       pickerItemsState,
+      pickerItemsLabel,
       inputPlaceholder,
       phoneTextHandler,
       onPickerChange,
@@ -66,6 +67,7 @@ const PhoneNumberInput = React.forwardRef(
               onChange={onPickerChange}
               title={t('phoneCodes')}
               selectedValue={selectedCountryCode.value}
+              labels={pickerItemsLabel}
             />
           </View>
         </Animated.View>

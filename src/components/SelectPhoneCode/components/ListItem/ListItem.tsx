@@ -10,10 +10,20 @@ import colors from 'utils/colors'
 import images from 'assets/images'
 import { ListItemFC } from './types'
 
-const ListItem: ListItemFC = ({ value, selected, onPress }) => (
+const ListItem: ListItemFC = (
+  {
+    selected,
+    onPress,
+    value,
+    label,
+  },
+) => (
   <TouchableOpacity onPress={() => onPress()}>
     <View style={styles.container}>
-      <BaseText>{value}</BaseText>
+      <View style={styles.textContainer}>
+        <BaseText style={styles.valueText}>{value}</BaseText>
+        <BaseText style={styles.labelText}>{label}</BaseText>
+      </View>
       {
         selected
           ? <Image source={images.greenTick} style={styles.selectedTick} />
@@ -46,6 +56,17 @@ const styles = StyleSheet.create(
       borderRadius: 50,
       borderWidth: 1,
       borderColor: colors.primaryGray,
+    },
+    textContainer: {
+      flexDirection: 'row',
+      display: 'flex',
+      flex: 1,
+    },
+    valueText: {
+      minWidth: '25%',
+    },
+    labelText: {
+      marginLeft: 10,
     },
   },
 )
