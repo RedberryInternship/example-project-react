@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 import SlidingUpPanel from 'rn-sliding-up-panel'
 import LinearGradient from 'react-native-linear-gradient'
-import { SafeAreaView } from 'react-navigation'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import {

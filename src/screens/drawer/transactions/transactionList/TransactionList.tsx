@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-navigation'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { BaseHeader, FetchedDataRenderer } from 'components'
 import { Colors } from 'utils'
 import { TransactionsHistoryResponseItem } from 'types'

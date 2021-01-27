@@ -1,5 +1,5 @@
 import React from 'react'
-import { withNavigation } from 'react-navigation'
+import { useNavigation } from '@react-navigation/native'
 import { View, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
@@ -23,12 +23,12 @@ const HomeMainComponent: HomeMainFC = (
     handleMapFilterClick,
     selectedFiltersOnMap,
     allChargers,
-    navigation,
     setShowAll,
     mainInputRef,
     mapRef,
   },
 ) => {
+  const { navigate } = useNavigation()
   const insets = useSafeAreaInsets()
   const homeState = useSelector((state) => state.home)
   const { authStatus } = useSelector(selectUser)
@@ -41,7 +41,7 @@ const HomeMainComponent: HomeMainFC = (
       {authStatus === 'success' ? null : (
         <BaseButton
           image={images.user}
-          onPress={() => navigation?.navigate('Auth')}
+          onPress={() => navigate('Auth')}
           text="home.authorization"
           style={styles.authorizeBtn}
         />
@@ -87,7 +87,7 @@ const HomeMainComponent: HomeMainFC = (
   )
 }
 
-export default withNavigation(React.memo(HomeMainComponent))
+export default React.memo(HomeMainComponent)
 
 const styles = StyleSheet.create({
   container: {

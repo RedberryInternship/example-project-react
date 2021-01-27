@@ -27,7 +27,7 @@ const Home: FCWithNavigation = ({ navigation }) => {
     setShowAll,
     showAll,
     mapRef,
-  } = useHome(navigation)
+  } = useHome()
 
   const state = useSelector(selectUser)
 

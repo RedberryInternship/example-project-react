@@ -5,7 +5,7 @@ import {
   Image,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaView } from 'react-navigation'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { BaseHeader, BaseText } from 'components'
 import { Colors } from 'utils'
 import {

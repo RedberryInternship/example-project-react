@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logOutAndReset } from 'state/actions/userActions'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/native'
 import { BaseButton, BaseText } from 'components'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
@@ -17,7 +18,7 @@ import { easyAlert } from 'utils/inform'
 import images from 'assets/images'
 import { isAuthenticated } from 'helpers/user'
 import { selectUser } from 'state/selectors'
-import { FCWithNavigation, Locale, ModalTypes } from 'types'
+import { Locale, ModalTypes } from 'types'
 import { setLocale } from 'utils/locale'
 import {
   DrawerTextFieldItem,
@@ -25,7 +26,8 @@ import {
   BaseLocaleButton,
 } from './components'
 
-const Drawer: FCWithNavigation = ({ navigation }) => {
+const Drawer = () => {
+  const { navigate } = useNavigation()
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
 
@@ -46,7 +48,7 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
         <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
           <BaseButton
             image={images.user}
-            onPress={navigation.navigate.bind(Drawer, 'Auth')}
+            onPress={() => navigate('Auth')}
             text="home.authorization"
             style={styles.drawerAuthBtn}
           />
@@ -54,7 +56,7 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
           {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => (
             <DrawerTextFieldItem
               key={ind}
-              onPress={navigation.navigate.bind(Drawer, field.route)}
+              onPress={() => navigate(field.route)}
               {...field}
             />
           ))}
@@ -69,7 +71,7 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
         {Const.DrawerFieldsAfterAuthorization.map((field, key) => (
           <DrawerTextFieldItem
             key={key}
-            onPress={navigation.navigate.bind(Drawer, field.route)}
+            onPress={() => navigate(field.route)}
             {...field}
           />
         ))}
@@ -83,9 +85,7 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
     >
       {isAuthenticated() && (
         <BaseUserAvatarWithLabel
-          onPress={(): void => {
-            navigation.navigate('ChooseAvatar')
-          }}
+          onPress={() => navigate('ChooseAvatar')}
           avatar={state.user?.avatar}
           firstName={state?.user?.first_name ?? ''}
           lastName={state?.user?.last_name ?? ''}

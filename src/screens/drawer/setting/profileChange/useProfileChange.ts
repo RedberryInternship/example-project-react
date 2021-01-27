@@ -81,7 +81,6 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
    * in redux state.
    */
   const updateCar = async (form: Record<string, string | number>) => {
-    console.log(form)
     try {
       await services.addCar(+form.carModelId)
       navigation.goBack()

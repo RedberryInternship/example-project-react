@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import Navigation from 'utils/navigation'
 import { refreshAndCacheChargers } from 'helpers/chargers'
 import {
   preparePrivacyAndPolicyPopUp,
   hasAgreedToPrivacyAndPolicy,
 } from 'helpers/privacyAndPolicy'
+import Navigation from 'utils/navigation'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
 import { retrieveLocation } from 'utils/location'
@@ -45,7 +45,8 @@ const useAppReady = () => {
    */
   const startApp = useCallback(() => {
     defaults.authStatus = authStatus
-    Navigation.navigate('MainDrawer')
+
+    Navigation.navigate('MainStack')
   }, [authStatus])
 
   useEffect(() => {

@@ -1,24 +1,23 @@
 /* eslint-disable no-underscore-dangle */
 import { StatusBarStyle, StatusBar } from 'react-native'
 import {
-  NavigationContainerComponent,
-  NavigationActions,
-  StackActions,
+  NavigationContainerRef,
   NavigationState,
-} from 'react-navigation'
+  CommonActions,
+} from '@react-navigation/native'
 import { determineTimePeriod } from 'utils/map'
 import defaults from 'utils/defaults'
 
-let navigator: NavigationContainerComponent | null = null
+let navigator: NavigationContainerRef | null = null
 
 const Navigation = {
   /**
    * Navigate to routes.
    */
-  navigate(routeName: string, params = {}): void {
-    navigator!.dispatch(
-      NavigationActions.navigate({
-        routeName,
+  navigate(name: string, params = {}): void {
+    navigator!?.dispatch(
+      CommonActions.navigate({
+        name,
         params,
       }),
     )
@@ -28,7 +27,7 @@ const Navigation = {
    * Go back.
    */
   back(): void {
-    navigator!.dispatch(NavigationActions.back({}))
+    navigator!.dispatch(CommonActions.goBack())
   },
 
   /**
@@ -36,10 +35,15 @@ const Navigation = {
    */
   reset(stackKey = 'root', routeName = '', params = {}): void {
     navigator!.dispatch(
-      StackActions.reset({
+      CommonActions.reset({
         index: 0,
         key: stackKey,
-        actions: [NavigationActions.navigate({ routeName, params })],
+        routes: [
+          {
+            name: routeName,
+            params,
+          },
+        ],
       }),
     )
   },
@@ -50,7 +54,7 @@ export default Navigation
 /**
   * Set navigation reference.
   */
-export const setNavigationReference = (navigatorRef: NavigationContainerComponent): void => {
+export const setNavigationReference = (navigatorRef: NavigationContainerRef): void => {
   navigator = navigatorRef
 }
 

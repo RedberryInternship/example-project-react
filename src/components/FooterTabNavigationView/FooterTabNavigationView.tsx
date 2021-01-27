@@ -1,24 +1,28 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { View, StatusBar, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
+import { selectChargingProcess } from 'state/selectors'
 import { TabNavigationButtons } from 'components'
 import { determineTimePeriod } from 'utils/map'
 import { isAuthenticated } from 'helpers/user'
 import images from 'assets/images'
-import { FCWithNavigation } from 'types'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { zoomOut } from './config'
 
-const FooterTabNavigator: FCWithNavigation = (props) => {
-  const { navigation } = props
-  const currentRouteName = navigation.state.routes[navigation.state.index].key
+const FooterTabNavigator = () => {
+  const { chargingState } = useSelector(selectChargingProcess)
+  const { name: currentRouteName } = useRoute()
+  const navigation = useNavigation()
   const insets = useSafeAreaInsets()
 
   const navigate = (name: string): void => {
     if (name === 'drawer') {
       return navigation.openDrawer()
     }
-    props.navigation.navigate(name, { mode: null })
+
+    navigation.navigate(name, { mode: null })
   }
 
   if (currentRouteName !== 'Home') {
@@ -39,7 +43,7 @@ const FooterTabNavigator: FCWithNavigation = (props) => {
       <TabNavigationButtons
         active={currentRouteName === 'Home'}
         navigate={() => {
-          props.navigation.setParams({})
+          navigation.setParams({})
           navigate('Home')
         }}
         image={images.mapPin}
@@ -55,7 +59,7 @@ const FooterTabNavigator: FCWithNavigation = (props) => {
         )}
         image={images.chargeWithCode}
       />
-      {props.screenProps.chargingState.length > 0 && isAuthenticated() && (
+      {chargingState.length > 0 && isAuthenticated() && (
         <Animatable.View
           animation={zoomOut}
           iterationCount="infinite"
@@ -71,7 +75,6 @@ const FooterTabNavigator: FCWithNavigation = (props) => {
           />
         </Animatable.View>
       )}
-
       {isAuthenticated() && (
         <TabNavigationButtons
           navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
