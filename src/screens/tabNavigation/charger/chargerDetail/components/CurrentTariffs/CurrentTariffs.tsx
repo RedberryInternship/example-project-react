@@ -8,6 +8,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { BaseText } from 'components'
 import images from 'assets/images'
+import { ConnectorTypes } from 'types'
 import { CurrentTariffsFC } from './types'
 import Row from '../CurrentTariffsRow/CurrentTariffsRow'
 import useCurrentTariffs from './useCurrentTariffs'
@@ -23,29 +24,44 @@ const CurrentTariffs: CurrentTariffsFC = ({ connector }) => {
   return (
     <TouchableOpacity onPress={toggleTariffs}>
       <Animated.View style={[styles.container, { height }]}>
-        <View style={styles.tableHeader}>
-          <BaseText style={styles.currentPriceText}>
-            {t('chargerDetail.tariffs')}
-          </BaseText>
-          <Animated.Image
-            source={images.caretDown}
-            resizeMode="contain"
-            style={
-              [
-                styles.arrow,
-                {
-                  transform: [{ rotateZ }],
-                },
-              ]
-            }
-          />
+        <View>
+          <View style={styles.textContainer}>
+            <BaseText style={styles.currentPriceText}>
+              {t('chargerDetail.tariffs')}
+            </BaseText>
+            <Animated.Image
+              source={images.caretDown}
+              resizeMode="contain"
+              style={
+                [
+                  styles.arrow,
+                  {
+                    transform: [{ rotateZ }],
+                  },
+                ]
+              }
+            />
+          </View>
+          <View style={styles.textContainer}>
+            <BaseText style={styles.currentPriceText}>
+              {
+                connector?.name === ConnectorTypes.TYPE_2
+                  ? t('chargerDetail.powerRange')
+                  : t('chargerDetail.timeRange')
+              }
+            </BaseText>
+            <BaseText style={[styles.currentPriceText, styles.stayAwayFromEdge]}>
+              {t('chargerDetail.minuteGel')}
+            </BaseText>
+
+          </View>
         </View>
         {connector?.charging_prices?.map((val) => (
           <Row
             key={val.id}
-            col1={`${val.min_kwt} ${t('kwh')}`}
+            col1={`${val.min_kwt} ${t('kw')}`}
             col2="-"
-            col3={`${val.max_kwt} ${t('kwh')}`}
+            col3={`${val.max_kwt} ${t('kw')}`}
             col4={val.price}
           />
         ))}
@@ -76,11 +92,12 @@ const styles = StyleSheet.create({
     height: 60,
     overflow: 'hidden',
   },
-  tableHeader: {
-    height: 55,
-    flexDirection: 'row',
+  textContainer: {
+    display: 'flex',
     justifyContent: 'space-between',
+    flexDirection: 'row',
     alignItems: 'center',
+    height: 30,
     paddingBottom: 18,
   },
   currentPriceText: {
@@ -89,5 +106,8 @@ const styles = StyleSheet.create({
   arrow: {
     height: 8,
     marginRight: 30,
+  },
+  stayAwayFromEdge: {
+    marginRight: 15,
   },
 })

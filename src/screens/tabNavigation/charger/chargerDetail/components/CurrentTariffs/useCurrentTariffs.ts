@@ -5,8 +5,10 @@ import { CurrentTariffsProps } from './types'
 
 let open = false
 
+const closedTariffsHeight = 70;
+
 const useCurrentTariffs = ({ connector }: CurrentTariffsProps) => {
-  const height = useRef(new Animated.Value(60)).current
+  const height = useRef(new Animated.Value(closedTariffsHeight)).current
   const rotation = useRef(new Animated.Value(0)).current
 
   const connectorCount = connector?.name !== ConnectorTypes.TYPE_2
@@ -14,11 +16,11 @@ const useCurrentTariffs = ({ connector }: CurrentTariffsProps) => {
     : connector?.charging_prices?.length
 
   const openedTariffsHeight = connectorCount
-    ? connectorCount * 45 + 73
-    : 73
+    ? connectorCount * 45 + closedTariffsHeight
+    : closedTariffsHeight
 
   const toggleTariffs = () => {
-    const toHeight = open ? 60 : openedTariffsHeight
+    const toHeight = open ? closedTariffsHeight : openedTariffsHeight
     const toRotate = open ? 0 : 180
     open = !open
 

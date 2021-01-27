@@ -14,7 +14,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <BaseHeader
-        onPressLeft={() => navigation.goBack()}
+        onPressLeft={navigation.goBack}
         title="chooseChargeMethod.choose"
       />
       <View style={styles.innerContainer}>
