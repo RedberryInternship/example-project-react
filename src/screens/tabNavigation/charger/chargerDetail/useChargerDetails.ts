@@ -44,6 +44,17 @@ export default (navigation: NavigationType) => {
     navigation.getParam('chargerDetails', undefined),
   )
 
+  /**
+   * Watch for charger changes in navigation params.
+   */
+  useEffect(() => {
+    const chargerFromNavigation: Charger | undefined = navigation
+      .getParam('chargerDetails', undefined);
+    if (charger !== chargerFromNavigation) {
+      setCharger(chargerFromNavigation)
+    }
+  }, [navigation, charger])
+
   const { t } = useTranslation()
 
   /**
