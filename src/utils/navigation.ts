@@ -7,15 +7,14 @@ import {
 } from '@react-navigation/native'
 import { determineTimePeriod } from 'utils/map'
 import defaults from 'utils/defaults'
-
-let navigator: NavigationContainerRef | null = null
+import references from 'utils/references'
 
 const Navigation = {
   /**
    * Navigate to routes.
    */
   navigate(name: string, params = {}): void {
-    navigator!?.dispatch(
+    references.navigator!?.dispatch(
       CommonActions.navigate({
         name,
         params,
@@ -27,14 +26,14 @@ const Navigation = {
    * Go back.
    */
   back(): void {
-    navigator!.dispatch(CommonActions.goBack())
+    references.navigator?.dispatch(CommonActions.goBack())
   },
 
   /**
    * Reset navigation stack.
    */
   reset(stackKey = 'root', routeName = '', params = {}): void {
-    navigator!.dispatch(
+    references.navigator?.dispatch(
       CommonActions.reset({
         index: 0,
         key: stackKey,
@@ -50,13 +49,6 @@ const Navigation = {
 }
 
 export default Navigation
-
-/**
-  * Set navigation reference.
-  */
-export const setNavigationReference = (navigatorRef: NavigationContainerRef): void => {
-  navigator = navigatorRef
-}
 
 /**
  * Do things on routes change.

@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { appIsReady } from 'state/actions/appActions'
 import { selectUser } from 'state/selectors'
 import { refreshAndCacheChargers } from 'helpers/chargers'
 import {
   preparePrivacyAndPolicyPopUp,
   hasAgreedToPrivacyAndPolicy,
 } from 'helpers/privacyAndPolicy'
-import Navigation from 'utils/navigation'
 import { GetAllChargerResponseType, Charger } from 'types'
 import defaults from 'utils/defaults'
 import { retrieveLocation } from 'utils/location'
@@ -15,6 +15,7 @@ import { retrieveLocation } from 'utils/location'
  * Upon configuration ending, go to home screen.
  */
 const useAppReady = () => {
+  const dispatch = useDispatch()
   const { authStatus } = useSelector(selectUser)
   const [chargers, setChargers] = useState<GetAllChargerResponseType | Charger[] | undefined>()
 
@@ -45,9 +46,8 @@ const useAppReady = () => {
    */
   const startApp = useCallback(() => {
     defaults.authStatus = authStatus
-
-    Navigation.navigate('MainStack')
-  }, [authStatus])
+    dispatch(appIsReady())
+  }, [authStatus, dispatch])
 
   useEffect(() => {
     /**

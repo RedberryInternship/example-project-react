@@ -1,16 +1,11 @@
 import React from 'react'
-// import { Dimensions } from 'react-native'
+import { useSelector } from 'react-redux'
+import { selectApp } from 'state/selectors'
 import { FooterTabNavigation } from 'components'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
-import {
-  // determineNavigationTheme,
-  // onNavigationStateChange,
-  setNavigationReference,
-} from 'utils/navigation'
-// import defaults from 'utils/defaults'
 import {
   Home,
   Drawer,
@@ -36,6 +31,8 @@ import {
   ChooseAvatar,
   CardAdd,
 } from 'screens'
+import { Width } from 'utils/const'
+import { StyleSheet } from 'react-native'
 import {
   transactionStackOptions,
   chargerStackOptions,
@@ -51,7 +48,6 @@ const AuthStackNavigator = createStackNavigator()
 const DrawerMenuOptionsStackNavigator = createStackNavigator()
 const TransactionStackNavigator = createStackNavigator()
 const MainStackNavigator = createStackNavigator()
-const AppNavigator = createStackNavigator()
 
 const ChargerStack = () => (
   <ChargerStackNavigator.Navigator
@@ -83,29 +79,14 @@ const MainDrawer = () => (
     initialRouteName="Favorites"
     drawerPosition="right"
     drawerType="front"
-    drawerStyle={
-      {
-        backgroundColor: 'transparent',
-      }
-    }
-    sceneContainerStyle={{
-      backgroundColor: 'transparent',
-      flex: 1,
-    }}
+    drawerStyle={styles.drawer}
+    sceneContainerStyle={styles.drawerSceneContainer}
     drawerContent={() => <Drawer />}
     keyboardDismissMode="on-drag"
   >
     <MainDrawerNavigator.Screen name="HomeTabNavigation" component={HomeTabNavigation} />
-    <MainDrawerNavigator.Screen name="Favorites" component={Favorites} />
   </MainDrawerNavigator.Navigator>
 )
-
-// export const MainDrawer = createDrawerNavigator(
-//   {
-//     drawerBackgroundColor: 'transparent',
-//     drawerWidth: Dimensions.get('window').width * 0.8,
-//   },
-// )
 
 const AuthStack = () => (
   <AuthStackNavigator.Navigator screenOptions={authStackOptions}>
@@ -131,7 +112,7 @@ const TransactionStack = () => (
 )
 
 const MainStack = () => (
-  <MainStackNavigator.Navigator initialRouteName="MainDrawer" screenOptions={mainStackOptions}>
+  <MainStackNavigator.Navigator screenOptions={mainStackOptions}>
     <MainStackNavigator.Screen name="MainDrawer" component={MainDrawer} />
     <MainStackNavigator.Screen name="AuthStack" component={AuthStack} />
     <MainStackNavigator.Screen name="DrawerMenuOptions" component={DrawerMenuOptions} />
@@ -144,11 +125,27 @@ const MainStack = () => (
   </MainStackNavigator.Navigator>
 )
 
-export default () => (
-  <NavigationContainer ref={setNavigationReference}>
-    <AppNavigator.Navigator initialRouteName="Opening" screenOptions={{ headerShown: false }}>
-      <AppNavigator.Screen name="Opening" component={Opening} />
-      <AppNavigator.Screen name="MainStack" component={MainStack} />
-    </AppNavigator.Navigator>
-  </NavigationContainer>
+export default () => {
+  const { ready } = useSelector(selectApp)
+
+  return ready
+    ? (
+      <NavigationContainer>
+        <MainStack />
+      </NavigationContainer>
+    )
+    : <Opening />
+}
+
+const styles = StyleSheet.create(
+  {
+    drawer: {
+      backgroundColor: 'transparent',
+      width: Width * 0.8,
+    },
+    drawerSceneContainer: {
+      backgroundColor: 'transparent',
+      flex: 1,
+    },
+  },
 )
