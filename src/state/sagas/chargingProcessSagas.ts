@@ -54,8 +54,9 @@ function* startChargingProcess(action: StartChargingSagaAction) {
     yield put(refreshAllChargers())
     setLoading(false)
 
-    Navigation.reset('ChargerStack', 'ChargerWithCode')
-    Navigation.navigate('Charging')
+    Navigation.navigate('HomeTabNavigation', {
+      screen: 'Charging',
+    })
   } catch (error) {
     remoteLogger(error)
     setLoading(false)
@@ -98,6 +99,7 @@ function* updateChargingProcesses(action: UpdateChargingProcessesSagaAction) {
   if (defaults.activeRoute === 'Charging' && data.length === 0) {
     Navigation.navigate('Home')
   }
+
   if (data.length === 0 && defaults.modal?.current?.state.config.type === 3) {
     defaults.modal.current?.customUpdate(false)
   }

@@ -20,7 +20,6 @@ const MapView = forwardRef<Map, MapViewProps>(
     {
       showAll,
       filteredChargersOnMap,
-      navigation,
     },
     ref,
   ) => {
@@ -32,7 +31,6 @@ const MapView = forwardRef<Map, MapViewProps>(
       polyline,
     } = useMapView(
       {
-        navigation,
         mapRef,
         ref,
       },

@@ -7,32 +7,35 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
 import {
-  Home,
-  Drawer,
-  Auth,
-  Opening,
+  ChooseChargeMethod,
+  ShowTransaction,
   ChargerWithCode,
+  SetNewPasswords,
+  TransactionList,
   ForgotPassword,
-  Registration,
-  Settings,
   ProfileChange,
   ChargerDetail,
   NotAuthorized,
-  ChooseChargeMethod,
-  Charging,
-  Favorites,
-  Faq,
-  ChoosingCard,
-  Contact,
-  TransactionList,
-  ShowTransaction,
-  Partners,
-  SetNewPasswords,
+  Registration,
   ChooseAvatar,
+  ChoosingCard,
+  Favorites,
+  Settings,
+  Partners,
+  Charging,
+  Opening,
   CardAdd,
+  Contact,
+  Drawer,
+  Auth,
+  Home,
+  Faq,
 } from 'screens'
 import { Width } from 'utils/const'
 import { StyleSheet } from 'react-native'
+import { onNavigationStateChange } from 'utils/navigation'
+import defaults from 'utils/defaults'
+import { useCurrentRoute } from 'hooks'
 import {
   transactionStackOptions,
   chargerStackOptions,
@@ -53,10 +56,11 @@ const ChargerStack = () => (
   <ChargerStackNavigator.Navigator
     screenOptions={chargerStackOptions}
     initialRouteName="ChargerWithCode"
+    detachInactiveScreens
   >
-    <ChargerStackNavigator.Screen name="ChooseChargeMethod" component={ChooseChargeMethod} />
     <ChargerStackNavigator.Screen name="ChargerWithCode" component={ChargerWithCode} />
     <ChargerStackNavigator.Screen name="ChargerDetail" component={ChargerDetail} />
+    <ChargerStackNavigator.Screen name="ChooseChargeMethod" component={ChooseChargeMethod} />
     <ChargerStackNavigator.Screen name="ChoosingCard" component={ChoosingCard} />
   </ChargerStackNavigator.Navigator>
 )
@@ -76,7 +80,7 @@ const HomeTabNavigation = () => (
 
 const MainDrawer = () => (
   <MainDrawerNavigator.Navigator
-    initialRouteName="Favorites"
+    initialRouteName="HomeTabNavigation"
     drawerPosition="right"
     drawerType="front"
     drawerStyle={styles.drawer}
@@ -127,10 +131,12 @@ const MainStack = () => (
 
 export default () => {
   const { ready } = useSelector(selectApp)
+  const currentRoute = useCurrentRoute()
+  defaults.activeRoute = currentRoute
 
   return ready
     ? (
-      <NavigationContainer>
+      <NavigationContainer onStateChange={onNavigationStateChange}>
         <MainStack />
       </NavigationContainer>
     )

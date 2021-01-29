@@ -96,8 +96,8 @@ const useHome = () => {
     /**
      * Setup navigation listeners.
      */
-    const didFocus = navigation.addListener('focus', onScreenFocus)
-    const willBlur = navigation.addListener(
+    navigation.addListener('focus', onScreenFocus)
+    navigation.addListener(
       'blur',
       () => mapRef.current && mapRef.current.showRoute(0, 0, false) && navigation.setParams({}),
     )
@@ -169,8 +169,11 @@ const useHome = () => {
    */
   const onFilteredItemClick = useCallback(
     (charger: ChargerDetail): void => {
-      navigation.navigate('ChargerDetail', {
-        chargerDetails: charger,
+      navigation.navigate('ChargerStack', {
+        screen: 'ChargerDetail',
+        params: {
+          chargerDetails: charger,
+        },
       })
     },
     [navigation],

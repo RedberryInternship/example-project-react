@@ -48,16 +48,17 @@ const Drawer = () => {
         <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
           <BaseButton
             image={images.user}
-            onPress={() => navigate('Auth')}
+            onPress={() => navigate('AuthStack', { screen: 'Auth' })}
             text="home.authorization"
             style={styles.drawerAuthBtn}
           />
 
-          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => (
+          {Const.DrawerFieldsBeforeAuthorization.map(({ image, route, text }) => (
             <DrawerTextFieldItem
-              key={ind}
-              onPress={() => navigate(field.route)}
-              {...field}
+              key={route}
+              onPress={() => navigate(route)}
+              image={image}
+              text={text}
             />
           ))}
         </View>
@@ -68,11 +69,23 @@ const Drawer = () => {
   } else {
     drawerContent = (
       <View>
-        {Const.DrawerFieldsAfterAuthorization.map((field, key) => (
+        {Const.DrawerFieldsAfterAuthorization.map(({ image, route, text }) => (
           <DrawerTextFieldItem
-            key={key}
-            onPress={() => navigate(field.route)}
-            {...field}
+            key={route}
+            onPress={() => {
+              switch (route) {
+                case 'Settings':
+                  navigate('DrawerMenuOptions', { screen: 'Settings' })
+                  break
+                case 'TransactionList':
+                  navigate('TransactionStack', { screen: 'TransactionList' })
+                  break
+                default:
+                  navigate(route)
+              }
+            }}
+            image={image}
+            text={text}
           />
         ))}
       </View>

@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-import { FCWithNavigation, Charger } from 'types'
+import { Charger } from 'types'
 import {
   TitleTopLeftContainer,
   FetchedDataRenderer,
@@ -25,13 +25,13 @@ import { recentlyUsedChargers } from './helpers'
 import { ChargerItem } from './components'
 import useChargerWithCode from './useChargerWithCode'
 
-const ChargerWithCode: FCWithNavigation = ({ navigation }) => {
+const ChargerWithCode = () => {
   const {
     navigateToChargerDetailScreen,
     setChargerWithCode,
     allChargerHandler,
     findCharger,
-  } = useChargerWithCode(navigation)
+  } = useChargerWithCode()
   const { t } = useTranslation()
 
   return (

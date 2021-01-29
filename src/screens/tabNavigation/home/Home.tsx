@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { FCWithNavigation } from 'types'
 import colors from 'utils/colors'
 import defaults from 'utils/defaults'
 import useHome from './useHome'
@@ -12,7 +11,7 @@ import {
   MapView,
 } from './components'
 
-const Home: FCWithNavigation = ({ navigation }) => {
+const Home = () => {
   const {
     setBottomPanelSearchInputText,
     bottomSearchPanelChargers,
@@ -38,7 +37,6 @@ const Home: FCWithNavigation = ({ navigation }) => {
           key={defaults?.userDetail?.mapMode}
           showAll={showAll}
           filteredChargersOnMap={onMapFilteredChargers}
-          navigation={navigation}
           ref={mapRef}
         />
         <HomeMainComponent
@@ -77,11 +75,9 @@ const Home: FCWithNavigation = ({ navigation }) => {
       onFilterClick,
       mainInputRef,
       setShowAll,
-      navigation,
       showAll,
       mapRef,
       state,
-
     ],
   )
 }

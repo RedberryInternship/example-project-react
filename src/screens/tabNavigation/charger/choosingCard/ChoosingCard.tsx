@@ -11,7 +11,7 @@ import SlidingUpPanel from 'rn-sliding-up-panel'
 import LinearGradient from 'react-native-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
-
+import { useNavigation, useRoute } from '@react-navigation/native'
 import {
   BaseHeader,
   BaseButton,
@@ -24,7 +24,6 @@ import { Const, Colors } from 'utils'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import {
-  FCWithNavigation,
   ChargingTypes,
   UserCard,
 } from 'types'
@@ -34,7 +33,9 @@ import {
   BaseAddCardButton,
 } from './components'
 
-const ChoosingCard: FCWithNavigation = ({ navigation }) => {
+const ChoosingCard = () => {
+  const { goBack, navigate } = useNavigation()
+  const { params } = useRoute()
   const {
     slidingUpTransformation,
     startChargingHandler,
@@ -43,7 +44,7 @@ const ChoosingCard: FCWithNavigation = ({ navigation }) => {
     setActiveCard,
     loading,
     state,
-  } = useChoosingCard(navigation)
+  } = useChoosingCard()
   const { t } = useTranslation()
   const {
     handleSubmit,
@@ -55,7 +56,7 @@ const ChoosingCard: FCWithNavigation = ({ navigation }) => {
     <>
       <View style={styles.container}>
         <BaseHeader
-          onPressLeft={navigation.goBack}
+          onPressLeft={goBack}
           title="chooseCard.chooseCard"
         />
         <LinearGradient
@@ -65,7 +66,7 @@ const ChoosingCard: FCWithNavigation = ({ navigation }) => {
           style={styles.gradientContainer}
         >
           <ScrollView bounces={false}>
-            {navigation.getParam('type', ChargingTypes.fullCharge)
+            {(params?.type ?? ChargingTypes.fullCharge)
               === ChargingTypes.fullCharge ? (
                 <View style={styles.contentsView}>
                   <Image
@@ -123,7 +124,7 @@ const ChoosingCard: FCWithNavigation = ({ navigation }) => {
             />
             <BaseAddCardButton
               onPress={() => {
-                navigation.navigate('CardAdd')
+                navigate('CardAdd')
               }}
             />
           </View>
@@ -147,69 +148,71 @@ const ChoosingCard: FCWithNavigation = ({ navigation }) => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: Colors.primaryBackground,
-    position: 'relative',
+const styles = StyleSheet.create(
+  {
+    container: {
+      flex: 1,
+      justifyContent: 'flex-start',
+      backgroundColor: Colors.primaryBackground,
+      position: 'relative',
+    },
+    contentsView: {
+      marginTop: '20%',
+      paddingHorizontal: 32,
+      alignItems: 'center',
+    },
+    contentsViewImage: {
+      width: 41,
+      height: 41,
+      resizeMode: 'contain',
+      alignSelf: 'center',
+      marginVertical: 16,
+    },
+    pricingView: {
+      marginTop: '20%',
+      paddingHorizontal: 16,
+      alignItems: 'stretch',
+      flex: 1,
+    },
+    panelView: {
+      borderRadius: 16,
+      backgroundColor: Colors.secondaryDark,
+      flex: 1,
+    },
+    gradientContainer: {
+      flex: 1,
+      marginHorizontal: 16,
+      marginTop: 32,
+      borderRadius: 10,
+    },
+    slidingUpImage: {
+      width: 64,
+      height: 40,
+      resizeMode: 'contain',
+      alignSelf: 'center',
+    },
+    safeAreaView: {
+      width: '100%',
+      backgroundColor: Colors.secondaryDark,
+      height: Platform.select({ ios: 60, android: 80 }),
+    },
+    keyboardAvoidingView: {
+      position: 'absolute',
+      bottom: 0,
+      alignSelf: 'center',
+    },
+    turnOnBtn: {
+      marginTop: 16,
+      marginVertical: 16,
+      marginBottom: Platform.select({ ios: 16, android: 36 }),
+      marginHorizontal: 0,
+      alignSelf: 'center',
+      width: Const.Width - 44,
+    },
+    addCardStyle: {
+      paddingRight: 32,
+    },
   },
-  contentsView: {
-    marginTop: '20%',
-    paddingHorizontal: 32,
-    alignItems: 'center',
-  },
-  contentsViewImage: {
-    width: 41,
-    height: 41,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    marginVertical: 16,
-  },
-  pricingView: {
-    marginTop: '20%',
-    paddingHorizontal: 16,
-    alignItems: 'stretch',
-    flex: 1,
-  },
-  panelView: {
-    borderRadius: 16,
-    backgroundColor: Colors.secondaryDark,
-    flex: 1,
-  },
-  gradientContainer: {
-    flex: 1,
-    marginHorizontal: 16,
-    marginTop: 32,
-    borderRadius: 10,
-  },
-  slidingUpImage: {
-    width: 64,
-    height: 40,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-  },
-  safeAreaView: {
-    width: '100%',
-    backgroundColor: Colors.secondaryDark,
-    height: Platform.select({ ios: 60, android: 80 }),
-  },
-  keyboardAvoidingView: {
-    position: 'absolute',
-    bottom: 0,
-    alignSelf: 'center',
-  },
-  turnOnBtn: {
-    marginTop: 16,
-    marginVertical: 16,
-    marginBottom: Platform.select({ ios: 16, android: 36 }),
-    marginHorizontal: 0,
-    alignSelf: 'center',
-    width: Const.Width - 44,
-  },
-  addCardStyle: {
-    paddingRight: 32,
-  },
-})
+)
 
 export default ChoosingCard

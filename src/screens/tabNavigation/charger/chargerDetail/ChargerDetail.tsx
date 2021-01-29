@@ -5,7 +5,7 @@ import {
   View,
   Image,
 } from 'react-native'
-import { FCWithNavigation, BusinessService } from 'types'
+import { BusinessService } from 'types'
 import {
   TitleTopLeftContainer,
   BaseHeader,
@@ -17,6 +17,7 @@ import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getImage } from 'helpers/chargers'
+import { useNavigation } from '@react-navigation/native'
 import {
   ChargerDetailTopInfo,
   ChargerTypesItem,
@@ -25,7 +26,7 @@ import {
 import useChargerDetails from './useChargerDetails'
 import BusinessServiceItem from './components/BusinessServiceItem/BusinessServiceItem'
 
-const ChargerDetail: FCWithNavigation = ({ navigation }) => {
+const ChargerDetail = () => {
   const {
     chargerLocationDirectionHandler,
     showChargerLocationHandler,
@@ -34,20 +35,20 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
     setActiveChargerType,
     activeChargerType,
     onFavoritePress,
-    goBackHandler,
     distance,
     charger,
-  } = useChargerDetails(navigation)
+  } = useChargerDetails()
+  const { goBack } = useNavigation()
 
   const insets = useSafeAreaInsets()
   const image = useMemo(() => getImage(charger?.image ?? null), [charger])
 
   return (
-    <Swipe left={goBackHandler}>
+    <Swipe left={goBack}>
       <View style={styles.container}>
         <View style={[styles.imageContainer, { marginTop: insets.top }]}>
           <BaseHeader
-            onPressLeft={goBackHandler}
+            onPressLeft={goBack}
             style={styles.baseHeader}
             colorless
             noInset

@@ -15,8 +15,9 @@ import {
 import images from 'assets/images'
 import DetailsItem from './components/TransactionDetailsItem'
 
-const ShowTransactions: FCWithNavigation = ({ navigation }) => {
+const ShowTransactions: FCWithNavigation = ({ navigation, routes }) => {
   const { t } = useTranslation()
+  const { params } = routes
   const {
     charger_name,
     address,
@@ -26,7 +27,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
     start_date,
     charge_price,
     user_card_pan,
-  }: TransactionsHistoryResponseItem = navigation.getParam('order', [])
+  }: TransactionsHistoryResponseItem = params
 
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
   const chargePrice = (): string => `${charge_price ?? 0} ${t('gel')}`
