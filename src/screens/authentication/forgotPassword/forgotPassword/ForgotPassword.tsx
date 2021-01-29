@@ -14,17 +14,18 @@ import {
 } from 'components'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { FCWithNavigation } from 'types'
+import { useNavigation } from '@react-navigation/native'
 import useForgotPassword from './useForgotPassword'
 
-const ForgotPassword: FCWithNavigation = ({ navigation }) => {
-  const { handleSubmit, onButtonClick, ...hook } = useForgotPassword(navigation)
+const ForgotPassword = () => {
+  const { handleSubmit, onButtonClick, ...hook } = useForgotPassword()
+  const { navigate } = useNavigation()
   const insets = useSafeAreaInsets()
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(ForgotPassword, 'Auth')}
+        onPressLeft={() => navigate('Auth')}
         title="authentication.forgotPasswordPage.recoverPassword"
       />
       <KeyboardAwareScrollView

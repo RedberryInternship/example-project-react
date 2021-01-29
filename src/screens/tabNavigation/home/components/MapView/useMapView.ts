@@ -56,6 +56,7 @@ const useMapView = (
         screen: 'ChargerDetail',
         params: {
           chargerDetails: charger,
+          from: 'Home',
         },
       })
     },

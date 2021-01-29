@@ -33,9 +33,8 @@ import {
 } from 'screens'
 import { Width } from 'utils/const'
 import { StyleSheet } from 'react-native'
-import { onNavigationStateChange } from 'utils/navigation'
+import { onNavigationStateChange, setNavigatorRef } from 'utils/navigation'
 import defaults from 'utils/defaults'
-import { useCurrentRoute } from 'hooks'
 import {
   transactionStackOptions,
   chargerStackOptions,
@@ -56,7 +55,8 @@ const ChargerStack = () => (
   <ChargerStackNavigator.Navigator
     screenOptions={chargerStackOptions}
     initialRouteName="ChargerWithCode"
-    detachInactiveScreens
+    mode="card"
+
   >
     <ChargerStackNavigator.Screen name="ChargerWithCode" component={ChargerWithCode} />
     <ChargerStackNavigator.Screen name="ChargerDetail" component={ChargerDetail} />
@@ -129,19 +129,21 @@ const MainStack = () => (
   </MainStackNavigator.Navigator>
 )
 
-export default () => {
+const Navigation = () => {
   const { ready } = useSelector(selectApp)
-  const currentRoute = useCurrentRoute()
-  defaults.activeRoute = currentRoute
+
+  defaults.appReady = ready
 
   return ready
     ? (
-      <NavigationContainer onStateChange={onNavigationStateChange}>
+      <NavigationContainer onStateChange={onNavigationStateChange} ref={setNavigatorRef}>
         <MainStack />
       </NavigationContainer>
     )
     : <Opening />
 }
+
+export default Navigation
 
 const styles = StyleSheet.create(
   {

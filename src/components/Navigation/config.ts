@@ -3,12 +3,11 @@ import { Colors } from 'utils'
 
 export const chargerStackOptions: StackNavigationOptions = {
   headerShown: false,
-  // gestureEnabled: true,
-  // gestureDirection: 'horizontal',
   cardStyle: {
     backgroundColor: 'transparent',
     opacity: 1,
   },
+  animationEnabled: false,
 }
 
 export const authStackOptions: StackNavigationOptions = {

@@ -4,6 +4,7 @@ import {
   View,
   Image,
 } from 'react-native'
+import { useRoute } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BaseHeader, BaseText } from 'components'
@@ -15,9 +16,9 @@ import {
 import images from 'assets/images'
 import DetailsItem from './components/TransactionDetailsItem'
 
-const ShowTransactions: FCWithNavigation = ({ navigation, routes }) => {
+const ShowTransactions: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
-  const { params } = routes
+  const { params } = useRoute<any>()
   const {
     charger_name,
     address,
@@ -27,7 +28,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation, routes }) => {
     start_date,
     charge_price,
     user_card_pan,
-  }: TransactionsHistoryResponseItem = params
+  }: TransactionsHistoryResponseItem = params.order
 
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
   const chargePrice = (): string => `${charge_price ?? 0} ${t('gel')}`

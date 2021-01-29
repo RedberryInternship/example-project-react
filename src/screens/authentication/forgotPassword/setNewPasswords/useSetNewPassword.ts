@@ -1,3 +1,4 @@
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { useForm } from 'react-hook-form'
 import services from 'services'
 import {
@@ -5,10 +6,11 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'utils/inform'
-import { Navigation } from 'types'
 import { SetNewPassword } from './types'
 
-export default (navigation: Navigation) => {
+export default () => {
+  const { navigate } = useNavigation()
+  const { params } = useRoute<any>()
   const {
     handleSubmit,
     control,
@@ -40,10 +42,10 @@ export default (navigation: Navigation) => {
       return DisplayDropdownWithError('dropDownAlert.registration.passwordNotEqual')
     }
     try {
-      await services.resetPassword(navigation.state.params?.phone, password)
+      await services.resetPassword(params?.phone, password)
 
       DisplayDropdownWithSuccess('dropDownAlert.forgotPassword.passwordChangedSuccessfully')
-      navigation.navigate('Auth')
+      navigate('Auth')
     } catch (err) {
       remoteLogger(err)
       DisplayDropdownWithError()

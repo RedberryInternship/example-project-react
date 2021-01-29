@@ -24,4 +24,5 @@ export type Defaults = {
   isForeground: boolean | null
   chargers: ChargersResponseWithTime | null
   authStatus: 'success' | 'failed' | null
+  appReady: boolean
 }

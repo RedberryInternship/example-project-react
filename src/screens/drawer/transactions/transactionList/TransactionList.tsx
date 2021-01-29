@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BaseHeader, FetchedDataRenderer } from 'components'
@@ -7,7 +7,7 @@ import { TransactionsHistoryResponseItem } from 'types'
 import TransactionListItem from './components/TransactionListItem'
 import { getTransactionsHistory } from './helpers'
 
-const TransactionList = ({ navigation }: any): ReactElement => (
+const TransactionList = ({ navigation }: any) => (
   <View style={styles.container}>
     <BaseHeader
       title="transactions.transactions"
@@ -19,8 +19,7 @@ const TransactionList = ({ navigation }: any): ReactElement => (
         onItemRender={(val: TransactionsHistoryResponseItem) => (
           <TransactionListItem
             key={val.id}
-            onPress={navigation.navigate.bind(
-              TransactionList,
+            onPress={() => navigation.navigate(
               'ShowTransaction',
               { order: val },
             )}
