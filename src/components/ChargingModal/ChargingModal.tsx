@@ -23,18 +23,61 @@ const ChargingModal: ChargingModalFC = (
   {
     onPress,
     subType,
-    data: { title, description, ...data },
+    data: {
+      bottomDescription,
+      penalty_enabled,
+      consumedMoney,
+      description,
+      refundMoney,
+      onFinish,
+      title,
+      onFine,
+      price,
+      time,
+    },
   },
 ) => {
   const { t } = useTranslation()
 
   const subTypeHandler = (): ReactElement => {
     switch (subType) {
-      case ChargingFinishedPopupEnum.LVL2FullCharge: return <BeforeFineLVL2FullCharge {...data} />
-      case ChargingFinishedPopupEnum.UsedUpFastProps: return <UsedUpFast {...data} />
-      case ChargingFinishedPopupEnum.FinishedCharging: return <Finished {...data} />
-      case ChargingFinishedPopupEnum.Bankrupt: return <Bankrupt {...data} />
-      case ChargingFinishedPopupEnum.PaymentFailed: return <Bankrupt {...data} />
+      case ChargingFinishedPopupEnum.LVL2FullCharge: return (
+        <BeforeFineLVL2FullCharge
+          bottomDescription={bottomDescription}
+          consumedMoney={consumedMoney}
+          refundMoney={refundMoney}
+          onFinish={onFinish}
+          onFine={onFine}
+          price={price}
+          time={time}
+          penalty_enabled={!!penalty_enabled}
+        />
+      )
+      case ChargingFinishedPopupEnum.UsedUpFastProps: return (
+        <UsedUpFast
+          bottomDescription={bottomDescription}
+          price={price}
+        />
+      )
+      case ChargingFinishedPopupEnum.FinishedCharging: return (
+        <Finished
+          consumedMoney={consumedMoney}
+          refundMoney={refundMoney}
+          price={price}
+        />
+      )
+      case ChargingFinishedPopupEnum.Bankrupt: return (
+        <Bankrupt
+          bottomDescription={bottomDescription}
+          price={price}
+        />
+      )
+      case ChargingFinishedPopupEnum.PaymentFailed: return (
+        <Bankrupt
+          bottomDescription={bottomDescription}
+          price={price}
+        />
+      )
 
       default:
         return (
@@ -45,6 +88,9 @@ const ChargingModal: ChargingModalFC = (
     }
   }
 
+  const hasPaymentFailed = ChargingFinishedPopupEnum.PaymentFailed === subType
+    || ChargingFinishedPopupEnum.Bankrupt === subType
+
   return (
     <>
       <TouchableOpacity style={styles.touchableStyle} onPress={onPress}>
@@ -52,21 +98,20 @@ const ChargingModal: ChargingModalFC = (
       </TouchableOpacity>
       <ScrollView bounces={false}>
         <TouchableOpacity activeOpacity={1}>
-          {ChargingFinishedPopupEnum.PaymentFailed === subType
-            || ChargingFinishedPopupEnum.Bankrupt === subType ? (
-              <View style={styles.modalContainer1}>
-                <Image source={images.alertCircle} style={styles.checkMarkIcon} />
-                <BaseText style={styles.mainTitleStyle} numberOfLines={undefined}>
-                  {t('dropDownAlert.error')}
-                </BaseText>
-                <BaseText
-                  style={[styles.mainDescriptionStyle, { color: 'indianred' }]}
-                  numberOfLines={undefined}
-                >
-                  {t('popup.paymentFailed')}
-                </BaseText>
-              </View>
-            ) : (
+          {hasPaymentFailed ? (
+            <View style={styles.modalContainer1}>
+              <Image source={images.alertCircle} style={styles.checkMarkIcon} />
+              <BaseText style={styles.mainTitleStyle} numberOfLines={undefined}>
+                {t('dropDownAlert.error')}
+              </BaseText>
+              <BaseText
+                style={[styles.mainDescriptionStyle, { color: 'indianred' }]}
+                numberOfLines={undefined}
+              >
+                {t('popup.paymentFailed')}
+              </BaseText>
+            </View>
+          ) : (
               <View style={styles.modalContainer2}>
                 <Image source={images.checkCircle} style={styles.checkMarkIcon} />
                 <BaseText style={styles.mainTitleStyle} numberOfLines={undefined}>

@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable default-case */
 import defaults from 'utils/defaults'
 import { refreshChargingProcesses } from 'state/actions/chargingProcessActions'
@@ -12,12 +13,13 @@ import { CommonActions } from '@react-navigation/native'
 
 const configureChargingFinishPopup = (
   {
-    charging_status,
-    already_paid,
     penalty_start_time,
+    charging_status,
+    penalty_enabled,
+    consumed_money,
+    already_paid,
     charger_type,
     refund_money,
-    consumed_money,
     is_free,
   }: ChargingState,
 ) => {
@@ -52,14 +54,18 @@ const configureChargingFinishPopup = (
 
     switch (charging_status) {
       case ChargingStatus.CHARGED:
+
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.LVL2FullCharge,
           data: {
             ...options.data,
-            bottomDescription: 'popup.warningTextBeforeFine',
+            bottomDescription: penalty_enabled
+              ? 'popup.warningTextBeforeFine'
+              : 'popup.chargingFinishedPleaseUnplug',
             onFine: false,
             onFinish: () => dispatch && dispatch(refreshChargingProcesses()),
+            penalty_enabled,
           },
         }
         break
@@ -75,20 +81,28 @@ const configureChargingFinishPopup = (
         }
         break
       case ChargingStatus.USED_UP:
+        let subType = 0
+        let bottomDescription = ''
+        if (charger_type === 'LVL2') {
+          subType = ChargingFinishedPopupEnum.LVL2FullCharge
+
+          bottomDescription = penalty_enabled
+            ? 'popup.chargingFinishedPleaseUnplug'
+            : 'popup.yourChargingOnFineStarted'
+        } else {
+          bottomDescription = 'popup.automobileChargingFinished'
+          subType = ChargingFinishedPopupEnum.UsedUpFastProps
+        }
+
         options = {
           ...options,
-          subType:
-            charger_type === 'LVL2'
-              ? ChargingFinishedPopupEnum.LVL2FullCharge
-              : ChargingFinishedPopupEnum.UsedUpFastProps,
+          subType,
           data: {
             ...options.data,
-            bottomDescription:
-              charger_type === 'LVL2'
-                ? 'popup.yourChargingOnFineStarted'
-                : 'popup.automobileChargingFinished',
+            bottomDescription,
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
+            penalty_enabled,
           },
         }
         break

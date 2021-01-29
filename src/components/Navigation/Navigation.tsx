@@ -2,10 +2,10 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectApp } from 'state/selectors'
 import { FooterTabNavigation } from 'components'
-import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from 'react-native-screens/native-stack'
 import {
   ChooseChargeMethod,
   ShowTransaction,
@@ -43,20 +43,19 @@ import {
   mainStackOptions,
 } from './config'
 
-const ChargerStackNavigator = createStackNavigator()
+const ChargerStackNavigator = createNativeStackNavigator()
 const HomeTabNavigator = createBottomTabNavigator()
 const MainDrawerNavigator = createDrawerNavigator()
-const AuthStackNavigator = createStackNavigator()
-const DrawerMenuOptionsStackNavigator = createStackNavigator()
-const TransactionStackNavigator = createStackNavigator()
-const MainStackNavigator = createStackNavigator()
+const AuthStackNavigator = createNativeStackNavigator()
+const DrawerMenuOptionsStackNavigator = createNativeStackNavigator()
+const TransactionStackNavigator = createNativeStackNavigator()
+const MainStackNavigator = createNativeStackNavigator()
 
 const ChargerStack = () => (
   <ChargerStackNavigator.Navigator
     screenOptions={chargerStackOptions}
     initialRouteName="ChargerWithCode"
     mode="card"
-
   >
     <ChargerStackNavigator.Screen name="ChargerWithCode" component={ChargerWithCode} />
     <ChargerStackNavigator.Screen name="ChargerDetail" component={ChargerDetail} />

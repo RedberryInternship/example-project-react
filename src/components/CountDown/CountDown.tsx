@@ -7,6 +7,7 @@ import useCountDown from './useCountDown'
 
 const CountDown: CountDownFC = (
   {
+    penaltyEnabled,
     startTime,
     onFinish,
     alarm,
@@ -15,6 +16,7 @@ const CountDown: CountDownFC = (
 ) => {
   const { time } = useCountDown(
     {
+      penaltyEnabled,
       startTime,
       onFinish,
       alarm,

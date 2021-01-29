@@ -8,9 +8,9 @@ import { FinishedFC } from './types'
 
 const Finished: FinishedFC = (
   {
-    price,
     consumedMoney,
     refundMoney,
+    price,
   },
 ) => (
   <>

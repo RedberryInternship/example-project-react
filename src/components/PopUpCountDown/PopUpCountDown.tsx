@@ -4,8 +4,15 @@ import {
   View,
 } from 'react-native'
 import { CountDown } from 'components'
+import { PopUpCountDownFC } from './types'
 
-const PopUpCountDown = ({ warningLevel, ...props }: any) => (
+const PopUpCountDown: PopUpCountDownFC = ({
+  penaltyEnabled,
+  warningLevel,
+  startTime,
+  onFinish,
+  alarm,
+}) => (
   <View
     style={[
       styles.mainContainer,
@@ -18,7 +25,13 @@ const PopUpCountDown = ({ warningLevel, ...props }: any) => (
         warningLevel === 1 ? styles.warningLevel1ForInnerContainer : {},
       ]}
     >
-      <CountDown {...props} popup />
+      <CountDown
+        penaltyEnabled={penaltyEnabled}
+        startTime={startTime}
+        onFinish={onFinish}
+        alarm={alarm}
+        popup
+      />
     </View>
   </View>
 )

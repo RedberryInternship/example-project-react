@@ -12,6 +12,7 @@ type Data = {
   onFine: boolean
   onFinish: () => void
   chargerTypeFAST: boolean
+  penalty_enabled?: boolean
 }
 
 type ChargingModalProps = {

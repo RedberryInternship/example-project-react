@@ -129,6 +129,7 @@ export default {
       finishedChargingOfAutomobile: 'დამუხტვის პროცესი დასრულებულია',
       warningTextBeforeFine: 'თუ ამ დროის განმავლობაში არ გამოერთებთ კაბელს, მოგიწევთ ჯარიმის გადახდა ყოველ დამატებით წუთზე',
       yourChargingOnFineStarted: 'თქვენი ჯარიმის ათვლა დაიწყო',
+      chargingFinishedPleaseUnplug: 'დამუხტვის პროცესი დასრულდა, გთხოვთ გამოაერთეთ კაბელი...',
       bankrupt: 'არასაკმარისი თანხა',
       paymentFailed: 'ბარათით გადახდა ვერ განხორციელდა.',
       processFailed: 'პროცესი წარუმატებლად დასრულდა',

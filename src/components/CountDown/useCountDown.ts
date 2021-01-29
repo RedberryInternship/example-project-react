@@ -9,12 +9,14 @@ import { UseCountDown } from './types'
 
 const INTERVAL = 1000
 
-const useCountDown = ({ alarm, onFinish, startTime }: UseCountDown) => {
+const useCountDown = ({
+  alarm, onFinish, startTime, penaltyEnabled,
+}: UseCountDown) => {
   const [time, setTime] = useState('.')
   const ref: any = useRef(null)
 
   const countUp = useCallback(() => {
-    if (!startTime) {
+    if (!startTime || !penaltyEnabled) {
       return setTime((prevState) => (prevState.length !== 3 ? `${prevState}.` : '.'))
     }
     const diff = moment().valueOf() - parseInt(startTime)
@@ -31,7 +33,7 @@ const useCountDown = ({ alarm, onFinish, startTime }: UseCountDown) => {
     )}`
 
     setTime(countdownString)
-  }, [time, startTime, alarm, onFinish])
+  }, [time, startTime, alarm, onFinish, penaltyEnabled])
 
   useEffect(() => {
     ref.current = setTimeout(countUp, INTERVAL)

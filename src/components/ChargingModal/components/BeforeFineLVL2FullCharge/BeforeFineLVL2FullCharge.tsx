@@ -11,13 +11,14 @@ import { BeforeFineLVL2FullChargeFC } from './types'
 
 const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
   {
-    time,
     bottomDescription,
-    price,
+    penalty_enabled,
     consumedMoney,
     refundMoney,
-    onFine,
     onFinish,
+    onFine,
+    price,
+    time,
   },
 ) => {
   const { t } = useTranslation()
@@ -31,7 +32,8 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
         startTime={time}
         alarm={!onFine}
         onFinish={onFinish}
-        warningLevel={onFine ? 2 : 1}
+        warningLevel={onFine && !penalty_enabled ? 2 : 1}
+        penaltyEnabled={penalty_enabled}
       />
       <View style={styles.lineView} />
       <View style={{ marginVertical: 12 }}>

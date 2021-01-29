@@ -8,6 +8,7 @@ type BeforeFineLVL2FullChargeProps = {
   refundMoney: number
   onFine: boolean
   onFinish: () => void
+  penalty_enabled: boolean
 }
 
 export type BeforeFineLVL2FullChargeFC = (props: BeforeFineLVL2FullChargeProps) => ReactElement

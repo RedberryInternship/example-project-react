@@ -1,53 +1,25 @@
-import { StackNavigationOptions } from '@react-navigation/stack'
-import { Colors } from 'utils'
+import { NativeStackNavigationOptions } from 'react-native-screens/native-stack'
 
-export const chargerStackOptions: StackNavigationOptions = {
+export const chargerStackOptions: NativeStackNavigationOptions = {
   headerShown: false,
-  cardStyle: {
-    backgroundColor: 'transparent',
-    opacity: 1,
-  },
-  animationEnabled: false,
 }
 
-export const authStackOptions: StackNavigationOptions = {
+export const authStackOptions: NativeStackNavigationOptions = {
   headerShown: false,
   gestureEnabled: true,
-  gestureDirection: 'horizontal',
-  cardStyle: {
-    backgroundColor: 'transparent',
-    opacity: 1,
-  },
 }
 
-export const drawerMenuOptions: StackNavigationOptions = {
+export const drawerMenuOptions: NativeStackNavigationOptions = {
   headerShown: false,
   gestureEnabled: true,
-  gestureDirection: 'horizontal',
-  cardStyle: {
-    backgroundColor: Colors.primaryBackground,
-    opacity: 1,
-    backfaceVisibility: 'hidden',
-  },
 }
 
-export const transactionStackOptions: StackNavigationOptions = {
+export const transactionStackOptions: NativeStackNavigationOptions = {
   headerShown: false,
   gestureEnabled: true,
-  gestureDirection: 'horizontal',
-  cardStyle: {
-    backgroundColor: 'transparent',
-    opacity: 1,
-  },
 }
 
-export const mainStackOptions: StackNavigationOptions = {
+export const mainStackOptions: NativeStackNavigationOptions = {
   headerShown: false,
   gestureEnabled: true,
-  gestureDirection: 'horizontal',
-  cardStyle: {
-    backgroundColor: Colors.primaryBackground,
-    backfaceVisibility: 'hidden',
-    opacity: 1,
-  },
 }

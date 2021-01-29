@@ -8,6 +8,7 @@ type PartialProps = {
   startTime?: string
   alarm: boolean
   onFinish?: () => void
+  penaltyEnabled: boolean
 }
 
 export type CountDownFC = (props: CountDownProps) => ReactElement

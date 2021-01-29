@@ -28,6 +28,8 @@ export type ChargingState = {
   start_charging_time: string
   penalty_start_time: string
   penalty_fee: number
+  penalty_enabled: boolean
+  is_paid: boolean
   charger_type: ChargerTypes
   is_free: boolean
 }
