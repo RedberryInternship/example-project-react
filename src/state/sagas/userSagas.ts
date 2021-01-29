@@ -14,11 +14,12 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'utils/inform'
+import { CommonActions } from '@react-navigation/native'
 import { refreshAndCacheChargers } from 'helpers/chargers'
 import defaults from 'utils/defaults'
 import { rememberUser } from 'utils/sentry'
 import services from 'services'
-import Navigation from 'utils/navigation'
+import references from 'utils/references'
 import {
   SaveUserAndRefreshAction,
   FavoriteChargerAction,
@@ -129,8 +130,9 @@ function* removeChargerFromFavorites(action: FavoriteChargerAction) {
  * data and navigate to home page.
  */
 function* logOutAndReset() {
+  const { navigator } = references
   yield clearUserData()
-  yield Navigation.navigate('Home')
+  yield navigator?.dispatch(CommonActions.navigate('HomeTabNavigation', { screen: 'Home' }))
   yield put(actions.logOut())
   yield rememberUser(null)
 }

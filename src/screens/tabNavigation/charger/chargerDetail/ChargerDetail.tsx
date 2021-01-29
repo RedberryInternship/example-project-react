@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react'
 import {
   StyleSheet,
-  ScrollView,
+  // ScrollView,
   View,
   Image,
 } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 import { BusinessService } from 'types'
 import {
   TitleTopLeftContainer,
@@ -17,7 +18,6 @@ import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { getImage } from 'helpers/chargers'
-import { useNavigation } from '@react-navigation/native'
 import {
   ChargerDetailTopInfo,
   ChargerTypesItem,
@@ -35,20 +35,20 @@ const ChargerDetail = () => {
     setActiveChargerType,
     activeChargerType,
     onFavoritePress,
+    goBackHandler,
     distance,
     charger,
   } = useChargerDetails()
-  const { goBack } = useNavigation()
 
   const insets = useSafeAreaInsets()
   const image = useMemo(() => getImage(charger?.image ?? null), [charger])
 
   return (
-    <Swipe left={goBack}>
+    <Swipe left={goBackHandler}>
       <View style={styles.container}>
         <View style={[styles.imageContainer, { marginTop: insets.top }]}>
           <BaseHeader
-            onPressLeft={goBack}
+            onPressLeft={goBackHandler}
             style={styles.baseHeader}
             colorless
             noInset

@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useState,
 } from 'react'
@@ -21,7 +22,8 @@ import {
   HomeNavigateModes,
   LanguageType,
 } from 'types'
-import { useNavigation, useRoute } from '@react-navigation/native'
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native'
+import { BackHandler } from 'react-native'
 import {
   askForLocationIfNotEnabled,
   isLocationEnabled,
@@ -44,15 +46,29 @@ export default () => {
   const [distance, setDistance] = useState('')
   const [charger, setCharger] = useState<Charger>(params?.chargerDetails)
 
+  /**
+  * Go back handler.
+  */
+  const goBackHandler = useCallback(() => {
+    if (params.from === 'ChargerWithCode') {
+      goBack()
+    } else {
+      navigate('HomeTabNavigation', { screen: 'Home' })
+    }
+
+    return true
+  }, [goBack, navigate, params.from])
+
+  /**
+   * Register back press handler.
+   */
   useEffect(() => {
-    const unsubscribe = addListener('blur', () => {
-      if (params.from === 'Home') {
-        goBack()
-      }
+    addListener('focus', () => {
+      BackHandler.addEventListener('hardwareBackPress', goBackHandler)
     })
 
-    return unsubscribe
-  }, [addListener, goBack, params.from])
+    return BackHandler.removeEventListener('hardwareBackPress', goBackHandler)
+  }, [goBackHandler, addListener])
 
   /**
    * Watch for charger changes in navigation params.
@@ -239,6 +255,7 @@ export default () => {
     startChargingHandler,
     activeChargerType,
     onFavoritePress,
+    goBackHandler,
     distance,
     charger,
   }

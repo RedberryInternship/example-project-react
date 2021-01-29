@@ -5,7 +5,7 @@ const defaults: Defaults = {
   dropdown: null,
   token: null,
   FCMToken: null,
-  activeRoute: null,
+  activeRoute: 'Home',
   locale: 'ka',
   location: null,
   locationPermission: 'notDetermined',
@@ -16,6 +16,7 @@ const defaults: Defaults = {
   isForeground: null,
   chargers: null,
   authStatus: null,
+  appReady: false,
 }
 
 export default defaults

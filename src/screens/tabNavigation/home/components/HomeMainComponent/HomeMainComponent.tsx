@@ -41,7 +41,7 @@ const HomeMainComponent: HomeMainFC = (
       {authStatus === 'success' ? null : (
         <BaseButton
           image={images.user}
-          onPress={() => navigate('Auth')}
+          onPress={() => navigate('AuthStack', { screen: 'Auth' })}
           text="home.authorization"
           style={styles.authorizeBtn}
         />

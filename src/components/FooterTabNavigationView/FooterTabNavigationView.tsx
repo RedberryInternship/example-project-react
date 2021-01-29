@@ -5,11 +5,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
 import { selectChargingProcess } from 'state/selectors'
 import { TabNavigationButtons } from 'components'
-import { determineTimePeriod } from 'utils/map'
 import { isAuthenticated } from 'helpers/user'
 import images from 'assets/images'
 import { useNavigation } from '@react-navigation/native'
 import { useCurrentRoute } from 'hooks'
+import defaults from 'utils/defaults'
 import { zoomOut } from './config'
 import { inArray } from './helpers'
 
@@ -23,6 +23,7 @@ const FooterTabNavigator = () => {
   const navigation = useNavigation()
   const insets = useSafeAreaInsets()
   const currentRouteName = useCurrentRoute()
+  defaults.activeRoute = currentRouteName
 
   const navigate = (name: string): void => {
     if (name === 'drawer') {
@@ -30,14 +31,6 @@ const FooterTabNavigator = () => {
     }
 
     navigation.navigate(name, { mode: null })
-  }
-
-  if (inArray(homeScreens, currentRouteName)) {
-    StatusBar.setBarStyle('light-content')
-  } else {
-    StatusBar.setBarStyle(
-      determineTimePeriod() ? 'dark-content' : 'light-content',
-    )
   }
 
   return (
@@ -51,7 +44,9 @@ const FooterTabNavigator = () => {
         active={inArray(homeScreens, currentRouteName)}
         navigate={() => {
           navigation.setParams({})
-          navigate('Home')
+          navigation.navigate('HomeTabNavigation', {
+            screen: 'Home',
+          })
         }}
         image={images.mapPin}
       />
@@ -60,7 +55,9 @@ const FooterTabNavigator = () => {
         navigate={() => {
           isAuthenticated()
             ? navigation.navigate('ChargerStack', { screen: 'ChargerWithCode' })
-            : navigation.navigate('NotAuthorized')
+            : navigation.navigate('HomeTabNavigation', {
+              screen: 'NotAuthorized',
+            })
         }}
         image={images.chargeWithCode}
       />
@@ -74,7 +71,9 @@ const FooterTabNavigator = () => {
           easing="ease-in-out-cubic"
         >
           <TabNavigationButtons
-            navigate={() => navigate('Charging')}
+            navigate={() => navigation.navigate('HomeTabNavigation', {
+              screen: 'Charging',
+            })}
             image={images.charge}
             active={inArray(chargingScreens, currentRouteName)}
           />
@@ -82,7 +81,7 @@ const FooterTabNavigator = () => {
       )}
       {isAuthenticated() && (
         <TabNavigationButtons
-          navigate={() => navigate('Favorites')}
+          navigate={() => navigation.navigate('HomeTabNavigation', { screen: 'Favorites' })}
           image={images.favorite}
           active={inArray(favoritesScreens, currentRouteName)}
         />

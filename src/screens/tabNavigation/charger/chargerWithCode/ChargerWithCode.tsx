@@ -40,7 +40,7 @@ const ChargerWithCode = () => {
       <ScrollView style={styles.scrollView}>
         <BaseInput
           image={images.lock}
-          keyboardType="email-address"
+          keyboardType="number-pad"
           onChangeText={setChargerWithCode}
           onSubmit={findCharger}
           title="charger.enterCode"

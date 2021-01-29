@@ -8,6 +8,7 @@ import {
   ChargingState,
 } from 'types'
 import references from 'utils/references'
+import { CommonActions } from '@react-navigation/native'
 
 const configureChargingFinishPopup = (
   {
@@ -20,8 +21,7 @@ const configureChargingFinishPopup = (
     is_free,
   }: ChargingState,
 ) => {
-  const dispatch = references.reduxDispatch
-
+  const { navigator, reduxDispatch: dispatch } = references
   if (charging_status === ChargingStatus.UNPLUGGED) {
     DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
     return
@@ -94,6 +94,11 @@ const configureChargingFinishPopup = (
         break
       case ChargingStatus.FINISHED:
         dispatch && dispatch(refreshChargingProcesses())
+        if (defaults.activeRoute === 'Charging') {
+          navigator?.dispatch(CommonActions.navigate('HomeTabNavigation', {
+            screen: 'Home',
+          }))
+        }
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.FinishedCharging,
