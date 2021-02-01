@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { BaseHeader } from 'components'
+import BaseHeader from 'components/BaseHeader'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
 import { FCWithNavigation } from 'types'

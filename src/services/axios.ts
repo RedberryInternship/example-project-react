@@ -5,8 +5,9 @@ import DeviceInfo from 'react-native-device-info'
 import defaults from 'utils/defaults'
 import { remoteLogger } from 'utils/inform'
 import { clearUserData } from 'helpers/user'
-import Navigation from 'utils/navigation'
 import { Fetch, Axios } from 'types/customAxios'
+import { CommonActions } from '@react-navigation/native'
+import references from 'utils/references'
 
 /**
  * Configured Headers.
@@ -51,7 +52,9 @@ const fetch: Fetch = (uri, data, method, params) => {
           remoteLogger(error)
           if (error.response && error.response.status === 401) {
             clearUserData()
-            Navigation.navigate('Home')
+            references.navigator?.dispatch(
+              CommonActions.navigate('HomeTabNavigation', { screen: 'Home' }),
+            )
           }
 
           reject(error.response)

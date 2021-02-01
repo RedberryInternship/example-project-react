@@ -1,6 +1,6 @@
 import React from 'react'
 import { getLocaleText } from 'utils'
-import { MainSearchItem } from '../index'
+import MainSearchItem from '../MainSearchItem'
 import { HomeMainSearchResultFC } from './types'
 
 const HomeMainSearchResult: HomeMainSearchResultFC = (

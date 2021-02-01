@@ -7,11 +7,9 @@ import {
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import {
-  PasswordConfirmationView,
-  BaseHeader,
-  BaseButton,
-} from 'components'
+import PasswordConfirmationView from 'components/PasswordConfirmationView'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { useNavigation } from '@react-navigation/native'

@@ -1,12 +1,12 @@
 import React from 'react'
 import {
-  View,
-  StyleSheet,
   TouchableOpacity,
+  StyleSheet,
+  View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import colors from 'utils/colors'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { AddCardFC } from './types'
 
 const BaseAddCardButton: AddCardFC = ({ onPress, style }) => {

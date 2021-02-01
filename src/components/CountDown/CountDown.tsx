@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { CountDownFC } from './types'
 import useCountDown from './useCountDown'
 

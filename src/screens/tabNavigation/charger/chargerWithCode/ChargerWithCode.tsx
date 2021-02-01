@@ -7,14 +7,12 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
 import { Charger } from 'types'
-import {
-  TitleTopLeftContainer,
-  FetchedDataRenderer,
-  BaseButton,
-  BaseHeader,
-  BaseInput,
-  BaseText,
-} from 'components'
+import TitleTopLeftContainer from 'components/TitleTopLeftContainer'
+import FetchedDataRenderer from 'components/FetchedDataRenderer'
+import BaseButton from 'components/BaseButton'
+import BaseHeader from 'components/BaseHeader'
+import BaseInput from 'components/BaseInput'
+import BaseText from 'components/BaseText'
 import {
   getLocaleText,
   Colors,

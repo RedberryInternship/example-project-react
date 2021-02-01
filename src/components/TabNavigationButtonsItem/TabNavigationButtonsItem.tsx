@@ -1,6 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet } from 'react-native'
-import { BaseNativeTouchable } from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
 import Colors from 'utils/colors'
 import { TabNavigationButtonsItemFC } from './types'
 
@@ -11,16 +11,16 @@ const TabNavigationButtonsItem: TabNavigationButtonsItemFC = (
     active,
   },
 ) => (
-    <BaseNativeTouchable onPress={navigate} style={styles.baseNativeTouchable}>
-      <Image
-        source={image}
-        style={[
-          styles.image,
-          { tintColor: active ? Colors.secondaryBlue : Colors.primaryGray },
-        ]}
-      />
-    </BaseNativeTouchable>
-  )
+  <BaseNativeTouchable onPress={navigate} style={styles.baseNativeTouchable}>
+    <Image
+      source={image}
+      style={[
+        styles.image,
+        { tintColor: active ? Colors.secondaryBlue : Colors.primaryGray },
+      ]}
+    />
+  </BaseNativeTouchable>
+)
 
 export default TabNavigationButtonsItem
 

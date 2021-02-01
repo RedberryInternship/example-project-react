@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { AddCardButtonFC } from 'screens/tabNavigation/charger/choosingCard/types'
 
 const BaseAddCardButton: AddCardButtonFC = ({ onPress, style }) => {

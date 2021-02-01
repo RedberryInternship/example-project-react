@@ -7,7 +7,8 @@ import {
 import { useRoute } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { BaseHeader, BaseText } from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import {
   TransactionsHistoryResponseItem,

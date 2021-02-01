@@ -7,11 +7,9 @@ import {
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import {
-  PhoneVerificationView,
-  BaseHeader,
-  BaseButton,
-} from 'components'
+import PhoneVerificationView from 'components/PhoneVerificationView'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { useNavigation } from '@react-navigation/native'

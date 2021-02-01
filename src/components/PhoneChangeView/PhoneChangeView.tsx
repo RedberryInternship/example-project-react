@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { PhoneVerificationView } from 'components'
+import PhoneVerificationView from 'components/PhoneVerificationView'
 import usePhoneVerification from 'hooks/usePhoneVerification'
 import { PhoneChangeViewFC } from './types'
 

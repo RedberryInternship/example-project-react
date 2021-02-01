@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import colors from 'utils/colors'
 import images from 'assets/images'
-import { BaseNativeTouchable } from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
 import { AvatarItemFC } from './types'
 
 const AvatarItem: AvatarItemFC = (
@@ -17,30 +17,30 @@ const AvatarItem: AvatarItemFC = (
     active,
   },
 ) => (
-    <View style={styles.imageContainer}>
-      <View>
-        <BaseNativeTouchable
-          onPress={onPress}
-          style={[
-            styles.selectAvatar,
-            { backgroundColor: active ? '#4CD96433' : '#0199F033' },
-          ]}
-          hitSlop={styles.hitSlop}
-        >
-          <Image
-            source={image}
-            style={[styles.image, { tintColor: active ? '#4CD964' : '#0199F0' }]}
-          />
-        </BaseNativeTouchable>
-        <View style={styles.editButtonImageContainer}>
-          <Image
-            source={active ? images.checkmark : undefined}
-            style={styles.editButtonImage}
-          />
-        </View>
+  <View style={styles.imageContainer}>
+    <View>
+      <BaseNativeTouchable
+        onPress={onPress}
+        style={[
+          styles.selectAvatar,
+          { backgroundColor: active ? '#4CD96433' : '#0199F033' },
+        ]}
+        hitSlop={styles.hitSlop}
+      >
+        <Image
+          source={image}
+          style={[styles.image, { tintColor: active ? '#4CD964' : '#0199F0' }]}
+        />
+      </BaseNativeTouchable>
+      <View style={styles.editButtonImageContainer}>
+        <Image
+          source={active ? images.checkmark : undefined}
+          style={styles.editButtonImage}
+        />
       </View>
     </View>
-  )
+  </View>
+)
 
 export default AvatarItem
 

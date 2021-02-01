@@ -4,18 +4,16 @@ import { View, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { BaseButton } from 'components'
+import BaseButton from 'components/BaseButton'
 import { Defaults } from 'utils'
 import {
   getAndRequestLocation,
   isLocationEnabled,
 } from 'utils/location'
 import images from 'assets/images'
-import {
-  HomeMainSearchView,
-  OnMapRoundButton,
-  HomeFilterView,
-} from '../index'
+import HomeMainSearchView from '../HomeMainSearchView'
+import OnMapRoundButton from '../OnMapRoundButton'
+import HomeFilterView from '../HomeFilterView'
 import { HomeMainFC } from './types'
 
 const HomeMainComponent: HomeMainFC = (

@@ -8,7 +8,7 @@ import {
 import { Colors } from 'utils'
 import images, { Avatars } from 'assets/images'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { AvatarWithLabelFC } from 'screens/drawer/drawer/types'
 
 const UserAvatarWithLabel: AvatarWithLabelFC = (

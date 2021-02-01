@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectApp } from 'state/selectors'
-import { FooterTabNavigation } from 'components'
+import FooterTabNavigation from 'components/FooterTabNavigationView'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 import { NavigationContainer } from '@react-navigation/native'

@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { TransactionItemFC } from 'screens/drawer/transactions/transactionList/types'
 
 const TransactionListItem: TransactionItemFC = (

@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors, Font } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { ContactListItemFC } from 'screens/drawer/contact/types'
 
 const ContactListItem: ContactListItemFC = (

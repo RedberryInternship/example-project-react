@@ -2,14 +2,12 @@ import React, { ReactElement } from 'react'
 import { View, StyleSheet } from 'react-native'
 import Modal from 'react-native-modal'
 import { Const } from 'utils'
-import {
-  LocationPermission,
-  RegistrationType1,
-  PrivacyPolicy,
-  ChargingModal,
-  LegendType2,
-  MapPopUp,
-} from 'components'
+import LocationPermission from 'components/LocationPermission'
+import RegistrationType1 from 'components/RegistrationType1'
+import PrivacyPolicy from 'components/PrivacyPolicy'
+import ChargingModal from 'components/ChargingModal'
+import LegendType2 from 'components/LegendType2'
+import MapPopUp from 'components/MapPopUp'
 import { ModalTypes } from 'types'
 import { CustomModalInterface, Config, State } from './types'
 import { initialState } from './config'

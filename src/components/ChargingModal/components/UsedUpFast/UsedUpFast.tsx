@@ -5,10 +5,8 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  ModalPopupChargerItem,
-  BaseText,
-} from 'components'
+import ModalPopupChargerItem from 'components/ModalPopupChargerItem'
+import BaseText from 'components/BaseText'
 import { Colors, Navigation } from 'utils'
 import { HomeNavigateModes } from 'types'
 import { UsedUpFastFC } from './types'

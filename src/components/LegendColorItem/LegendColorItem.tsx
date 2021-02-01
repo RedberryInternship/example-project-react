@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { LegendColorItemFC } from './types'
 
 const LegendColorItem: LegendColorItemFC = ({ text, color }) => {

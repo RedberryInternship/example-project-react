@@ -8,7 +8,7 @@ import {
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
 import images from 'assets/images'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { FaqListItemFC } from 'screens/drawer/faq/types'
 import useFaqListItem from './useFaqListItem'
 

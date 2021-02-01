@@ -8,11 +8,9 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import {
-  LegendColorItem,
-  LegendItem,
-  BaseText,
-} from 'components'
+import LegendColorItem from 'components/LegendColorItem'
+import LegendItem from 'components/LegendItem'
+import BaseText from 'components/BaseText'
 import { LegendType2FC } from './types'
 import {
   legendColorTypes,

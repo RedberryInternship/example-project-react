@@ -12,13 +12,11 @@ import LinearGradient from 'react-native-linear-gradient'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import {
-  BaseHeader,
-  BaseButton,
-  TitleTopLeftContainer,
-  BaseInput,
-  BaseText,
-} from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import TitleTopLeftContainer from 'components/TitleTopLeftContainer'
+import BaseInput from 'components/BaseInput'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import { Const, Colors } from 'utils'
 import { Controller, useForm } from 'react-hook-form'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, View } from 'react-native'
 import { Colors, Font } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 
 const Opening = () => (

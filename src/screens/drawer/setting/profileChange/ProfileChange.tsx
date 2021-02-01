@@ -6,15 +6,13 @@ import {
   View,
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {
-  BaseHeader,
-  BaseButton,
-  PhoneChangeView,
-  PasswordChangeView,
-  CardListView,
-  AddCar,
-  SingleInputView,
-} from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import PhoneChangeView from 'components/PhoneChangeView'
+import PasswordChangeView from 'components/PasswordChangeView'
+import CardListView from 'components/CardListView'
+import AddCar from 'components/AddCar'
+import SingleInputView from 'components/SingleInputView'
 import { Colors } from 'utils'
 import {
   FCWithNavigation,

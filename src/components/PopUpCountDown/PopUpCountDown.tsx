@@ -3,7 +3,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { CountDown } from 'components'
+import CountDown from 'components/CountDown'
 import { PopUpCountDownFC } from './types'
 
 const PopUpCountDown: PopUpCountDownFC = ({

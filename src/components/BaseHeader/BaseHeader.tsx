@@ -9,10 +9,8 @@ import {
 import { useTranslation } from 'react-i18next'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Colors, Font } from 'utils'
-import {
-  BaseNativeTouchable,
-  BaseText,
-} from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import { BaseHeaderFC } from './types'
 

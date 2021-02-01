@@ -9,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import MaskedView from '@react-native-community/masked-view'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import useReceiveCode from './useReceiveCode'
 
 const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any, ref: any) => {

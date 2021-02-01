@@ -9,10 +9,8 @@ import {
 import HTML from 'react-native-render-html'
 import { useTranslation } from 'react-i18next'
 import images from 'assets/images'
-import {
-  PrivacyAndPolicyButton,
-  BaseText,
-} from 'components'
+import PrivacyAndPolicyButton from 'components/PrivacyAndPolicyButton'
+import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import { PrivacyPolicyFC } from './types'
 

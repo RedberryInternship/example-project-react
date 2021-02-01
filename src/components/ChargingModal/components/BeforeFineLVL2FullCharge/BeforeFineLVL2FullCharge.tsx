@@ -1,11 +1,9 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  ModalPopupChargerItem,
-  PopUpCountDown,
-  BaseText,
-} from 'components'
+import ModalPopupChargerItem from 'components/ModalPopupChargerItem'
+import PopUpCountDown from 'components/PopUpCountDown'
+import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import { BeforeFineLVL2FullChargeFC } from './types'
 

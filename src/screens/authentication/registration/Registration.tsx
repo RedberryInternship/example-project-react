@@ -10,11 +10,9 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import images from 'assets/images'
 import { Colors } from 'utils'
-import {
-  RegistrationPagination,
-  BaseHeader,
-  BaseButton,
-} from 'components'
+import RegistrationPagination from 'components/RegistrationPagination'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
 import { FCWithNavigation } from 'types'
 import PhoneNumberView from './components/PhoneNumberView'
 import UserInfoView from './components/UserInfoView'

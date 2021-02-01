@@ -15,7 +15,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Const, Colors } from 'utils'
 import images from 'assets/images'
-import { FilterTextItem } from '../index'
+import FilterTextItem from '../FilterTextItem'
 import { HomeFilterFC } from './types'
 
 const translate = Const.Width - 98

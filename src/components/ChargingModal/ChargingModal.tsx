@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import { ScrollView } from 'react-native-gesture-handler'
 import { ChargingFinishedPopupEnum } from 'types'

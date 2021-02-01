@@ -1,18 +1,15 @@
 import React, { useMemo } from 'react'
 import {
   StyleSheet,
-  // ScrollView,
   View,
   Image,
 } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { BusinessService } from 'types'
-import {
-  TitleTopLeftContainer,
-  BaseHeader,
-  BaseButton,
-  Swipe,
-} from 'components'
+import TitleTopLeftContainer from 'components/TitleTopLeftContainer'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import Swipe from 'components/Swipe'
 import { Colors, Const } from 'utils'
 import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'

@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { RegistrationPaginationFC } from './type'
 
 const pagination = [1, 2, 3, 4]
@@ -16,39 +16,39 @@ const RegistrationPagination: RegistrationPaginationFC = (
     activePage,
   },
 ) => (
-    <View style={styles.container}>
-      {pagination.map((val, ind) => (
-        <TouchableOpacity
-          onPress={paginationClickHandler.bind(RegistrationPagination, ind)}
-          key={val}
-          style={styles.touchable}
-          hitSlop={{
-            top: 15, bottom: 15, left: 8, right: 8,
-          }}
+  <View style={styles.container}>
+    {pagination.map((val, ind) => (
+      <TouchableOpacity
+        onPress={paginationClickHandler.bind(RegistrationPagination, ind)}
+        key={val}
+        style={styles.touchable}
+        hitSlop={{
+          top: 15, bottom: 15, left: 8, right: 8,
+        }}
+      >
+        <View
+          style={[
+            styles.paginationContainer,
+            {
+              borderColor:
+                ind === activePage ? Colors.primaryGreen : '#B8BDC0',
+            },
+          ]}
         >
-          <View
+          <BaseText
             style={[
-              styles.paginationContainer,
-              {
-                borderColor:
-                  ind === activePage ? Colors.primaryGreen : '#B8BDC0',
-              },
+              styles.paginationText,
+              { color: ind !== activePage ? '#B8BDC0' : Colors.primaryGreen },
             ]}
           >
-            <BaseText
-              style={[
-                styles.paginationText,
-                { color: ind !== activePage ? '#B8BDC0' : Colors.primaryGreen },
-              ]}
-            >
-              {val}
-            </BaseText>
-          </View>
-          {ind !== pagination.length - 1 && <View style={styles.gap} />}
-        </TouchableOpacity>
-      ))}
-    </View>
-  )
+            {val}
+          </BaseText>
+        </View>
+        {ind !== pagination.length - 1 && <View style={styles.gap} />}
+      </TouchableOpacity>
+    ))}
+  </View>
+)
 
 export default React.memo(RegistrationPagination)
 

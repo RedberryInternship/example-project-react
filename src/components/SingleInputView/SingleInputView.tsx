@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ProfileFieldChange } from 'types'
-import { BaseInput } from 'components'
+import BaseInput from 'components/BaseInput'
 import { Controller } from 'react-hook-form'
 import images from 'assets/images'
 
