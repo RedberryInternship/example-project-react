@@ -13,6 +13,7 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
   {
     bottomDescription,
     penalty_enabled,
+    charging_status,
     consumedMoney,
     refundMoney,
     onFinish,
@@ -34,6 +35,7 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
         onFinish={onFinish}
         warningLevel={onFine && !penalty_enabled ? 2 : 1}
         penaltyEnabled={penalty_enabled}
+        chargingStatus={charging_status}
       />
       <View style={styles.lineView} />
       <View style={{ marginVertical: 12 }}>

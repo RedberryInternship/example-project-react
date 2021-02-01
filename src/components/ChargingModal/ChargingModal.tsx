@@ -26,12 +26,13 @@ const ChargingModal: ChargingModalFC = (
     data: {
       bottomDescription,
       penalty_enabled,
+      charging_status,
       consumedMoney,
       description,
       refundMoney,
       onFinish,
-      title,
       onFine,
+      title,
       price,
       time,
     },
@@ -51,6 +52,7 @@ const ChargingModal: ChargingModalFC = (
           price={price}
           time={time}
           penalty_enabled={!!penalty_enabled}
+          charging_status={charging_status}
         />
       )
       case ChargingFinishedPopupEnum.UsedUpFastProps: return (

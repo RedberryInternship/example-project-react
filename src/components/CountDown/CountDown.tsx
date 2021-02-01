@@ -8,6 +8,7 @@ import useCountDown from './useCountDown'
 const CountDown: CountDownFC = (
   {
     penaltyEnabled,
+    chargingStatus,
     startTime,
     onFinish,
     alarm,
@@ -17,6 +18,7 @@ const CountDown: CountDownFC = (
   const { time } = useCountDown(
     {
       penaltyEnabled,
+      chargingStatus,
       startTime,
       onFinish,
       alarm,

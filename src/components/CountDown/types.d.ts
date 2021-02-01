@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import { ChargingStatus } from 'types'
 
 type CountDownProps = {
   popup?: boolean
@@ -9,6 +10,7 @@ type PartialProps = {
   alarm: boolean
   onFinish?: () => void
   penaltyEnabled: boolean
+  chargingStatus: ChargingStatus
 }
 
 export type CountDownFC = (props: CountDownProps) => ReactElement

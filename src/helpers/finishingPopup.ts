@@ -46,6 +46,7 @@ const configureChargingFinishPopup = (
         consumedMoney: consumed_money,
         refundMoney: refund_money,
         is_free,
+        charging_status,
       },
       onCloseClick: () => {
         dispatch && dispatch(refreshChargingProcesses())
@@ -66,6 +67,7 @@ const configureChargingFinishPopup = (
             onFine: false,
             onFinish: () => dispatch && dispatch(refreshChargingProcesses()),
             penalty_enabled,
+            charging_status,
           },
         }
         break
@@ -77,6 +79,7 @@ const configureChargingFinishPopup = (
             ...options.data,
             bottomDescription: 'popup.yourChargingOnFineStarted',
             onFine: true,
+            charging_status,
           },
         }
         break
@@ -103,6 +106,7 @@ const configureChargingFinishPopup = (
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
             penalty_enabled,
+            charging_status,
           },
         }
         break
@@ -119,6 +123,7 @@ const configureChargingFinishPopup = (
           data: {
             ...options.data,
             chargerTypeFAST: charger_type === 'LVL2',
+            charging_status,
           },
         }
         break
@@ -131,6 +136,7 @@ const configureChargingFinishPopup = (
             bottomDescription: 'popup.bankrupt',
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
+            charging_status,
           },
         }
         break
@@ -143,6 +149,7 @@ const configureChargingFinishPopup = (
             bottomDescription: 'popup.processFailed',
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
+            charging_status,
           },
         }
         break

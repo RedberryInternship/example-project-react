@@ -8,6 +8,7 @@ import { PopUpCountDownFC } from './types'
 
 const PopUpCountDown: PopUpCountDownFC = ({
   penaltyEnabled,
+  chargingStatus,
   warningLevel,
   startTime,
   onFinish,
@@ -27,6 +28,7 @@ const PopUpCountDown: PopUpCountDownFC = ({
     >
       <CountDown
         penaltyEnabled={penaltyEnabled}
+        chargingStatus={chargingStatus}
         startTime={startTime}
         onFinish={onFinish}
         alarm={alarm}
