@@ -5,7 +5,8 @@ import {
   Image,
   View,
 } from 'react-native'
-import { BaseButton, BaseText } from 'components'
+import BaseButton from 'components/BaseButton'
+import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { FavoriteChargerItemFC } from 'screens/tabNavigation/favorites/types'
@@ -18,34 +19,34 @@ const FavoriteChargerListItem: FavoriteChargerItemFC = (
     deleteItem,
   },
 ) => (
-    <View style={styles.container}>
-      <View style={styles.innerLeftContainer}>
-        <TouchableOpacity onPress={deleteItem}>
-          <View style={styles.deleteButton}>
-            <Image
-              style={styles.deleteButtonImage}
-              source={images.orangeTrash}
-            />
-          </View>
-        </TouchableOpacity>
-        <BaseText style={styles.title}>{title}</BaseText>
-        <View style={styles.addressContainer}>
-          <Image style={styles.addressImage} source={images.mapPin} />
-          <BaseText style={styles.addressTitle}>{address}</BaseText>
+  <View style={styles.container}>
+    <View style={styles.innerLeftContainer}>
+      <TouchableOpacity onPress={deleteItem}>
+        <View style={styles.deleteButton}>
+          <Image
+            style={styles.deleteButtonImage}
+            source={images.orangeTrash}
+          />
         </View>
-      </View>
-      <View style={styles.customizedBaseButtonContainer}>
-        <BaseButton
-          onPress={turnon}
-          text="turnOn"
-          style={styles.customizedBaseButton}
-          imageStyle={{ tintColor: Colors.primaryBlue }}
-          image={images.arrowRight}
-          textStyle={{ color: Colors.primaryBlue }}
-        />
+      </TouchableOpacity>
+      <BaseText style={styles.title}>{title}</BaseText>
+      <View style={styles.addressContainer}>
+        <Image style={styles.addressImage} source={images.mapPin} />
+        <BaseText style={styles.addressTitle}>{address}</BaseText>
       </View>
     </View>
-  )
+    <View style={styles.customizedBaseButtonContainer}>
+      <BaseButton
+        onPress={turnon}
+        text="turnOn"
+        style={styles.customizedBaseButton}
+        imageStyle={{ tintColor: Colors.primaryBlue }}
+        image={images.arrowRight}
+        textStyle={{ color: Colors.primaryBlue }}
+      />
+    </View>
+  </View>
+)
 
 export default FavoriteChargerListItem
 

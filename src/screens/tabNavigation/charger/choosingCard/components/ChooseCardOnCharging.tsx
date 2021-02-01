@@ -5,11 +5,9 @@ import {
   View,
 } from 'react-native'
 import colors from 'utils/colors'
-import {
-  BaseNativeTouchable,
-  BaseCheckbox,
-  BaseText,
-} from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
+import BaseCheckbox from 'components/BaseCheckbox'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import { ChooseCardOnChargingFC } from 'screens/tabNavigation/charger/choosingCard/types'
 import { formatCreditCardDigits } from './helper'

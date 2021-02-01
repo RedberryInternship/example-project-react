@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import {
   useReceiveFirebaseMessage,
   useTroubleshootNetwork,
@@ -10,17 +10,16 @@ import {
   useAppLife,
   useReady,
 } from 'hooks'
-import { CustomModal, CustomDropdownAlert } from 'components'
+import {
+  CustomDropdownAlert,
+  CustomModal,
+  Navigation,
+} from 'components'
 import defaults from 'utils/defaults'
-import { selectChargingProcess } from 'state/selectors'
 import references from 'utils/references'
 import {
   determineNavigationTheme,
-  onNavigationStateChange,
-  setNavigationReference,
 } from 'utils/navigation'
-
-import Navigation from '../src/navigation'
 
 const StartUpLayer = () => {
   references.reduxDispatch = useDispatch()
@@ -34,18 +33,15 @@ const StartUpLayer = () => {
   useTroubleshootNetwork()
   useReady()
 
-  const { chargingState } = useSelector(selectChargingProcess)
-  const { token } = defaults
-  const screenProps = { chargingState, token }
-
   return (
     <>
-      <Navigation
+      {/* <Navigation
         ref={setNavigationReference}
         screenProps={screenProps}
         theme="dark"
         onNavigationStateChange={onNavigationStateChange}
-      />
+      /> */}
+      <Navigation />
       <CustomDropdownAlert dropDownInactiveBarColor={determineNavigationTheme} />
       <CustomModal ref={defaults.modal} />
     </>

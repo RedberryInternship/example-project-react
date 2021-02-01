@@ -1,12 +1,14 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { CountDownFC } from './types'
 import useCountDown from './useCountDown'
 
 const CountDown: CountDownFC = (
   {
+    penaltyEnabled,
+    chargingStatus,
     startTime,
     onFinish,
     alarm,
@@ -15,6 +17,8 @@ const CountDown: CountDownFC = (
 ) => {
   const { time } = useCountDown(
     {
+      penaltyEnabled,
+      chargingStatus,
       startTime,
       onFinish,
       alarm,

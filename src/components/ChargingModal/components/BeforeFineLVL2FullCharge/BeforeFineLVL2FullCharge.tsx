@@ -1,23 +1,23 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  ModalPopupChargerItem,
-  PopUpCountDown,
-  BaseText,
-} from 'components'
+import ModalPopupChargerItem from 'components/ModalPopupChargerItem'
+import PopUpCountDown from 'components/PopUpCountDown'
+import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import { BeforeFineLVL2FullChargeFC } from './types'
 
 const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
   {
-    time,
     bottomDescription,
-    price,
+    penalty_enabled,
+    charging_status,
     consumedMoney,
     refundMoney,
-    onFine,
     onFinish,
+    onFine,
+    price,
+    time,
   },
 ) => {
   const { t } = useTranslation()
@@ -31,7 +31,9 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
         startTime={time}
         alarm={!onFine}
         onFinish={onFinish}
-        warningLevel={onFine ? 2 : 1}
+        warningLevel={onFine && !penalty_enabled ? 2 : 1}
+        penaltyEnabled={penalty_enabled}
+        chargingStatus={charging_status}
       />
       <View style={styles.lineView} />
       <View style={{ marginVertical: 12 }}>

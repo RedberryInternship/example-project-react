@@ -1,16 +1,14 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import {
-  ModalPopupChargerItem,
-} from 'components'
+import ModalPopupChargerItem from 'components/ModalPopupChargerItem'
 import { Colors } from 'utils'
 import { FinishedFC } from './types'
 
 const Finished: FinishedFC = (
   {
-    price,
     consumedMoney,
     refundMoney,
+    price,
   },
 ) => (
   <>

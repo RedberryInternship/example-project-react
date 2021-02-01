@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectUser } from 'state/selectors'
 import { Charger } from 'types'
 import { refreshAllChargers } from 'state/actions/userActions'
+import { useNavigation } from '@react-navigation/native'
 import useLocation from './useLocation'
 import { UseMapView } from './types'
 
@@ -14,9 +15,9 @@ const useMapView = (
   {
     ref,
     mapRef,
-    navigation,
   }: UseMapView,
 ) => {
+  const { navigate } = useNavigation()
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
   const [polyline, setPolyline] = useState([])
@@ -51,11 +52,15 @@ const useMapView = (
    */
   const onMarkerPress = useCallback(
     (charger: Charger): void => {
-      navigation.navigate('ChargerDetail', {
-        chargerDetails: charger,
+      navigate('ChargerStack', {
+        screen: 'ChargerDetail',
+        params: {
+          chargerDetails: charger,
+          from: 'Home',
+        },
       })
     },
-    [navigation],
+    [navigate],
   )
   return {
     onMarkerPress,

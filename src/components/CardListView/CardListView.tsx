@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { withNavigation } from 'react-navigation'
+import { useNavigation } from '@react-navigation/native'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { selectUser } from 'state/selectors'
-import { CardListItem, BaseAddCardButton, BaseText } from 'components'
-import { FCWithNavigation } from 'types'
+import CardListItem from 'components/CardListItem'
+import BaseAddCardButton from 'components/BaseAddCardButton'
+import BaseText from 'components/BaseText'
 import { useTranslation } from 'react-i18next'
 import colors from 'utils/colors'
 import useCardListView from './useCardListView'
 
-const CardListView: FCWithNavigation = ({ navigation }) => {
+const CardListView: FC = () => {
+  const { navigate } = useNavigation()
   const {
     setDefaultCreditCard,
     removeUserCreditCard,
@@ -43,15 +45,13 @@ const CardListView: FCWithNavigation = ({ navigation }) => {
         />
       ))}
       <BaseAddCardButton
-        onPress={() => {
-          navigation.navigate('CardAdd')
-        }}
+        onPress={() => navigate('CardAdd')}
       />
     </View>
   )
 }
 
-export default withNavigation(CardListView)
+export default CardListView
 
 const styles = StyleSheet.create({
   container: {

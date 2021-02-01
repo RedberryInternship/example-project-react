@@ -1,7 +1,7 @@
 import { ModalTypes } from 'types'
-import { InitialState } from './types'
+import { State } from './types'
 
-export const initialState: InitialState = {
+export const initialState: State = {
   visible: false,
   config: {
     type: ModalTypes.MAP_POPUP,

@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native'
 import Modal from 'react-native-modal'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import colors from 'utils/colors'
 import { withTranslation } from 'react-i18next'
 import { ListItem } from './components'

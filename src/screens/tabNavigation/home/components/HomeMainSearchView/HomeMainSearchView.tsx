@@ -15,7 +15,8 @@ import {
 } from 'react-native-keyboard-aware-scroll-view'
 import { Charger } from 'types'
 import { Const, Colors } from 'utils'
-import { HomeMainSearchInput, HomeMainSearchResult } from '../index'
+import HomeMainSearchResult from '../HomeMainSearchResult'
+import HomeMainSearchInput from '../HomeMainSearchInput'
 import useHomeMainSearchView from './useHomeMainSearchView'
 
 import {

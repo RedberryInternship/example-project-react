@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { BaseHeader, BaseButton } from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
 import { Colors } from 'utils'
 import images, { Avatars } from 'assets/images'
 import { FCWithNavigation } from 'types'

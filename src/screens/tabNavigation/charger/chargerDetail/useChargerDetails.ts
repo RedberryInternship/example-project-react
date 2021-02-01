@@ -1,14 +1,12 @@
 import {
+  useCallback,
   useEffect,
   useState,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { selectUser, selectChargingProcess } from 'state/selectors'
-import {
-  Navigation,
-  getLocaleText,
-} from 'utils'
+import { getLocaleText } from 'utils'
 import defaults from 'utils/defaults'
 
 import {
@@ -20,11 +18,12 @@ import {
   addChargerToFavorites,
 } from 'state/actions/userActions'
 import {
-  Navigation as NavigationType,
   Charger as BaseCharger,
   HomeNavigateModes,
   LanguageType,
 } from 'types'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { BackHandler } from 'react-native'
 import {
   askForLocationIfNotEnabled,
   isLocationEnabled,
@@ -32,44 +31,56 @@ import {
 } from './helpers'
 import { Charger } from './types'
 
-export default (navigation: NavigationType) => {
+export default () => {
+  const {
+    addListener,
+    setParams,
+    navigate,
+    goBack,
+  } = useNavigation()
+  const { params } = useRoute<any>()
   const state = useSelector(selectUser)
   const { chargingState } = useSelector(selectChargingProcess)
   const dispatch = useDispatch()
-
   const [activeChargerType, setActiveChargerType] = useState<number>(0)
   const [distance, setDistance] = useState('')
+  const [charger, setCharger] = useState<Charger>(params?.chargerDetails)
 
-  const [charger, setCharger] = useState<Charger>(
-    navigation.getParam('chargerDetails', undefined),
-  )
+  /**
+  * Go back handler.
+  */
+  const goBackHandler = useCallback(() => {
+    if (params.from === 'ChargerWithCode') {
+      goBack()
+    } else {
+      navigate('HomeTabNavigation', { screen: 'Home' })
+    }
+
+    return true
+  }, [goBack, navigate, params.from])
+
+  /**
+   * Register back press handler.
+   */
+  useEffect(() => {
+    addListener('focus', () => {
+      BackHandler.addEventListener('hardwareBackPress', goBackHandler)
+    })
+
+    return BackHandler.removeEventListener('hardwareBackPress', goBackHandler)
+  }, [goBackHandler, addListener])
 
   /**
    * Watch for charger changes in navigation params.
    */
   useEffect(() => {
-    const chargerFromNavigation: Charger | undefined = navigation
-      .getParam('chargerDetails', undefined);
+    const chargerFromNavigation: Charger | undefined = params?.chargerDetails
     if (charger !== chargerFromNavigation) {
       setCharger(chargerFromNavigation)
     }
-  }, [navigation, charger])
+  }, [charger, params?.chargerDetails])
 
   const { t } = useTranslation()
-
-  /**
-   * Go back handler.
-   */
-  const goBackHandler = () => {
-    const from = navigation.getParam('from')
-
-    if (from === 'ChargerWithCode') {
-      navigation.goBack()
-    } else {
-      Navigation.reset('ChargerStack', 'ChargerWithCode')
-      navigation.navigate('Home')
-    }
-  }
 
   /**
    * On charger information change count distance
@@ -94,7 +105,7 @@ export default (navigation: NavigationType) => {
    * Show charger location on map.
    */
   const showChargerLocationHandler = (): void => {
-    navigation.navigate('Home', {
+    navigate('Home', {
       mode: HomeNavigateModes.chargerLocateOnMap,
       lat: parseFloat(charger?.lat ?? '0'),
       lng: parseFloat(charger?.lng ?? '0'),
@@ -108,7 +119,7 @@ export default (navigation: NavigationType) => {
     await askForLocationIfNotEnabled()
 
     if (isLocationEnabled()) {
-      navigation.navigate('Home', {
+      navigate('Home', {
         mode: HomeNavigateModes.showRoutesToCharger,
         lat: parseFloat(charger?.lat ?? '0'),
         lng: parseFloat(charger?.lng ?? '0'),
@@ -137,7 +148,7 @@ export default (navigation: NavigationType) => {
      * Update charger information on navigation and local state.
      */
     const updateCharger = (): void => {
-      navigation.setParams({ chargerDetails: newCharger })
+      setParams({ chargerDetails: newCharger })
       setCharger(newCharger)
     }
 
@@ -174,7 +185,7 @@ export default (navigation: NavigationType) => {
       easyAlert({
         text: 'dropDownAlert.charging.needToLogIn',
         leftText: 'authentication.authentication',
-        onLeftClick: () => navigation.navigate('Auth'),
+        onLeftClick: () => navigate('AuthStack', { screen: 'Auth' }),
       })
       return
     }
@@ -186,7 +197,7 @@ export default (navigation: NavigationType) => {
       easyAlert({
         text: 'chargerDetail.pleaseAddCardFirst',
         leftText: 'settings.add',
-        onLeftClick: () => navigation.navigate('CardAdd'),
+        onLeftClick: () => navigate('CardAdd'),
       })
       return
     }
@@ -217,14 +228,13 @@ export default (navigation: NavigationType) => {
         ?.pivot.id === chargingState[activeChargerType]?.charger_id
     ) {
       DisplayDropdownWithError(t('chargerDetail.chargerIsBusy'))
-      return
     }
 
     /**
      * if everything's alright go to
      * charging method selection.
      */
-    navigation.navigate('ChooseChargeMethod', {
+    navigate('ChooseChargeMethod', {
       connectorTypeId: charger?.connector_types[activeChargerType]?.pivot.id,
     })
   }
@@ -244,8 +254,8 @@ export default (navigation: NavigationType) => {
     setActiveChargerType,
     startChargingHandler,
     activeChargerType,
-    goBackHandler,
     onFavoritePress,
+    goBackHandler,
     distance,
     charger,
   }

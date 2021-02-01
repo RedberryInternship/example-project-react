@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import colors from 'utils/colors'
 import { DetailsItemFC } from 'screens/drawer/transactions/showTransaction/types'
 

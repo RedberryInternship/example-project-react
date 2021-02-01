@@ -6,12 +6,10 @@ import {
   View,
 } from 'react-native'
 import { Const, Colors } from 'utils'
-import {
-  BaseButton,
-  CountDown,
-  BaseText,
-  Pulse,
-} from 'components'
+import BaseButton from 'components/BaseButton'
+import CountDown from 'components/CountDown'
+import BaseText from 'components/BaseText'
+import Pulse from 'components/Pulse'
 import images from 'assets/images'
 import { ChargingViewFC } from 'screens/tabNavigation/charging/types'
 import { HomeNavigateModes } from 'types'

@@ -7,7 +7,8 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
-import { BaseCheckbox, BaseText } from 'components'
+import BaseCheckbox from 'components/BaseCheckbox'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import { ChargerTypeItemFC } from './types'
 

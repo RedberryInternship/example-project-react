@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native'
 import KeyboardSpacer from 'react-native-keyboard-spacer'
 import { Charger, ChargerDetail } from 'types'
 import { getLocaleText } from 'utils'
-import { MainSearchItem } from '../index'
+import MainSearchItem from '../MainSearchItem'
 import { BottomSearchPanelResultFC } from './types'
 
 const BottomSearchPanelResult: BottomSearchPanelResultFC = (

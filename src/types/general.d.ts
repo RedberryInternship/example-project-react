@@ -7,6 +7,11 @@ import { Charger } from 'types/chargers'
 export type ApplicationState = {
   user: UserState
   chargingProcess: ChargerState
+  app: AppState
+}
+
+export type AppState = {
+  ready: boolean
 }
 
 export type LanguageType = {

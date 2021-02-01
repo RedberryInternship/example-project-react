@@ -4,7 +4,7 @@ import { Controller } from 'react-hook-form'
 import colors from 'utils/colors'
 import * as Const from 'utils/const'
 import { InputValidation } from 'utils'
-import { BaseInput } from 'components'
+import BaseInput from 'components/BaseInput'
 import images from 'assets/images'
 import { UserInfoViewFC } from 'screens/authentication/registration/types'
 

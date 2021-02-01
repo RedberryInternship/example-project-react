@@ -13,6 +13,8 @@ export type Favorite = {
   public: number
   active: number
   hidden: number
+  penalty_enabled: boolean
+  is_paid: boolean
   lat: string
   lng: string
   iban: string
@@ -64,6 +66,8 @@ export type ChargerDetail = {
   lat: string
   lng: string
   iban: string
+  is_paid: boolean
+  penalty_enabled: boolean
   charger_group_id: number
   last_update: string
   created_at: string

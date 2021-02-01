@@ -1,17 +1,15 @@
 import React, { useMemo } from 'react'
 import {
   StyleSheet,
-  ScrollView,
   View,
   Image,
 } from 'react-native'
-import { FCWithNavigation, BusinessService } from 'types'
-import {
-  TitleTopLeftContainer,
-  BaseHeader,
-  BaseButton,
-  Swipe,
-} from 'components'
+import { ScrollView } from 'react-native-gesture-handler'
+import { BusinessService } from 'types'
+import TitleTopLeftContainer from 'components/TitleTopLeftContainer'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import Swipe from 'components/Swipe'
 import { Colors, Const } from 'utils'
 import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
@@ -25,7 +23,7 @@ import {
 import useChargerDetails from './useChargerDetails'
 import BusinessServiceItem from './components/BusinessServiceItem/BusinessServiceItem'
 
-const ChargerDetail: FCWithNavigation = ({ navigation }) => {
+const ChargerDetail = () => {
   const {
     chargerLocationDirectionHandler,
     showChargerLocationHandler,
@@ -37,7 +35,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
     goBackHandler,
     distance,
     charger,
-  } = useChargerDetails(navigation)
+  } = useChargerDetails()
 
   const insets = useSafeAreaInsets()
   const image = useMemo(() => getImage(charger?.image ?? null), [charger])

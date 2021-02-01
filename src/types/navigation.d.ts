@@ -1,12 +1,8 @@
 import { ReactElement } from 'react'
-import {
-  NavigationScreenProp,
-  NavigationParams,
-  NavigationState,
-} from 'react-navigation'
 
-export type Navigation = NavigationScreenProp<NavigationState, NavigationParams>
-
-export type ScreenPropsWithNavigation = { navigation: Navigation }
+export type ScreenPropsWithNavigation = {
+  navigation: any
+  route: any
+}
 
 export type FCWithNavigation = (params: ScreenPropsWithNavigation) => ReactElement

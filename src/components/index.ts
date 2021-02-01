@@ -59,3 +59,6 @@ export { default as MapPopUp } from './MapPopUp'
 // SVG
 export { default as MarkerController } from './MarkerController'
 export { default as RootPin } from './RootPin'
+
+// Navigation
+export { default as Navigation } from './Navigation'

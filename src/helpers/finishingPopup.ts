@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable default-case */
 import defaults from 'utils/defaults'
 import { refreshChargingProcesses } from 'state/actions/chargingProcessActions'
@@ -8,20 +9,21 @@ import {
   ChargingState,
 } from 'types'
 import references from 'utils/references'
+import { CommonActions } from '@react-navigation/native'
 
 const configureChargingFinishPopup = (
   {
-    charging_status,
-    already_paid,
     penalty_start_time,
+    charging_status,
+    penalty_enabled,
+    consumed_money,
+    already_paid,
     charger_type,
     refund_money,
-    consumed_money,
     is_free,
   }: ChargingState,
 ) => {
-  const dispatch = references.reduxDispatch
-
+  const { navigator, reduxDispatch: dispatch } = references
   if (charging_status === ChargingStatus.UNPLUGGED) {
     DisplayDropdownWithError('dropDownAlert.pleaseSeeIfChargerIsConnected')
     return
@@ -44,6 +46,7 @@ const configureChargingFinishPopup = (
         consumedMoney: consumed_money,
         refundMoney: refund_money,
         is_free,
+        charging_status,
       },
       onCloseClick: () => {
         dispatch && dispatch(refreshChargingProcesses())
@@ -52,14 +55,19 @@ const configureChargingFinishPopup = (
 
     switch (charging_status) {
       case ChargingStatus.CHARGED:
+
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.LVL2FullCharge,
           data: {
             ...options.data,
-            bottomDescription: 'popup.warningTextBeforeFine',
+            bottomDescription: penalty_enabled
+              ? 'popup.warningTextBeforeFine'
+              : 'popup.chargingFinishedPleaseUnplug',
             onFine: false,
             onFinish: () => dispatch && dispatch(refreshChargingProcesses()),
+            penalty_enabled,
+            charging_status,
           },
         }
         break
@@ -71,35 +79,51 @@ const configureChargingFinishPopup = (
             ...options.data,
             bottomDescription: 'popup.yourChargingOnFineStarted',
             onFine: true,
+            charging_status,
           },
         }
         break
       case ChargingStatus.USED_UP:
+        let subType = 0
+        let bottomDescription = ''
+        if (charger_type === 'LVL2') {
+          subType = ChargingFinishedPopupEnum.LVL2FullCharge
+
+          bottomDescription = penalty_enabled
+            ? 'popup.chargingFinishedPleaseUnplug'
+            : 'popup.yourChargingOnFineStarted'
+        } else {
+          bottomDescription = 'popup.automobileChargingFinished'
+          subType = ChargingFinishedPopupEnum.UsedUpFastProps
+        }
+
         options = {
           ...options,
-          subType:
-            charger_type === 'LVL2'
-              ? ChargingFinishedPopupEnum.LVL2FullCharge
-              : ChargingFinishedPopupEnum.UsedUpFastProps,
+          subType,
           data: {
             ...options.data,
-            bottomDescription:
-              charger_type === 'LVL2'
-                ? 'popup.yourChargingOnFineStarted'
-                : 'popup.automobileChargingFinished',
+            bottomDescription,
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
+            penalty_enabled,
+            charging_status,
           },
         }
         break
       case ChargingStatus.FINISHED:
         dispatch && dispatch(refreshChargingProcesses())
+        if (defaults.activeRoute === 'Charging') {
+          navigator?.dispatch(CommonActions.navigate('HomeTabNavigation', {
+            screen: 'Home',
+          }))
+        }
         options = {
           ...options,
           subType: ChargingFinishedPopupEnum.FinishedCharging,
           data: {
             ...options.data,
             chargerTypeFAST: charger_type === 'LVL2',
+            charging_status,
           },
         }
         break
@@ -112,6 +136,7 @@ const configureChargingFinishPopup = (
             bottomDescription: 'popup.bankrupt',
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
+            charging_status,
           },
         }
         break
@@ -124,6 +149,7 @@ const configureChargingFinishPopup = (
             bottomDescription: 'popup.processFailed',
             chargerTypeFAST: charger_type === 'LVL2',
             price: already_paid,
+            charging_status,
           },
         }
         break

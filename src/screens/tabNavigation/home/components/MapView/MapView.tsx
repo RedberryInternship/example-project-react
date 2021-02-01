@@ -12,7 +12,8 @@ import { Colors } from 'utils'
 import { determineTimePeriod } from 'utils/map'
 import { darkMode, lightMode } from './mapStyles'
 import { MapViewProps } from './types'
-import { Pins, Polyline } from '../index'
+import Pins from '../Pins'
+import Polyline from '../Polyline'
 import useMapView from './useMapView'
 
 const MapView = forwardRef<Map, MapViewProps>(
@@ -20,7 +21,6 @@ const MapView = forwardRef<Map, MapViewProps>(
     {
       showAll,
       filteredChargersOnMap,
-      navigation,
     },
     ref,
   ) => {
@@ -32,7 +32,6 @@ const MapView = forwardRef<Map, MapViewProps>(
       polyline,
     } = useMapView(
       {
-        navigation,
         mapRef,
         ref,
       },

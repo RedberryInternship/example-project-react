@@ -2,13 +2,14 @@ import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
 import { DisplayDropdownWithError } from 'utils/inform'
+import { useNavigation } from '@react-navigation/native'
 import {
   HomeNavigateModes,
-  Navigation,
   Charger,
 } from 'types'
 
-export default (navigation: Navigation) => {
+export default () => {
+  const { navigate } = useNavigation()
   const state = useSelector(selectUser)
   const [chargerWithCode, setChargerWithCode] = useState<string>('')
 
@@ -43,14 +44,14 @@ export default (navigation: Navigation) => {
    * Navigate to chargers detail screen.
    */
   const navigateToChargerDetailScreen = (charger: Charger): void => {
-    navigation.navigate('ChargerDetail', { chargerDetails: charger, from: 'ChargerWithCode' })
+    navigate('ChargerDetail', { chargerDetails: charger, from: 'ChargerWithCode' })
   }
 
   /**
    * Navigate to home and display chargers listing.
    */
   const allChargerHandler = (): void => {
-    navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
+    navigate('Home', { mode: HomeNavigateModes.showAllChargers })
   }
 
   return {

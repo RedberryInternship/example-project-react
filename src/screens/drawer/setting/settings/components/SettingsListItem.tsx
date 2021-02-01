@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { SettingsListItemFC } from 'screens/drawer/setting/settings/types'
 
 const SettingsListItem: SettingsListItemFC = (

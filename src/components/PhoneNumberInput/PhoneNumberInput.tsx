@@ -5,10 +5,8 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  SelectPhoneCode,
-  BaseInput,
-} from 'components'
+import SelectPhoneCode from 'components/SelectPhoneCode'
+import BaseInput from 'components/BaseInput'
 import images from 'assets/images'
 import { Colors } from 'utils'
 import {

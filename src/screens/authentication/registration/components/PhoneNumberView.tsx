@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
 import * as Const from 'utils/const'
-import { PhoneVerificationView } from 'components'
+import PhoneVerificationView from 'components/PhoneVerificationView'
 import { PhoneNumberViewFC } from 'screens/authentication/registration/types'
 
 const PhoneNumberView: PhoneNumberViewFC = ({ hook }) => (

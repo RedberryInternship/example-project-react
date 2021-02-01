@@ -11,10 +11,8 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Modalize } from 'react-native-modalize'
 import { Const, Colors } from 'utils'
-import {
-  BottomSearchPanelResult,
-  BottomSearchPanelHeader,
-} from '../index'
+import BottomSearchPanelResult from '../BottomSearchPanelResult'
+import BottomSearchPanelHeader from '../BottomSearchPanelHeader'
 import { BottomSearchPanelProps } from './types'
 import useBottomSheetModalize from './useBottomSheetModalize'
 

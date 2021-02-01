@@ -5,10 +5,8 @@ import {
   View,
 } from 'react-native'
 import { Colors } from 'utils'
-import {
-  BaseNativeTouchable,
-  BaseText,
-} from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import { CardListItemFC } from './types'
 

@@ -13,13 +13,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Controller } from 'react-hook-form'
 import images from 'assets/images'
 import { Colors } from 'utils'
-import {
-  BaseHeader,
-  BaseInput,
-  BaseButton,
-  PhoneNumberInput,
-  BaseText,
-} from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseInput from 'components/BaseInput'
+import BaseButton from 'components/BaseButton'
+import PhoneNumberInput from 'components/PhoneNumberInput'
+import BaseText from 'components/BaseText'
 import { FCWithNavigation } from 'types'
 import useAuthHook from './useAuthHook'
 

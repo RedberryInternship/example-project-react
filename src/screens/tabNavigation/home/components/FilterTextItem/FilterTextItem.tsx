@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { FilterTextItemFC } from './types'
 

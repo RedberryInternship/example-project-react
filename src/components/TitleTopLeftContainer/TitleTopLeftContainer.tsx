@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, View, ScrollView } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { TitleTopLeftContainerFC } from './types'
 
 const TitleTopLeftContainer: TitleTopLeftContainerFC = (

@@ -1,17 +1,17 @@
 import React from 'react'
 import {
   TouchableWithoutFeedback,
-  TextInput,
-  View,
-  Image,
   StyleSheet,
+  TextInput,
+  Image,
+  View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
-import { BottomSearchPanelFilterItem } from '../index'
+import BottomSearchPanelFilterItem from '../BottomSearchPanelFilterItem'
 import { BottomSearchPanelFC } from './types'
 
 const BottomSearchPanelHeader: BottomSearchPanelFC = (

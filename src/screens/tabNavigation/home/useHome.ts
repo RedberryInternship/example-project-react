@@ -5,19 +5,19 @@ import {
   useState,
   useRef,
 } from 'react'
-import { NavigationEventPayload } from 'react-navigation'
+import { useNavigation, DrawerActions, useRoute } from '@react-navigation/native'
 import { GetFilteredCharger } from 'helpers/chargerFilter'
-import { DrawerActions } from 'react-navigation-drawer'
 import { Modalize } from 'react-native-modalize'
 import {
   MapImperativeRefObject,
   HomeNavigateModes,
-  Navigation,
   ChargerDetail,
   Charger,
 } from 'types'
 
-const useHome = (navigation: Navigation) => {
+const useHome = () => {
+  const navigation = useNavigation()
+  const route = useRoute()
   const [selectedFilters, setSelectedFilters] = useState<boolean[]>(Array(6).fill(false))
   const [onMapFilteredChargers, setOnMapFilteredChargers] = useState<Charger[]>([])
   const [bottomSearchPanelChargers, setBottomSearchPanelChargers] = useState<Charger[]>([])
@@ -50,12 +50,14 @@ const useHome = (navigation: Navigation) => {
    * passed navigation parameters.
    */
   const onScreenFocus = useCallback(
-    (payload: NavigationEventPayload): void => {
-      const { params } = payload.state
+    (): void => {
+      const mode = route.params?.mode
+      const lat = route.params?.lat
+      const lng = route.params?.lng
 
-      if (params !== undefined) {
+      if (route.params !== undefined) {
         setTimeout(() => {
-          switch (params?.mode) {
+          switch (mode) {
             /**
              * Open bottom search panel and show all chargers.
              */
@@ -69,7 +71,7 @@ const useHome = (navigation: Navigation) => {
              */
             case HomeNavigateModes.chargerLocateOnMap: {
               handleBottomSearchModal(false)
-              mapRef.current?.animateToCoords(params?.lat, params?.lng)
+              mapRef.current?.animateToCoords(lat, lng)
               break
             }
 
@@ -78,7 +80,7 @@ const useHome = (navigation: Navigation) => {
              */
             case HomeNavigateModes.showRoutesToCharger: {
               handleBottomSearchModal(false)
-              mapRef.current?.showRoute(params?.lat, params?.lng)
+              mapRef.current?.showRoute(lat, lng)
               break
             }
             default:
@@ -87,16 +89,16 @@ const useHome = (navigation: Navigation) => {
         }, 500)
       }
     },
-    [mapRef, handleBottomSearchModal],
+    [mapRef, handleBottomSearchModal, route.params],
   )
 
   useEffect(() => {
     /**
      * Setup navigation listeners.
      */
-    const didFocus = navigation.addListener('didFocus', onScreenFocus)
-    const willBlur = navigation.addListener(
-      'willBlur',
+    navigation.addListener('focus', onScreenFocus)
+    navigation.addListener(
+      'blur',
       () => mapRef.current && mapRef.current.showRoute(0, 0, false) && navigation.setParams({}),
     )
 
@@ -110,8 +112,8 @@ const useHome = (navigation: Navigation) => {
      * Remove subscriptions at unmount.
      */
     return (): void => {
-      didFocus.remove()
-      willBlur.remove()
+      // didFocus.remove()
+      // willBlur.remove()
     }
   }, [handleBottomSearchModal, navigation, onScreenFocus])
 
@@ -167,8 +169,12 @@ const useHome = (navigation: Navigation) => {
    */
   const onFilteredItemClick = useCallback(
     (charger: ChargerDetail): void => {
-      navigation.navigate('ChargerDetail', {
-        chargerDetails: charger,
+      navigation.navigate('ChargerStack', {
+        screen: 'ChargerDetail',
+        params: {
+          chargerDetails: charger,
+          from: 'Home',
+        },
       })
     },
     [navigation],

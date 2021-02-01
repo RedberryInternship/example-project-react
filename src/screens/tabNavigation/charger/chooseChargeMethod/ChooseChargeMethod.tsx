@@ -1,20 +1,21 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-
-import { BaseHeader, BaseButton, BaseText } from 'components'
+import { ChargingTypes } from 'types'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import BaseText from 'components/BaseText'
 import { Const, Colors } from 'utils'
-import {
-  FCWithNavigation,
-  ChargingTypes,
-} from 'types'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
-const ChargerDetail: FCWithNavigation = ({ navigation }) => {
+const ChooseChargeMethod = () => {
+  const { navigate, goBack } = useNavigation()
+  const { params } = useRoute()
   const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <BaseHeader
-        onPressLeft={navigation.goBack}
+        onPressLeft={goBack}
         title="chooseChargeMethod.choose"
       />
       <View style={styles.innerContainer}>
@@ -24,12 +25,9 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
 
         <View>
           <BaseButton
-            onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
+            onPress={() => navigate('ChoosingCard', {
               type: ChargingTypes.fullCharge,
-              connectorTypeId: navigation.getParam(
-                'connectorTypeId',
-                undefined,
-              ),
+              connectorTypeId: params?.connectorTypeId,
             })}
             text="chooseChargeMethod.untilTurnOff"
             style={styles.untilTurnOffBtn}
@@ -38,12 +36,9 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
             {t('chooseChargeMethod.or')}
           </BaseText>
           <BaseButton
-            onPress={navigation.navigate.bind(ChargerDetail, 'ChoosingCard', {
+            onPress={() => navigate('ChoosingCard', {
               type: ChargingTypes.byAmount,
-              connectorTypeId: navigation.getParam(
-                'connectorTypeId',
-                undefined,
-              ),
+              connectorTypeId: params?.connectorTypeId,
             })}
             text="chooseChargeMethod.withEnteringPrice"
             style={styles.withEnteringPriceBtn}
@@ -96,4 +91,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ChargerDetail
+export default ChooseChargeMethod

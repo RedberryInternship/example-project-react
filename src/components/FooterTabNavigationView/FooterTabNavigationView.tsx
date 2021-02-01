@@ -1,32 +1,36 @@
 import React from 'react'
-import { View, StatusBar, StyleSheet } from 'react-native'
+import { useSelector } from 'react-redux'
+import { View, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import * as Animatable from 'react-native-animatable'
-import { TabNavigationButtons } from 'components'
-import { determineTimePeriod } from 'utils/map'
+import { selectChargingProcess } from 'state/selectors'
+import TabNavigationButtons from 'components/TabNavigationButtonsItem'
 import { isAuthenticated } from 'helpers/user'
 import images from 'assets/images'
-import { FCWithNavigation } from 'types'
+import { useNavigation } from '@react-navigation/native'
+import { useCurrentRoute } from 'hooks'
+import defaults from 'utils/defaults'
 import { zoomOut } from './config'
+import { inArray } from './helpers'
 
-const FooterTabNavigator: FCWithNavigation = (props) => {
-  const { navigation } = props
-  const currentRouteName = navigation.state.routes[navigation.state.index].key
+const homeScreens = ['Home', 'HomeTabNavigation']
+const chargeWithCodeScreens = ['ChargerStack', 'NotAuthorized', 'ChargerWithCode', 'ChargerDetail']
+const chargingScreens = ['Charging']
+const favoritesScreens = ['Favorites']
+
+const FooterTabNavigator = () => {
+  const { chargingState } = useSelector(selectChargingProcess)
+  const navigation = useNavigation()
   const insets = useSafeAreaInsets()
+  const currentRouteName = useCurrentRoute()
+  defaults.activeRoute = currentRouteName
 
   const navigate = (name: string): void => {
     if (name === 'drawer') {
-      return navigation.openDrawer()
+      return (navigation as any).openDrawer()
     }
-    props.navigation.navigate(name, { mode: null })
-  }
 
-  if (currentRouteName !== 'Home') {
-    StatusBar.setBarStyle('light-content')
-  } else {
-    StatusBar.setBarStyle(
-      determineTimePeriod() ? 'dark-content' : 'light-content',
-    )
+    navigation.navigate(name, { mode: null })
   }
 
   return (
@@ -37,25 +41,27 @@ const FooterTabNavigator: FCWithNavigation = (props) => {
       ]}
     >
       <TabNavigationButtons
-        active={currentRouteName === 'Home'}
+        active={inArray(homeScreens, currentRouteName)}
         navigate={() => {
-          props.navigation.setParams({})
-          navigate('Home')
+          navigation.setParams({})
+          navigation.navigate('HomeTabNavigation', {
+            screen: 'Home',
+          })
         }}
         image={images.mapPin}
       />
       <TabNavigationButtons
-        active={
-          currentRouteName === 'ChargerStack'
-          || currentRouteName === 'NotAuthorized'
-        }
-        navigate={navigate.bind(
-          FooterTabNavigator,
-          isAuthenticated() ? 'ChargerStack' : 'NotAuthorized',
-        )}
+        active={inArray(chargeWithCodeScreens, currentRouteName)}
+        navigate={() => {
+          isAuthenticated()
+            ? navigation.navigate('ChargerStack', { screen: 'ChargerWithCode' })
+            : navigation.navigate('HomeTabNavigation', {
+              screen: 'NotAuthorized',
+            })
+        }}
         image={images.chargeWithCode}
       />
-      {props.screenProps.chargingState.length > 0 && isAuthenticated() && (
+      {chargingState.length > 0 && isAuthenticated() && (
         <Animatable.View
           animation={zoomOut}
           iterationCount="infinite"
@@ -65,24 +71,25 @@ const FooterTabNavigator: FCWithNavigation = (props) => {
           easing="ease-in-out-cubic"
         >
           <TabNavigationButtons
-            navigate={navigate.bind(FooterTabNavigator, 'Charging')}
+            navigate={() => navigation.navigate('HomeTabNavigation', {
+              screen: 'Charging',
+            })}
             image={images.charge}
-            active={currentRouteName === 'Charging'}
+            active={inArray(chargingScreens, currentRouteName)}
           />
         </Animatable.View>
       )}
-
       {isAuthenticated() && (
         <TabNavigationButtons
-          navigate={navigate.bind(FooterTabNavigator, 'Favorites')}
+          navigate={() => navigation.navigate('HomeTabNavigation', { screen: 'Favorites' })}
           image={images.favorite}
-          active={currentRouteName === 'Favorites'}
+          active={inArray(favoritesScreens, currentRouteName)}
         />
       )}
       <TabNavigationButtons
-        navigate={navigate.bind(FooterTabNavigator, 'drawer')}
+        navigate={() => navigate('drawer')}
         image={images.menu}
-        active={currentRouteName === 'drawer'}
+        active={false}
       />
     </View>
   )

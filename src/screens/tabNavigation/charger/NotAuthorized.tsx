@@ -10,11 +10,9 @@ import { TouchableOpacity } from 'react-native-gesture-handler'
 import images from 'assets/images'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
-import {
-  BaseHeader,
-  BaseButton,
-  BaseText,
-} from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import BaseText from 'components/BaseText'
 import {
   HomeNavigateModes,
   FCWithNavigation,

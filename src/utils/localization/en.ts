@@ -140,6 +140,7 @@ export default {
       warningTextBeforeFine:
         'If you do not plug off the charger you will be fined',
       yourChargingOnFineStarted: 'The fine counting started',
+      chargingFinishedPleaseUnplug: 'Charging has finished, please unplug the connector...',
       bankrupt: 'Not enough money',
       paymentFailed: 'Payment failed',
       processFailed: 'Process failed',
