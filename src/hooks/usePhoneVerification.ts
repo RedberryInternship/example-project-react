@@ -98,8 +98,6 @@ export default (
         DisplayDropdownWithError('dropDownAlert.error', 'dropDownAlert.registration.alreadyExists')
       } else if (e.data.status === SendSmsCodeStatus.USER_DOES_NOT_EXISTS) {
         DisplayDropdownWithError('dropDownAlert.error', 'dropDownAlert.forgotPassword.doesNotExist')
-      } else {
-        DisplayDropdownWithError()
       }
     }
   }

@@ -63,8 +63,6 @@ function* startChargingProcess(action: StartChargingSagaAction) {
     setLoading(false)
     if (error.data.message) {
       DisplayDropdownWithError('', getLocaleText(error.data.message))
-    } else {
-      DisplayDropdownWithError()
     }
   }
 }
@@ -81,9 +79,8 @@ function* finishChargingProcess(action: FinishChargingSagaAction) {
     remoteLogger(error)
     if (error.data?.message) {
       DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
-    } else {
-      DisplayDropdownWithError()
     }
+
     yield put((actions.finishChargingAction(error, false)))
   }
 
@@ -95,7 +92,7 @@ function* finishChargingProcess(action: FinishChargingSagaAction) {
  */
 function* updateChargingProcesses(action: UpdateChargingProcessesSagaAction) {
   const data = action.payload
-  yield data.forEach((state) => configureChargingFinishPopup(state))
+  yield data?.forEach((state) => configureChargingFinishPopup(state))
 
   if (defaults.appReady && data.length === 0 && defaults.modal?.current?.state.config.type === 3) {
     defaults.modal.current?.customUpdate(false)
@@ -118,7 +115,6 @@ function* refreshChargingProcesses() {
   } catch (error) {
     remoteLogger(error)
     yield put(actions.updateChargingProcesses(error, false))
-    DisplayDropdownWithError()
   }
 }
 

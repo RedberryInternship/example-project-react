@@ -4,10 +4,7 @@ import {
   useCallback,
 } from 'react'
 import { Animated } from 'react-native'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import services from 'services'
 import { phoneNumberPlaceHolder } from 'utils/const'
 import { PhoneCountryCode } from 'types'
@@ -58,7 +55,6 @@ const usePhoneNumberInput = (
         setPickerItemsLabel(georgianAtTopPickerLabels)
       } catch (error) {
         remoteLogger(error)
-        DisplayDropdownWithError()
       }
     }
   }, [pickerItemsState.length])

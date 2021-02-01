@@ -70,7 +70,6 @@ export default (navigation: Navigation) => {
       }
 
       /** Alert general error and focus on phone input. */
-      DisplayDropdownWithError()
       phoneRef.current?.focus()
     }
   }

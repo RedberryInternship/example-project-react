@@ -48,7 +48,6 @@ export default () => {
       navigate('Auth')
     } catch (err) {
       remoteLogger(err)
-      DisplayDropdownWithError()
       reset()
     }
   }

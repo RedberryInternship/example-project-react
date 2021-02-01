@@ -2,10 +2,7 @@ import { useCallback, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { refreshUserData } from 'state/actions/userActions'
 import services from 'services'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import { useTranslation } from 'react-i18next'
 import { onConfirm } from './helpers'
 
@@ -24,7 +21,6 @@ const useCardListView = () => {
       dispatch(refreshUserData())
     } catch (error) {
       remoteLogger(error)
-      DisplayDropdownWithError()
     }
   }
 
@@ -35,7 +31,6 @@ const useCardListView = () => {
         dispatch(refreshUserData())
       } catch (error) {
         remoteLogger(error)
-        DisplayDropdownWithError()
       }
     }, t)
   }

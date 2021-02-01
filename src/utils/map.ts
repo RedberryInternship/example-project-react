@@ -4,10 +4,7 @@ import RNLocation, { Location } from 'react-native-location'
 import Defaults from 'utils/defaults'
 import * as Const from 'utils/const'
 import services from 'services'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import { isPermissionGranted } from 'utils/location'
 
 type RegionFrom = {
@@ -71,7 +68,6 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
       }
     } catch (error) {
       remoteLogger(error)
-      DisplayDropdownWithError()
     }
   }
 
@@ -85,7 +81,6 @@ export const getCoordsAnyway = async (): Promise<getCoordsAnywayType> => {
     return IPCoords
   } catch (error) {
     remoteLogger(error)
-    DisplayDropdownWithError()
   }
 
   return Const.locationIfNoGPS

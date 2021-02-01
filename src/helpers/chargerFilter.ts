@@ -1,8 +1,5 @@
 import { refreshAndCacheChargers } from 'helpers/chargers'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import {
   ChargerFilters,
   ConnectorTypes,
@@ -27,7 +24,6 @@ export const GetFilteredCharger = async (
       : filterChargers(selectedFilters, data)
   } catch (error) {
     remoteLogger(error)
-    DisplayDropdownWithError()
     return []
   }
 }

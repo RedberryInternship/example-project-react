@@ -165,12 +165,6 @@ export default () => {
     } else if (charger?.is_favorite === true) {
       dispatch(removeChargerFromFavorites(charger.id))
       updateCharger()
-
-      /**
-       * Any other case.
-       */
-    } else {
-      DisplayDropdownWithError()
     }
   }
 

@@ -11,7 +11,6 @@ import {
 } from 'helpers/user'
 import {
   DisplayDropdownWithSuccess,
-  DisplayDropdownWithError,
   remoteLogger,
 } from 'utils/inform'
 import { CommonActions } from '@react-navigation/native'
@@ -37,7 +36,6 @@ function* refreshFavoriteChargers() {
       yield put(actions.getFavoriteChargers(favoriteChargers))
     }
   } catch (error) {
-    DisplayDropdownWithError()
     remoteLogger(error)
   }
 }
@@ -65,7 +63,6 @@ function* refreshAllChargers() {
     yield put(actions.getAllChargers(data))
   } catch (error) {
     remoteLogger(error)
-    DisplayDropdownWithError()
   }
 }
 
@@ -102,7 +99,6 @@ function* addChargerToFavorites(action: FavoriteChargerAction) {
       }
     } catch (error) {
       remoteLogger(error)
-      DisplayDropdownWithError()
     }
   }
 }
@@ -121,7 +117,6 @@ function* removeChargerFromFavorites(action: FavoriteChargerAction) {
     }
   } catch (error) {
     remoteLogger(error)
-    DisplayDropdownWithError()
   }
 }
 

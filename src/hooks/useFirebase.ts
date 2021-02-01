@@ -8,10 +8,7 @@ import { selectUser } from 'state/selectors'
 import AsyncStorage from '@react-native-community/async-storage'
 import messaging from '@react-native-firebase/messaging'
 import services from 'services'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 
 const useFirebase = (): void => {
   const { authStatus } = useSelector(selectUser)
@@ -93,7 +90,6 @@ const useFirebase = (): void => {
           const fcmToken: string | null = await AsyncStorage.getItem('fcmToken')
           fcmToken && services.setUserFirebaseToken(fcmToken)
         } catch (error) {
-          DisplayDropdownWithError()
           remoteLogger(error)
         }
       }

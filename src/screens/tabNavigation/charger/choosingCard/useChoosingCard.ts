@@ -5,10 +5,7 @@ import { selectUser } from 'state/selectors'
 import { startChargingProcess } from 'state/actions/chargingProcessActions'
 import services from 'services'
 import { refreshUserData } from 'state/actions/userActions'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import * as Const from 'utils/const'
 import { useRoute } from '@react-navigation/native'
 
@@ -31,7 +28,6 @@ export default () => {
       dispatch(refreshUserData())
     } catch (error) {
       remoteLogger(error)
-      DisplayDropdownWithError()
     }
   }
 

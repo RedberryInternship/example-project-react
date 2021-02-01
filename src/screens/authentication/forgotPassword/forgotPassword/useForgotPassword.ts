@@ -55,7 +55,6 @@ export default () => {
           DisplayDropdownWithError('dropDownAlert.forgotPassword.verificationCodeIsIncorrect')
           break
         default:
-          DisplayDropdownWithError()
           break
       }
     }

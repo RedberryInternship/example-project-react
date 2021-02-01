@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux'
 import { useNetInfo } from '@react-native-community/netinfo'
 import { readTokenFromStorageAndUpdateState } from 'state/actions/userActions'
 import defaults from 'utils/defaults'
-import { DisplayDropdownWithError } from 'utils/inform'
+import { DisplayDropdownWithWarning } from 'utils/inform'
 
-const troubleshootNetwork = () => {
+const useTroubleshootNetwork = () => {
   const dispatch = useDispatch()
   const networkState = useNetInfo()
 
@@ -17,14 +17,10 @@ const troubleshootNetwork = () => {
 
       defaults.internetConnected = true
     } else if (!networkState.isConnected && defaults.internetConnected !== null) {
-      DisplayDropdownWithError(
-        'dropDownAlert.error',
-        'dropDownAlert.needInternetConnection',
-      )
-
+      DisplayDropdownWithWarning('dropDownAlert.needInternetConnection')
       defaults.internetConnected = false
     }
-  }, [networkState])
+  }, [networkState, dispatch])
 }
 
-export default troubleshootNetwork
+export default useTroubleshootNetwork
