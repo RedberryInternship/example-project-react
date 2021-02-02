@@ -13,13 +13,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Controller } from 'react-hook-form'
 import images from 'assets/images'
 import { Colors } from 'utils'
-import {
-  BaseHeader,
-  BaseInput,
-  BaseButton,
-  PhoneNumberInput,
-  BaseText,
-} from 'components'
+import BaseHeader from 'components/BaseHeader'
+import BaseInput from 'components/BaseInput'
+import BaseButton from 'components/BaseButton'
+import PhoneNumberInput from 'components/PhoneNumberInput'
+import BaseText from 'components/BaseText'
 import { FCWithNavigation } from 'types'
 import useAuthHook from './useAuthHook'
 
@@ -78,13 +76,16 @@ const Auth: FCWithNavigation = ({ navigation }) => {
           </BaseText>
         </TouchableOpacity>
         <View style={styles.registrationView}>
+          <BaseText style={styles.registrationQuestionText}>
+            {t('authentication.newRegistration')}
+          </BaseText>
           <TouchableOpacity
             onPress={navigation.navigate.bind(Auth, 'Registration')}
             style={styles.registrationTextContainer}
             hitSlop={styles.registrationTextContainerHitSlop}
           >
             <BaseText style={styles.registrationText}>
-              {t('authentication.newRegistration')}
+              {t('authentication.registration.registration')}
             </BaseText>
           </TouchableOpacity>
         </View>
@@ -134,15 +135,24 @@ const styles = StyleSheet.create({
   },
   registrationView: {
     marginVertical: 48,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
   registrationTextContainer: {
     width: '100%',
+    marginLeft: 5,
   },
   registrationTextContainerHitSlop: {
     top: 10,
     bottom: 10,
     left: 15,
     right: 15,
+  },
+  registrationQuestionText: {
+    color: Colors.primaryGray,
+    fontSize: 13,
+    alignSelf: 'center',
   },
   registrationText: {
     color: Colors.primaryGreen,

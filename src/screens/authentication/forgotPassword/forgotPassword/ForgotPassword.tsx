@@ -7,24 +7,23 @@ import {
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import {
-  PhoneVerificationView,
-  BaseHeader,
-  BaseButton,
-} from 'components'
+import PhoneVerificationView from 'components/PhoneVerificationView'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { FCWithNavigation } from 'types'
+import { useNavigation } from '@react-navigation/native'
 import useForgotPassword from './useForgotPassword'
 
-const ForgotPassword: FCWithNavigation = ({ navigation }) => {
-  const { handleSubmit, onButtonClick, ...hook } = useForgotPassword(navigation)
+const ForgotPassword = () => {
+  const { handleSubmit, onButtonClick, ...hook } = useForgotPassword()
+  const { navigate } = useNavigation()
   const insets = useSafeAreaInsets()
 
   return (
     <View style={[styles.container, { paddingBottom: insets.bottom + 16 }]}>
       <BaseHeader
-        onPressLeft={navigation.navigate.bind(ForgotPassword, 'Auth')}
+        onPressLeft={() => navigate('Auth')}
         title="authentication.forgotPasswordPage.recoverPassword"
       />
       <KeyboardAwareScrollView

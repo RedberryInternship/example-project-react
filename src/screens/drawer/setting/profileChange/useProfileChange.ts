@@ -72,7 +72,6 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
       }
     } catch (err) {
       remoteLogger(err)
-      DisplayDropdownWithError()
     }
   }
 
@@ -81,7 +80,6 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
    * in redux state.
    */
   const updateCar = async (form: Record<string, string | number>) => {
-    console.log(form)
     try {
       await services.addCar(+form.carModelId)
       navigation.goBack()
@@ -89,7 +87,6 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
       DisplayDropdownWithSuccess('dropDownAlert.informationUpdatedSuccessfully')
     } catch (err) {
       remoteLogger(err)
-      DisplayDropdownWithError()
     }
   }
 
@@ -139,8 +136,6 @@ export default (navigation: Navigation, type: UserSettingEnum) => {
       remoteLogger(e)
       if (e.status === 401) {
         DisplayDropdownWithError('dropDownAlert.editPassword.passwordNotValid')
-      } else {
-        DisplayDropdownWithError()
       }
       reset()
     }

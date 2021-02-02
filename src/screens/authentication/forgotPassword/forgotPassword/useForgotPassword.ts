@@ -5,10 +5,11 @@ import {
   DisplayDropdownWithError,
   remoteLogger,
 } from 'utils/inform'
-import { Navigation } from 'types'
+import { useNavigation } from '@react-navigation/native'
 import { ForgotPassword } from './types'
 
-export default (navigation: Navigation) => {
+export default () => {
+  const { navigate } = useNavigation()
   const {
     triggerValidation,
     handleSubmit,
@@ -36,7 +37,7 @@ export default (navigation: Navigation) => {
   const onButtonClick: ForgotPassword = async ({ phone, code }) => {
     try {
       await services.forgotPasswordRecovery(phone, code)
-      navigation.navigate('SetNewPasswords', { phone })
+      navigate('SetNewPasswords', { phone })
     } catch (error) {
       remoteLogger(error)
       switch (error.status) {
@@ -54,7 +55,6 @@ export default (navigation: Navigation) => {
           DisplayDropdownWithError('dropDownAlert.forgotPassword.verificationCodeIsIncorrect')
           break
         default:
-          DisplayDropdownWithError()
           break
       }
     }

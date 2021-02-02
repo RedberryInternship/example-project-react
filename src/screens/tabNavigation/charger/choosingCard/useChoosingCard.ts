@@ -2,19 +2,17 @@ import { useState, useMemo } from 'react'
 import { Animated } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { Navigation } from 'types'
 import { startChargingProcess } from 'state/actions/chargingProcessActions'
 import services from 'services'
 import { refreshUserData } from 'state/actions/userActions'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import * as Const from 'utils/const'
+import { useRoute } from '@react-navigation/native'
 
 const animatedArrow = new Animated.Value(0)
 
-export default (navigation: Navigation) => {
+export default () => {
+  const { params } = useRoute<any>()
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
 
@@ -30,7 +28,6 @@ export default (navigation: Navigation) => {
       dispatch(refreshUserData())
     } catch (error) {
       remoteLogger(error)
-      DisplayDropdownWithError()
     }
   }
 
@@ -42,8 +39,8 @@ export default (navigation: Navigation) => {
     dispatch(
       startChargingProcess(
         {
-          type: navigation.getParam('type'),
-          connectorTypeId: navigation.getParam('connectorTypeId'),
+          type: params?.type,
+          connectorTypeId: params?.connectorTypeId,
           amount,
           userCardId: state.user?.user_cards?.[0].id,
         },

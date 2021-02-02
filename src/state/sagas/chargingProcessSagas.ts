@@ -2,7 +2,7 @@ import { takeEvery, put } from 'redux-saga/effects'
 import * as actions from 'state/actions/chargingProcessActions'
 import { refreshAllChargers } from 'state/actions/userActions'
 import * as actionTypes from 'state/actionTypes/chargingProcessActionTypes'
-import Navigation from 'utils/navigation'
+import { CommonActions } from '@react-navigation/native'
 import {
   DisplayDropdownWithSuccess,
   DisplayDropdownWithError,
@@ -18,7 +18,7 @@ import {
   StartChargingSagaAction,
   ChargingStatus,
 } from 'types'
-
+import references from 'utils/references'
 import defaults from 'utils/defaults'
 
 /**
@@ -32,6 +32,7 @@ function* startChargingProcess(action: StartChargingSagaAction) {
     type,
   } = action.payload.config;
   const { setLoading } = action.payload
+  const { navigator } = references
 
   try {
     const startResult = yield services.startCharging(connectorTypeId, type, userCardId ?? 0, amount)
@@ -54,15 +55,14 @@ function* startChargingProcess(action: StartChargingSagaAction) {
     yield put(refreshAllChargers())
     setLoading(false)
 
-    Navigation.reset('ChargerStack', 'ChargerWithCode')
-    Navigation.navigate('Charging')
+    navigator?.dispatch(CommonActions.navigate('HomeTabNavigation', {
+      screen: 'Charging',
+    }))
   } catch (error) {
     remoteLogger(error)
     setLoading(false)
     if (error.data.message) {
       DisplayDropdownWithError('', getLocaleText(error.data.message))
-    } else {
-      DisplayDropdownWithError()
     }
   }
 }
@@ -79,9 +79,8 @@ function* finishChargingProcess(action: FinishChargingSagaAction) {
     remoteLogger(error)
     if (error.data?.message) {
       DisplayDropdownWithSuccess('', getLocaleText(error.data?.message))
-    } else {
-      DisplayDropdownWithError()
     }
+
     yield put((actions.finishChargingAction(error, false)))
   }
 
@@ -93,12 +92,9 @@ function* finishChargingProcess(action: FinishChargingSagaAction) {
  */
 function* updateChargingProcesses(action: UpdateChargingProcessesSagaAction) {
   const data = action.payload
-  yield data.forEach((state) => configureChargingFinishPopup(state))
+  yield data?.forEach((state) => configureChargingFinishPopup(state))
 
-  if (defaults.activeRoute === 'Charging' && data.length === 0) {
-    Navigation.navigate('Home')
-  }
-  if (data.length === 0 && defaults.modal?.current?.state.config.type === 3) {
+  if (defaults.appReady && data.length === 0 && defaults.modal?.current?.state.config.type === 3) {
     defaults.modal.current?.customUpdate(false)
   }
   yield put(actions.updateChargingProcessAction(data, action.status))
@@ -119,7 +115,6 @@ function* refreshChargingProcesses() {
   } catch (error) {
     remoteLogger(error)
     yield put(actions.updateChargingProcesses(error, false))
-    DisplayDropdownWithError()
   }
 }
 

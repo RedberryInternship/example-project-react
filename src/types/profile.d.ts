@@ -11,15 +11,15 @@ export type SettingsListFieldType = {
 }
 
 export type ProfileFieldChange = {
-  value: string | undefined
-  inputName: string | undefined
-  errors: any
-  control: any
-  type: UserSettingEnum
+  value?: string | undefined
+  inputName?: string | undefined
+  errors?: any
+  control?: any
+  type?: UserSettingEnum
   validator?: Record<string, any>
-  register: any
-  watch: any
-  setValue: any
+  register?: any
+  watch?: any
+  setValue?: any
 }
 
 export type UserSettingsInfoType = {

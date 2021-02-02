@@ -29,7 +29,6 @@ export default () => {
         const data = await services.getContactInfo()
         setData(data)
       } catch (error) {
-        DisplayDropdownWithError()
         remoteLogger(error)
       }
     }
@@ -51,7 +50,6 @@ export default () => {
       DisplayDropdownWithSuccess('contact.yourFeedbackReceived')
     } catch (error) {
       remoteLogger(error)
-      DisplayDropdownWithError()
     }
   }
 

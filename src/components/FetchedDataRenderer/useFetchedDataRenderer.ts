@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { remoteLogger, DisplayDropdownWithError } from 'utils/inform'
+import { remoteLogger } from 'utils/inform'
 import { UseFetchedDataRendererProps } from './types'
 
 const staticData: any = {}
@@ -22,7 +22,6 @@ const useFetchedDataRenderer = (
         staticData[property] = dataList
       } catch (error) {
         remoteLogger(error)
-        DisplayDropdownWithError()
         staticData[property] = []
         setLocalState([])
       }

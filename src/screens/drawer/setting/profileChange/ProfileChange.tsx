@@ -6,29 +6,37 @@ import {
   View,
 } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import {
-  BaseHeader,
-  BaseButton,
-  PhoneChangeView,
-  PasswordChangeView,
-  CardListView,
-  AddCar,
-  SingleInputView,
-} from 'components'
-import { Colors, InputValidation } from 'utils'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import PhoneChangeView from 'components/PhoneChangeView'
+import PasswordChangeView from 'components/PasswordChangeView'
+import CardListView from 'components/CardListView'
+import AddCar from 'components/AddCar'
+import SingleInputView from 'components/SingleInputView'
+import { Colors } from 'utils'
 import {
   FCWithNavigation,
   UserSettingEnum,
 } from 'types'
+import { useRoute } from '@react-navigation/native'
 import useProfileChange from './useProfileChange'
 
 const ProfileChange: FCWithNavigation = ({ navigation }) => {
-  const headerName = navigation.getParam('name')
-  const type: UserSettingEnum = navigation.getParam('type')
-  const value = navigation.getParam('value')
-  const inputName: string = navigation.getParam('inputName')
+  const { params } = useRoute<any>()
+  const headerName = params.name
+  const { type, inputName, value } = params
 
-  const { submit, ...form } = useProfileChange(navigation, type)
+  const {
+    triggerValidation,
+    handleSubmit,
+    getValues,
+    setValue,
+    register,
+    control,
+    submit,
+    errors,
+    watch,
+  } = useProfileChange(navigation, type)
 
   const renderInputs = useMemo(() => {
     switch (type) {
@@ -36,8 +44,9 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
       case UserSettingEnum.lastName:
         return (
           <SingleInputView
+            control={control}
+            errors={errors}
             value={value}
-            {...form}
             type={type}
             inputName={inputName}
           />
@@ -45,26 +54,59 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
       case UserSettingEnum.email:
         return (
           <SingleInputView
+            control={control}
+            errors={errors}
             value={value}
-            {...form}
             type={type}
             inputName={inputName}
-            validator={InputValidation.emailValidation}
           />
         )
 
       case UserSettingEnum.activeCard: // TODO
         return <CardListView />
       case UserSettingEnum.phone:
-        return <PhoneChangeView {...form} />
+        return (
+          <PhoneChangeView
+            triggerValidation={triggerValidation}
+            getValues={getValues}
+            setValue={setValue}
+            register={register}
+            errors={errors}
+            watch={watch}
+          />
+        )
       case UserSettingEnum.password:
-        return <PasswordChangeView {...form} />
+        return (
+          <PasswordChangeView
+            control={control}
+            errors={errors}
+            watch={watch}
+          />
+        )
       case UserSettingEnum.addCar:
-        return <AddCar {...form} />
+        return (
+          <AddCar
+            register={register}
+            control={control}
+            watch={watch}
+            setValue={setValue}
+          />
+        )
       default:
         return <></>
     }
-  }, [inputName, type, form, value])
+  }, [
+    triggerValidation,
+    getValues,
+    inputName,
+    setValue,
+    register,
+    control,
+    errors,
+    watch,
+    value,
+    type,
+  ])
 
   return (
     <View style={styles.container}>
@@ -96,7 +138,7 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
           behavior="padding"
           keyboardVerticalOffset={Platform.OS === 'android' ? 8 : 16}
         >
-          <BaseButton onPress={form.handleSubmit(submit)} text="save" />
+          <BaseButton onPress={handleSubmit(submit)} text="save" />
         </KeyboardAvoidingView>
       )}
     </View>

@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next'
 import { Colors, Defaults } from 'utils'
 import images from 'assets/images'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { RegistrationType1FC } from './types'
 
 const RegistrationType1: RegistrationType1FC = ({ onPress }) => {

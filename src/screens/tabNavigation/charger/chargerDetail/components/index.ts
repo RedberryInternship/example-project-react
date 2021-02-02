@@ -1,5 +1,3 @@
-import CurrentTariffs from './CurrentTariffs'
-import ChargerDetailTopInfo from './ChargerDetailTopInfo'
-import ChargerTypesItem from './ChargerTypesItem'
-
-export {CurrentTariffs, ChargerDetailTopInfo, ChargerTypesItem}
+export { default as ChargerDetailTopInfo } from './ChargerDetailTopInfo'
+export { default as ChargerTypesItem } from './ChargerTypesItem'
+export { default as CurrentTariffs } from './CurrentTariffs'

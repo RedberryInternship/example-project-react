@@ -90,7 +90,6 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
           navigateByRef(coords.lat, coords.lng)
         } catch (error) {
           remoteLogger(error)
-          DisplayDropdownWithError()
         }
       }
     },
@@ -236,8 +235,6 @@ const useLocation = ({ mapRef, setPolyline }: UseLocationProps) => {
       } catch (error) {
         if (error === LocationCoordinatesErrors.NoRouteFound) {
           DisplayDropdownWithError('dropDownAlert.home.noRouteFound')
-        } else {
-          DisplayDropdownWithError()
         }
         remoteLogger(error)
       }

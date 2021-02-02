@@ -2,7 +2,6 @@ import { useState, useEffect, useCallback } from 'react'
 import services from 'services'
 import { CarMarkAndModelTypes, UserCar } from 'types'
 import {
-  DisplayDropdownWithError,
   DisplayDropdownWithWarning,
   remoteLogger,
 } from 'utils/inform'
@@ -32,7 +31,6 @@ const useAddCar = ({ register, setValue }: UseAddCarProps) => {
       refreshUserCars()
     } catch (e) {
       remoteLogger(e)
-      DisplayDropdownWithError()
     }
   }, [refreshUserCars])
 

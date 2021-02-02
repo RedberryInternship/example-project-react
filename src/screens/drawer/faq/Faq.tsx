@@ -1,6 +1,7 @@
 import React, { useState, ReactElement } from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
-import { BaseHeader, FetchedDataRenderer } from 'components'
+import BaseHeader from 'components/BaseHeader'
+import FetchedDataRenderer from 'components/FetchedDataRenderer'
 import { Colors, getLocaleText } from 'utils'
 import services from 'services'
 import { FCWithNavigation } from 'types'
@@ -28,15 +29,15 @@ const Faq: FCWithNavigation = ({ navigation }) => {
             val: FAQResponseType,
             index: number,
           ): ReactElement => (
-              <FaqListItem
-                key={index}
-                number={index + 1}
-                question={getLocaleText(val.question)}
-                answer={getLocaleText(val.answer)}
-                active={activeFaq === index}
-                toggle={(open = true) => setActiveFaq(open ? index : -1)}
-              />
-            )}
+            <FaqListItem
+              key={index}
+              number={index + 1}
+              question={getLocaleText(val.question)}
+              answer={getLocaleText(val.answer)}
+              active={activeFaq === index}
+              toggle={(open = true) => setActiveFaq(open ? index : -1)}
+            />
+          )}
           fetchData={getFAQ}
           updateAlways
         />

@@ -70,7 +70,6 @@ export const getUserData = async () => {
     if (error.status === '406' || error?.data?.status === '406') {
       DisplayDropdownWithError('dropDownAlert.thisUserIsBlocked')
     }
-    DisplayDropdownWithError()
   }
 }
 
@@ -83,7 +82,6 @@ export const getUserFavoriteChargers = async () => {
     return user_favorite_chargers
   } catch (error) {
     remoteLogger(error)
-    DisplayDropdownWithError()
   }
 }
 
@@ -98,7 +96,6 @@ export const getUserDetailedInformationFromStorage = async () => {
       ? JSON.parse(rawUserDetailedInformation)
       : ''
   } catch (error) {
-    DisplayDropdownWithError()
     remoteLogger(error)
   }
 }
@@ -110,7 +107,6 @@ export const getUserTokenFromStorage = async () => {
   try {
     return await AsyncStorage.getItem('token')
   } catch (error) {
-    DisplayDropdownWithError()
     remoteLogger(error)
     return ''
   }

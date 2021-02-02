@@ -9,7 +9,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { logOutAndReset } from 'state/actions/userActions'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
-import { BaseButton, BaseText } from 'components'
+import { useNavigation } from '@react-navigation/native'
+import BaseButton from 'components/BaseButton'
+import BaseText from 'components/BaseText'
 import * as Const from 'utils/const'
 import colors from 'utils/colors'
 import defaults from 'utils/defaults'
@@ -17,7 +19,7 @@ import { easyAlert } from 'utils/inform'
 import images from 'assets/images'
 import { isAuthenticated } from 'helpers/user'
 import { selectUser } from 'state/selectors'
-import { FCWithNavigation, Locale, ModalTypes } from 'types'
+import { Locale, ModalTypes } from 'types'
 import { setLocale } from 'utils/locale'
 import {
   DrawerTextFieldItem,
@@ -25,7 +27,8 @@ import {
   BaseLocaleButton,
 } from './components'
 
-const Drawer: FCWithNavigation = ({ navigation }) => {
+const Drawer = () => {
+  const { navigate } = useNavigation()
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
 
@@ -46,16 +49,17 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
         <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
           <BaseButton
             image={images.user}
-            onPress={navigation.navigate.bind(Drawer, 'Auth')}
+            onPress={() => navigate('AuthStack', { screen: 'Auth' })}
             text="home.authorization"
             style={styles.drawerAuthBtn}
           />
 
-          {Const.DrawerFieldsBeforeAuthorization.map((field, ind) => (
+          {Const.DrawerFieldsBeforeAuthorization.map(({ image, route, text }) => (
             <DrawerTextFieldItem
-              key={ind}
-              onPress={navigation.navigate.bind(Drawer, field.route)}
-              {...field}
+              key={route}
+              onPress={() => navigate(route)}
+              image={image}
+              text={text}
             />
           ))}
         </View>
@@ -66,11 +70,23 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
   } else {
     drawerContent = (
       <View>
-        {Const.DrawerFieldsAfterAuthorization.map((field, key) => (
+        {Const.DrawerFieldsAfterAuthorization.map(({ image, route, text }) => (
           <DrawerTextFieldItem
-            key={key}
-            onPress={navigation.navigate.bind(Drawer, field.route)}
-            {...field}
+            key={route}
+            onPress={() => {
+              switch (route) {
+                case 'Settings':
+                  navigate('DrawerMenuOptions', { screen: 'Settings' })
+                  break
+                case 'TransactionList':
+                  navigate('TransactionStack', { screen: 'TransactionList' })
+                  break
+                default:
+                  navigate(route)
+              }
+            }}
+            image={image}
+            text={text}
           />
         ))}
       </View>
@@ -83,9 +99,7 @@ const Drawer: FCWithNavigation = ({ navigation }) => {
     >
       {isAuthenticated() && (
         <BaseUserAvatarWithLabel
-          onPress={(): void => {
-            navigation.navigate('ChooseAvatar')
-          }}
+          onPress={() => navigate('ChooseAvatar')}
           avatar={state.user?.avatar}
           firstName={state?.user?.first_name ?? ''}
           lastName={state?.user?.last_name ?? ''}

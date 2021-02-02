@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Image, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { ModalPopupChargerItemFC } from './types'
 import { modalPopupChargerItemTypes } from './config'
 

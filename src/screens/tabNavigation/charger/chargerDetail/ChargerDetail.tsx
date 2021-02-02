@@ -1,28 +1,29 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   StyleSheet,
-  ScrollView,
   View,
+  Image,
 } from 'react-native'
-import { FCWithNavigation, BusinessService } from 'types'
-import {
-  TitleTopLeftContainer,
-  BaseHeader,
-  BaseButton,
-  Swipe,
-} from 'components'
+import { ScrollView } from 'react-native-gesture-handler'
+import { BusinessService } from 'types'
+import TitleTopLeftContainer from 'components/TitleTopLeftContainer'
+import BaseHeader from 'components/BaseHeader'
+import BaseButton from 'components/BaseButton'
+import Swipe from 'components/Swipe'
 import { Colors, Const } from 'utils'
 import { getLocaleText } from 'utils/localization/localization'
 import images from 'assets/images'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { getImage } from 'helpers/chargers'
 import {
   ChargerDetailTopInfo,
   ChargerTypesItem,
   CurrentTariffs,
 } from './components'
 import useChargerDetails from './useChargerDetails'
-import BusinessServiceItem from './components/BusinessServiceItem'
+import BusinessServiceItem from './components/BusinessServiceItem/BusinessServiceItem'
 
-const ChargerDetail: FCWithNavigation = ({ navigation }) => {
+const ChargerDetail = () => {
   const {
     chargerLocationDirectionHandler,
     showChargerLocationHandler,
@@ -34,12 +35,23 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
     goBackHandler,
     distance,
     charger,
-  } = useChargerDetails(navigation)
+  } = useChargerDetails()
+
+  const insets = useSafeAreaInsets()
+  const image = useMemo(() => getImage(charger?.image ?? null), [charger])
 
   return (
     <Swipe left={goBackHandler}>
       <View style={styles.container}>
-        <BaseHeader onPressLeft={goBackHandler} />
+        <View style={[styles.imageContainer, { marginTop: insets.top }]}>
+          <BaseHeader
+            onPressLeft={goBackHandler}
+            style={styles.baseHeader}
+            colorless
+            noInset
+          />
+          <Image source={image} style={styles.image} />
+        </View>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollViewContentContainer}
@@ -68,7 +80,7 @@ const ChargerDetail: FCWithNavigation = ({ navigation }) => {
                 <ChargerTypesItem
                   key={index}
                   active={activeChargerType === index}
-                  onPress={setActiveChargerType.bind(ChargerDetail, index)}
+                  onPress={() => setActiveChargerType(index)}
                   type={val.name}
                   power={power}
                 />
@@ -107,6 +119,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     backgroundColor: Colors.primaryBackground,
+  },
+  baseHeader: {
+    position: 'absolute',
+    zIndex: 1,
+    top: 0,
+    left: 0,
+  },
+  imageContainer: {
+    height: 180,
+    position: 'relative',
+    backgroundColor: 'black',
+    marginBottom: 10,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    zIndex: 0,
   },
   scrollView: {
     paddingHorizontal: 16,

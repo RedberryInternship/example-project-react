@@ -5,9 +5,7 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native'
-import {
-  BaseText,
-} from 'components'
+import BaseText from 'components/BaseText'
 import images from 'assets/images'
 import colors from 'utils/colors'
 import { CarListItemFC } from './types'

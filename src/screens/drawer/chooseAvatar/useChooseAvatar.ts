@@ -33,7 +33,6 @@ export default (navigation: Navigation) => {
       DisplayDropdownWithSuccess('dropDownAlert.avatarUpdatedSuccessfully')
     } catch (err) {
       remoteLogger(err)
-      DisplayDropdownWithError()
     }
   }
 

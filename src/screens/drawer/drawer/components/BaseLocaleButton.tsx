@@ -4,10 +4,8 @@ import {
   View,
 } from 'react-native'
 import colors from 'utils/colors'
-import {
-  BaseNativeTouchable,
-  BaseText,
-} from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
+import BaseText from 'components/BaseText'
 import { LocaleButtonItemFC } from 'screens/drawer/drawer/types'
 
 const BaseLocaleButton: LocaleButtonItemFC = (
@@ -18,14 +16,14 @@ const BaseLocaleButton: LocaleButtonItemFC = (
     text,
   },
 ) => (
-    <View style={[styles.container, style]}>
-      <BaseNativeTouchable onPress={onPress}>
-        <View style={[styles.localeUiContainer]}>
-          <BaseText style={[styles.localeText, textStyle]}>{text}</BaseText>
-        </View>
-      </BaseNativeTouchable>
-    </View>
-  )
+  <View style={[styles.container, style]}>
+    <BaseNativeTouchable onPress={onPress}>
+      <View style={[styles.localeUiContainer]}>
+        <BaseText style={[styles.localeText, textStyle]}>{text}</BaseText>
+      </View>
+    </BaseNativeTouchable>
+  </View>
+)
 
 export default BaseLocaleButton
 

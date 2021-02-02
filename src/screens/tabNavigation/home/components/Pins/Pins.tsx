@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 import { useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
 import { Charger } from 'types'
-import { MapMarkerItem } from 'components'
+import MapMarkerItem from 'components/MapMarkerItem'
 import { PinsFC } from './types'
 
 const Pins: PinsFC = (

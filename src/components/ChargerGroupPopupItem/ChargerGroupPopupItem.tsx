@@ -7,10 +7,8 @@ import {
 } from 'react-native'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import {
-  MarkerController,
-  BaseText,
-} from 'components'
+import MarkerController from 'components/MarkerController'
+import BaseText from 'components/BaseText'
 import { ChargerGroupPopupItemFC } from './types'
 
 const ChargerGroupPopupItem: ChargerGroupPopupItemFC = (
@@ -22,25 +20,25 @@ const ChargerGroupPopupItem: ChargerGroupPopupItemFC = (
     ...props
   },
 ) => (
-    <TouchableOpacity onPress={onPress} disabled={!active}>
-      <View style={styles.container}>
-        <MarkerController active={active} width={26} height={32} {...props} />
-        <View style={styles.chargerTypeContainer}>
-          <BaseText style={styles.chargerTypeText} numberOfLines={2}>
-            {text}
-          </BaseText>
-          <BaseText style={styles.chargerCodeText}>
-            #
+  <TouchableOpacity onPress={onPress} disabled={!active}>
+    <View style={styles.container}>
+      <MarkerController active={active} width={26} height={32} {...props} />
+      <View style={styles.chargerTypeContainer}>
+        <BaseText style={styles.chargerTypeText} numberOfLines={2}>
+          {text}
+        </BaseText>
+        <BaseText style={styles.chargerCodeText}>
+          #
           {code}
-          </BaseText>
-        </View>
-        <Image
-          style={[styles.goToDetailIcon, { opacity: active ? 1 : 0.2 }]}
-          source={images.back}
-        />
+        </BaseText>
       </View>
-    </TouchableOpacity>
-  )
+      <Image
+        style={[styles.goToDetailIcon, { opacity: active ? 1 : 0.2 }]}
+        source={images.back}
+      />
+    </View>
+  </TouchableOpacity>
+)
 
 export default ChargerGroupPopupItem
 

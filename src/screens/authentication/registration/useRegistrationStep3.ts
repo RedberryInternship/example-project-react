@@ -88,11 +88,7 @@ export default (
         } else if (data.phone_number && isPhoneNumberAlreadyTaken(data.phone_number)) {
           DisplayDropdownWithError('dropDownAlert.registration.emailAlreadyToken')
           setActivePage(0)
-        } else {
-          DisplayDropdownWithError()
         }
-      } else {
-        DisplayDropdownWithError()
       }
     }
   }

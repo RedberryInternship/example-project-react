@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import colors from 'utils/colors'
-import { CurrentTariffsRowFC } from 'screens/tabNavigation/charger/chargerDetail/types'
+import { CurrentTariffsRowFC } from './types'
 
 const Row: CurrentTariffsRowFC = (
   {
@@ -12,13 +12,13 @@ const Row: CurrentTariffsRowFC = (
     col4,
   },
 ) => (
-    <View style={styles.rowContainer}>
-      <BaseText style={styles.rowCol1}>{col1}</BaseText>
-      <BaseText style={styles.rowCol2}>{col2}</BaseText>
-      <BaseText style={styles.rowCol3}>{col3}</BaseText>
-      <BaseText style={styles.rowCol4}>{col4}</BaseText>
-    </View>
-  )
+  <View style={styles.rowContainer}>
+    <BaseText style={styles.rowCol1}>{col1}</BaseText>
+    <BaseText style={styles.rowCol2}>{col2}</BaseText>
+    <BaseText style={styles.rowCol3}>{col3}</BaseText>
+    <BaseText style={styles.rowCol4}>{col4}</BaseText>
+  </View>
+)
 
 export default Row
 

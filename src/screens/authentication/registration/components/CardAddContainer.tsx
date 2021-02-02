@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import * as Const from 'utils/const'
-import { CardAddView } from 'components'
+import CardAddView from 'components/CardAddView'
 import { CardAddContainerFC } from 'screens/authentication/registration/types'
 
 const CardAddContainer: CardAddContainerFC = (

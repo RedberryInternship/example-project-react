@@ -5,7 +5,8 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { BaseHeader, FetchedDataRenderer } from 'components'
+import BaseHeader from 'components/BaseHeader'
+import FetchedDataRenderer from 'components/FetchedDataRenderer'
 import colors from 'utils/colors'
 import services from 'services'
 import { FCWithNavigation } from 'types'

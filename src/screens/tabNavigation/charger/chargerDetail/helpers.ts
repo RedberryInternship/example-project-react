@@ -23,7 +23,6 @@ export const getDistance = async (lat: string, lng: string): Promise<any> => {
     return '0'
   } catch (error) {
     remoteLogger(error)
-    DisplayDropdownWithError()
     return '0'
   }
 }

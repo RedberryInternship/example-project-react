@@ -5,7 +5,7 @@ import {
   Image,
   View,
 } from 'react-native'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import colors from 'utils/colors'
 import images from 'assets/images'
 import { ListItemFC } from './types'

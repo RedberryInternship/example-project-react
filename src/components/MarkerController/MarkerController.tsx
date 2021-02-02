@@ -1,5 +1,5 @@
 import React from 'react'
-import { RootPin } from 'components'
+import RootPin from 'components/RootPin'
 import { ChargerMarkerColor } from 'types'
 import { MarkerControllerFC } from './types'
 

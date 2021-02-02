@@ -1,18 +1,20 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ProfileFieldChange } from 'types'
-import { BaseInput } from 'components'
+import BaseInput from 'components/BaseInput'
 import { Controller } from 'react-hook-form'
 import images from 'assets/images'
 
-const SingleInputView = ({
-  value,
-  errors,
-  control,
-  type,
-  inputName,
-  validator,
-}: ProfileFieldChange) => {
+const SingleInputView = (
+  {
+    inputName,
+    validator,
+    control,
+    errors,
+    value,
+    type,
+  }: ProfileFieldChange,
+) => {
   // eslint-disable-next-line no-nested-ternary
   const errorText = errors?.[type]
     ? errors?.[type].message !== ''

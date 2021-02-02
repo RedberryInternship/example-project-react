@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native'
 import Modal from 'react-native-modal'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import colors from 'utils/colors'
 import { withTranslation } from 'react-i18next'
 import { ListItem } from './components'
@@ -43,7 +43,9 @@ class SelectCar extends React.Component<Props, State> {
       onChange,
       title,
       data,
+      labels,
     } = this.props
+
     return (
       <>
         <TouchableHighlight onPress={this.openModal} hitSlop={styles.hitSlop}>
@@ -69,14 +71,15 @@ class SelectCar extends React.Component<Props, State> {
             <FlatList
               style={styles.contentContainer}
               data={data}
-              renderItem={(val) => (
+              renderItem={({ item, index }) => (
                 <ListItem
-                  value={val.item}
+                  value={item}
                   onPress={() => {
-                    onChange(val.item)
+                    onChange(item)
                     this.closeModal()
                   }}
-                  selected={val.item === selectedValue}
+                  label={labels[index]}
+                  selected={item === selectedValue}
                 />
               )}
             />

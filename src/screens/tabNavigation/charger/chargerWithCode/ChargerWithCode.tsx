@@ -6,15 +6,13 @@ import {
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useTranslation } from 'react-i18next'
-import { FCWithNavigation, Charger } from 'types'
-import {
-  TitleTopLeftContainer,
-  FetchedDataRenderer,
-  BaseButton,
-  BaseHeader,
-  BaseInput,
-  BaseText,
-} from 'components'
+import { Charger } from 'types'
+import TitleTopLeftContainer from 'components/TitleTopLeftContainer'
+import FetchedDataRenderer from 'components/FetchedDataRenderer'
+import BaseButton from 'components/BaseButton'
+import BaseHeader from 'components/BaseHeader'
+import BaseInput from 'components/BaseInput'
+import BaseText from 'components/BaseText'
 import {
   getLocaleText,
   Colors,
@@ -25,13 +23,13 @@ import { recentlyUsedChargers } from './helpers'
 import { ChargerItem } from './components'
 import useChargerWithCode from './useChargerWithCode'
 
-const ChargerWithCode: FCWithNavigation = ({ navigation }) => {
+const ChargerWithCode = () => {
   const {
     navigateToChargerDetailScreen,
     setChargerWithCode,
     allChargerHandler,
     findCharger,
-  } = useChargerWithCode(navigation)
+  } = useChargerWithCode()
   const { t } = useTranslation()
 
   return (
@@ -40,7 +38,7 @@ const ChargerWithCode: FCWithNavigation = ({ navigation }) => {
       <ScrollView style={styles.scrollView}>
         <BaseInput
           image={images.lock}
-          keyboardType="email-address"
+          keyboardType="number-pad"
           onChangeText={setChargerWithCode}
           onSubmit={findCharger}
           title="charger.enterCode"

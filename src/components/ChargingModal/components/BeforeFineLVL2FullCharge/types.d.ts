@@ -1,4 +1,5 @@
 import { ReactElement } from 'react'
+import { ChargingStatus } from 'types'
 
 type BeforeFineLVL2FullChargeProps = {
   time: string
@@ -8,6 +9,8 @@ type BeforeFineLVL2FullChargeProps = {
   refundMoney: number
   onFine: boolean
   onFinish: () => void
+  penalty_enabled: boolean
+  charging_status: ChargingStatus
 }
 
 export type BeforeFineLVL2FullChargeFC = (props: BeforeFineLVL2FullChargeProps) => ReactElement

@@ -54,6 +54,7 @@ export default {
   addCarInput: require('./icons/addCarInput.png'),
   caretDown: require('./icons/caret-down.png'),
   logo: require('./logo.png'),
+  defaultCharger: require('./backgrounds/default-charger.png'),
 }
 
 export const Partners = {

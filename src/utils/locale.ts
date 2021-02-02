@@ -1,9 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage'
 import { Locale } from 'types'
-import {
-  DisplayDropdownWithError,
-  remoteLogger,
-} from './inform'
+import { remoteLogger } from './inform'
 
 /**
  * Default locale.
@@ -25,7 +22,6 @@ const getLocale = async () => {
 
     return savedLocale
   } catch (error) {
-    DisplayDropdownWithError()
     remoteLogger(error)
     return defaultLocale
   }

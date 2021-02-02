@@ -9,9 +9,12 @@ export type Favorite = {
   description: string | null
   user_id: string | null
   location: LanguageType
+  image: null | string
   public: number
   active: number
   hidden: number
+  penalty_enabled: boolean
+  is_paid: boolean
   lat: string
   lng: string
   iban: string
@@ -55,6 +58,7 @@ export type ChargerDetail = {
   description: string
   user_id: number
   location: LanguageType
+  image: null | string
   public: number
   active: number
   status: string
@@ -62,6 +66,8 @@ export type ChargerDetail = {
   lat: string
   lng: string
   iban: string
+  is_paid: boolean
+  penalty_enabled: boolean
   charger_group_id: number
   last_update: string
   created_at: string

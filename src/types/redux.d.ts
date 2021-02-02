@@ -37,6 +37,11 @@ export type ChargerAction = {
   payload: any
 }
 
+export type AppAction = {
+  type: 'READY'
+  payload: any
+}
+
 export type ChargingStateAction = {
   type: 'CHARGING_STATE_SUCCESS' | 'CHARGING_STATE_FAILURE'
   payload: any

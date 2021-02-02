@@ -5,10 +5,8 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import {
-  SelectPhoneCode,
-  BaseInput,
-} from 'components'
+import SelectPhoneCode from 'components/SelectPhoneCode'
+import BaseInput from 'components/BaseInput'
 import images from 'assets/images'
 import { Colors } from 'utils'
 import {
@@ -26,6 +24,7 @@ const PhoneNumberInput = React.forwardRef(
       imageAnimatedOpacity,
       selectedCountryCode,
       pickerItemsState,
+      pickerItemsLabel,
       inputPlaceholder,
       phoneTextHandler,
       onPickerChange,
@@ -66,6 +65,7 @@ const PhoneNumberInput = React.forwardRef(
               onChange={onPickerChange}
               title={t('phoneCodes')}
               selectedValue={selectedCountryCode.value}
+              labels={pickerItemsLabel}
             />
           </View>
         </Animated.View>

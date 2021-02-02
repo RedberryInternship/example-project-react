@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Colors } from 'utils'
 import images from 'assets/images'
-import { BaseText } from 'components'
-import { ChargerDetailTopInfoFC } from 'screens/tabNavigation/charger/chargerDetail/types'
+import BaseText from 'components/BaseText'
+import { ChargerDetailTopInfoFC } from './types'
 
 const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
   {

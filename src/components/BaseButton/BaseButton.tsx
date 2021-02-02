@@ -7,10 +7,8 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import LinearGradient from 'react-native-linear-gradient'
-import {
-  BaseNativeTouchable,
-  BaseText,
-} from 'components'
+import BaseNativeTouchable from 'components/BaseNativeTouchable'
+import BaseText from 'components/BaseText'
 import { Const, Colors, Font } from 'utils'
 import { BaseButtonFC } from './types'
 

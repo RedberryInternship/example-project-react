@@ -1,4 +1,4 @@
-import { ChargingFinishedPopupEnum } from 'types'
+import { ChargingFinishedPopupEnum, ChargingStatus } from 'types'
 import { ReactElement } from 'react'
 
 type Data = {
@@ -12,6 +12,8 @@ type Data = {
   onFine: boolean
   onFinish: () => void
   chargerTypeFAST: boolean
+  penalty_enabled?: boolean
+  charging_status: ChargingStatus
 }
 
 type ChargingModalProps = {

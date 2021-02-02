@@ -4,9 +4,11 @@ import {
   View,
   Image,
 } from 'react-native'
+import { useRoute } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaView } from 'react-navigation'
-import { BaseHeader, BaseText } from 'components'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import BaseHeader from 'components/BaseHeader'
+import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import {
   TransactionsHistoryResponseItem,
@@ -17,6 +19,7 @@ import DetailsItem from './components/TransactionDetailsItem'
 
 const ShowTransactions: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
+  const { params } = useRoute<any>()
   const {
     charger_name,
     address,
@@ -26,7 +29,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
     start_date,
     charge_price,
     user_card_pan,
-  }: TransactionsHistoryResponseItem = navigation.getParam('order', [])
+  }: TransactionsHistoryResponseItem = params.order
 
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
   const chargePrice = (): string => `${charge_price ?? 0} ${t('gel')}`

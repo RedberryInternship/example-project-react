@@ -52,8 +52,6 @@ export default (setActivePage: (index: number) => void) => {
         DisplayDropdownWithError('dropDownAlert.registration.incorrectCode')
       } else if (error.data.status === 409) {
         DisplayDropdownWithError('dropDownAlert.registration.phoneAlreadyToken')
-      } else {
-        DisplayDropdownWithError()
       }
     }
   }

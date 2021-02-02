@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Defaults } from 'utils'
-import { BaseText } from 'components'
+import BaseText from 'components/BaseText'
 import { StyleSheet } from 'react-native'
 import { FetchedDataRendererFC } from './types'
 import useFetchedDataRenderer from './useFetchedDataRenderer'
