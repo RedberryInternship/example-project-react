@@ -62,7 +62,7 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
           />
         )
 
-      case UserSettingEnum.activeCard: // TODO
+      case UserSettingEnum.activeCard:
         return <CardListView />
       case UserSettingEnum.phone:
         return (

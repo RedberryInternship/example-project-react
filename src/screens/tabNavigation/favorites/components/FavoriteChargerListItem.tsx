@@ -20,30 +20,32 @@ const FavoriteChargerListItem: FavoriteChargerItemFC = (
   },
 ) => (
   <View style={styles.container}>
-    <View style={styles.innerLeftContainer}>
-      <TouchableOpacity onPress={deleteItem}>
-        <View style={styles.deleteButton}>
-          <Image
-            style={styles.deleteButtonImage}
-            source={images.orangeTrash}
-          />
-        </View>
-      </TouchableOpacity>
-      <BaseText style={styles.title}>{title}</BaseText>
-      <View style={styles.addressContainer}>
-        <Image style={styles.addressImage} source={images.mapPin} />
-        <BaseText style={styles.addressTitle}>{address}</BaseText>
+    <View style={styles.innerContainer}>
+      <View style={styles.innerLeftContainer}>
+        <TouchableOpacity onPress={deleteItem}>
+          <View style={styles.deleteButton}>
+            <Image
+              style={styles.deleteButtonImage}
+              source={images.orangeTrash}
+            />
+          </View>
+        </TouchableOpacity>
+        <BaseText style={styles.title}>{title}</BaseText>
+      </View>
+      <View style={styles.customizedBaseButtonContainer}>
+        <BaseButton
+          onPress={turnon}
+          text="turnOn"
+          style={styles.customizedBaseButton}
+          imageStyle={{ tintColor: Colors.primaryBlue }}
+          image={images.arrowRight}
+          textStyle={{ color: Colors.primaryBlue }}
+        />
       </View>
     </View>
-    <View style={styles.customizedBaseButtonContainer}>
-      <BaseButton
-        onPress={turnon}
-        text="turnOn"
-        style={styles.customizedBaseButton}
-        imageStyle={{ tintColor: Colors.primaryBlue }}
-        image={images.arrowRight}
-        textStyle={{ color: Colors.primaryBlue }}
-      />
+    <View style={styles.addressContainer}>
+      <Image style={styles.addressImage} source={images.mapPin} />
+      <BaseText style={styles.addressTitle} numberOfLines={undefined}>{address}</BaseText>
     </View>
   </View>
 )
@@ -53,13 +55,15 @@ export default FavoriteChargerListItem
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.secondaryDark,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'stretch',
+    borderRadius: 8,
     marginBottom: 16,
     marginHorizontal: 16,
     padding: 12,
-    borderRadius: 8,
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch',
   },
   innerLeftContainer: {
     flex: -1,
@@ -94,6 +98,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    flex: 1,
   },
   addressImage: {
     width: 17,
