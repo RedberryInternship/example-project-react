@@ -14,16 +14,18 @@ console.table(
   },
 )
 
-init(
-  {
-    dsn: 'https://5e553025d2f54d69a6dca90c51af95a0@sentry.io/2970574',
-    release: version,
-    dist: buildNumber,
-    maxBreadcrumbs: 100,
-    environment: __DEV__ ? 'development' : 'production',
-    attachStacktrace: true,
-    enableAutoSessionTracking: true,
-    sendDefaultPii: true,
-    tracesSampleRate: 1.0,
-  },
-)
+if (!__DEV__) {
+  init(
+    {
+      dsn: 'https://5e553025d2f54d69a6dca90c51af95a0@sentry.io/2970574',
+      release: version,
+      dist: buildNumber,
+      maxBreadcrumbs: 100,
+      environment: 'production',
+      attachStacktrace: true,
+      enableAutoSessionTracking: true,
+      sendDefaultPii: true,
+      tracesSampleRate: 1.0,
+    },
+  )
+}

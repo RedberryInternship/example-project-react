@@ -2,6 +2,7 @@ import React from 'react'
 import {
   TouchableOpacity,
   StyleSheet,
+  Platform,
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
@@ -54,6 +55,6 @@ const styles = StyleSheet.create({
     color: colors.primaryWhite,
     fontSize: 25,
     marginLeft: 1,
-    marginTop: -1,
+    marginTop: Platform.OS === 'ios' ? -1 : -4,
   },
 })

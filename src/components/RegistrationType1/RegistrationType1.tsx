@@ -26,7 +26,7 @@ const RegistrationType1: RegistrationType1FC = ({ onPress }) => {
         </BaseText>
       </View>
       <View style={styles.descriptionContainer}>
-        <BaseText style={styles.descriptionText}>
+        <BaseText style={styles.descriptionText} numberOfLines={undefined}>
           {t('authentication.registration.success')}
         </BaseText>
       </View>

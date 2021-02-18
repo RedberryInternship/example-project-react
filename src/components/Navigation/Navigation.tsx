@@ -30,6 +30,7 @@ import {
   Auth,
   Home,
   Faq,
+  Test,
 } from 'screens'
 import { Width } from 'utils/const'
 import { StyleSheet } from 'react-native'
@@ -69,6 +70,7 @@ const HomeTabNavigation = () => (
     tabBar={() => <FooterTabNavigation />}
     initialRouteName="Home"
   >
+    {/* <HomeTabNavigator.Screen name="Test" component={Test} /> */}
     <HomeTabNavigator.Screen name="Home" component={Home} />
     <HomeTabNavigator.Screen name="ChargerStack" component={ChargerStack} />
     <HomeTabNavigator.Screen name="Favorites" component={Favorites} />
