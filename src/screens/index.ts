@@ -28,7 +28,10 @@ import { ShowTransaction } from './drawer/transactions/showTransaction'
 import { Partners } from './drawer/partners'
 import { CardAdd } from './CardAdd'
 
+import Test from './test/Test'
+
 export {
+  Test,
   Home,
   Auth,
   Opening,
