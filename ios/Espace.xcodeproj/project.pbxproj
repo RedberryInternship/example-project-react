@@ -12,6 +12,8 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		5E47DCC125DAB28B005074AA /* FiraGO-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E47DCBF25DAB28A005074AA /* FiraGO-Book.ttf */; };
+		5E47DCC225DAB28B005074AA /* FiraGO-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E47DCC025DAB28B005074AA /* FiraGO-Bold.ttf */; };
 		6BC34164C3B54667B32DFF3F /* HelveticaNeueLTStd-MdEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */; };
 		78F369430B1B4CDBB8FE5228 /* HelveticaNeueLTStd-HvEx.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */; };
 		84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84502BB623FFBF800078412A /* GoogleService-Info.plist */; };
@@ -36,6 +38,8 @@
 		46526A7514593E60669C619E /* Pods-Espace-EspaceTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-EspaceTests.debug.xcconfig"; path = "Target Support Files/Pods-Espace-EspaceTests/Pods-Espace-EspaceTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4C2FD3B5E65ECB628AA12358 /* Pods-Espace-EspaceTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace-EspaceTests.release.xcconfig"; path = "Target Support Files/Pods-Espace-EspaceTests/Pods-Espace-EspaceTests.release.xcconfig"; sourceTree = "<group>"; };
 		5354A6DD9C6039E2C4880068 /* Pods-Espace.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espace.release.xcconfig"; path = "Target Support Files/Pods-Espace/Pods-Espace.release.xcconfig"; sourceTree = "<group>"; };
+		5E47DCBF25DAB28A005074AA /* FiraGO-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraGO-Book.ttf"; sourceTree = "<group>"; };
+		5E47DCC025DAB28B005074AA /* FiraGO-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraGO-Bold.ttf"; sourceTree = "<group>"; };
 		84502BB623FFBF800078412A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84DAB4D123D5E81200E1FE34 /* Espace.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Espace.entitlements; path = Espace/Espace.entitlements; sourceTree = "<group>"; };
 		84DAB4D223D5E83500E1FE34 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -117,6 +121,8 @@
 		5FA86CA15FEF4917B86475B8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5E47DCC025DAB28B005074AA /* FiraGO-Bold.ttf */,
+				5E47DCBF25DAB28A005074AA /* FiraGO-Book.ttf */,
 				F7AA4FFDB91A46A293537239 /* HelveticaNeueLTStd-Ex.ttf */,
 				0E402EA22759435580F7E8C9 /* HelveticaNeueLTStd-HvEx.ttf */,
 				B319C05824CE4701AE2BF782 /* HelveticaNeueLTStd-MdEx.ttf */,
@@ -236,10 +242,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				5E47DCC225DAB28B005074AA /* FiraGO-Bold.ttf in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				84502BB723FFBF810078412A /* GoogleService-Info.plist in Resources */,
 				0A0B6D6D525246CA9E7E55C6 /* HelveticaNeueLTStd-Ex.ttf in Resources */,
 				78F369430B1B4CDBB8FE5228 /* HelveticaNeueLTStd-HvEx.ttf in Resources */,
+				5E47DCC125DAB28B005074AA /* FiraGO-Book.ttf in Resources */,
 				6BC34164C3B54667B32DFF3F /* HelveticaNeueLTStd-MdEx.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

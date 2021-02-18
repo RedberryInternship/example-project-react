@@ -51,6 +51,8 @@
 	<string>We use your location to let the taxi driver find you easily</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>FiraGO-Book.ttf</string>
+		<string>FiraGO-Bold.ttf</string>
 		<string>HelveticaNeueLTStd-Ex.ttf</string>
 		<string>HelveticaNeueLTStd-HvEx.ttf</string>
 		<string>HelveticaNeueLTStd-MdEx.ttf</string>
