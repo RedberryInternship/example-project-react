@@ -10,6 +10,7 @@ import BaseText from 'components/BaseText'
 import { Colors } from 'utils'
 import images from 'assets/images'
 import { FavoriteChargerItemFC } from 'screens/tabNavigation/favorites/types'
+import colors from 'utils/colors'
 
 const FavoriteChargerListItem: FavoriteChargerItemFC = (
   {
@@ -26,7 +27,7 @@ const FavoriteChargerListItem: FavoriteChargerItemFC = (
           <View style={styles.deleteButton}>
             <Image
               style={styles.deleteButtonImage}
-              source={images.orangeTrash}
+              source={images.remove}
             />
           </View>
         </TouchableOpacity>
@@ -90,9 +91,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   deleteButtonImage: {
-    width: 15,
-    height: 15,
+    width: 18,
     resizeMode: 'contain',
+    tintColor: colors.primaryGold,
   },
   addressContainer: {
     flexDirection: 'row',

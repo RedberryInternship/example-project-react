@@ -10,11 +10,11 @@ export default {
   blueUser: require('./icons/blue-user.png'),
   mail: require('./icons/mail.png'),
   transaction: require('./icons/transaction.png'),
+  transactions: require('./icons/transactions.png'),
   mapPin: require('./icons/ic_map_pin.png'),
   mapPin2: require('./icons/map-pin.png'),
   orangeTrash: require('./icons/orange-trash.png'),
   deleteAction: require('./icons/delete-action.png'),
-  lock: require('./icons/lock.png'),
   alertCircle2: require('./icons/ic_alert-circle.png'),
   charge: require('./icons/ic_charge.png'),
   chargeWithCode: require('./icons/charge_with_code.png'),
@@ -55,15 +55,10 @@ export default {
   caretDown: require('./icons/caret-down.png'),
   logo: require('./logo.png'),
   defaultCharger: require('./backgrounds/default-charger.png'),
-}
-
-export const Partners = {
-  socar: require('./icons/partners/socar.png'),
-  neogas: require('./icons/partners/neogas.png'),
-  gulf: require('./icons/partners/gulf.png'),
-  m2: require('./icons/partners/m2.png'),
-  wissol: require('./icons/partners/wissol.png'),
-  bog: require('./icons/partners/bog.png'),
+  password: require('./icons/password.png'),
+  addCar: require('./icons/add-car.png'),
+  mapMode: require('./icons/map-mode.png'),
+  remove: require('./icons/remove.png'),
 }
 
 export const Avatars = [
