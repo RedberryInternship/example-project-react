@@ -6,9 +6,10 @@ import { TabNavigationButtonsItemFC } from './types'
 
 const TabNavigationButtonsItem: TabNavigationButtonsItemFC = (
   {
+    imageStyle,
     navigate,
-    image,
     active,
+    image,
   },
 ) => (
   <BaseNativeTouchable onPress={navigate} style={styles.baseNativeTouchable}>
@@ -16,6 +17,7 @@ const TabNavigationButtonsItem: TabNavigationButtonsItemFC = (
       source={image}
       style={[
         styles.image,
+        imageStyle,
         { tintColor: active ? Colors.secondaryBlue : Colors.primaryGray },
       ]}
     />

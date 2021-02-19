@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { Colors } from 'utils'
 import BaseText from 'components/BaseText'
 import RootPin from 'components/RootPin'
-import { ChargerMarkerColor } from 'types'
 import { LegendItemFC } from './types'
 
 const LegendItem: LegendItemFC = ({ text, fastCharger, privateCharger }) => {
@@ -13,9 +12,8 @@ const LegendItem: LegendItemFC = ({ text, fastCharger, privateCharger }) => {
   return (
     <View style={styles.container}>
       <RootPin
-        pinColorType={ChargerMarkerColor.group}
-        width={30}
-        height={38}
+        width={32}
+        height={45}
         fastCharger={fastCharger}
         privateCharger={privateCharger}
       />

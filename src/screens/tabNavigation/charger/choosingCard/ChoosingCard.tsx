@@ -82,7 +82,7 @@ const ChoosingCard = () => {
                     control={control}
                     onChange={(args) => args[0].nativeEvent.text}
                     title="chooseCard.enterPrice"
-                    image={images.briefCase}
+                    image={images.payment}
                     returnKeyType="send"
                     errorText={errors.amount ? 'dropDownAlert.fillAmount' : ''}
                     keyboardType="number-pad"

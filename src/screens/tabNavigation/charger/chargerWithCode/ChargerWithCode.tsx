@@ -37,7 +37,8 @@ const ChargerWithCode = () => {
       <BaseHeader title="charger.chargeWitchCode" />
       <ScrollView style={styles.scrollView}>
         <BaseInput
-          image={images.lock}
+          image={images.chargeWithCode}
+          imageStyle={styles.inputImage}
           keyboardType="number-pad"
           onChangeText={setChargerWithCode}
           onSubmit={findCharger}
@@ -96,6 +97,9 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingHorizontal: 16,
     marginTop: 8,
+  },
+  inputImage: {
+    top: 15,
   },
   baseButton: {
     marginTop: 24,

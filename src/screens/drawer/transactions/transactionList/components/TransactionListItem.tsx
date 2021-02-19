@@ -31,7 +31,7 @@ const TransactionListItem: TransactionItemFC = (
           </BaseText>
         </View>
         <View style={styles.iconsContainer}>
-          <Image source={images.transaction} style={styles.transactionIcon} />
+          <Image source={images.creditCard} style={styles.transactionIcon} />
           <Image source={images.arrowRight} style={styles.arrowIcon} />
         </View>
       </View>
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   transactionIcon: {
     width: 28,
-    height: 20,
+    height: 21,
   },
   arrowIcon: {
     width: 28,

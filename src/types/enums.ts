@@ -25,7 +25,6 @@ export enum ChargerMarkerType {
 }
 
 export enum ChargerMarkerColor {
-  'group',
   'free',
   'busy',
   'notWorking',

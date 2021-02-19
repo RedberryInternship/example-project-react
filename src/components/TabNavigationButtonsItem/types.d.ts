@@ -1,9 +1,10 @@
 import { ReactElement } from 'react'
-import { ImageSourcePropType } from 'react-native'
+import { ImageSourcePropType, ImageStyle } from 'react-native'
 
 type TabNavigationButtonsItemProps = {
   navigate: () => void
   image: ImageSourcePropType
+  imageStyle?: ImageStyle
   active: boolean
 }
 

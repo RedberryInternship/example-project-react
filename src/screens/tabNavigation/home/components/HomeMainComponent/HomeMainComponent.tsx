@@ -42,6 +42,7 @@ const HomeMainComponent: HomeMainFC = (
           onPress={() => navigate('AuthStack', { screen: 'Auth' })}
           text="home.authorization"
           style={styles.authorizeBtn}
+          imageStyle={styles.authorizeBtnImage}
         />
       )}
       <View style={styles.onMapRoundContainer} pointerEvents="box-none">
@@ -94,6 +95,12 @@ const styles = StyleSheet.create({
   },
   authorizeBtn: {
     marginTop: 12,
+  },
+  authorizeBtnImage: {
+    marginLeft: 10,
+    tintColor: 'white',
+    width: 15,
+    height: 15,
   },
   onMapRoundContainer: {
     zIndex: 44,

@@ -7,8 +7,6 @@ type MapMarkerItemProps = {
   onPress: () => void
   fastCharger: boolean
   privateCharger: boolean
-  active: boolean
-  free: boolean
   status: string
 }
 

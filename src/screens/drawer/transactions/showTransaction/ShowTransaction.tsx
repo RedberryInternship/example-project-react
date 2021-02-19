@@ -1,8 +1,9 @@
 import React from 'react'
 import {
   StyleSheet,
-  View,
+  Platform,
   Image,
+  View,
 } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -21,6 +22,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
   const { params } = useRoute<any>()
   const {
+    penalty_duration,
     user_card_pan,
     charger_name,
     charge_power,
@@ -32,8 +34,8 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
   }: TransactionsHistoryResponseItem = params.order
 
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
-  const chargePrice = (): string => `${charge_price ?? 0} ₾`
-  const durationInMins = (): string => `${duration ?? 0} ${t('minute')}`
+  const chargePrice = (): string => `${charge_price ?? 0}₾`
+  const durationInMins = (): string => `${duration ?? '00:00'}`
   const shouldNotRender = (): boolean => !duration && !penalty_fee && !charge_price
 
   return (
@@ -41,14 +43,16 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
       <BaseHeader title="transactions.transactions" onPressLeft={navigation.goBack} />
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
-          <Image source={images.creditCard} style={styles.transactionIcon} resizeMode="contain" />
-          <View style={styles.titleDateTimeContainer}>
-            <BaseText style={styles.title}>
-              {charger_name}
-            </BaseText>
-            <BaseText style={styles.dateAndTime}>
-              {start_date}
-            </BaseText>
+          <View style={styles.headerInnerContainer}>
+            <Image source={images.creditCard} style={styles.transactionIcon} resizeMode="contain" />
+            <View style={styles.titleDateTimeContainer}>
+              <BaseText style={styles.title}>
+                {charger_name}
+              </BaseText>
+              <BaseText style={styles.dateAndTime}>
+                {start_date}
+              </BaseText>
+            </View>
           </View>
           <BaseText style={styles.price}>{chargePrice()}</BaseText>
         </View>
@@ -57,6 +61,10 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
         </BaseText>
         {!shouldNotRender() && (
           <View style={styles.detailsContainer}>
+            {
+              duration
+              && <DetailsItem name={t('transactions.chargeFee')} value={`${charge_price ?? 0} ₾`} />
+            }
             {
               duration
               && <DetailsItem name={t('transactions.duration')} value={durationInMins()} />
@@ -68,6 +76,10 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
             {
               penalty_fee
               && <DetailsItem name={t('transactions.penaltyFee')} value={penaltyFee()} />
+            }
+            {
+              penalty_fee
+              && <DetailsItem name={t('transactions.penaltyDuration')} value={penalty_duration} />
             }
           </View>
         )}
@@ -109,20 +121,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 16,
     paddingTop: 18,
-
+  },
+  headerInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
   },
   transactionIcon: {
     marginTop: 10,
-    height: 36,
+    height: 30,
   },
   titleDateTimeContainer: {
     display: 'flex',
+    marginBottom: 8,
+    marginLeft: 5,
   },
   title: {
     fontSize: 15,
     letterSpacing: 0.2,
     marginTop: 16,
-    marginBottom: 8,
     color: Colors.primaryBackground,
   },
   dateAndTime: {
@@ -131,7 +148,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   price: {
-    marginTop: 16,
+    marginTop: 12,
     fontSize: 36,
     letterSpacing: 0,
     color: Colors.primaryGold,
@@ -146,7 +163,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 16,
     paddingTop: 15,
-    paddingBottom: 10,
+    paddingBottom: Platform.OS === 'ios' ? 10 : 16,
     paddingLeft: 32,
     fontSize: 15,
     letterSpacing: 0.2,

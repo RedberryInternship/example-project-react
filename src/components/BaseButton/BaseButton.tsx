@@ -28,7 +28,7 @@ const BaseButton: BaseButtonFC = (
   const btnImage = image && (
     <Image
       source={image}
-      style={[{ width: 18, height: 18, resizeMode: 'contain' }, imageStyle]}
+      style={[styles.buttonImage, imageStyle]}
     />
   )
 
@@ -86,6 +86,11 @@ const styles = StyleSheet.create({
   innerContainer: {
     flex: 1,
     backgroundColor: '#ffffff00',
+  },
+  buttonImage: {
+    resizeMode: 'contain',
+    width: 18,
+    height: 18,
   },
   touchableStyle: {
     justifyContent: 'center',

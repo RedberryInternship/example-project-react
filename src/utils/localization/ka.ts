@@ -211,12 +211,14 @@ export default {
     transactions: {
       transactions: 'ტრანზაქციები',
       details: 'დეტალები',
-      duration: 'ხანგრძლივობა',
+      chargeFee: 'დამუხტვის ღირებულება',
+      duration: 'დამუხტვის ხანგრძლივობა',
       power: 'სიმძლავრე',
       energy: 'ენერგია',
       address: 'მისამართი',
       cardNumber: 'ბარათის ნომერი',
-      penaltyFee: 'ჯარიმა',
+      penaltyFee: 'ჯარიმის ოდენობა',
+      penaltyDuration: 'საჯარიმო პერიოდი',
     },
     dropDownAlert: {
       error: 'შეცდომა',

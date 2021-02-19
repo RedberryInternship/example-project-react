@@ -8,7 +8,9 @@ const MapMarkerItem: MapMarkerItemFC = (
     lat,
     lng,
     onPress,
-    ...props
+    fastCharger,
+    privateCharger,
+    status,
   },
 ) => (
   <Marker
@@ -16,10 +18,14 @@ const MapMarkerItem: MapMarkerItemFC = (
     coordinate={{ latitude: lat, longitude: lng }}
     tracksInfoWindowChanges={false}
     anchor={{ x: 0.5, y: 0.5 }}
-    collapse
     onPress={onPress}
+    collapsable
   >
-    <MarkerController {...props} />
+    <MarkerController
+      status={status}
+      privateCharger={privateCharger}
+      fastCharger={fastCharger}
+    />
   </Marker>
 )
 

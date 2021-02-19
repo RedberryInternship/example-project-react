@@ -18,6 +18,7 @@ export default {
   alertCircle2: require('./icons/ic_alert-circle.png'),
   charge: require('./icons/ic_charge.png'),
   chargeWithCode: require('./icons/charge_with_code.png'),
+  chargeWithCodeTab: require('./icons/charge_with_code_tab.png'),
   checkCircle: require('./icons/check-circle.png'),
   briefCase: require('./icons/briefcase.png'),
   chevronUp: require('./icons/chevron-up.png'),
@@ -59,6 +60,7 @@ export default {
   addCar: require('./icons/add-car.png'),
   mapMode: require('./icons/map-mode.png'),
   remove: require('./icons/remove.png'),
+  payment: require('./icons/payment.png'),
 }
 
 export const Avatars = [
@@ -69,3 +71,69 @@ export const Avatars = [
   require('./avatars/avatar5.png'),
   require('./avatars/avatar6.png'),
 ]
+
+export const Pins = {
+  fastPrivateCharging: require('./pins/strokeless/fast-private-charging.png'),
+  fastPrivateFree: require('./pins/strokeless/fast-private-free.png'),
+  fastPrivateNotWorking: require('./pins/strokeless/fast-private-not-working.png'),
+  fastPrivate: require('./pins/strokeless/fast-private.png'),
+
+  fastPublicCharging: require('./pins/strokeless/fast-public-charging.png'),
+  fastPublicFree: require('./pins/strokeless/fast-public-free.png'),
+  fastPublicNotWorking: require('./pins/strokeless/fast-public-not-working.png'),
+  fastPublic: require('./pins/strokeless/fast-public.png'),
+
+  lvl2PrivateCharging: require('./pins/strokeless/lvl2-private-charging.png'),
+  lvl2PrivateFree: require('./pins/strokeless/lvl2-private-free.png'),
+  lvl2PrivateNotWorking: require('./pins/strokeless/lvl2-private-not-working.png'),
+  lvl2Private: require('./pins/strokeless/lvl2-private.png'),
+
+  lvl2PublicCharging: require('./pins/strokeless/lvl2-public-charging.png'),
+  lvl2PublicFree: require('./pins/strokeless/lvl2-public-free.png'),
+  lvl2PublicNotWorking: require('./pins/strokeless/lvl2-public-not-working.png'),
+  lvl2Public: require('./pins/strokeless/lvl2-public.png'),
+}
+
+export const StrokedPins = {
+  fastPrivateCharging: require('./pins/stroked/fast-private-charging.png'),
+  fastPrivateFree: require('./pins/stroked/fast-private-free.png'),
+  fastPrivateNotWorking: require('./pins/stroked/fast-private-not-working.png'),
+  fastPrivate: require('./pins/stroked/fast-private.png'),
+
+  fastPublicCharging: require('./pins/stroked/fast-public-charging.png'),
+  fastPublicFree: require('./pins/stroked/fast-public-free.png'),
+  fastPublicNotWorking: require('./pins/stroked/fast-public-not-working.png'),
+  fastPublic: require('./pins/stroked/fast-public.png'),
+
+  lvl2PrivateCharging: require('./pins/stroked/lvl2-private-charging.png'),
+  lvl2PrivateFree: require('./pins/stroked/lvl2-private-free.png'),
+  lvl2PrivateNotWorking: require('./pins/stroked/lvl2-private-not-working.png'),
+  lvl2Private: require('./pins/stroked/lvl2-private.png'),
+
+  lvl2PublicCharging: require('./pins/stroked/lvl2-public-charging.png'),
+  lvl2PublicFree: require('./pins/stroked/lvl2-public-free.png'),
+  lvl2PublicNotWorking: require('./pins/stroked/lvl2-public-not-working.png'),
+  lvl2Public: require('./pins/stroked/lvl2-public.png'),
+}
+
+export const BoldlyStrokedPins = {
+  fastPrivateCharging: require('./pins/boldly-stroked/fast-private-charging.png'),
+  fastPrivateFree: require('./pins/boldly-stroked/fast-private-free.png'),
+  fastPrivateNotWorking: require('./pins/boldly-stroked/fast-private-not-working.png'),
+  fastPrivate: require('./pins/boldly-stroked/fast-private.png'),
+
+  fastPublicCharging: require('./pins/boldly-stroked/fast-public-charging.png'),
+  fastPublicFree: require('./pins/boldly-stroked/fast-public-free.png'),
+  fastPublicNotWorking: require('./pins/boldly-stroked/fast-public-not-working.png'),
+  fastPublic: require('./pins/boldly-stroked/fast-public.png'),
+
+  lvl2PrivateCharging: require('./pins/boldly-stroked/lvl2-private-charging.png'),
+  lvl2PrivateFree: require('./pins/boldly-stroked/lvl2-private-free.png'),
+  lvl2PrivateNotWorking: require('./pins/boldly-stroked/lvl2-private-not-working.png'),
+  lvl2Private: require('./pins/boldly-stroked/lvl2-private.png'),
+
+  lvl2PublicCharging: require('./pins/boldly-stroked/lvl2-public-charging.png'),
+  lvl2PublicFree: require('./pins/boldly-stroked/lvl2-public-free.png'),
+  lvl2PublicNotWorking: require('./pins/boldly-stroked/lvl2-public-not-working.png'),
+  lvl2Public: require('./pins/boldly-stroked/lvl2-public.png'),
+}
