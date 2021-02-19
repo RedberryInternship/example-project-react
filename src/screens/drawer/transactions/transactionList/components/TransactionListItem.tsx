@@ -23,17 +23,17 @@ const TransactionListItem: TransactionItemFC = (
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>
-        <View style={styles.innerLeftContainer}>
-          <Image source={images.transaction} style={styles.transactionIcon} />
-          <View style={styles.textContainer}>
-            <BaseText style={styles.title}>{charger_name}</BaseText>
-            <BaseText style={styles.dateAndTime}>{start_date}</BaseText>
-          </View>
+        <View style={styles.textContainer}>
+          <BaseText style={styles.title}>{charger_name}</BaseText>
+          <BaseText style={styles.dateAndTime}>{start_date}</BaseText>
+          <BaseText style={styles.price}>
+            {chargePrice}
+          </BaseText>
         </View>
-        <BaseText style={styles.price}>
-          {chargePrice}
-          {' '}
-        </BaseText>
+        <View style={styles.iconsContainer}>
+          <Image source={images.creditCard} style={styles.transactionIcon} />
+          <Image source={images.arrowRight} style={styles.arrowIcon} />
+        </View>
       </View>
     </TouchableOpacity>
   )
@@ -52,15 +52,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 16,
   },
-  innerLeftContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  iconsContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
   transactionIcon: {
     width: 28,
+    height: 21,
+  },
+  arrowIcon: {
+    width: 28,
     height: 20,
+    tintColor: Colors.blackish,
+    marginTop: 20,
   },
   textContainer: {
+    display: 'flex',
     marginLeft: 8,
   },
   title: {
@@ -76,9 +84,10 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   price: {
-    fontSize: 15,
+    fontSize: 24,
     letterSpacing: 0.2,
     fontWeight: 'bold',
-    color: Colors.secondaryBlue,
+    color: Colors.primaryGold,
+    marginTop: 5,
   },
 })

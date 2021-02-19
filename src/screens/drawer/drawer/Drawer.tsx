@@ -49,6 +49,7 @@ const Drawer = () => {
         <View style={{ paddingTop: insets.top, borderTopLeftRadius: 24 }}>
           <BaseButton
             image={images.user}
+            imageStyle={styles.drawerAuthBtnImage}
             onPress={() => navigate('AuthStack', { screen: 'Auth' })}
             text="home.authorization"
             style={styles.drawerAuthBtn}
@@ -177,6 +178,12 @@ const styles = StyleSheet.create({
     width: '90%',
     marginTop: 10,
     marginBottom: 60,
+  },
+  drawerAuthBtnImage: {
+    tintColor: 'white',
+    width: 15,
+    height: 15,
+    marginLeft: 10,
   },
   localeAndLogoutWrapper: {
     flexDirection: 'row',

@@ -220,13 +220,15 @@ export default {
     },
     transactions: {
       transactions: 'Transactions',
-      details: 'Details',
+      details: 'Charging Details',
+      chargeFee: 'Charge Fee',
       duration: 'Duration',
       power: 'Power',
       energy: 'Energy',
       address: 'Address',
       cardNumber: 'Card Number',
       penaltyFee: 'Penalty Fee',
+      penaltyDuration: 'Penalty Duration',
     },
     dropDownAlert: {
       error: 'Error',

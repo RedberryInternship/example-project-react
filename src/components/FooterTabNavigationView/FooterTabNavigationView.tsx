@@ -59,7 +59,8 @@ const FooterTabNavigator = () => {
               screen: 'NotAuthorized',
             })
         }}
-        image={images.chargeWithCode}
+        image={images.chargeWithCodeTab}
+        imageStyle={styles.chargeWithCode}
       />
       {chargingState.length > 0 && isAuthenticated() && (
         <Animatable.View
@@ -102,5 +103,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
+  },
+  chargeWithCode: {
+    width: 22,
+    height: 22,
   },
 })

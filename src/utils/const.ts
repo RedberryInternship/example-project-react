@@ -3,6 +3,7 @@ import images from 'assets/images'
 import { UserSettingEnum, SettingsListFieldType } from 'types'
 import Colors from './colors'
 
+// export const domain = 'http://127.0.0.1:8000/'
 // export const domain = 'https://api-dev.e-space.ge'
 export const domain = 'https://app.e-space.ge' // prod
 
@@ -12,7 +13,7 @@ export const API = `${domain}/api/app/V1`
  * App custom build number
  * for back-end.
  */
-export const BUILD_NUMBER = 213
+export const BUILD_NUMBER = 214
 
 // google maps api
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'
@@ -53,7 +54,7 @@ export const DrawerFieldsAfterAuthorization = [
   },
   ...DrawerFieldsBeforeAuthorization,
   {
-    image: images.creditCard,
+    image: images.transactions,
     text: 'drawer.transactions',
     route: 'TransactionList',
   },
@@ -61,13 +62,13 @@ export const DrawerFieldsAfterAuthorization = [
 
 export const SettingsListFields: SettingsListFieldType[] = [
   {
-    image: images.blueUser,
+    image: images.user,
     name: 'settings.firstname',
     type: UserSettingEnum.firstName,
     editableComponentName: 'settings.editFirstname',
   },
   {
-    image: images.blueUser,
+    image: images.user,
     name: 'settings.lastname',
     type: UserSettingEnum.lastName,
     editableComponentName: 'settings.editLastname',
@@ -95,7 +96,7 @@ export const SettingsListFields: SettingsListFieldType[] = [
     onEmptyText: 'settings.add',
   },
   {
-    image: images.lock,
+    image: images.password,
     name: 'settings.password',
     type: UserSettingEnum.password,
     editableComponentName: 'settings.editPassword',
@@ -103,13 +104,13 @@ export const SettingsListFields: SettingsListFieldType[] = [
     onEmptyText: '*********',
   },
   {
-    image: images.lock,
+    image: images.mapMode,
     name: 'settings.mapColor',
     type: UserSettingEnum.mapMode,
     editableComponentName: 'settings.editPassword',
   },
   {
-    image: images.lock,
+    image: images.addCar,
     name: 'settings.addCar',
     type: UserSettingEnum.addCar,
     editableComponentName: 'settings.addCar',

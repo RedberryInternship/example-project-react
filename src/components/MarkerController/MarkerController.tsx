@@ -3,7 +3,13 @@ import RootPin from 'components/RootPin'
 import { ChargerMarkerColor } from 'types'
 import { MarkerControllerFC } from './types'
 
-const MarkerController: MarkerControllerFC = ({ status, ...props }) => {
+const MarkerController: MarkerControllerFC = ({
+  status,
+  width,
+  height,
+  privateCharger,
+  fastCharger,
+}) => {
   const getStatus = () => {
     switch (status) {
       case 'ACTIVE':
@@ -19,7 +25,15 @@ const MarkerController: MarkerControllerFC = ({ status, ...props }) => {
     }
   }
 
-  return <RootPin {...props} pinColorType={getStatus()} />
+  return (
+    <RootPin
+      width={width}
+      height={height}
+      privateCharger={privateCharger}
+      fastCharger={fastCharger}
+      pinColorType={getStatus()}
+    />
+  )
 }
 
 export default MarkerController

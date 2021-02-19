@@ -1,8 +1,9 @@
 import React from 'react'
 import {
   StyleSheet,
-  View,
+  Platform,
   Image,
+  View,
 } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import { useTranslation } from 'react-i18next'
@@ -21,19 +22,20 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
   const { t } = useTranslation()
   const { params } = useRoute<any>()
   const {
-    charger_name,
-    address,
-    duration,
-    penalty_fee,
-    charge_power,
-    start_date,
-    charge_price,
+    penalty_duration,
     user_card_pan,
+    charger_name,
+    charge_power,
+    charge_price,
+    penalty_fee,
+    start_date,
+    duration,
+    address,
   }: TransactionsHistoryResponseItem = params.order
 
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
-  const chargePrice = (): string => `${charge_price ?? 0} ${t('gel')}`
-  const durationInMins = (): string => `${duration ?? 0} ${t('minute')}`
+  const chargePrice = (): string => `${charge_price ?? 0}₾`
+  const durationInMins = (): string => `${duration ?? '00:00'}`
   const shouldNotRender = (): boolean => !duration && !penalty_fee && !charge_price
 
   return (
@@ -41,26 +43,28 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
       <BaseHeader title="transactions.transactions" onPressLeft={navigation.goBack} />
       <View style={styles.innerContainer}>
         <View style={styles.headerContainer}>
-          <Image source={images.transaction} style={styles.transactionIcon} />
-          <BaseText style={styles.title}>
-            {' '}
-            {charger_name}
-            {' '}
-          </BaseText>
-          <BaseText style={styles.dateAndTime}>
-            {' '}
-            {start_date}
-            {' '}
-          </BaseText>
+          <View style={styles.headerInnerContainer}>
+            <Image source={images.creditCard} style={styles.transactionIcon} resizeMode="contain" />
+            <View style={styles.titleDateTimeContainer}>
+              <BaseText style={styles.title}>
+                {charger_name}
+              </BaseText>
+              <BaseText style={styles.dateAndTime}>
+                {start_date}
+              </BaseText>
+            </View>
+          </View>
           <BaseText style={styles.price}>{chargePrice()}</BaseText>
         </View>
         <BaseText style={styles.detailsCopy}>
-          {' '}
           {t('transactions.details')}
-          {' '}
         </BaseText>
         {!shouldNotRender() && (
           <View style={styles.detailsContainer}>
+            {
+              duration
+              && <DetailsItem name={t('transactions.chargeFee')} value={`${charge_price ?? 0} ₾`} />
+            }
             {
               duration
               && <DetailsItem name={t('transactions.duration')} value={durationInMins()} />
@@ -73,6 +77,10 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
               penalty_fee
               && <DetailsItem name={t('transactions.penaltyFee')} value={penaltyFee()} />
             }
+            {
+              penalty_fee
+              && <DetailsItem name={t('transactions.penaltyDuration')} value={penalty_duration} />
+            }
           </View>
         )}
         <View style={styles.addressFieldContainer}>
@@ -80,9 +88,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
         </View>
         <View style={styles.cardDetailsContainer}>
           <BaseText style={styles.cardNumberCopy}>
-            {' '}
             {t('transactions.cardNumber')}
-            {' '}
           </BaseText>
           <BaseText style={styles.cardNumber}>{user_card_pan ?? ''}</BaseText>
         </View>
@@ -101,29 +107,39 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    backgroundColor: Colors.secondaryLightGrey,
+    backgroundColor: Colors.secondaryGray,
     borderRadius: 10,
     margin: 16,
   },
   headerContainer: {
-    backgroundColor: Colors.secondaryGrey,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.primaryLightGrey,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: Colors.secondaryGrey,
     borderRadius: 10,
     paddingHorizontal: 16,
     paddingBottom: 16,
-    paddingTop: 32,
+    paddingTop: 18,
+  },
+  headerInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
   },
   transactionIcon: {
-    width: 46,
-    height: 33,
+    marginTop: 10,
+    height: 30,
+  },
+  titleDateTimeContainer: {
+    display: 'flex',
+    marginBottom: 8,
+    marginLeft: 5,
   },
   title: {
     fontSize: 15,
     letterSpacing: 0.2,
     marginTop: 16,
-    marginBottom: 8,
     color: Colors.primaryBackground,
   },
   dateAndTime: {
@@ -132,21 +148,27 @@ const styles = StyleSheet.create({
     letterSpacing: 0.2,
   },
   price: {
-    marginTop: 16,
-    fontSize: 17,
-    letterSpacing: 0.2,
-    color: Colors.secondaryBlue,
+    marginTop: 12,
+    fontSize: 36,
+    letterSpacing: 0,
+    color: Colors.primaryGold,
+    fontFamily: 'FiraGO-Book',
+    fontWeight: 'bold',
   },
   detailsCopy: {
-    color: Colors.primaryBackground,
-    marginVertical: 16,
-    marginLeft: 32,
+    color: Colors.primaryWhite,
+    backgroundColor: Colors.primaryBlue,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    marginTop: 40,
+    marginBottom: 16,
+    paddingTop: 15,
+    paddingBottom: Platform.OS === 'ios' ? 10 : 16,
+    paddingLeft: 32,
     fontSize: 15,
     letterSpacing: 0.2,
   },
   detailsContainer: {
-    borderTopWidth: 1,
-    borderTopColor: Colors.primaryLightGrey,
     borderBottomWidth: 1,
     borderBottomColor: Colors.primaryLightGrey,
     paddingHorizontal: 32,

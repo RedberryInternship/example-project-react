@@ -3,6 +3,7 @@ export type TransactionsHistoryResponseItem = {
   charger_name: string
   address: string
   duration: string
+  penalty_duration: null | string
   penalty_fee: null | string
   charge_power: null | string
   start_date: string

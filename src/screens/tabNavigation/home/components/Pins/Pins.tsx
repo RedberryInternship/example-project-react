@@ -23,9 +23,7 @@ const Pins: PinsFC = (
       onPress={() => onMarkerPress(charger)}
       fastCharger={charger.connector_types?.[0]?.name !== 'Type 2'}
       privateCharger={!charger.public}
-      active={!!charger.active}
       status={charger.status}
-      free={charger.is_free}
       groupChargerCount={charger.charger_group?.chargers?.length ?? 0}
     />
   ))
