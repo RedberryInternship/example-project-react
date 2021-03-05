@@ -33,8 +33,8 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
     address,
   }: TransactionsHistoryResponseItem = params.order
 
+  const fullPrice = (): string => `${+(charge_price ?? 0) + +(penalty_fee ?? 0)}₾`
   const penaltyFee = (): string => `${penalty_fee ?? 0} ${t('gel')}`
-  const chargePrice = (): string => `${charge_price ?? 0}₾`
   const durationInMins = (): string => `${duration ?? '00:00'}`
   const shouldNotRender = (): boolean => !duration && !penalty_fee && !charge_price
 
@@ -54,7 +54,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
               </BaseText>
             </View>
           </View>
-          <BaseText style={styles.price}>{chargePrice()}</BaseText>
+          <BaseText style={styles.price}>{fullPrice()}</BaseText>
         </View>
         <BaseText style={styles.detailsCopy}>
           {t('transactions.details')}
