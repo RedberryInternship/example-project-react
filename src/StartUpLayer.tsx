@@ -35,12 +35,6 @@ const StartUpLayer = () => {
 
   return (
     <>
-      {/* <Navigation
-        ref={setNavigationReference}
-        screenProps={screenProps}
-        theme="dark"
-        onNavigationStateChange={onNavigationStateChange}
-      /> */}
       <Navigation />
       <CustomDropdownAlert dropDownInactiveBarColor={determineNavigationTheme} />
       <CustomModal ref={defaults.modal} />

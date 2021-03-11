@@ -83,8 +83,10 @@ const RootPin = (
         y2={55.932}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor={pinColorType ? pinColorTypes[pinColorType].startColor : '#007AFF'} />
-        <Stop offset={0.979} stopColor={pinColorType ? pinColorTypes[pinColorType].stopColor : '#007AFF'} />
+        {/* <Stop stopColor={pinColorType ? pinColorTypes[pinColorType].startColor : '#007AFF'} /> */}
+        {/* <Stop offset={0.979} stopColor={pinColorType ? pinColorTypes[pinColorType].stopColor : '#007AFF'} /> */}
+        <Stop stopColor={pinColorType !== undefined ? pinColorTypes[pinColorType].startColor : '#007AFF'} />
+        <Stop offset={0.979} stopColor={pinColorType !== undefined ? pinColorTypes[pinColorType].stopColor : '#007AFF'} />
       </LinearGradient>
 
       <LinearGradient
@@ -104,5 +106,4 @@ const RootPin = (
     </Defs>
   </Svg>
 )
-
 export default RootPin
