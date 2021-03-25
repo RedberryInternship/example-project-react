@@ -105,10 +105,25 @@ Docs soon...
 ├─── src      # project source codes
 │   ├─── assets       # project images and fonts
 │   ├─── components   # reusable components
+│   ├───├─── component-folder   # component folder name(component folder and component itself have same name)
+│   ├───├───├─── index.ts               # export default component
+│   ├───├───├─── component-name.tsx     # react component
+│   ├───├───├─── use-component-name.tsx # [OPTIONAL] react hook
+│   ├───├───├─── types.d.ts             # [OPTIONAL] component scoped types
+│   ├───├───├─── helpers.ts             # [OPTIONAL] component scoped helpers
+│   ├───├───├─── utils.ts               # [OPTIONAL] component scoped utility functions
+│   ├───├─── index.ts   # export all components
 │   ├─── helpers      # global helpers
 │   ├─── hooks        # global react hooks
 │   ├─── libraries    # library configurations
 │   ├─── screens      # react navigation screens
+│   ├───├─── screen-folder  # react navigation screens
+│   ├───├───├─── index.ts            # export default screen
+│   ├───├───├─── screen-name.ts      # react screen component
+│   ├───├───├─── use-screen-name.ts  # [OPTIONAL] react screen hook
+│   ├───├───├─── helpers.ts          # [OPTIONAL] screen scoped helpers
+│   ├───├───├─── utils.ts            # [OPTIONAL] screen scoped utility functions
+│   ├───├───├─── types.d.ts          # [OPTIONAL] screen scoped types
 │   ├─── services     # api services / axios calls
 │   ├─── state        # redux state management and sagas
 │   ├─── types        # global types
