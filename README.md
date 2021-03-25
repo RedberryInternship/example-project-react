@@ -110,15 +110,15 @@ Docs soon...
 │   ├─── libraries    # library configurations
 │   ├─── screens      # react navigation screens
 │   ├─── services     # api services / axios calls
-│   ├─── state
-│   ├─── types
-│   ├─── utils
-│   │- StartUpLayer.tsx
-- .eslintrc.json
-- .prettierrc.js
-- .sentryclirc
-- App.tsx
-- babel.config.js
-- package.json
-- tsconfig.json
+│   ├─── state        # redux state management and sagas
+│   ├─── types        # global types
+│   ├─── utils        # global utility functions
+│   │- StartUpLayer.tsx # Starting point where you can do some work before app loads
+- .eslintrc.json   # eslint config file
+- .prettierrc.js   # prettier config file
+- .sentryclirc     # sentry config file
+- App.tsx          # react app
+- babel.config.js  # babel config file
+- package.json     # dependency manager configurations
+- tsconfig.json    # typescript config file
 ```
