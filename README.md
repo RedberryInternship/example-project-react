@@ -1,97 +1,124 @@
-# E Space
+<div style="display:flex; align-items: center">
+  <img src="readme/assets/logo.png" alt="drawing" width="100" style="margin-right: 20px" />
+  <h1 style="position:relative; top: -6px" >E Space Mobile App</h1>
+</div>
 
-E Space is a mobile app for .....
+---
+E Space Mobile App helps people to find e-car charger nearby and charge their electric cars easily.
 
-## Getting Started
 
-```
-git clone https://github.com/Chkhikvadze/espace-mobile.git
-```
+#
+### Table of Contents
+* [Prerequisites](#prerequisites)
+* [Tech Stack](#tech-stack)
+* [Getting Started](#getting-started)
+* [Running Unit Tests](#running-unit-tests)
+* [Development](#development)
+* [Deployment with CI / CD](#deployment-with-ci-\-cd)
+* [Project Structure](#project-structure)
 
+#
 ### Prerequisites
 
-Before you install the project you have to have Android Studio installed for Android Devices and XCode for IOS Devices
-
-### Installing
-
-1) In order to install dependencies run the commands in the project root folder:
-
-	```
-	npm install
-	```
-	or
-
-	```
-	yarn install
-	```
+* <img src="readme/assets/node.png" width="25" style="position: relative; top: 8px" /> *Node JS @12.X and up*
+* <img src="readme/assets/yarn.jpeg" width="25" style="position: relative; top: 7px" /> *Yarn @1.X and up*
+* <img src="readme/assets/npm.png" width="35" style="position: relative; top: 4px" /> *npm @6 and up*
+* <img src="readme/assets/typescript.png" width="20" style="position: relative; top: 6px" /> *TypeScript@4.X and up*
 
 
+#
+### Tech Stack
 
-2) Then go to ios directory and run the command:
+* <img src="readme/assets/react.png" height="18" style="position: relative; top: 4px" /> [React @16.11.0](https://reactjs.org) - front-end framework
+* <img src="readme/assets/react-native.png"  height="20" style="position: relative; top: 4px" /> [React Native @0.62.2](https://reactnative.dev/) - Mobile hibryd applications framework
+* <img src="readme/assets/redux.png" height="18" style="position: relative; top: 4px" /> [Redux @4.0.5](https://redux.js.org/) - State management tool
+* <img src="readme/assets/redux-saga.png" height="18" style="position: relative; top: 4px" /> [Redux Saga @1.1.3](https://redux-saga.js.org/) - Side effect manager
+* <img src="readme/assets/jwt.png" height="18" style="position: relative; top: 4px" /> [JWT Auth](https://jwt.io/) - Authentication system
+* <img src="readme/assets/sentry.jpeg" height="25" style="position: relative; top: 5px" /> [Sentry @2.1.0](https://github.com/spatie/laravel-translatable) - Error monitoring tool
+* <img src="readme/assets/i18next.png" height="25" style="position: relative; top: 5px" /> [i18next @19.4.4](https://github.com/spatie/laravel-translatable) - Error monitoring tool
 
-	```
-	pod install
-	```
+#
+### Getting Started
+1\. First of all you need to clone E Space repository from github:
+```sh
+git clone https://github.com/e-space1/espace-mobile.git
+```
 
-Then you should be good to go
+2\. Next step requires  install all the dependencies.
+```sh
+npm install
+```
+or
+```sh
+yarn
+```
+
+3\. after you have installed all the node dependencies, it's time to install ios pods:
+```sh
+cd ios && pod install
+```
+
+4\. after that you can run e-space application from terminal:
+```sh
+yarn ios
+```
+or
+```
+yarn android
+```
+
+For more information about running apps with simulator and on real device check out [docs](https://reactnative.dev/docs/running-on-device)
+
+#
+### Running Unit tests
+Docs soon....
+
+#
+### Development
+
+You can manage environment server api from the **src/utils/const.ts** file:
+
+```ts
+// export const domain = 'http://127.0.0.1:8000/'
+// export const domain = 'https://api-dev.e-space.ge'
+export const domain = 'https://app.e-space.ge' // prod
+```
+during development should most likely have uncommented **https://api-dev.e-space.ge** api.
+
+Before deployment to app store/play store you should change this so that **https://app.e-space.ge** would be uncommented.
 
 
-3) Running Emulators
+#
+### Deployment with CI
+Docs soon...
 
-	*	Android:
+#
+### Project Structure
 
-		```
-		npm run android 
-		```
-		or
-
-		```
-		yarn android 
-		```
-
-	* IOS:
-		```
-		npm run ios
-		```
-	  or
-
-		```
-		yarn ios
-		```
-
-
-
-
-
-
-
-
-
-
-
-###Review 10
-1. Base  button - https://cln.sh/EKG8ir
-2. BasPickerSelect  - https://cln.sh/NgmU3I
-3. package.json კარგი იქნებბა ყველას თუ კონკრეტულ ვერსიას გაუწერ, ხანდახან აკეთბენ ცვლილებებს და შეიძლება ისეთი ცვლილება გაგიკეთონ რომ აგირიოს აპლიაკცია, ჯობია დაგეგმილად გააკეთო ხოლმე აფდეითები ვიდრე თვითონ აწიოს ვერსია - https://cln.sh/h7fSHg მაგ: "react-native-webview": "10.3.1"
-4. CardListView -  https://cln.sh/NNZzf7
-5. ChargerGroupPopupItem - https://cln.sh/n47PSY
-6. CustomerModel - https://cln.sh/n47PSY
-7. MapMarkerItem - https://cln.sh/9Cs9Yp
-8. PasswordChangeView, PasswordConfirmationView - https://cln.sh/fNt7gH
-9. titleTopLeftContainer - https://cln.sh/Uc1Fp9
-10. remove it - https://cln.sh/RaHIhs
-11. FinishingPopup  - you can find here better way https://cln.sh/69jJQY, at least you can get dispatch from prams
-12. npm-check result, please check all package which you are using and Red and yellow package would be updates on the last version if that is possible. see here https://cln.sh/s7UBvi 
-13. Auth.tsx - https://cln.sh/acgtT2
-14. ForgetPassword -  https://cln.sh/9wnF1E
-15. Remove it - https://cln.sh/9wnF1E
-16. Please describe Directory Structure in Readme, https://cln.sh/8V7Gt8
-17. Please Describe Package, why we use it - https://cln.sh/yyN3yd
-18. Please Describe how deploy in test flight and production in Deploy.md and add link in main README.md https://cln.sh/NXS6rU
-19. Please Describe TechStack - https://cln.sh/gw2sqw
-20. Please Describe - Prerequisites https://cln.sh/ZR9O6H
-21. Test at least main components, which run before production:
-for example: https://jestjs.io/docs/en/tutorial-react-native
-https://reactnative.dev/docs/testing-overview
-https://www.smashingmagazine.com/2020/09/unit-testing-react-native-applications/
-https://medium.com/@hdsenevi/unit-testing-in-react-native-with-jest-and-enzyme-40cd7dabb6f1
+```bash
+├─── android  # native android project files
+├─── ios      # native ios project files
+├─── out      # place where build files and sourcemaps are stored
+├─── patches  # library fixes
+├─── readme   # readme assets
+├─── scripts  # custom scripts that are ran by the package json scripts
+├─── src      # project source codes
+│   ├─── assets       # project images and fonts
+│   ├─── components   # reusable components
+│   ├─── helpers      # global helpers
+│   ├─── hooks        # global react hooks
+│   ├─── libraries    # library configurations
+│   ├─── screens      # react navigation screens
+│   ├─── services     # api services / axios calls
+│   ├─── state
+│   ├─── types
+│   ├─── utils
+│   │- StartUpLayer.tsx
+- .eslintrc.json
+- .prettierrc.js
+- .sentryclirc
+- App.tsx
+- babel.config.js
+- package.json
+- tsconfig.json
+```
