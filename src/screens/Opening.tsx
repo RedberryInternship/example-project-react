@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, View } from 'react-native'
-import { Colors, Font } from 'utils'
+import Colors from 'utils/colors'
+import Font from 'utils/font'
 import BaseText from 'components/BaseText'
 import images from 'assets/images'
 

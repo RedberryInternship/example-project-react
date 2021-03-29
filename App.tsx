@@ -10,7 +10,7 @@ import StartUpLayer from 'StartUpLayer'
 
 console.disableYellowBox = true
 
-const App = (): React.ReactElement => (
+const App = () => (
   <Provider store={store}>
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <StartUpLayer />

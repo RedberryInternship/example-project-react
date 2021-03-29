@@ -1,7 +1,8 @@
 {
     "env": {
         "browser": true,
-        "es6": true
+        "es6": true,
+        "jest/globals": true
     },
     "extends": [
         "plugin:react/recommended",
@@ -22,13 +23,15 @@
     "plugins": [
         "react",
         "@typescript-eslint",
-        "react-hooks"
+        "react-hooks",
+        "jest"
     ],
     "rules": {
         "semi": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "import/prefer-default-export": "off",
+        "import/order": "off",
         "react/jsx-filename-extension": [1, {
             "allow": "as-needed",
             "extensions": [".tsx"]

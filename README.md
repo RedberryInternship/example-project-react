@@ -105,7 +105,7 @@ Docs soon...
 ├─── src      # project source codes
 │   ├─── assets       # project images and fonts
 │   ├─── components   # reusable components
-│   ├───├─── component-folder   # component folder name(component folder and component itself have same name)
+│   ├───├─── component-folder   # component folder name
 │   ├───├───├─── index.ts               # export default component
 │   ├───├───├─── component-name.tsx     # react component
 │   ├───├───├─── use-component-name.tsx # [OPTIONAL] react hook

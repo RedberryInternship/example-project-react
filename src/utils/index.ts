@@ -2,7 +2,6 @@ import Defaults from './defaults'
 import Colors from './colors'
 import * as Const from './const'
 import Font from './font'
-import Navigation from './navigation'
 import i18n, { getLocaleText } from './localization'
 import * as Map from './map'
 import InputValidation from './InputValidation'
@@ -16,7 +15,6 @@ import * as App from './app'
 export {
   InputValidation,
   getLocaleText,
-  Navigation,
   References,
   Location,
   Defaults,
