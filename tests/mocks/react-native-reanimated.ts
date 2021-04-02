@@ -1,15 +1,7 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import 'jest'
+import RNReanimated from 'react-native-reanimated/src/ReanimatedModule'
 
-jest.mock('react-native-reanimated', () => ({
-  __esModule: true,
-  default: {
-    Value: jest.fn(),
-    EasingNode: {
-      out: jest.fn(),
-    },
-    Easing: {
-      out: jest.fn(),
-    },
-  },
-}))
+const mockReanimated = jest.fn();
+mockReanimated.mockImplementation(() => RNReanimated)
+
+jest.mock('react-native-reanimated', () => mockReanimated)

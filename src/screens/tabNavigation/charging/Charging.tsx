@@ -48,7 +48,7 @@ const Charging: FCWithNavigation = ({ navigation }) => {
     <TabView
       navigationState={{
         index: activeTab,
-        routes: (chargingState ?? []) as any,
+        routes: (chargingState || []) as any,
       }}
       renderScene={renderScene}
       onIndexChange={setActiveTab}
