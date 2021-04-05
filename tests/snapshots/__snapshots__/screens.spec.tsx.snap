@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshorts auth screen 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "#11222D",
+      "flex": 1,
+      "justifyContent": "center",
+    }
+  }
+>
+  <Image
+    resizeMode="contain"
+    source={
+      Object {
+        "testUri": "../../../src/assets/images/logo.png",
+      }
+    }
+    style={
+      Object {
+        "width": 100,
+      }
+    }
+  />
+  <Text
+    allowFontScaling={false}
+    numberOfLines={1}
+    style={
+      Array [
+        Object {
+          "color": "#ffffff",
+          "fontSize": 13,
+          "letterSpacing": 0.2,
+          "textAlignVertical": "center",
+        },
+        Object {
+          "fontFamily": "HelveticaNeue-Bold",
+          "marginBottom": 50,
+        },
+        Object {
+          "fontFamily": "HelveticaNeue-Bold",
+          "fontSize": 13,
+          "letterSpacing": 0.2,
+          "lineHeight": 13,
+        },
+      ]
+    }
+    testID="title"
+  >
+    Welcome to E-Space
+  </Text>
+</View>
+`;

@@ -11,6 +11,8 @@ module.exports = {
   setupFiles: [
     './tests/mocks/react-native-reanimated.ts',
     './tests/mocks/react-native-location.ts',
+    './tests/mocks/safe-area-context.ts',
+    './tests/mocks/react-navigation.ts',
     './tests/mocks/gesture-handler.ts',
     './tests/mocks/async-storage.ts',
     './tests/mocks/device-info.ts',
