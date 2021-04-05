@@ -19,7 +19,7 @@ export const saveJWTTokenAndUserData = (
   userData: UserMeResponseType,
   token: string | null = defaults.token,
 ): void => {
-  AsyncStorage.setItem('token', token ?? '')
+  AsyncStorage.setItem('token', token || '')
   AsyncStorage.setItem('userDetail', JSON.stringify(userData))
 
   defaults.token = token

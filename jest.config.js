@@ -21,6 +21,6 @@ module.exports = {
   ],
   testRegex: '(/tests/components/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
   transformIgnorePatterns: [
-    'node_modules/react-native-tab-view',
+    '/node_modules/react-native-tab-view',
   ],
 }

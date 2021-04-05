@@ -4,6 +4,7 @@ import 'jest'
 const mockAsyncStorage = {
   setItem: jest.fn(),
   getItem: jest.fn(),
+  clear: jest.fn(),
 }
 
 export default mockAsyncStorage;

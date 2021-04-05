@@ -25,10 +25,10 @@ const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
 ) => {
   const { t } = useTranslation()
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="charger-info-wrapper">
       <View style={styles.nameAndFavoriteIconContainer}>
         <View style={styles.nameAndCodeContainer}>
-          <BaseText style={styles.codeContainer}>
+          <BaseText style={styles.codeContainer} testID="charger-code">
             {t('chargerDetail.code', { code })}
           </BaseText>
         </View>

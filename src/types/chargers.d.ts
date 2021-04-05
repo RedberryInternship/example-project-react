@@ -18,7 +18,6 @@ export type Favorite = {
   lat: string
   lng: string
   iban: string
-  charger_group_id: number | null
   last_update: string | null
   created_at: string
   updated_at: string
@@ -32,10 +31,7 @@ export type Favorite = {
 
 export type LastUsedCharger = Charger
 
-export interface Charger extends ChargerDetail {
-  charger_group_id: number | null
-  charger_group: ChargerGroup | null
-}
+export interface Charger extends ChargerDetail { }
 
 export type ChargersResponseWithTime = {
   data: Charger[]
@@ -68,7 +64,6 @@ export type ChargerDetail = {
   iban: string
   is_paid: boolean
   penalty_enabled: boolean
-  charger_group_id: number
   last_update: string
   created_at: string
   updated_at: string

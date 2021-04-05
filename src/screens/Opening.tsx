@@ -8,7 +8,7 @@ import images from 'assets/images'
 const Opening = () => (
   <View style={styles.container}>
     <Image source={images.logo} style={styles.image} resizeMode="contain" />
-    <BaseText style={styles.text}>Welcome to E-Space</BaseText>
+    <BaseText style={styles.text} testID="title">Welcome to E-Space</BaseText>
   </View>
 )
 
