@@ -15,6 +15,7 @@ module.exports = {
     './tests/mocks/react-navigation.ts',
     './tests/mocks/gesture-handler.ts',
     './tests/mocks/async-storage.ts',
+    './tests/mocks/react-redux.ts',
     './tests/mocks/device-info.ts',
     './tests/mocks/sentry.ts',
   ],
