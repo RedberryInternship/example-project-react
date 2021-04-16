@@ -65,6 +65,7 @@ const ChargerWithCode = () => {
           title="charger.lastUsed"
           direction="column"
           data={['oneRender']}
+          testID="lastUsedChargers"
           onRenderItem={(val: string): ReactElement => (
             <FetchedDataRenderer
               property="lastUsedCharger"
@@ -73,6 +74,7 @@ const ChargerWithCode = () => {
                 <ChargerItem
                   key={index}
                   onPress={() => navigateToChargerDetailScreen(item)}
+                  testID={item.code}
                   address={getLocaleText(item.location)}
                   code={item.code}
                 />

@@ -41,8 +41,6 @@ java_pid*.hprof
 node_modules/
 npm-debug.log
 yarn-error.log
-package-lock.json
-yarn.lock
 
 # BUCK
 buck-out/

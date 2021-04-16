@@ -5,4 +5,10 @@ export const mockSafeAreaContext = {
   useSafeAreaInsets: jest.fn(),
 };
 
+mockSafeAreaContext.useSafeAreaInsets.mockImplementation(() => (
+  {
+    top: 10,
+  }
+))
+
 jest.mock('react-native-safe-area-context', () => mockSafeAreaContext);

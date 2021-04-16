@@ -3,7 +3,6 @@ import { ChargerDetail } from 'screens'
 import { render } from '@testing-library/react-native'
 import mockCharger from '../factory/charger'
 import { mockReactNavigation } from '../mocks/react-navigation'
-import { mockSafeAreaContext } from '../mocks/safe-area-context'
 
 mockReactNavigation.useRoute.mockImplementation(() => (
   {
@@ -13,12 +12,6 @@ mockReactNavigation.useRoute.mockImplementation(() => (
     },
   }
 ));
-
-mockSafeAreaContext.useSafeAreaInsets.mockImplementation(() => (
-  {
-    top: 10,
-  }
-))
 
 jest.mock('react-redux', () => ({
   useSelector: () => ({}),

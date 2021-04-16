@@ -13,6 +13,7 @@ import { ChargerItemFC } from 'screens/tabNavigation/charger/chargerWithCode/typ
 const ChargerItem: ChargerItemFC = (
   {
     code,
+    testID,
     onPress,
     address,
   },
@@ -20,14 +21,13 @@ const ChargerItem: ChargerItemFC = (
   // eslint-disable-next-line react/jsx-indent
   <View style={styles.container}>
     <View style={styles.codeTextContainer}>
-      <BaseText style={styles.codeText}>
-        #
-          {code}
+      <BaseText style={styles.codeText} testID={testID.toString()}>
+        {`#${code}`}
       </BaseText>
       <View style={styles.addressContainer}>
         <Image source={images.mapPin} style={styles.addressImage} />
         <BaseText style={styles.addressText} numberOfLines={1}>
-          {address ?? ''}
+          {address || ''}
         </BaseText>
       </View>
     </View>
