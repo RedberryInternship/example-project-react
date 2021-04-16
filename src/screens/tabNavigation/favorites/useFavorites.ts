@@ -1,16 +1,18 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from 'state/selectors'
-import { Navigation, Charger } from 'types'
+import { Charger } from 'types'
 import {
   removeChargerFromFavorites,
   refreshFavoriteChargers,
 } from 'state/actions/userActions'
 import { DisplayDropdownWithError } from 'utils/inform'
+import { useNavigation } from '@react-navigation/native'
 
-const useFavorites = ({ navigate }: Navigation) => {
+const useFavorites = () => {
   const state = useSelector(selectUser)
   const dispatch = useDispatch()
+  const { navigate } = useNavigation()
 
   useEffect(() => {
     dispatch(refreshFavoriteChargers())

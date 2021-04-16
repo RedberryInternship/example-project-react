@@ -10,17 +10,17 @@ import { selectUser } from 'state/selectors'
 import { FavoriteChargerListItem } from './components'
 import useFavorites from './useFavorites'
 
-const Favorites: FCWithNavigation = ({ navigation }) => {
+const Favorites = () => {
   const {
     deleteFavoriteCharger,
     turnOnOnHandler,
-  } = useFavorites(navigation)
+  } = useFavorites()
   const state = useSelector(selectUser)
 
   return (
     <View style={styles.mainContainer}>
       <BaseHeader title="favourites.favourites" />
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} testID="favorites-container">
         <FetchedDataRenderer
           property="Favourites"
           onItemRender={(val) => (
