@@ -19,7 +19,7 @@ const ChargerItem: ChargerItemFC = (
   },
 ) => (
   // eslint-disable-next-line react/jsx-indent
-  <View style={styles.container}>
+  <View style={styles.container} testID={testID}>
     <View style={styles.codeTextContainer}>
       <BaseText style={styles.codeText} testID={testID.toString()}>
         {`#${code}`}

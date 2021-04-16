@@ -74,7 +74,7 @@ const ChargerWithCode = () => {
                 <ChargerItem
                   key={index}
                   onPress={() => navigateToChargerDetailScreen(item)}
-                  testID={item.code}
+                  testID={`charger-${item.code}`}
                   address={getLocaleText(item.location)}
                   code={item.code}
                 />

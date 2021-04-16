@@ -9,11 +9,12 @@ import BaseHeader from 'components/BaseHeader'
 import FetchedDataRenderer from 'components/FetchedDataRenderer'
 import colors from 'utils/colors'
 import services from 'services'
-import { FCWithNavigation } from 'types'
 import PartnerItem from './components/PartnerItem'
 import { PartnersResponseType } from './types'
+import { useNavigation } from '@react-navigation/native'
 
-const Partners: FCWithNavigation = ({ navigation }) => {
+const Partners = () => {
+  const navigation = useNavigation();
   const getPartners = useCallback(async () => {
     const { partners } = await services.getPartners()
     return partners
@@ -28,11 +29,12 @@ const Partners: FCWithNavigation = ({ navigation }) => {
       <ScrollView
         style={styles.partnersInnerContainer}
         contentContainerStyle={styles.contentContainerStyle}
+        testID="partners-scrollview"
       >
         <FetchedDataRenderer
           property="Partners"
           onItemRender={(val: PartnersResponseType, index): ReactElement => (
-            <PartnerItem key={index} image={val.image} />
+            <PartnerItem key={index} image={val.image} testID={val.image} />
           )}
           fetchData={getPartners}
           updateAlways

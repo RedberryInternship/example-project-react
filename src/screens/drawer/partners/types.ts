@@ -7,6 +7,7 @@ export type PartnersResponseType = {
 
 type PartnerItemProps = {
   image: string
+  testID: string
 }
 
 export type PartnerItemFC = (params: PartnerItemProps) => ReactElement

@@ -10,7 +10,7 @@ it('Snapshorts opening screen', () => {
   expect(authScreen).toMatchSnapshot();
 })
 
-it.only('Snapshots charger detail screen', () => {
+it('Snapshots charger detail screen', () => {
   mockReactNavigation.useRoute.mockImplementation(() => (
     {
       params: {
@@ -27,5 +27,5 @@ it.only('Snapshots charger detail screen', () => {
   ));
 
   const chargerDetailsScreen = render(<ChargerDetail />).toJSON();
-  // expect(chargerDetailsScreen).toMatchSnapshot();
+  expect(chargerDetailsScreen).toMatchSnapshot();
 });

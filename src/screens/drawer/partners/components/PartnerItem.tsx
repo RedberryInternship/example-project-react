@@ -3,8 +3,8 @@ import { View, Image, StyleSheet } from 'react-native'
 import * as Const from 'utils/const'
 import { PartnerItemFC } from 'screens/drawer/partners/types'
 
-const PartnerItem: PartnerItemFC = ({ image }) => (
-  <View style={styles.partnerImageContainer}>
+const PartnerItem: PartnerItemFC = ({ image, testID }) => (
+  <View style={styles.partnerImageContainer} testID={testID}>
     <Image
       source={{ uri: image }}
       style={styles.image}
