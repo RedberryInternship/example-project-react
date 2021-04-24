@@ -10,9 +10,10 @@ const TabNavigationButtonsItem: TabNavigationButtonsItemFC = (
     navigate,
     active,
     image,
+    testID,
   },
 ) => (
-  <BaseNativeTouchable onPress={navigate} style={styles.baseNativeTouchable}>
+  <BaseNativeTouchable onPress={navigate} style={styles.baseNativeTouchable} testID={testID}>
     <Image
       source={image}
       style={[

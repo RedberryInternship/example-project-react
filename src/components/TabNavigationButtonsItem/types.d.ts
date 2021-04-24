@@ -6,6 +6,7 @@ type TabNavigationButtonsItemProps = {
   image: ImageSourcePropType
   imageStyle?: ImageStyle
   active: boolean
+  testID?: string
 }
 
 export type TabNavigationButtonsItemFC = (props: TabNavigationButtonsItemProps) => ReactElement

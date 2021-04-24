@@ -1,15 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import {
   element,
   waitFor,
   device,
   by,
 } from 'detox'
+import { logout } from './helpers'
 
-beforeEach(async () => {
-  await device.uninstallApp();
-  await device.installApp();
+beforeAll(async () => {
   await device.launchApp({
+    delete: true,
     permissions: {
       location: 'always',
       notifications: 'YES',
@@ -28,6 +27,7 @@ it('Authenticates without any problems', async () => {
 });
 
 it('Has error alerts when not typing into the inputs', async () => {
+  await logout();
   await waitFor(element(by.id('AuthButton'))).toBeVisible().withTimeout(5000);
   await element(by.id('AuthButton')).tap();
   await element(by.id('AuthButton')).tap();

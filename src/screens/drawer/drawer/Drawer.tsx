@@ -132,6 +132,7 @@ const Drawer = () => {
             />
             {isAuthenticated() && (
               <TouchableOpacity
+                testID="LogoutButton"
                 onPress={(): void => {
                   easyAlert({
                     title: t('dropDownAlert.areYouSureYouWantToLogOut'),

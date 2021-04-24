@@ -91,6 +91,7 @@ const FooterTabNavigator = () => {
         navigate={() => navigate('drawer')}
         image={images.menu}
         active={false}
+        testID="DrawerButton"
       />
     </View>
   )

@@ -7,7 +7,7 @@
     "ios": "npx react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "e2e:ios": "detox test -c ios -r",
+    "e2e:ios": "detox test -c ios -r -l error",
     "debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "generate-apk": "./scripts/generate-apk.sh",
     "bundle-android": "./scripts/bundle.sh android",

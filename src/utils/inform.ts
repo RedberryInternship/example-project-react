@@ -93,6 +93,7 @@ export const easyAlert = (config: EasyAlert) => {
         text: i18next.t(rightText ?? 'no'),
         onPress: onRightClick,
         style: 'destructive',
+
       },
     ],
     { cancelable: true },

@@ -27,6 +27,7 @@
         "jest"
     ],
     "rules": {
+        "import/no-extraneous-dependencies": "off",
         "semi": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
