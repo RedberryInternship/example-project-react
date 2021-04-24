@@ -18,7 +18,7 @@ const PrivacyPolicy: PrivacyPolicyFC = ({ onPress, shouldAgree }) => {
   const { t } = useTranslation()
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="TermsAndConditions">
       <BaseText style={styles.title}>{t('drawer.termsAndConditions')}</BaseText>
       <ScrollView style={{ marginVertical: 32 }}>
         <TouchableOpacity>
@@ -30,7 +30,11 @@ const PrivacyPolicy: PrivacyPolicyFC = ({ onPress, shouldAgree }) => {
           shouldAgree
             ? (<PrivacyAndPolicyButton onPress={onPress} />)
             : (
-              <TouchableOpacity style={styles.closeButtonTouchable} onPress={onPress}>
+              <TouchableOpacity
+                style={styles.closeButtonTouchable}
+                onPress={onPress}
+                testID="AgreeTermsAndConditions"
+              >
                 <Image source={images.close} style={styles.closeButtonImage} />
               </TouchableOpacity>
             )

@@ -43,6 +43,7 @@ const HomeMainComponent: HomeMainFC = (
           text="home.authorization"
           style={styles.authorizeBtn}
           imageStyle={styles.authorizeBtnImage}
+          testID="AuthButton"
         />
       )}
       <View style={styles.onMapRoundContainer} pointerEvents="box-none">

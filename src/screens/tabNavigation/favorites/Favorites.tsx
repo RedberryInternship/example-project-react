@@ -1,7 +1,6 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
-import { FCWithNavigation } from 'types'
 import BaseHeader from 'components/BaseHeader'
 import FetchedDataRenderer from 'components/FetchedDataRenderer'
 import colors from 'utils/colors'

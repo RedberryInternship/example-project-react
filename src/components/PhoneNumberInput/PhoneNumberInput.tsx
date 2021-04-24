@@ -52,7 +52,7 @@ const PhoneNumberInput = React.forwardRef(
           onFocus={(): void => onChange()}
           onBlur={(): void => onChange(false)}
           ref={ref}
-          testID="loginPhone"
+          testID="PhoneInput"
           title="authentication.number"
           returnKeyType="send"
           placeholder={inputPlaceholder}

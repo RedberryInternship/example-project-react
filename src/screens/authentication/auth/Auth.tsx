@@ -62,10 +62,10 @@ const Auth: FCWithNavigation = ({ navigation }) => {
           control={control}
           onChange={(args) => args[0].nativeEvent.text}
           title="authentication.password"
-          image={images.lock}
+          image={images.password}
           returnKeyType="send"
           secure
-          testID="passwordInput"
+          testID="PasswordInput"
         />
         <TouchableOpacity
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
@@ -101,6 +101,7 @@ const Auth: FCWithNavigation = ({ navigation }) => {
           onPress={handleSubmit(buttonClickHandler)}
           text="authentication.authentication"
           style={styles.baseButton}
+          testID="AuthButton"
         />
       </KeyboardAvoidingView>
     </View>

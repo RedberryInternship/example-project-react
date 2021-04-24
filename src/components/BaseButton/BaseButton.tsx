@@ -22,6 +22,7 @@ const BaseButton: BaseButtonFC = (
     text,
     isImageRight,
     loading,
+    testID,
   },
 ) => {
   const { t } = useTranslation()
@@ -49,6 +50,7 @@ const BaseButton: BaseButtonFC = (
           borderless={false}
           style={[styles.touchableStyle]}
           enabled={!loading}
+          testID={testID}
         >
           {loading
             ? (

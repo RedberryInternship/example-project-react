@@ -32,7 +32,7 @@ const Home = () => {
 
   return useMemo(
     () => (
-      <View style={styles.mainContainer}>
+      <View style={styles.mainContainer} testID="HomeScreen">
         <MapView
           key={defaults?.userDetail?.mapMode}
           showAll={showAll}

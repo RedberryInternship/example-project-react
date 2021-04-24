@@ -20,7 +20,7 @@ class PrivacyAndPolicyButton extends Component<Props, State> {
     } = this.props
 
     return (
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={onPress} testID="AcceptTermsButton">
         <View style={style.buttonContainer}>
           <Text style={style.text}>{t('IAgree')}</Text>
         </View>

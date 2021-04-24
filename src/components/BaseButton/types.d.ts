@@ -15,6 +15,7 @@ type BaseButtonProps = {
   imageStyle?: ImageStyle
   isImageRight?: boolean
   loading?: boolean
+  testID?: string
 }
 
 export type BaseButtonFC = (props: BaseButtonProps) => ReactElement
