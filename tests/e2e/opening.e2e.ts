@@ -6,14 +6,12 @@ import {
 
 } from 'detox'
 
-describe('Example', () => {
-  beforeAll(async () => {
-    await device.launchApp();
-    await device.reloadReactNative();
-  });
+beforeAll(async () => {
+  await device.launchApp();
+  await device.reloadReactNative();
+});
 
-  it('should have opening screen', async () => {
-    await expect(element(by.id('title'))).toBeVisible();
-    await expect(element(by.text('Welcome to E-Space'))).toBeVisible();
-  });
+it('should have opening screen', async () => {
+  await expect(element(by.id('title'))).toBeVisible();
+  await expect(element(by.text('Welcome to E-Space'))).toBeVisible();
 });

@@ -33,5 +33,5 @@ it('Has error alerts when not typing into the inputs', async () => {
   await element(by.id('AuthButton')).tap();
   await waitFor(element(by.text('გთხოვთ ჩაწეროთ ტელეფონის ნომერი')))
     .toBeVisible()
-    .withTimeout(2000);
+    .withTimeout(1000);
 });
