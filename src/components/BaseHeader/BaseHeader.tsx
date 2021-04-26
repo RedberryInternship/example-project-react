@@ -16,12 +16,13 @@ import { BaseHeaderFC } from './types'
 
 const BaseHeader: BaseHeaderFC = (
   {
-    onPressLeft,
-    title,
+    rightComponentTestId,
     onPressRight,
+    onPressLeft,
     titleRight,
     colorless,
     noInset,
+    title,
     style,
   },
 ) => {
@@ -49,8 +50,8 @@ const BaseHeader: BaseHeaderFC = (
       <BaseText style={styles.renderMiddleText}>{t(title)}</BaseText>
     </View>
   ) : (
-      undefined
-    )), [title, t])
+    undefined
+  )), [title, t])
 
   const renderRight = useCallback(() => (
     onPressRight && (
@@ -59,9 +60,10 @@ const BaseHeader: BaseHeaderFC = (
           onPress={onPressRight}
           style={styles.renderRightTouchable}
           hitSlop={styles.hitSlop}
+          testID={rightComponentTestId}
         >
           <BaseText style={styles.renderRightText}>
-            {t(titleRight ?? '')}
+            {t(titleRight || '')}
           </BaseText>
           <Image source={images.iosBack} style={styles.rightImageStyle} />
         </TouchableOpacity>

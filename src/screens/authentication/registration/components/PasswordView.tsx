@@ -32,7 +32,7 @@ const PasswordView: PasswordViewFC = (
         onChange={(args) => args[0].nativeEvent.text}
         image={images.lock}
         imageStyle={{ tintColor: colors.primaryBlue }}
-        testID="passwordInput"
+        testID="RegistrationPasswordInput"
         secure
         title="authentication.registration.password"
       />
@@ -45,7 +45,7 @@ const PasswordView: PasswordViewFC = (
         image={images.lock}
         imageStyle={{ tintColor: colors.primaryBlue }}
         returnKeyType="send"
-        testID="RepeatpasswordInput"
+        testID="RegistrationRepeatPasswordInput"
         secure
         title="authentication.registration.repeatPassword"
       />
@@ -53,6 +53,7 @@ const PasswordView: PasswordViewFC = (
         <TouchableOpacity
           onPress={() => setValue('termsAndConditions', !watch('termsAndConditions'))}
           style={styles.checkboxImageContainer}
+          testID="AgreeTermsAndConditionsButton"
         >
           <Image
             source={

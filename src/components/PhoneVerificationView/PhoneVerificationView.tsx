@@ -5,12 +5,12 @@ import { PhoneVerificationViewFC } from './types'
 
 const PhoneVerificationView: PhoneVerificationViewFC = (
   {
-    setValue,
-    watch,
-    phoneRef,
     receiveCodeHandler,
-    codeRef,
+    setValue,
+    phoneRef,
     formType,
+    codeRef,
+    watch,
   },
 ) => (
   <>

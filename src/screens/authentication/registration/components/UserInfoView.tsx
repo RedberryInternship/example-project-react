@@ -12,7 +12,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
   const { control, errors } = hook
 
   return (
-    <View style={{ width: Const.Width, paddingHorizontal: 16 }}>
+    <View style={{ width: Const.Width, paddingHorizontal: 16 }} testID="RegistrationUserInfo">
       <Controller
         as={BaseInput}
         name="name"
@@ -22,7 +22,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
         image={images.user}
         imageStyle={{ tintColor: colors.primaryBlue }}
         returnKeyType="next"
-        testID="nameInput"
+        testID="FirstNameInput"
         title="authentication.registration.name"
         required
         errorText={errors?.name ? 'dropDownAlert.registration.fillName' : ''}
@@ -41,6 +41,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
           errors?.surname ? 'dropDownAlert.registration.fillSurname' : ''
         }
         required
+        testID="LastNameInput"
       />
 
       <Controller
@@ -57,6 +58,7 @@ const UserInfoView: UserInfoViewFC = ({ hook }) => {
         title="authentication.registration.email"
         keyboardType="email-address"
         errorText={errors?.email ? errors?.email.message : ''}
+        testID="EmailInput"
       />
     </View>
   )

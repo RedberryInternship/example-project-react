@@ -83,6 +83,7 @@ const Auth: FCWithNavigation = ({ navigation }) => {
             onPress={navigation.navigate.bind(Auth, 'Registration')}
             style={styles.registrationTextContainer}
             hitSlop={styles.registrationTextContainerHitSlop}
+            testID="RegisterButton"
           >
             <BaseText style={styles.registrationText}>
               {t('authentication.registration.registration')}

@@ -3,7 +3,6 @@ import {
   device,
   expect,
   by,
-
 } from 'detox'
 
 beforeAll(async () => {

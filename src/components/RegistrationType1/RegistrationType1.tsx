@@ -31,7 +31,7 @@ const RegistrationType1: RegistrationType1FC = ({ onPress }) => {
         </BaseText>
       </View>
       <View style={styles.closeContainer}>
-        <TouchableOpacity style={styles.closeTouchable} onPress={onPress}>
+        <TouchableOpacity style={styles.closeTouchable} onPress={onPress} testID="RegistrationSuccessModalCloseButton">
           <Image source={images.close} style={styles.closeIcon} />
         </TouchableOpacity>
       </View>

@@ -55,6 +55,7 @@ const Registration: FCWithNavigation = ({ navigation }) => {
         title="authentication.registration.registration"
         titleRight="authentication.registration.skip"
         onPressRight={activePage === 3 ? headerRightClick : undefined}
+        rightComponentTestId="RegistrationSkipAddCardButton"
       />
       <RegistrationPagination
         paginationClickHandler={paginationClickHandler}
@@ -98,6 +99,7 @@ const Registration: FCWithNavigation = ({ navigation }) => {
             image={images.arrowRight}
             style={styles.baseButton}
             imageStyle={styles.baseButtonImageStyle}
+            testID="RegistrationNextButton"
           />
         )}
       </KeyboardAvoidingView>

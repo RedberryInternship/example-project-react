@@ -28,7 +28,7 @@ it('Authenticates without any problems', async () => {
 
 it('Has error alerts when not typing into the inputs', async () => {
   await logout();
-  await waitFor(element(by.id('AuthButton'))).toBeVisible().withTimeout(5000);
+  await waitFor(element(by.id('AuthButton'))).toBeVisible().withTimeout(8000);
   await element(by.id('AuthButton')).tap();
   await element(by.id('AuthButton')).tap();
   await waitFor(element(by.text('გთხოვთ ჩაწეროთ ტელეფონის ნომერი')))

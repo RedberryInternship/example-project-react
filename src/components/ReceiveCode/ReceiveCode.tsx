@@ -33,6 +33,7 @@ const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any
           onPress={receiveCode}
           disabled={disabled}
           style={styles.receiveCodeBtnTouchable}
+          testID="SendOTP"
         >
           <Animated.View style={[styles.codeReceive, { width: animation }]} />
           <MaskedView
@@ -57,6 +58,7 @@ const receiveConfirmationCode = React.forwardRef(({ receiveCode, ...props }: any
           ref={inputRef}
           pointerEvents={disabledInput ? 'none' : 'auto'}
           keyboardType="number-pad"
+          testID="OneTimePasswordInput"
           {...props}
         />
       </View>

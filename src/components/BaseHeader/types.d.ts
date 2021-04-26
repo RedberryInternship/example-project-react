@@ -8,6 +8,7 @@ type BaseHeaderProps = {
   colorless?: boolean
   noInset?: boolean
   style?: any
+  rightComponentTestId?: string
 }
 
 export type BaseHeaderFC = (props: BaseHeaderProps) => ReactElement
