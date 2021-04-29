@@ -57,9 +57,10 @@ const SetNewPasswords = () => {
         <BaseButton
           onPress={handleSubmit(onClickSubmitButton)}
           text="enter"
-          image={images.lock}
+          image={images.password}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
+          testID="ForgotPasswordNextButton"
         />
       </KeyboardAvoidingView>
     </View>

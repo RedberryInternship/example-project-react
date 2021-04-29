@@ -70,6 +70,7 @@ const Auth: FCWithNavigation = ({ navigation }) => {
         <TouchableOpacity
           onPress={navigation.navigate.bind(Auth, 'ForgotPassword')}
           hitSlop={styles.forgotPasswordTextContainer}
+          testID="ForgotPasswordButton"
         >
           <BaseText style={styles.forgotPasswordText}>
             {t('authentication.forgotPassword')}

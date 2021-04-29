@@ -49,6 +49,7 @@ const ForgotPassword = () => {
           image={images.arrowRight}
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
+          testID="ForgotPasswordNextButton"
         />
       </KeyboardAvoidingView>
     </View>

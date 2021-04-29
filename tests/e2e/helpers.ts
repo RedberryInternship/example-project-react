@@ -38,6 +38,17 @@ export const fetchUserOTP = async (phoneNumber: string) => {
   }
 }
 
+export const resetUserPassword = async (phoneNumber: string, previousPassword: string) => {
+  try {
+    await axios.patch('https://api-dev.e-space.ge/e2e/user/reset-password', {
+      phone_number: `+995${phoneNumber}`,
+      previous_password: previousPassword,
+    })
+  } catch (e) {
+    throw new Error('Something went wrong with connecting server...');
+  }
+}
+
 export const removeUser = async (phoneNumber: string) => {
   try {
     await axios.delete('https://api-dev.e-space.ge/e2e/user', {

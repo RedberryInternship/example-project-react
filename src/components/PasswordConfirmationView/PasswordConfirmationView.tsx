@@ -26,9 +26,9 @@ const PasswordConfirmationView: PasswordConfirmationViewFC = (
         name="password"
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
-        image={images.lock}
+        image={images.password}
         imageStyle={{ tintColor: Colors.primaryBlue }}
-        testID="passwordInput"
+        testID="PasswordInput"
         secure
         title="authentication.registration.password"
       />
@@ -38,10 +38,10 @@ const PasswordConfirmationView: PasswordConfirmationViewFC = (
         name="repeatPassword"
         control={control}
         onChange={(args) => args[0].nativeEvent.text}
-        image={images.lock}
+        image={images.password}
         imageStyle={{ tintColor: Colors.primaryBlue }}
         returnKeyType="send"
-        testID="RepeatpasswordInput"
+        testID="RepeatPasswordInput"
         secure
         title="authentication.registration.repeatPassword"
       />
