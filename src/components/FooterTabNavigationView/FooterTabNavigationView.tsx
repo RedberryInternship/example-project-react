@@ -61,6 +61,7 @@ const FooterTabNavigator = () => {
         }}
         image={images.chargeWithCodeTab}
         imageStyle={styles.chargeWithCode}
+        testID="ChargeWithCode"
       />
       {chargingState.length > 0 && isAuthenticated() && (
         <Animatable.View
@@ -85,6 +86,7 @@ const FooterTabNavigator = () => {
           navigate={() => navigation.navigate('HomeTabNavigation', { screen: 'Favorites' })}
           image={images.favorite}
           active={inArray(favoritesScreens, currentRouteName)}
+          testID="FavoriteChargers"
         />
       )}
       <TabNavigationButtons

@@ -43,6 +43,7 @@ const ChargerWithCode = () => {
           onChangeText={setChargerWithCode}
           onSubmit={findCharger}
           title="charger.enterCode"
+          testID="ChargeWithCodeInput"
         />
         <BaseButton
           onPress={findCharger}
@@ -50,6 +51,7 @@ const ChargerWithCode = () => {
           style={styles.baseButton}
           imageStyle={styles.baseButtonImageStyle}
           image={images.arrowRight}
+          testID="next"
         />
 
         <TouchableOpacity

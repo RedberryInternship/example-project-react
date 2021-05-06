@@ -36,6 +36,7 @@ const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
           <TouchableOpacity
             onPress={favoritePress}
             style={styles.favIconContainer}
+            testID="AddToFavoritesButton"
           >
             <Image
               source={favorite ? images.filledHart : images.favorite}

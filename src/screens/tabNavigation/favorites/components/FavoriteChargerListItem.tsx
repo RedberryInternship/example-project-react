@@ -23,7 +23,7 @@ const FavoriteChargerListItem: FavoriteChargerItemFC = (
   <View style={styles.container}>
     <View style={styles.innerContainer}>
       <View style={styles.innerLeftContainer}>
-        <TouchableOpacity onPress={deleteItem}>
+        <TouchableOpacity onPress={deleteItem} testID="RemoveFavoriteChargerButton">
           <View style={styles.deleteButton}>
             <Image
               style={styles.deleteButtonImage}

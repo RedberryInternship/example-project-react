@@ -56,5 +56,19 @@ export const removeUser = async (phoneNumber: string) => {
         phone_number: `+995${phoneNumber}`,
       },
     })
-  } catch (e) { }
+  } catch (e) {
+    throw new Error('Something went wrong with connecting server...');
+  }
+}
+
+export const clearFavorites = async (phoneNumber: string) => {
+  try {
+    await axios.delete('https://api-dev.e-space.ge/e2e/user/clear-favorites', {
+      data: {
+        phone_number: `+995${phoneNumber}`,
+      },
+    })
+  } catch (e) {
+    throw new Error('Something went wrong with connecting server...');
+  }
 }
