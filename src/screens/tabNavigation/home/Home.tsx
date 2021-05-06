@@ -49,17 +49,16 @@ const Home = () => {
         />
         {
           state?.AllChargers?.length
-            ? (
-              <BottomSearchPanel
-                ref={bottomSheetRef}
-                onFilterClick={onFilterClick}
-                selectedFilters={selectedFilters}
-                onFilteredItemClick={onFilteredItemClick}
-                filteredChargers={bottomSearchPanelChargers}
-                textHandler={setBottomPanelSearchInputText}
-              />
-            )
-            : null
+          && (
+            <BottomSearchPanel
+              ref={bottomSheetRef}
+              onFilterClick={onFilterClick}
+              selectedFilters={selectedFilters}
+              onFilteredItemClick={onFilteredItemClick}
+              filteredChargers={bottomSearchPanelChargers}
+              textHandler={setBottomPanelSearchInputText}
+            />
+          )
         }
       </View>
     ),

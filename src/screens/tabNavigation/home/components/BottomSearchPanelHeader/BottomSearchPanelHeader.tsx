@@ -28,7 +28,7 @@ const BottomSearchPanelHeader: BottomSearchPanelFC = (
   return (
     <View style={styles.headerComponent}>
       <View style={styles.headerComponentWrapper} />
-      <BaseText style={styles.headerComponentText}>
+      <BaseText style={styles.headerComponentText} testID="BottomFilterHeader">
         {t('home.allChargers')}
       </BaseText>
       <View style={styles.textInputContainer}>
@@ -46,7 +46,7 @@ const BottomSearchPanelHeader: BottomSearchPanelFC = (
           editable
           autoCapitalize="none"
           returnKeyType="go"
-          testID="mainInput"
+          testID="SearchChargerInput"
         />
         <TouchableWithoutFeedback
           onPress={closeClick}

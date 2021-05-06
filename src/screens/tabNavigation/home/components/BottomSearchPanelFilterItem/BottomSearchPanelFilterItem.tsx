@@ -41,10 +41,10 @@ const BottomSearchPanelFilterItem: BottomSearchPanelFilterItemFC = (
   )
 
   if (Platform.OS === 'ios') {
-    return <TouchableOpacity onPress={onPress}>{child}</TouchableOpacity>
+    return <TouchableOpacity testID={text} onPress={onPress}>{child}</TouchableOpacity>
   }
   return (
-    <BaseNativeTouchable borderless={false} onPress={onPress}>
+    <BaseNativeTouchable borderless={false} testID={text} onPress={onPress}>
       {child}
     </BaseNativeTouchable>
   )
