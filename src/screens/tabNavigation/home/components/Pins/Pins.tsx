@@ -24,7 +24,7 @@ const Pins: PinsFC = (
       fastCharger={charger.connector_types?.[0]?.name !== 'Type 2'}
       privateCharger={!charger.public}
       status={charger.status}
-      groupChargerCount={charger.charger_group?.chargers?.length ?? 0}
+      testID={`Pin - ${charger.code}`}
     />
   ))
 

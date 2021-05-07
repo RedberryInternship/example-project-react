@@ -22,7 +22,7 @@ const RootPin = (
     pinColorType,
   }: ChargerMarkerIcon,
 ) => (
-  <Svg width={width ?? 40} height={height ?? 55} viewBox="0 0 58 68" fill="none">
+  <Svg width={width || 40} height={height || 55} viewBox="0 0 58 68" fill="none">
     <G opacity={0.64}>
       <Ellipse
         cx={28.5}

@@ -7,10 +7,11 @@ const MapMarkerItem: MapMarkerItemFC = (
   {
     lat,
     lng,
+    testID,
+    status,
     onPress,
     fastCharger,
     privateCharger,
-    status,
   },
 ) => (
   <Marker
@@ -19,6 +20,7 @@ const MapMarkerItem: MapMarkerItemFC = (
     tracksInfoWindowChanges={false}
     anchor={{ x: 0.5, y: 0.5 }}
     onPress={onPress}
+    testID={testID}
     collapsable
   >
     <MarkerController

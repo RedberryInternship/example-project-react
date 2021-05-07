@@ -18,6 +18,7 @@ const FilterTextItem: FilterTextItemFC = (
       { backgroundColor: active ? '#008AEE' : 'white' },
     ]}
     onPress={onPress}
+    testID={text}
   >
     <BaseText
       style={[styles.text, { color: active ? 'white' : Colors.primaryDark }]}

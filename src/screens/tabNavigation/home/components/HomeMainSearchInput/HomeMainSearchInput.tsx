@@ -21,38 +21,38 @@ const HomeMainSearchInput = React.forwardRef(
     }: any,
     ref: any,
   ) => (
-      <View style={[styles.inputStyle]}>
-        <Image source={images.iconSearch} style={styles.searchImage} />
-        <View
-          pointerEvents={showSearchContent ? 'auto' : 'none'}
-          style={styles.view}
-        >
-          <TextInput
-            style={styles.searchTextInput}
-            placeholder={placeholder}
-            keyboardType="default"
-            onChangeText={textHandler}
-            onSubmitEditing={InputSubmit}
-            onFocus={onFocus}
-            placeholderTextColor={Colors.primaryWhite}
-            allowFontScaling={false}
-            ref={ref}
-            autoCorrect={false}
-            editable
-            autoCapitalize="none"
-            returnKeyType="go"
-            testID="mainInput"
-          />
-        </View>
-        <TouchableOpacity
-          onPress={closeClick}
-          style={styles.deleteTouchable}
-          hitSlop={styles.touchableOpacityHitSlop}
-        >
-          <Image source={images.delete} style={styles.deleteImage} />
-        </TouchableOpacity>
+    <View style={[styles.inputStyle]}>
+      <Image source={images.iconSearch} style={styles.searchImage} />
+      <View
+        pointerEvents={showSearchContent ? 'auto' : 'none'}
+        style={styles.view}
+      >
+        <TextInput
+          style={styles.searchTextInput}
+          placeholder={placeholder}
+          keyboardType="default"
+          onChangeText={textHandler}
+          onSubmitEditing={InputSubmit}
+          onFocus={onFocus}
+          placeholderTextColor={Colors.primaryWhite}
+          allowFontScaling={false}
+          ref={ref}
+          autoCorrect={false}
+          editable
+          autoCapitalize="none"
+          returnKeyType="go"
+          testID="homeMainSearchInput"
+        />
       </View>
-    ),
+      <TouchableOpacity
+        onPress={closeClick}
+        style={styles.deleteTouchable}
+        hitSlop={styles.touchableOpacityHitSlop}
+      >
+        <Image source={images.delete} style={styles.deleteImage} />
+      </TouchableOpacity>
+    </View>
+  ),
 )
 
 export default HomeMainSearchInput

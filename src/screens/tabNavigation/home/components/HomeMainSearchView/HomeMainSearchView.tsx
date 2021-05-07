@@ -84,6 +84,7 @@ const HomeMainSearchView = forwardRef<any, HomeMainSearchViewProps>(
             activeOpacity={1}
             onPress={() => setShowSearchContent(true)}
             style={styles.container}
+            testID="homeTopSearchButton"
           >
             <>
               <Animated.View style={[styles.inputStyleContainer, animate]}>
