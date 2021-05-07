@@ -16,12 +16,6 @@ export const delay = async (second: number) => new Promise((resolve) => {
   }, second * 1000);
 });
 
-export const runOnlyInDevelopment = () => {
-  // if (domain !== 'https://api-dev.e-space.ge') {
-  //   throw new Error('Detox should only be run in dev environment! please change domain in src/utils/const.ts file!');
-  // }
-}
-
 export const fetchUserOTP = async (phoneNumber: string) => {
   try {
     const { data } = await axios.get('https://api-dev.e-space.ge/e2e/user/otp', {

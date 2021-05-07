@@ -40,6 +40,7 @@ const NotAuthorized: FCWithNavigation = ({ navigation }) => {
           style={styles.authBtn}
           image={images.user}
           imageStyle={styles.authBtnImg}
+          testID="Authorization"
         />
         <TouchableOpacity
           onPress={() => navigate('Home', {

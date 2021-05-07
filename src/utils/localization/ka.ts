@@ -227,7 +227,7 @@ export default {
       pleaseAllowLocation: 'მარშრუტის სანახავად საჭიროა ლოკაციის ჩართვა',
       fillCode: 'გთხოვთ ჩაწეროთ დამტენის კოდი',
       fillAmount: 'გთხოვთ ჩაწეროთ თანხის ოდენობა',
-      chargerNotExist: 'ასეთი  კოდით დამტენი არ მოიძებნა',
+      chargerNotExist: 'ასეთი კოდით დამტენი არ მოიძებნა',
       successOnFavoriteAdd: 'დამტენი წარმატებით დაემატა',
       successOnFavoriteRemove: 'დამტენი წარმატებით წაიშალა',
       informationUpdatedSuccessfully: 'ინფორმაცია წარმატებით განახლდა',
