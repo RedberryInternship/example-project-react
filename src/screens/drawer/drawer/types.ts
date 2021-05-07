@@ -35,6 +35,7 @@ type DrawerTextFieldItemProps = {
   imageStyle?: ImageStyle
   container?: StyleProp<ViewStyle>
   badge?: number
+  testID?: string
 }
 
 export type DrawerTextFieldItemFC = (params: DrawerTextFieldItemProps) => ReactElement

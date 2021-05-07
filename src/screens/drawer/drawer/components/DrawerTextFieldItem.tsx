@@ -18,6 +18,7 @@ const DrawerTextFieldItem: DrawerTextFieldItemFC = (
     imageStyle,
     container,
     badge,
+    testID,
   },
 ) => {
   const { t } = useTranslation()
@@ -26,6 +27,7 @@ const DrawerTextFieldItem: DrawerTextFieldItemFC = (
     <TouchableOpacity
       onPress={onPress}
       style={[styles.textFieldContainer, container]}
+      testID={testID}
     >
       <View style={styles.drawerImageContainer}>
         <Image style={[styles.image, imageStyle]} source={image} />

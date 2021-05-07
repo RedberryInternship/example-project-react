@@ -33,7 +33,7 @@ const PrivacyPolicy: PrivacyPolicyFC = ({ onPress, shouldAgree }) => {
               <TouchableOpacity
                 style={styles.closeButtonTouchable}
                 onPress={onPress}
-                testID="AgreeTermsAndConditions"
+                testID="closeTermsAndConditionsModalButton"
               >
                 <Image source={images.close} style={styles.closeButtonImage} />
               </TouchableOpacity>

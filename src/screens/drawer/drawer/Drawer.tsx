@@ -123,6 +123,7 @@ const Drawer = () => {
             }}
             text="drawer.termsAndConditions"
             image={images.greenTick}
+            testID="termsAndConditionsButton"
           />
           <View style={styles.localeAndLogoutWrapper}>
             <BaseLocaleButton
