@@ -66,12 +66,14 @@ export const SettingsListFields: SettingsListFieldType[] = [
     name: 'settings.firstname',
     type: UserSettingEnum.firstName,
     editableComponentName: 'settings.editFirstname',
+    testID: 'firstnameButton',
   },
   {
     image: images.user,
     name: 'settings.lastname',
     type: UserSettingEnum.lastName,
     editableComponentName: 'settings.editLastname',
+    testID: 'lastnameButton',
   },
   {
     image: images.mail,
@@ -80,12 +82,14 @@ export const SettingsListFields: SettingsListFieldType[] = [
     editableComponentName: 'settings.editMail',
     onEmptyText: 'settings.add',
     color: Colors.primaryGray,
+    testID: 'mailButton',
   },
   {
     image: images.phone,
     name: 'settings.phone',
     type: UserSettingEnum.phone,
     editableComponentName: 'settings.editPhoneNumber',
+    testID: 'phoneButton',
   },
   {
     image: images.creditCard,
@@ -94,6 +98,7 @@ export const SettingsListFields: SettingsListFieldType[] = [
     editableComponentName: 'settings.editCard',
     color: Colors.primaryGray,
     onEmptyText: 'settings.add',
+    testID: 'cardsButton',
   },
   {
     image: images.password,
@@ -102,12 +107,14 @@ export const SettingsListFields: SettingsListFieldType[] = [
     editableComponentName: 'settings.editPassword',
     color: Colors.primaryGray,
     onEmptyText: '*********',
+    testID: 'passwordButton',
   },
   {
     image: images.mapMode,
     name: 'settings.mapColor',
     type: UserSettingEnum.mapMode,
     editableComponentName: 'settings.editPassword',
+    testID: 'mapButton',
   },
   {
     image: images.addCar,
@@ -116,6 +123,7 @@ export const SettingsListFields: SettingsListFieldType[] = [
     editableComponentName: 'settings.addCar',
     onEmptyText: 'settings.add',
     color: Colors.primaryGray,
+    testID: 'addCarButton',
   },
 ]
 

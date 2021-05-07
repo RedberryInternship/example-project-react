@@ -15,6 +15,7 @@ const SettingsListItem: SettingsListItemFC = (
   {
     onEmptyText,
     onPress,
+    testID,
     image,
     value,
     color,
@@ -24,7 +25,7 @@ const SettingsListItem: SettingsListItemFC = (
   const { t } = useTranslation()
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} testID={testID}>
       <View style={styles.container}>
         <View style={styles.imageAndName}>
           <Image source={image} style={styles.image} />
@@ -35,7 +36,7 @@ const SettingsListItem: SettingsListItemFC = (
             style={[styles.value, { color: value ? Colors.primaryWhite : color }]}
             numberOfLines={1}
           >
-            {value ? t(value) : t(onEmptyText ?? '')}
+            {value ? t(value) : t(onEmptyText || '')}
           </BaseText>
           <Image source={images.chervonRight} style={styles.arrow} />
         </View>

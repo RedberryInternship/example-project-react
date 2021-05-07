@@ -26,7 +26,7 @@ const CarListItem: CarListItemFC = ({ data, onDeletePress }) => {
 
       </View>
 
-      <TouchableOpacity onPress={onDeletePress}>
+      <TouchableOpacity onPress={onDeletePress} testID={`delete${mark_name}Button`}>
         <Image source={images.deleteAction} style={styles.image} resizeMode="contain" />
       </TouchableOpacity>
 

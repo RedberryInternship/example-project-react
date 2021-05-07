@@ -49,28 +49,30 @@ const AddCar = (
           rules={{ required: true }}
           control={control}
           onChange={onManufacturerChange}
-          title={'settings.manufacturer' ?? ''}
+          title={'settings.manufacturer' || ''}
           image={images.addCarInput}
           dropdownIcon={images.caretDown}
           data={data.map((val) => val.name)}
           selectedValue={manufacturer}
+          testID="manufacturerSelect"
           value=""
         />
         <View style={styles.divider}>
           <Controller
-            as={SelectCar}
-            name="model"
-            rules={{ required: true }}
-            control={control}
-            onChange={onModelChange}
-            title={'settings.model' ?? ''}
-            image={images.addCarInput}
+            onPress={notAllowedSelectingModelsWithoutManufacturers}
             dropdownIcon={images.caretDown}
+            title={'settings.model' || ''}
+            disabled={manufacturer === ''}
+            rules={{ required: true }}
+            image={images.addCarInput}
+            onChange={onModelChange}
             data={selectedModels}
             selectedValue={model}
+            testID="modelSelect"
+            control={control}
+            as={SelectCar}
+            name="model"
             value=""
-            disabled={manufacturer === ''}
-            onPress={notAllowedSelectingModelsWithoutManufacturers}
           />
         </View>
       </>

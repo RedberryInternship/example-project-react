@@ -14,5 +14,6 @@ export type Props = {
   value: any
   selectedValue: string | undefined
   disabled?: boolean
+  testID?: string
   onPress?: () => void
 }

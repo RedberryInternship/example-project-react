@@ -23,6 +23,7 @@ const Settings: FCWithNavigation = ({ navigation }) => {
           color={item.color}
           name={item.name}
           value={value}
+          testID={item.testID}
         />
       )
     }),

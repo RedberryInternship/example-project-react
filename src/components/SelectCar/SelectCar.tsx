@@ -43,6 +43,7 @@ class SelectCar extends React.Component<Props, State> {
       selectedValue,
       dropdownIcon,
       onChange,
+      testID,
       title,
       image,
       data,
@@ -51,7 +52,7 @@ class SelectCar extends React.Component<Props, State> {
     return (
       <>
         <BaseText style={styles.title}>{t(title)}</BaseText>
-        <TouchableHighlight onPress={this.openModal} hitSlop={styles.hitSlop}>
+        <TouchableHighlight onPress={this.openModal} hitSlop={styles.hitSlop} testID={testID}>
           <View style={styles.input}>
             <Image
               source={image}

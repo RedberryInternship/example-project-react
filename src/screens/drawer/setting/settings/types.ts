@@ -8,6 +8,7 @@ type SettingsListItemProps = {
   value: string
   onEmptyText?: string
   color?: string
+  testID?: string
 }
 
 export type SettingsListItemFC = (params: SettingsListItemProps) => ReactElement

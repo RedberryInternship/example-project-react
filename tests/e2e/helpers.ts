@@ -66,3 +66,15 @@ export const clearFavorites = async (phoneNumber: string) => {
     throw new Error('Something went wrong with connecting server...');
   }
 }
+
+export const clearCars = async (phoneNumber: string) => {
+  try {
+    await axios.delete('https://api-dev.e-space.ge/e2e/user/clear-cars', {
+      data: {
+        phone_number: `+995${phoneNumber}`,
+      },
+    })
+  } catch (e) {
+    throw new Error('Something went wrong with connecting server...');
+  }
+}

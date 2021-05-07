@@ -61,6 +61,7 @@ const Drawer = () => {
               onPress={() => navigate(route)}
               image={image}
               text={text}
+              testID={`${route}Button`}
             />
           ))}
         </View>
@@ -88,6 +89,7 @@ const Drawer = () => {
             }}
             image={image}
             text={text}
+            testID={`${route}Button`}
           />
         ))}
       </View>

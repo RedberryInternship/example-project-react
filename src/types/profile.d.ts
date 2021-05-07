@@ -8,6 +8,7 @@ export type SettingsListFieldType = {
   editableComponentName: string
   onEmptyText?: string
   color?: string
+  testID?: string
 }
 
 export type ProfileFieldChange = {

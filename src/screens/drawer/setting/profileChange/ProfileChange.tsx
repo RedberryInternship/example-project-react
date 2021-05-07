@@ -138,7 +138,7 @@ const ProfileChange: FCWithNavigation = ({ navigation }) => {
           behavior="padding"
           keyboardVerticalOffset={Platform.OS === 'android' ? 8 : 16}
         >
-          <BaseButton onPress={handleSubmit(submit)} text="save" />
+          <BaseButton onPress={handleSubmit(submit)} testID="SaveButton" text="save" />
         </KeyboardAvoidingView>
       )}
     </View>
