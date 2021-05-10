@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 import { device, element, by } from 'detox'
 import axios from 'axios'
+import { error } from 'console'
 
 export const logout = async () => {
   await element(by.id('DrawerButton')).tap();
@@ -55,9 +56,24 @@ export const removeUser = async (phoneNumber: string) => {
   }
 }
 
+export const resetUserData = async (phoneNumber: string) => {
+  try {
+    await axios.put('https://api-dev.e-space.ge/e2e/user/reset-data', {
+      phone_number: `+995${phoneNumber}`,
+      first_name: 'E2E',
+      last_name: 'TestUser',
+      email: 'e2e@test.user',
+      password: 'detoxify',
+    })
+  } catch (e) {
+    error(e);
+    throw new Error('Something went wrong with connecting server...');
+  }
+}
+
 export const clearFavorites = async (phoneNumber: string) => {
   try {
-    await axios.delete('https://api-dev.e-space.ge/e2e/user/clear-favorites', {
+    await axios.delete('https://api-dev.e-space.ge/e2e/clear-favorites', {
       data: {
         phone_number: `+995${phoneNumber}`,
       },
@@ -69,7 +85,7 @@ export const clearFavorites = async (phoneNumber: string) => {
 
 export const clearCars = async (phoneNumber: string) => {
   try {
-    await axios.delete('https://api-dev.e-space.ge/e2e/user/clear-cars', {
+    await axios.delete('https://api-dev.e-space.ge/e2e/clear-cars', {
       data: {
         phone_number: `+995${phoneNumber}`,
       },

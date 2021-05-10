@@ -20,6 +20,7 @@ export type ProfileFieldChange = {
   validator?: Record<string, any>
   register?: any
   watch?: any
+  testID?: string
   setValue?: any
 }
 

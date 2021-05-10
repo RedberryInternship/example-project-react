@@ -22,7 +22,8 @@ const PasswordChangeView: PasswordChangeViewFC = (
       }}
       control={control}
       onChange={(args) => args[0].nativeEvent.text}
-      image={images.lock}
+      image={images.password}
+      testID="currentPassword"
       secure
       title="settings.currentPassword"
     />

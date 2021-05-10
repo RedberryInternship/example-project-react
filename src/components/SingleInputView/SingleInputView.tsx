@@ -10,6 +10,7 @@ const SingleInputView = (
     inputName,
     validator,
     control,
+    testID,
     errors,
     value,
     type,
@@ -21,6 +22,20 @@ const SingleInputView = (
       ? errors?.[type].message
       : 'dropDownAlert.editFirstname.minSize'
     : ''
+
+  let inputTestID = undefined;
+
+  if (inputName === 'settings.firstname') {
+    inputTestID = 'firstnameInput';
+  }
+
+  if (inputName === 'settings.lastname') {
+    inputTestID = 'lastnameInput';
+  }
+
+  if (inputName === 'settings.mail') {
+    inputTestID = 'emailInput';
+  }
 
   return (
     <View style={styles.container}>
@@ -38,6 +53,7 @@ const SingleInputView = (
         image={images.blueUser}
         defaultValue={value}
         errorText={errorText}
+        testID={inputTestID}
       />
     </View>
   )
