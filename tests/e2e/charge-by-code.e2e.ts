@@ -1,9 +1,9 @@
 import {
-  expect,
-  element,
-  by,
-  device,
   waitFor,
+  element,
+  device,
+  expect,
+  by,
 } from 'detox';
 import { delay } from './helpers'
 
@@ -28,7 +28,9 @@ it('Goes into charge by code screen flow without authentication', async () => {
    */
   await delay(3);
   await element(by.id('ChargeWithCode')).tap();
-  await expect(element(by.text('დამუხტვის დასაწყებად, გაიარეთ ავტორიზაცია'))).toBeVisible();
+  await waitFor(element(by.text('დამუხტვის დასაწყებად, გაიარეთ ავტორიზაცია')))
+    .toBeVisible()
+    .withTimeout(1000);
 });
 
 it('Goes charge by code screen flow with authentication', async () => {
@@ -40,6 +42,7 @@ it('Goes charge by code screen flow with authentication', async () => {
   await waitFor(element(by.id('AuthButton'))).toBeVisible().withTimeout(5000);
   await element(by.id('AuthButton')).tap();
   await element(by.id('PhoneInput')).typeText(testUserPhone);
+  await element(by.id('PasswordInput')).tap();
   await element(by.id('PasswordInput')).typeText(testUserPassword);
   await element(by.id('AuthButton')).tap();
   await waitFor(element(by.id('TermsAndConditions'))).toBeVisible().withTimeout(3000);
@@ -70,6 +73,7 @@ it('Cannot find charger', async () => {
   await element(by.id('ChargeWithCodeInput')).typeText('11211');
   await element(by.id('next')).tap();
 
-  await expect(element(by.text('ასეთი კოდით დამტენი არ მოიძებნა')))
-    .toBeVisible();
+  await waitFor(element(by.text('ასეთი კოდით დამტენი არ მოიძებნა')))
+    .toBeVisible()
+    .withTimeout(1000);
 });

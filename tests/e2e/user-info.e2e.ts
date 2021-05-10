@@ -37,6 +37,10 @@ beforeAll(async () => {
   await element(by.id('AcceptTermsButton')).tap();
 });
 
+afterAll(async () => {
+  await resetUserData(testUserPhone);
+});
+
 beforeEach(async () => {
   await device.reloadReactNative();
 });
@@ -49,7 +53,6 @@ it('Change firstname', async () => {
   await element(by.id('firstnameInput')).clearText();
   await element(by.id('firstnameInput')).typeText('გელა');
   await element(by.id('SaveButton')).tap();
-  await expect(element(by.text('ინფორმაცია წარმატებით განახლდა'))).toBeVisible();
   await expect(element(by.text('გელა'))).toBeVisible();
 });
 
@@ -61,7 +64,6 @@ it('Change lastname', async () => {
   await element(by.id('lastnameInput')).clearText();
   await element(by.id('lastnameInput')).typeText('აბდულაური');
   await element(by.id('SaveButton')).tap();
-  await expect(element(by.text('ინფორმაცია წარმატებით განახლდა'))).toBeVisible();
   await expect(element(by.text('აბდულაური'))).toBeVisible();
 });
 
@@ -73,11 +75,10 @@ it('Change email', async () => {
   await element(by.id('emailInput')).clearText();
   await element(by.id('emailInput')).typeText('aslanabashidze@mail.ru');
   await element(by.id('SaveButton')).tap();
-  await expect(element(by.text('ინფორმაცია წარმატებით განახლდა'))).toBeVisible();
-  await expect(element(by.text('აბდულაური'))).toBeVisible();
+  await expect(element(by.text('aslanabashidze@mail.ru'))).toBeVisible();
 });
 
-it.only('Change password', async () => {
+it('Change password', async () => {
   await delay(3);
   await element(by.id('DrawerButton')).tap();
   await element(by.id('SettingsButton')).tap();
@@ -88,6 +89,4 @@ it.only('Change password', async () => {
   await element(by.id('RepeatPasswordInput')).typeText('atasertigame');
 
   await element(by.id('SaveButton')).tap();
-  await expect(element(by.text('ინფორმაცია წარმატებით განახლდა'))).toBeVisible();
-  await expect(element(by.text('აბდულაური'))).toBeVisible();
 });
