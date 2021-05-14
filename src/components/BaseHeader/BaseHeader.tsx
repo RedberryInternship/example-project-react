@@ -22,6 +22,7 @@ const BaseHeader: BaseHeaderFC = (
     titleRight,
     colorless,
     noInset,
+    testID,
     title,
     style,
   },
@@ -38,7 +39,9 @@ const BaseHeader: BaseHeaderFC = (
         >
           <Image source={images.iosBack} style={styles.imageStyle} />
           {Platform.OS === 'ios' && (
-            <BaseText style={styles.renderLeftBaseText}>{t('back')}</BaseText>
+            <BaseText style={styles.renderLeftBaseText} testID="headerLeftTitle">
+              {t('back')}
+            </BaseText>
           )}
         </BaseNativeTouchable>
       </View>
@@ -47,7 +50,7 @@ const BaseHeader: BaseHeaderFC = (
 
   const renderMiddle = useCallback(() => (title ? (
     <View style={styles.renderMiddleContainer}>
-      <BaseText style={styles.renderMiddleText}>{t(title)}</BaseText>
+      <BaseText style={styles.renderMiddleText} testID="headerMiddleTitle">{t(title)}</BaseText>
     </View>
   ) : (
     undefined
@@ -77,10 +80,10 @@ const BaseHeader: BaseHeaderFC = (
         paddingTop: !noInset ? insets.top : undefined,
         backgroundColor: !colorless ? Colors.primaryBackground : undefined,
       },
-      style ?? {},
+      style || {},
     ]}
     >
-      <View style={styles.container}>
+      <View style={styles.container} testID={testID}>
         {renderMiddle()}
         {renderLeft()}
         {renderRight()}

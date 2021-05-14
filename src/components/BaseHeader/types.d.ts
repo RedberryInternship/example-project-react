@@ -9,6 +9,8 @@ type BaseHeaderProps = {
   noInset?: boolean
   style?: any
   rightComponentTestId?: string
+  testID?: string
+  titleTestID?: string
 }
 
 export type BaseHeaderFC = (props: BaseHeaderProps) => ReactElement

@@ -12,9 +12,8 @@ E Space Mobile App helps people to find e-car charger nearby and charge their el
 * [Prerequisites](#prerequisites)
 * [Tech Stack](#tech-stack)
 * [Getting Started](#getting-started)
-* [Running Unit Tests](#running-unit-tests)
+* [E2E Tests](#e2e-tests)
 * [Development](#development)
-* [Deployment with CI / CD](#deployment-with-ci-\-cd)
 * [Project Structure](#project-structure)
 
 #
@@ -34,8 +33,9 @@ E Space Mobile App helps people to find e-car charger nearby and charge their el
 * <img src="readme/assets/redux.png" height="18" style="position: relative; top: 4px" /> [Redux @4.0.5](https://redux.js.org/) - State management tool
 * <img src="readme/assets/redux-saga.png" height="18" style="position: relative; top: 4px" /> [Redux Saga @1.1.3](https://redux-saga.js.org/) - Side effect manager
 * <img src="readme/assets/jwt.png" height="18" style="position: relative; top: 4px" /> [JWT Auth](https://jwt.io/) - Authentication system
-* <img src="readme/assets/sentry.jpeg" height="25" style="position: relative; top: 5px" /> [Sentry @2.1.0](https://github.com/spatie/laravel-translatable) - Error monitoring tool
-* <img src="readme/assets/i18next.png" height="25" style="position: relative; top: 5px" /> [i18next @19.4.4](https://github.com/spatie/laravel-translatable) - Error monitoring tool
+* <img src="readme/assets/sentry.jpeg" height="25" style="position: relative; top: 5px" /> [Sentry @2.1.0](https://sentry.io/) - Error monitoring tool
+* <img src="readme/assets/i18next.png" height="25" style="position: relative; top: 5px" /> [i18next @19.4.4](https://react.i18next.com/) - library for translation
+* <img src="readme/assets/detox.png" height="25" style="position: relative; top: 5px" /> [Detox @18.12.0](https://github.com/wix/Detox) - React Native E2E testing tool
 
 #
 ### Getting Started
@@ -70,8 +70,8 @@ yarn android
 For more information about running apps with simulator and on real device check out [docs](https://reactnative.dev/docs/running-on-device)
 
 #
-### Running Unit tests
-Docs soon....
+### E2E Tests
+For testing the app's integrity, we are using wix's library known as detox.
 
 #
 ### Development
@@ -87,10 +87,6 @@ during development should most likely have uncommented **https://api-dev.e-space
 
 Before deployment to app store/play store you should change this so that **https://app.e-space.ge** would be uncommented.
 
-
-#
-### Deployment with CI
-Docs soon...
 
 #
 ### Project Structure

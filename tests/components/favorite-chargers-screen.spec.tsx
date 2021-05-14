@@ -3,16 +3,33 @@ import { Favorites } from 'screens'
 import { FavoriteChargerListItem } from 'screens/tabNavigation/favorites/components'
 import { render } from '@testing-library/react-native'
 import { mockReactRedux } from '../mocks/react-redux'
-import mockCharger from '../factory/charger'
+import mockCharger from '../factory/charger';
+
+const mockFavoriteChargers = [
+  {
+    ...mockCharger,
+    id: 1,
+  },
+  {
+    ...mockCharger,
+    id: 2,
+  },
+  {
+    ...mockCharger,
+    id: 3,
+  },
+  {
+    ...mockCharger,
+    id: 4,
+  },
+  {
+    ...mockCharger,
+    id: 5,
+  },
+];
 
 mockReactRedux.useSelector.mockImplementation(() => ({
-  favoriteChargers: [
-    mockCharger,
-    mockCharger,
-    mockCharger,
-    mockCharger,
-    mockCharger,
-  ],
+  favoriteChargers: mockFavoriteChargers,
 }))
 
 test('Favorite chargers screen renders without errors', () => {

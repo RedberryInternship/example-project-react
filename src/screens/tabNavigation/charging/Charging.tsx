@@ -12,13 +12,15 @@ import { selectChargingProcess } from 'state/selectors'
 import { TabView } from 'react-native-tab-view'
 import { Colors } from 'utils'
 import BaseHeader from 'components/BaseHeader'
-import { FCWithNavigation } from 'types'
 import useCharging from './useCharging'
+import { useNavigation } from '@react-navigation/native'
 import { ChargingView } from './components'
 import RenderTabBar from './components/RenderTabBar'
 
-const Charging: FCWithNavigation = ({ navigation }) => {
+const Charging = () => {
+  const navigation = useNavigation();
   const { chargingState } = useSelector(selectChargingProcess)
+
   const {
     setActiveTab,
     activeTab,
@@ -69,6 +71,7 @@ const Charging: FCWithNavigation = ({ navigation }) => {
       <View style={[styles.container]}>
         <BaseHeader
           onPressLeft={navigation.navigate.bind(Charging, 'ChargerWithCode')}
+          testID="chargingHeader"
           title="charging.charge"
         />
         {chargingState.length === 1 && oneChargingProcess}
