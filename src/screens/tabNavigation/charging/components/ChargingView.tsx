@@ -75,7 +75,7 @@ const ChargingView: ChargingViewFC = (
             /
             {' '}
           </BaseText>
-          <BaseText style={styles.finalPrice}>
+          <BaseText style={styles.finalPrice} testID="alreadyPaidAmount">
             {already_paid}
             {' '}
             {t('gel')}
@@ -85,7 +85,7 @@ const ChargingView: ChargingViewFC = (
           <View style={styles.divider} />
         </View>
         <View style={styles.kilowattsWrapper}>
-          <BaseText style={styles.kilowatts}>
+          <BaseText style={styles.kilowatts} testID="consumedKilowatts">
             {consumed_kilowatts}
             {' '}
             {t('kw')}
@@ -112,6 +112,7 @@ const ChargingView: ChargingViewFC = (
           text="charging.finish"
           style={styles.finishBtn}
           loading={loading}
+          testID="finishChargingButton"
         />
       </View>
     </View>

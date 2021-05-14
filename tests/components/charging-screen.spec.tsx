@@ -66,23 +66,103 @@ const mockFinishedChargingState = {
   connector_type_id: 1,
 }
 
-mockReactRedux.useSelector.mockImplementation(() => (
-  {
-    chargingState: [mockInitiatedState],
-  }
-));
+const mockState = jest.fn();
 
-test('Charging is - ok', async () => {
-  await waitFor(() => {
-    render(<Charging />)
-  })
+mockReactRedux.useSelector = mockState;
+
+describe('Charging process general flow', () => {
+  test('Charging is - ok', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockInitiatedState],
+    }));
+
+    await waitFor(() => {
+      render(<Charging />)
+    })
+  });
+
+  test('Charging process has right title', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockInitiatedState],
+    }));
+
+    const tree = render(<Charging />);
+
+    await waitFor(async () => {
+      const headerTitle = await tree.findByTestId('headerMiddleTitle');
+      expect(headerTitle.children[0]).toBe('დამუხტვა');
+    });
+  });
+
+  test('Finish charging button is visible', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockInitiatedState],
+    }));
+
+    const tree = render(<Charging />);
+
+    await waitFor(async () => {
+      const finishChargingButton = await tree.findByTestId('finishChargingButton');
+      expect(finishChargingButton).not.toBeNull();
+
+      const finishChargingButtonText = finishChargingButton.find(
+        (el) => el.children[0] === 'დასრულება',
+      ).children[0];
+      expect(finishChargingButtonText).toBe('დასრულება');
+    });
+  });
 });
 
-test('Charging process has right title', async () => {
-  const tree = render(<Charging />);
+describe('charging process when status is INITIATED', () => {
+  test('Already paid amount is 0 when initiated...', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockInitiatedState],
+    }));
 
-  await waitFor(async () => {
-    const headerTitle = await tree.findByTestId('headerMiddleTitle');
-    expect(headerTitle.children[0]).toBe('დამუხტვა');
+    const tree = render(<Charging />);
+    const alreadyPaidAmountTextField = await tree.findByTestId('alreadyPaidAmount');
+
+    const alreadyPaidAmountInNumber = +alreadyPaidAmountTextField.children[0];
+    expect(alreadyPaidAmountInNumber).toBe(0);
+  });
+
+  test('Consumed kilowatts amount is 0 when initiated...', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockInitiatedState],
+    }));
+
+    const tree = render(<Charging />);
+    const consumedKilowattsTextField = await tree.findByTestId('consumedKilowatts');
+    const consumedKilowattsNumber = +consumedKilowattsTextField.children[0];
+
+    expect(consumedKilowattsNumber).toBe(0);
+  });
+})
+
+describe('charging process when status is CHARGING', () => {
+  test('Already paid amount is not 0 when charging...', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockChargingState],
+    }));
+
+    const tree = render(<Charging />);
+    const alreadyPaidAmountTextField = await tree.findByTestId('alreadyPaidAmount');
+
+    const alreadyPaidAmountInNumber = +alreadyPaidAmountTextField.children[0];
+    expect(alreadyPaidAmountInNumber).toBe(7);
+  });
+
+  test('Consumed kilowatts is not 0 when charging...', async () => {
+    mockState.mockImplementation(() => ({
+      chargingState: [mockChargingState],
+    }));
+
+    const tree = render(<Charging />);
+
+    const consumedKilowattsTextField = await tree.findByTestId('consumedKilowatts');
+
+    const consumedKilowattsNumber = +consumedKilowattsTextField.children[0];
+
+    expect(consumedKilowattsNumber).toBe(37.04);
   });
 });
