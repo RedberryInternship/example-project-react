@@ -99,11 +99,11 @@ type BusinessService = {
 
 type ChargerConnectorType = {
   id: number
-  old_id: number
+  old_id: number | null
   name: 'Combo 2' | 'Type 2' | 'CHAdeMO'
   pivot: ChargerConnectorTypePivot
-  created_at: string
-  updated_at: string
+  created_at: string | null
+  updated_at: string | null
   charging_prices?: ChargerChargingPrices[]
   fast_charging_prices?: ChargerFastChargingPrices[]
 }

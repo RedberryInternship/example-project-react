@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react'
 import { useNavigation, DrawerActions, useRoute } from '@react-navigation/native'
-import { GetFilteredCharger } from 'helpers/chargerFilter'
+import { getFilteredCharger } from 'helpers/chargerFilter'
 import { Modalize } from 'react-native-modalize'
 import {
   MapImperativeRefObject,
@@ -156,7 +156,7 @@ const useHome = () => {
 
   useEffect(() => {
     const filterData = async () => {
-      const data = await GetFilteredCharger(selectedFilters, bottomPanelSearchInputText)
+      const data = await getFilteredCharger(selectedFilters, bottomPanelSearchInputText)
 
       setBottomSearchPanelChargers(data ?? [])
     }
@@ -182,7 +182,7 @@ const useHome = () => {
 
   useEffect(() => {
     const filterData = async () => {
-      const data = await GetFilteredCharger(selectedFiltersOnMap, bottomPanelSearchInputText)
+      const data = await getFilteredCharger(selectedFiltersOnMap, bottomPanelSearchInputText)
 
       if (data) {
         setShowAll(false)

@@ -1,5 +1,3 @@
-import { Validate } from 'react-hook-form'
-
 const phoneNumberValidation = {
   ifGeorgian: (value: string | undefined): boolean | string => {
     if (value?.slice(0, 4) === '+995') {
@@ -20,7 +18,7 @@ const codeVerification = {
 
 const passwordConfirmValidation = (
   password: string | undefined,
-): Record<string, Validate> => ({
+) => ({
   ifEmpty: (value: string | undefined): boolean | string => (
     (!!value && !!password)
     || 'dropDownAlert.forgotPassword.passwordsNotFilled'

@@ -13,12 +13,13 @@ import defaults from 'utils/defaults'
  * Get chargers from server and filter
  * based on input text.
  */
-export const GetFilteredCharger = async (
+export const getFilteredCharger = async (
   selectedFilters: boolean[],
   filterInput = '',
 ): Promise<Charger[]> => {
   try {
     const { data } = await refreshAndCacheChargers() as GetAllChargerResponseType
+
     return !isSearchBarEmpty(filterInput)
       ? searchChargers(filterInput, data)
       : filterChargers(selectedFilters, data)

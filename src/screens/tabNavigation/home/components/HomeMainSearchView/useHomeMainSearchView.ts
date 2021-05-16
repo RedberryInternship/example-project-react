@@ -15,7 +15,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Charger } from 'types'
 import * as Const from 'utils/const'
-import { GetFilteredCharger } from 'helpers/chargerFilter'
+import { getFilteredCharger } from 'helpers/chargerFilter'
 import { UseHomeMainSearchViewProps } from './types'
 
 const animationOptions = {
@@ -98,7 +98,7 @@ const useHomeMainSearchView = ({
    * Memoize filtered chargers.
    */
   const memoizedFilteredChargers = useMemo(async () => {
-    const retrievedChargers = await GetFilteredCharger([], inputText)
+    const retrievedChargers = await getFilteredCharger([], inputText)
     return retrievedChargers ?? allChargers ?? []
   }, [allChargers, inputText])
 
