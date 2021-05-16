@@ -48,7 +48,7 @@ const ChargerDetailTopInfo: ChargerDetailTopInfoFC = (
       <View style={styles.divisor} />
       <View style={styles.locationContainer}>
         <Image source={images.mapPin} style={styles.locationIcon} />
-        <Text style={styles.locationText}>
+        <Text style={styles.locationText} testID="chargerLocation">
           {location}
         </Text>
       </View>

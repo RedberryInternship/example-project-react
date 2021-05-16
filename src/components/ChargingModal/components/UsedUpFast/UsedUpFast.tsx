@@ -7,9 +7,10 @@ import {
 import { useTranslation } from 'react-i18next'
 import ModalPopupChargerItem from 'components/ModalPopupChargerItem'
 import BaseText from 'components/BaseText'
-import { Colors, Navigation } from 'utils'
+import { Colors } from 'utils'
 import { HomeNavigateModes } from 'types'
 import { UsedUpFastFC } from './types'
+import { useNavigation } from '@react-navigation/native'
 
 const UsedUpFast: UsedUpFastFC = (
   {
@@ -18,10 +19,15 @@ const UsedUpFast: UsedUpFastFC = (
   },
 ) => {
   const { t } = useTranslation()
+  const { navigate } = useNavigation();
 
   return (
     <>
-      <BaseText style={styles.bottomContentDescriptionType2} numberOfLines={undefined}>
+      <BaseText
+        testID="usedUpFastModalTitle"
+        style={styles.bottomContentDescriptionType2}
+        numberOfLines={undefined}
+      >
         {t(bottomDescription)}
       </BaseText>
       <View style={styles.lineView} />
@@ -29,9 +35,7 @@ const UsedUpFast: UsedUpFastFC = (
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         <View style={styles.lineView} />
         <TouchableOpacity
-          onPress={(): void => {
-            Navigation.navigate('Home', { mode: HomeNavigateModes.showAllChargers })
-          }}
+          onPress={() => navigate('Home', { mode: HomeNavigateModes.showAllChargers })}
           style={styles.subtype2Touchable}
         >
           <BaseText style={{ color: Colors.primaryGreen }}>

@@ -38,6 +38,23 @@ const ChargingModal: ChargingModalFC = (
     },
   },
 ) => {
+  console.log({
+    data: {
+      bottomDescription,
+      penalty_enabled,
+      charging_status,
+      consumedMoney,
+      description,
+      refundMoney,
+      onFinish,
+      onFine,
+      title,
+      price,
+      time,
+    },
+    subType,
+  })
+
   const { t } = useTranslation()
 
   const subTypeHandler = (): ReactElement => {
@@ -114,16 +131,24 @@ const ChargingModal: ChargingModalFC = (
               </BaseText>
             </View>
           ) : (
-              <View style={styles.modalContainer2}>
-                <Image source={images.checkCircle} style={styles.checkMarkIcon} />
-                <BaseText style={styles.mainTitleStyle} numberOfLines={undefined}>
-                  {t(title)}
-                </BaseText>
-                <BaseText style={styles.mainDescriptionStyle} numberOfLines={undefined}>
-                  {t(description)}
-                </BaseText>
-              </View>
-            )}
+            <View style={styles.modalContainer2}>
+              <Image source={images.checkCircle} style={styles.checkMarkIcon} />
+              <BaseText
+                style={styles.mainTitleStyle}
+                numberOfLines={undefined}
+                testID="chargingModalTitle"
+              >
+                {t(title)}
+              </BaseText>
+              <BaseText
+                style={styles.mainDescriptionStyle}
+                numberOfLines={undefined}
+                testID="chargingModalDescription"
+              >
+                {t(description)}
+              </BaseText>
+            </View>
+          )}
 
           <View style={styles.bottomContentContainer}>{subTypeHandler()}</View>
         </TouchableOpacity>

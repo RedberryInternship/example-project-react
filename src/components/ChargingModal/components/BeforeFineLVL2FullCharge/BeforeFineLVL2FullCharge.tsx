@@ -24,7 +24,11 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
 
   return (
     <>
-      <BaseText style={styles.bottomContentDescriptionType2} numberOfLines={undefined}>
+      <BaseText
+        testID="lvl2BeforeFineTitle"
+        style={styles.bottomContentDescriptionType2}
+        numberOfLines={undefined}
+      >
         {t(bottomDescription)}
       </BaseText>
       <PopUpCountDown
@@ -39,10 +43,18 @@ const BeforeFineLVL2FullCharge: BeforeFineLVL2FullChargeFC = (
       <View style={{ marginVertical: 12 }}>
         {price !== null && <ModalPopupChargerItem val={price} type={0} />}
         {consumedMoney !== null && (
-          <ModalPopupChargerItem val={consumedMoney} type={1} />
+          <ModalPopupChargerItem
+            val={consumedMoney}
+            type={1}
+            amountTestID="beforeFineConsumedAmountTestID"
+          />
         )}
         {refundMoney !== null && (
-          <ModalPopupChargerItem val={refundMoney} type={2} />
+          <ModalPopupChargerItem
+            val={refundMoney}
+            type={2}
+            amountTestID="beforeFineRefundAmountTestID"
+          />
         )}
       </View>
     </>

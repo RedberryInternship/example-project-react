@@ -20,4 +20,4 @@ test('Charger with code has recently used chargers', async () => {
   await waitFor(() => {
     expect(lastUsedChargersScrollView.children.length).toBe(1);
   });
-})
+});

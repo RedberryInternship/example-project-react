@@ -28,3 +28,12 @@ test('Charger detail code is right', () => {
   const text = chargerDetailsScreen.getByTestId('charger-code');
   expect(text.children[0]).toBe('კოდი:#2800');
 });
+
+test('Charger has right location', async () => {
+  const tree = render(<ChargerDetail />);
+
+  const locationTextField = await tree.findByTestId('chargerLocation');
+  const locationText = locationTextField.children[0];
+
+  expect(locationText).toBe(mockCharger.location.ka);
+});

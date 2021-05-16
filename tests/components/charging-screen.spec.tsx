@@ -44,28 +44,6 @@ const mockChargingState = {
   connector_type_id: 1,
 }
 
-const mockFinishedChargingState = {
-  is_charging_free: false,
-  user_card_id: '1886',
-  charger_code: '0028',
-  penalty_start_time: 1620984560000,
-  charger_type: 'LVL2',
-  charger_connector_type_id: 22,
-  consumed_kilowatts: '49.38',
-  charger_id: 22,
-  charging_type: 'BY_AMOUNT',
-  target_price: '7',
-  start_charging_time: 1620984296932,
-  charging_status: 'FINISHED',
-  consumed_money: 4.7,
-  refund_money: 2.3,
-  already_paid: 7,
-  is_paid: 1,
-  order_id: 20235,
-  penalty_enabled: 1,
-  connector_type_id: 1,
-}
-
 const mockState = jest.fn();
 
 mockReactRedux.useSelector = mockState;

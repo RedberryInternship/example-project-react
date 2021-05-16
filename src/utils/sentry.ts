@@ -10,7 +10,7 @@ export const rememberUser = (user: UserMeResponseType) => {
       {
         id: `${user.id}`,
         username: `${user.first_name} ${user.last_name}`,
-        email: user.email ?? '',
+        email: user.email || '',
         phone_number: user.phone_number,
       },
     )

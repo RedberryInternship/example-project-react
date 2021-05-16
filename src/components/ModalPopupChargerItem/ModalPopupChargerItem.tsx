@@ -8,6 +8,7 @@ import { modalPopupChargerItemTypes } from './config'
 
 const ModalPopupChargerItem: ModalPopupChargerItemFC = (
   {
+    amountTestID,
     type,
     val,
   },
@@ -29,7 +30,7 @@ const ModalPopupChargerItem: ModalPopupChargerItemFC = (
       <BaseText style={styles.popUpItemText}>
         {t(modalPopupChargerItemTypes[type].text)}
       </BaseText>
-      <BaseText style={[styles.popUpItemPriceText, popupItemPriceColorStyle]}>
+      <BaseText style={[styles.popUpItemPriceText, popupItemPriceColorStyle]} testID={amountTestID}>
         {val}
         {' '}
         {t('gel')}

@@ -22,7 +22,7 @@ const CurrentTariffs: CurrentTariffsFC = ({ connector }) => {
   } = useCurrentTariffs({ connector })
 
   return (
-    <TouchableOpacity onPress={toggleTariffs}>
+    <TouchableOpacity onPress={toggleTariffs} testID="TariffsButton">
       <Animated.View style={[styles.container, { height }]}>
         <View>
           <View style={styles.textContainer}>
