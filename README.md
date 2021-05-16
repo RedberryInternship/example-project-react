@@ -12,9 +12,10 @@ E Space Mobile App helps people to find e-car charger nearby and charge their el
 * [Prerequisites](#prerequisites)
 * [Tech Stack](#tech-stack)
 * [Getting Started](#getting-started)
-* [E2E Tests](#e2e-tests)
+* [Testing](#testing)
 * [Development](#development)
 * [Project Structure](#project-structure)
+* [Deployment](#deployment)
 
 #
 ### Prerequisites
@@ -70,8 +71,26 @@ yarn android
 For more information about running apps with simulator and on real device check out [docs](https://reactnative.dev/docs/running-on-device)
 
 #
-### E2E Tests
-For testing the app's integrity, we are using wix's library known as detox.
+### Testing
+E-Space is test driven. we are using several testing approaches and tools. 
+1. For components integrity and structure we are using ``` @testing-library/react-native ```. you can find component tests into following path: ```src/tests/components/*.spec.tsx```
+1. We also test logical units of our app, which includes filtering data, validation, user actions and so on, for which we are using ``` jest```. you can find logical unit tests into the following path: ```src/tests/logic/*.spec.ts```
+1. We also have e2e tests for our app flows, which can only be run in testing environment because it alerts the actual database, aftermath the database is reset, but for caution we allow e2e testing only in development environment. for e2e testing we are using ```detox``` and you can find actual tests and configuration into the following path: ```src/tests/e2e/*.e2e.ts```
+
+you can run component and unit tests using following command:
+```sh
+yarn tests
+```
+
+for e2e tests, there are some building steps to take into account:
+1. You need to have `iPhone 11` simulator installed to run the tests.
+1. You need to run `yarn e2e:build` to build application at the first time to build the application.
+1. You need to run metro packager `yarn start`
+1. Start your `iPhone 11` simulator
+1. And run your tests by executing `yarn e2e`
+
+`Warning: ` *Sometimes e2e tests fails asserting(seeing) dropdown alert, which I come to understand that it is the detox issue*
+
 
 #
 ### Development
@@ -125,6 +144,12 @@ Before deployment to app store/play store you should change this so that **https
 │   ├─── types        # global types
 │   ├─── utils        # global utility functions
 │   │- StartUpLayer.tsx # Starting point where you can do some work before app loads
+├─── tests        # tests folder
+│   ├─── components   # components testing
+│   ├─── logic        # unit testing
+│   ├─── e2e          # e2e testing
+│   ├─── factory      # entity factory
+│   ├─── mock         # jest mocks
 - .eslintrc.json   # eslint config file
 - .prettierrc.js   # prettier config file
 - .sentryclirc     # sentry config file
@@ -133,3 +158,20 @@ Before deployment to app store/play store you should change this so that **https
 - package.json     # dependency manager configurations
 - tsconfig.json    # typescript config file
 ```
+
+### Deployment
+
+We have helper scripts which help us in deployment process.
+Before every deployment we need to create source maps for each platform android and ios and then upload to sentry with the right build number and version for sentry to be able to identify each error message and to give us more accurate messages and code debugging utilities...
+
+1. Before deployment we need to generate javascript bundle and sourcemap files
+    * for android: `yarn bundle-android` which will generate source and sourcemap for android in the following path - `out/android`
+    * for ios: `yarn bundle-ios` which will generate source and sourcemap for android in the following path - `out/ios`
+1. Then we need to upload these source maps into the sentry repository:
+    * for android: `yarn upload-android-sourcemaps`, which will prompt as with version and build number, and we need to provide those for sentry 
+    * for ios: `upload-ios-sourcemaps`, which will prompt as with version and build number, and we need to provide those for sentry
+1. Next we can upload our applications into the stores
+
+also there is helper for generating android apk:
+`yarn generate-apk`
+this command will generate android production application and will put output into the following path: `out/apk/espace_YYYY_MM_DD.apk`
