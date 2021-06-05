@@ -1,3 +1,6 @@
+*.swp
+*.swo
+
 # OSX
 #
 .DS_Store
@@ -65,3 +68,4 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 /ios/Podfile.lock
+
