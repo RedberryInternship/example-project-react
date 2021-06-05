@@ -31,7 +31,7 @@ test('Cached chargers are not yet expired', () => {
 
 test('Cached chargers expired', () => {
   const date = new Date();
-  date.setFullYear(1900);
+  date.setFullYear(2000);
 
   defaults.chargers = {
     time: date.getTime(),

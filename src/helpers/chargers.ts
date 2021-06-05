@@ -45,7 +45,8 @@ export const haveLocalChargersExpired = () => {
 
   if (cachedChargers) {
     const millisecondsDifference = date.getTime() - cachedChargers.time
-    const minutesDifference = new Date(millisecondsDifference).getMinutes()
+    const secondsDifference = millisecondsDifference / 1000; 
+    const minutesDifference = secondsDifference / 60; 
 
     if (minutesDifference < 2) {
       return false
