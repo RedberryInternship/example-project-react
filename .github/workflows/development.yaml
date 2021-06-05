@@ -1,0 +1,23 @@
+name: Development
+
+on: 
+  push:
+    branches:
+      - "development"
+  pull_request:
+    branches:
+      - "development"
+
+jobs:
+  test-codebase:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@2
+      - uses: actions/setup-node@2
+        with:
+          node-version: '14'
+      - name: install dependencies
+        run: yarn
+      - name: run tests
+        run: yarn test
