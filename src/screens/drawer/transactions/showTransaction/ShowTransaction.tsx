@@ -31,6 +31,7 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
     start_date,
     duration,
     address,
+    id,
   }: TransactionsHistoryResponseItem = params.order
 
   const fullPrice = (): string => `${+(charge_price ?? 0) + +(penalty_fee ?? 0)}₾`
@@ -51,6 +52,9 @@ const ShowTransactions: FCWithNavigation = ({ navigation }) => {
               </BaseText>
               <BaseText style={styles.dateAndTime}>
                 {start_date}
+              </BaseText>
+              <BaseText style={styles.orderId}>
+                ID: {id}
               </BaseText>
             </View>
           </View>
@@ -143,8 +147,15 @@ const styles = StyleSheet.create({
     color: Colors.primaryBackground,
   },
   dateAndTime: {
+    marginTop: 10,
     fontSize: 13,
     color: Colors.primaryGray,
+    letterSpacing: 0.2,
+  },
+  orderId: {
+    marginTop: 10,
+    fontSize: 13,
+    color: Colors.primaryBlack,
     letterSpacing: 0.2,
   },
   price: {
