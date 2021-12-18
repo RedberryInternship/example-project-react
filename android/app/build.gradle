@@ -130,10 +130,9 @@ android {
         applicationId "com.boxwood.espaceboxwoodrelease"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 216
-        versionName "2.1.7" 
+        versionCode 217
+        versionName "2.1.8"
         multiDexEnabled true
-
     }
     splits {
         abi {
