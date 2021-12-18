@@ -4,8 +4,8 @@ import { UserSettingEnum, SettingsListFieldType } from 'types'
 import Colors from './colors'
 
 // export const domain = 'http://127.0.0.1:8000/'
-export const domain = 'https://api-dev.e-space.ge'
-// export const domain = 'https://app.e-space.ge' // prod
+// export const domain = 'https://api-dev.e-space.ge'
+export const domain = 'https://app.e-space.ge' // prod
 
 export const API = `${domain}/api/app/V1`
 
@@ -13,7 +13,7 @@ export const API = `${domain}/api/app/V1`
  * App custom build number
  * for back-end.
  */
-export const BUILD_NUMBER = 216
+export const BUILD_NUMBER = 217
 
 // google maps api
 export const MAP_API = 'AIzaSyCmFlBijkD4vTZW6TAQiJOy32_HvigOtjw'
@@ -23,6 +23,7 @@ export const Width = Dimensions.get('window').width
 export const Height = Dimensions.get('window').height
 
 export const platformIOS = Platform.OS === 'ios'
+
 export const locationIfNoGPS = {
   lat: 41.693036,
   lng: 44.801419,

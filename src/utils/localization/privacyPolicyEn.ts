@@ -150,8 +150,14 @@ At the same time, the User verifies of being informed of the rights granted by t
 <li>
 The Application is the property of the Company. Any transfer of it to the third party, change, rent or any other use and/or modification of the Application is only at the discretion of the Company.
 </li>
-</ol>
 
+<li>Rates and rate changes are subject of rounding to 5 minute accuracy</li>
+
+<li>The rates for the LVL2 chargers are determined automatically by the software and is specified once in 5 minutes</li>
+
+<li>Rates for specific chargers are indicated in the App, on the charger’s page</li>
+
+</ol>
 </li>
 </ol>
 `;
